@@ -17,9 +17,16 @@ The toolkit is based on the [SteamVR Interaction System](https://github.com/Valv
 Now's the perfect time to get started. VR is a blue ocean, and by using this toolkit for free you can literally hit the ground running. Let's create moving experiences!
 
 ## Quick Links
+
 * [Git Started](http://moonmotionproject.com/index.html#Git-Started)
 * [Documentation](http://moonmotionproject.com/Documentation.html)
 * [Licensing](Licensing.md)
+
+## Compatibility
+
+Check to make sure you have installed the [latest verified compatible Unity version](http://moonmotionproject.com/#Unity-compatibility-statement). You can download the closest version available through the [Unity Hub](https://unity3d.com/get-unity/download).
+
+So far, Moon Motion is only sure to work with the [Vive](http://vive.com). [Oculus](https://www.oculus.com/) testing wanted!
 
 ## What's in the repo?
 
@@ -29,4 +36,5 @@ Now's the perfect time to get started. VR is a blue ocean, and by using this too
   * preconfigured project settings for Moon Motion physics layers and VR projects in general
 
 ## Contributing
+
 Want to share your locomotion with the community? Moon Motion is open source. Feel free to fork the repo and make a pull request!

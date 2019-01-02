@@ -1,0 +1,41 @@
+'Steam Virtuality' is the 'SteamVR' plugin as modified for Moon Motion. The following are the changes made, with most being with respect to the 'Interaction System' part of 'SteamVR':
+
+
+• to teleportation functionality:
+
+  · at the start of 'IsEligibleForTeleport()' in 'Teleport.cs', checks were added to prevent the teleportation interaction from occurring if the Teleportation locomotion is not enabled according to the tracking boolean on Teleportation, or if the Teleporter corresponding to the hand trying to do the teleporting is not active or its locomotion dependencies are not met
+
+  · 'Teleport.cs' and its dependents 'TeleportArea.cs' and 'TeleportPoint.cs' were moved out of Plugins (and into Moon Motion's 'Teleportation' scripts folder) so that 'Teleport.cs' could access the Moon Motion scripts
+
+  · notably (although not a change), a copy of the only prefab in which 'Teleport.cs' originally was included, 'Teleporting' (of the Interaction System), has been included as part of Moon Motion's Player prefab, renamed to 'Teleportation'
+
+  · 'ShowTeleportHint()' in 'Teleport.cs': added a condition to prevent a nonproblematic error from occurring and resulting in an annoying message being displayed
+
+
+• because the following were being repetitive/annoying logging to the console, respectively:
+
+  · line 16 of 'SteamVR_Stats.cs' was commented out
+
+  · the line '#pragma warning disable 0618' was added to 'SteamVR_Settings.cs'
+
+
+• to longbow functionality:
+
+  · in 'ArrowHand.cs', changed the hardcoded longbow drawing and firing trigger input to a new Controller inputs setting; set this to grip only by default on the 'ArrowHand' prefab (the only prefab with an instance of that script)
+
+  · in 'Arrow.cs', replaced logic to prevent immediate despawning of arrows if colliding with the player's head to instead prevent that for any part of the player
+
+  · changed the layer of the 'Arrow' prefab to 'Player Passthrough', which ignores collision with the 'Player' layer (this way, arrows won't collide with the player which otherwise could happen sometimes when firing close to the player's body)
+
+
+• to hand interactivity:
+
+  · in 'HideOnHandFocusLost.cs', a boolean setting was added for controlling whether the script actually does anything; the 'BlankController' prefab (that is automatically spawned as a model for each hand) was set to have this off, so that by default, that model is not hidden when hand focus is lost such as when holding interactables
+
+  · in 'ControllerHoverHighlight.cs', added the boolean setting 'highlightMaterialChange' by which material changing is controlled (this is defaulted to being off on Moon Motion's player prefab)
+
+  · fixed the following typo that was only present in 'ControllerHoverHighlight.cs': https://gyazo.com/00a3d6b9d1a2ae30591a0f654f756690
+
+  · fixed an issue in 'Hand.cs' where hovering was possible with disabled colliders (it's no longer possible)
+
+  · in 'ItemPackageSpawner.cs', the method 'TakeBackItem' was made public so that items can be put back to their pickup spot via code, not just by having the player do that manually

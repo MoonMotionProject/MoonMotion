@@ -1,4 +1,4 @@
-![Moon Motion](http://moonmotionproject.com/images/Logo-for-Git-Hub.png)
+![Moon Motion](http://moonmotionproject.com/images/Logo-for-Git-Hub.jpg)
 
 Free and open source toolkit for VR locomotion
 

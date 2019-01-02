@@ -8,7 +8,8 @@
 
 - Most of the plugins are either offered as part of Moon Motion or simply follow Unity Asset Store terms.
 - However, both of the Valve plugins, the [Unity SteamVR Plugin](https://github.com/ValveSoftware/steamvr_unity_plugin) and the [Moondust](https://github.com/ValveSoftware/Moondust) assets, contain their own licenses which you should familiarize yourself with.
-- Note that any project made with Moon Motion must continue to follow the [Unity SteamVR Plugin](https://github.com/ValveSoftware/steamvr_unity_plugin)'s license, as it is core to Moon Motion functionality. [Moondust](https://github.com/ValveSoftware/Moondust) assets, on the other hand, are only used in the example scenes, as laid out below.
+  * Any project made with Moon Motion must continue to follow the [Unity SteamVR Plugin](https://github.com/ValveSoftware/steamvr_unity_plugin)'s license, as it is core to Moon Motion functionality.
+  * [Moondust](https://github.com/ValveSoftware/Moondust) assets, on the other hand, are only used in the example scenes, as laid out below.
 
 ##### [Assets/Plugins/Moon Motion Toolkit/Scenes](Assets/Plugins/Moon%20Motion%20Toolkit/Scenes):
 

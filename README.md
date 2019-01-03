@@ -14,7 +14,7 @@ The toolkit is based on the [SteamVR Interaction System](https://github.com/Valv
 
 ## New to VR development?
 
-Now's the perfect time to get started. VR is a blue ocean, and by using this toolkit for free you can literally hit the ground running. Let's create moving experiences!
+Now's the perfect time to get started. VR is a blue ocean, and by using this toolkit for free you'll already have an answer to locomotion. Let's create moving experiences!
 
 ## Quick Links
 

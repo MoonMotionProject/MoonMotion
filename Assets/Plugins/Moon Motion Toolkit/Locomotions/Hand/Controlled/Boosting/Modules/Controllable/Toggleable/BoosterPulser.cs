@@ -19,9 +19,13 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 
 	// variables for: pulsing //
 	[Header("Pulsing")]
-	public bool pulsing = false;		// tracking: whether this pulser is pulsing currently
+	[Tooltip("whether this pulser is pulsing currently")]
+	public bool pulsing = false;        // tracking: whether this pulser is pulsing currently
+	[Tooltip("the percentage of the main boosting force from which to calculate the pulsing force")]
 	public float forcePercentage = .3f;		// setting: the percentage of the main boosting force from which to calculate the pulsing force
-	public float frequencyFactor = .7f;		// setting: a value determining the frequency of the sine repetitions (by dividing the time passed to sine by this value)
+	[Tooltip("a value determining the frequency of the sine repetitions (by dividing the time passed to sine by this value)")]
+	public float frequencyFactor = .7f;     // setting: a value determining the frequency of the sine repetitions (by dividing the time passed to sine by this value)
+	[Tooltip("whether to pulse based on only the part of the main boosting force that is in the player's up direction (versus the whole main boosting force)")]
 	public bool playerUpDirectionOnly = true;		// setting: whether to pulse based on only the part of the main boosting force that is in the player's up direction (versus the whole main boosting force)
 
 

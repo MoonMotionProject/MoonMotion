@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Plugins/Moon Motion Toolkit/Scenes/Testing Grounds.unity
     guid: d875dbde75b371249b319b7b106824c9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Plugins/Moon Motion Toolkit/Scenes/Obstacles Platform.unity
     guid: cab34a95e9b01c8449cf238866bfe1ae
   m_configObjects: {}

@@ -174,7 +174,7 @@ MonoBehaviour:
   gravitationForce: {x: 0, y: 0, z: 0}
   gravitizeRigidbodies: 1
   collider: {fileID: 0}
-  gravitizeParticles: 1
+  gravitizeParticles: 0
   playLiftoffAudioUponPlayerEntry: 0
   audioRequiresGravitizing: 1
   attractionEnabled: 1

@@ -41,7 +41,6 @@ public abstract class PowerupAudio : MonoBehaviour
 	// method: plan to destroy this object after a delay equal to the attached audio's duration //
 	public virtual void destroy()
 	{
-		print("destroying audio object in: "+audioDuration);
 		Invoke("destroyObject", audioDuration);
 	}
 

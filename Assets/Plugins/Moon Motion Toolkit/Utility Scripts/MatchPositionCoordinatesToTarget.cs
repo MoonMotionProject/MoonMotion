@@ -14,7 +14,9 @@ public class MatchPositionCoordinatesToTarget : MonoBehaviour
 	
 	// settings: toggles for whether to match each axis in particular, respectively //
 	[Header("Coordinate Matching Toggles")]
-	public bool matchX = true, matchY = true, matchZ = true;
+	public bool matchX = true;
+	public bool matchY = true;
+	public bool matchZ = true;
 
 
 

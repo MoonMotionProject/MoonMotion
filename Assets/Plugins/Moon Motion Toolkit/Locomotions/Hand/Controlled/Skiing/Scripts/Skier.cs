@@ -59,22 +59,32 @@ public class Skier : HandLocomotionControlled
 		SkiingTogglingAudio.play();
 	}
 	// method: enable skiing (change skiing for it being true) //
-	private static void enableSkiing()
+	public static void enableSkiing()
 	{
 		changeSkiing(true);
 	}
+	// method: enable skiing //
+	public void enableSkiing_()
+	{
+		enableSkiing_();
+	}
 	// method: disable skiing (change skiing for it being false) //
-	private static void disableSkiing()
+	public static void disableSkiing()
 	{
 		changeSkiing(false);
 	}
-	
-	
-	
-	
+	// method: disable skiing //
+	public void disableSkiing_()
+	{
+		disableSkiing();
+	}
+
+
+
+
 	// updating //
-	
-	
+
+
 	// before the start: //
 	protected override void Awake()
 	{

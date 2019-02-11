@@ -112,18 +112,28 @@ public class SceneFader : HandLocomotionControlled
 
 		SteamVR_LoadLevel.Begin(scene, false, 0f);
 	}
-	// method: load the given scene //fadeVisionToBlackness
+	// method: load the given scene //
 	public void loadScene_(string scene)
 	{
 		loadScene(scene);
 	}
-	
-	
-	
-	
+	// method: reload the current scene //
+	public static void reloadScene()
+	{
+		loadScene(SceneManager.GetActiveScene().name);
+	}
+	// method: reload the current scene //
+	public void reloadScene_()
+	{
+		reloadScene();
+	}
+
+
+
+
 	// updating //
 
-	
+
 	// at the start: //
 	protected override void Start()
 	{

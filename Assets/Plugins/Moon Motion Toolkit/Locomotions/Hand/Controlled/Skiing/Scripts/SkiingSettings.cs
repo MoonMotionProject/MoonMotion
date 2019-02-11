@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Skiing Settings
+// • provides a toggle which, when enabled, enables skiing at the start
 // • provides a skiing friction setting for the Skiers to set the body's friction to when skiing
 //   · also provides an alternate skiing friction setting
 //     - this is used instead according to an alternated skiing friction toggle setting
@@ -22,8 +23,13 @@ public class SkiingSettings : MonoBehaviour
 
 	// variables for: skiing settings toggling audio //
 	private AudioSource togglingAudioSource;		// connection - automatic: the skiing settings toggling audio source
-	private AudioClip togglingAudio;		// connection - automatic: the skiing settings toggling audio
-	
+	private AudioClip togglingAudio;        // connection - automatic: the skiing settings toggling audio
+
+	// variables for: enabling skiing at the start //
+	[Header("Enabling Skiing at the Start")]
+	[Tooltip("whether to enable skiing at the start")]
+	public bool enableSkiingAtStart = false;		// setting: whether to enable skiing at the start
+
 	// variables for: skiing friction //
 	[Header("Skiing Friction")]
 	[Tooltip("the (main, not alternate) friction for the player's body collider to use when skiing")]
@@ -131,5 +137,14 @@ public class SkiingSettings : MonoBehaviour
 		// connect to the skiing skiing settings toggling audio source and audio //
 		togglingAudioSource = GetComponent<AudioSource>();
 		togglingAudio = togglingAudioSource.clip;
+	}
+
+	// at the start: //
+	private void Start()
+	{
+		if (enableSkiingAtStart)
+		{
+			Skier.enableSkiing();
+		}
 	}
 }

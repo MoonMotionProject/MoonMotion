@@ -29,7 +29,7 @@ Now's the perfect time to get started. VR is a blue ocean, and by using this too
 
 Check to make sure you have installed the [latest verified compatible Unity version](http://moonmotionproject.com/#Unity-compatibility-statement). You can download the closest version available through the [Unity Hub](https://unity3d.com/get-unity/download).
 
-So far, Moon Motion is only sure to work with the [Vive](http://vive.com). [Oculus](https://www.oculus.com/) testing wanted!
+So far, Moon Motion is confirmed to work with the [Vive](http://vive.com) as well as [Window Mixed Reality for SteamVR](https://store.steampowered.com/app/719950/Windows_Mixed_Reality_for_SteamVR/). [Oculus](https://www.oculus.com/) testing wanted!
 
 ## What's in the repo?
 

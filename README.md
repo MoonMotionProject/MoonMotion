@@ -34,7 +34,7 @@ So far, Moon Motion is confirmed to work with the [Vive](http://vive.com) as wel
 ## What's in the repo?
 
 * the Moon Motion project template:
-  * the Moon Motion Toolkit plugin (including all locomotions, prefabs, utilities, example scenes, etc.)
+  * the Moon Motion Toolkit plugin (including all [locomotions](http://moonmotionproject.com/Locomotions.html), [prefabs](http://moonmotionproject.com/Prefabs.html), [utilities](http://moonmotionproject.com/Utilities.html), [example scenes](http://moonmotionproject.com/Scenes.html), [subplugins](/Assets/Plugins/Moon%20Motion%20Toolkit/Plugins), etc.)
   * an empty scene to start with
   * preconfigured project settings for Moon Motion physics layers and VR projects in general
 

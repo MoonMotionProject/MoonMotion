@@ -4,6 +4,8 @@
 
 http://moonmotionproject.com/
 
+Tackles both the VR boilerplate and VR locomotion problems.
+
 ## Movement in Virtual Reality
 
 The Moon Motion toolkit provides Unity developers with everything they need to hit the ground running. Drop a ready-to-use VR Player into your scene, equipped with any of the [Moon Motion locomotions](http://moonmotionproject.com/Locomotions.html). Take advantage of key player features such as [object interactivity](http://moonmotionproject.com/SteamVR-Interaction-System.html), [camera smoothing](http://moonmotionproject.com/Smooth-Monitor-Camera-Override.html), and [dynamic player colliders](http://moonmotionproject.com/Dynamic-Player-Colliders.html).

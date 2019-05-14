@@ -280,8 +280,8 @@ public class LocomotionsCycler : MonoBehaviour
 		// if cycling is currently allowed: //
 		if (cyclingAllowed)
 		{
-			// if: input is enabled, the input dependencies are met, input is shallowing: //
-			if (inputEnabled && Dependencies.metFor(inputDependencies) && controller.inputShallowing(inputs))
+			// if: input is enabled, the input dependencies are met, input is pressing: //
+			if (inputEnabled && Dependencies.metFor(inputDependencies) && controller.inputPressing(inputs))
 			{
 				// cycle the locomotion combination index through the locomotion combinations //
 				index++;

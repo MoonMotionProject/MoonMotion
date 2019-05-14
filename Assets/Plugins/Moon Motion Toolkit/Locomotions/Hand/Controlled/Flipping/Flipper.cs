@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 
 // Flipper
 // • classifies this hand locomotion as the "flipping" locomotion
-// • upon certain controller input shallowing by the parent hand, "flips" the player:
+// • upon certain controller input pressing by the parent hand, "flips" the player:
 //   · rotates the player by 180° on the z axis, then sets the player body's x and z positions to what they were before rotation
 //   · inverts the sign of the y axis force of all gravity zones in the scene
 //     - a setting is provided to make this optional
@@ -125,8 +125,8 @@ public class Flipper : HandLocomotionControlled
 	// at each update: //
 	private void Update()
 	{
-		// if: input is enabled, the input dependencies are met, input is shallowing: //
-		if (locomotionInputEnabled && Dependencies.metFor(locomotionDependencies) && controller.inputShallowing(inputsLocomotion))
+		// if: input is enabled, the input dependencies are met, input is pressing: //
+		if (locomotionInputEnabled && Dependencies.metFor(locomotionDependencies) && controller.inputPressing(inputsLocomotion))
 		{
 			// flip the player //
 			flip();

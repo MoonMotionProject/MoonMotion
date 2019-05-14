@@ -113,8 +113,8 @@ public class BoosterRefueler : BoosterModuleControllableToggleable
 	// at each update: //
 	private void Update()
 	{
-		// if input is enabled and input is shallowing: //
-		if (inputEnabled && controller.inputShallowing(inputs))
+		// if input is enabled and input is pressing: //
+		if (inputEnabled && controller.inputPressing(inputs))
 		{
 			// toggle this refueler //
 			toggle(inputtingPlaysTogglingAudio);

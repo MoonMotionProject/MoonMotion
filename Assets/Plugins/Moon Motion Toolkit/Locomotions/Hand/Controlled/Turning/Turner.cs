@@ -131,7 +131,7 @@ public class Turner : HandLocomotionControlled
 	// at each update: //
 	private void Update()
 	{
-		if (locomotionInputEnabledAndAllowed() && controller.inputShallowing(inputsLocomotion))
+		if (locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion))
 		{
 			float signFactoring = signFactorForTurningDirection(turningDirection) * signFactorForFlippage();
 			float degrees = (signFactoring * degreesAmount);

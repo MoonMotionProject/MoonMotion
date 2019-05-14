@@ -172,7 +172,7 @@ namespace Valve.VR.InteractionSystem
 				}
 
 				// If arrow is close enough to the nock position and we're pressing any of the recognized inputs, and we're not nocked yet, Nock
-				if ( ( distanceToNockPosition < nockDistance ) && hand.GetComponent<Controller>().inputShallowed(inputs) && !nocked )
+				if ( ( distanceToNockPosition < nockDistance ) && hand.GetComponent<Controller>().inputPressed(inputs) && !nocked )
 				{
 					if ( currentArrow == null )
 					{
@@ -191,7 +191,7 @@ namespace Valve.VR.InteractionSystem
 
 
 			// If arrow is nocked, and we release a recognized input
-			if ( nocked && ( !hand.GetComponent<Controller>().inputShallowed(inputs) || hand.GetComponent<Controller>().inputUnshallowing(inputs) ) )
+			if ( nocked && ( !hand.GetComponent<Controller>().inputPressed(inputs) || hand.GetComponent<Controller>().inputUnpressing(inputs) ) )
 			{
 				if ( bow.pulled ) // If bow is pulled back far enough, fire arrow, otherwise reset arrow in arrowhand
 				{

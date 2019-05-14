@@ -8,6 +8,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 975c32a94167fba46a27b3fa62c829ce, type: 3}
-  m_Name: Boosting Shallowly Only Either Hand
+  m_Script: {fileID: 11500000, guid: e2ec945051b0ec2418cd8a3ecee7a7c4, type: 3}
+  m_Name: Boosting Shallowly Right Hand
   m_EditorClassIdentifier: 

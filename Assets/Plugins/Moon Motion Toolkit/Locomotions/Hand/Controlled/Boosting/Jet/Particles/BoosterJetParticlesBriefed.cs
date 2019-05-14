@@ -16,7 +16,7 @@ public class BoosterJetParticlesBriefed : BoosterJetParticles
 	
 	// variables for: controlling particle emission //
 	private ParticleSystem emitter;	  // connection - automatic: the emitter
-	public bool requiresDeepBoosting = true;		// setting: whether to allow the particles to play only when boosting deeply (versus when boosting any force at all /shallowly)
+	public bool requiresDeepBoosting = true;		// setting: whether to allow the particles to play only when boosting deeply
 	public float duration = .2f;		// setting: the brief duration to play the particles (the amount of time until playing their emission should be stopped)
 	private float remainder = 0f;		// tracking: the remaining time to play the particles (set to the duration whenever playing is started)
 
@@ -44,7 +44,7 @@ public class BoosterJetParticlesBriefed : BoosterJetParticles
 		{
 			// if the booster is boosting as necessary and the controller is beginning the corresponding input: //
 			bool deepConditionsCase = (requiresDeepBoosting && booster.boostingDeeply && controller.inputDeeping(booster.inputsLocomotion));
-			bool anyConditionsCase = (!requiresDeepBoosting && booster.boosting && controller.inputShallowing(booster.inputsLocomotion));
+			bool anyConditionsCase = (!requiresDeepBoosting && booster.boosting && controller.inputPressing(booster.inputsLocomotion));
 			if (deepConditionsCase || anyConditionsCase)
 			{
 				emitter.Play();		// have it play looping emission

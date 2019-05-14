@@ -22,7 +22,7 @@ public class Booster : HandLocomotionControlled
 	[HideInInspector] public Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody (to be boosted)
 	private Transform playerTransform;		// connection - automatic: the player transform
 	
-	// tracking for: whether the booster is boosting, whether the booster is boosting shallowly (but not deeply), whether the booster is boosting deeply //
+	// tracking for: whether the booster is boosting, whether the booster is boosting deeply //
 	[HideInInspector] public bool boosting = false, boostingDeeply = false;
 
 
@@ -81,30 +81,30 @@ public class Booster : HandLocomotionControlled
 	{
 		return (leftHandIsBoostingDeeply() && rightHandIsBoostingDeeply());
 	}
-	// method: determine whether this hand is boosting shallowly only (boosting but not deeply) //
-	public bool thisHandIsBoostingShallowlyOnly()
+	// method: determine whether this hand is boosting shallowly //
+	public bool thisHandIsBoostingShallowly()
 	{
 		return (thisHandIsBoosting() && !thisHandIsBoostingDeeply());
 	}
-	// method: determine whether the left hand is boosting shallowly only (boosting but not deeply) //
-	public static bool leftHandIsBoostingShallowlyOnly()
+	// method: determine whether the left hand is boosting shallowly //
+	public static bool leftHandIsBoostingShallowly()
 	{
-		return left.thisHandIsBoostingShallowlyOnly();
+		return left.thisHandIsBoostingShallowly();
 	}
-	// method: determine whether the right hand is boosting shallowly only (boosting but not deeply) //
-	public static bool rightHandIsBoostingShallowlyOnly()
+	// method: determine whether the right hand is boosting shallowly //
+	public static bool rightHandIsBoostingShallowly()
 	{
-		return right.thisHandIsBoostingShallowlyOnly();
+		return right.thisHandIsBoostingShallowly();
 	}
-	// method: determine whether either hand is boosting shallowly only (boosting but not deeply) //
-	public static bool eitherHandIsBoostingShallowlyOnly()
+	// method: determine whether either hand is boosting shallowly //
+	public static bool eitherHandIsBoostingShallowly()
 	{
-		return (leftHandIsBoostingShallowlyOnly() || rightHandIsBoostingShallowlyOnly());
+		return (leftHandIsBoostingShallowly() || rightHandIsBoostingShallowly());
 	}
-	// method: determine whether both hands are boosting shallowly only (boosting but not deeply) //
-	public static bool bothHandsAreBoostingShallowlyOnly()
+	// method: determine whether both hands are boosting shallowly //
+	public static bool bothHandsAreBoostingShallowly()
 	{
-		return (leftHandIsBoostingShallowlyOnly() && rightHandIsBoostingShallowlyOnly());
+		return (leftHandIsBoostingShallowly() && rightHandIsBoostingShallowly());
 	}
 	
 	
@@ -149,7 +149,7 @@ public class Booster : HandLocomotionControlled
 		bool automating = BoosterAutomator.automating(this);
 		
 		// boosting inputting, modules handling, and corresponding updating //
-		if (!BoosterHalter.halted(this) && ((BoosterToggler.enabledBoosting(this) && locomotionInputEnabledAndAllowed() && controller.inputShallowed(inputsLocomotion)) || automating))	  // if this booster's halter isn't currently halting boosting, and either boosting is enabled while the input is pressed at all or this booster's automator is automating
+		if (!BoosterHalter.halted(this) && ((BoosterToggler.enabledBoosting(this) && locomotionInputEnabledAndAllowed() && controller.inputPressed(inputsLocomotion)) || automating))	  // if this booster's halter isn't currently halting boosting, and either boosting is enabled while the input is pressed at all or this booster's automator is automating
 		{
 			// initializing boosting values //
 			float forceShallow = BoosterForceApplier.amountShallow(this);
@@ -188,13 +188,13 @@ public class Booster : HandLocomotionControlled
 				forceAmount = forceDeep;
 				vibrationIntensity = BoosterVibrator.intensityDeep(this);
 			}
-			// determining to not be boosting due to lack of fuel, and having the fuel sputtering play accordingly if actually inputting //
+			// determining to not be boosting due to lack of fuel, and having the fuel sputtering play accordingly (if actually inputting) //
 			else
 			{
 				boosting = false;
 				boostingDeeply = false;
 
-				if (controller.inputShallowing(inputsLocomotion))		// only if this booster is receiving input, since the Booster Automator is smart enough to not try to boost when there is no fuel so it doesn't sputter
+				if (controller.inputPressing(inputsLocomotion))		// only if this booster is receiving input, since the Booster Automator is smart enough to not try to boost when there is no fuel so it doesn't sputter
 				{
 					BoosterFuelSputterer.sputter(this);
 				}

@@ -342,8 +342,8 @@ public class GravityMultiplier : HandLocomotionControlled
 	// at each update: //
 	private void Update()
 	{
-		// if: locomotion input is enabled and allowed, locomotion input is shallowing: //
-		if (locomotionInputEnabledAndAllowed() && controller.inputShallowing(inputsLocomotion))
+		// if: locomotion input is enabled and allowed, locomotion input is pressing: //
+		if (locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion))
 		{
 			// toggle alternation for input //
 			toggleAlternationForInput();

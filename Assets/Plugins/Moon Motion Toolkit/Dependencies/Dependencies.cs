@@ -129,8 +129,8 @@ public static class Dependencies
 		}
 		return true;
 	}
-	// method: determine whether the given Dependencies Combination is at least partially met //
-	public static bool partiallyMetFor(DependenciesCombination dependenciesCombination)
+	// method: determine whether the given Dependencies Combination is at least partially met, where empty results in false //
+	public static bool partiallyMetForWhereEmptyIsFalse(DependenciesCombination dependenciesCombination)
 	{
 		foreach (Dependency dependency in dependenciesCombination.array)
 		{
@@ -140,5 +140,15 @@ public static class Dependencies
 			}
 		}
 		return false;
+	}
+	// method: determine whether the given Dependencies Combination is at least partially met, where empty results in true //
+	public static bool partiallyMetForWhereEmptyIsTrue(DependenciesCombination dependenciesCombination)
+	{
+		if (dependenciesCombination.array.Length == 0)
+		{
+			return true;
+		}
+
+		return partiallyMetForWhereEmptyIsFalse(dependenciesCombination);
 	}
 }

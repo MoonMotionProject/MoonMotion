@@ -83,10 +83,10 @@ public class Treader : HandLocomotionControlled
 	{
 		return (locomotionInputEnabled && (Dependencies.metFor(locomotionDependencies) || Dependencies.metFor(dependenciesStuckFailsafe)));
 	}
-	// method: determine whether this treader's input experiencing valid input (whether its input is touched or shallowed – versus neither touched nor shallowed) //
+	// method: determine whether this treader's input experiencing valid input (whether its input is touched or pressed – versus neither touched nor pressed) //
 	private bool experiencingValidInput()
 	{
-		return (((locomotionInputEnabledAndAllowed() && controller.inputShallowed(inputsLocomotion)) || regularTreadingToggle) || (slowerSpeedEnabled && (locomotionInputEnabledAndAllowed() && controller.inputTouched(inputsLocomotion))));
+		return (((locomotionInputEnabledAndAllowed() && controller.inputPressed(inputsLocomotion)) || regularTreadingToggle) || (slowerSpeedEnabled && (locomotionInputEnabledAndAllowed() && controller.inputTouched(inputsLocomotion))));
 	}
 	// method: determine whether the given treader is active //
 	public static bool isActive(Treader treader)
@@ -349,7 +349,7 @@ public class Treader : HandLocomotionControlled
 		if (Dependencies.metFor(locomotionDependencies) || Dependencies.metFor(dependenciesStuckFailsafe))
 		{
 			// if: regular gauge treading is controlled via toggling (instead of holding), regular gauge input just began: invert the tracking of whether the regular treading toggle is on //
-			if (!heldVersusToggled && locomotionInputEnabledAndAllowed() && controller.inputShallowing(inputsLocomotion))
+			if (!heldVersusToggled && locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion))
 			{
 				regularTreadingToggle = !regularTreadingToggle;
 			}
@@ -363,7 +363,7 @@ public class Treader : HandLocomotionControlled
 			if (experiencingSignificantInput())
 			{
 				// if a gauge of treading is beginning: broadcast the treading gauge beginning event //
-				if (controller.inputShallowing(inputsLocomotion) || controller.inputTouching(inputsLocomotion))
+				if (controller.inputPressing(inputsLocomotion) || controller.inputTouching(inputsLocomotion))
 				{
 					// broadcast treading gauge beginning event //
 					if (treadingGaugeBeginningEvent != null)
@@ -452,7 +452,7 @@ public class Treader : HandLocomotionControlled
 			else if (!Skier.skiing)
 			{
 				// determine whether significant input is currently ceasing //
-				bool significantInputCeasing = (locomotionInputEnabledAndAllowed() && (controller.inputUnshallowing(inputsLocomotion) || controller.inputUntouching(inputsLocomotion)));
+				bool significantInputCeasing = (locomotionInputEnabledAndAllowed() && (controller.inputUnpressing(inputsLocomotion) || controller.inputUntouching(inputsLocomotion)));
 
 				// determine whether the other treader is currently experiencing significant input //
 				bool otherTreaderIsCurrentlyExperiencingSignificantInput = (otherTreaderActive() && other.experiencingSignificantInput());

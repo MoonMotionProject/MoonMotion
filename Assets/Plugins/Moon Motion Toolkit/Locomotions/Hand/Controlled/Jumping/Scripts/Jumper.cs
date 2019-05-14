@@ -57,7 +57,7 @@ public class Jumper : HandLocomotionControlled
 	// method: determine whether this jumper's priority is overriden (and is thus not able to jump, since only the other should at this moment) //
 	private bool priorityOverridden()
 	{
-		return (other && other.gameObject && other.gameObject.activeSelf && (other == left) && other.locomotionInputEnabledAndAllowed() && other.controller.inputShallowing(other.inputsLocomotion));
+		return (other && other.gameObject && other.gameObject.activeSelf && (other == left) && other.locomotionInputEnabledAndAllowed() && other.controller.inputPressing(other.inputsLocomotion));
 	}
 	
 	
@@ -105,8 +105,8 @@ public class Jumper : HandLocomotionControlled
 	// at each update: //
 	private void Update()
 	{
-		// if: the player is ready to jump, the player is terrained or midair jumping is available, locomotion input is enabled and allowed, locomotion input is shallowing, this jumper's priority is not overridden: //
-		if (JumpingSettings.jumpingReady() && (TerrainResponse.terrained() || JumpingSettings.midairJumpingAvailable()) && locomotionInputEnabledAndAllowed() && controller.inputShallowing(inputsLocomotion) && !priorityOverridden())
+		// if: the player is ready to jump, the player is terrained or midair jumping is available, locomotion input is enabled and allowed, locomotion input is pressing, this jumper's priority is not overridden: //
+		if (JumpingSettings.jumpingReady() && (TerrainResponse.terrained() || JumpingSettings.midairJumpingAvailable()) && locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion) && !priorityOverridden())
 		{
 			// handle midair jumping //
 			if (!TerrainResponse.terrained())

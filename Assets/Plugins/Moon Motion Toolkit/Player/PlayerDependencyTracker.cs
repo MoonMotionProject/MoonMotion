@@ -31,7 +31,7 @@ public class PlayerDependencyTracker : MonoBehaviour
 		{
 			requisiteState = true;
 		}
-		else if (Dependencies.partiallyMetFor(partialDependenciesOtherwiseFalse))
+		else if (Dependencies.partiallyMetForWhereEmptyIsFalse(partialDependenciesOtherwiseFalse))
 		{
 			requisiteState = false;
 		}

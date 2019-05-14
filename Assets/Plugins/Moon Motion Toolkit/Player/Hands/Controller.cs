@@ -4,21 +4,33 @@ using Valve.VR.InteractionSystem;
 
 // Controller
 // • provides connections to the left and right instances of Controller
+// • enumerates controller handednesses, inputs, inputtednesses
 // • tracks the handedness of this controller (whether this controller is for the left hand (versus the right))
-// • enumerates controller inputs
 // • provides methods for determining input status of this controller, to:
-//   · determine status for each particular input
-//   · determine status for a given array of inputs
-//   · determine whether a given array of inputs has any actual (non-none) inputs set
+//   · determine status for given inputs andor inputtednesses andor beingnesses (altogether, an "operation" as defined by Controller Operation)
 //   · track touchpad touch positions and motion, including methods for determining touchpad touch motions and controlling their tracking
+//   · determine whether a given array of inputs has any actual (non-none) inputs set
 // • provides methods for vibrating this controller
+// • provides methods for determining whether given operations are currently operated
 // ∗: example usage of touchpad travelling input to flip pages of a book
 [RequireComponent(typeof(Hand))]
 public class Controller : MonoBehaviour
 {
 	// enumerations //
-
 	
+	
+	// enumeration of: controller handedness //
+	public enum Handedness
+	{
+		neither,
+		either,
+		one,
+		left,
+		right,
+		both,
+		infinite
+	}
+
 	// enumeration of: controller inputs //
 	public enum Input
 	{
@@ -28,25 +40,34 @@ public class Controller : MonoBehaviour
 		menuButton,
 		grip
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	// enumeration of: controller inputtedness //
+	public enum Inputtedness
+	{
+		touch,
+		shallow,
+		deep,
+		press
+	}
 
 
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// variables //
-	
-	
+
+
 	// variables for: connection with this hand and the other controller //
 	[HideInInspector] public Hand hand;		// connection - automatic: this controller's hand
     [HideInInspector] public Controller otherController;		// connection - automatic: the other controller
@@ -61,432 +82,194 @@ public class Controller : MonoBehaviour
 	private float previousTouchpadX = 0f, previousTouchpadY = 0f;       // tracking: the touchpad's previously touched x and y coordinates
 	private float touchpadXDerivative = 0f, touchpadYDerivative = 0f;		// tracking: the touchpad's change in touched coordinate (for x and y, respectively) from the last frame
 	private float previousTouchpadXDerivative = 0f, previousTouchpadYDerivative = 0f;		// tracking: the previous derivative for each coordinate (x or y, respectively) – used to determine the derivative derivative (which in turn implies a change in touchpad movement direction)
-	private bool touchpadXDerivativeDerivativeNonzero = false, touchpadYDerivativeDerivativeNonzero = false;		// tracking: whether the touchpad's change in change in touched coordinate (for x and y, respectively) from the last frame is nonzero (implying a change in touchpad touch movement direction) versus zero
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	private bool touchpadXDerivativeDerivativeNonzero = false, touchpadYDerivativeDerivativeNonzero = false;        // tracking: whether the touchpad's change in change in touched coordinate (for x and y, respectively) from the last frame is nonzero (implying a change in touchpad touch movement direction) versus zero
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// methods //
 
-	
-	
-	
-	
-	
-	
-	
-	// generic handling of inputs //
-	
-	
-	public bool inputShallowing(Input input)
-	{
-		if (input == Input.none)
-		{
-			return false;
-		}
-		else if (input == Input.trigger)
-		{
-			return triggerShallowing();
-		}
-		else if (input == Input.touchpad)
-		{
-			return touchpadPressing();
-		}
-		else if (input == Input.menuButton)
-		{
-			return menuButtonPressing();
-		}
-		else		// (for grip input)
-		{
-			return gripPressing();
-		}
-	}
-	public bool inputShallowing(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputShallowing(input))
-			{
-				return true;
-			}
-		}
 
+
+
+
+
+
+
+	// detecting of particular inputs, inputtedness, and beingness //
+
+
+	// detection - trigger //
+
+	public bool triggerTouching()
+	{
+		return false;
+	}
+	public bool triggerTouched()
+	{
+		return false;
+	}
+	public bool triggerUntouching()
+	{
 		return false;
 	}
 
-	public bool inputShallowed(Input input)
+	public bool triggerShallowing()
 	{
-		if (input == Input.none)
+		if (triggerPressed())
 		{
-			return false;
+			return (triggerPressing() || triggerUndeeping());
 		}
-		else if (input == Input.trigger)
-		{
-			return triggerShallowed();
-		}
-		else if (input == Input.touchpad)
-		{
-			return touchpadPressed();
-		}
-		else if (input == Input.menuButton)
-		{
-			return menuButtonPressed();
-		}
-		else		// (for grip input)
-		{
-			return gripPressed();
-		}
-	}
-	public bool inputShallowed(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputShallowed(input))
-			{
-				return true;
-			}
-		}
-
 		return false;
 	}
-
-	public bool inputUnshallowing(Input input)
+	public bool triggerShallowed()
 	{
-		if (input == Input.none)
-		{
-			return false;
-		}
-		else if (input == Input.trigger)
-		{
-			return triggerUnshallowing();
-		}
-		else if (input == Input.touchpad)
-		{
-			return touchpadUnpressing();
-		}
-		else if (input == Input.menuButton)
-		{
-			return menuButtonUnpressing();
-		}
-		else		// (for grip input)
-		{
-			return gripUnpressing();
-		}
+		return (triggerPressed() && !triggerDeeped());
 	}
-	public bool inputUnshallowing(Input[] inputs)
+	public bool triggerUnshallowing()
 	{
-		foreach (Input input in inputs)
-		{
-			if (inputUnshallowing(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return (triggerUnpressing() || triggerDeeping());
 	}
 
-	public bool inputDeeping(Input input)
+	public bool triggerDeeping()
 	{
-		if (input == Input.none)
-		{
-			return false;
-		}
-		else if (input == Input.trigger)
-		{
-			return triggerDeeping();
-		}
-		else if (input == Input.touchpad)
-		{
-			return touchpadPressing();
-		}
-		else if (input == Input.menuButton)
-		{
-			return menuButtonPressing();
-		}
-		else		// (for grip input)
-		{
-			return gripPressing();
-		}
-	}
-	public bool inputDeeping(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputDeeping(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool inputDeeped(Input input)
-	{
-		if (input == Input.none)
-		{
-			return false;
-		}
-		else if (input == Input.trigger)
-		{
-			return triggerDeeped();
-		}
-		else if (input == Input.touchpad)
-		{
-			return touchpadPressed();
-		}
-		else if (input == Input.menuButton)
-		{
-			return menuButtonPressed();
-		}
-		else		// (for grip input)
-		{
-			return gripPressed();
-		}
-	}
-	public bool inputDeeped(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputDeeped(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool inputUndeeping(Input input)
-	{
-		if (input == Input.none)
-		{
-			return false;
-		}
-		else if (input == Input.trigger)
-		{
-			return triggerUndeeping();
-		}
-		else if (input == Input.touchpad)
-		{
-			return touchpadUnpressing();
-		}
-		else if (input == Input.menuButton)
-		{
-			return menuButtonUnpressing();
-		}
-		else		// (for grip input)
-		{
-			return gripUnpressing();
-		}
-	}
-	public bool inputUndeeping(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputUndeeping(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool inputTouching(Input input)
-	{
-		if (input == Input.touchpad)
-		{
-			return touchpadTouching();
-		}
-		else		// (for any other input)
-		{
-			return false;
-		}
-	}
-	public bool inputTouching(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputTouching(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool inputTouched(Input input)
-	{
-		if (input == Input.touchpad)
-		{
-			return touchpadTouched();
-		}
-		else		// (for any other input)
-		{
-			return false;
-		}
-	}
-	public bool inputTouched(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputTouched(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	public bool inputUntouching(Input input)
-	{
-		if (input == Input.touchpad)
-		{
-			return touchpadUntouching();
-		}
-		else		// (for any other input)
-		{
-			return false;
-		}
-	}
-	public bool inputUntouching(Input[] inputs)
-	{
-		foreach (Input input in inputs)
-		{
-			if (inputUntouching(input))
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-	
-	
-	
-	
-	// methods handling particular inputs; vibration control //
-	
-	
-    // detection - trigger //
-	
-    public bool triggerShallowing()
-    {
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger);
-    }
-    public bool triggerShallowed()
-    {
+		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger);
+	}
+	public bool triggerDeeped()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetTouch(SteamVR_Controller.ButtonMask.Trigger);
-    }
-    public bool triggerUnshallowing()
-    {
+		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger);
+	}
+	public bool triggerUndeeping()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger);
-    }
+		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger);
+	}
 
-    public bool triggerDeeping()
-    {
+	public bool triggerPressing()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger);
-    }
-    public bool triggerDeeped()
-    {
+		return hand.controller.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger);
+	}
+	public bool triggerPressed()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger);
-    }
-    public bool triggerUndeeping()
-    {
+		return hand.controller.GetTouch(SteamVR_Controller.ButtonMask.Trigger);
+	}
+	public bool triggerUnpressing()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger);
-    }
+		return hand.controller.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger);
+	}
 
 
-    // detection - touchpad //
-	
-    public bool touchpadTouching()
-    {
-		if (hand.controller == null)
-		{
-			return false;
-		}
-        return hand.controller.GetTouchDown(SteamVR_Controller.ButtonMask.Touchpad);
-    }
-    public bool touchpadTouched()
-    {
-		if (hand.controller == null)
-		{
-			return false;
-		}
-        return hand.controller.GetTouch(SteamVR_Controller.ButtonMask.Touchpad);
-    }
-    public bool touchpadUntouching()
-    {
-		if (hand.controller == null)
-		{
-			return false;
-		}
-        return hand.controller.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad);
-    }
+	// detection - touchpad //
 
-    public bool touchpadPressing()
-    {
+	public bool touchpadTouching()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad);
-    }
-    public bool touchpadPressed()
-    {
+		return hand.controller.GetTouchDown(SteamVR_Controller.ButtonMask.Touchpad);
+	}
+	public bool touchpadTouched()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad);
-    }
-    public bool touchpadUnpressing()
-    {
+		return hand.controller.GetTouch(SteamVR_Controller.ButtonMask.Touchpad);
+	}
+	public bool touchpadUntouching()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad);
+		return hand.controller.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad);
+	}
+
+	public bool touchpadShallowing()
+	{
+		return touchpadPressing();
+	}
+	public bool touchpadShallowed()
+	{
+		return touchpadPressed();
+	}
+	public bool touchpadUnshallowing()
+	{
+		return touchpadUnpressing();
+	}
+
+	public bool touchpadDeeping()
+	{
+		return touchpadPressing();
+	}
+	public bool touchpadDeeped()
+	{
+		return touchpadPressed();
+	}
+	public bool touchpadUndeeping()
+	{
+		return touchpadUnpressing();
+	}
+
+	public bool touchpadPressing()
+	{
+		if (hand.controller == null)
+		{
+			return false;
+		}
+		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad);
+	}
+	public bool touchpadPressed()
+	{
+		if (hand.controller == null)
+		{
+			return false;
+		}
+		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad);
+	}
+	public bool touchpadUnpressing()
+	{
+		if (hand.controller == null)
+		{
+			return false;
+		}
+		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad);
 	}
 
 	public float touchpadX()
@@ -592,35 +375,113 @@ public class Controller : MonoBehaviour
 
 
 	// detection - menu button //
-	
+
+	public bool menuButtonTouching()
+	{
+		return false;
+	}
+	public bool menuButtonTouched()
+	{
+		return false;
+	}
+	public bool menuButtonUntouching()
+	{
+		return false;
+	}
+
+	public bool menuButtonShallowing()
+	{
+		return menuButtonPressing();
+	}
+	public bool menuButtonShallowed()
+	{
+		return menuButtonPressed();
+	}
+	public bool menuButtonUnshallowing()
+	{
+		return menuButtonUnpressing();
+	}
+
+	public bool menuButtonDeeping()
+	{
+		return menuButtonPressing();
+	}
+	public bool menuButtonDeeped()
+	{
+		return menuButtonPressed();
+	}
+	public bool menuButtonUndeeping()
+	{
+		return menuButtonUnpressing();
+	}
+
 	public bool menuButtonPressing()
-    {
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu);
-    }
-    public bool menuButtonPressed()
-    {
+		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu);
+	}
+	public bool menuButtonPressed()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPress(SteamVR_Controller.ButtonMask.ApplicationMenu);
-    }
-    public bool menuButtonUnpressing()
-    {
+		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.ApplicationMenu);
+	}
+	public bool menuButtonUnpressing()
+	{
 		if (hand.controller == null)
 		{
 			return false;
 		}
-        return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu);
+		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu);
 	}
 
 
 	// detection - grip //
-	
+
+	public bool gripTouching()
+	{
+		return false;
+	}
+	public bool gripTouched()
+	{
+		return false;
+	}
+	public bool gripUntouching()
+	{
+		return false;
+	}
+
+	public bool gripShallowing()
+	{
+		return gripPressing();
+	}
+	public bool gripShallowed()
+	{
+		return gripPressed();
+	}
+	public bool gripUnshallowing()
+	{
+		return gripUnpressing();
+	}
+
+	public bool gripDeeping()
+	{
+		return gripPressing();
+	}
+	public bool gripDeeped()
+	{
+		return gripPressed();
+	}
+	public bool gripUndeeping()
+	{
+		return gripUnpressing();
+	}
+
 	public bool gripPressing()
 	{
 		if (hand.controller == null)
@@ -646,9 +507,728 @@ public class Controller : MonoBehaviour
 		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip);
 	}
 	
+
+
 	
+	// generic handling of inputs with particular inputtedness and beingness //
+
+
+	public bool inputTouching(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerTouching();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadTouching();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonTouching();
+		}
+		else if (input == Input.grip)
+		{
+			return gripTouching();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputTouching(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputTouching(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputTouched(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerTouched();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadTouched();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonTouched();
+		}
+		else if (input == Input.grip)
+		{
+			return gripTouched();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputTouched(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputTouched(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputUntouching(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerUntouching();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadUntouching();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonUntouching();
+		}
+		else if (input == Input.grip)
+		{
+			return gripUntouching();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputUntouching(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputUntouching(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputShallowing(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerShallowing();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadShallowing();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonShallowing();
+		}
+		else if (input == Input.grip)
+		{
+			return gripShallowing();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputShallowing(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputShallowing(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputShallowed(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerShallowed();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadShallowed();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonShallowed();
+		}
+		else if (input == Input.grip)
+		{
+			return gripShallowed();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputShallowed(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputShallowed(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputUnshallowing(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerUnshallowing();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadUnshallowing();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonUnshallowing();
+		}
+		else if (input == Input.grip)
+		{
+			return gripUnshallowing();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputUnshallowing(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputUnshallowing(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputDeeping(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerDeeping();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadDeeping();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonDeeping();
+		}
+		else if (input == Input.grip)
+		{
+			return gripDeeping();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputDeeping(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputDeeping(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputDeeped(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerDeeped();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadDeeped();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonDeeped();
+		}
+		else if (input == Input.grip)
+		{
+			return gripDeeped();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputDeeped(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputDeeped(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputUndeeping(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerUndeeping();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadUndeeping();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonUndeeping();
+		}
+		else if (input == Input.grip)
+		{
+			return gripUndeeping();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputUndeeping(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputUndeeping(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputPressing(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerPressing();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadPressing();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonPressing();
+		}
+		else if (input == Input.grip)
+		{
+			return gripPressing();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputPressing(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputPressing(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputPressed(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerPressed();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadPressed();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonPressed();
+		}
+		else if (input == Input.grip)
+		{
+			return gripPressed();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputPressed(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputPressed(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputUnpressing(Input input)
+	{
+		if (input == Input.none)
+		{
+			return false;
+		}
+		else if (input == Input.trigger)
+		{
+			return triggerUnpressing();
+		}
+		else if (input == Input.touchpad)
+		{
+			return touchpadUnpressing();
+		}
+		else if (input == Input.menuButton)
+		{
+			return menuButtonUnpressing();
+		}
+		else if (input == Input.grip)
+		{
+			return gripUnpressing();
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputUnpressing(Input[] inputs)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputUnpressing(input))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+
+
+	// generic handling of inputs and inputtedness with particular beingness //
+
+
+	public bool inputInputting(Input input, Inputtedness inputtedness)
+	{
+		if (inputtedness == Inputtedness.touch)
+		{
+			return inputTouching(input);
+		}
+		else if (inputtedness == Inputtedness.shallow)
+		{
+			return inputShallowing(input);
+		}
+		else if (inputtedness == Inputtedness.deep)
+		{
+			return inputDeeping(input);
+		}
+		else if (inputtedness == Inputtedness.press)
+		{
+			return inputPressing(input);
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputInputting(Input[] inputs, Inputtedness inputtedness)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputInputting(input, inputtedness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public bool inputInputting(Input input, Inputtedness[] inputtednesses)
+	{
+		foreach (Inputtedness inputtedness in inputtednesses)
+		{
+			if (inputInputting(input, inputtedness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public bool inputInputting(Input[] inputs, Inputtedness[] inputtednesses)
+	{
+		foreach (Input input in inputs)
+		{
+			foreach (Inputtedness inputtedness in inputtednesses)
+			{
+				if (inputInputting(input, inputtedness))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputInputted(Input input, Inputtedness inputtedness)
+	{
+		if (inputtedness == Inputtedness.touch)
+		{
+			return inputTouched(input);
+		}
+		else if (inputtedness == Inputtedness.shallow)
+		{
+			return inputShallowed(input);
+		}
+		else if (inputtedness == Inputtedness.deep)
+		{
+			return inputDeeped(input);
+		}
+		else if (inputtedness == Inputtedness.press)
+		{
+			return inputPressed(input);
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputInputted(Input[] inputs, Inputtedness inputtedness)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputInputted(input, inputtedness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public bool inputInputted(Input input, Inputtedness[] inputtednesses)
+	{
+		foreach (Inputtedness inputtedness in inputtednesses)
+		{
+			if (inputInputted(input, inputtedness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public bool inputInputted(Input[] inputs, Inputtedness[] inputtednesses)
+	{
+		foreach (Input input in inputs)
+		{
+			foreach (Inputtedness inputtedness in inputtednesses)
+			{
+				if (inputInputted(input, inputtedness))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public bool inputUninputting(Input input, Inputtedness inputtedness)
+	{
+		if (inputtedness == Inputtedness.touch)
+		{
+			return inputUntouching(input);
+		}
+		else if (inputtedness == Inputtedness.shallow)
+		{
+			return inputUnshallowing(input);
+		}
+		else if (inputtedness == Inputtedness.deep)
+		{
+			return inputUndeeping(input);
+		}
+		else if (inputtedness == Inputtedness.press)
+		{
+			return inputUnpressing(input);
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputUninputting(Input[] inputs, Inputtedness inputtedness)
+	{
+		foreach (Input input in inputs)
+		{
+			if (inputUninputting(input, inputtedness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public bool inputUninputting(Input input, Inputtedness[] inputtednesses)
+	{
+		foreach (Inputtedness inputtedness in inputtednesses)
+		{
+			if (inputUninputting(input, inputtedness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public bool inputUninputting(Input[] inputs, Inputtedness[] inputtednesses)
+	{
+		foreach (Input input in inputs)
+		{
+			foreach (Inputtedness inputtedness in inputtednesses)
+			{
+				if (inputUninputting(input, inputtedness))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+
+
+
+	// generic handling of inputs, inputtedness, and beingness //
+
 	
-	
+	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, StatesOfBeing.Beingness beingness)
+	{
+		if (beingness == StatesOfBeing.Beingness.becoming)
+		{
+			return inputInputting(inputs, inputtednesses);
+		}
+		else if (beingness == StatesOfBeing.Beingness.being)
+		{
+			return inputInputted(inputs, inputtednesses);
+		}
+		else if (beingness == StatesOfBeing.Beingness.unbecoming)
+		{
+			return inputUninputting(inputs, inputtednesses);
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, StatesOfBeing.Beingness[] beingnesses)
+	{
+		foreach (StatesOfBeing.Beingness beingness in beingnesses)
+		{
+			if (inputInputtednessBeingnessOperation(inputs, inputtednesses, beingness))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+
+
 	// method: determine whether the given array of inputs has any actual (non-none) inputs //
 	public static bool anyActualInputs(Input[] inputs)
 	{
@@ -711,27 +1291,98 @@ public class Controller : MonoBehaviour
 		toggledVibrationIntensity = intensity;
 		vibrateExtended();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+	// method: determine whether the given operation (ignoring its handedness) is currently operated by the left-handed controller, ignoring the operation's dependencies //
+	private static bool operatedLeft(ControllerOperation operation)
+	{
+		return left.inputInputtednessBeingnessOperation(operation.inputs, operation.inputtednesses, operation.beingnesses);
+	}
+	// method: determine whether the given operation (ignoring its handedness) is currently operated by the right-handed controller, ignoring the operation's dependencies //
+	private static bool operatedRight(ControllerOperation operation)
+	{
+		return right.inputInputtednessBeingnessOperation(operation.inputs, operation.inputtednesses, operation.beingnesses);
+	}
+	// method: determine whether the given operation is currently operated, ignoring its dependencies //
+	private static bool operatedIgnoringDependencies(ControllerOperation operation)
+	{
+		if (operation.handedness == Handedness.neither)
+		{
+			return false;
+		}
+		else if (operation.handedness == Handedness.either)
+		{
+			return operatedLeft(operation) || operatedRight(operation);
+		}
+		else if (operation.handedness == Handedness.one)
+		{
+			return operatedLeft(operation) ^ operatedRight(operation);
+		}
+		else if (operation.handedness == Handedness.left)
+		{
+			return operatedLeft(operation);
+		}
+		else if (operation.handedness == Handedness.right)
+		{
+			return operatedRight(operation);
+		}
+		else if (operation.handedness == Handedness.both)
+		{
+			return operatedLeft(operation) && operatedRight(operation);
+		}
+		else if (operation.handedness == Handedness.infinite)
+		{
+			return true;
+		}
+		else        // (default case)
+		{
+			return false;
+		}
+	}
+	// method: determine whether the given operation is currently operated //
+	public static bool operated(ControllerOperation operation)
+	{
+		if (!Dependencies.metFor(operation.dependenciesThorough) || !Dependencies.partiallyMetForWhereEmptyIsTrue(operation.dependenciesPartial))
+		{
+			return false;
+		}
+		return operatedIgnoringDependencies(operation);
+	}
+	// method: determine whether any of the given operations are currently operated //
+	public static bool operated(ControllerOperation.SetOfControllerOperations operations)
+	{
+		foreach (ControllerOperation operation in operations.array)
+		{
+			if (operated(operation))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// updating //
-	
+
 
 	// before the start: //
-    private void Awake()
+	private void Awake()
     {
 		// connect to: this controller's hand, the other controller //
 		hand = GetComponent<Hand>();

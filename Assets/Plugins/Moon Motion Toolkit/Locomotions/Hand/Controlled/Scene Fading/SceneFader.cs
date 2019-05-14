@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 
 // Scene Fader
 // • classifies this hand locomotion as the "scene fading" locomotion
-// • during certain shallowed controller input by the parent hand, fades the player into a certain scene
+// • during certain pressed controller input by the parent hand, fades the player into a certain scene
 //   · while fading, two effects optionally occur:
 //     - fading the player's vision to blackness
 //     - fading out the player's audio listening volume
@@ -44,7 +44,7 @@ public class SceneFader : HandLocomotionControlled
 	public float durationPrefade = 0f;		// setting: (upon input) the duration by which to wait before starting to fade
 	[Tooltip("the duration by which to fade (up to the moment of loading the scene to load)")]
 	public float durationFading = 2f;		// setting: the duration by which to fade (up to the moment of loading the scene to load)
-	private float timeProgression = 0f;		// tracking: the temporal progression into a scene fade, incrementing while input is shallowed and decrementing otherwise – but not to go below 0
+	private float timeProgression = 0f;		// tracking: the temporal progression into a scene fade, incrementing while input is pressed and decrementing otherwise – but not to go below 0
 	public static float lastTimeOfSceneFadingInteraction = -Mathf.Infinity;		// tracking: the last time of scene fading interaction (including the start of this object as one such interaction) – if this was longer ago than the combined duration of prefading and fading for either Scene Fader, then progression of fadedness will not be allowed (so as to disallow the possibility of this class keeping player vision blackness and player listening volume at the totally unfaded amount)... initialized to negative infinity as a flag that no scene fading interaction has ever occurred
 	public static float timeOflastSceneFadingCompletion = -Mathf.Infinity;		// tracking: the last time that a scene fading completed – initialized to negative infinity as a flag that scene fading has never completed
 
@@ -166,8 +166,8 @@ public class SceneFader : HandLocomotionControlled
 	// at each update: //
 	private void Update()
 	{
-		// if: input is enabled, the input dependencies are met, input is shallowed, the scene to load is recognized by name: //
-		if (locomotionInputEnabled && Dependencies.metFor(locomotionDependencies) && controller.inputShallowed(inputsLocomotion) && Application.CanStreamedLevelBeLoaded(sceneToLoad))
+		// if: input is enabled, the input dependencies are met, input is pressed, the scene to load is recognized by name: //
+		if (locomotionInputEnabled && Dependencies.metFor(locomotionDependencies) && controller.inputPressed(inputsLocomotion) && Application.CanStreamedLevelBeLoaded(sceneToLoad))
 		{
 			// track the last time of scene fading interaction as the current time //
 			lastTimeOfSceneFadingInteraction = Time.time;

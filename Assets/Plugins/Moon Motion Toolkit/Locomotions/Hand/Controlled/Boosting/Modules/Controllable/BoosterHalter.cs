@@ -45,8 +45,8 @@ public class BoosterHalter : BoosterModuleControllable
 
 	private void Update()
 	{
-		// if: the dependencies are met, input is enabled, input is shallowed: //
-		if (Dependencies.metFor(other.dependenciesCombination) && inputEnabled && controller.inputShallowed(inputs))
+		// if: the dependencies are met, input is enabled, input is pressed: //
+		if (Dependencies.metFor(other.dependenciesCombination) && inputEnabled && controller.inputPressed(inputs))
 		{
 			// halt //
 			halting = true;
@@ -63,8 +63,8 @@ public class BoosterHalter : BoosterModuleControllable
 				}
 			}
 		}
-		// otherwise (if input is not shallowed) and if the other halter is not halting globally: //
-		else if (!(other && other.haltsGlobally && Dependencies.metFor(other.dependenciesCombination) && other.inputEnabled && other.controller && other.controller.inputShallowed(other.inputs)))
+		// otherwise (if input is not pressed) and if the other halter is not halting globally: //
+		else if (!(other && other.haltsGlobally && Dependencies.metFor(other.dependenciesCombination) && other.inputEnabled && other.controller && other.controller.inputPressed(other.inputs)))
 		{
 			// don't halt //
 			halting = false;

@@ -136,8 +136,8 @@ public class Skier : HandLocomotionControlled
 				// (since the following block of code doesn't need to be run twice each update:) if either: this is the only skier that is enabled, this is the left skier: //
 				if (!bothSkiersEnabled || leftInstance)
 				{
-					// if for either skier: input is enabled and input is shallowed: //
-					if ((locomotionInputEnabledAndAllowed() && controller.inputShallowed(inputsLocomotion)) || (bothSkiersEnabled && other.locomotionInputEnabledAndAllowed() && otherController.inputShallowed(other.inputsLocomotion)))
+					// if for either skier: input is enabled and input is pressed: //
+					if ((locomotionInputEnabledAndAllowed() && controller.inputPressed(inputsLocomotion)) || (bothSkiersEnabled && other.locomotionInputEnabledAndAllowed() && otherController.inputPressed(other.inputsLocomotion)))
 					{
 						// enable skiing //
 						enableSkiing();
@@ -153,8 +153,8 @@ public class Skier : HandLocomotionControlled
 			// otherwise (if skiing is toggled upon input): //
 			else
 			{
-				// if input is enabled and input is shallowing: //
-				if (locomotionInputEnabledAndAllowed() && controller.inputShallowing(inputsLocomotion))
+				// if input is enabled and input is pressing: //
+				if (locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion))
 				{
 					// toggle skiing //
 					toggleSkiing();

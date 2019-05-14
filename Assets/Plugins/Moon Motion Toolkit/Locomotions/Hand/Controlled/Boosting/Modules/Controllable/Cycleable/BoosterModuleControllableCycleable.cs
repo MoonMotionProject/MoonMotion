@@ -218,8 +218,8 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 	// at each update: //
 	private void Update()
 	{
-		// if: the module dependencies are met, input is enabled, input is shallowing: //
-		if (Dependencies.metFor(dependenciesCombination) && inputEnabled && controller.inputShallowing(inputs))
+		// if: the module dependencies are met, input is enabled, input is pressing: //
+		if (Dependencies.metFor(dependenciesCombination) && inputEnabled && controller.inputPressing(inputs))
 		{
 			// advance the cycle – globally if set to do so //
 			if (globallyCycle)

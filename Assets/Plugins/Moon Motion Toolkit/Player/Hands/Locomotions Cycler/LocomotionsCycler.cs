@@ -177,7 +177,7 @@ public class LocomotionsCycler : MonoBehaviour
 			other.index = 0;
 		}
 		// for both hands: optionally play the locomotion cycling audio //
-		if (inputPlaysAudio)
+		if (inputPlaysAudio && playAudio)
 		{
 			audioComponent.PlayOneShot(audioComponent.clip);
 			other.audioComponent.PlayOneShot(other.audioComponent.clip);

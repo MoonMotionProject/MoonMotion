@@ -54,7 +54,7 @@ public class BoosterInertiaDampener : BoosterModuleControllableToggleable
 	// method: determine whether the given booster is currently inertia dampened //
 	public static bool inertiaDampened(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -73,7 +73,7 @@ public class BoosterInertiaDampener : BoosterModuleControllableToggleable
 	// method: determine the inertia dampening factor for the given booster //
 	public static float dampeningFactor(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -101,7 +101,7 @@ public class BoosterInertiaDampener : BoosterModuleControllableToggleable
 	{
 		base.Start();
 		
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -122,7 +122,7 @@ public class BoosterInertiaDampener : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other inertia dampener as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

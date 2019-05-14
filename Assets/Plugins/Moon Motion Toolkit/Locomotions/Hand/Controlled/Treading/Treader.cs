@@ -320,7 +320,7 @@ public class Treader : HandLocomotionControlled
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -336,7 +336,7 @@ public class Treader : HandLocomotionControlled
 		base.Start();
 
 		// connect to the other instance of this class //
-		other = (leftHand ? right : left);
+		other = (leftInstance ? right : left);
 
 		// connect to the player head transform //
 		headTransform = AirRushingAudio.singleton.transform.parent;

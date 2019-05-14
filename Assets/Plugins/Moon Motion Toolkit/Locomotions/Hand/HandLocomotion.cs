@@ -17,7 +17,7 @@ public abstract class HandLocomotion : Locomotion
 	protected Controller controller;		// connection - automatic: the parent Controller
 	protected Controller otherController;		// connection - automatic: the other controller
 	protected Hand hand;		// connection - automatic: the parent Hand
-	[HideInInspector] public bool leftHand;     // tracking: whether this locomotion is for the left hand (versus the right)
+	[HideInInspector] public bool leftInstance;     // tracking: this hand locomotion's handedness (whether it is for the left hand (versus the right))
 
 	// variables for: dependencies //
 	[Header("Dependencies")]
@@ -40,7 +40,7 @@ public abstract class HandLocomotion : Locomotion
 		hand = controller.GetComponent<Hand>();
 
 		// track whether this locomotion is for the left hand //
-		leftHand = (hand.startingHandType == Hand.HandType.Left);
+		leftInstance = (hand.startingHandType == Hand.HandType.Left);
 	}
 
 	// at the start: //

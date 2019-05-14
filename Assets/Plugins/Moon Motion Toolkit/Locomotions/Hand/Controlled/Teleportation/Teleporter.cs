@@ -30,7 +30,7 @@ public class Teleporter : HandLocomotion
 		base.Awake();
 
 		// connect to the left and right instances of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

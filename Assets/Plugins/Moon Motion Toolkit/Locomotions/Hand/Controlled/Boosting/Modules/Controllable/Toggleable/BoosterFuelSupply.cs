@@ -66,7 +66,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's supply is currently enabled //
 	public static bool enabledSupply(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.enabledSupply();
 		}
@@ -88,7 +88,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: add the given fuel force addition amount to the supply of the given booster //
 	public static void addFuelForce(Booster booster, float addition)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -127,7 +127,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: determine the amount of currently accessible fuel force for the given booster //
 	public static float accessibleFuelForce(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -146,7 +146,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: determine the max amount of fuel of the supply for the given booster //
 	public static float maxFuelForce(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.fuelForceMax;
 		}
@@ -166,7 +166,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: clamp the fuel force supply for the given booster //
 	public static void clamp(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.clamp();
 		}
@@ -198,7 +198,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: remove the given fuel force reduction amount from the supply of the given booster – but not to go below 0 //
 	public static void removeFuelForce(Booster booster, float reduction)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.removeFuelForce(reduction);
 		}
@@ -231,7 +231,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: completely fill the fuel supply of the given booster //
 	public static void fillSupply(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.fillSupply();
 		}
@@ -264,7 +264,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: completely empty the fuel supply of the given booster //
 	public static void emptySupply(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.emptySupply();
 		}
@@ -297,7 +297,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: set the fuel supply to half for the given booster //
 	public static void setSupplyToHalf(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.setSupplyToHalf();
 		}
@@ -331,7 +331,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: set the fuel supply to the given amount for the given booster //
 	public static void setSupplyToAmount(Booster booster, float amount)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.setSupplyToAmount(amount);
 		}
@@ -366,7 +366,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: set the fuel supply to the given percentage for the given booster //
 	public static void setSupplyToPercentage(Booster booster, float percentage)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			left.setSupplyToPercentage(percentage);
 		}
@@ -403,7 +403,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -424,7 +424,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other supply as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

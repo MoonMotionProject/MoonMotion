@@ -140,7 +140,7 @@ public class SceneFader : HandLocomotionControlled
 		base.Start();
 
 		// connect to the other instance of this class //
-		other = (leftHand ? right : left);
+		other = (leftInstance ? right : left);
 
 		// if the scene to load is set to '' (empty), then change it to the current scene //
 		if (sceneToLoad.Equals(""))
@@ -153,7 +153,7 @@ public class SceneFader : HandLocomotionControlled
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

@@ -56,7 +56,7 @@ public class BoosterDefueler : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's defueling is currently enabled //
 	public static bool enabledDefueling(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.enabledDefueling();
 		}
@@ -77,7 +77,7 @@ public class BoosterDefueler : BoosterModuleControllableToggleable
 	// method: if defueling is enabled: remove the given fuel force reduction amount for the given booster //
 	public static void defuel(Booster booster, float reduction)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -104,7 +104,7 @@ public class BoosterDefueler : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -125,7 +125,7 @@ public class BoosterDefueler : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other defueler as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

@@ -134,7 +134,7 @@ public class BoosterRotationCycler : BoosterModuleControllableCycleable
 		base.Start();
 
 		// track the left and right instances of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

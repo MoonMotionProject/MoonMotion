@@ -52,7 +52,7 @@ public class BoosterSpeedLimiter : BoosterModuleControllableToggleable
 	// method: determine whether the given booster is currently speed limited //
 	public static bool speedLimited(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -72,7 +72,7 @@ public class BoosterSpeedLimiter : BoosterModuleControllableToggleable
 	// method: determine the speed limit for the given booster //
 	public static float boosterSpeedLimit(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -100,7 +100,7 @@ public class BoosterSpeedLimiter : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -121,7 +121,7 @@ public class BoosterSpeedLimiter : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other speed limiter as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

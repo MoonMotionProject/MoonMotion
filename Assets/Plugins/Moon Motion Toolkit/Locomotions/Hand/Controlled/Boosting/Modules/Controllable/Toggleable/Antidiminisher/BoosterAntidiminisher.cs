@@ -89,7 +89,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's antidiminisher is currently antidiminishing //
 	public static bool antidiminishingBooster(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -109,7 +109,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	// method: determine the antidiminishing interpolation curve for the given booster //
 	private static InterpolationCurved.Curve curve(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.antidiminishingCurve;
 		}
@@ -122,7 +122,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	// method: determine the max antidiminishing distance for the given booster //
 	public static float boosterAntidiminishingDistanceMax(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.antidiminishingDistanceMax;
 		}
@@ -135,7 +135,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	// method: determine the antidiminisher for the given booster //
 	public static BoosterAntidiminisher antidiminisherFor(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left;
 		}
@@ -179,7 +179,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -200,7 +200,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other antidiminisher as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

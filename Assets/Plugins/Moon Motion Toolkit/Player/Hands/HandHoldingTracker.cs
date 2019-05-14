@@ -19,7 +19,7 @@ public class HandHoldingTracker : MonoBehaviour
 	// variables for: instancing, hand holding tracking\determination //
 	private Transform handTransform;		// connection - automatic: the transform of this hand holding tracker's parent hand
 	private Hand hand;		// connection - automatic: this hand holding tracker's hand
-	[HideInInspector] public bool leftHand = true;		// tracking: whether this hand holding tracker is for the left hand (versus the right)
+	[HideInInspector] public bool leftInstance = true;		// tracking: this hand holding tracker's handedness (whether this hand holding tracker is for the left hand (versus the right))
 	public static HandHoldingTracker left, right;		// connections - automatic: the left and right instances of this class, respectively
 	[HideInInspector] public float timeOfLastHoldingAnyInteractables = -Mathf.Infinity;		// tracking: the time this hand holding tracker's hand was last holding any interactables – defaulted to negative infinity by default as a flag that this hand holding tracker's hand has never held any interactables
 	private bool handHoveringWithNonheldInteractable = false;		// tracking: whether the parent hand is currently hovering with a nonheld interactable
@@ -164,14 +164,14 @@ public class HandHoldingTracker : MonoBehaviour
 		hand = handTransform.GetComponent<Hand>();
 		
 		// track whether this hand holding tracker is for the left hand //
-		leftHand = (hand.startingHandType == Hand.HandType.Left);
+		leftInstance = (hand.startingHandType == Hand.HandType.Left);
     }
 
 	// upon being enabled: //
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

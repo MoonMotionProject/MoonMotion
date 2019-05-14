@@ -83,7 +83,7 @@ public class Jumper : HandLocomotionControlled
 	private void OnEnable()
 	{
 		// connect to the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -99,7 +99,7 @@ public class Jumper : HandLocomotionControlled
 		base.Start();
 
 		// connect to the other instance of this class //
-		other = (leftHand ? right : left);
+		other = (leftInstance ? right : left);
 	}
 
 	// at each update: //

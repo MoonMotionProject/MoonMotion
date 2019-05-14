@@ -59,7 +59,7 @@ public class BoosterForceMultiplier : BoosterModuleControllableToggleable
 	// method: determine the current force factor for the given booster //
 	public static float forceFactor(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -87,7 +87,7 @@ public class BoosterForceMultiplier : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -108,7 +108,7 @@ public class BoosterForceMultiplier : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other force multiplier as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

@@ -40,7 +40,7 @@ public class LocomotionsCycler : MonoBehaviour
 	
 	// variables for: tracking instances //
 	protected Hand hand;		// connection - automatic: the parent hand
-	[HideInInspector] public bool leftHand;     // tracking: whether this Locomotions Cycler is for the left hand (versus the right)
+	[HideInInspector] public bool leftInstance;     // tracking: this Locomotions Cycler's handedness (whether this Locomotions Cycler is for the left hand (versus the right))
 	private static LocomotionsCycler left, right;		// tracking: Locomotions Cycler instances
 	private LocomotionsCycler other;		// tracking: the other Locomotions Cycler instance
 
@@ -202,10 +202,10 @@ public class LocomotionsCycler : MonoBehaviour
 		hand = transform.parent.GetComponent<Hand>();
 
 		// determine whether this Locomotions Cycler belongs to the left hand (versus the right) //
-		leftHand = (hand.startingHandType == Hand.HandType.Left);
+		leftInstance = (hand.startingHandType == Hand.HandType.Left);
 
 		// track the Locomotions Cycler instances //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -265,7 +265,7 @@ public class LocomotionsCycler : MonoBehaviour
 		}
 
 		// track the other Locomotions Cycler instance //
-		other = (leftHand ? right : left);
+		other = (leftInstance ? right : left);
 
 		// refresh the locomotions //
 		refreshLocomotions();

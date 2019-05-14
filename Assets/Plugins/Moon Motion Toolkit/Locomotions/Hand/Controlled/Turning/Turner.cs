@@ -118,7 +118,7 @@ public class Turner : HandLocomotionControlled
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

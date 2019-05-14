@@ -16,7 +16,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	private static HashSet<HandInsidenessTracking> insidenessTrackingsLeft = new HashSet<HandInsidenessTracking>(), insidenessTrackingsRight = new HashSet<HandInsidenessTracking>();		// connections - automatic: all insideness trackings for either hand (left or right), respectively
 	
 	// variables for: insideness tracking //
-	public bool leftHand = true;		// setting: whether this insideness tracking is for the left hand (versus the right)
+	public bool leftInstance = true;		// setting: this hand insideness tracking's handedness (whether this insideness tracking is for the left hand (versus the right))
 	private HashSet<GameObject> collidedObjects = new HashSet<GameObject>();		// tracking: all objects this hand trigger collider is currently trigger collided with via a nontrigger collider of such objects
 	private Dictionary<Collider, float> collisionTrackingTimes = new Dictionary<Collider, float>();		// tracking: the last time for each collider of the collided objects that that collider was known to be still colliding (if any of these becomes longer ago than the duration of the last physics update, then the corresponding object will be untracked as being collided)
 
@@ -110,7 +110,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	private void OnEnable()
 	{
 		// track this instance of this class according to its handedness //
-		if (leftHand)
+		if (leftInstance)
 		{
 			insidenessTrackingsLeft.Add(this);
 		}
@@ -124,7 +124,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	private void OnDisable()
 	{
 		// untrack this instance of this class according to its handedness //
-		if (leftHand)
+		if (leftInstance)
 		{
 			insidenessTrackingsLeft.Remove(this);
 		}

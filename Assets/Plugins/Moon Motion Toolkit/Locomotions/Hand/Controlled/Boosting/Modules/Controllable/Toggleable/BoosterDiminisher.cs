@@ -154,7 +154,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// method: determine whether the given booster is currently diminished //
 	public static bool diminished(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -174,7 +174,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// method: determine the diminishing interpolation curve for the given booster //
 	private static InterpolationCurved.Curve curve(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.diminishingCurve;
 		}
@@ -191,7 +191,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 		BoosterDiminisher diminisher = diminisherFor(booster);
 
 		// determine any nontrigger colliders that this diminisher's hand is currently inside of (according to Hand Insideness Tracking) //
-		HashSet<GameObject> allCollidedObjects = (booster.leftHand ? HandInsidenessTracking.allCollidedObjectsForLeftHand() : HandInsidenessTracking.allCollidedObjectsForRightHand());
+		HashSet<GameObject> allCollidedObjects = (booster.leftInstance ? HandInsidenessTracking.allCollidedObjectsForLeftHand() : HandInsidenessTracking.allCollidedObjectsForRightHand());
 
 		// if this diminisher's hand is currently inside of any nontrigger collider objects: //
 		if (allCollidedObjects.Count > 0)
@@ -273,7 +273,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// method: determine the max diminishing distance for the given booster //
 	private static float boosterDiminishingDistanceMax(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.diminishingDistanceMax;
 		}
@@ -286,7 +286,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// method: determine the diminisher for the given booster //
 	public static BoosterDiminisher diminisherFor(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left;
 		}
@@ -341,7 +341,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -362,7 +362,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other diminisher as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

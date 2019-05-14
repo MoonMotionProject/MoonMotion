@@ -59,7 +59,7 @@ public class BoosterRelativizer : BoosterModuleControllableToggleable
 	// method: determine the current relativity transform to use for the given booster //
 	public static Transform relativityTransform(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -87,7 +87,7 @@ public class BoosterRelativizer : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -108,7 +108,7 @@ public class BoosterRelativizer : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other relativizer as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

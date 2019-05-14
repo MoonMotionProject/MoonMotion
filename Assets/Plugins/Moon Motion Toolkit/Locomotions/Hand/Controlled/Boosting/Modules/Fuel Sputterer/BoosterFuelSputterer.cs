@@ -49,7 +49,7 @@ public class BoosterFuelSputterer : BoosterModule
 	{
 		base.Start();
 		
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -94,7 +94,7 @@ public class BoosterFuelSputterer : BoosterModule
 	// method: sputter the fuel sputterer corresponding to the given booster //
 	public static void sputter(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{

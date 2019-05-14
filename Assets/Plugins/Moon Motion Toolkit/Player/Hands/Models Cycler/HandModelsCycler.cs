@@ -52,7 +52,7 @@ public class HandModelsCycler : MonoBehaviour
 	
 	// variables for: hand connection and instancing //
 	private Hand hand;		// connection - automatic: this cycler's hand
-	private bool leftHand;		// tracking: this cycler's hand's handedness (whether the hand is the left hand versus the right)
+	private bool leftInstance;		// tracking: this hand models cycler's handedness (whether its hand is the left hand (versus the right))
 	public static HandModelsCycler left, right;		// trackings: left and right instances of this class, respectively
 	
 	// variables for: input //
@@ -302,10 +302,10 @@ public class HandModelsCycler : MonoBehaviour
 	private void Start()
 	{
 		// track this hand's handedness //
-		leftHand = (hand.startingHandType == Hand.HandType.Left);
+		leftInstance = (hand.startingHandType == Hand.HandType.Left);
 
 		// track the left and right instances of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

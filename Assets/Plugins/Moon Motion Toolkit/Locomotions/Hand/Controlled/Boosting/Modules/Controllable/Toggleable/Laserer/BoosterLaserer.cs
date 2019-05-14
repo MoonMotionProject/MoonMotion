@@ -54,7 +54,7 @@ public class BoosterLaserer : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's laserer is currently lasering //
 	public static bool laseringBooster(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.boosterLasering();
 		}
@@ -84,7 +84,7 @@ public class BoosterLaserer : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -105,7 +105,7 @@ public class BoosterLaserer : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other laserer as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

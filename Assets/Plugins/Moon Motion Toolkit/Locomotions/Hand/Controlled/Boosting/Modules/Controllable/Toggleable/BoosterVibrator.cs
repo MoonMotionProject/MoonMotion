@@ -54,7 +54,7 @@ public class BoosterVibrator : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's boosting is currently enabled //
 	public static bool vibratingEnabled(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.vibratingEnabled();
 		}
@@ -78,7 +78,7 @@ public class BoosterVibrator : BoosterModuleControllableToggleable
 	// method: determine the given booster's current shallow vibration intensity //
 	public static ushort intensityShallow(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -97,7 +97,7 @@ public class BoosterVibrator : BoosterModuleControllableToggleable
 	// method: determine the given booster's current deep vibration intensity //
 	public static ushort intensityDeep(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -125,7 +125,7 @@ public class BoosterVibrator : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -146,7 +146,7 @@ public class BoosterVibrator : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other vibrator as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

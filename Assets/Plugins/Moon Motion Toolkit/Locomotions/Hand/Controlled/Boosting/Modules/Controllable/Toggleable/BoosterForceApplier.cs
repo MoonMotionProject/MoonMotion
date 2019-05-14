@@ -72,7 +72,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: determine the shallow force amount for the given booster //
 	public static float amountShallow(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -91,7 +91,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: determine the deep force amount for the given booster //
 	public static float amountDeep(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -110,7 +110,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: determine the force direction for the given booster //
 	public static Rotation.Direction direction(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -146,7 +146,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: have the force applier corresponding to the given booster apply the given force to the player's rigidbody if the applier's force application is enabled //
 	public static void applyForce(Booster booster, Vector3 forceToApply)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -169,7 +169,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: determine the fuel threshold for deep force for the given booster //
 	public static float fuelThresholdForBooster(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -197,7 +197,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -220,7 +220,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other force applier as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

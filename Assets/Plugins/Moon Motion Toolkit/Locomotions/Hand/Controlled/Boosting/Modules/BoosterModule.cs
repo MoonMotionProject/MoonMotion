@@ -7,7 +7,7 @@ using UnityEngine;
 // • provides:
 //   · a connection to the corresponding parent booster's transform
 //   · a connection to the booster
-//   · a tracking for the booster's handedness
+//   · a tracking for the booster's handedness (whether the booster is for the left hand versus the right)
 //   · a dependencies combination setting to require such conditions for the module to be active
 public abstract class BoosterModule : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public abstract class BoosterModule : MonoBehaviour
 	// variables for: booster connections and handedness tracking //
 	protected Transform boosterTransform;		// connection - automatic: the booster's transform
 	protected Booster booster;		// connection - automatic: the booster this module is for
-	protected bool leftHand;		// tracking: the booster's handedness (whether the booster is for the left hand versus the right)
+	protected bool leftInstance;		// tracking: the booster's handedness
 
 	// variables for: dependencies //
 	[Header("Dependencies")]
@@ -40,6 +40,6 @@ public abstract class BoosterModule : MonoBehaviour
 	// at the start: track the booster's handedness //
 	protected virtual void Start()
 	{
-		leftHand = (booster.leftHand);
+		leftInstance = (booster.leftInstance);
 	}
 }

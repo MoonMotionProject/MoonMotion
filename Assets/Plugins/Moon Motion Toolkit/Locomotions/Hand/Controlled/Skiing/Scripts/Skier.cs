@@ -90,7 +90,7 @@ public class Skier : HandLocomotionControlled
 	{
 		base.Awake();
 		
-		if (!leftHand)
+		if (!leftInstance)
 		{
 			// have just the right hand set the following static variables since they need be set only once //
 			targetBodyCollider = Hierarchy.selfOrAnyLevelParentWithPlayer(transform).GetComponentInChildren<CapsuleCollider>();
@@ -103,7 +103,7 @@ public class Skier : HandLocomotionControlled
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -119,7 +119,7 @@ public class Skier : HandLocomotionControlled
 		base.Start();
 
 		// connect to the other skier //
-		other = (leftHand ? right : left);
+		other = (leftInstance ? right : left);
 	}
 
 	// at each update: //
@@ -134,7 +134,7 @@ public class Skier : HandLocomotionControlled
 			if (skiingSettings.heldVersusToggled)
 			{
 				// (since the following block of code doesn't need to be run twice each update:) if either: this is the only skier that is enabled, this is the left skier: //
-				if (!bothSkiersEnabled || leftHand)
+				if (!bothSkiersEnabled || leftInstance)
 				{
 					// if for either skier: input is enabled and input is shallowed: //
 					if ((locomotionInputEnabledAndAllowed() && controller.inputShallowed(inputsLocomotion)) || (bothSkiersEnabled && other.locomotionInputEnabledAndAllowed() && otherController.inputShallowed(other.inputsLocomotion)))

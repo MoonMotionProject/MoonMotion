@@ -54,7 +54,7 @@ public class BoosterRefueler : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's refueler is currently refueling //
 	public static bool boosterRefueling(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			return left.boosterRefueling();
 		}
@@ -72,7 +72,7 @@ public class BoosterRefueler : BoosterModuleControllableToggleable
 	// method: determine the fuel force production amount for the given booster //
 	public static float productionAmount(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -100,7 +100,7 @@ public class BoosterRefueler : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -121,7 +121,7 @@ public class BoosterRefueler : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other refueler as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

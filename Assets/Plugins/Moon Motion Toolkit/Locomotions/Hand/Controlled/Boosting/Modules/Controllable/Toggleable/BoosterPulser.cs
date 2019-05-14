@@ -72,7 +72,7 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 	// method: determine the current pulsing force percentage (of the main boosting force) to use for the given booster //
 	public static float pulsingForcePercentage(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -91,7 +91,7 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 	// method: determine whether the given booster should pulse based on only the part of the main boosting force that is in the player's up direction //
 	public static float pulsingForceFrequency(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -110,7 +110,7 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 	// method: determine whether to pulse the player's up direction only for the given booster //
 	public static bool pulsingPlayerUpDirectionOnly(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -138,7 +138,7 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -159,7 +159,7 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other pulser as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

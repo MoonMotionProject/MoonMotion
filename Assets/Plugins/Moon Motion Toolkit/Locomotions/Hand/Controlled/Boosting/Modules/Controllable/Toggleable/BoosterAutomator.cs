@@ -56,7 +56,7 @@ public class BoosterAutomator : BoosterModuleControllableToggleable
 	// method: determine whether the given booster is currently automating //
 	public static bool automating(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -75,7 +75,7 @@ public class BoosterAutomator : BoosterModuleControllableToggleable
 	// method: determine whether the given booster's automator uses fuel for automated boosting //
 	public static bool usingFuel(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -103,7 +103,7 @@ public class BoosterAutomator : BoosterModuleControllableToggleable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -124,7 +124,7 @@ public class BoosterAutomator : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other automator as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

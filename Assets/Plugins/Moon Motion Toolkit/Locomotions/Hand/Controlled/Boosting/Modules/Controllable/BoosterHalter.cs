@@ -32,16 +32,15 @@ public class BoosterHalter : BoosterModuleControllable
 	{
 		base.Start();
 
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
-			other = controller.otherController.GetComponentInChildren<BoosterHalter>();
 		}
 		else
 		{
 			right = this;
-			other = controller.otherController.GetComponentInChildren<BoosterHalter>();
 		}
+		other = controller.otherController.GetComponentInChildren<BoosterHalter>();
 	}
 
 	private void Update()
@@ -54,7 +53,7 @@ public class BoosterHalter : BoosterModuleControllable
 			// if the halting is set to be global: have the other halter halt as well //
 			if (haltsGlobally)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.halting = true;
 				}
@@ -81,7 +80,7 @@ public class BoosterHalter : BoosterModuleControllable
 	// method: determine whether the given booster is currently halted //
 	public static bool halted(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{

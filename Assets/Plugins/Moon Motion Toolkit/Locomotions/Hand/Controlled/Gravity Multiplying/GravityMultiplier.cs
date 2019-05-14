@@ -329,7 +329,7 @@ public class GravityMultiplier : HandLocomotionControlled
 	private void OnEnable()
 	{
 		// connect to the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

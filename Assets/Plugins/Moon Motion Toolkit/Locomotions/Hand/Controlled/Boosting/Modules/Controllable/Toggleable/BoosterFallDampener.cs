@@ -54,7 +54,7 @@ public class BoosterFallDampener : BoosterModuleControllableToggleable
 	// method: determine whether the given booster is currently fall dampened //
 	public static bool fallDampened(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -73,7 +73,7 @@ public class BoosterFallDampener : BoosterModuleControllableToggleable
 	// method: determine the fall dampening force for the given booster //
 	public static float dampeningForce(Booster booster)
 	{
-		if (booster.leftHand)
+		if (booster.leftInstance)
 		{
 			if (left && left.gameObject && left.gameObject.activeInHierarchy)
 			{
@@ -101,7 +101,7 @@ public class BoosterFallDampener : BoosterModuleControllableToggleable
 	{
 		base.Start();
 		
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}
@@ -122,7 +122,7 @@ public class BoosterFallDampener : BoosterModuleControllableToggleable
 			// if the toggling is set to be global: toggle the other fall dampener as well //
 			if (toggleIsGlobal)
 			{
-				if (leftHand)
+				if (leftInstance)
 				{
 					right.toggle(inputtingPlaysTogglingAudio);
 				}

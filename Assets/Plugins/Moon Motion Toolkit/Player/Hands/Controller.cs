@@ -3,7 +3,8 @@ using System.Collections;
 using Valve.VR.InteractionSystem;
 
 // Controller
-// • provides connections to the left and right controller instances
+// • provides connections to the left and right instances of Controller
+// • tracks the handedness of this controller (whether this controller is for the left hand (versus the right))
 // • enumerates controller inputs
 // • provides methods for determining input status of this controller, to:
 //   · determine status for each particular input
@@ -47,12 +48,12 @@ public class Controller : MonoBehaviour
 	
 	
 	// variables for: connection with this hand and the other controller //
-	private Hand hand;		// connection - automatic: this controller's hand
+	[HideInInspector] public Hand hand;		// connection - automatic: this controller's hand
     [HideInInspector] public Controller otherController;		// connection - automatic: the other controller
 	
 	// variables for: instancing //
 	public static Controller left, right;		// connections - automatic: the left and right controller instances, respectively
-	[HideInInspector] public bool leftHand = true;		// tracking: whether this controller is for the left hand (versus the right)
+	[HideInInspector] public bool leftInstance = true;		// tracking: this controller's handedness
 
 	// variables for: touchpad input handling //
 	private float touchpadTouchdownTime = -1f;		// tracking: the time of last touchdown for the touchpad
@@ -737,16 +738,14 @@ public class Controller : MonoBehaviour
 		otherController = hand.otherHand.GetComponent<Controller>();
 		
 		// track whether this controller is for the left hand //
-		leftHand = (hand.startingHandType == Hand.HandType.Left);
-
-		// connect to t
+		leftInstance = (hand.startingHandType == Hand.HandType.Left);
     }
 
 	// upon being enabled: //
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //
-		if (leftHand)
+		if (leftInstance)
 		{
 			left = this;
 		}

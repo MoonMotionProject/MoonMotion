@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Valve.VR.InteractionSystem;
 
 // Controller
@@ -11,7 +12,7 @@ using Valve.VR.InteractionSystem;
 //   · track touchpad touch positions and motion, including methods for determining touchpad touch motions and controlling their tracking
 //   · determine whether a given array of inputs has any actual (non-none) inputs set
 // • provides methods for vibrating this controller
-// • provides methods for determining whether given operations are currently operated
+// • provides methods for determining whether given operations are currently operated and those controllers operated
 // ∗: example usage of touchpad travelling input to flip pages of a book
 [RequireComponent(typeof(Hand))]
 public class Controller : MonoBehaviour
@@ -1344,7 +1345,7 @@ public class Controller : MonoBehaviour
 	// method: determine whether the given operation is currently operated //
 	public static bool operated(ControllerOperation operation)
 	{
-		if (!Dependencies.metFor(operation.dependenciesThorough) || !Dependencies.partiallyMetForWhereEmptyIsTrue(operation.dependenciesPartial))
+		if (!operation.dependenciesMet())
 		{
 			return false;
 		}
@@ -1361,6 +1362,90 @@ public class Controller : MonoBehaviour
 			}
 		}
 		return false;
+	}
+	// method: determine the set of controllers for which the given operation is currently operated, ignoring its dependencies //
+	private static HashSet<Controller> operatedControllersIgnoringDependencies(ControllerOperation operation)
+	{
+		if (operation.handedness == Handedness.neither)
+		{
+			return new HashSet<Controller>();
+		}
+		else if (operation.handedness == Handedness.one)
+		{
+			if (operatedLeft(operation) && !operatedRight(operation))
+			{
+				return new HashSet<Controller>() {left};
+			}
+			else if (!operatedLeft(operation) && operatedRight(operation))
+			{
+				return new HashSet<Controller>() {right};
+			}
+			return new HashSet<Controller>();
+		}
+		else if (operation.handedness == Handedness.left)
+		{
+			if (operatedLeft(operation))
+			{
+				return new HashSet<Controller>() {left};
+			}
+			return new HashSet<Controller>();
+		}
+		else if (operation.handedness == Handedness.right)
+		{
+			if (operatedRight(operation))
+			{
+				return new HashSet<Controller>() {right};
+			}
+			return new HashSet<Controller>();
+		}
+		else if (operation.handedness == Handedness.both)
+		{
+			if (operatedLeft(operation) && operatedRight(operation))
+			{
+				return new HashSet<Controller>() {left, right};
+			}
+			return new HashSet<Controller>();
+		}
+		else if ((operation.handedness == Handedness.either) || (operation.handedness == Handedness.infinite))
+		{
+			HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
+			if (operatedLeft(operation))
+			{
+				setOfOperatedControllers.Add(left);
+			}
+			if (operatedRight(operation))
+			{
+				setOfOperatedControllers.Add(right);
+			}
+			return setOfOperatedControllers;
+		}
+		else        // (default case)
+		{
+			return new HashSet<Controller>();
+		}
+	}
+	// method: determine the set of controllers for which the given operation is currently operated //
+	public static HashSet<Controller> operatedControllers(ControllerOperation operation)
+	{
+		if (!operation.dependenciesMet())
+		{
+			return new HashSet<Controller>();
+		}
+		return operatedControllersIgnoringDependencies(operation);
+	}
+	// method: determine the set of controllers for which any of the given operations are currently operated //
+	public static HashSet<Controller> operatedControllers(ControllerOperation.SetOfControllerOperations operations)
+	{
+		HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
+		foreach (ControllerOperation operation in operations.array)
+		{
+			HashSet<Controller> setOfOperatedControllersForOperation = operatedControllers(operation);
+			foreach (Controller operatedController in setOfOperatedControllersForOperation)
+			{
+				setOfOperatedControllers.Add(operatedController);
+			}
+		}
+		return setOfOperatedControllers;
 	}
 
 

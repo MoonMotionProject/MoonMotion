@@ -39,3 +39,10 @@
   · fixed an issue in 'Hand.cs' where hovering was possible with disabled colliders (it's no longer possible)
 
   · in 'ItemPackageSpawner.cs', the method 'TakeBackItem' was made public so that items can be put back to their pickup spot via code, not just by having the player do that manually
+
+  · in 'Throwable.cs':
+    - the required components were reordered such that the dependencies are automatically added in the inspector in as linearly an order of dependency as possible, to improve organization
+    - the setting booleans 'catchingEnabled' and 'swappingEnabled' were added, which are used as follows:
+      - catching now requires 'catchingEnabled' to be true
+      - attaching of the object to a hovering hand whose appropriate interaction button is becoming pressed now only allows swapping of that object out of the other hand (if it is even held by the other hand) when 'swappingEnabled' is true
+    - the setting boolean 'restoreOriginalParent' had its default changed from false to true, since it is more commonly appropriate to have dropped throwables return to their previous parent

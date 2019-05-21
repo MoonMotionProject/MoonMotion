@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23454757545337672}
   - component: {fileID: 65399172907620404}
   - component: {fileID: 54264176032571540}
-  - component: {fileID: 114133076923229400}
   - component: {fileID: 114110411172242268}
+  - component: {fileID: 114133076923229400}
   - component: {fileID: 114610269197929824}
   m_Layer: 15
   m_Name: Metal Block
@@ -129,6 +129,8 @@ MonoBehaviour:
   attachmentFlags: 12
   attachmentPoint: 
   catchSpeedThreshold: 0
+  catchingEnabled: 0
+  swappingEnabled: 1
   restoreOriginalParent: 1
   attachEaseIn: 0
   snapAttachEaseInCurve:

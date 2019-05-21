@@ -11,9 +11,9 @@ using System.Collections;
 namespace Valve.VR.InteractionSystem
 {
 	//-------------------------------------------------------------------------
-	[RequireComponent( typeof( Interactable ) )]
-	[RequireComponent( typeof( Rigidbody ) )]
-	[RequireComponent( typeof( VelocityEstimator ) )]
+	/* custom changes by Moon Motion */[RequireComponent(typeof(VelocityEstimator))]
+	[RequireComponent(typeof(Interactable))]
+	[RequireComponent(typeof(Rigidbody))]/**/
 	public class Throwable : MonoBehaviour
 	{
 		[EnumFlags]
@@ -24,10 +24,16 @@ namespace Valve.VR.InteractionSystem
 		public string attachmentPoint;
 
 		[Tooltip( "How fast must this object be moving to attach due to a trigger hold instead of a trigger press?" )]
-		public float catchSpeedThreshold = 0.0f;
+		public float catchSpeedThreshold = 0.0f;/* custom changes by Moon Motion */
+
+		[Tooltip("Whether to allow \"catching\" (attaching due to a trigger hold instead of a trigger press)")]
+		public bool catchingEnabled = false;/**//* custom changes by Moon Motion */
+
+		[Tooltip("Whether to allow \"swapping\" (attaching to another hand while already attached to one)")]
+		public bool swappingEnabled = true;/**/
 
 		[Tooltip( "When detaching the object, should it return to its original parent?" )]
-		public bool restoreOriginalParent = false;
+		public bool restoreOriginalParent = /* custom changes by Moon Motion */true/**/;
 
 		public bool attachEaseIn = false;
 		public AnimationCurve snapAttachEaseInCurve = AnimationCurve.EaseInOut( 0.0f, 0.0f, 1.0f, 1.0f );
@@ -70,7 +76,7 @@ namespace Valve.VR.InteractionSystem
 			// "Catch" the throwable by holding down the interaction button instead of pressing it.
 			// Only do this if the throwable is moving faster than the prescribed threshold speed,
 			// and if it isn't attached to another hand
-			if ( !attached )
+			if (/* custom changes by Moon Motion */catchingEnabled &&/**/ !attached )
 			{
 				if ( hand.GetStandardInteractionButton() )
 				{
@@ -101,7 +107,7 @@ namespace Valve.VR.InteractionSystem
 		private void HandHoverUpdate( Hand hand )
 		{
 			//Trigger got pressed
-			if ( hand.GetStandardInteractionButtonDown() )
+			if (/* custom changes by Moon Motion */(!attached || swappingEnabled) &&/**/ hand.GetStandardInteractionButtonDown() )
 			{
 				hand.AttachObject( gameObject, attachmentFlags, attachmentPoint );
 				ControllerButtonHints.HideButtonHint( hand, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger );

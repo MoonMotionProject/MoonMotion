@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23772888256441822}
   - component: {fileID: 135122861870509876}
   - component: {fileID: 54553669530052208}
-  - component: {fileID: 114600043221361024}
   - component: {fileID: 114695085840586412}
+  - component: {fileID: 114600043221361024}
   - component: {fileID: 114711898405614122}
   m_Layer: 15
   m_Name: Bouncy Ball
@@ -128,6 +128,8 @@ MonoBehaviour:
   attachmentFlags: 12
   attachmentPoint: 
   catchSpeedThreshold: 0
+  catchingEnabled: 0
+  swappingEnabled: 1
   restoreOriginalParent: 1
   attachEaseIn: 0
   snapAttachEaseInCurve:

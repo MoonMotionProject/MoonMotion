@@ -11,10 +11,7 @@ using UnityEngine;
 //   · a set dependencies combination
 // • represents a Controller Operation as a scriptable object, with the aforementioned settings
 // • provides a definition for a set of controller operations
-// • provides methods for determining:
-//   · whether this operation's dependencies are met
-//   · whether this operation is currently operated
-//   · the set of controllers for which this controller operation is currently operated
+// • provides methods for determining information about how this controller operation is currently operated
 [CreateAssetMenu(fileName = "ControllerOperation", menuName = "Moon Motion/Controller Operation")]
 public class ControllerOperation : ScriptableObject
 {
@@ -65,10 +62,20 @@ public class ControllerOperation : ScriptableObject
 	{
 		return Controller.operated(this);
 	}
+	// method: determine whether this operation is currently operated at the given state of being (first requires this operation to accept either the given state of being, or no state of beings) //
+	public bool operated(StatesOfBeing.Beingness beingness)
+	{
+		return Controller.operated(this, beingness);
+	}
 
 	// method: determine the set of controllers for which this operation is currently operated //
 	public HashSet<Controller> operatedControllers()
 	{
 		return Controller.operatedControllers(this);
+	}
+	// method: determine the set of controllers for which this operation is currently operated at the given state of being (first requires this operation to accept either the given state of being, or no state of beings) //
+	public HashSet<Controller> operatedControllers(StatesOfBeing.Beingness beingness)
+	{
+		return Controller.operatedControllers(this, beingness);
 	}
 }

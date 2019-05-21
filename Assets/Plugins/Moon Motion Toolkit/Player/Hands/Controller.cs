@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Valve.VR.InteractionSystem;
 
 // Controller
@@ -28,6 +29,7 @@ public class Controller : MonoBehaviour
 		one,
 		left,
 		right,
+		each,
 		both,
 		infinite
 	}
@@ -1195,30 +1197,109 @@ public class Controller : MonoBehaviour
 	// generic handling of inputs, inputtedness, and beingness //
 
 	
-	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, StatesOfBeing.Beingness beingness)
+	// method: determine whether this controller is being operated according to the given permuting of inputs and inputtednesses, the given state of being, and the given necessity for that state of being to be total (the case for each permutation in the permuting individually, versus the permuting as a whole) //
+	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, StatesOfBeing.Beingness beingness, bool totalBeingness)
 	{
 		if (beingness == StatesOfBeing.Beingness.becoming)
 		{
-			return inputInputting(inputs, inputtednesses);
+			if (totalBeingness)
+			{
+				return inputInputting(inputs, inputtednesses);
+			}
+			else
+			{
+				// when a permuting of a set of inputs and a set of inputtednesses becomes operated, it must be the case that no permutation in that permuting is unbecoming operated, and at least one permutation in that permuting is becoming operated, such that the remaining permutations are (either becoming operated or already) being operated //
+				bool atLeastOnePermutationIsBecoming = false;
+				foreach (Input input in inputs)
+				{
+					foreach (Inputtedness inputtedness in inputtednesses)
+					{
+						if (inputUninputting(input, inputtedness))
+						{
+							return false;
+						}
+						if (!inputInputted(input, inputtedness))
+						{
+							return false;
+						}
+						if (!atLeastOnePermutationIsBecoming && inputInputting(input, inputtedness))
+						{
+							atLeastOnePermutationIsBecoming = true;
+						}
+					}
+				}
+				return atLeastOnePermutationIsBecoming;
+			}
 		}
 		else if (beingness == StatesOfBeing.Beingness.being)
 		{
-			return inputInputted(inputs, inputtednesses);
+			if (totalBeingness)
+			{
+				return inputInputted(inputs, inputtednesses);
+			}
+			else
+			{
+				// when a permuting of a set of inputs and a set of inputtednesses is being operated, it must be the case that no permutation in that permuting is unbecoming operated, such that the remaining permutations are (either becoming operated or already) being operated //
+				foreach (Input input in inputs)
+				{
+					foreach (Inputtedness inputtedness in inputtednesses)
+					{
+						if (inputUninputting(input, inputtedness))
+						{
+							return false;
+						}
+						if (!inputInputted(input, inputtedness))
+						{
+							return false;
+						}
+					}
+				}
+				return true;
+			}
 		}
 		else if (beingness == StatesOfBeing.Beingness.unbecoming)
 		{
-			return inputUninputting(inputs, inputtednesses);
+			if (totalBeingness)
+			{
+				return inputUninputting(inputs, inputtednesses);
+			}
+			else
+			{
+				// when a permuting of a set of inputs and a set of inputtednesses unbecomes operated, it must be the case that no permutation in that permuting is becoming operated, and at least one permutation in that permuting is unbecoming operated, such that the remaining permutations are either being operated or unbecoming operated //
+				bool atLeastOnePermutationIsUnbecoming = false;
+				foreach (Input input in inputs)
+				{
+					foreach (Inputtedness inputtedness in inputtednesses)
+					{
+						if (inputInputting(input, inputtedness))
+						{
+							return false;
+						}
+						bool inputUninputting_ = inputUninputting(input, inputtedness);
+						if (!inputInputted(input, inputtedness) && !inputUninputting_)
+						{
+							return false;
+						}
+						else if (!atLeastOnePermutationIsUnbecoming && inputUninputting_)
+						{
+							atLeastOnePermutationIsUnbecoming = true;
+						}
+					}
+				}
+				return atLeastOnePermutationIsUnbecoming;
+			}
 		}
 		else        // (default case)
 		{
 			return false;
 		}
 	}
-	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, StatesOfBeing.Beingness[] beingnesses)
+	// method: determine whether this controller is being operated according to the given permuting of inputs and inputtednesses, the given states of being, and the given necessity for each state of being (to be operated in) in totality (where that state of being is the case for each permutation in the permuting individually, versus the permuting as a whole) //
+	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, StatesOfBeing.Beingness[] beingnesses, bool totalBeingness)
 	{
 		foreach (StatesOfBeing.Beingness beingness in beingnesses)
 		{
-			if (inputInputtednessBeingnessOperation(inputs, inputtednesses, beingness))
+			if (inputInputtednessBeingnessOperation(inputs, inputtednesses, beingness, totalBeingness))
 			{
 				return true;
 			}
@@ -1296,18 +1377,38 @@ public class Controller : MonoBehaviour
 
 
 
-	// method: determine whether the given operation (ignoring its handedness) is currently operated by the left-handed controller, ignoring the operation's dependencies //
+	// method: determine whether the given operation is currently operated by the left-handed controller at any of the given states of being, ignoring the operation's handedness, states of being, and dependencies //
+	private static bool operatedLeft(ControllerOperation operation, StatesOfBeing.Beingness[] beingnesses)
+	{
+		return left.inputInputtednessBeingnessOperation(operation.inputs, operation.inputtednesses, beingnesses, false);
+	}
+	// method: determine whether the given operation is currently operated by the left-handed controller at the given state of being, ignoring the operation's handedness, states of being, and dependencies //
+	private static bool operatedLeft(ControllerOperation operation, StatesOfBeing.Beingness beingness)
+	{
+		return operatedLeft(operation, new StatesOfBeing.Beingness[] {beingness});
+	}
+	// method: determine whether the given operation is currently operated by the left-handed controller, ignoring the operation's handedness and dependencies //
 	private static bool operatedLeft(ControllerOperation operation)
 	{
-		return left.inputInputtednessBeingnessOperation(operation.inputs, operation.inputtednesses, operation.beingnesses);
+		return operatedLeft(operation, operation.beingnesses);
 	}
-	// method: determine whether the given operation (ignoring its handedness) is currently operated by the right-handed controller, ignoring the operation's dependencies //
+	// method: determine whether the given operation is currently operated by the right-handed controller at any of the given states of being, ignoring the operation's handedness, states of being, and dependencies //
+	private static bool operatedRight(ControllerOperation operation, StatesOfBeing.Beingness[] beingnesses)
+	{
+		return right.inputInputtednessBeingnessOperation(operation.inputs, operation.inputtednesses, beingnesses, false);
+	}
+	// method: determine whether the given operation is currently operated by the right-handed controller at the given state of being, ignoring the operation's handedness, states of being, and dependencies //
+	private static bool operatedRight(ControllerOperation operation, StatesOfBeing.Beingness beingness)
+	{
+		return operatedRight(operation, new StatesOfBeing.Beingness[] {beingness});
+	}
+	// method: determine whether the given operation is currently operated by the right-handed controller, ignoring the operation's handedness and dependencies //
 	private static bool operatedRight(ControllerOperation operation)
 	{
-		return right.inputInputtednessBeingnessOperation(operation.inputs, operation.inputtednesses, operation.beingnesses);
+		return operatedRight(operation, operation.beingnesses);
 	}
-	// method: determine whether the given operation is currently operated, ignoring its dependencies //
-	private static bool operatedIgnoringDependencies(ControllerOperation operation)
+	// method: determine whether the given operation is currently operated at any of the given states of being, ignoring its states of being and dependencies //
+	private static bool operatedIgnoringDependencies(ControllerOperation operation, StatesOfBeing.Beingness[] beingnesses)
 	{
 		if (operation.handedness == Handedness.neither)
 		{
@@ -1315,23 +1416,86 @@ public class Controller : MonoBehaviour
 		}
 		else if (operation.handedness == Handedness.either)
 		{
-			return operatedLeft(operation) || operatedRight(operation);
+			return operatedLeft(operation, beingnesses) || operatedRight(operation, beingnesses);
 		}
 		else if (operation.handedness == Handedness.one)
 		{
-			return operatedLeft(operation) ^ operatedRight(operation);
+			return operatedLeft(operation, beingnesses) ^ operatedRight(operation, beingnesses);
 		}
 		else if (operation.handedness == Handedness.left)
 		{
-			return operatedLeft(operation);
+			return operatedLeft(operation, beingnesses);
 		}
 		else if (operation.handedness == Handedness.right)
 		{
-			return operatedRight(operation);
+			return operatedRight(operation, beingnesses);
+		}
+		else if (operation.handedness == Handedness.each)
+		{
+			return operatedLeft(operation, beingnesses) && operatedRight(operation, beingnesses);
 		}
 		else if (operation.handedness == Handedness.both)
 		{
-			return operatedLeft(operation) && operatedRight(operation);
+			foreach (StatesOfBeing.Beingness beingness in beingnesses)
+			{
+				if (beingness == StatesOfBeing.Beingness.becoming)
+				{
+					// when both controllers become operated, it must be the case that neither controller is unbecoming operated, and at least one controller is becoming operated, such that the other controller is (either becoming operated or already) being operated //
+					if (operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) || operatedRight(operation, StatesOfBeing.Beingness.unbecoming))
+					{
+						continue;
+					}
+					if (!(operatedLeft(operation, StatesOfBeing.Beingness.becoming) || operatedRight(operation, StatesOfBeing.Beingness.becoming)))
+					{
+						continue;
+					}
+					if (operatedLeft(operation, StatesOfBeing.Beingness.being) && operatedRight(operation, StatesOfBeing.Beingness.being))
+					{
+						return true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else if (beingness == StatesOfBeing.Beingness.being)
+				{
+					// when both controllers are being operated, it must be the case that neither controller is unbecoming operated, such that both controllers are (either becoming operated or already) being operated //
+					if (operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) || operatedRight(operation, StatesOfBeing.Beingness.unbecoming))
+					{
+						continue;
+					}
+					if (operatedLeft(operation, StatesOfBeing.Beingness.being) && operatedRight(operation, StatesOfBeing.Beingness.being))
+					{
+						return true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else if (beingness == StatesOfBeing.Beingness.unbecoming)
+				{
+					// when both controllers unbecome operated, it must be the case that neither controller is becoming operated, and at least one controller is unbecoming operated, such that the other controller is either being operated or unbecoming operated //
+					if (operatedLeft(operation, StatesOfBeing.Beingness.becoming) || operatedRight(operation, StatesOfBeing.Beingness.becoming))
+					{
+						continue;
+					}
+					if ((operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) && operatedRight(operation, StatesOfBeing.Beingness.unbecoming)) || (operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) && operatedRight(operation, StatesOfBeing.Beingness.being)) || (operatedLeft(operation, StatesOfBeing.Beingness.being) && operatedRight(operation, StatesOfBeing.Beingness.unbecoming)))
+					{
+						return true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else        // (default case)
+				{
+					continue;
+				}
+			}
+			return false;
 		}
 		else if (operation.handedness == Handedness.infinite)
 		{
@@ -1342,6 +1506,16 @@ public class Controller : MonoBehaviour
 			return false;
 		}
 	}
+	// method: determine whether the given operation is currently operated at the given state of being, ignoring its states of being and dependencies //
+	private static bool operatedIgnoringDependencies(ControllerOperation operation, StatesOfBeing.Beingness beingness)
+	{
+		return operatedIgnoringDependencies(operation, new StatesOfBeing.Beingness[] {beingness});
+	}
+	// method: determine whether the given operation is currently operated, ignoring its dependencies //
+	private static bool operatedIgnoringDependencies(ControllerOperation operation)
+	{
+		return operatedIgnoringDependencies(operation, operation.beingnesses);
+	}
 	// method: determine whether the given operation is currently operated //
 	public static bool operated(ControllerOperation operation)
 	{
@@ -1350,6 +1524,19 @@ public class Controller : MonoBehaviour
 			return false;
 		}
 		return operatedIgnoringDependencies(operation);
+	}
+	// method: determine whether the given operation is currently operated at the given state of being (first requires the operation to accept either the given state of being, or no state of beings) //
+	public static bool operated(ControllerOperation operation, StatesOfBeing.Beingness beingness)
+	{
+		if (!(operation.beingnesses.Contains(beingness) || (operation.beingnesses.Length == 0)))
+		{
+			return false;
+		}
+		if (!operation.dependenciesMet())
+		{
+			return false;
+		}
+		return operatedIgnoringDependencies(operation, beingness);
 	}
 	// method: determine whether any of the given operations are currently operated //
 	public static bool operated(ControllerOperation.SetOfControllerOperations operations)
@@ -1363,8 +1550,20 @@ public class Controller : MonoBehaviour
 		}
 		return false;
 	}
-	// method: determine the set of controllers for which the given operation is currently operated, ignoring its dependencies //
-	private static HashSet<Controller> operatedControllersIgnoringDependencies(ControllerOperation operation)
+	// method: determine whether any of the given operations are currently operated at the given state of being (first requiring such an operation to accept either the given state of being, or no state of beings) //
+	public static bool operated(ControllerOperation.SetOfControllerOperations operations, StatesOfBeing.Beingness beingness)
+	{
+		foreach (ControllerOperation operation in operations.array)
+		{
+			if (operated(operation, beingness))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	// method: determine the set of controllers for which the given operation is currently operated at any of the given states of being, ignoring its states of being and dependencies //
+	private static HashSet<Controller> operatedControllersIgnoringDependencies(ControllerOperation operation, StatesOfBeing.Beingness[] beingnesses)
 	{
 		if (operation.handedness == Handedness.neither)
 		{
@@ -1372,11 +1571,11 @@ public class Controller : MonoBehaviour
 		}
 		else if (operation.handedness == Handedness.one)
 		{
-			if (operatedLeft(operation) && !operatedRight(operation))
+			if (operatedLeft(operation, beingnesses) && !operatedRight(operation, beingnesses))
 			{
 				return new HashSet<Controller>() {left};
 			}
-			else if (!operatedLeft(operation) && operatedRight(operation))
+			else if (!operatedLeft(operation, beingnesses) && operatedRight(operation, beingnesses))
 			{
 				return new HashSet<Controller>() {right};
 			}
@@ -1384,7 +1583,7 @@ public class Controller : MonoBehaviour
 		}
 		else if (operation.handedness == Handedness.left)
 		{
-			if (operatedLeft(operation))
+			if (operatedLeft(operation, beingnesses))
 			{
 				return new HashSet<Controller>() {left};
 			}
@@ -1392,28 +1591,91 @@ public class Controller : MonoBehaviour
 		}
 		else if (operation.handedness == Handedness.right)
 		{
-			if (operatedRight(operation))
+			if (operatedRight(operation, beingnesses))
 			{
 				return new HashSet<Controller>() {right};
 			}
 			return new HashSet<Controller>();
 		}
-		else if (operation.handedness == Handedness.both)
+		else if (operation.handedness == Handedness.each)
 		{
-			if (operatedLeft(operation) && operatedRight(operation))
+			if (operatedLeft(operation, beingnesses) && operatedRight(operation, beingnesses))
 			{
 				return new HashSet<Controller>() {left, right};
+			}
+			return new HashSet<Controller>();
+		}
+		else if (operation.handedness == Handedness.both)
+		{
+			foreach (StatesOfBeing.Beingness beingness in beingnesses)
+			{
+				if (beingness == StatesOfBeing.Beingness.becoming)
+				{
+					// when both controllers become operated, it must be the case that neither controller is unbecoming operated, and at least one controller is becoming operated, such that the other controller is (either becoming operated or already) being operated //
+					if (operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) || operatedRight(operation, StatesOfBeing.Beingness.unbecoming))
+					{
+						continue;
+					}
+					if (!(operatedLeft(operation, StatesOfBeing.Beingness.becoming) || operatedRight(operation, StatesOfBeing.Beingness.becoming)))
+					{
+						continue;
+					}
+					if (operatedLeft(operation, StatesOfBeing.Beingness.being) && operatedRight(operation, StatesOfBeing.Beingness.being))
+					{
+						return new HashSet<Controller>() {left, right};
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else if (beingness == StatesOfBeing.Beingness.being)
+				{
+					// when both controllers are being operated, it must be the case that neither controller is unbecoming operated, such that both controllers are (either becoming operated or already) being operated //
+					if (operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) || operatedRight(operation, StatesOfBeing.Beingness.unbecoming))
+					{
+						continue;
+					}
+					if (operatedLeft(operation, StatesOfBeing.Beingness.being) && operatedRight(operation, StatesOfBeing.Beingness.being))
+					{
+						return new HashSet<Controller>() {left, right};
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else if (beingness == StatesOfBeing.Beingness.unbecoming)
+				{
+					// when both controllers unbecome operated, it must be the case that neither controller is becoming operated, and at least one controller is unbecoming operated, such that the other controller is either being operated or unbecoming operated //
+					if (operatedLeft(operation, StatesOfBeing.Beingness.becoming) || operatedRight(operation, StatesOfBeing.Beingness.becoming))
+					{
+						continue;
+					}
+					if ((operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) && operatedRight(operation, StatesOfBeing.Beingness.unbecoming)) || (operatedLeft(operation, StatesOfBeing.Beingness.unbecoming) && operatedRight(operation, StatesOfBeing.Beingness.being)) || (operatedLeft(operation, StatesOfBeing.Beingness.being) && operatedRight(operation, StatesOfBeing.Beingness.unbecoming)))
+					{
+						return new HashSet<Controller>() {left, right};
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else        // (default case)
+				{
+					continue;
+				}
 			}
 			return new HashSet<Controller>();
 		}
 		else if ((operation.handedness == Handedness.either) || (operation.handedness == Handedness.infinite))
 		{
 			HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
-			if (operatedLeft(operation))
+			if (operatedLeft(operation, beingnesses))
 			{
 				setOfOperatedControllers.Add(left);
 			}
-			if (operatedRight(operation))
+			if (operatedRight(operation, beingnesses))
 			{
 				setOfOperatedControllers.Add(right);
 			}
@@ -1424,6 +1686,16 @@ public class Controller : MonoBehaviour
 			return new HashSet<Controller>();
 		}
 	}
+	// method: determine the set of controllers for which the given operation is currently operated at the given state of being, ignoring its states of being and dependencies //
+	private static HashSet<Controller> operatedControllersIgnoringDependencies(ControllerOperation operation, StatesOfBeing.Beingness beingness)
+	{
+		return operatedControllersIgnoringDependencies(operation, new StatesOfBeing.Beingness[] {beingness});
+	}
+	// method: determine the set of controllers for which the given operation is currently operated, ignoring its dependencies //
+	private static HashSet<Controller> operatedControllersIgnoringDependencies(ControllerOperation operation)
+	{
+		return operatedControllersIgnoringDependencies(operation, operation.beingnesses);
+	}
 	// method: determine the set of controllers for which the given operation is currently operated //
 	public static HashSet<Controller> operatedControllers(ControllerOperation operation)
 	{
@@ -1433,6 +1705,19 @@ public class Controller : MonoBehaviour
 		}
 		return operatedControllersIgnoringDependencies(operation);
 	}
+	// method: determine the set of controllers for which the given operation is currently operated at the given state of being (first requires the operation to accept either the given state of being, or no state of beings) //
+	public static HashSet<Controller> operatedControllers(ControllerOperation operation, StatesOfBeing.Beingness beingness)
+	{
+		if (!(operation.beingnesses.Contains(beingness) || (operation.beingnesses.Length == 0)))
+		{
+			return new HashSet<Controller>();
+		}
+		if (!operation.dependenciesMet())
+		{
+			return new HashSet<Controller>();
+		}
+		return operatedControllersIgnoringDependencies(operation, beingness);
+	}
 	// method: determine the set of controllers for which any of the given operations are currently operated //
 	public static HashSet<Controller> operatedControllers(ControllerOperation.SetOfControllerOperations operations)
 	{
@@ -1440,6 +1725,20 @@ public class Controller : MonoBehaviour
 		foreach (ControllerOperation operation in operations.array)
 		{
 			HashSet<Controller> setOfOperatedControllersForOperation = operatedControllers(operation);
+			foreach (Controller operatedController in setOfOperatedControllersForOperation)
+			{
+				setOfOperatedControllers.Add(operatedController);
+			}
+		}
+		return setOfOperatedControllers;
+	}
+	// method: determine the set of controllers for which any of the given operations are currently operated at the given state of being (first requiring such an operation to accept either the given state of being, or no state of beings) //
+	public static HashSet<Controller> operatedControllers(ControllerOperation.SetOfControllerOperations operations, StatesOfBeing.Beingness beingness)
+	{
+		HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
+		foreach (ControllerOperation operation in operations.array)
+		{
+			HashSet<Controller> setOfOperatedControllersForOperation = operatedControllers(operation, beingness);
 			foreach (Controller operatedController in setOfOperatedControllersForOperation)
 			{
 				setOfOperatedControllers.Add(operatedController);

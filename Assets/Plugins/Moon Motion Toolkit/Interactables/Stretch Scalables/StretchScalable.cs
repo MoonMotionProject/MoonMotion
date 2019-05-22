@@ -15,8 +15,10 @@ namespace Valve.VR.InteractionSystem
 		// settings //
 		[Tooltip("the controller operation during which to consider this object stretched (if it is already held)")]
 		public ControllerOperation stretchingOperation;
-		[Tooltip("the minimum world scale for each axis (other than the hard minimum of zero for each axis) that this object can be stretched to by this component")]
-		public Vector3 minimumWorldScale;
+		[Tooltip("the min world scale for each axis (other than the hard minimum of zero for each axis) that this object can be stretched to by this component")]
+		public Vector3 worldScaleMin;
+		[Tooltip("the max world scale for each axis that this object can be stretched to by this component")]
+		public Vector3 worldScaleMax;
 
 		// trackings //
 		private Controller stretchingController;        // the last controller to be used for stretching
@@ -57,7 +59,7 @@ namespace Valve.VR.InteractionSystem
 				Vector3 targetWorldScale = previousWorldScale + addedWorldScale;
 
 				transform.parent = null;
-				transform.localScale = Vector3.Max(Vector3.zero, Vector3.Max(minimumWorldScale, targetWorldScale));
+				transform.localScale = Vector3.Max(Vector3.zero, Vector3.Max(worldScaleMin, Vector3.Min(worldScaleMax, targetWorldScale)));
 				transform.parent = hand.transform;
 			}
 		}

@@ -40,7 +40,10 @@ namespace Valve.VR.InteractionSystem
 															  AttachmentFlags.DetachFromOtherHand |
 															  AttachmentFlags.SnapOnAttach;
 
-		public Hand otherHand;
+		/* custom changes by Moon Motion */
+		public Controller.Input inputStandardInteraction = Controller.Input.grip;
+		
+		/**/public Hand otherHand;
 		public HandType startingHandType;
 
 		public Transform hoverSphereTransform;
@@ -808,7 +811,7 @@ namespace Valve.VR.InteractionSystem
 			}
 			else if ( controller != null )
 			{
-				return controller.GetHairTriggerDown();
+				return GetComponent<Controller>().inputPressing(inputStandardInteraction);
 			}
 
 			return false;
@@ -826,7 +829,7 @@ namespace Valve.VR.InteractionSystem
 			}
 			else if ( controller != null )
 			{
-				return controller.GetHairTriggerUp();
+				return GetComponent<Controller>().inputUnpressing(inputStandardInteraction);
 			}
 
 			return false;
@@ -844,7 +847,7 @@ namespace Valve.VR.InteractionSystem
 			}
 			else if ( controller != null )
 			{
-				return controller.GetHairTrigger();
+				return GetComponent<Controller>().inputPressed(inputStandardInteraction);
 			}
 
 			return false;

@@ -30,6 +30,8 @@
 
 • to hand interactivity:
 
+  · now supports custom input for "standard interaction button" (used by Throwable, etc.) via a new setting on the Hand component (using grip input by default instead of the previous hardcoded trigger input)
+
   · in 'HideOnHandFocusLost.cs', a boolean setting was added for controlling whether the script actually does anything; the 'BlankController' prefab (that is automatically spawned as a model for each hand) was set to have this off, so that by default, that model is not hidden when hand focus is lost such as when holding interactables
 
   · in 'ControllerHoverHighlight.cs', added the boolean setting 'highlightMaterialChange' by which material changing is controlled (this is defaulted to being off on Moon Motion's player prefab)

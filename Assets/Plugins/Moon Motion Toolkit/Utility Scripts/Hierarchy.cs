@@ -4,13 +4,13 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 // Hierarchy: provides methods for getting information about, getting connections through, and manipulating the transform hierarchy //
-public class Hierarchy : MonoBehaviour
+public static class Hierarchy
 {
 	public static void destroyAllChildrenObjectsOf(Transform parentTransform)
 	{
 		for (int i = parentTransform.childCount - 1; i >= 0; i--)
         {
-            Destroy(parentTransform.GetChild(i).gameObject);
+            Object.Destroy(parentTransform.GetChild(i).gameObject);
         }
 	}
 

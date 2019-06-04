@@ -150,10 +150,70 @@ public static class InterpolationCurved
 	{
 		return interpolationFloat(true, curve, min, max, ratio);
 	}
+	// method: interpolate a float array with clamping using the given curve and min & maxes & ratio values //
+	public static float[] floatClamped(Curve curve, float min, float[] maxes, float ratio)
+	{
+		float[] interpolations = new float[maxes.Length];
+		for (int index = 0; index < interpolations.Length; index++)
+		{
+			interpolations[index] = floatClamped(curve, min, maxes[index], ratio);
+		}
+		return interpolations;
+	}
+	// method: interpolate a float array with clamping using the given curve and mins & max & ratio values //
+	public static float[] floatClamped(Curve curve, float[] mins, float max, float ratio)
+	{
+		float[] interpolations = new float[mins.Length];
+		for (int index = 0; index < interpolations.Length; index++)
+		{
+			interpolations[index] = floatClamped(curve, mins[index], max, ratio);
+		}
+		return interpolations;
+	}
+	// method: interpolate a float array with clamping using the given curve and mins & maxes & ratio values //
+	public static float[] floatClamped(Curve curve, float[] mins, float[] maxes, float ratio)
+	{
+		float[] interpolations = new float[mins.Length];
+		for (int index = 0; index < interpolations.Length; index++)
+		{
+			interpolations[index] = floatClamped(curve, mins[index], maxes[(index < maxes.Length) ? index : (index % maxes.Length)], ratio);
+		}
+		return interpolations;
+	}
 	// method: interpolate a float without clamping using the given curve and min & max & ratio values //
 	public static float floatUnclamped(Curve curve, float min, float max, float ratio)
 	{
 		return interpolationFloat(false, curve, min, max, ratio);
+	}
+	// method: interpolate a float array without clamping using the given curve and min & maxes & ratio values //
+	public static float[] floatUnclamped(Curve curve, float min, float[] maxes, float ratio)
+	{
+		float[] interpolations = new float[maxes.Length];
+		for (int index = 0; index < interpolations.Length; index++)
+		{
+			interpolations[index] = floatUnclamped(curve, min, maxes[index], ratio);
+		}
+		return interpolations;
+	}
+	// method: interpolate a float array without clamping using the given curve and mins & max & ratio values //
+	public static float[] floatUnclamped(Curve curve, float[] mins, float max, float ratio)
+	{
+		float[] interpolations = new float[mins.Length];
+		for (int index = 0; index < interpolations.Length; index++)
+		{
+			interpolations[index] = floatUnclamped(curve, mins[index], max, ratio);
+		}
+		return interpolations;
+	}
+	// method: interpolate a float array without clamping using the given curve and mins & maxes & ratio values //
+	public static float[] floatUnclamped(Curve curve, float[] mins, float[] maxes, float ratio)
+	{
+		float[] interpolations = new float[mins.Length];
+		for (int index = 0; index < interpolations.Length; index++)
+		{
+			interpolations[index] = floatUnclamped(curve, mins[index], maxes[(index < maxes.Length) ? index : (index % maxes.Length)], ratio);
+		}
+		return interpolations;
 	}
 
 	// method: interpolate a vector with clamping using the given curve and min & max & ratio values //

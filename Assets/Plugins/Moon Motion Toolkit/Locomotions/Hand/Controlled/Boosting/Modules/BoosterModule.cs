@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ using UnityEngine;
 //   · a connection to the corresponding parent booster's transform
 //   · a connection to the booster
 //   · a tracking for the booster's handedness (whether the booster is for the left hand versus the right)
-//   · a dependencies combination setting to require such conditions for the module to be active
+//   · a dependencies setting to require such conditions for the module to be active
 public abstract class BoosterModule : MonoBehaviour
 {
 	// variables //
@@ -20,9 +21,10 @@ public abstract class BoosterModule : MonoBehaviour
 	protected bool leftInstance;		// tracking: the booster's handedness
 
 	// variables for: dependencies //
-	[Header("Dependencies")]
-	[Tooltip("the dependencies combination by which to determine whether this booster module may be enabled")]
-	public Dependencies.DependenciesCombination dependenciesCombination;		// setting: the dependencies combination by which to determine whether this booster module may be enabled
+	[BoxGroup("Dependencies")]
+	[Tooltip("the dependencies by which to determine whether this booster module may be enabled")]
+	[ReorderableList]
+	public Dependency[] dependencies;
 
 
 

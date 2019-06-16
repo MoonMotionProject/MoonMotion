@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,34 +14,37 @@ using UnityEngine;
 // • provides the Skiers with a setting for the skiing input style (whether skiing input must be held versus having skiing be toggled upon input)
 //   · methods are provided to toggle this setting
 //     - these optionally play the attached skiing settings toggling audio
-public class SkiingSettings : MonoBehaviour
+public class SkiingSettings : SingletonBehaviour<SkiingSettings>
 {
 	// variables //
 
 	
-	// variables for: instancing //
-	public static SkiingSettings singleton;		// connection - automatic: the singleton instance of this class
+	// settings for: enabling skiing at the start //
 
-	// variables for: skiing settings toggling audio //
-	private AudioSource togglingAudioSource;		// connection - automatic: the skiing settings toggling audio source
-	private AudioClip togglingAudio;        // connection - automatic: the skiing settings toggling audio
-
-	// variables for: enabling skiing at the start //
-	[Header("Enabling Skiing at the Start")]
+	[BoxGroup("Enabling Skiing at the Start")]
 	[Tooltip("whether to enable skiing at the start")]
-	public bool enableSkiingAtStart = false;		// setting: whether to enable skiing at the start
+	public bool enableSkiingAtStart = false;
+
 
 	// variables for: skiing friction //
-	[Header("Skiing Friction")]
-	[Tooltip("the (main, not alternate) friction for the player's body collider to use when skiing")]
-	public PhysicMaterial frictionSkiing;		// setting: the (main, not alternate) friction for the player's body collider to use when skiing
-	[Tooltip("whether to use the alternate skiing friction instead of the main one")]
-	public bool skiingFrictionAlternated = false;		// setting: whether to use the alternate skiing friction instead of the main one
-	[Tooltip("the alternate (not main) friction for the player's body collider to use when skiing (while the friction to use when skiing is alternated according to the toggle setting)")]
-	public PhysicMaterial frictionSkiingAlternate;		// setting: the alternate (not main) friction for the player's body collider to use when skiing (while the friction to use when skiing is alternated according to the toggle setting)
 
-	// setting: skiing input style (whether skiing input must be held versus having skiing be toggled upon input) //
-	[Header("Locomotion Input")]
+	[BoxGroup("Skiing Friction")]
+	[Tooltip("the (main, not alternate) friction for the player's body collider to use when skiing")]
+	public PhysicMaterial frictionSkiing;
+
+	[BoxGroup("Skiing Friction")]
+	[Tooltip("whether to use the alternate skiing friction instead of the main one")]
+	public bool skiingFrictionAlternated = false;
+
+	[BoxGroup("Skiing Friction")]
+	[Tooltip("the alternate (not main) friction for the player's body collider to use when skiing (while the friction to use when skiing is alternated according to the toggle setting)")]
+	public PhysicMaterial frictionSkiingAlternate;
+
+
+	// settings for: locomotion input //
+
+	[BoxGroup("Locomotion Input")]
+	[Tooltip("whether skiing input must be held versus having skiing be toggled upon input")]
 	public bool heldVersusToggled = true;
 
 
@@ -56,7 +60,7 @@ public class SkiingSettings : MonoBehaviour
 	{
 		if (playAudio)
 		{
-			togglingAudioSource.PlayOneShot(togglingAudio);
+			audioSource.PlayOneShot(audio);
 		}
 	}
 	
@@ -128,17 +132,6 @@ public class SkiingSettings : MonoBehaviour
 	// updating //
 
 	
-	// before the start: //
-	private void Awake()
-	{
-		// connect to the singleton instance of this class //
-		singleton = this;
-
-		// connect to the skiing skiing settings toggling audio source and audio //
-		togglingAudioSource = GetComponent<AudioSource>();
-		togglingAudio = togglingAudioSource.clip;
-	}
-
 	// at the start: //
 	private void Start()
 	{

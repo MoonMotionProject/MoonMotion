@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 // Launching Drifting Tracker
 // • tracks launching drifting – whether the player's current speed is currently a result, at least in part, of launching
@@ -12,16 +13,15 @@ using UnityEngine;
 //   · the player is currently launching drifting
 //   · the player was last launching drifting within a given time ago
 // • provides tracking for the time the player was last launching drifting
-public class LaunchingDriftingTracker : PlayerDependencyTracker
+public class LaunchingDriftingTracker : PlayerDependencyTracker<LaunchingDriftingTracker>
 {
 	// variables //
 
 	
-	// variables for: instancing //
-	private static LaunchingDriftingTracker singleton;		// connection - automatic: the singleton instance of this class
-
-	// variables for: tracking whether the player was last launching drifting within a given time ago //
-	public static float timePlayerWasLastLaunchingDrifting = -Mathf.Infinity;		// tracking: the time the player was last launching drifting – initialized to negative infinity as a flag that the player has never been launching drifting
+	// tracking //
+	[Tooltip("the time the player was last launching drifting – initialized to negative infinity as a flag that the player has never been launching drifting")]
+	[ShowNonSerializedField]
+	public static float timePlayerWasLastLaunchingDrifting = -Mathf.Infinity;
 
 
 
@@ -31,28 +31,17 @@ public class LaunchingDriftingTracker : PlayerDependencyTracker
 
 	// method: determine whether the player is currently launching drifting //
 	public static bool launchingDrifting()
-	{
-		return singleton.requisiteState;
-	}
+		=> singleton.requisiteState;
 
 	// method: determine whether the player was last launching drifting within the given time ago //
 	public static bool playerLastLaunchingDriftingWithin(float timeAgo)
-	{
-		return ((Time.time - timePlayerWasLastLaunchingDrifting) <= timeAgo);
-	}
+		=> timeSince(timePlayerWasLastLaunchingDrifting) <= timeAgo;
 
 
 
 
 	// updating //
 
-	
-	// before the start: //
-	private void Awake()
-	{
-		// connect to the singleton instance of this class //
-		singleton = this;
-	}
 
 	// at each update: //
 	protected override void Update()
@@ -63,7 +52,7 @@ public class LaunchingDriftingTracker : PlayerDependencyTracker
 		if (launchingDrifting())
 		{
 			// track the current time as the last time that the player was launching drifting //
-			timePlayerWasLastLaunchingDrifting = Time.time;
+			timePlayerWasLastLaunchingDrifting = time;
 		}
 	}
 }

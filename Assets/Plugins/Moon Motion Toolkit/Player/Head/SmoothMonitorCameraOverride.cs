@@ -1,17 +1,34 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Smooth Monitor Camera Override: has this smooth monitor camera override smoothly follow the player's head transform //
-public class SmoothMonitorCameraOverride : MonoBehaviour
+[CacheTransform]
+public class SmoothMonitorCameraOverride : SingletonBehaviour<SmoothMonitorCameraOverride>
 {
 	// variables //
 
 	
-	public Transform headTransform;		// connection - manual: the head transform of the player for this smooth monitor camera override to follow
-    public float positionSmoothingDuration = .3f;		// setting: the duration by which to finish smoothing position after movement of the head transform has stopped
-	public float rotationSmoothingSpeed = 5f;		// setting: the speed by which to smooth rotation
-    private Vector3 positionVelocity = Vector3.zero;		// tracking: the position velocity referenced by the 'SmoothDamp' call used for position smoothing
+	// manual connections //
+
+	[BoxGroup("Head Connection")]
+	[Tooltip("the head transform of the player for this smooth monitor camera override to follow")]
+	public Transform headTransform;
+
+
+	// settings for: smoothing //
+
+	[BoxGroup("Smoothing")]
+	[Tooltip("the duration by which to finish smoothing position after movement of the head transform has stopped")]
+    public float positionSmoothingDuration = .3f;
+
+	[BoxGroup("Smoothing")]
+	[Tooltip("the speed by which to smooth rotation")]
+	public float rotationSmoothingSpeed = 5f;
+
+	[Tooltip("the position velocity referenced by the 'SmoothDamp' call used for position smoothing")]
+    private Vector3 positionVelocity = Vectors.zeroesVector;
 
 
 

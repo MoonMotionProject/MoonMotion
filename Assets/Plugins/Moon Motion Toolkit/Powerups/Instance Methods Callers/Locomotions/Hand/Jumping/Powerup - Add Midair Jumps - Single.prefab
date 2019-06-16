@@ -106,10 +106,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4640376124870714}
-  - component: {fileID: 114784526813763950}
-  - component: {fileID: 114168146640943840}
   - component: {fileID: 114205610069503620}
   - component: {fileID: 114568191706527582}
+  - component: {fileID: 114784526813763950}
+  - component: {fileID: 114351887059899162}
   m_Layer: 10
   m_Name: Powerup - Add Midair Jumps - Single
   m_TagString: Untagged
@@ -642,20 +642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114168146640943840
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461349905283054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
 --- !u!114 &114205610069503620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -680,6 +666,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114351887059899162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1461349905283054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114568191706527582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,6 +743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
 --- !u!114 &114784526813763950
 MonoBehaviour:
   m_ObjectHideFlags: 1

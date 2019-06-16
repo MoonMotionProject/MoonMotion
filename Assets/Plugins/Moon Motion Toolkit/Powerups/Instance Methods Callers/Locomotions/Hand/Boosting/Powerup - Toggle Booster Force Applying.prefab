@@ -137,10 +137,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4418819433511552}
-  - component: {fileID: 114947278287558280}
-  - component: {fileID: 114976548810603720}
   - component: {fileID: 114096834018517884}
   - component: {fileID: 114101712787760436}
+  - component: {fileID: 114947278287558280}
+  - component: {fileID: 114314687521592218}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Force Applying
   m_TagString: Untagged
@@ -707,6 +707,20 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114314687521592218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947059347567486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114603661398915176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -718,6 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
 --- !u!114 &114675121942802976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -756,17 +771,3 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
---- !u!114 &114976548810603720
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947059347567486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30

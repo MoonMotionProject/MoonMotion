@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4563795928140728}
-  - component: {fileID: 114952151993359362}
-  - component: {fileID: 114677910760364954}
   - component: {fileID: 114756910173776160}
   - component: {fileID: 114305233510246118}
+  - component: {fileID: 114952151993359362}
+  - component: {fileID: 114989766902210238}
   m_Layer: 10
   m_Name: Powerup - Toggle Treading Input Style
   m_TagString: Untagged
@@ -716,6 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
 --- !u!114 &114407733774495448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -727,20 +728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114677910760364954
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1231662441838024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
 --- !u!114 &114756910173776160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -770,3 +757,17 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
+--- !u!114 &114989766902210238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231662441838024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10

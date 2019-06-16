@@ -38,6 +38,20 @@ sysinfo.txt
 *.dwlt
 /[Pp]ublication/
 
+# Custom Changes by Hunter - for plugins not distributed with the toolkit
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories.meta
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/EZ Rename
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/EZ Rename.meta
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Explorer Revealer
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Explorer Revealer.meta
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Favority
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Favority.meta
+/[Uu]ser[Ss]ettings/[Ff]avority.asset
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Console Enhanced Free
+/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Console Enhanced Free.meta
+
+
 # Raymarching Toolkit for Unity
 _*.generated.shader
 _*.generated.shader.meta

@@ -3,27 +3,74 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-// Hands: provides connections to the left and right hands of the player //
-public class Hands : MonoBehaviour
+// Hands:
+// • provides connections to the left and right hands of the player
+// • provides extension methods for handling hands
+public static class Hands
 {
 	// variables //
 
 	
-	public static Hand left, right;		// connections - automatic: the left and right hand instances of the player
+	// automatic connections //
+	private static Hand left_, right_;     // the left and right hand instances
 
 
 
 
-	// updating //
+	// properties //
 
-	
-	// at the start: //
-	private void Start()
+
+	// property: the left hand instance //
+	public static Hand left
 	{
-		// connect to the left hand //
-		left = Controller.left.hand;
+		get {return left_ ?? (left_ = Controller.left.hand);}
+	}
+	// property: the right hand instance //
+	public static Hand right
+	{
+		get {return right_ ?? (right_ = Controller.right.hand);}
+	}
 
-		// connect to the right hand //
-		right = Controller.right.hand;
+
+
+
+	// methods //
+
+
+	// methods for: determining the hand (null if none) by which this given thing is held //
+
+	public static Hand handHolding(this Transform transform)
+	{
+		Transform transformAtCurrentLevel = transform;
+		while (transformAtCurrentLevel.parent)
+		{
+			Transform parentTransform = transformAtCurrentLevel.parent;
+			if (parentTransform.GetComponent<Hand>())
+			{
+				return parentTransform.GetComponent<Hand>();
+			}
+			transformAtCurrentLevel = parentTransform;
+		}
+		return null;
+	}
+	public static Hand handHolding(this GameObject gameObject)
+	{
+		return gameObject.transform.handHolding();
+	}
+	public static Hand handHolding(this Collider collider)
+	{
+		return collider.transform.handHolding();
+	}
+	public static Hand handHolding(this Collision collision)
+	{
+		return collision.transform.handHolding();
+	}
+	public static Hand handHolding(this Rigidbody rigidbody)
+	{
+		return rigidbody.transform.handHolding();
+	}
+	public static Hand handHolding(this Component component)
+	{
+		return component.transform.handHolding();
 	}
 }

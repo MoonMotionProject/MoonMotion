@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 // Skier
 // • classifies this hand locomotion as the "skiing" locomotion
@@ -93,7 +94,7 @@ public class Skier : HandLocomotionControlled
 		if (!leftInstance)
 		{
 			// have just the right hand set the following static variables since they need be set only once //
-			targetBodyCollider = Hierarchy.selfOrAnyLevelParentWithPlayer(transform).GetComponentInChildren<CapsuleCollider>();
+			targetBodyCollider = Player.instance.GetComponentInChildren<CapsuleCollider>();
 			skiingSettings = targetBodyCollider.GetComponent<SkiingSettings>();
 			frictionNonskiing = targetBodyCollider.material;
 		}

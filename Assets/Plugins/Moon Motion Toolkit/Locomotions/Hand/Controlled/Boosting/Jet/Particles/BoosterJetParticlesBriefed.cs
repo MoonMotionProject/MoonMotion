@@ -40,7 +40,7 @@ public class BoosterJetParticlesBriefed : BoosterJetParticles
 		// reduce the remainder by the duration of this update, but not to put it below 0 //
 		remainder = Mathf.Max(remainder - Time.deltaTime, 0f);
 		// if the emitter is not already emitting and this is an enabled aesthetic and the dependencies are met: //
-		if (!emitter.isEmitting && (aestheticEnabled && Dependencies.metFor(dependencies)))
+		if (!emitter.isEmitting && (aestheticEnabled && dependencies.met()))
 		{
 			// if the booster is boosting as necessary and the controller is beginning the corresponding input: //
 			bool deepConditionsCase = (requiresDeepBoosting && booster.boostingDeeply && controller.inputDeeping(booster.inputsLocomotion));
@@ -52,7 +52,7 @@ public class BoosterJetParticlesBriefed : BoosterJetParticles
 			}
 		}
 		// if this is not an enabled aesthetic for which the dependencies met, or there is no longer any remaining time to play the particles: stop them //
-		if (!(aestheticEnabled && Dependencies.metFor(dependencies)) || (remainder == 0f))
+		if (!(aestheticEnabled && dependencies.met()) || (remainder == 0f))
 		{
 			emitter.Stop();
 		}

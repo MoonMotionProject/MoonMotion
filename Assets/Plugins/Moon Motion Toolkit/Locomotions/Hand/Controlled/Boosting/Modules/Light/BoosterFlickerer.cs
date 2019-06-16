@@ -31,7 +31,7 @@ public class BoosterFlickerer : BoosterLight
 		foreach (Light light in lights)
 		{
 			// setting lighting intensity - for when the dependencies are met //
-			if (Dependencies.metFor(dependenciesCombination))
+			if (dependencies.met())
 			{
 				light.intensity = Mathf.Min(light.intensity + Random.Range(incrementMin, incrementMax), intensityMax - Random.Range(incrementMin, incrementMax));
 			}

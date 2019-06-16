@@ -60,7 +60,7 @@ public class Launcher : Locomotion
 	// upon trigger entry: //
 	private void OnTriggerEnter(Collider collider)
 	{
-		Rigidbody collidedRigidbody = Hierarchy.selfOrAnyLevelParentWithRigidbody(collider).GetComponent<Rigidbody>();
+		Rigidbody collidedRigidbody = collider.selfOrParentTransformWith<Rigidbody>().GetComponent<Rigidbody>();
 		
 		if (collidedRigidbody)
 		{
@@ -76,10 +76,10 @@ public class Launcher : Locomotion
 			
 			if (layerRecognized)
 			{
-				collidedRigidbody.velocity = Vector3.zero;
-				collidedRigidbody.angularVelocity = Vector3.zero;
+				collidedRigidbody.velocity = Vectors.zeroesVector;
+				collidedRigidbody.angularVelocity = Vectors.zeroesVector;
 
-				Vector3 forceDirection = Rotation.vectorFor(Rotation.Direction.up, transform);
+				Vector3 forceDirection = Direction.up.asVectorRelativeTo(transform);
 				Vector3 newVelocity = (launchingForce * forceDirection);
 				collidedRigidbody.velocity = newVelocity;
 

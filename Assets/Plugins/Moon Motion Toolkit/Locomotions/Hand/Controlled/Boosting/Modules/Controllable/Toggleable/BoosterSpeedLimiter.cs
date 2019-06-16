@@ -47,7 +47,7 @@ public class BoosterSpeedLimiter : BoosterModuleControllableToggleable
 	// method: determine whether this booster's speed is currently limited //
 	public bool boosterSpeedLimited()
 	{
-		return (limitSpeed && Dependencies.metFor(dependenciesCombination));
+		return (limitSpeed && dependencies.met());
 	}
 	// method: determine whether the given booster is currently speed limited //
 	public static bool speedLimited(Booster booster)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,20 +36,22 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// variables for: diminishing //
 	[Header("Diminishing (by terrain distancing)")]
 	[Tooltip("whether to diminish (reduce the booster force applied when more distant from terrain, as recognized by Terrain Response)")]
-	public bool diminishing = true;		  // setting: whether to diminish (has precedence over the axis toggles below)
+	public bool diminishing = true;
 	[Tooltip("whether the raycasting should recognize versus pass through trigger colliders")]
-	public static bool hitTriggerColliders = false;		// setting: whether the raycasting should recognize versus pass through trigger colliders
+	public static bool hitTriggerColliders = false;
 	[Tooltip("the recognized terrain type (defined by Terrain Response) to diminish boosting from (such that any other terrain types will not be treated as recognized terrain, resulting in inability to boost off of those types) – by default, ground only, because diminishing is an effect of gravity seems more implicit to ground surfaces; however, for purposes where diminishing isn't inspired by gravity, nonground terrain (such as walls in some zero gravity tunnel) may very well be suitable for diminishing")]
-	public TerrainResponse.RecognizedTerrainType recognizedTerrainType = TerrainResponse.RecognizedTerrainType.groundOnly;		// setting: the recognized terrain type (defined by Terrain Response) to diminish boosting from (such that any other terrain types will not be treated as recognized terrain, resulting in inability to boost off of those types) – by default, ground only, because diminishing is an effect of gravity seems more implicit to ground surfaces; however, for purposes where diminishing isn't inspired by gravity, nonground terrain (such as walls in some zero gravity tunnel) may very well be suitable for diminishing
+	public TerrainResponse.RecognizedTerrainType recognizedTerrainType = TerrainResponse.RecognizedTerrainType.groundOnly;
 	[Tooltip("dependencies for whether this diminisher diminishes on the respective coordinate axis in particular")]
-	public Dependencies.DependenciesCombination dependenciesX, dependenciesY, dependenciesZ;		// setting: dependencies for whether this diminisher diminishes on the respective coordinate axis in particular
+	[ReorderableList]
+	public Dependency[] dependenciesX, dependenciesY, dependenciesZ;
 	[Tooltip("the max distance to diminish to (such that at max distance, the booster force is totally diminished)")]
-	public float diminishingDistanceMax = 10f;		// setting: the max distance to diminish to (such that at max distance, the booster force is totally diminished)
+	public float diminishingDistanceMax = 10f;
 	[Tooltip("the curve used for diminishing interpolation")]
-	public InterpolationCurved.Curve diminishingCurve = InterpolationCurved.Curve.smoother;		// setting: the curve used for diminishing interpolation
+	public InterpolationCurve diminishingCurve = InterpolationCurve.smoother;
 	[Tooltip("whether to always prevent boosting inside obstructions (when the hand is inside a nontrigger collider that isn't a recognized terrain layer for diminishing); the alternative is to only prevent boosting inside obstructions according to whether to diminish any applicable axes")]
-	public bool alwaysPreventBoostingInsideObstructions = true;		// setting: whether to always prevent boosting inside obstructions (when the hand is inside a nontrigger collider that isn't a recognized terrain layer for diminishing); the alternative is to only prevent boosting inside obstructions according to whether to diminish any applicable axes //
-	private bool terrainDistancingLastFoundObstruction = false;		// tracking: whether an (unrecognized) obstruction was found the last time distance to recognized terrain was calculated //
+	public bool alwaysPreventBoostingInsideObstructions = true;
+	[Tooltip("whether an (unrecognized) obstruction was found the last time distance to recognized terrain was calculated")]
+	private bool terrainDistancingLastFoundObstruction = false;
 
 
 
@@ -149,7 +152,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// method: determine whether this booster is currently diminished //
 	public bool diminishedBooster()
 	{
-		return (diminishing && Dependencies.metFor(dependenciesCombination));
+		return (diminishing && dependencies.met());
 	}
 	// method: determine whether the given booster is currently diminished //
 	public static bool diminished(Booster booster)
@@ -172,7 +175,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	}
 	
 	// method: determine the diminishing interpolation curve for the given booster //
-	private static InterpolationCurved.Curve curve(Booster booster)
+	private static InterpolationCurve curve(Booster booster)
 	{
 		if (booster.leftInstance)
 		{
@@ -222,8 +225,8 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 			
 			// if there is a recognized terrain below, calculate distance based on that //
 
-			RaycastHit[] raycastHitsFound = Physics.RaycastAll(relativityTransform.position, -Rotation.vectorFor(BoosterForceApplier.direction(booster), relativityTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the booster in the direction of the booster's force
-			if (raycastHitsFound.Length > 0)		// if at least one raycast hit was found
+			RaycastHit[] raycastHitsFound = Physics.RaycastAll(relativityTransform.position, -BoosterForceApplier.direction(booster).asVectorRelativeTo(relativityTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the booster in the direction of the booster's force
+			if (raycastHitsFound.any())		// if at least one raycast hit was found
 			{
 				// determine the nearest raycast hit found's: hit distance, hit //
 				float nearestRaycastHitDistance = Mathf.Infinity;		// initialize the nearest raycast hit's distance
@@ -315,16 +318,16 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 			bool atDistanceToTerrain = (potentialDistanceToTerrain >= 0f);
 
 			// calculate the diminishing factor //
-			diminishingFactorForDiminishedAxes = (atDistanceToTerrain ? InterpolationCurved.floatClamped(curve(booster), 1f, 0f, (potentialDistanceToTerrain / maxDiminishingDistance)) : 0f);
+			diminishingFactorForDiminishedAxes = (atDistanceToTerrain ? curve(booster).clamped(1f, 0f, (potentialDistanceToTerrain / maxDiminishingDistance)) : 0f);
 		}
 		
 		// determine whether obstructed boosting must currently be prevented //
 		bool mustPreventCurrentlyObstructedBoosting = (diminisher.alwaysPreventBoostingInsideObstructions && diminisher.terrainDistancingLastFoundObstruction);
 
 		// determine the diminishing factor for each axis, where each axis is actually diminished only if it is set to be or if obstructed boosting must currently be prevented //
-		float diminishingFactorX = (mustPreventCurrentlyObstructedBoosting || Dependencies.metFor(diminisher.dependenciesX)) ? diminishingFactorForDiminishedAxes : 1f;
-		float diminishingFactorY = (mustPreventCurrentlyObstructedBoosting || Dependencies.metFor(diminisher.dependenciesY)) ? diminishingFactorForDiminishedAxes : 1f;
-		float diminishingFactorZ = (mustPreventCurrentlyObstructedBoosting || Dependencies.metFor(diminisher.dependenciesZ)) ? diminishingFactorForDiminishedAxes : 1f;
+		float diminishingFactorX = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesX.met()) ? diminishingFactorForDiminishedAxes : 1f;
+		float diminishingFactorY = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesY.met()) ? diminishingFactorForDiminishedAxes : 1f;
+		float diminishingFactorZ = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesZ.met()) ? diminishingFactorForDiminishedAxes : 1f;
 
 		// return the diminishing factors for all coordinate axes //
 		return new Vector3(diminishingFactorX, diminishingFactorY, diminishingFactorZ);

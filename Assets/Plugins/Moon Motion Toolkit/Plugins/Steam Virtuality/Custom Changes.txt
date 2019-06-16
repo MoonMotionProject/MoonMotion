@@ -12,7 +12,13 @@
   · 'ShowTeleportHint()' in 'Teleport.cs': added a condition to prevent a nonproblematic error from occurring and resulting in an annoying message being displayed
 
 
-• because the following were being repetitive/annoying logging to the console, respectively:
+• because the following were being repetitive/annoying logging to the console without being helpful, respectively:
+
+  · "Calibrated Play Area bounds" warning in 'SteamVR_PlayArea.cs'
+
+  · "ChaperoneInfo initialized" in 'ChaperoneInfo.cs' was commented out
+
+  · "Connected to" debug logging in 'SteamVR.cs' was commented out
 
   · line 16 of 'SteamVR_Stats.cs' was commented out
 

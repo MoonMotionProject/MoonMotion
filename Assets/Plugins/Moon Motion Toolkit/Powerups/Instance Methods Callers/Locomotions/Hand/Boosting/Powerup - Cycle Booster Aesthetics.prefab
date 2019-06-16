@@ -119,10 +119,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4902040175311256}
-  - component: {fileID: 114271127255817254}
-  - component: {fileID: 114326588047087248}
   - component: {fileID: 114691057371750848}
   - component: {fileID: 114497845583273296}
+  - component: {fileID: 114271127255817254}
+  - component: {fileID: 114219912521698702}
   m_Layer: 10
   m_Name: Powerup - Cycle Booster Aesthetics
   m_TagString: Untagged
@@ -664,6 +664,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
+--- !u!114 &114219912521698702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848408891111130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114271127255817254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -680,20 +695,6 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
---- !u!114 &114326588047087248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1848408891111130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
 --- !u!114 &114497845583273296
 MonoBehaviour:
   m_ObjectHideFlags: 1

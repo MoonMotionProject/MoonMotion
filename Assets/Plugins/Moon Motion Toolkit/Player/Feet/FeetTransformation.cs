@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,13 @@ using UnityEngine;
 public class FeetTransformation : MonoBehaviour
 {
 	// connections to the transforms for the headset and the floor //
-    public Transform headsetTransform, floorTransform;
+
+	[BoxGroup("Transform Connections")]
+	public Transform headsetTransform;
+
+	[BoxGroup("Transform Connections")]
+	public Transform floorTransform;
+
 
     // local rotation locking //
     private Quaternion originalLocalRotation;

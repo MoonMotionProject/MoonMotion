@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 // Gravity Zone Sphere
 // • classifies this gravity zone as a sphere-shaped gravity zone
@@ -22,7 +23,7 @@ public class GravityZoneSphere : GravityZone
 	[Tooltip("the attractive force amount to apply, curved by the set attraction curve from the center of this spherical gravity zone to its edge")]
 	public float attractiveForce = 0f;		// setting: the attractive force amount to apply, curved by the set attraction curve from the center of this spherical gravity zone to its edge
 	[Tooltip("the attraction curve by which to curve the attractive force amount to apply, from the center of this spherical gravity zone to its edge")]
-	public InterpolationCurved.Curve attractionCurve = InterpolationCurved.Curve.quadratic;		// setting: the attraction curve by which to curve the attractive force amount to apply, from the center of this spherical gravity zone to its edge
+	public InterpolationCurve attractionCurve = InterpolationCurve.quadratic;		// setting: the attraction curve by which to curve the attractive force amount to apply, from the center of this spherical gravity zone to its edge
 	
 	
 	// variables for: gravitizing particles //
@@ -40,7 +41,7 @@ public class GravityZoneSphere : GravityZone
 	/* assumes the sphere is scaled evenly between all axes */
 	private float radiusLength()
 	{
-		float averageScale = Averaging.average(transform.lossyScale);
+		float averageScale = transform.lossyScale.average();
 		return (averageScale * sphereCollider.radius);
 	}
 	// method: determine the curved attractive force to apply for the given object position //
@@ -53,7 +54,7 @@ public class GravityZoneSphere : GravityZone
 
 		// return a calculation of the curved attractive force to apply //
 		float distanceRatio = (Vector3.Distance(objectPosition, transform.position) / radiusLength());
-		return InterpolationCurved.vectorClamped(attractionCurve, attractiveForceInGravityZoneDirection, Vector3.zero, distanceRatio);
+		return attractionCurve.clamped(attractiveForceInGravityZoneDirection, Vectors.zeroesVector, distanceRatio);
 	}
 	
 	
@@ -70,11 +71,11 @@ public class GravityZoneSphere : GravityZone
 			// gravitize each of the tracked rigidbodies to gravitize by the calculation of the attractive force according to its position – and for the player, multiply the force to apply by the player's current gravity modifier as determined by any active Gravity Multipliers //
 			foreach (Rigidbody rigidbodyToGravitize in rigidbodiesToGravitize)
 			{
-				if (!Hierarchy.handHolding(rigidbodyToGravitize))		// so long as the rigidbody to gravitize is not currently held by a hand of the player
+				if (!rigidbodyToGravitize.handHolding())		// so long as the rigidbody to gravitize is not currently held by a hand of the player
 				{
 					// determine the curved attractive force to apply //
 					Vector3 forceToApply = curvedAttractiveForceForPosition(rigidbodyToGravitize.position);
-					if (Hierarchy.selfOrAnyLevelParentWithPlayer(rigidbodyToGravitize))
+					if (rigidbodyToGravitize.GetComponentInParent<Player>())
 					{
 						forceToApply *= GravityMultiplier.currentGravityModifier();
 					}

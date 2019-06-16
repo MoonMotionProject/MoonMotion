@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 // Gravity Zone: applies gravity-like force upon rigidbodies and particles in this zone
 // • classifies this locomotion as the "gravity zone" locomotion; classifies this object as a "gravity zone"
@@ -66,9 +67,9 @@ public abstract class GravityZone : Locomotion
 	public bool playLiftoffAudioUponPlayerEntry = true;		// setting: whether to have Terrain Response play its liftoff audio as gravity zone entry audio upon player entry into this gravity zone
 	[Tooltip("whether the audio for entry into this Gravity Zone should only play if this Gravity Zone is currently gravitizing")]
 	public bool audioRequiresGravitizing = true;		// setting: whether the audio for entry into this Gravity Zone should only play if this Gravity Zone is currently gravitizing
-	private Toggles.Toggling playerEntryZonageToggling = Toggles.Toggling.toggleOn;		// setting: the toggling by which to toggle player zonage upon entry
-	private Toggles.Toggling playerStayingZonageToggling = Toggles.Toggling.toggleOn;		// setting: the toggling by which to toggle player zonage upon staying
-	private Toggles.Toggling playerExitZonageToggling = Toggles.Toggling.noToggling;		// setting: the toggling by which to toggle player zonage upon exit
+	private Toggling playerEntryZonageToggling = Toggling.toggleOn;		// setting: the toggling by which to toggle player zonage upon entry
+	private Toggling playerStayingZonageToggling = Toggling.toggleOn;		// setting: the toggling by which to toggle player zonage upon staying
+	private Toggling playerExitZonageToggling = Toggling.noToggling;		// setting: the toggling by which to toggle player zonage upon exit
 	public static HashSet<Collider> playerCollidingGravityZoneColliders = new HashSet<Collider>();		// tracking: Gravity Zone colliders that are currently colliding with the player
 	private static bool playerWithinZonage = false;		// tracking: whether the player is currently within gravity zonage
 
@@ -165,10 +166,10 @@ public abstract class GravityZone : Locomotion
 		// gravitize each of the tracked rigidbodies to gravitize by the force vector setting – and for the player, multiply the force to apply by the player's current gravity modifier as determined by any active Gravity Multipliers //
 		foreach (Rigidbody rigidbodyToGravitize in rigidbodiesToGravitize)
 		{
-			if (!Hierarchy.handHolding(rigidbodyToGravitize))       // so long as the rigidbody to gravitize is not currently held by a hand of the player
+			if (!rigidbodyToGravitize.handHolding())       // so long as the rigidbody to gravitize is not currently held by a hand of the player
 			{
 				Vector3 forceToApply = gravitationForce;
-				if (Hierarchy.selfOrAnyLevelParentWithPlayer(rigidbodyToGravitize))
+				if (rigidbodyToGravitize.GetComponentInParent<Player>())
 				{
 					forceToApply *= GravityMultiplier.currentGravityModifier();
 				}
@@ -208,9 +209,9 @@ public abstract class GravityZone : Locomotion
 	// methods for: player zonage toggling //
 	
 	// method: toggle the tracking of whether the player is within zonage according to the given toggling //
-	public static void toggleZonage(Toggles.Toggling toggling)
+	public static void toggleZonage(Toggling toggling)
 	{
-		playerWithinZonage = Toggles.toggleToggle(playerWithinZonage, toggling);
+		playerWithinZonage = playerWithinZonage.toggledBy(toggling);
 	}
 	// method: toggle player zonage according to this zone's zonage toggling for entering //
 	private void toggleZonageForPlayerEntry()
@@ -254,7 +255,7 @@ public abstract class GravityZone : Locomotion
 	// method: determine whether the player is within gravity zonage that is actually enabled to gravitize the player with a nonzero force, or the scene has a nonzero gravitation force /* the scene gravity possibility is inconsistent to consider here, but convenient for now */ //
 	public static bool playerWithinNonzerolyAffectingZonage()
 	{
-		if (Physics.gravity != Vector3.zero)
+		if (Physics.gravity != Vectors.zeroesVector)
 		{
 			return true;
 		}
@@ -267,7 +268,7 @@ public abstract class GravityZone : Locomotion
 			foreach (Collider playerCollidingGravityZoneCollider in playerCollidingGravityZoneColliders)
 			{
 				GravityZone playerCollidingGravityZone = playerCollidingGravityZoneCollider.GetComponent<GravityZone>();
-				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vector3.zero))
+				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vectors.zeroesVector))
 				{
 					return true;
 				}
@@ -298,7 +299,7 @@ public abstract class GravityZone : Locomotion
 	// method: determine whether the player is within box gravity zonage that is actually enabled to gravitize the player with a nonzero force, or the scene has a nonzero gravitation force /* the scene gravity possibility is inconsistent to consider here, but convenient for now */ //
 	public static bool playerWithinNonzerolyAffectingZonageBox()
 	{
-		if (Physics.gravity != Vector3.zero)
+		if (Physics.gravity != Vectors.zeroesVector)
 		{
 			return true;
 		}
@@ -311,7 +312,7 @@ public abstract class GravityZone : Locomotion
 			foreach (Collider playerCollidingGravityZoneCollider in playerCollidingGravityZoneColliders)
 			{
 				GravityZone playerCollidingGravityZone = playerCollidingGravityZoneCollider.GetComponent<GravityZone>();
-				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vector3.zero) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneBox>())
+				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vectors.zeroesVector) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneBox>())
 				{
 					return true;
 				}
@@ -351,7 +352,7 @@ public abstract class GravityZone : Locomotion
 			foreach (Collider playerCollidingGravityZoneCollider in playerCollidingGravityZoneColliders)
 			{
 				GravityZone playerCollidingGravityZone = playerCollidingGravityZoneCollider.GetComponent<GravityZone>();
-				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vector3.zero) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneSphere>())
+				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vectors.zeroesVector) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneSphere>())
 				{
 					return true;
 				}
@@ -440,7 +441,7 @@ public abstract class GravityZone : Locomotion
 		// code for: gravitizing rigidbodies, player zonage toggling //
 		
 		// track any potential rigidbody (local or parent) of the given collider for being gravitized – if it has not been tracked yet //
-		Transform rigidbodyTransform = Hierarchy.selfOrAnyLevelParentWithRigidbody(collider);		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		Transform rigidbodyTransform = collider.selfOrParentTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)			// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -453,7 +454,7 @@ public abstract class GravityZone : Locomotion
 				rigidbodiesToGravitize.Add(rigidbodyOfCollider);
 				
 				// if this collider belongs to the player: //
-				if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Player"))
+				if (collider.GetComponentInParent<Player>())
 				{
 					// toggle the player zonage according to this zone's entry toggling //
 					toggleZonageForPlayerEntry();
@@ -475,7 +476,7 @@ public abstract class GravityZone : Locomotion
 		// code for: gravitizing rigidbodies, player zonage toggling //
 		
 		// track any potential rigidbody (local or parent) of the given collider for being gravitized – if it has not been tracked yet //
-		Transform rigidbodyTransform = Hierarchy.selfOrAnyLevelParentWithRigidbody(collider);		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		Transform rigidbodyTransform = collider.selfOrParentTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)			// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -492,7 +493,7 @@ public abstract class GravityZone : Locomotion
 				}
 				
 				// if this collider belongs to the player: //
-				if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Player"))
+				if (collider.GetComponentInParent<Player>())
 				{
 					// toggle the player zonage according to this zone's staying toggling //
 					toggleZonageForPlayerStaying();
@@ -505,7 +506,7 @@ public abstract class GravityZone : Locomotion
 				rigidbodiesToGravitize.Remove(rigidbodyOfCollider);
 
 				// if this collider belongs to the player: //
-				if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Player"))
+				if (collider.GetComponentInParent<Player>())
 				{
 					// toggle the player zonage according to this zone's exit toggling //
 					toggleZonageForPlayerExit();
@@ -520,7 +521,7 @@ public abstract class GravityZone : Locomotion
 		// code for: agravitizing rigidbodies, player zonage toggling //
 		
 		// untrack any potential rigidbody (local or parent) of the given collider for being gravitized – if it is currently tracked //
-		Transform rigidbodyTransform = Hierarchy.selfOrAnyLevelParentWithRigidbody(collider);		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		Transform rigidbodyTransform = collider.selfOrParentTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)		// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -533,7 +534,7 @@ public abstract class GravityZone : Locomotion
 				rigidbodiesToGravitize.Remove(rigidbodyOfCollider);
 
 				// if this collider belongs to the player: toggle the player zonage according to this zone's exit toggling //
-				if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Player"))
+				if (collider.GetComponentInParent<Player>())
 				{
 					toggleZonageForPlayerExit();
 				}

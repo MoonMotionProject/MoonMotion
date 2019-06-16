@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,49 +11,94 @@ using UnityEngine;
 //   · aesthetics cycling
 //   · vision coloring
 // • a method is provided for toggling this booster motivator's enablement
-public class BoosterMotivator : MonoBehaviour
+public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 {
 	// variables //
 	
 	
-	// variables for: instancing //
-	public static BoosterMotivator singleton;		// connection - automatic: the singleton instance of this class
-	
-	// variables for: booster motivating //
-	[Header("Enablement")]
-	public bool motivating = false;		// setting: whether this motivator is currently enabled
-	[Tooltip("the dependencies combination by which to condition whether this booster motivator plays")]
-	public Dependencies.DependenciesCombination dependencies;		// setting: the dependencies combination by which to condition whether this booster motivator plays
-	private AudioSource audioComponent;		// connection - automatic: the attached booster motivating audio source
-	[Header("Audio")]
+	// settings for: enablement //
+
+	[BoxGroup("Enablement")]
+	[Tooltip("whether this motivator is currently enabled")]
+	public bool motivating = false;
+
+	[BoxGroup("Enablement")]
+	[Tooltip("the dependencies by which to condition whether this booster motivator plays")]
+	[ReorderableList]
+	public Dependency[] dependencies;
+
+
+	// settings for: audio //
+
+	[BoxGroup("Audio")]
 	[Tooltip("whether the audio volume is allowed to be increased")]
-	public bool audioIncreasingEnabled = true;		// setting: whether the audio volume is allowed to be increased
-	public float volumeMin = 0f;		// setting: the min volume
-	public float volumeMax = .4f;		// setting: the max volume
-	public float volumeIncrement = .002f;		// setting: the volume increment
+	public bool audioIncreasingEnabled = true;
+
+	[BoxGroup("Audio")]
+	[Range(0f, 1f)]
+	public float volumeMin = 0f;
+
+	[BoxGroup("Audio")]
+	[Range(0f, 1f)]
+	public float volumeMax = .4f;
+
+	[BoxGroup("Audio")]
+	[Range(0f, 1f)]
+	public float volumeIncrement = .002f;
+
+	[BoxGroup("Audio")]
 	[Tooltip("whether to restart the audio when its volume is increased from 0")]
-	public bool audioRestartsUponNonzeroing = true;		// setting: whether to restart the audio when its volume is increased from 0
-	[Header("Aesthetics Cycling")]
+	public bool audioRestartsUponNonzeroing = true;
+
+
+	// variables for: aesthetics cycling //
+
+	[BoxGroup("Aesthetics Cycling")]
 	[Tooltip("whether to cycle both boosters' aesthetics while playing the audio")]
-	public bool aestheticsCycling = true;		// setting: whether to cycle both boosters' aesthetics while playing the audio
+	public bool aestheticsCycling = true;
+
+	[BoxGroup("Aesthetics Cycling")]
 	[Tooltip("the time interval to wait between each aesthetics cycling")]
-	public float aestheticsCyclingInterval = .1f;		// setting: the time interval to wait between each aesthetics cycling
-	private float timeOfLastAestheticsCycling = -Mathf.Infinity;		// tracking: the time of the last aesthetics cycling – initialized to negative infinity as a flag that the aesthetics have never been cycled
-	[Header("Vision Coloring")]
+	public float aestheticsCyclingInterval = .1f;
+
+	[Tooltip("the time of the last aesthetics cycling – initialized to negative infinity as a flag that the aesthetics have never been cycled")]
+	private float timeOfLastAestheticsCycling = -Mathf.Infinity;
+
+
+	// variables for: vision coloring //
+
+	[BoxGroup("Vision Coloring")]
 	[Tooltip("whether to fade the color of the player's vision while playing the audio")]
-	public bool visionColoring = true;		// setting: whether to fade the color of the player's vision while playing the audio
+	public bool visionColoring = true;
+
+	[BoxGroup("Vision Coloring")]
 	[Tooltip("the array of colors to color the player's vision from (either randomly or sequentially, depending on the that setting) – if empty, the colors used will be randomized in general")]
-	public Color[] colors = new Color[] {};		// setting: the array of colors to color the player's vision from (either randomly or sequentially, depending on the that setting) – if empty, the colors used will be randomized in general
+	[ReorderableList]
+	public Color[] colors = new Color[] {};
+
+	[BoxGroup("Vision Coloring")]
 	[Tooltip("whether the colors to color the player's vision by should be used in order (versus randomly) /* going in order currently only somewhat works, for reasons unknown */")]
-	public bool colorsGoInOrder = false;		// setting: whether the colors to color the player's vision by should be used in order (versus randomly) /* going in order currently only somewhat works, for reasons unknown */
-	private int colorIndex = 0;		// tracking: the current index to use of the colors array (if it is even being used)
+	public bool colorsGoInOrder = false;
+
+	[BoxGroup("Vision Coloring")]
+	[Tooltip("the current index to use of the colors array (if it is even being used)")]
+	private int colorIndex = 0;
+
+	[BoxGroup("Vision Coloring")]
 	[Tooltip("the opacity by which to color the player's vision when randomizing a color instead of drawing from the array setting")]
-	public float randomVisionColoringOpacity = .01f;		// setting: the opacity by which to color the player's vision when randomizing a color instead of drawing from the array setting
+	[Range(0f, 1f)]
+	public float randomVisionColoringOpacity = .01f;
+
+	[BoxGroup("Vision Coloring")]
 	[Tooltip("the time interval to wait between each color fading of the player's vision")]
-	public float fadingInterval = .1f;		// setting: the time interval to wait between each color fading of the player's vision
-	private float timeOfLastFade = -Mathf.Infinity;		// tracking: the time of the last color fading – initialized to negative infinity as a flag that it has never faded
+	public float fadingInterval = .1f;
+
+	[Tooltip("the time of the last color fading – initialized to negative infinity as a flag that it has never faded")]
+	private float timeOfLastFade = -Mathf.Infinity;
+
+	[BoxGroup("Vision Coloring")]
 	[Tooltip("the duration by which to fade the color of the player's vision (each time it fades to a different color)")]
-	public float fadingDuration = .2f;		// setting: the duration by which to fade the color of the player's vision (each time it fades to a different color)
+	public float fadingDuration = .2f;
 
 
 
@@ -62,47 +108,33 @@ public class BoosterMotivator : MonoBehaviour
 	
 	// method: toggle whether this booster motivator is enabled (but it will still depend on the set dependencies) //
 	public void toggleEnablement_()
-	{
-		motivating = !motivating;
-	}
+		=> motivating = motivating.toggled();
 	// method: toggle whether the booster motivator is enabled (but it will still depend on the set dependencies) //
 	public static void toggleEnablement()
-	{
-		singleton.toggleEnablement_();
-	}
-	
-	
-	
-	
+		=> singleton.toggleEnablement_();
+
+
+
+
 	// updating //
 
-	
-	// before the start: //
-	private void Awake()
-	{
-		// connect to the singleton instance of this class //
-		singleton = this;
-
-		// connect to the attached booster motivating audio source //
-		audioComponent = GetComponent<AudioSource>();
-	}
 
 	// at each update: //
 	private void Update()
 	{
 		// for being enabled: adjusting volume and time, aesthetics cycling, vision coloring //
-		if (motivating && Dependencies.metFor(dependencies))
+		if (motivating && dependencies.met())
 		{
 			float maxVolumeToUse = (audioIncreasingEnabled ? volumeMax : volumeMin);
 
 			if (maxVolumeToUse >= 0f)
 			{
-				if (audioRestartsUponNonzeroing && (audioComponent.volume == 0f))
+				if (audioRestartsUponNonzeroing && (audioSource.volume == 0f))
 				{
-					audioComponent.time = 0f;
+					audioTime = 0f;
 				}
 
-				audioComponent.volume = Mathf.Max(volumeMin, Honing.hone(audioComponent.volume, maxVolumeToUse, volumeIncrement));
+				audioSource.volume = Mathf.Max(volumeMin, audioSource.volume.honed(maxVolumeToUse, volumeIncrement));
 
 				if (aestheticsCycling)
 				{
@@ -116,7 +148,7 @@ public class BoosterMotivator : MonoBehaviour
 
 				if (visionColoring)
 				{
-					Color colorToFadeTo = ((colors.Length > 0) ? (colorsGoInOrder ? colors[colorIndex] : colors[Random.Range(0, colors.Length)]) : Random.ColorHSV(0f, 1f, 1f, 1f, 0f, 1f, randomVisionColoringOpacity, randomVisionColoringOpacity));
+					Color colorToFadeTo = ((colors.any()) ? (colorsGoInOrder ? colors[colorIndex] : colors[Random.Range(0, colors.Length)]) : Random.ColorHSV(0f, 1f, 1f, 1f, 0f, 1f, randomVisionColoringOpacity, randomVisionColoringOpacity));
 
 					if ((Time.time - timeOfLastFade) > fadingInterval)
 					{
@@ -125,7 +157,7 @@ public class BoosterMotivator : MonoBehaviour
 						timeOfLastFade = Time.time;
 					}
 
-					if ((colors.Length > 0) && colorsGoInOrder)
+					if ((colors.any()) && colorsGoInOrder)
 					{
 						colorIndex++;
 						if (colorIndex >= colors.Length)
@@ -139,7 +171,7 @@ public class BoosterMotivator : MonoBehaviour
 		// for not being enabled: adjusting volume, vision coloring //
 		else
 		{
-			audioComponent.volume = Mathf.Min(volumeMax, Honing.hone(audioComponent.volume, volumeMin, volumeIncrement));
+			audioSource.volume = Mathf.Min(volumeMax, audioSource.volume.honed(volumeMin, volumeIncrement));
 			
 			SteamVR_Fade.Start(new Color(0f, 0f, 0f, 0f), fadingDuration);
 		}

@@ -120,10 +120,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4624694334927910}
-  - component: {fileID: 114797891133151896}
-  - component: {fileID: 114767946960026654}
   - component: {fileID: 114505904642747780}
   - component: {fileID: 114948290452487804}
+  - component: {fileID: 114797891133151896}
+  - component: {fileID: 114506263118072978}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Lasers
   m_TagString: Untagged
@@ -655,6 +655,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 2
+--- !u!114 &114506263118072978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586288101699672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114599262521977070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -677,20 +691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114767946960026654
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1586288101699672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
+  flipYAfterFacing: 1
 --- !u!114 &114797891133151896
 MonoBehaviour:
   m_ObjectHideFlags: 1

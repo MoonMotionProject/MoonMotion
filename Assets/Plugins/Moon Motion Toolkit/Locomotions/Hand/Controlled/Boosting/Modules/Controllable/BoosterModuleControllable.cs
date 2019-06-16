@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 // Booster Module Controllable
 // • provides this booster module with:
@@ -15,8 +16,10 @@ public abstract class BoosterModuleControllable : BoosterModule
 	
 	// variables for: controller connection and inputs setting //
 	protected Controller controller;		// connection - automatic: the controller of this module's booster
-	[Header("Input")]
+	[BoxGroup("Input")]
+	[ReorderableList]
 	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use for controlling this module
+	[BoxGroup("Input")]
 	public bool inputEnabled = true;		// setting: whether this module's input is currently enabled
 
 
@@ -26,14 +29,14 @@ public abstract class BoosterModuleControllable : BoosterModule
 
 	
 	// method: toggle whether this module's input is currently enabled based on the given toggling //
-	public void toggleInputEnablement(Toggles.Toggling toggling)
+	public void toggleInputEnablement(Toggling toggling)
 	{
-		inputEnabled = Toggles.toggleToggle(inputEnabled, toggling);
+		inputEnabled = inputEnabled.toggledBy(toggling);
 	}
 	// method: toggle whether this module's input is currently enabled using an inversion toggling //
 	public void toggleInputEnablement()
 	{
-		toggleInputEnablement(Toggles.Toggling.invertToggle);
+		toggleInputEnablement(Toggling.invertToggle);
 	}
 
 

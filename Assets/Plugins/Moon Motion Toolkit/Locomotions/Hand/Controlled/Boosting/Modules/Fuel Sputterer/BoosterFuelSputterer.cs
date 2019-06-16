@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,10 +23,14 @@ public class BoosterFuelSputterer : BoosterModule
 	private AudioClip audioClip;        // connection - automatic: the fuel sputtering audio on this booster's audio source
 
 	// variables for: dependencies //
-	[Tooltip("the dependencies combination by which to condition whether the fuel sputtering particles play")]
-	public Dependencies.DependenciesCombination particlesDependencies;		// setting: the dependencies combination by which to condition whether the fuel sputtering particles play
-	[Tooltip("the dependencies combination by which to condition whether the fuel sputtering audio plays")]
-	public Dependencies.DependenciesCombination audioDependencies;		// setting: the dependencies combination by which to condition whether the fuel sputtering audio plays
+	[BoxGroup("Dependencies")]
+	[Tooltip("the dependencies by which to condition whether the fuel sputtering particles play")]
+	[ReorderableList]
+	public Dependency[] particlesDependencies;
+	[BoxGroup("Dependencies")]
+	[Tooltip("the dependencies by which to condition whether the fuel sputtering audio plays")]
+	[ReorderableList]
+	public Dependency[] audioDependencies;
 	
 	
 	
@@ -69,10 +74,10 @@ public class BoosterFuelSputterer : BoosterModule
 	private void sputterThisSputterer()
 	{
 		// if the module dependencies are met: //
-		if (Dependencies.metFor(dependenciesCombination))
+		if (dependencies.met())
 		{
 			// if the particles dependencies are met: play the particles //
-			if (Dependencies.metFor(particlesDependencies))
+			if (particlesDependencies.met())
 			{
 				foreach (ParticleSystem particlesSystem in particlesSystems)
 				{
@@ -84,7 +89,7 @@ public class BoosterFuelSputterer : BoosterModule
 			}
 
 			// if the audio dependencies are met: play the audio //
-			if (Dependencies.metFor(audioDependencies))
+			if (audioDependencies.met())
 			{
 				audioSource.PlayOneShot(audioClip);
 			}

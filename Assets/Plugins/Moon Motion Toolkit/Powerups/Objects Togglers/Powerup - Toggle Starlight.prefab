@@ -67,9 +67,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4069927036153046}
-  - component: {fileID: 114102912854376154}
-  - component: {fileID: 114215001241127680}
   - component: {fileID: 114527533257795630}
+  - component: {fileID: 114102912854376154}
+  - component: {fileID: 114666887364701062}
   m_Layer: 10
   m_Name: Powerup - Toggle Starlight
   m_TagString: Untagged
@@ -657,20 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114215001241127680
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1419392003328660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
+  flipYAfterFacing: 1
 --- !u!114 &114249600630701890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -698,6 +685,20 @@ MonoBehaviour:
   objectsToToggle:
   - {fileID: 0}
   objectToggling: 0
+--- !u!114 &114666887364701062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419392003328660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114686110633571234
 MonoBehaviour:
   m_ObjectHideFlags: 1

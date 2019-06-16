@@ -47,7 +47,7 @@ public class BoosterToggler : BoosterModuleControllableToggleable
 	// method: determine whether this booster's boosting is currently enabled //
 	public bool enabledBoosting()
 	{
-		return (boostingEnabled && Dependencies.metFor(dependenciesCombination));
+		return (boostingEnabled && dependencies.met());
 	}
 	// method: determine whether the given booster's boosting is currently enabled //
 	public static bool enabledBoosting(Booster booster)

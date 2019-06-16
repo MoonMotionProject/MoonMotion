@@ -22,9 +22,7 @@ public abstract class LocomotionMovementAudioSingle : LocomotionMovementAudio
 	
 	// method: adjust the audio source's volume by the given amount //
 	protected override void adjustVolume(float amount)
-	{
-		adjustVolumeOfGivenAudioSource(audioSource, amount);
-	}
+		=> adjustVolumeOfGivenAudioSource(audioSource, amount);
 
 
 

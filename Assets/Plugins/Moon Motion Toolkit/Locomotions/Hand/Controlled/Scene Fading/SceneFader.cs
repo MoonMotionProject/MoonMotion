@@ -112,21 +112,18 @@ public class SceneFader : HandLocomotionControlled
 
 		SteamVR_LoadLevel.Begin(scene, false, 0f);
 	}
+
 	// method: load the given scene //
 	public void loadScene_(string scene)
-	{
-		loadScene(scene);
-	}
+		=> loadScene(scene);
+
 	// method: reload the current scene //
 	public static void reloadScene()
-	{
-		loadScene(SceneManager.GetActiveScene().name);
-	}
+		=> loadScene(SceneManager.GetActiveScene().name);
+
 	// method: reload the current scene //
 	public void reloadScene_()
-	{
-		reloadScene();
-	}
+		=> reloadScene();
 
 
 
@@ -167,7 +164,7 @@ public class SceneFader : HandLocomotionControlled
 	private void Update()
 	{
 		// if: input is enabled, the input dependencies are met, input is pressed, the scene to load is recognized by name: //
-		if (locomotionInputEnabled && Dependencies.metFor(locomotionDependencies) && controller.inputPressed(inputsLocomotion) && Application.CanStreamedLevelBeLoaded(sceneToLoad))
+		if (locomotionInputEnabled && locomotionDependencies.met() && controller.inputPressed(inputsLocomotion) && Application.CanStreamedLevelBeLoaded(sceneToLoad))
 		{
 			// track the last time of scene fading interaction as the current time //
 			lastTimeOfSceneFadingInteraction = Time.time;

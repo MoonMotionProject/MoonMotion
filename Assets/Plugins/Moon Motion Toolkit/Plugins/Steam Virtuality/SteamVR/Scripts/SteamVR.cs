@@ -250,7 +250,7 @@ public class SteamVR : System.IDisposable
 	private SteamVR()
 	{
 		hmd = OpenVR.System;
-		Debug.Log("Connected to " + hmd_TrackingSystemName + ":" + hmd_SerialNumber);
+		/*Debug.Log("Connected to " + hmd_TrackingSystemName + ":" + hmd_SerialNumber);*/
 
 		compositor = OpenVR.Compositor;
 		overlay = OpenVR.Overlay;

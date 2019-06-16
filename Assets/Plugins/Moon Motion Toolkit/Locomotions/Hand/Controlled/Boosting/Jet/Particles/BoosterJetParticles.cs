@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class BoosterJetParticles : MonoBehaviour
 
 	// variables for: dependencies //
 	[Header("Dependencies")]
-	[Tooltip("the dependencies combination by which to condition whether this booster jet particles plays")]
-	public Dependencies.DependenciesCombination dependencies;		// setting: the dependencies combination by which to condition whether this booster jet particles plays
+	[Tooltip("the dependencies by which to condition whether this booster jet particles plays")]
+	[ReorderableList]
+	public Dependency[] dependencies;
 }

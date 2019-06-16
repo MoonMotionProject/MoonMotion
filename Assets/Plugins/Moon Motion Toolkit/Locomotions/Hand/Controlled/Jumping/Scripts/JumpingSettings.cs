@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,98 +11,96 @@ using UnityEngine;
 //   · tracks the time of the last jump
 //   · provides a setting for a jumping cooldown
 //   · provides a method for determining whether the player has jumped within a given amount of time from now
-public class JumpingSettings : MonoBehaviour
+public class JumpingSettings : SingletonBehaviour<JumpingSettings>
 {
 	// variables //
-	
-	
-	// variables for: instancing //
-	private static JumpingSettings singleton;		// connection - automatic: the singleton instance of this class
-	
-	// variables for: midair jumping //
-	[Header("Midair Jumping")]
-	[Tooltip("whether midair jumping is currently allowed")]
-	public bool midairJumpingAllowed = false;		// setting: whether midair jumping is currently allowed
-	[Tooltip("the dependencies combination by which to condition whether the player can midair jump")]
-	public Dependencies.DependenciesCombination midairJumpingDependencies;		// setting: the dependencies combination by which to condition whether the player can midair jump
-	[Tooltip("the number of midair jumps the player is raised (but not lowered) to whenever they are terrained")]
-	public int midairJumpsProvided = 1;		// setting: the number of midair jumps the player is raised (but not lowered) to whenever they are terrained
-	[Tooltip("the number of midair jumps the player has remaining (which may be more than the number of jumps provided, if adjusted externally)")]
-	public int midairJumpsCount = 1;     // tracking: the number of midair jumps the player has remaining (which may be more than the number of jumps provided, if adjusted externally)
 
-	// variables for: tracking jumping and jumping cooldown //
-	private static float timeOfLastJump = -666666f;		// tracking: the time of the last jump
+
+	// settings for: jumping //
+
 	[Header("Jumping Cooldown")]
-	public float jumpingCooldown = .3f;		// setting: the cooldown duration between jumps
+	[Tooltip("the cooldown duration between jumps")]
+	public float jumpingCooldown = .3f;
+
+
+	// trackings for: jumping //
+
+	[ShowNonSerializedField]
+	[Tooltip("the time of the last jump")]
+	private static float timeOfLastJump = -666666f;
+
+
+	// settings for: midair jumping //
+	[Header("Midair Jumping")]
+
+	[Tooltip("whether midair jumping is currently allowed")]
+	public bool midairJumpingAllowed = false;
+
+	[Tooltip("the dependencies by which to condition whether the player can midair jump")]
+	[ReorderableList]
+	public Dependency[] midairJumpingDependencies;
+
+	[Tooltip("the number of midair jumps the player is raised (but not lowered) to whenever they are terrained")]
+	public int midairJumpsProvided = 1;
+
+	[Tooltip("the number of midair jumps the player has remaining (which may be more than the number of jumps provided, if adjusted externally)")]
+	public int midairJumpsCount = 1;
 
 
 
 
 	// methods //
 
-	
+
 	// methods for: midair jumping //
-	
+
 	// method: toggle whether midair jumping is allowed //
 	public void toggleMidairJumping_()
-	{
-		midairJumpingAllowed = !midairJumpingAllowed;
-	}
+		=> midairJumpingAllowed = midairJumpingAllowed.toggled();
+
 	// method: toggle whether midair jumping is allowed //
 	public static void toggleMidairJumping()
-	{
-		singleton.toggleMidairJumping_();
-	}
+		=> singleton.toggleMidairJumping_();
+
 	// method: determine whether midair jumping is available (considering: whether it is allowed, whether the midair jumping dependencies are met, the tracked number of midair jumps the player has remaining) //
 	public bool midairJumpingAvailable_()
-	{
-		return (midairJumpingAllowed && Dependencies.metFor(midairJumpingDependencies) && ((midairJumpsCount > 0) || (midairJumpsCount == -1)));
-	}
+		=> (midairJumpingAllowed && midairJumpingDependencies.met() && ((midairJumpsCount > 0) || (midairJumpsCount == -1)));
+
 	// method: determine whether midair jumping is available (considering: whether it is allowed, whether the midair jumping dependencies are met, the tracked number of midair jumps the player has remaining) //
 	public static bool midairJumpingAvailable()
-	{
-		return singleton.midairJumpingAvailable_();
-	}
+		=> singleton.midairJumpingAvailable_();
+
 	// method: determine whether midair jumping is infinite (versus discrete/limited) //
 	public static bool midairJumpingInfinite()
-	{
-		return (singleton.midairJumpsCount == -1);
-	}
+		=> (singleton.midairJumpsCount == -1);
+
 	// method: set the midair jumps provision to the given amount //
 	public void setMidairJumpsProvision_(int amount)
-	{
-		midairJumpsProvided = amount;
-	}
+		=> midairJumpsProvided = amount;
+
 	// method: set the midair jumps provision to the given amount //
 	public static void setMidairJumpsProvision(int amount)
-	{
-		singleton.setMidairJumpsProvision_(amount);
-	}
+		=> singleton.setMidairJumpsProvision_(amount);
+
 	// method: decrement the midair jumps count //
 	public static void decrementMidairJumpsCount()
-	{
-		singleton.midairJumpsCount--;
-	}
+		=> singleton.midairJumpsCount--;
+
 	// method: add the given amount to the midair jumps count //
 	public void addMidairJumps_(int amount)
-	{
-		midairJumpsCount += amount;
-	}
+		=> midairJumpsCount += amount;
+
 	// method: add the given amount to the midair jumps count //
 	public static void addMidairJumps(int amount)
-	{
-		singleton.addMidairJumps_(amount);
-	}
+		=> singleton.addMidairJumps_(amount);
+
 	// method: set the midair jumps count to the given amount //
 	public void setMidairJumpsCount_(int amount)
-	{
-		midairJumpsCount = amount;
-	}
+		=> midairJumpsCount = amount;
+
 	// method: set the midair jumps count to the given amount //
 	public static void setMidairJumpsCount(int amount)
-	{
-		singleton.setMidairJumpsCount_(amount);
-	}
+		=> singleton.setMidairJumpsCount_(amount);
 
 
 	// methods for: tracking jumping and jumping cooldown //
@@ -109,32 +108,21 @@ public class JumpingSettings : MonoBehaviour
 	// method: track the time of the last jump as right now and return it //
 	public static float trackTimeOfLastJump()
 	{
-		timeOfLastJump = Time.time;
+		timeOfLastJump = time;
 		return timeOfLastJump;
 	}
 	// method: determine whether the time of the last jump was within the given amount of time from now //
 	public static bool lastJumpedWithin(float timeThreshold)
-	{
-		return ((Time.time - timeOfLastJump) < timeThreshold);
-	}
+		=> timeSince(timeOfLastJump) < timeThreshold;
+
 	// method: determine whether jumping is ready (based on its cooldown duration) //
 	public static bool jumpingReady()
-	{
-		return (singleton && !lastJumpedWithin(singleton.jumpingCooldown));
-	}
-	
-	
-	
-	
+		=> singleton && !lastJumpedWithin(singleton.jumpingCooldown);
+
+
+
+
 	// updating //
-
-
-	// before the start: //
-	private void Awake()
-	{
-		// connect to the singleton instance of this class //
-		singleton = this;
-	}
 
 
 	// at each update: //

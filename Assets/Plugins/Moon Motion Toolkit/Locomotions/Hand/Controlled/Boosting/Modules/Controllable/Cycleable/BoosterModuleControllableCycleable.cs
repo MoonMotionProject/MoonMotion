@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,43 +19,64 @@ using UnityEngine;
 //     - advance the cycle, optionally playing cycling audio
 //     - advance the cycle globally, optionally playing cycling audio
 //   · a method to adjust the cycle, optionally playing cycling audio
-//   · a dependencies combination setting for which cycling should occur upon the changing of whether they are met
+//   · a dependencies setting for which cycling should occur upon the changing of whether they are met
 //     - a toggle setting for whether this is enabled
-//     - a dependencies combination for whether this is allowed
+//     - a dependencies for whether this is allowed
 //     - a toggle setting for whether this cycles globally
 //     - a toggle setting for whether this plays the cycling audio
 public abstract class BoosterModuleControllableCycleable : BoosterModuleControllable
 {
 	// variables //
 
-	
-	// variables for: cycling input //
+
+	// settings for: input //
+
+	[BoxGroup("Input")]
 	[Tooltip("whether or not input should cycle globally (for both hands at once)")]
-	public bool globallyCycle = true;		// setting: whether or not input should cycle globally (for both hands at once)
-	public bool inputPlaysAudio = true;		// setting: whether input should play the attached cycling audio
+	public bool globallyCycle = true;
+
+	[BoxGroup("Input")]
+	[Tooltip("whether input should play the attached cycling audio")]
+	public bool inputPlaysAudio = true;
 	
-	// variables for: cycling //
-	[Header("Cycle Index")]
+
+	// trackings for: cycling //
+	
 	[Tooltip("the current cycling index (by which to cycle through the set to cycle through)")]
-	protected int cycleIndex = 0;      // tracking: the current cycling index (by which to cycle through the set to cycle through)
+	protected int cycleIndex = 0;
 	
+
 	// variables for: playing cycling audio //
 	private AudioSource cyclingAudioSource;		// connection - automatic: the attached audio source (for playing its cycling audio)
 	private AudioClip cyclingAudio;		// connection - automatic: the attached cycling audio
 
+
 	// variables for: dependencies meeting changing cycling //
-	[Header("Dependencies Meeting Changing Cycling")]
-	[Tooltip("whether cycling via the dependencies combination for cycling is currently enabled")]
-	public bool dependenciesCyclingEnabled = true;		// setting: whether cycling via the dependencies combination for cycling is currently enabled
-	[Tooltip("the dependencies combination by which to allow cycling via the dependencies combination for cycling")]
-	public Dependencies.DependenciesCombination dependenciesForDependenciesCycling;		// setting: the dependencies combination by which to allow cycling via the dependencies combination for cycling
-	[Tooltip("the dependencies combination for cycling (the dependencies combination for which cycling should occur upon the changing of whether they are met... note that the dependency requisition shouldn't matter)")]
-	public Dependencies.DependenciesCombination dependenciesCombinationForCycling;		// setting: the dependencies combination for cycling (the dependencies combination for which cycling should occur upon the changing of whether they are met... note that the dependency requisition shouldn't matter)
-	private bool dependenciesCombinationForCyclingMetLastTime = false;		// tracking: whether the dependencies combination for cycling was met last time
-	[Tooltip("whether to cycle globally when cycling via the dependencies combination for cycling")]
-	public bool dependenciesCombinationForCyclingCyclesGlobally = true;		// setting: whether to cycle globally when cycling via the dependencies combination for cycling
-	[Tooltip("whether to play audio for cycling via the dependencies combination for cycling")]
-	public bool dependenciesCombinationForCyclingPlaysAudio = false;		// setting: whether to play audio for cycling via the dependencies combination for cycling
+
+	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	[Tooltip("whether cycling via the dependencies for cycling is currently enabled")]
+	public bool dependenciesCyclingEnabled = true;
+
+	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	[Tooltip("the dependencies by which to allow cycling via the dependencies for cycling")]
+	[ReorderableList]
+	public Dependency[] dependenciesForDependenciesCycling;
+
+	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	[Tooltip("the dependencies for cycling (the dependencies for which cycling should occur upon the changing of whether they are met... note that the dependency requisition shouldn't matter)")]
+	[ReorderableList]
+	public Dependency[] dependenciesForCycling;
+
+	[Tooltip("whether the dependencies for cycling was met last time")]
+	private bool dependenciesForCyclingMetLastTime = false;
+
+	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	[Tooltip("whether to cycle globally when cycling via the dependencies for cycling")]
+	public bool dependenciesForCyclingCyclesGlobally = false;
+
+	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	[Tooltip("whether to play audio for cycling via the dependencies for cycling")]
+	public bool dependenciesForCyclingPlaysAudio = false;
 
 
 
@@ -152,39 +174,39 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 	}
 
 
-	// methods for: cycling by the dependencies combination for which cycling should occur upon the changing of whether they are met //
+	// methods for: cycling by the dependencies for which cycling should occur upon the changing of whether they are met //
 
-	// method: track the dependencies combination for cycling for last time //
-	private void trackDependenciesCombinationForCycling()
+	// method: track the dependencies for cycling for last time //
+	private void trackDependenciesForCycling()
 	{
-		// track whether the dependencies combination for which cycling should occur upon the changing of whether they are met was met last time, for next time, based on this time //
-		dependenciesCombinationForCyclingMetLastTime = Dependencies.metFor(dependenciesCombinationForCycling);
+		// track whether the dependencies for which cycling should occur upon the changing of whether they are met was met last time, for next time, based on this time //
+		dependenciesForCyclingMetLastTime = dependenciesForCycling.met();
 	}
-	// method: potentially cycle via the dependencies combination for cycling //
-	private void potentiallyCycleViaDependenciesCombinationForCycling()
+	// method: potentially cycle via the dependencies for cycling //
+	private void potentiallyCycleViaDependenciesForCycling()
 	{
-		// if: cycling via the dependencies combination for cycling is enabled, the dependencies combination by which to allow cycling via dependencies is met: //
-		if (dependenciesCyclingEnabled && Dependencies.metFor(dependenciesForDependenciesCycling))
+		// if: cycling via the dependencies for cycling is enabled, the dependencies by which to allow cycling via dependencies is met: //
+		if (dependenciesCyclingEnabled && dependenciesForDependenciesCycling.met())
 		{
-			// if the dependencies combination for cycling was different last time than it is now: //
-			if (dependenciesCombinationForCyclingMetLastTime != Dependencies.metFor(dependenciesCombinationForCycling))
+			// if the dependencies for cycling was different last time than it is now: //
+			if (dependenciesForCyclingMetLastTime != dependenciesForCycling.met())
 			{
 				// advance the cycle, playing cycling audio if set to – cycle globally if set to //
-				if (dependenciesCombinationForCyclingCyclesGlobally)
+				if (dependenciesForCyclingCyclesGlobally)
 				{
-					advanceCycleGlobally_(dependenciesCombinationForCyclingPlaysAudio);
+					advanceCycleGlobally_(dependenciesForCyclingPlaysAudio);
 				}
 				else
 				{
-					advanceCycle(dependenciesCombinationForCyclingPlaysAudio);
+					advanceCycle(dependenciesForCyclingPlaysAudio);
 				}
 			}
 		}
 
-		// track the dependencies combination for cycling for last time //
-		trackDependenciesCombinationForCycling();
+		// track the dependencies for cycling for last time //
+		trackDependenciesForCycling();
 	}
-	// method: toggle whether cycling via the dependencies combination for cycling is currently enabled for this module //
+	// method: toggle whether cycling via the dependencies for cycling is currently enabled for this module //
 	public void toggleCyclingViaDependencies()
 	{
 		dependenciesCyclingEnabled = !dependenciesCyclingEnabled;
@@ -211,15 +233,15 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 	{
 		base.Start();
 
-		// track the dependencies combination for cycling for last time //
-		trackDependenciesCombinationForCycling();
+		// track the dependencies for cycling for last time //
+		trackDependenciesForCycling();
 	}
 
 	// at each update: //
 	private void Update()
 	{
 		// if: the module dependencies are met, input is enabled, input is pressing: //
-		if (Dependencies.metFor(dependenciesCombination) && inputEnabled && controller.inputPressing(inputs))
+		if (dependencies.met() && inputEnabled && controller.inputPressing(inputs))
 		{
 			// advance the cycle – globally if set to do so //
 			if (globallyCycle)
@@ -232,7 +254,7 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 			}
 		}
 
-		// potentially cycle for the dependencies combination for cycling //
-		potentiallyCycleViaDependenciesCombinationForCycling();
+		// potentially cycle for the dependencies for cycling //
+		potentiallyCycleViaDependenciesForCycling();
 	}
 }

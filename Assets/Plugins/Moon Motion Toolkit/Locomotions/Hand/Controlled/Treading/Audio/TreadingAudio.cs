@@ -29,7 +29,7 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 	public float intervalMid = .4f;		// setting: the mid footstep audio interval duration to interpolate to
 	public float intervalMax = .65f;		// setting: the max footstep audio interval duration to interpolate to
 	public float speedMid = 2.5f;		// setting: the mid speed by which to interpolate an interval duration (where the min and max are reused from the settings for volume adjustment)
-	public InterpolationCurved.Curve speedIntervalCurve = InterpolationCurved.Curve.smoother;		// setting: the curve by which to interpolate an interval duration
+	public InterpolationCurve speedIntervalCurve = InterpolationCurve.smoother;		// setting: the curve by which to interpolate an interval duration
 	private AudioSource treadingAudioSource;		// connection - automatic: the attached treading audio source (by which to determine the volume ratio by which to interpolate the footstep vibration intensity)
 	[Header("Footstep Vibration")]
 	public bool vibrationEnabled = false;		// setting: whether footsteps should vibrate the controllers
@@ -39,7 +39,7 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 	public float vibrationDuration = .04f;		// setting: the duration to vibrate for during each footstep
 	[Tooltip("the max intensity by which to vibrate during each footstep (curved from 0 alongside footstep volume)")]
 	public ushort vibrationIntensityMax = 100;		// setting: the max intensity by which to vibrate during each footstep (curved from 0 alongside footstep volume)
-	public InterpolationCurved.Curve vibrationIntensityCurve = InterpolationCurved.Curve.sine;		// setting: the curve by which to interpolate the footstep vibration intensity (based on the treading audio volume out of the set max volume)
+	public InterpolationCurve vibrationIntensityCurve = InterpolationCurve.sine;		// setting: the curve by which to interpolate the footstep vibration intensity (based on the treading audio volume out of the set max volume)
 	
 	
 	
@@ -52,7 +52,7 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 	{
 		// determine the vibration intensity based on the current volume of the treading audio out of the max volume //
 		float volumeRatio = (treadingAudioSource.volume / volumeMax);
-		ushort vibrationIntensity = (ushort) (InterpolationCurved.floatClamped(vibrationIntensityCurve, 0f, vibrationIntensityMax, volumeRatio));
+		ushort vibrationIntensity = (ushort) (vibrationIntensityCurve.clamped(0f, vibrationIntensityMax, volumeRatio));
 		
 		// if each controller is on, respectively: extendedly vibrate it for the set vibration duration by the determined vibration intensity //
 		if (Controller.left)
@@ -101,12 +101,12 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 		if (playerSpeed < speedMid)		// if the player's current speed below the mid speed reference: interpolate from min to mid
 		{
 			float playerSpeedRangeRatio = ((playerSpeed - speedMin) / (speedMid - speedMin));
-			intervalDuration = InterpolationCurved.floatClamped(speedIntervalCurve, intervalMax, intervalMid, playerSpeedRangeRatio);
+			intervalDuration = speedIntervalCurve.clamped(intervalMax, intervalMid, playerSpeedRangeRatio);
 		}
 		else		// otherwise (if the player's current speed is at or above the mid speed reference): interpolate from mid to max
 		{
 			float playerSpeedRangeRatio = ((playerSpeed - speedMid) / (speedMax - speedMid));
-			intervalDuration = InterpolationCurved.floatClamped(speedIntervalCurve, intervalMid, intervalMin, playerSpeedRangeRatio);
+			intervalDuration = speedIntervalCurve.clamped(intervalMid, intervalMin, playerSpeedRangeRatio);
 		}
 		
 		// plan to do this again after the determined interval duration has passed //

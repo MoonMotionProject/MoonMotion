@@ -121,10 +121,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4544017168453628}
-  - component: {fileID: 114040162634277770}
-  - component: {fileID: 114312045411935430}
   - component: {fileID: 114881652399836532}
   - component: {fileID: 114363342207918538}
+  - component: {fileID: 114040162634277770}
+  - component: {fileID: 114734074985792690}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Relativity
   m_TagString: Untagged
@@ -669,20 +669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114312045411935430
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1982910875024302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
 --- !u!114 &114363342207918538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -757,6 +743,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
+--- !u!114 &114734074985792690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1982910875024302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114881652399836532
 MonoBehaviour:
   m_ObjectHideFlags: 1

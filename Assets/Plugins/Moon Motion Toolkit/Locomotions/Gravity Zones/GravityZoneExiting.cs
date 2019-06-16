@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,25 +12,32 @@ using UnityEngine;
 // • tracks the last time that the player was within nonzeroly affecting gravity zonage
 // • optionally has Terrain Response play its liftoff audio as gravity zone exiting audio upon exiting the all of the Gravity Zones
 //   · this optionally only plays if the player was just affected by gravity zonage right before exiting the all of the Gravity Zones
-public class GravityZoneExiting : MonoBehaviour
+public class GravityZoneExiting : SingletonBehaviour<GravityZoneExiting>
 {
 	// variables //
 
 	
-	// variables for: instancing //
-	public static GravityZoneExiting singleton;		// connection - automatic: the singleton instance of this class
-	
 	// variables for: player zonage tracking and toggling //
-	private static Toggles.Toggling zonageToggling = Toggles.Toggling.toggleOff;		// setting: the toggling by which to toggle player zonage
-	public static float lastTimeWithinNonzerolyAffectingGravityZonage = -Mathf.Infinity;		// tracking: the last time that the player was within nonzeroly affecting gravity zonage – initialized to negative infinity as a flag that the player has never been within affecting gravity zonage
+
+	[Tooltip("the toggling by which to toggle player zonage")]
+	private static Toggling zonageToggling = Toggling.toggleOff;
+
+	[Tooltip("the last time that the player was within nonzeroly affecting gravity zonage – initialized to negative infinity as a flag that the player has never been within affecting gravity zonage")]
+	public static float lastTimeWithinNonzerolyAffectingGravityZonage = -Mathf.Infinity;
+
 
 	// variables for: playing audio for exiting the all of the Gravity Zones //
-	[Header("Audio")]
+
+	[BoxGroup("Audio")]
 	[Tooltip("whether to have Terrain Response play its liftoff audio as Gravity Zone exiting audio upon exiting the all of the Gravity Zones")]
-	public bool playLiftoffAudioUponAllExit = true;		// setting: whether to have Terrain Response play its liftoff audio as Gravity Zone exiting audio upon exiting the all of the Gravity Zones
+	public bool playLiftoffAudioUponAllExit = true; 
+
+	[BoxGroup("Audio")]
 	[Tooltip("whether the audio for exiting the all of the Gravity Zones should only play if the player was nonzeroly (by at least some gravitizing force) affected right before exiting the all of the Gravity Zones")]
-	public bool audioRequiresAffectation = true;		// setting: whether the audio for exiting the all of the Gravity Zones should only play if the player was nonzeroly (by at least some gravitizing force) affected right before exiting the all of the Gravity Zones
-	private static float timeOfLastLiftoffAudioPlaying = 0f;		// tracking: the last time that the liftoff audio was played for exiting the all of the Gravity Zones (by which to determine if enough time has passed that such playing may happen again)
+	public bool audioRequiresAffectation = true;
+
+	[Tooltip("the last time that the liftoff audio was played for exiting the all of the Gravity Zones (by which to determine if enough time has passed that such playing may happen again)")]
+	private static float timeOfLastLiftoffAudioPlaying = 0f;
 	
 	
 	
@@ -42,7 +50,7 @@ public class GravityZoneExiting : MonoBehaviour
 	{
 		if (singleton.playLiftoffAudioUponAllExit && (((Time.time - lastTimeWithinNonzerolyAffectingGravityZonage) <= 1f) || !singleton.audioRequiresAffectation))
 		{
-			if ((Time.time - timeOfLastLiftoffAudioPlaying) >= Audio.longestLengthInSet(TerrainResponse.singleton.liftoffAudioSet))
+			if ((Time.time - timeOfLastLiftoffAudioPlaying) >= TerrainResponse.singleton.liftoffAudioSet.longestLength())
 			{
 				TerrainResponse.playRandomLiftoffAudio();
 
@@ -89,13 +97,6 @@ public class GravityZoneExiting : MonoBehaviour
 	// updating //
 
 
-	// before the start: //
-	private void Awake()
-	{
-		// connect to the singleton instance of this class //
-		singleton = this;
-	}
-
 	// at each update: //
 	private void Update()
 	{
@@ -109,7 +110,7 @@ public class GravityZoneExiting : MonoBehaviour
 	// upon trigger entry: //
 	private void OnTriggerEnter(Collider collider)
 	{
-		if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
+		if (collider.selfOrParentWithLayer("Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
 		{
 			GravityZone.playerCollidingGravityZoneColliders.Add(collider);		// track the Gravity Zone's collider as colliding with the player
 		}
@@ -118,7 +119,7 @@ public class GravityZoneExiting : MonoBehaviour
 	// upon trigger staying: //
 	private void OnTriggerStay(Collider collider)
 	{
-		if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
+		if (collider.selfOrParentWithLayer("Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
 		{
 			// if this collider is not tracked as one of the Gravity Zones colliding with they player: //
 			if (!GravityZone.playerCollidingGravityZoneColliders.Contains(collider))
@@ -131,7 +132,7 @@ public class GravityZoneExiting : MonoBehaviour
 	// upon trigger exit: //
 	private void OnTriggerExit(Collider collider)
 	{
-		if (Hierarchy.selfOrAnyLevelParentWithLayer(collider, "Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
+		if (collider.selfOrParentWithLayer("Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
 		{
 			GravityZone.playerCollidingGravityZoneColliders.Remove(collider);		// untrack the Gravity Zone's collider as colliding with the player
 

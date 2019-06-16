@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -13,18 +14,24 @@ public class BodyTransformation : MonoBehaviour
 	
 	
 	// connections - manual: headset, floor //
-    [Header("Transform Connections")]
+
+    [BoxGroup("Transform Connections")]
     public Transform headsetTransform;
+
+	[BoxGroup("Transform Connections")]
 	public Transform floorTransform;
 	
+
 	// tracking: original local rotation //
 	private Quaternion originalLocalRotation;
+
 
 	// connections - automatic: any capsule colliders on this body //
 	private CapsuleCollider[] capsuleColliders;
 
+
 	// setting: the height of the part of the player's head above their eyes (adds additional height to this body collider to avoid the player colliding with ceilings and the like directly at their eye level) //
-    [Header("Height of Head Above Eyes")]
+    [BoxGroup("Height of Head Above Eyes")]
 	[Tooltip("adds additional height to this body collider to avoid the player colliding with ceilings and the like directly at their eye level")]
 	public float headAboveEyesHeight = .06f;
 	

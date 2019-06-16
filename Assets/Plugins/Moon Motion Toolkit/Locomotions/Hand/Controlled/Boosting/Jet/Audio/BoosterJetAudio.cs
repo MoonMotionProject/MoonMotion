@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,8 +26,9 @@ public class BoosterJetAudio : MonoBehaviour
 	public float volumeDeep = 1f;		// setting: the volume - for deep force
 	public float volumeIncrement = 0.03f;		// setting: the increment for volume
 	[Header("Dependencies")]
-	[Tooltip("the dependencies combination by which to condition whether this booster jet audio plays")]
-	public Dependencies.DependenciesCombination audioDependencies;		// setting: the dependencies combination by which to condition whether this booster jet audio plays
+	[Tooltip("the dependencies by which to condition whether this booster jet audio plays")]
+	[ReorderableList]
+	public Dependency[] audioDependencies;
 
 
 
@@ -72,7 +74,7 @@ public class BoosterJetAudio : MonoBehaviour
 	private void Update()
 	{
 		// adjusting volume - for boosting and dependencies met //
-		if (booster.boosting && Dependencies.metFor(audioDependencies))
+		if (booster.boosting && audioDependencies.met())
 		{
 			// initializing volume //
 			float targetVolume = audioComponent.volume;

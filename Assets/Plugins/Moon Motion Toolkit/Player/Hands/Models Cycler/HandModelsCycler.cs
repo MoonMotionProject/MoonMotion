@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
+using NaughtyAttributes;
 
 // Hand Models Cycler: provides functionality for changing (especially by cycling) the parent hand's set of hand models (/ trigger colliders)
 // (probably best used in conjunction with Locomotions Cycler)
@@ -58,10 +59,12 @@ public class HandModelsCycler : MonoBehaviour
 	// variables for: input //
 	private Controller controller;		// connection - automatic: this cycler's hand's controller
 	[Header("Input")]
+	[ReorderableList]
 	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use for controlling this cycler
 	public bool inputEnabled = true;		// setting: whether this cycler's input is currently enabled
 	[Tooltip("the dependencies by which to restrict whether input is allowed")]
-	public Dependencies.DependenciesCombination inputDependencies;		// setting: the dependencies by which to restrict whether input is allowed
+	[ReorderableList]
+	public Dependency[] inputDependencies;		// setting: the dependencies by which to restrict whether input is allowed
 	[Tooltip("whether or not input should cycle globally (for both hands at once)")]
 	public bool globallyCycle = true;		// setting: whether or not input should cycle globally (for both hands at once)
 	public bool inputPlaysAudio = false;		// setting: whether input should play the attached cycling audio
@@ -322,7 +325,7 @@ public class HandModelsCycler : MonoBehaviour
 	private void Update()
 	{
 		// if: input is enabled, the input dependencies are met, input is pressing: //
-		if (inputEnabled && Dependencies.metFor(inputDependencies) && controller.inputPressing(inputs))
+		if (inputEnabled && inputDependencies.met() && controller.inputPressing(inputs))
 		{
 			// advance the cycle – globally if set to do so //
 			if (globallyCycle)

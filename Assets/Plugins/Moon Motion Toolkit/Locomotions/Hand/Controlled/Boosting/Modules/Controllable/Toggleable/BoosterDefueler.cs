@@ -51,7 +51,7 @@ public class BoosterDefueler : BoosterModuleControllableToggleable
 	// method: determine whether this booster's defueling is currently enabled //
 	public bool enabledDefueling()
 	{
-		return (defuelingEnabled && Dependencies.metFor(dependenciesCombination));
+		return (defuelingEnabled && dependencies.met());
 	}
 	// method: determine whether the given booster's defueling is currently enabled //
 	public static bool enabledDefueling(Booster booster)

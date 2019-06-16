@@ -37,7 +37,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	[Tooltip("the max distance to antidiminish within (such that at max distance, but not past max distance, the booster force is totally antidiminished)")]
 	public float antidiminishingDistanceMax = 30f;		// setting: the max distance to antidiminish within (such that at max distance, but not past max distance, the booster force is totally antidiminished)
 	[Tooltip("the curve used for antidiminishing interpolation")]
-	public InterpolationCurved.Curve antidiminishingCurve = InterpolationCurved.Curve.smoother;		// setting: the curve used for antidiminishing interpolation
+	public InterpolationCurve antidiminishingCurve = InterpolationCurve.smoother;		// setting: the curve used for antidiminishing interpolation
 	[HideInInspector] public float lastPotentialDistanceToAntidiminishor = 0f;		// tracking: the last recorded potential distance to this antidiminisher's booster's nearest raycast hit on terrain (there may have been no terrain detected), potentially of an 'Antidiminishor'; if 0, may either be no distance or even no antidiminishor hit at all – the functionality in either case is the same
 	[HideInInspector] public bool atDistanceToAntidiminishor = false;		// tracking: whether the booster was at any distance to an 'Antidiminishor' last time it raycasted to determine distance to potential terrain
 
@@ -84,7 +84,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 		// via Booster Diminisher, track the potential distance from the booster to the nearest terrain (if any) as the potential distance to an antidiminishor, and also track whether the booster is directed at any distance to the 'Antidiminishor' layer in particular //
 		lastPotentialDistanceToAntidiminishor = BoosterDiminisher.distanceToTerrain(booster);
 
-		return (antidiminishing && Dependencies.metFor(dependenciesCombination) && atDistanceToAntidiminishor);
+		return (antidiminishing && dependencies.met() && atDistanceToAntidiminishor);
 	}
 	// method: determine whether the given booster's antidiminisher is currently antidiminishing //
 	public static bool antidiminishingBooster(Booster booster)
@@ -107,7 +107,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 	}
 	
 	// method: determine the antidiminishing interpolation curve for the given booster //
-	private static InterpolationCurved.Curve curve(Booster booster)
+	private static InterpolationCurve curve(Booster booster)
 	{
 		if (booster.leftInstance)
 		{
@@ -153,7 +153,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 		if (antidiminishingBooster(booster))		// if this booster is actually being antidiminished
 		{
 			// calculate the antidiminishing factor //
-			antidiminishingFactorForAntidiminishedAxes = (antidiminishingBooster(booster) ? InterpolationCurved.floatClamped(curve(booster), 1f, 0f, (antidiminisherFor(booster).lastPotentialDistanceToAntidiminishor / boosterAntidiminishingDistanceMax(booster))) : 0f);
+			antidiminishingFactorForAntidiminishedAxes = (antidiminishingBooster(booster) ? curve(booster).clamped(1f, 0f, (antidiminisherFor(booster).lastPotentialDistanceToAntidiminishor / boosterAntidiminishingDistanceMax(booster))) : 0f);
 		}
 
 		// determine the antidiminisher for the given booster //

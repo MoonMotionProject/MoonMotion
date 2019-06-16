@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 // Powerup Collider:
 // • defines this object as the collider of a powerup, and expects to be an immediate child of a parent with a Powerup, and a sibling to a Powerup Bump Audio
@@ -39,7 +40,7 @@ public class PowerupCollider : MonoBehaviour
 		bumpAudio.play();
 
 		// if triggered by the player, have the parent Powerup pickup //
-		if (Hierarchy.selfOrAnyLevelParentWithPlayer(collider))
+		if (collider.GetComponentInParent<Player>())
 		{
 			powerup.pickup();
 		}

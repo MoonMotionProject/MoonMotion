@@ -137,10 +137,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4281218782486514}
-  - component: {fileID: 114575672630951400}
-  - component: {fileID: 114430226279799972}
   - component: {fileID: 114124587771720460}
   - component: {fileID: 114034181282342974}
+  - component: {fileID: 114575672630951400}
+  - component: {fileID: 114749086768786544}
   m_Layer: 10
   m_Name: Powerup - Primary Gravity - None
   m_TagString: Untagged
@@ -718,20 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114430226279799972
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951227641955300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
+  flipYAfterFacing: 1
 --- !u!114 &114523400797048566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -759,6 +746,20 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
+--- !u!114 &114749086768786544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951227641955300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114798126618422954
 MonoBehaviour:
   m_ObjectHideFlags: 1

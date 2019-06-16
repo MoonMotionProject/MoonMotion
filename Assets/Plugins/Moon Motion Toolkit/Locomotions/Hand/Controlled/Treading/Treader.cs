@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +37,8 @@ public class Treader : HandLocomotionControlled
 	// variables for: treading //
 	[Header("Stuck Failsafe")]
 	[Tooltip("the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed")]
-	public Dependencies.DependenciesCombination dependenciesStuckFailsafe;		// setting: the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed
+	[ReorderableList]
+	public Dependency[] dependenciesStuckFailsafe;		// setting: the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed
 	private Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody (to tread)
 	[Header("Treading Speed Gauges")]
 	[Tooltip("the max speed that this locomotion can set the player to")]
@@ -47,9 +49,9 @@ public class Treader : HandLocomotionControlled
 	public float slowerSpeedMax = 2.5f;		// setting: the max speed that this locomotion can set the player to (for the slower gauge of treading only when using touchpad input and the touchpad is merely being touched)
 	[Header("Treading Speed Sensitivity")]
 	[Tooltip("the sensitivity curve – for using touchpad input only – by which to interpolate the max speed from 0, from central touchpad input to edge touchpad input")]
-	public InterpolationCurved.Curve touchpadSpeedDistanceCurve = InterpolationCurved.Curve.linear;		// setting: the sensitivity curve – for using touchpad input only – by which to interpolate the max speed from 0, from central touchpad input to edge touchpad input
+	public InterpolationCurve touchpadSpeedDistanceCurve = InterpolationCurve.linear;		// setting: the sensitivity curve – for using touchpad input only – by which to interpolate the max speed from 0, from central touchpad input to edge touchpad input
 	[Header("Treading Speed Responsiveness")]
-	public Dependencies.Dependency dependencyDriftingWithinOneSecondAgo;		// setting: the dependency by which to determine whether the player was drifting within one second ago (in order to adjust treading speed responsiveness accordingly)
+	public Dependency dependencyDriftingWithinOneSecondAgo;		// setting: the dependency by which to determine whether the player was drifting within one second ago (in order to adjust treading speed responsiveness accordingly)
 	[Tooltip("the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is for when not skiing nor drifting")]
 	public float responsivenessFactorNonskiingNondrifting = 666666f;		// setting: the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is for when not skiing nor drifting
 	[Tooltip("the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is the min for when not skiing but drifting, interpolated to the max based on the ratio of the time ago the player was last drifting out of one second")]
@@ -57,7 +59,7 @@ public class Treader : HandLocomotionControlled
 	[Tooltip("the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is the max for when not skiing but drifting, interpolated from the min based on the ratio of the time ago the player was last drifting out of one second")]
 	public float responsivenessFactorNonskiingDriftingMax = 100f;		// setting: the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is the max for when not skiing but drifting, interpolated from the min based on the ratio of the time ago the player was last drifting out of one second
 	[Tooltip("the curve by which to interpolate between the responsiveness factor min and max settings for when not skiing but drifting")]
-	public InterpolationCurved.Curve responsivenessFactorNonskiingDriftingCurve = InterpolationCurved.Curve.smoother;		// setting: the curve by which to interpolate between the responsiveness factor min and max settings for when not skiing but drifting
+	public InterpolationCurve responsivenessFactorNonskiingDriftingCurve = InterpolationCurve.smoother;		// setting: the curve by which to interpolate between the responsiveness factor min and max settings for when not skiing but drifting
 	[Tooltip("the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is for when skiing (and regardless of whether the player is drifting)")]
 	public float responsivenessFactorSkiing = 1f;		// setting: the responsiveness factor, sort of like a measure of agility, by which to hone the player's current velocity to the current target treading velocity - this responsiveness factor is for when skiing (and regardless of whether the player is drifting)
 	[Header("Treading Control (regular gauge only)")]
@@ -81,7 +83,7 @@ public class Treader : HandLocomotionControlled
 	// method: determine whether this hand locomotion's input is currently enabled and currently allowed //
 	public override bool locomotionInputEnabledAndAllowed()
 	{
-		return (locomotionInputEnabled && (Dependencies.metFor(locomotionDependencies) || Dependencies.metFor(dependenciesStuckFailsafe)));
+		return (locomotionInputEnabled && (locomotionDependencies.met() || dependenciesStuckFailsafe.met()));
 	}
 	// method: determine whether this treader's input experiencing valid input (whether its input is touched or pressed – versus neither touched nor pressed) //
 	private bool experiencingValidInput()
@@ -346,7 +348,7 @@ public class Treader : HandLocomotionControlled
 	private void Update()
 	{
 		// if either: the locomotion dependencies are met, the stuck failsafe dependencies are met: //
-		if (Dependencies.metFor(locomotionDependencies) || Dependencies.metFor(dependenciesStuckFailsafe))
+		if (locomotionDependencies.met() || dependenciesStuckFailsafe.met())
 		{
 			// if: regular gauge treading is controlled via toggling (instead of holding), regular gauge input just began: invert the tracking of whether the regular treading toggle is on //
 			if (!heldVersusToggled && locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion))
@@ -384,8 +386,8 @@ public class Treader : HandLocomotionControlled
 				}
 
 				// initialize the treading velocity (which is just for x and z) as a proportionality (that is, without scaling it to the appropriate magnitude/speed yet) //
-				Vector3 treadingVelocityProportionalityForwardPart = Vector3.zero;		// define the forward part to be the forward direction of this treader
-				Vector3 treadingVelocityProportionalityRightwardPart = Vector3.zero;		// initialize the rightward part as a zeroes vector
+				Vector3 treadingVelocityProportionalityForwardPart = Vectors.zeroesVector;		// define the forward part to be the forward direction of this treader
+				Vector3 treadingVelocityProportionalityRightwardPart = Vectors.zeroesVector;		// initialize the rightward part as a zeroes vector
 				if (controller.inputTouched(inputsLocomotion))       // if any touchpad input is being used: proportion the velocity parts based on the touchpad input position's coordinates' signage
 				{
 					// proportion the forward part of the velocity based on the touchpad's y (used for z) input position //
@@ -408,7 +410,7 @@ public class Treader : HandLocomotionControlled
 				if (controller.inputTouched(inputsLocomotion))       // if any touchpad input is being used:
 				{
 					// set the speed to be the max treading speed, curved by the distance of the input position on the touchpad away from the center, using the curve setting //
-					speed = InterpolationCurved.floatClamped(touchpadSpeedDistanceCurve, 0f, maxSpeed, controller.touchpadDistance());
+					speed = touchpadSpeedDistanceCurve.clamped(0f, maxSpeed, controller.touchpadDistance());
 				}
 				else		// otherwise (if no touchpad input is being used): simply set the treading speed to the max treading speed
 				{
@@ -428,7 +430,7 @@ public class Treader : HandLocomotionControlled
 					float appropriateResponsivnessFactor = responsivenessFactorSkiing;
 					if (!Skier.skiing)
 					{
-						bool driftingWithinOneSecondAgo = Dependencies.metFor(dependencyDriftingWithinOneSecondAgo);
+						bool driftingWithinOneSecondAgo = dependencyDriftingWithinOneSecondAgo.met();
 						if (!driftingWithinOneSecondAgo)
 						{
 							appropriateResponsivnessFactor = responsivenessFactorNonskiingNondrifting;
@@ -439,13 +441,13 @@ public class Treader : HandLocomotionControlled
 							float timeAgoDriftingLaunching = (Time.time - LaunchingDriftingTracker.timePlayerWasLastLaunchingDrifting);
 							float timeAgoDrifting = Mathf.Min(timeAgoDriftingBoosting, timeAgoDriftingLaunching);
 
-							appropriateResponsivnessFactor = InterpolationCurved.floatClamped(responsivenessFactorNonskiingDriftingCurve, responsivenessFactorNonskiingDriftingMin, responsivenessFactorNonskiingDriftingMax, (timeAgoDrifting / 1f));
+							appropriateResponsivnessFactor = responsivenessFactorNonskiingDriftingCurve.clamped(responsivenessFactorNonskiingDriftingMin, responsivenessFactorNonskiingDriftingMax, (timeAgoDrifting / 1f));
 						}
 					}
 
 					// hone the player's velocity x and z axes to the treading velocity x and z axes by the determined treading velocity x and z axes' magnitudes in proportion to the current frame's duration times the appropriate responsivness factor //
 					Vector3 honingVector = ((new Vector3(Mathf.Abs(treadingVelocity.x), 0f, Mathf.Abs(treadingVelocity.z))) * (Time.deltaTime) * appropriateResponsivnessFactor);
-					playerRigidbody.velocity = Honing.hone(playerVelocity, treadingVelocity, honingVector);
+					playerRigidbody.velocity = playerVelocity.honed(treadingVelocity, honingVector);
 				}
 			}
 			// otherwise (if this treader is not currently experiencing significant input): if the player is not currently skiing: //

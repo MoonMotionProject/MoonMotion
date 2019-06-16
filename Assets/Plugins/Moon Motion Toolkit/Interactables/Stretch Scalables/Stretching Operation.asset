@@ -15,11 +15,9 @@ MonoBehaviour:
   inputs: 01000000
   inputtednesses: 03000000
   beingnesses: 
-  dependenciesThorough:
-    array: []
+  dependenciesThorough: []
   dependenciesPartial:
-    array:
-    - requisition: 1
-      requisite: {fileID: 11400000, guid: 66021f31fb892824b8750f0c463df0e1, type: 2}
-    - requisition: 1
-      requisite: {fileID: 11400000, guid: d417498e2557e11478aed238b885d9c2, type: 2}
+  - requisition: 1
+    requisite: {fileID: 11400000, guid: 66021f31fb892824b8750f0c463df0e1, type: 2}
+  - requisition: 1
+    requisite: {fileID: 11400000, guid: d417498e2557e11478aed238b885d9c2, type: 2}

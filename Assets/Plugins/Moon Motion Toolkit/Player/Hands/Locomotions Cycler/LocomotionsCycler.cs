@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using System.Linq;
+using NaughtyAttributes;
 
 // Locomotions Cycler
 // • A Locomotions Cycler is a module intended for both hands of the player.
@@ -11,7 +12,7 @@ using System.Linq;
 //   · an input dependencies setting further restricts whether this input is allowed
 //   · based on an option, this will or will not play the attached cycling audio
 //   · here a locomotion is a child object of this cycler's hand that provides a locomotive method for the hand, as determined by whether it has a script component that extends Locomotion
-//   · here a locomotion combination is defined as a set of multiple locomotions to enable simultaneously – this could be a set containing just one locomotion, two, more, or none
+//   · here a locomotion combination is defined as an array of multiple locomotions to enable simultaneously – this could contain just one locomotion, two, more... or none
 //     - for example, the locomotion combinations could be setup to cycle between using, say: Booster, Teleporter, both Booster and Teleporter, no locomotions
 //     - note that this does not imply full support for or a need to provide more than one hand locomotion object of the same kind for the same hand
 //       – having the same locomotion object be reused in multiple combinations should be done by setting each combination's particular connection to that singular locomotion object, as opposed to unnecessarily creating a clone of it and connecting to that
@@ -47,10 +48,12 @@ public class LocomotionsCycler : MonoBehaviour
 	// variables for: input //
 	private Controller controller;		// connection - automatic: the hand's controller
 	[Header("Input")]
+	[ReorderableList]
 	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use
 	public bool inputEnabled = true;		// setting: whether this Locomotions Cycler's input is currently enabled
 	[Tooltip("the dependencies by which to restrict whether input is allowed")]
-	public Dependencies.DependenciesCombination inputDependencies;		// setting: the dependencies by which to restrict whether input is allowed
+	[ReorderableList]
+	public Dependency[] inputDependencies;		// setting: the dependencies by which to restrict whether input is allowed
 	public bool globallyCycle = true;		// setting: whether, when registering input, to cycle through the locomotion combinations for both Locomotions Cyclers or just this one
 	public bool inputPlaysAudio = true;		// setting: whether to play the cycling audio upon input
 	
@@ -218,7 +221,7 @@ public class LocomotionsCycler : MonoBehaviour
 		controller = hand.GetComponent<Controller>();
 
 		// ensure that the combinations array is not empty of combinations, setting it to have one combination empty of locomotions if it is //
-		if (combinations.Length == 0)
+		if (combinations.empty())
 		{
 			combinations = new LocomotionCombination[] {new LocomotionCombination()};
 		}
@@ -281,7 +284,7 @@ public class LocomotionsCycler : MonoBehaviour
 		if (cyclingAllowed)
 		{
 			// if: input is enabled, the input dependencies are met, input is pressing: //
-			if (inputEnabled && Dependencies.metFor(inputDependencies) && controller.inputPressing(inputs))
+			if (inputEnabled && inputDependencies.met() && controller.inputPressing(inputs))
 			{
 				// cycle the locomotion combination index through the locomotion combinations //
 				index++;

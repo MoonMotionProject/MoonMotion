@@ -51,7 +51,7 @@ public class BoosterAutomator : BoosterModuleControllableToggleable
 	// method: determine whether this booster is currently automating //
 	public bool automatingBooster()
 	{
-		return (automaticBoosting && Dependencies.metFor(dependenciesCombination));
+		return (automaticBoosting && dependencies.met());
 	}
 	// method: determine whether the given booster is currently automating //
 	public static bool automating(Booster booster)

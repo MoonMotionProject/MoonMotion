@@ -1,21 +1,29 @@
-﻿using System.Collections;
+﻿using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Player Dependency Tracker
 // • tracks the state of a Dependency Requisite for the player
 //   · uses the set "true dependencies" by which to potentially track such as true, and if not tracking such as true, uses the set "otherwise false partial dependencies" for tracking such as false
-public class PlayerDependencyTracker : MonoBehaviour
+public abstract class	PlayerDependencyTracker<PlayerDependencyTrackerT> :
+					SingletonBehaviour<PlayerDependencyTrackerT>
+						where PlayerDependencyTrackerT : PlayerDependencyTracker<PlayerDependencyTrackerT>
 {
 	// variables //
-
 	
-	// variables for: tracking the state of the Dependency Requisite //
-	protected bool requisiteState = false;		// tracking: the state of the Dependency Requisite
+	
+	[Tooltip("the state of the Dependency Requisite")]
+	[ShowNonSerializedField]
+	protected bool requisiteState = false;
+
 	[Tooltip("the dependencies by which the state is tracked as true")]
-	public Dependencies.DependenciesCombination dependenciesTrue;		// setting: the dependencies by which the state is tracked as true
+	[ReorderableList]
+	public Dependency[] dependenciesTrue;
+
 	[Tooltip("the partial dependencies by which the state is tracked as false, only if the true dependencies were not met")]
-	public Dependencies.DependenciesCombination partialDependenciesOtherwiseFalse;		// setting: the partial dependencies by which the state is tracked as false, only if the true dependencies were not met
+	[ReorderableList]
+	public Dependency[] partialDependenciesOtherwiseFalse;
 
 
 
@@ -27,11 +35,11 @@ public class PlayerDependencyTracker : MonoBehaviour
 	private void trackState()
 	{
 		// update the tracking for the state of the Dependency Requisite //
-		if (Dependencies.metFor(dependenciesTrue))
+		if (dependenciesTrue.met())
 		{
 			requisiteState = true;
 		}
-		else if (Dependencies.partiallyMetForWhereEmptyIsFalse(partialDependenciesOtherwiseFalse))
+		else if (partialDependenciesOtherwiseFalse.partiallyMetWhereEmptyIsFalse())
 		{
 			requisiteState = false;
 		}

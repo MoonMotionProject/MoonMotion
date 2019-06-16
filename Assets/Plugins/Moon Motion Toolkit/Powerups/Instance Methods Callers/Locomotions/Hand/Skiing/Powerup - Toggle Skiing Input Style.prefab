@@ -137,10 +137,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4753235072425682}
-  - component: {fileID: 114477526017486812}
-  - component: {fileID: 114540104260470020}
   - component: {fileID: 114759583149952698}
   - component: {fileID: 114468961501222436}
+  - component: {fileID: 114477526017486812}
+  - component: {fileID: 114011895509678688}
   m_Layer: 10
   m_Name: Powerup - Toggle Skiing Input Style
   m_TagString: Untagged
@@ -631,6 +631,20 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114011895509678688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1889390654849856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114190058563360644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,6 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
 --- !u!114 &114468961501222436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -721,20 +736,6 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
---- !u!114 &114540104260470020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1889390654849856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9083f25f64df7f94f9704b8582b8d3e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  speed: 30
 --- !u!114 &114759583149952698
 MonoBehaviour:
   m_ObjectHideFlags: 1

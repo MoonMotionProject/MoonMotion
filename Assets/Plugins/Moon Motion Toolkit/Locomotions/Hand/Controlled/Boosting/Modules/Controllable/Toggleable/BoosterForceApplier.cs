@@ -29,7 +29,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	public float forceShallow = 300f;	   // setting: the amount of force applied for shallow boosting of the booster's main boosting force
 	[Tooltip("the amount of force applied for deep boosting of the booster's main boosting force")]
 	public float forceDeep = 800f;	  // setting: the amount of force applied for deep boosting of the booster's main boosting force
-	public Rotation.Direction forceDirection = Rotation.Direction.up;	   // setting: the direction of force applied for boosting (aimed for by rotating the booster) (opposite of the boosting direction (which is the direction that the jet goes out in))
+	public Direction forceDirection = Direction.up;	   // setting: the direction of force applied for boosting (aimed for by rotating the booster) (opposite of the boosting direction (which is the direction that the jet goes out in))
 	
 	// variables for: applying force //
 	private Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody (to apply boosting force to)
@@ -108,7 +108,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 		return 800f;
 	}
 	// method: determine the force direction for the given booster //
-	public static Rotation.Direction direction(Booster booster)
+	public static Direction direction(Booster booster)
 	{
 		if (booster.leftInstance)
 		{
@@ -124,7 +124,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 				return right.forceDirection;
 			}
 		}
-		return Rotation.Direction.up;
+		return Direction.up;
 	}
 	
 	
@@ -133,7 +133,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: determine whether this booster is applying force //
 	public bool boosterApplyingForce()
 	{
-		return (applyingForce && Dependencies.metFor(dependenciesCombination));
+		return (applyingForce && dependencies.met());
 	}
 	// method: have this force applier apply the given force to the player's rigidbody, if it is set to apply force currently //
 	private void applyForceIfEnabled(Vector3 forceToApply)

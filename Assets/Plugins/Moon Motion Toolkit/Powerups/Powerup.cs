@@ -20,7 +20,7 @@ using UnityEngine;
 //     – (this is the one used internally when pickuping)
 //   - cast this pickup (do what it does upon pickup, besides play pickup audio first and get destroyed after)
 //   - pickup this powerup
-public class Powerup : MonoBehaviour
+public class Powerup : AutomaticBehaviour<Powerup>
 {
 	// variables //
 
@@ -48,12 +48,12 @@ public class Powerup : MonoBehaviour
 	protected virtual void takeOutAudios()
 	{
 		// take out the child Powerup Bump Audio (to be parallel in the hierarchy to this powerup) //
-		bumpAudio.transform.parent = transform.parent;
+		bumpAudio.setParent(parent);
 		// rename the Powerup Bump Audio's object //
 		bumpAudio.name = "Powerup "+bumpAudio.name;
 
 		// take out the child Powerup Pickup Audio (to be parallel in the hierarchy to this powerup) //
-		pickupAudio.transform.parent = transform.parent;
+		pickupAudio.setParent(parent);
 		// rename the Powerup Pickup Audio's object //
 		pickupAudio.name = "Powerup "+pickupAudio.name;
 	}
@@ -62,12 +62,12 @@ public class Powerup : MonoBehaviour
 	protected virtual void bringBackAudios()
 	{
 		// return the Powerup Bump Audio (that is parallel in the hierarchy to this powerup) to being the child of this powerup //
-		bumpAudio.transform.parent = transform;
+		bumpAudio.setParent(transform);
 		// return the Powerup Bump Audio object's name to what it was named before //
 		bumpAudio.name = originalBumpAudioName;
 		
 		// return the Powerup Pickup Audio (that is parallel in the hierarchy to this powerup) to being the child of this powerup //
-		pickupAudio.transform.parent = transform;
+		pickupAudio.setParent(transform);
 		// return the Powerup Pickup Audio object's name to what it was named before //
 		pickupAudio.name = originalPickupAudioName;
 	}
@@ -76,10 +76,10 @@ public class Powerup : MonoBehaviour
 	protected virtual void destroyAudios()
 	{
 		// have the Powerup Bump Audio plan its object's destruction //
-		bumpAudio.destroy();
+		bumpAudio.destroyAfterAudioDuration();
 
 		// have the Powerup Pickup Audio plan its object's destruction //
-		pickupAudio.destroy();
+		pickupAudio.destroyAfterAudioDuration();
 	}
 	
 	// method: destroy this powerup (but taking out its audios and having them uniquely plan their own objects' destructions) permanently (ignoring any remaining respawns) //
@@ -93,22 +93,22 @@ public class Powerup : MonoBehaviour
 		destroyAudios();
 
 		// destroy this powerup object //
-		Destroy(gameObject);
+		destroyObject();
 	}
 
 	// method: respawn this powerup (by default, just by reenabling it and returning its Powerup Bump Audio object back to how it was) //
 	protected virtual void respawn()
 	{
 		// reenable this powerup object //
-		gameObject.SetActive(true);
+		enable();
 		
 		// bring back the Powerup Audios //
 		bringBackAudios();
 	}
 	
 	// method: destroy/respawn this powerup: destroy this powerup and plan to respawn it if any respawns are left – if so, destroy it only by disabling it instead of permanently destroying it //
-	[ContextMenu("Destroy")]
-	public virtual void destroy()
+	[ContextMenu("Destroy Powerup")]
+	public virtual void destroyPowerup()
 	{
 		// if any respawns are left: //
 		if (respawnsCount != 0)
@@ -123,7 +123,7 @@ public class Powerup : MonoBehaviour
 			takeOutAudios();
 
 			// disable this powerup object //
-			gameObject.SetActive(false);
+			disable();
 
 			// plan to respawn this powerup object after a duration equal to the respawning delay setting //
 			Invoke("respawn", respawningDelay);
@@ -154,7 +154,7 @@ public class Powerup : MonoBehaviour
 		cast();
 
 		// destroy/respawn this powerup //
-		destroy();
+		destroyPowerup();
 	}
 
 
@@ -164,8 +164,10 @@ public class Powerup : MonoBehaviour
 
 	
 	// before the start: //
-	protected virtual void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
+
 		// connect to the child Powerup Bump Audio and track the original name of the Powerup Bump Audio's object //
 		bumpAudio = GetComponentInChildren<PowerupBumpAudio>();
 		originalBumpAudioName = bumpAudio.name;

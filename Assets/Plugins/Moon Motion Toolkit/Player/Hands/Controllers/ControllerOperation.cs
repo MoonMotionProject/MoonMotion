@@ -48,18 +48,27 @@ public class ControllerOperation : ScriptableObject
 		=> Controller.operated(this, beingness);
 	// method: determine whether this operation is currently operated at the becoming state of being (first requires this operation to accept either the becoming state of being, or no state of being) //
 	public bool operatedBecomingly()
-		=> Controller.operated(this, Beingness.becoming);
+		=> operated(Beingness.becoming);
 	// method: determine whether this operation is currently operated at the being state of being (first requires this operation to accept either the being state of being, or no state of being) //
 	public bool operatedBeingly()
-		=> Controller.operated(this, Beingness.being);
+		=> operated(Beingness.being);
 	// method: determine whether this operation is currently operated at the unbecoming state of being (first requires this operation to accept either the unbecoming state of being, or no state of being) //
 	public bool operatedUnbecomingly()
-		=> Controller.operated(this, Beingness.unbecoming);
+		=> operated(Beingness.unbecoming);
 
 	// method: determine the set of controllers for which this operation is currently operated //
 	public HashSet<Controller> operatedControllers()
 		=> Controller.operatedControllers(this);
-	// method: determine the set of controllers for which this operation is currently operated at the given state of being (first requires this operation to accept either the given state of being, or no state of beings) //
+	// method: determine the set of controllers for which this operation is currently operated at the given state of being (first requires this operation to accept either the given state of being, or no state of being) //
 	public HashSet<Controller> operatedControllers(Beingness beingness)
 		=> Controller.operatedControllers(this, beingness);
+	// method: determine the set of controllers for which this operation is currently operated at the becoming state of being (first requires this operation to accept either the becoming state of being, or no state of being) //
+	public HashSet<Controller> operatedBecominglyControllers()
+		=> operatedControllers(Beingness.becoming);
+	// method: determine the set of controllers for which this operation is currently operated at the being state of being (first requires this operation to accept either the being state of being, or no state of being) //
+	public HashSet<Controller> operatedBeinglyControllers()
+		=> operatedControllers(Beingness.being);
+	// method: determine the set of controllers for which this operation is currently operated at the unbecoming state of being (first requires this operation to accept either the unbecoming state of being, or no state of being) //
+	public HashSet<Controller> operatedUnbecominglyControllers()
+		=> operatedControllers(Beingness.unbecoming);
 }

@@ -139,8 +139,10 @@ GameObject:
   - component: {fileID: 4418819433511552}
   - component: {fileID: 114096834018517884}
   - component: {fileID: 114101712787760436}
-  - component: {fileID: 114947278287558280}
-  - component: {fileID: 114314687521592218}
+  - component: {fileID: 114882392292404052}
+  - component: {fileID: 114957052124093502}
+  - component: {fileID: 114264345048770492}
+  - component: {fileID: 114621803771619394}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Force Applying
   m_TagString: Untagged
@@ -707,55 +709,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114314687521592218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947059347567486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10
---- !u!114 &114603661398915176
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013039360380472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipYAfterFacing: 1
---- !u!114 &114675121942802976
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1204691763956640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114934563148396262
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1187037503772304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114947278287558280
+--- !u!114 &114264345048770492
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -771,3 +725,74 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
+--- !u!114 &114603661398915176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013039360380472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
+--- !u!114 &114621803771619394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947059347567486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
+--- !u!114 &114675121942802976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204691763956640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114882392292404052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947059347567486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114934563148396262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187037503772304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114957052124093502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947059347567486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0

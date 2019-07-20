@@ -122,8 +122,10 @@ GameObject:
   - component: {fileID: 4540238911868740}
   - component: {fileID: 114736911028882120}
   - component: {fileID: 114126800340652272}
-  - component: {fileID: 114039614736624152}
-  - component: {fileID: 114141164361552956}
+  - component: {fileID: 114851956234905008}
+  - component: {fileID: 114958036417517174}
+  - component: {fileID: 114093951968245752}
+  - component: {fileID: 114730002116411206}
   m_Layer: 10
   m_Name: Powerup - Instance Methods Caller
   m_TagString: Untagged
@@ -631,7 +633,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114039614736624152
+--- !u!114 &114093951968245752
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -699,20 +701,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114141164361552956
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1825707555461910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10
 --- !u!114 &114247812451168834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -747,6 +735,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipYAfterFacing: 1
+--- !u!114 &114730002116411206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825707555461910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114736911028882120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -760,6 +762,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 2
+--- !u!114 &114851956234905008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825707555461910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114859646790601368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -771,3 +784,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114958036417517174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825707555461910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0

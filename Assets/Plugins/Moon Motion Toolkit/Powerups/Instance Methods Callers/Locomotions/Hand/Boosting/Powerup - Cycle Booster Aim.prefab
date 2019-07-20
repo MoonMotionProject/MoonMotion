@@ -54,8 +54,10 @@ GameObject:
   - component: {fileID: 4081704527947092}
   - component: {fileID: 114426921623188372}
   - component: {fileID: 114063532027367480}
-  - component: {fileID: 114179619332334574}
-  - component: {fileID: 114675141678321596}
+  - component: {fileID: 114754993854653756}
+  - component: {fileID: 114938190212595922}
+  - component: {fileID: 114408369691394540}
+  - component: {fileID: 114630518148011270}
   m_Layer: 10
   m_Name: Powerup - Cycle Booster Aim
   m_TagString: Untagged
@@ -694,7 +696,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114179619332334574
+--- !u!114 &114408369691394540
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -745,7 +747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114675141678321596
+--- !u!114 &114630518148011270
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -759,6 +761,17 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
+--- !u!114 &114754993854653756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218455408031506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114841567983695224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -770,6 +783,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114938190212595922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218455408031506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114985052043486488
 MonoBehaviour:
   m_ObjectHideFlags: 1

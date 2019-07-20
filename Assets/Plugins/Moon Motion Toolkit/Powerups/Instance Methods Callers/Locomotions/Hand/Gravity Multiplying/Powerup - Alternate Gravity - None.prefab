@@ -21,8 +21,10 @@ GameObject:
   - component: {fileID: 4490453983087048}
   - component: {fileID: 114258735572272814}
   - component: {fileID: 114448250277483864}
-  - component: {fileID: 114660072295038964}
-  - component: {fileID: 114198091640739584}
+  - component: {fileID: 114582607920012192}
+  - component: {fileID: 114825724968543296}
+  - component: {fileID: 114805698899864734}
+  - component: {fileID: 114254916554331886}
   m_Layer: 10
   m_Name: Powerup - Alternate Gravity - None
   m_TagString: Untagged
@@ -643,7 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipYAfterFacing: 1
---- !u!114 &114198091640739584
+--- !u!114 &114254916554331886
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -744,6 +746,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114582607920012192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1217419844437220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114608869356187772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -755,7 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114660072295038964
+--- !u!114 &114805698899864734
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -771,3 +784,15 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
+--- !u!114 &114825724968543296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1217419844437220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0

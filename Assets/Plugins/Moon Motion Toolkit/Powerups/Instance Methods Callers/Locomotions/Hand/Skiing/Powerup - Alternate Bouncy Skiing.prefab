@@ -85,8 +85,10 @@ GameObject:
   - component: {fileID: 4080525737426232}
   - component: {fileID: 114727645702825066}
   - component: {fileID: 114634878871973898}
-  - component: {fileID: 114658463280897252}
-  - component: {fileID: 114196169702133520}
+  - component: {fileID: 114547926481611352}
+  - component: {fileID: 114248757185878678}
+  - component: {fileID: 114178755142126230}
+  - component: {fileID: 114800285147974396}
   m_Layer: 10
   m_Name: Powerup - Alternate Bouncy Skiing
   m_TagString: Untagged
@@ -631,7 +633,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114196169702133520
+--- !u!114 &114178755142126230
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -639,12 +641,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1756956839865406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0
+--- !u!114 &114248757185878678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1756956839865406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114324994810619798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -688,6 +704,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114547926481611352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1756956839865406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114634878871973898
@@ -742,22 +769,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114658463280897252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1756956839865406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
 --- !u!114 &114727645702825066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -771,3 +782,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 3
+--- !u!114 &114800285147974396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1756956839865406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10

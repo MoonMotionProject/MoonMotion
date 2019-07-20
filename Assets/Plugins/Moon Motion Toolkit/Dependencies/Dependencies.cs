@@ -56,5 +56,5 @@ public static class Dependencies
 
 	// method: determine whether the given dependencies are at least partially met – where empty results in true //
 	public static bool partiallyMetWhereEmptyIsTrue(this Dependency[] dependencies)
-		=> dependencies.empty().otherwise(dependencies.partiallyMetWhereEmptyIsFalse());
+		=> dependencies.empty().otherwiseWhether(dependencies.partiallyMetWhereEmptyIsFalse());
 }

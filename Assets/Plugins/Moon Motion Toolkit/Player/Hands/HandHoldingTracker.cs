@@ -11,14 +11,14 @@ using Valve.VR.InteractionSystem;
 // • provides hand hovering tracking\determination:
 //   · provides methods to determine whether any interactables are being hovered by a particular hand
 //   · this is only for interactables not already being held – the same interactables that have caused a vibration of the hand hovering over them
-public class HandHoldingTracker : MonoBehaviour
+public class HandHoldingTracker : AutomaticBehaviour<HandHoldingTracker>
 {
 	// variables //
 
 	
 	// variables for: instancing, hand holding tracking\determination //
-	private Transform handTransform;		// connection - automatic: the transform of this hand holding tracker's parent hand
-	private Hand hand;		// connection - automatic: this hand holding tracker's hand
+	private Transform parentHandTransform;		// connection - automatic: the transform of this hand holding tracker's parent hand
+	private Hand parentHand;		// connection - automatic: this hand holding tracker's hand
 	[HideInInspector] public bool leftInstance = true;		// tracking: this hand holding tracker's handedness (whether this hand holding tracker is for the left hand (versus the right))
 	public static HandHoldingTracker left, right;		// connections - automatic: the left and right instances of this class, respectively
 	[HideInInspector] public float timeOfLastHoldingAnyInteractables = -Mathf.Infinity;		// tracking: the time this hand holding tracker's hand was last holding any interactables – defaulted to negative infinity by default as a flag that this hand holding tracker's hand has never held any interactables
@@ -37,7 +37,7 @@ public class HandHoldingTracker : MonoBehaviour
 	{
 		List<GameObject> heldInteractablesList = new List<GameObject>();
 
-		foreach (Transform handChildTransform in handTransform)
+		foreach (Transform handChildTransform in parentHandTransform)
 		{
 			if (handChildTransform.GetComponent<Interactable>() && !handChildTransform.GetComponent<SpawnRenderModel>())
 			{
@@ -47,16 +47,15 @@ public class HandHoldingTracker : MonoBehaviour
 
 		return heldInteractablesList;
 	}
+
 	// method: get all interactables held by the left hand //
 	public static List<GameObject> heldInteractablesLeft()
-	{
-		return left.heldInteractables();
-	}
+		=> left.heldInteractables();
+
 	// method: get all interactables held by the right hand //
 	public static List<GameObject> heldInteractablesRight()
-	{
-		return right.heldInteractables();
-	}
+		=> right.heldInteractables();
+
 	// method: get all interactables held by the both of the hands //
 	public static List<GameObject> heldInteractablesBoth()
 	{
@@ -67,104 +66,88 @@ public class HandHoldingTracker : MonoBehaviour
 
 		return heldInteractablesListLeftThenLaterBoth;
 	}
+
 	// method: determine whether any interactables are held by this hand holding tracker's hand //
 	public bool anyHeldInteractables()
-	{
-		return (heldInteractables().Count > 0);
-	}
+		=> heldInteractables().any();
+
 	// method: determine whether any interactables are held by the left hand //
 	public static bool anyHeldInteractablesLeft()
-	{
-		return (heldInteractablesLeft().Count > 0);
-	}
+		=> heldInteractablesLeft().any();
+
 	// method: determine whether any interactables are held by the right hand //
 	public static bool anyHeldInteractablesRight()
-	{
-		return (heldInteractablesRight().Count > 0);
-	}
+		=> heldInteractablesRight().any();
+
 	// method: determine whether any interactables are held by the both of the hands //
 	public static bool anyHeldInteractablesEither()
-	{
-		return (heldInteractablesBoth().Count > 0);
-	}
+		=> heldInteractablesBoth().any();
+
 	// method: determine whether any interactables were held within the given time ago by this hand holding tracker's hand //
 	public bool anyHeldInteractablesWithin(float timeAgo)
-	{
-		return ((Time.time - timeOfLastHoldingAnyInteractables) <= timeAgo);
-	}
+		=> timeSince(timeOfLastHoldingAnyInteractables) <= timeAgo;
+
 	// method: determine whether any interactables were held within the given time ago by the left hand //
 	public static bool anyHeldInteractablesLeftWithin(float timeAgo)
-	{
-		return left.anyHeldInteractablesWithin(timeAgo);
-	}
+		=> left.anyHeldInteractablesWithin(timeAgo);
+
 	// method: determine whether any interactables were held within the given time ago by the right hand //
 	public static bool anyHeldInteractablesRightWithin(float timeAgo)
-	{
-		return right.anyHeldInteractablesWithin(timeAgo);
-	}
+		=> right.anyHeldInteractablesWithin(timeAgo);
+
 	// method: determine whether any interactables were held within the given time ago by the both of the hands //
 	public static bool anyHeldInteractablesEitherWithin(float timeAgo)
-	{
-		return (anyHeldInteractablesLeftWithin(timeAgo) || anyHeldInteractablesRightWithin(timeAgo));
-	}
+		=> anyHeldInteractablesLeftWithin(timeAgo) || anyHeldInteractablesRightWithin(timeAgo);
+
 	// method: determine whether any interactables are being hovered by this hand holding tracker's hand //
 	public bool anyHoveredInteractables()
-	{
-		return handHoveringWithNonheldInteractable;
-	}
+		=> handHoveringWithNonheldInteractable;
+
 	// method: determine whether any interactables are being hovered by the left hand //
 	public static bool anyHoveredInteractablesLeft()
-	{
-		return left.anyHoveredInteractables();
-	}
+		=> left.anyHoveredInteractables();
+
 	// method: determine whether any interactables are being hovered by the right hand //
 	public static bool anyHoveredInteractablesRight()
-	{
-		return right.anyHoveredInteractables();
-	}
+		=> right.anyHoveredInteractables();
+
 	// method: determine whether any interactables are being hovered by the both of the hands //
 	public static bool anyHoveredInteractablesEither()
-	{
-		return (anyHoveredInteractablesLeft() || anyHoveredInteractablesRight());
-	}
+		=> anyHoveredInteractablesLeft() || anyHoveredInteractablesRight();
+
 	// method: determine whether being a Longbow Arrow Hand is the current state of this hand holding tracker's hand //
 	public bool longbowArrowHand()
-	{
-		return handTransform.GetComponentInChildren<ArrowHand>();
-	}
+		=> parentHandTransform.selectChild<ArrowHand>();
+
 	// method: determine whether being a Longbow Arrow Hand is the current state of the left hand //
 	public static bool longbowArrowHandLeft()
-	{
-		return left.longbowArrowHand();
-	}
+		=> left.longbowArrowHand();
+
 	// method: determine whether being a Longbow Arrow Hand is the current state of the right hand //
 	public static bool longbowArrowHandRight()
-	{
-		return right.longbowArrowHand();
-	}
+		=> right.longbowArrowHand();
+
 	// method: determine whether being a Longbow Arrow Hand is the current state of either of the hands //
 	public static bool longbowArrowHandEither()
-	{
-		return (longbowArrowHandLeft() || longbowArrowHandRight());
-	}
+		=> longbowArrowHandLeft() || longbowArrowHandRight();
 
 
 
 
 	// updating //
 
-	
+
 	// before the start: //
-    private void Awake()
+	private void Awake()
     {
 		// connect to the transform of this hand holding tracker's parent hand //
-		handTransform = transform.parent;
+		parentHandTransform = transform.parent;
 
 		// connect to this hand holding tracker's hand //
-		hand = handTransform.GetComponent<Hand>();
+		parentHand = parentHandTransform.first<Hand>();
 		
 		// track whether this hand holding tracker is for the left hand //
-		leftInstance = (hand.startingHandType == Hand.HandType.Left);
+		leftInstance = (parentHand.startingHandType == Hand.HandType.Left);
     }
 
 	// upon being enabled: //
@@ -188,7 +171,7 @@ public class HandHoldingTracker : MonoBehaviour
 		if (anyHeldInteractables())
 		{
 			// track the current time as the last time that this hand holding tracker's hand was last holding any interactables //
-			timeOfLastHoldingAnyInteractables = Time.time;
+			timeOfLastHoldingAnyInteractables = time;
 		}
 	}
 
@@ -201,8 +184,14 @@ public class HandHoldingTracker : MonoBehaviour
 			handHoveringWithNonheldInteractable = true;
 		}
 	}
-	// upon the parent hand ending hovering: //
+	// upon the parent hand ending hovering (not via nullification of the interactable): //
 	private void OnParentHandHoverEnd(Interactable interactable)
+	{
+		// track that the parent hand is not currently hovering with a nonheld interactable //
+		handHoveringWithNonheldInteractable = false;
+	}
+	// upon the parent hand ending hovering via nullification of the interactable: //
+	private void OnParentHandHoverEndViaInteractableNullification()
 	{
 		// track that the parent hand is not currently hovering with a nonheld interactable //
 		handHoveringWithNonheldInteractable = false;

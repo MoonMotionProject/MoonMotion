@@ -441,7 +441,7 @@ public abstract class GravityZone : Locomotion
 		// code for: gravitizing rigidbodies, player zonage toggling //
 		
 		// track any potential rigidbody (local or parent) of the given collider for being gravitized – if it has not been tracked yet //
-		Transform rigidbodyTransform = collider.selfOrParentTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		Transform rigidbodyTransform = collider.selfOrAncestorTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)			// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -476,7 +476,7 @@ public abstract class GravityZone : Locomotion
 		// code for: gravitizing rigidbodies, player zonage toggling //
 		
 		// track any potential rigidbody (local or parent) of the given collider for being gravitized – if it has not been tracked yet //
-		Transform rigidbodyTransform = collider.selfOrParentTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		Transform rigidbodyTransform = collider.selfOrAncestorTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)			// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -521,7 +521,7 @@ public abstract class GravityZone : Locomotion
 		// code for: agravitizing rigidbodies, player zonage toggling //
 		
 		// untrack any potential rigidbody (local or parent) of the given collider for being gravitized – if it is currently tracked //
-		Transform rigidbodyTransform = collider.selfOrParentTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		Transform rigidbodyTransform = collider.selfOrAncestorTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)		// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //

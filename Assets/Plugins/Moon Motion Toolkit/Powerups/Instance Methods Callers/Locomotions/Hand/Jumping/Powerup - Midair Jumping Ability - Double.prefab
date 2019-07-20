@@ -21,8 +21,10 @@ GameObject:
   - component: {fileID: 4133453407774866}
   - component: {fileID: 114945746921640276}
   - component: {fileID: 114581612929888458}
-  - component: {fileID: 114008553680249074}
-  - component: {fileID: 114232924002528962}
+  - component: {fileID: 114033717429601184}
+  - component: {fileID: 114505220700005554}
+  - component: {fileID: 114164219450560592}
+  - component: {fileID: 114230163785547536}
   m_Layer: 10
   m_Name: Powerup - Midair Jumping Ability - Double
   m_TagString: Untagged
@@ -631,7 +633,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114008553680249074
+--- !u!114 &114033717429601184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096169583152780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114164219450560592
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -647,7 +660,7 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
---- !u!114 &114232924002528962
+--- !u!114 &114230163785547536
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -672,6 +685,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114505220700005554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096169583152780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114551130351177054
 MonoBehaviour:
   m_ObjectHideFlags: 1

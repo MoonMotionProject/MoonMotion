@@ -21,8 +21,10 @@ GameObject:
   - component: {fileID: 4130568965052416}
   - component: {fileID: 114546250458897204}
   - component: {fileID: 114396421597127740}
-  - component: {fileID: 114257135129070582}
-  - component: {fileID: 114911091090735664}
+  - component: {fileID: 114997079821724386}
+  - component: {fileID: 114791819345505998}
+  - component: {fileID: 114795972471770946}
+  - component: {fileID: 114610810905034170}
   m_Layer: 10
   m_Name: Powerup - Toggle Rave Mode
   m_TagString: Untagged
@@ -642,22 +644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114257135129070582
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1102000838714514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
 --- !u!114 &114321936337775372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -768,7 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 2
---- !u!114 &114911091090735664
+--- !u!114 &114610810905034170
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -782,3 +768,42 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
+--- !u!114 &114791819345505998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1102000838714514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
+--- !u!114 &114795972471770946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1102000838714514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0
+--- !u!114 &114997079821724386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1102000838714514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

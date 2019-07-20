@@ -43,8 +43,12 @@ namespace Valve.VR.InteractionSystem
 
 		
 		// upon validation: //
-		private void OnValidate()
-			=> throwable.disableSwapping();
+		public override void OnValidate()
+		{
+			base.OnValidate();
+
+			throwable.disableSwapping();
+		}
 
 		// Interactable events //
 		private void OnAttachedToHand(Hand hand)       // "Called when this GameObject becomes attached to the hand"

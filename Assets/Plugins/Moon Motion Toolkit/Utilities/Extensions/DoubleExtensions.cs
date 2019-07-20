@@ -125,7 +125,7 @@ public static class DoubleExtensions
 		return double_;
 	}
 
-	public static double clampedRatio(this double double_, bool boolean = true)
+	public static double clampedToRatio(this double double_, bool boolean = true)
 		=> double_.atLeast(0f, boolean).atMost(1f, boolean);
 
 	public static double clampedValid(this double double_)
@@ -144,16 +144,16 @@ public static class DoubleExtensions
 	// methods for: distance //
 
 	public static double distanceFrom(this double double_, double otherDouble)
-		=> (double_ - otherDouble).absoluteValue();
+		=> (double_ - otherDouble).magnitude();
 
 
 	// methods for: sign manipulation //
 
-	public static double absoluteValue(this double double_)
+	public static double magnitude(this double double_)
 		=> Math.Abs(double_);
 
 	public static double withSign(this double double_, bool booleanForSign)
-		=> (double_.absoluteValue() * booleanForSign.asSign());
+		=> (double_.magnitude() * booleanForSign.asSign());
 
 	public static double timesSign(this double double_, bool booleanForSign)
 		=> (double_ * booleanForSign.asSign());
@@ -185,7 +185,7 @@ public static class DoubleExtensions
 
 	// method: return this given ratio double "lerped" (linearly interpolated) along the range from the given start double to the given end double - with clamping //
 	public static double lerpedClampingly(this double ratio, double start, double end)
-		=> ratio.clampedRatio().lerpedUnclampingly(start, end);
+		=> ratio.clampedToRatio().lerpedUnclampingly(start, end);
 
 	// method: return this given ratio double "lerped" (linearly interpolated) along the range from the given start double to the given end double - with clamping according to the given 'clamp' boolean //
 	public static double lerped(this double ratio, double start, double end, bool clamp)
@@ -207,8 +207,8 @@ public static class DoubleExtensions
 		=> double_.asInteger().asSign();
 
 	// method: return a vector for this given double (as each coordinate) //
-	public static Vector3 asVector(this double double_)
-		=> ((float) double_).asVector();
+	public static Vector asVector(this double double_)
+		=> new Vector(double_, double_, double_);
 
 	// method: return the floats array for this given doubles array //
 	public static float[] asFloatsArray(this double[] doubles)

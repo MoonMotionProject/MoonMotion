@@ -120,8 +120,10 @@ GameObject:
   - component: {fileID: 4924698937969702}
   - component: {fileID: 114912102429131396}
   - component: {fileID: 114841174073280406}
-  - component: {fileID: 114207739169107312}
-  - component: {fileID: 114706000767670260}
+  - component: {fileID: 114535357854435742}
+  - component: {fileID: 114568075952575584}
+  - component: {fileID: 114397135404831922}
+  - component: {fileID: 114928253728662442}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Automating
   m_TagString: Untagged
@@ -642,7 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114207739169107312
+--- !u!114 &114397135404831922
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -658,7 +660,7 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
---- !u!114 &114706000767670260
+--- !u!114 &114535357854435742
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -666,12 +668,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952927150938362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10
+--- !u!114 &114568075952575584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952927150938362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114787895906846312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -748,6 +759,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 2
+--- !u!114 &114928253728662442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952927150938362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114954038906772370
 MonoBehaviour:
   m_ObjectHideFlags: 1

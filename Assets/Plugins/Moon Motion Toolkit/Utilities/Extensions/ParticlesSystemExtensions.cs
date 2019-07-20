@@ -26,18 +26,32 @@ public static class ParticlesSystemExtensions
 	{
 		if (boolean)
 		{
-			particlesSystem.Play();
+			particlesSystem.play();
 		}
 		else
 		{
-			particlesSystem.Stop();
+			particlesSystem.stop();
 		}
 
 		return particlesSystem;
 	}
 
 	// method: (according to the given boolean:) have this given particles system play, then return this given particles system //
-	public static ParticleSystem play(this ParticleSystem particlesSystem, bool boolean)
+	public static ParticleSystem play(this ParticleSystem particlesSystem, bool boolean = true)
+	{
+		if (boolean)
+		{
+			if (!particlesSystem.isPlaying)
+			{
+				particlesSystem.Play();
+			}
+		}
+
+		return particlesSystem;
+	}
+
+	// method: (according to the given boolean:) have this given particles system restart, then return this given particles system //
+	public static ParticleSystem restart(this ParticleSystem particlesSystem, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -48,11 +62,14 @@ public static class ParticlesSystemExtensions
 	}
 
 	// method: (according to the given boolean:) have this given particles system stop, then return this given particles system //
-	public static ParticleSystem stop(this ParticleSystem particlesSystem, bool boolean)
+	public static ParticleSystem stop(this ParticleSystem particlesSystem, bool boolean = true)
 	{
 		if (boolean)
 		{
-			particlesSystem.Stop();
+			if (particlesSystem.isPlaying)
+			{
+				particlesSystem.Stop();
+			}
 		}
 
 		return particlesSystem;
@@ -72,6 +89,17 @@ public static class ParticlesSystemExtensions
 		if (boolean)
 		{
 			particlesSystems.play();
+		}
+
+		return particlesSystems;
+	}
+
+	// method: (according to the given boolean:) have all of these given particles systems restart, then return these given particles systems //
+	public static ParticleSystem[] restart(this ParticleSystem[] particlesSystems, bool boolean = true)
+	{
+		if (boolean)
+		{
+			particlesSystems.restart();
 		}
 
 		return particlesSystems;

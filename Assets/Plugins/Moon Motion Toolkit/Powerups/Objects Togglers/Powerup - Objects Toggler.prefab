@@ -138,8 +138,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4252703146888892}
   - component: {fileID: 114290369348433200}
-  - component: {fileID: 114380896820715536}
-  - component: {fileID: 114122638108855344}
+  - component: {fileID: 114866223806069512}
+  - component: {fileID: 114397394205083586}
+  - component: {fileID: 114265051492704130}
+  - component: {fileID: 114813159915433628}
   m_Layer: 10
   m_Name: Powerup - Objects Toggler
   m_TagString: Untagged
@@ -630,20 +632,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114122638108855344
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1931990829078098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10
 --- !u!114 &114215045147543192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -655,6 +643,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114265051492704130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931990829078098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0
 --- !u!114 &114280753459008606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -682,7 +686,7 @@ MonoBehaviour:
   objectsToToggle:
   - {fileID: 0}
   objectToggling: 0
---- !u!114 &114380896820715536
+--- !u!114 &114397394205083586
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -690,14 +694,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1931990829078098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
+  localPositionYAwake: 0
 --- !u!114 &114479103484661328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -719,5 +719,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114813159915433628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931990829078098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
+--- !u!114 &114866223806069512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1931990829078098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

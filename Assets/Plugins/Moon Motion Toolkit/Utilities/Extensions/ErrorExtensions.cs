@@ -8,7 +8,7 @@ public static class ErrorExtensions
 	// method: log this given string as an error and return this given string //
 	public static string asError(this string string_)
 	{
-		Debug.LogError(string_);
+		Debug.LogError(string_.withNullRepresented());
 
 		return string_;
 	}
@@ -48,7 +48,7 @@ public static class ErrorExtensions
 	// method: log the given error ("error" by default), mentioning only this given string as what is being returned, then return this given string //
 	public static string returnWithError(this string string_, string error = "error")
 	{
-		Debug.LogError(error+"; returning "+string_);
+		Debug.LogError(error+"; returning "+string_.withNullRepresented());
 
 		return string_;
 	}
@@ -62,9 +62,9 @@ public static class ErrorExtensions
 	}
 
 	// method: log the given error ("error" by default), mentioning only this given object as what is being returned, then return this given object //
-	public static object returnWithError(this object object_, string error = "error")
+	public static TObject returnWithError<TObject>(this TObject object_, string error = "error")
 	{
-		Debug.LogError("error; returning "+object_);
+		Debug.LogError(error+"; returning "+object_.asStringWithNullRepresented());
 
 		return object_;
 	}

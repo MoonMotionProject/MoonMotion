@@ -72,8 +72,10 @@ GameObject:
   - component: {fileID: 4464799800433612}
   - component: {fileID: 114485602840608762}
   - component: {fileID: 114054597476110996}
-  - component: {fileID: 114471028466574240}
-  - component: {fileID: 114752196141298478}
+  - component: {fileID: 114157160786328058}
+  - component: {fileID: 114040208707413238}
+  - component: {fileID: 114200560974072308}
+  - component: {fileID: 114462753292494444}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Force Multiplying
   m_TagString: Untagged
@@ -631,6 +633,18 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114040208707413238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378136512263216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114054597476110996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -683,18 +697,18 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114411862257172600
+--- !u!114 &114157160786328058
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1913762135217960}
+  m_GameObject: {fileID: 1378136512263216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114471028466574240
+--- !u!114 &114200560974072308
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -710,6 +724,31 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
+--- !u!114 &114411862257172600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1913762135217960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114462753292494444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378136512263216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114480938629511142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -757,17 +796,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114752196141298478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1378136512263216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10

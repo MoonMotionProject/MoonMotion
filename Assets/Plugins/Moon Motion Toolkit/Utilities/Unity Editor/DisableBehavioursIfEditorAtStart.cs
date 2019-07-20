@@ -20,13 +20,10 @@ public class DisableBehavioursIfEditorAtStart : AutomaticBehaviour<DisableBehavi
 
 	// updating //
 
-	
+
+	#if UNITY_EDITOR
 	// at the start: //
 	private void Start()
-	{
-		if (Application.isEditor)
-		{
-			behaviours.setEnablementTo(false);
-		}
-	}
+		=> behaviours.setEnablementTo(false);
+	#endif
 }

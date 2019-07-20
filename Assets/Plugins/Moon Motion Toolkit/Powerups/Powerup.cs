@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 // Powerup
 // • defines this object as a powerup
@@ -26,13 +27,18 @@ public class Powerup : AutomaticBehaviour<Powerup>
 
 	
 	// variables for: pickuping and respawning //
-	protected PowerupBumpAudio bumpAudio;		// connection - automatic: the child Powerup Bump Audio
-	protected string originalBumpAudioName;		// tracking: the original name of the Powerup Bump Audio's object
-	protected PowerupPickupAudio pickupAudio;		// connection - automatic: the child Powerup Pickup Audio
+	[BoxGroup("Audio")]
+	[ReadOnly]
+	public PowerupBumpAudio bumpAudio;		// connection - automatic: the child Powerup Bump Audio
+	protected string originalBumpAudioName;     // tracking: the original name of the Powerup Bump Audio's object
+	[BoxGroup("Audio")]
+	[ReadOnly]
+	public PowerupPickupAudio pickupAudio;		// connection - automatic: the child Powerup Pickup Audio
 	protected string originalPickupAudioName;		// tracking: the original name of the Powerup Pickup Audio's object
-	[Header("Respawning")]
+	[BoxGroup("Respawning")]
 	[Tooltip("the number of times to respawn this powerup, where any negative value is treated as infinity")]
-	public int respawnsCount = -1;		// setting: the number of times to respawn this powerup, where any negative value is treated as infinity
+	public int respawnsCount = -1;      // setting: the number of times to respawn this powerup, where any negative value is treated as infinity
+	[BoxGroup("Respawning")]
 	[Tooltip("the delay duration to wait before respawning this powerup after its destruction (if any respawns remain)")]
 	public float respawningDelay = 2f;		// setting: the delay duration to wait before respawning this powerup after its destruction (if any respawns remain)
 	
@@ -99,8 +105,8 @@ public class Powerup : AutomaticBehaviour<Powerup>
 	// method: respawn this powerup (by default, just by reenabling it and returning its Powerup Bump Audio object back to how it was) //
 	protected virtual void respawn()
 	{
-		// reenable this powerup object //
-		enable();
+		// reactivate this powerup object //
+		activate();
 		
 		// bring back the Powerup Audios //
 		bringBackAudios();
@@ -122,8 +128,8 @@ public class Powerup : AutomaticBehaviour<Powerup>
 			// take out the Powerup Audios //
 			takeOutAudios();
 
-			// disable this powerup object //
-			disable();
+			// deactivate this powerup object //
+			deactivate();
 
 			// plan to respawn this powerup object after a duration equal to the respawning delay setting //
 			Invoke("respawn", respawningDelay);
@@ -162,18 +168,16 @@ public class Powerup : AutomaticBehaviour<Powerup>
 
 	// updating //
 
-	
-	// before the start: //
-	protected override void Awake()
-	{
-		base.Awake();
 
+	// before the start: //
+	protected virtual void Awake()
+	{
 		// connect to the child Powerup Bump Audio and track the original name of the Powerup Bump Audio's object //
-		bumpAudio = GetComponentInChildren<PowerupBumpAudio>();
+		bumpAudio = firstLocalOrChild<PowerupBumpAudio>();
 		originalBumpAudioName = bumpAudio.name;
 
 		// connect to the child Powerup Pickup Audio and track the original name of the Powerup Pickup Audio's object //
-		pickupAudio = GetComponentInChildren<PowerupPickupAudio>();
+		pickupAudio = firstLocalOrChild<PowerupPickupAudio>();
 		originalPickupAudioName = pickupAudio.name;
 	}
 }

@@ -123,8 +123,10 @@ GameObject:
   - component: {fileID: 4359965813873526}
   - component: {fileID: 114733779996697970}
   - component: {fileID: 114992576487774216}
-  - component: {fileID: 114380417207300148}
-  - component: {fileID: 114028288371937602}
+  - component: {fileID: 114204358741809704}
+  - component: {fileID: 114420491204795078}
+  - component: {fileID: 114632554894254798}
+  - component: {fileID: 114990084980986196}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Diminishing
   m_TagString: Untagged
@@ -631,7 +633,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114028288371937602
+--- !u!114 &114204358741809704
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -639,12 +641,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1417137088249960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
-  relative: 0
-  spinningSpeed: 10
 --- !u!114 &114296933596237902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -656,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114380417207300148
+--- !u!114 &114420491204795078
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -664,14 +663,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1417137088249960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
+  localPositionYAwake: 0
 --- !u!114 &114482873924431272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -695,6 +690,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114632554894254798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417137088249960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0
 --- !u!114 &114733779996697970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -719,6 +730,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114990084980986196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1417137088249960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 5
+  relative: 0
+  spinningSpeed: 10
 --- !u!114 &114992576487774216
 MonoBehaviour:
   m_ObjectHideFlags: 1

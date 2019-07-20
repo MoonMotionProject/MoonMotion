@@ -124,7 +124,7 @@ public static class FloatExtensions
 		return float_;
 	}
 
-	public static float clampedRatio(this float float_, bool boolean = true)
+	public static float clampedToRatio(this float float_, bool boolean = true)
 		=> float_.atLeast(0f, boolean).atMost(1f, boolean);
 
 	public static float clampedValid(this float float_)
@@ -143,16 +143,16 @@ public static class FloatExtensions
 	// methods for: distance //
 
 	public static float distanceFrom(this float float_, float otherFloat)
-		=> (float_ - otherFloat).absoluteValue();
+		=> (float_ - otherFloat).magnitude();
 
 
 	// methods for: sign manipulation //
 
-	public static float absoluteValue(this float float_)
+	public static float magnitude(this float float_)
 		=> Mathf.Abs(float_);
 
 	public static float withSign(this float float_, bool booleanForSign)
-		=> (float_.absoluteValue() * booleanForSign.asSign());
+		=> (float_.magnitude() * booleanForSign.asSign());
 
 	public static float timesSign(this float float_, bool booleanForSign)
 		=> (float_ * booleanForSign.asSign());
@@ -181,14 +181,44 @@ public static class FloatExtensions
 	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start float to the given end float - without clamping //
 	public static float lerpedUnclampingly(this float ratio, float start, float end)
 		=> start + ((end - start) * ratio);
+	// method: return this given ratio float "lerped" (linearly interpolated) along the given range - without clamping //
+	public static float lerpedUnclampingly(this float ratio, Vector2 range)
+		=> ratio.lerpedUnclampingly(range.x, range.y);
+	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start floats pair to the given end floats pair - without clamping //
+	public static Vector2 lerpedUnclampingly(this float ratio, Vector2 starts, Vector2 ends)
+		=> new Vector2
+			(
+				ratio.lerpedUnclampingly(starts.x, ends.x),
+				ratio.lerpedUnclampingly(starts.y, ends.y)
+			);
 
 	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start float to the given end float - with clamping //
 	public static float lerpedClampingly(this float ratio, float start, float end)
-		=> ratio.clampedRatio().lerpedUnclampingly(start, end);
+		=> ratio.clampedToRatio().lerpedUnclampingly(start, end);
+	// method: return this given ratio float "lerped" (linearly interpolated) along the given range - with clamping //
+	public static float lerpedClampingly(this float ratio, Vector2 range)
+		=> ratio.lerpedClampingly(range.x, range.y);
+	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start floats pair to the given end floats pair - with clamping //
+	public static Vector2 lerpedClampingly(this float ratio, Vector2 starts, Vector2 ends)
+		=> new Vector2
+			(
+				ratio.lerpedClampingly(starts.x, ends.x),
+				ratio.lerpedClampingly(starts.y, ends.y)
+			);
 
 	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start float to the given end float - with clamping according to the given 'clamp' boolean //
 	public static float lerped(this float ratio, float start, float end, bool clamp)
 		=> clamp ? ratio.lerpedClampingly(start, end) : ratio.lerpedUnclampingly(start, end);
+	// method: return this given ratio float "lerped" (linearly interpolated) along the given range - with clamping according to the given 'clamp' boolean //
+	public static float lerped(this float ratio, Vector2 range, bool clamp)
+		=> ratio.lerped(range.x, range.y, clamp);
+	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start floats pair to the given end floats pair - with clamping according to the given 'clamp' boolean //
+	public static Vector2 lerpedClampingly(this float ratio, Vector2 starts, Vector2 ends, bool clamp)
+		=> new Vector2
+			(
+				ratio.lerped(starts.x, ends.x, clamp),
+				ratio.lerped(starts.y, ends.y, clamp)
+			);
 
 
 	// methods for: conversion //

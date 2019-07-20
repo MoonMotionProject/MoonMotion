@@ -105,8 +105,10 @@ GameObject:
   - component: {fileID: 4984774747500876}
   - component: {fileID: 114068001602255728}
   - component: {fileID: 114508887043979114}
-  - component: {fileID: 114831832786293414}
-  - component: {fileID: 114336919129335820}
+  - component: {fileID: 114317220465448578}
+  - component: {fileID: 114683713240133518}
+  - component: {fileID: 114898647491514998}
+  - component: {fileID: 114405858154177774}
   m_Layer: 10
   m_Name: Powerup - Alternate Gravity - Single
   m_TagString: Untagged
@@ -644,7 +646,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 3
---- !u!114 &114336919129335820
+--- !u!114 &114317220465448578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527790544841344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114405858154177774
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -732,6 +745,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114683713240133518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527790544841344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114717121133484070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,7 +768,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114831832786293414
+--- !u!114 &114832914993681034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1617946984283574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
+--- !u!114 &114898647491514998
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -759,15 +796,3 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
---- !u!114 &114832914993681034
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1617946984283574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipYAfterFacing: 1

@@ -26,7 +26,7 @@ namespace NaughtyAttributes.Editor
 
         private void OnEnable()
         {
-            this.script = this.serializedObject.FindProperty("m_Script");
+            this.script = this?.serializedObject?.FindProperty("m_Script");
 
             // Cache serialized fields
             this.fields = ReflectionUtility.GetAllFields(this.target, f => this.serializedObject.FindProperty(f.Name) != null);

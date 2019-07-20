@@ -28,11 +28,11 @@ public static class InterpolationCurved
 			}
 			case InterpolationCurve.sine:
 			{
-				return Math.Sin(ratio.clampedRatio(clamp).timesPi().halved());
+				return Math.Sin(ratio.clampedToRatio(clamp).timesPi().halved());
 			}
 			case InterpolationCurve.cosine:
 			{
-				return Math.Cos(ratio.clampedRatio(clamp).timesPi().halved());
+				return Math.Cos(ratio.clampedToRatio(clamp).timesPi().halved());
 			}
 			case InterpolationCurve.smooth:
 			{
@@ -67,7 +67,7 @@ public static class InterpolationCurved
 		}
 	}
 
-	// method: interpolate a vector using this given curve and the given clamping boolean and start & end & ratio values //
+	// method: interpolate a doubles vector using this given curve and the given clamping boolean and start & end & ratio values //
 	private static Vector interpolation(this InterpolationCurve curve, bool clamp, Vector start, Vector end, double ratio)
 		=> new Vector
 		(
@@ -75,7 +75,7 @@ public static class InterpolationCurved
 			curve.interpolation(clamp, start.y, end.y, ratio),
 			curve.interpolation(clamp, start.z, end.z, ratio)
 		);
-	#endregion
+	#endregion private methods - double
 
 
 	#region private methods - float
@@ -95,11 +95,11 @@ public static class InterpolationCurved
 			}
 			case InterpolationCurve.sine:
 			{
-				return Mathf.Sin(ratio.clampedRatio(clamp).timesPi().halved());
+				return Mathf.Sin(ratio.clampedToRatio(clamp).timesPi().halved());
 			}
 			case InterpolationCurve.cosine:
 			{
-				return Mathf.Cos(ratio.clampedRatio(clamp).timesPi().halved());
+				return Mathf.Cos(ratio.clampedToRatio(clamp).timesPi().halved());
 			}
 			case InterpolationCurve.smooth:
 			{
@@ -134,7 +134,7 @@ public static class InterpolationCurved
 		}
 	}
 
-	// method: interpolate a vector using this given curve and the given clamping boolean and start & end & ratio values //
+	// method: interpolate a floats vector using this given curve and the given clamping boolean and start & end & ratio values //
 	private static Vector3 interpolation(this InterpolationCurve curve, bool clamp, Vector3 start, Vector3 end, float ratio)
 		=> new Vector3
 		(
@@ -142,7 +142,15 @@ public static class InterpolationCurved
 			curve.interpolation(clamp, start.y, end.y, ratio),
 			curve.interpolation(clamp, start.z, end.z, ratio)
 		);
-	#endregion
+
+	// method: interpolate a floats pair using this given curve and the given clamping boolean and start & end & ratio values //
+	private static Vector2 interpolation(this InterpolationCurve curve, bool clamp, Vector2 start, Vector2 end, float ratio)
+		=> new Vector2
+		(
+			curve.interpolation(clamp, start.x, end.x, ratio),
+			curve.interpolation(clamp, start.y, end.y, ratio)
+		);
+	#endregion private methods - float
 
 
 	#region public methods - double
@@ -258,7 +266,7 @@ public static class InterpolationCurved
 	// method: interpolate a floats vector (using doubles interpolation) without clamping using this given curve and the given start & end & ratio values //
 	public static Vector3 unclamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)
 		=> curve.unclamped(start.asDoublesVector(), end.asDoublesVector(), ratio).asFloatsVector();
-	#endregion
+	#endregion public methods - double
 
 
 	#region public methods - float
@@ -344,5 +352,13 @@ public static class InterpolationCurved
 	// method: interpolate a floats vector without clamping using this given curve and the given start & end & ratio values //
 	public static Vector3 unclamped(this InterpolationCurve curve, Vector3 start, Vector3 end, float ratio)
 		=> curve.interpolation(false, start, end, ratio);
-	#endregion
+
+	// method: interpolate a floats pair with clamping using the given curve and start & end & ratio values //
+	public static Vector2 clamped(this InterpolationCurve curve, Vector2 start, Vector2 end, float ratio)
+		=> curve.interpolation(true, start, end, ratio);
+
+	// method: interpolate a floats pair without clamping using this given curve and the given start & end & ratio values //
+	public static Vector2 unclamped(this InterpolationCurve curve, Vector2 start, Vector2 end, float ratio)
+		=> curve.interpolation(false, start, end, ratio);
+	#endregion public methods - float
 }

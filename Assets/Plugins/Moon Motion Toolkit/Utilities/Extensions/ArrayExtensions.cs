@@ -1,49 +1,41 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Array Extensions: provides extension methods for handling arrays //
+// #enumerable-e
 public static class ArrayExtensions
 {
-	// methods for: determining content //
-	
-	// method: return whether this given array is empty //
-	public static bool empty(this Array array)
-		=> (array.Length == 0);
+	// methods for: iteration //
 
-	// method: return whether this given array has any elements //
-	public static bool any(this Array array)
-		=> (array.Length > 0);
+	// method: (according to the given boolean:) invoke the given action on each item in this given array, then return this given array //
+	public static TItem[] forEach<TItem>(this TItem[] array, Action<TItem> action, bool boolean = true)
+		=> array.forEach_CollectionSpecializedViaCasting(action, boolean);
 
-	// method: return whether this given array has more than one element //
-	public static bool plural(this Array array)
-		=> (array.Length > 1);
+	// method: (according to the given boolean:) invoke the given action for each item in this given array as a 2D array using the given width and height upon the respective x and y, then return this given array //
+	public static TItem[] forEachAs2D<TItem>(this TItem[] array, int width, int height, Action<int, int> action, bool boolean = true)
+		=>	!boolean ?
+				array :
+				array.after(()=>
+					ForEach.inCount(width, x =>
+						ForEach.inCount(height, y =>
+							action(x, y))));
+
+	// method: (according to the given boolean:) set each item in this given array as a 2D array using the given width and height using the given function respectively upon the current x and y //
+	public static TItem[] as2DWithEachSetTo<TItem>(this TItem[] array, Func<int, int, TItem> function, int width, int height, bool boolean = true)
+		=> !boolean ?
+				array :
+				array.after(()=>
+					ForEach.inCount(width, x =>
+						ForEach.inCount(height, y =>
+							array[Dimensionality.encode2DTo1D(x, y, width)] = function(x, y))));
 
 
-	// methods for: listing //
+	// methods for: casting //
 
-	// method: return the string listing of this given array, using the given separator string (comma by default) //
-	public static string asListing<TArrayElement>(this Array array, string separator = ",")
-		=> (new List<TArrayElement>((TArrayElement[]) array)).asListing<TArrayElement>();
-
-	// method: return the string listing of these given strings, using the given separator string (comma by default) //
-	public static string asListing(this string[] strings, string separator = ",")
-		=> strings.asListing<string>();
-
-	// method: return the string listing of these given booleans, using the given separator string (comma by default) //
-	public static string asListing(this bool[] booleans, string separator = ",")
-		=> booleans.asListing<bool>();
-
-	// method: return the string listing of these given floats, using the given separator string (comma by default) //
-	public static string asListing(this float[] floats, string separator = ",")
-		=> floats.asListing<float>();
-
-	// method: return the string listing of these given integers, using the given separator string (comma by default) //
-	public static string asListing(this int[] integers, string separator = ",")
-		=> integers.asListing<int>();
-
-	// method: return the string listing of these given doubles, using the given separator string (comma by default) //
-	public static string asListing(this double[] doubles, string separator = ",")
-		=> doubles.asListing<double>();
+	// method: return this given array of objects cast to the specified class of array (however, there is no guarantee that the given array of objects can be cast to the specified class of array) //
+	public static TCast[] castTo<TCast>(this object[] array)
+		=> Array.ConvertAll(array, object_ => object_.castTo<TCast>());
 }

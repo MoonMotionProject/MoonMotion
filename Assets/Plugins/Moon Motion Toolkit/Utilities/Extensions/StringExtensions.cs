@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 // StringExtensions: provides extension methods for handling strings //
 public static class StringExtensions
 {
-	// methods for: handling emptiness and nullness //
+	// methods for: handling emptiness, nullness, and onlyness //
 	
 	// method: return whether this given string is empty //
 	public static bool empty(this string string_)
@@ -15,9 +17,47 @@ public static class StringExtensions
 	public static bool emptyOrNull(this string string_)
 		=> ((string_ == null) || string_.empty());
 
-	// method: return this given string set to the given target string if this given string is empty //
-	public static string replaceIfEmpty(this string string_, string targetString)
-		=> (string_.empty() ? targetString : string_);
+	// method: return whether this given string is not empty nor null //
+	public static bool notEmptyNorNull(this string string_)
+		=> !string_.emptyOrNull();
+
+	// method: return this given string with a newline prefix if it is not empty nor null //
+	public static string withPotentialPrefixedNewline(this string string_)
+		=> string_.withPotentialPrefix("\n");
+
+	// method: return this given string with a newline suffix if it is not empty nor null //
+	public static string withPotentialSuffixedNewline(this string string_)
+		=> string_.withPotentialSuffix("\n");
+
+	// method: according to the given boolean, return the given target string instead of this given string //
+	public static string substituteIf(this string string_, bool boolean, string targetString)
+		=> boolean ? targetString : string_;
+
+	// method: if this given string is empty, return the given target string instead of this given string //
+	public static string substituteIfEmpty(this string string_, string targetString)
+		=> string_.substituteIf(string_.empty(), targetString);
+
+	// method: return whether this given string contains only (some amount of) the given character //
+	public static bool containsOnly(this string string_, char character)
+	{
+		char[] characters = string_.ToCharArray();
+		foreach (char characterInString in characters)
+		{
+			if (characterInString != character)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// method: return whether this given string contains only spaces //
+	public static bool containsOnlySpaces(this string string_)
+		=> string_.containsOnly(' ');
+
+	// method: if this given string is contains only spaces, return the given target string instead of this given string //
+	public static string substituteIfContainsOnlySpaces(this string string_, string targetString)
+		=> string_.substituteIf(string_.containsOnlySpaces(), targetString);
 
 
 	// methods for: printing //
@@ -25,7 +65,7 @@ public static class StringExtensions
 	// method: print this given string, then return it //
 	public static string print(this string string_)
 	{
-		MonoBehaviour.print(string_);
+		MonoBehaviour.print(string_.substituteIfContainsOnlySpaces("{printed an empty string or string of only spaces}"));
 
 		return string_;
 	}
@@ -33,15 +73,127 @@ public static class StringExtensions
 
 	// methods for: removing characters //
 
-	public static string removedCharacterLast(this string string_)
+	public static string withoutCharacterLast(this string string_)
 		=> string_.Substring(0, string_.Length - 1);
 
-	public static string removedCharactersFromEnd(this string string_, int numberOfCharactersToRemove)
+	public static string withoutCharactersFromEnd(this string string_, int numberOfCharactersToRemove)
 		=> string_.Substring(0, string_.Length - numberOfCharactersToRemove);
 
-	public static string removedCharacterFirst(this string string_)
+	public static string withoutCharacterFirst(this string string_)
 		=> string_.Substring(1);
 
-	public static string removedCharactersFromStart(this string string_, int numberOfCharactersToRemove)
+	public static string withoutCharactersFromStart(this string string_, int numberOfCharactersToRemove)
 		=> string_.Substring(numberOfCharactersToRemove);
+
+	public static string trimmedToLength(this string string_, int targetLength)
+		=> string_.Substring(0, targetLength);
+
+	public static string withoutHyphens(this string string_)
+		=> string_.Replace("-", "");
+
+
+	// methods for: repeating //
+
+	// method: return the concatenation of this given string repeated the given count of times //
+	public static string repeated(this string string_, int repetitionCount)
+	{
+		string concatenatedRepetitions = "";
+		ForEach.inCount(repetitionCount, repetitionIndex =>
+			concatenatedRepetitions = concatenatedRepetitions.withSuffix(string_));
+		return concatenatedRepetitions;
+	}
+
+
+	// methods for: prefixing //
+
+	// method: return this given string with the given prefix //
+	public static string withPrefix(this string string_, string prefix)
+		=> prefix+string_;
+	// method: return this given string with the given prefix if this given string is not empty nor null //
+	public static string withPotentialPrefix(this string string_, string potentialPrefix)
+		=> (string_.notEmptyNorNull() ? string_.withPrefix(potentialPrefix) : string_);
+
+
+	// methods for: suffixing //
+
+	// method: return this given string with the given suffix //
+	public static string withSuffix(this string string_, string suffix)
+		=> string_+suffix;
+	// method: return this given string with the given suffix if this given string is not empty nor null //
+	public static string withPotentialSuffix(this string string_, string potentialSuffix)
+		=> (string_.notEmptyNorNull() ? string_.withSuffix(potentialSuffix) : string_);
+
+	// method: return this given string with the given repeated suffix repeated the given count of times //
+	public static string withSuffixRepeated(this string string_, string repeatedSuffix, int suffixRepetitionCount)
+		=> string_.withSuffix(repeatedSuffix.repeated(suffixRepetitionCount));
+	// method: return this given string with the given repeated suffix repeated the given count of times if this given string is not empty nor null //
+	public static string withPotentialSuffixRepeated(this string string_, string repeatedSuffix, int suffixRepetitionCount)
+		=> string_.withPotentialSuffix(repeatedSuffix.repeated(suffixRepetitionCount));
+
+	// method: return this given string with a space suffixed //
+	public static string withTrailingSpace(this string string_)
+		=> string_.withSuffix(" ");
+	// method: return this given string with a space suffixed if this given string is not empty nor null //
+	public static string withPotentialTrailingSpace(this string string_)
+		=> string_.withPotentialSuffix(" ");
+
+	// method: return this given string with the given number of spaces suffixed //
+	public static string withTrailingSpaces(this string string_, int trailingSpacesCount)
+		=> string_.withSuffixRepeated(" ", trailingSpacesCount);
+	// method: return this given string with the given number of spaces suffixed if this given string is not empty nor null //
+	public static string withPotentialTrailingSpaces(this string string_, int trailingSpacesCount)
+		=> string_.withPotentialSuffixRepeated(" ", trailingSpacesCount);
+
+
+	// methods for: surrounding //
+
+	// method: return this given string surrounded by the other given string //
+	public static string surroundedBy(this string string_, string otherString)
+		=> otherString+string_+otherString;
+
+	// method: return this given string surrounded by quotes //
+	public static string quoted(this string string_)
+		=> string_.surroundedBy("'");
+
+	// method: return this given string surrounded by airquotes //
+	public static string airquoted(this string string_)
+		=> string_.surroundedBy("\"");
+
+
+	// methods for: representation //
+
+	// method: return this given string represented as a string such that if it is null then "null" is returned (otherwise the given string is returned) //
+	public static string withNullRepresented(this string string_)
+		=> string_ ?? "null";
+
+
+	// methods for: conversion //
+
+	// method: return the bytes for this given string //
+	public static byte[] bytes(this string string_)
+		=> Encoding.UTF8.GetBytes(string_);
+
+	// method: return the string parsed from these given bytes //
+	public static string asString(this byte[] bytes)
+		=> BitConverter.ToString(bytes);
+
+	// method: return the hexadecimal string for this given hashed string //
+	public static string asHashedStringToHexadecimalString(this string hashedString)
+		=> hashedString.withoutHyphens().trimmedToLength(6).withPrefix("#");
+
+	// method: return the color for this given hexadecimal string (assumed to be of the format ~"#ABCDEF") //
+	public static Color asHexadecimalColor(this string hexadecimalString)
+	{
+		Color convertedColor;
+		ColorUtility.TryParseHtmlString(hexadecimalString, out convertedColor);
+		return convertedColor;
+	}
+
+	// method: return the color for the hexadecimal string for this given hashed string //
+	public static Color asHashedStringToColor(this string hashedString)
+		=> hashedString.asHashedStringToHexadecimalString().asHexadecimalColor();
+
+	// method: return the random color corresponding to this string as a seed //
+	public static Color seedRandomColor(this string string_)
+		=> string_.hashedString().asHashedStringToColor();
 }

@@ -21,8 +21,10 @@ GameObject:
   - component: {fileID: 4020400321241694}
   - component: {fileID: 114236767956024484}
   - component: {fileID: 114925065335199756}
-  - component: {fileID: 114969570953789050}
-  - component: {fileID: 114542269067166156}
+  - component: {fileID: 114026187695018766}
+  - component: {fileID: 114065343319680652}
+  - component: {fileID: 114651496713726272}
+  - component: {fileID: 114098416780230436}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Fuel Supply
   m_TagString: Untagged
@@ -631,6 +633,29 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114026187695018766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032969471446222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114065343319680652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032969471446222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114074212138164930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -642,20 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114236767956024484
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1032969471446222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnsCount: -1
-  respawningDelay: 2
---- !u!114 &114542269067166156
+--- !u!114 &114098416780230436
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -669,6 +681,19 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
+--- !u!114 &114236767956024484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032969471446222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnsCount: -1
+  respawningDelay: 2
 --- !u!114 &114569992062307312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -681,6 +706,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipYAfterFacing: 1
+--- !u!114 &114651496713726272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032969471446222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0
 --- !u!114 &114660817135415102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -755,19 +796,3 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114969570953789050
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1032969471446222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0

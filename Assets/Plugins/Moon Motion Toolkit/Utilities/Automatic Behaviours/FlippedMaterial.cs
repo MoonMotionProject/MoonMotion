@@ -13,7 +13,7 @@ public class FlippedMaterial : MonoBehaviour
 	private void Start()
 	{
 		MeshFilter meshFilter = (GetComponent(typeof(MeshFilter)) as MeshFilter);
-		if (meshFilter != null)
+		if (meshFilter.isYull())
 		{
 			Mesh mesh = meshFilter.mesh;
 			

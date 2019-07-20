@@ -34,4 +34,17 @@ public static class RatioExtensions
 	// method: determine the progression of this given progressor (changing value) from the start progression (0) to the given end progression //
 	public static double progressionTo(this double progressor, double end)
 		=> progressor.progressionWithin(0d, end);
+	// method: determine the progression of this given progressor (changing value) from the start progression (0) to the given end progression //
+	public static float progressionTo(this int progressor, float end)
+		=> progressor.asFloat().progressionTo(end);
+
+	// method: determine the progression of this given progressor (changing value) from the start progression (0) until the given end progression //
+	public static float progressionUntil(this float progressor, int end)
+		=> progressor.progressionTo(end - 1);
+	// method: determine the progression of this given progressor (changing value) from the start progression (0) until the given end progression //
+	public static double progressionUntil(this double progressor, int end)
+		=> progressor.progressionTo(end - 1);
+	// method: determine the progression of this given progressor (changing value) from the start progression (0) until the given end progression //
+	public static float progressionUntil(this int progressor, int end)
+		=> progressor.asFloat().progressionUntil(end);
 }

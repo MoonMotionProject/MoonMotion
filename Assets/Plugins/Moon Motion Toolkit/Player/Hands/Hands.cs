@@ -20,12 +20,12 @@ public static class Hands
 	// properties //
 
 
-	// property: the left hand instance //
+	// the left hand instance //
 	public static Hand left
 	{
 		get {return left_ ?? (left_ = Controller.left.hand);}
 	}
-	// property: the right hand instance //
+	// the right hand instance //
 	public static Hand right
 	{
 		get {return right_ ?? (right_ = Controller.right.hand);}

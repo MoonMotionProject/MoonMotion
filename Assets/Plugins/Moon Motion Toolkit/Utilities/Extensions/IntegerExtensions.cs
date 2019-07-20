@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -102,11 +103,11 @@ public static class IntegerExtensions
 
 	// methods for: sign manipulation //
 
-	public static int absoluteValue(this int integer)
+	public static int magnitude(this int integer)
 		=> Mathf.Abs(integer);
 
 	public static int withSign(this int integer, bool booleanForSign)
-		=> (integer.absoluteValue() * booleanForSign.asSign());
+		=> (integer.magnitude() * booleanForSign.asSign());
 
 	public static int timesSign(this int integer, bool booleanForSign)
 		=> (integer * booleanForSign.asSign());
@@ -115,10 +116,10 @@ public static class IntegerExtensions
 	// methods for: distance //
 
 	public static int distanceFrom(this int integer, int otherInteger)
-		=> (integer - otherInteger).absoluteValue();
+		=> (integer - otherInteger).magnitude();
 
 	public static float distanceFrom(this int integer, float someFloat_)
-		=> (integer - someFloat_).absoluteValue();
+		=> (integer - someFloat_).magnitude();
 
 
 	// methods for: math operations //
@@ -138,7 +139,23 @@ public static class IntegerExtensions
 
 	// methods for: conversion //
 
+	// method: return the bytes for this given integer //
+	public static byte[] bytes(this int integer)
+		=> BitConverter.GetBytes(integer);
+
+	// method: return the float for this given integer //
+	public static float asFloat(this int integer)
+		=> integer;
+
 	// method: return the sign integer for this given integer //
 	public static int asSign(this int integer)
 		=> (integer.positive() ? 1 : integer.negative() ? -1 : 0);
+
+	// method: return the boolean for this given integer //
+	public static bool asBoolean(this int integer)
+		=> integer == 1;
+
+	// method: return the random color corresponding to this string as a seed //
+	public static Color seedRandomColor(this int integer)
+		=> integer.hashedString().asHashedStringToColor();
 }

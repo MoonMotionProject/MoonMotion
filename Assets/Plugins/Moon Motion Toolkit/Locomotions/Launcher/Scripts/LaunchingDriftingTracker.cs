@@ -18,7 +18,8 @@ public class LaunchingDriftingTracker : PlayerDependencyTracker<LaunchingDriftin
 	// variables //
 
 	
-	// tracking //
+	// trackings //
+
 	[Tooltip("the time the player was last launching drifting – initialized to negative infinity as a flag that the player has never been launching drifting")]
 	[ShowNonSerializedField]
 	public static float timePlayerWasLastLaunchingDrifting = -Mathf.Infinity;

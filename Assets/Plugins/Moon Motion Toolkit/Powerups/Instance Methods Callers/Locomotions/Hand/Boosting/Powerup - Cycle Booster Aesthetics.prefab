@@ -121,8 +121,10 @@ GameObject:
   - component: {fileID: 4902040175311256}
   - component: {fileID: 114691057371750848}
   - component: {fileID: 114497845583273296}
-  - component: {fileID: 114271127255817254}
-  - component: {fileID: 114219912521698702}
+  - component: {fileID: 114159128586131904}
+  - component: {fileID: 114849302571152938}
+  - component: {fileID: 114952844639404398}
+  - component: {fileID: 114190263533325688}
   m_Layer: 10
   m_Name: Powerup - Cycle Booster Aesthetics
   m_TagString: Untagged
@@ -642,6 +644,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114159128586131904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848408891111130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114173758433977420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,19 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f708c21f3b33468d832be14c50df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114203159906789210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1963700062628052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipYAfterFacing: 1
---- !u!114 &114219912521698702
+--- !u!114 &114190263533325688
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -679,22 +680,18 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
---- !u!114 &114271127255817254
+--- !u!114 &114203159906789210
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1848408891111130}
+  m_GameObject: {fileID: 1963700062628052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
+  flipYAfterFacing: 1
 --- !u!114 &114497845583273296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -771,3 +768,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnsCount: -1
   respawningDelay: 2
+--- !u!114 &114849302571152938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848408891111130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
+--- !u!114 &114952844639404398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848408891111130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0

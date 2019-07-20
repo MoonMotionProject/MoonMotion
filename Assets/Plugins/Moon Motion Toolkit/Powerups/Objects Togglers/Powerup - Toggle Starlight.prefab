@@ -68,8 +68,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4069927036153046}
   - component: {fileID: 114527533257795630}
-  - component: {fileID: 114102912854376154}
-  - component: {fileID: 114666887364701062}
+  - component: {fileID: 114195684382223318}
+  - component: {fileID: 114749554188950856}
+  - component: {fileID: 114951010754743592}
+  - component: {fileID: 114689669712347094}
   m_Layer: 10
   m_Name: Powerup - Toggle Starlight
   m_TagString: Untagged
@@ -630,22 +632,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114102912854376154
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1419392003328660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
 --- !u!114 &114169419074756896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -658,6 +644,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipYAfterFacing: 1
+--- !u!114 &114195684382223318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419392003328660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114249600630701890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -685,7 +682,18 @@ MonoBehaviour:
   objectsToToggle:
   - {fileID: 0}
   objectToggling: 0
---- !u!114 &114666887364701062
+--- !u!114 &114686110633571234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986237409399626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114689669712347094
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -699,17 +707,18 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
---- !u!114 &114686110633571234
+--- !u!114 &114749554188950856
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986237409399626}
+  m_GameObject: {fileID: 1419392003328660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localPositionYAwake: 0
 --- !u!114 &114808368421302028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -721,3 +730,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114951010754743592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419392003328660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0

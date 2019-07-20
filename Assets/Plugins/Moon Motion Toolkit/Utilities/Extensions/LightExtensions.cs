@@ -5,7 +5,7 @@ using UnityEngine;
 // LightExtensions: provides extension methods for handling lights //
 public static class LightExtensions
 {
-	// methods for: getting intensities //
+	// methods for: intensities //
 
 	public static float[] intensities(this Light[] lights)
 	{
@@ -16,9 +16,6 @@ public static class LightExtensions
 		}
 		return childLightIntensities;
 	}
-
-
-	// methods for: setting intensities //
 
 	public static Light setIntensityTo(this Light light, float targetIntensity)
 	{

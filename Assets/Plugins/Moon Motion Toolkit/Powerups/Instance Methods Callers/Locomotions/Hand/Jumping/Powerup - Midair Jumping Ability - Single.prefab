@@ -123,8 +123,10 @@ GameObject:
   - component: {fileID: 4650100274319132}
   - component: {fileID: 114100610869679128}
   - component: {fileID: 114825060791213334}
-  - component: {fileID: 114804432508894354}
-  - component: {fileID: 114668276303281712}
+  - component: {fileID: 114529294205566344}
+  - component: {fileID: 114368675225273630}
+  - component: {fileID: 114578055390649550}
+  - component: {fileID: 114427533695005630}
   m_Layer: 10
   m_Name: Powerup - Midair Jumping Ability - Single
   m_TagString: Untagged
@@ -677,7 +679,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114668276303281712
+--- !u!114 &114368675225273630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930730651923072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPositionYAwake: 0
+--- !u!114 &114427533695005630
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -691,19 +705,18 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
---- !u!114 &114778720510983542
+--- !u!114 &114529294205566344
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1658442381685648}
+  m_GameObject: {fileID: 1930730651923072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flipYAfterFacing: 1
---- !u!114 &114804432508894354
+--- !u!114 &114578055390649550
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -719,6 +732,18 @@ MonoBehaviour:
   timeOffset: 0
   randomTimeOffsetMin: 0
   randomTimeOffsetMax: 0
+--- !u!114 &114778720510983542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1658442381685648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61986c2310e206a45923cd7454c2b396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipYAfterFacing: 1
 --- !u!114 &114825060791213334
 MonoBehaviour:
   m_ObjectHideFlags: 1

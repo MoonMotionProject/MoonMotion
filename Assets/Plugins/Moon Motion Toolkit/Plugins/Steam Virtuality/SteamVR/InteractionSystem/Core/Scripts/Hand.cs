@@ -95,6 +95,9 @@ namespace Valve.VR.InteractionSystem
 		SteamVR_Events.Action inputFocusAction;
 
 
+		/* custom changes by Moon Motion to cover the case of hovering ending via nullification of the interactable */
+		private bool previousHoveringInteractableNonnullness = false;
+		/**/
 		//-------------------------------------------------
 		// The Interactable object this Hand is currently hovering over
 		//-------------------------------------------------
@@ -115,9 +118,15 @@ namespace Valve.VR.InteractionSystem
 						{
 							this.BroadcastMessage( "OnParentHandHoverEnd", _hoveringInteractable, SendMessageOptions.DontRequireReceiver ); // let objects attached to the hand know that a hover has ended
 						}
-					}
+					}/* custom changes by Moon Motion to cover the case of hovering ending via nullification of the interactable */
+					else if (value && previousHoveringInteractableNonnullness)
+					{
+						HandDebugLog("HoverEnd via nullification of the interactable – new value: "+value);
+						BroadcastMessage("OnParentHandHoverEndViaInteractableNullification", SendMessageOptions.DontRequireReceiver);
+					}/**/
 
-					_hoveringInteractable = value;
+					_hoveringInteractable = value;/* custom changes by Moon Motion to cover the case of hovering ending via nullification of the interactable */
+					previousHoveringInteractableNonnullness = value;/**/
 
 					if ( _hoveringInteractable != null )
 					{
@@ -130,7 +139,14 @@ namespace Valve.VR.InteractionSystem
 							this.BroadcastMessage( "OnParentHandHoverBegin", _hoveringInteractable, SendMessageOptions.DontRequireReceiver ); // let objects attached to the hand know that a hover has begun
 						}
 					}
-				}
+				}/* custom changes by Moon Motion to cover the case of hovering ending via nullification of the interactable */
+				else if ((_hoveringInteractable == null) && previousHoveringInteractableNonnullness)
+				{
+					previousHoveringInteractableNonnullness = false;
+
+					HandDebugLog("HoverEnd via nullification of the interactable – new value: "+value);
+					BroadcastMessage("OnParentHandHoverEndViaInteractableNullification", SendMessageOptions.DontRequireReceiver);
+				}/**/
 			}
 		}
 

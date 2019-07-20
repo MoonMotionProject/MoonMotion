@@ -6,30 +6,34 @@ using UnityEngine;
 public static class LayerExtensions
 {
 	// methods for: identification //
-	
-	// method: return the layer name for this given integer //
-	public static string asLayerName(this int integer)
-		=> LayerMask.LayerToName(integer);
 
 	// method: return the layer name for this given game object //
 	public static string layerName(this GameObject gameObject)
-		=> gameObject.layer.asLayerName();
-
+		=> gameObject.layer.toLayerName();
 	// method: return the layer name for the game object of this given component //
 	public static string layerName(this Component component)
 		=> component.gameObject.layerName();
 
-	// method: return the layer index for this given string //
-	public static int asLayerIndex(this string string_)
-		=> LayerMask.NameToLayer(string_);
-
 	// method: return the layer index for this given game object //
 	public static int layerIndex(this GameObject gameObject)
 		=> gameObject.layer;
-
 	// method: return the layer index for the game object of this given component //
 	public static int layerIndex(this Component component)
 		=> component.gameObject.layerIndex();
+
+	// method: return whether this given game object is on the default layer //
+	public static bool isOnDefaultLayer(this GameObject gameObject)
+		=> gameObject.layerMatches(Layer.defaultIndex);
+	// method: return whether this given component's game object is on the default layer //
+	public static bool isOnDefaultLayer(this Component component)
+		=> component.gameObject.isOnDefaultLayer();
+
+	// method: return whether this given game object is not on the default layer //
+	public static bool isNotOnDefaultLayer(this GameObject gameObject)
+		=> !gameObject.isOnDefaultLayer();
+	// method: return whether this given component's game object is not on the default layer //
+	public static bool isNotOnDefaultLayer(this Component component)
+		=> component.gameObject.isNotOnDefaultLayer();
 
 
 	// methods for: comparison //
@@ -44,7 +48,7 @@ public static class LayerExtensions
 
 	// method: return whether the layer of this given game object matches the layer for the given layer name //
 	public static bool layerMatches(this GameObject gameObject, string layerName)
-		=> gameObject.layerMatches(layerName.asLayerIndex());
+		=> gameObject.layerMatches(layerName.toLayerIndex());
 
 	// method: return whether the layer of the game object of this given component matches the layer for the given layer name //
 	public static bool layerMatches(this Component component, string layerName)
@@ -109,7 +113,7 @@ public static class LayerExtensions
 
 	// method: (according to the given boolean:) set this given game object's layer to the layer for the given layer name, then return this given game object //
 	public static GameObject setLayerTo(this GameObject gameObject, string layerName, bool boolean = true)
-		=> gameObject.setLayerTo(layerName.asLayerIndex(), boolean);
+		=> gameObject.setLayerTo(layerName.toLayerIndex(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer name, then return this given transform //
 	public static Transform setLayerTo(this Transform transform, string layerName, bool boolean = true)
@@ -133,11 +137,11 @@ public static class LayerExtensions
 
 	// method: (according to the given boolean:) set this given game object's layer to the layer for the given layer name, then return these given game objects //
 	public static GameObject[] setLayerTo(this GameObject[] gameObjects, string layerName, bool boolean = true)
-		=> gameObjects.setLayerTo(layerName.asLayerIndex(), boolean);
+		=> gameObjects.setLayerTo(layerName.toLayerIndex(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer name, then return these given transforms //
 	public static Transform[] setLayerTo(this Transform[] transforms, string layerName, bool boolean = true)
-		=> transforms.setLayerTo(layerName.asLayerIndex(), boolean);
+		=> transforms.setLayerTo(layerName.toLayerIndex(), boolean);
 
 	public static Transform setChildLayersTo(this Transform transform, string layerName, bool boolean = true)
 	{
@@ -150,8 +154,19 @@ public static class LayerExtensions
 		=> gameObject.transform.setChildLayersTo(layerName, boolean).gameObject;
 
 	public static Transform setChildLayersTo(this Transform transform, int layerIndex, bool boolean = true)
-		=> transform.setChildLayersTo(layerIndex.asLayerName(), boolean);
+		=> transform.setChildLayersTo(layerIndex.toLayerName(), boolean);
 
 	public static GameObject setChildLayersTo(this GameObject gameObject, int layerIndex, bool boolean = true)
-		=> gameObject.setChildLayersTo(layerIndex.asLayerName(), boolean).gameObject;
+		=> gameObject.setChildLayersTo(layerIndex.toLayerName(), boolean).gameObject;
+
+
+	// methods for: conversion //
+	
+	// method: return the layer name for this given layer index //
+	public static string toLayerName(this int integer)
+		=> LayerMask.LayerToName(integer);
+
+	// method: return the layer index for this given layer name //
+	public static int toLayerIndex(this string string_)
+		=> LayerMask.NameToLayer(string_);
 }

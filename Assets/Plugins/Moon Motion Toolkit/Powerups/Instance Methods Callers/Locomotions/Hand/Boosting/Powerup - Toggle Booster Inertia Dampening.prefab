@@ -71,8 +71,10 @@ GameObject:
   - component: {fileID: 4712749901698610}
   - component: {fileID: 114018646546113002}
   - component: {fileID: 114149199070697000}
-  - component: {fileID: 114725288687384182}
-  - component: {fileID: 114057592181293014}
+  - component: {fileID: 114183846612354362}
+  - component: {fileID: 114697508238124336}
+  - component: {fileID: 114099558033660814}
+  - component: {fileID: 114017278291116334}
   m_Layer: 10
   m_Name: Powerup - Toggle Booster Inertia Dampening
   m_TagString: Untagged
@@ -631,20 +633,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114018646546113002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1620207611759544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnsCount: -1
-  respawningDelay: 2
---- !u!114 &114057592181293014
+--- !u!114 &114017278291116334
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -658,6 +647,35 @@ MonoBehaviour:
   direction: 5
   relative: 0
   spinningSpeed: 10
+--- !u!114 &114018646546113002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1620207611759544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnsCount: -1
+  respawningDelay: 2
+--- !u!114 &114099558033660814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1620207611759544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.05
+  frequencyFactor: 1
+  timeOffset: 0
+  randomTimeOffsetMin: 0
+  randomTimeOffsetMax: 0
 --- !u!114 &114149199070697000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -710,6 +728,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114183846612354362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1620207611759544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114418261954397816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -755,7 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62decb3cf1272484581ffe1e5a92076e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114725288687384182
+--- !u!114 &114697508238124336
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -763,11 +792,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1620207611759544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d9be2ded817a24c83e771594c880c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 39656b57828b6fd409deb19de7739fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.05
-  frequencyFactor: 1
-  timeOffset: 0
-  randomTimeOffsetMin: 0
-  randomTimeOffsetMax: 0
+  localPositionYAwake: 0

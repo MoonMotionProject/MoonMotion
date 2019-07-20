@@ -131,7 +131,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 			{
 				if (audioRestartsUponNonzeroing && (audioSource.volume == 0f))
 				{
-					audioTime = 0f;
+					setAudioTimeTo(0f);
 				}
 
 				audioSource.volume = Mathf.Max(volumeMin, audioSource.volume.honed(maxVolumeToUse, volumeIncrement));

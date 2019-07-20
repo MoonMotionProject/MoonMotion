@@ -7,8 +7,8 @@ public static class DirectionExtensions
 {
 	// methods for: conversion //
 	
-	// method: return the (global) vector corresponding to this given direction //
-	public static Vector3 asVector(this Direction direction)
+	// method: return the (global) direction vector corresponding to this given direction //
+	public static Vector3 asGlobalDirectionVector(this Direction direction)
 	{
 		switch (direction)
 		{
@@ -30,25 +30,25 @@ public static class DirectionExtensions
 		return Vector3.zero;
 	}
 
-	// method: return the local vector for this given direction, as relative to the given transform //
-	public static Vector3 asVectorRelativeTo(this Direction direction, Transform transform)
+	// method: return the local direction vector for this given direction, as relative to the given transform //
+	public static Vector3 asDirectionVectorRelativeTo(this Direction direction, Transform transform)
 	{
 		switch (direction)
 		{
 			case Direction.random:
 				return Random.insideUnitSphere;
 			case Direction.forward:
-				return transform.forward;
+				return transform.forward();
 			case Direction.backward:
-				return -transform.forward;
+				return transform.backward();
 			case Direction.right:
-				return transform.right;
+				return transform.right();
 			case Direction.left:
-				return -transform.right;
+				return transform.left();
 			case Direction.up:
-				return transform.up;
+				return transform.up();
 			case Direction.down:
-				return -transform.up;
+				return transform.down();
 		}
 		return Vector3.zero;
 	}

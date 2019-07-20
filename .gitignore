@@ -55,3 +55,9 @@ sysinfo.txt
 # Raymarching Toolkit for Unity
 _*.generated.shader
 _*.generated.shader.meta
+
+# Windows shortcuts
+*.lnk
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/

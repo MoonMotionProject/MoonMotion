@@ -135,7 +135,7 @@ public static class ObjectExtensions
 
 	// method: return this given object converted to a string with null represented //
 	public static string asStringWithNullRepresented(this object object_)
-		=> (""+object_).withNullRepresented();
+		=> object_.isYull() ? ""+object_ : "null";
 
 
 	// methods for: composition //

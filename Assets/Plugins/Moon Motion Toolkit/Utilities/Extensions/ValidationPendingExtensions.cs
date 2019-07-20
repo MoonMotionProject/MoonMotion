@@ -6,9 +6,10 @@ using UnityEngine;
 // Validation Pending Extensions: provides extension methods and related functionality for pending validation of game objects //
 public static class ValidationPendingExtensions
 {
+	#if UNITY_EDITOR
 	// variables //
 
-	
+
 	// tracking //
 
 	public static HashSet<GameObject> gameObjectsPendingValidation = new HashSet<GameObject>();
@@ -37,4 +38,5 @@ public static class ValidationPendingExtensions
 				}
 			},
 			boolean);
+	#endif
 }

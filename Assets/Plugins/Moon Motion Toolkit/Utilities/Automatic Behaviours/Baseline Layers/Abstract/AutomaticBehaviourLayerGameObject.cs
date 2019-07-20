@@ -33,9 +33,11 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 
 
 	#region selection
-	
+	#if UNITY_EDITOR
+
 	public bool selected => gameObject.selected();
 	public bool notSelected => gameObject.isNotSelected();
+	#endif
 	#endregion selection
 
 
@@ -112,12 +114,14 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 
 
 	#region validation pending
+	#if UNITY_EDITOR
 
 	public GameObject unpendValidation()
 		=> gameObject.unpendValidation();
 
 	public GameObject pendValidation()
 		=> gameObject.pendValidation();
+	#endif
 	#endregion validation pending
 
 

@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using static UnityEditor.EditorApplication;
+#endif
 
 // Automatic Behaviour Layer Static Shortcuts:
 // #auto
@@ -108,9 +110,11 @@ public abstract class	AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT
 
 	#region EditorEvents
 
-
+	
+	#if UNITY_EDITOR
 	public static CallbackFunction afterAllInspectorsHaveNextUpdatedExecute(CallbackFunction callbackFunction, bool preventExecutionIfEditorModeChangesFirst = false)
 		=> EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(callbackFunction, preventExecutionIfEditorModeChangesFirst);
+	#endif
 	#endregion EditorEvents
 	#endregion Moon Motion - Moon Motion Toolkit - Utilities - Explicit
 }

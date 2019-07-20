@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using static UnityEditor.EditorApplication;
+#endif
+
 
 // Editor Events: provides methods for handling editor events //
 public static class EditorEvents
 {
+	#if UNITY_EDITOR
 	// methods for: inspector //
 
 	// method: plan to execute the given callback function next time all inspectors have updated, then return the given callback function //
@@ -34,4 +38,5 @@ public static class EditorEvents
 		=>	preventExecutionIfEditorModeChangesFirst ?
 				afterAllInspectorsHaveNextUpdatedExecute_PreventingExecutionIfEditorModeChangesFirst(callbackFunction) :
 				afterAllInspectorsHaveNextUpdatedExecute_WithoutPreventingExecutionIfEditorModeChangesFirst(callbackFunction);
+	#endif
 }

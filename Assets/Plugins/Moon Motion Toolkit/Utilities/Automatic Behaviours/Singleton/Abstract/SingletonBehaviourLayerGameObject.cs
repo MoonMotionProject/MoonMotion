@@ -79,9 +79,11 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 
 
 	#region selection
+	#if UNITY_EDITOR
 
 	public static new bool selected => automaticBehaviour.selected;
 	public static new bool notSelected => automaticBehaviour.notSelected;
+	#endif
 	#endregion selection
 
 
@@ -120,12 +122,14 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 
 
 	#region validation pending
+	#if UNITY_EDITOR
 
 	public static new GameObject unpendValidation()
 		=> automaticBehaviour.unpendValidation();
 
 	public static new GameObject pendValidation()
 		=> automaticBehaviour.pendValidation();
+	#endif
 	#endregion validation pending
 
 

@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 // Game Object Extensions: provides extension methods for handling game objects //
@@ -117,6 +119,7 @@ public static class GameObjectExtensions
 
 
 	#region selection
+	#if UNITY_EDITOR
 
 	// method: return whether this given game object is currently selected //
 	public static bool selected(this GameObject gameObject)
@@ -125,6 +128,7 @@ public static class GameObjectExtensions
 	// method: return whether this given game object is not currently selected //
 	public static bool isNotSelected(this GameObject gameObject)
 		=> !gameObject.selected();
+	#endif
 	#endregion selection
 
 
@@ -241,7 +245,7 @@ public static class GameObjectExtensions
 			gameObject.SendMessage(methodName, sendMessageOptions),
 			boolean);
 
-	// method: have all mono behaviours on this game object validate (if they have OnValidate defined), then return this given game object //
+	// method: (if in the editor:) have all mono behaviours on this game object validate (if they have OnValidate defined), then return this given game object //
 	public static GameObject validate(this GameObject gameObject)
 		=>	gameObject.callAllLocal("OnValidate", SendMessageOptions.DontRequireReceiver, UnityIs.inEditor);
 	#endregion calling local methods
@@ -985,9 +989,11 @@ public static class GameObjectExtensions
 	public static int idee(this GameObject gameObject)
 		=> gameObject.GetInstanceID();
 
+	#if UNITY_EDITOR
 	// method: if there is a game object corresponding to this given integer as a game object idee, return that game object; otherwise, return null //
 	public static GameObject gameObject(this int gameObjectIdee)
 		=> EditorUtility.InstanceIDToObject(gameObjectIdee) as GameObject;
+	#endif
 
 	// method: return an enumerable of the transforms for this given enumerable of game objects //
 	public static IEnumerable<Transform> transforms(this IEnumerable<GameObject> gameObjects)

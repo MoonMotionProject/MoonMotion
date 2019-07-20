@@ -195,7 +195,7 @@ public abstract class SingletonBehaviourLayerComponentShortcuts<SingletonBehavio
 	public static new Vector3 eulerAnglesAwake => automaticBehaviour.eulerAnglesAwake;
 	public static new float timeAwake => automaticBehaviour.timeAwake;
 	public static new float lightIntensityAwake => automaticBehaviour.lightIntensityAwake;
-	public static new bool awake => automaticBehaviour.awake;
+	public static new bool awake => singleton && automaticBehaviour.awake;
 	public static new Quaternion localRotationAwake => automaticBehaviour.localRotationAwake;
 	#endregion Moon Motion - Moon Motion Toolkit - Utilities - Automatic Behaviours - Trackings
 }

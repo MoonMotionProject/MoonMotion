@@ -8,7 +8,8 @@ public static class UnityObjectExtensions
 {
 	// methods for: destruction //
 
-	// method: destroy this given Unity object (unconditionally) //
+	#if UNITY_EDITOR
+	// method: destroy this given Unity object (unconditionally and without waiting for inspectors) //
 	private static void destroy_Unconditionally_WithoutWaitingForInspectors<UnityObjectT>(this UnityObjectT unityObject) where UnityObjectT : UnityEngine.Object
 	{
 		if (UnityIs.inEditorEditMode)
@@ -20,10 +21,12 @@ public static class UnityObjectExtensions
 			UnityEngine.Object.Destroy(unityObject);
 		}
 	}
+	#endif
 
 	// method: destroy this given Unity object (unconditionally) //
 	private static void destroy_Unconditionally<UnityObjectT>(this UnityObjectT unityObject) where UnityObjectT : UnityEngine.Object
 	{
+		#if UNITY_EDITOR
 		if (UnityIs.inEditorEditMode)
 		{
 			if (Callstack.includesOnValidate || Callstack.includesContextMenu)
@@ -40,6 +43,9 @@ public static class UnityObjectExtensions
 		{
 			UnityEngine.Object.Destroy(unityObject);
 		}
+		#else
+		UnityEngine.Object.Destroy(unityObject);
+		#endif
 	}
 
 	// method: destroy this given Unity object according to the given booleanic function upon this given Unity object //

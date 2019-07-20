@@ -56,16 +56,7 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	// the singleton instance of this class //
 	private static SingletonBehaviourT singleton_ = null;
-	public static SingletonBehaviourT singleton
-	{
-		get
-		{
-			return
-				singleton_ ??
-				singleton_.returnWithError("singleton for "+typeof(SingletonBehaviourT)+" not found");
-		}
-		set { singleton = value; }
-	}
+	public static SingletonBehaviourT singleton => singleton_;
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => automaticBehaviour.gameObject;

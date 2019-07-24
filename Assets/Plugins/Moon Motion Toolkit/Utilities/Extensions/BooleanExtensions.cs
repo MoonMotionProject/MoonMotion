@@ -36,7 +36,7 @@ public static class BooleanExtensions
 	// methods for: acting //
 
 	// method: return the given action on the specified class predicated with the given boolean //
-	public static Action<TObject> predicating<TObject>(this bool boolean, Action<TObject> action)
+	public static Action<ObjectT> predicating<ObjectT>(this bool boolean, Action<ObjectT> action)
 		=> action.predicatedWith(boolean);
 
 

@@ -15,8 +15,8 @@ public static class ICollectionExtensions
 		=> collection.after(()=>
 			collection.Clear(),
 			boolean);
-	
-	
+
+
 	// methods for: iteration //
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given collection, then return this given collection //

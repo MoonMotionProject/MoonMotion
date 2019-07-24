@@ -25,11 +25,11 @@ public static class HashingExtensions
 
 	// method: return the hashed bytes for this given string //
 	public static byte[] hashedBytes(this string string_)
-		=> hashed(string_.bytes());
+		=> hashed(string_.toBytes());
 
 	// method: return the hashed bytes for this given integer //
 	public static byte[] hashedBytes(this int integer)
-		=> hashed(integer.bytes());
+		=> hashed(integer.toBytes());
 
 	// method: return the hashed string for this given string //
 	public static string hashedString(this string string_)

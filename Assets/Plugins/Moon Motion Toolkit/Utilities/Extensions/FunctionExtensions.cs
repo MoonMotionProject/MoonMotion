@@ -9,17 +9,17 @@ public static class FunctionExtensions
 	// methods for: logic //
 	
 	// method: return the given action on the specified type predicated with this given booleanic function upon the specified type //
-	public static Action<TObject> predicating<TObject>(this Func<TObject, bool> function, Action<TObject> action)
+	public static Action<ObjectT> predicating<ObjectT>(this Func<ObjectT, bool> function, Action<ObjectT> action)
 		=> action.predicatedWith(function);
 	
 	// method: return this given function negated //
-	public static Func<TObject, bool> negated<TObject>(this Func<TObject, bool> function)
+	public static Func<ObjectT, bool> negated<ObjectT>(this Func<ObjectT, bool> function)
 		=> (object_ => !function(object_));
 
 
 	// methods for: conversion //
 	
 	// method: return the predicate corresponding to this given (predicate) function //
-	public static Predicate<TObject> asPredicate<TObject>(this Func<TObject, bool> function)
+	public static Predicate<ObjectT> asPredicate<ObjectT>(this Func<ObjectT, bool> function)
 		=> (object_ => function(object_));
 }

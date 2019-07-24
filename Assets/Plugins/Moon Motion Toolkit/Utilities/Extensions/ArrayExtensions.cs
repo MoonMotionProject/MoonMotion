@@ -8,6 +8,17 @@ using UnityEngine;
 // #enumerable-e
 public static class ArrayExtensions
 {
+	#region reversing
+
+	// method: return this given array reversed //
+	public static TItem[] reversed<TItem>(this TItem[] array)
+	{
+		Array.Reverse(array);
+		return array;
+	}
+	#endregion reversing
+
+
 	#region iteration
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given array, then return this given array //

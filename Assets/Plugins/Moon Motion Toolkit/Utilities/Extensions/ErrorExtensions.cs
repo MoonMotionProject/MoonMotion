@@ -62,7 +62,7 @@ public static class ErrorExtensions
 	}
 
 	// method: log the given error ("error" by default), mentioning only this given object as what is being returned, then return this given object //
-	public static TObject returnWithError<TObject>(this TObject object_, string error = "error")
+	public static ObjectT returnWithError<ObjectT>(this ObjectT object_, string error = "error")
 	{
 		Debug.LogError(error+"; returning "+object_.asStringWithNullRepresented());
 

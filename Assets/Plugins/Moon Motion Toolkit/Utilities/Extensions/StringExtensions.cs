@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 // StringExtensions: provides extension methods for handling strings //
@@ -60,6 +61,23 @@ public static class StringExtensions
 		=> string_.substituteIf(string_.containsOnlySpaces(), targetString);
 
 
+	// methods for: regex //
+
+	// method: return whether this given string matches the given regex //
+	public static bool matches(this string string_, Regex regex)
+		=> regex.IsMatch(string_);
+	// method: return whether this given string matches the regex for the given regex string //
+	public static bool matches(this string string_, string regexString)
+		=> string_.matches(regexString.toRegex());
+
+
+	// methods for: email //
+
+	// method: return whether this given string is an email address //
+	public static bool isAnEmailAddress(this string string_)
+		=> string_.matches(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+
+
 	// methods for: printing //
 
 	// method: print this given string, then return it //
@@ -69,6 +87,13 @@ public static class StringExtensions
 
 		return string_;
 	}
+
+
+	// methods for: reversing //
+
+	// method: return this given string reversed //
+	public static string reversed(this string string_)
+		=> string_.toCharacters().reversed().toString();
 
 
 	// methods for: removing characters //
@@ -168,14 +193,20 @@ public static class StringExtensions
 
 
 	// methods for: conversion //
-
+	
 	// method: return the bytes for this given string //
-	public static byte[] bytes(this string string_)
+	public static byte[] toBytes(this string string_)
 		=> Encoding.UTF8.GetBytes(string_);
-
 	// method: return the string parsed from these given bytes //
 	public static string asString(this byte[] bytes)
 		=> BitConverter.ToString(bytes);
+
+	// method: return the characters of this given string //
+	public static char[] toCharacters(this string string_)
+		=> string_.ToCharArray();
+	// method: return the characters of this given string //
+	public static string toString(this char[] characters)
+		=> new string(characters);
 
 	// method: return the hexadecimal string for this given hashed string //
 	public static string asHashedStringToHexadecimalString(this string hashedString)
@@ -196,4 +227,8 @@ public static class StringExtensions
 	// method: return the random color corresponding to this string as a seed //
 	public static Color seedRandomColor(this string string_)
 		=> string_.hashedString().asHashedStringToColor();
+
+	// method: return the regex for this given string //
+	public static Regex toRegex(this string string_)
+		=> new Regex(string_);
 }

@@ -29,6 +29,9 @@ public static class RandomlyGenerate
 	// method: generate a random integer in the range from the first integer until the second integer //
 	public static int fromUntil(int integerFirst, int integerSecond)
 		=> Random.Range(integerFirst, integerSecond);
+	// method: generate a random integer in the range from 0 until the second integer //
+	public static int fromZeroUntil(int integerSecond)
+		=> fromUntil(0, integerSecond);
 
 	// method: generate a random integer in the range after the first integer to the second integer //
 	public static int afterTo(int integerFirst, int integerSecond)

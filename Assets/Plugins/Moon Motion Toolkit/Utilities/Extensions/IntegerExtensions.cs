@@ -140,7 +140,7 @@ public static class IntegerExtensions
 	// methods for: conversion //
 
 	// method: return the bytes for this given integer //
-	public static byte[] bytes(this int integer)
+	public static byte[] toBytes(this int integer)
 		=> BitConverter.GetBytes(integer);
 
 	// method: return the float for this given integer //

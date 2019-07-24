@@ -113,7 +113,7 @@ public static class IEnumerableExtensions
 	// method: return the first item in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem firstOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.FirstOrDefault();
-
+	
 
 	// methods for: removing //
 

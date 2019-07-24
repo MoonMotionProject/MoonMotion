@@ -260,27 +260,25 @@ public static class ChildExtensions
 	// method: return the index of the last child of this given game object //
 	public static int lastChildIndex(this Component component)
 		=> component.transform.lastChildIndex();
-	
-	// method: (according to the given boolean:) invoke the given action on each child transform of this given transform, then return this given transform //
-	public static Transform forEachChildTransform(this Transform transform, Action<Transform> action, bool boolean = true)
+
+	// method: invoke the given action on each child transform of this given component's transform, then return this given component //
+	public static ComponentT forEachChildTransform<ComponentT>(this ComponentT component, Action<Transform> action, bool boolean = true) where ComponentT : Component
 	{
 		if (boolean)
 		{
-			foreach (Transform childTransform in transform)
+			foreach (Transform childTransform in component.transform)
 			{
 				action(childTransform);
 			}
 		}
 
-		return transform;
+		return component;
 	}
 	// method: invoke the given action on each child transform of this given game object, then return this given game object //
-	public static GameObject forEachChildTransform(this GameObject gameObject, Action<Transform> action)
-		=> gameObject.transform.forEachChildTransform(action).gameObject;
-	// method: invoke the given action on each child transform of this given component's transform, then return this given component //
-	public static ComponentT forEachChildTransform<ComponentT>(this ComponentT component, Action<Transform> action) where ComponentT : Component
-		=> component.after(() =>
-			component.transform.forEachChildTransform(action));
+	public static GameObject forEachChildTransform(this GameObject gameObject, Action<Transform> action, bool boolean = true)
+		=>	gameObject.after(()=>
+				gameObject.transform.forEachChildTransform(action),
+				boolean);
 
 	// method: set the activity of all child objects of this given transform to the given boolean, then return this given transform //
 	public static Transform setActivityOfChildrenTo(this Transform transform, bool enablement)

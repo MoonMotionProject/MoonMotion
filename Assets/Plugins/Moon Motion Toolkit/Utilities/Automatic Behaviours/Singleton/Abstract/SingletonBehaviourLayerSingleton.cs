@@ -55,8 +55,7 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 
 	// the singleton instance of this class //
-	private static SingletonBehaviourT singleton_ = null;
-	public static SingletonBehaviourT singleton => singleton_;
+	public static SingletonBehaviourT singleton {get; private set;} = null;
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => automaticBehaviour.gameObject;
@@ -74,7 +73,7 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 	public virtual void Awake()
 	{
 		// connect to the singleton instance of this inheritor //
-		singleton_ = this.castTo<SingletonBehaviourT>();
+		singleton = this.castTo<SingletonBehaviourT>();
 		/*(print("Singleton found for: "+className);*/
 	}
 	#endregion singleton

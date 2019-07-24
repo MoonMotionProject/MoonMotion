@@ -28,14 +28,14 @@ public abstract class	AutomaticBehaviourLayerBehaviour<AutomaticBehaviourT> :
 	// methods for: enablement of the specified behaviour //
 
 	// method: set the enablement of the specified behaviour on this given game object to the given boolean, then return the specified behaviour //
-	public BehaviourT setEnablement<BehaviourT>(bool enablement) where BehaviourT : Behaviour
+	public BehaviourT setEnablementTo<BehaviourT>(bool enablement) where BehaviourT : Behaviour
 		=> gameObject.first<BehaviourT>().setEnablementTo(enablement);
 
 	// method: enable the specified behaviour on this given game object, then return the specified behaviour //
 	public BehaviourT enable<BehaviourT>() where BehaviourT : Behaviour
-		=> gameObject.setEnablement<BehaviourT>(true);
+		=> gameObject.setEnablementOfFirst<BehaviourT>(true);
 
 	// method: disable the specified behaviour on this given game object, then return the specified behaviour //
 	public BehaviourT disable<BehaviourT>() where BehaviourT : Behaviour
-		=> gameObject.setEnablement<BehaviourT>(false);
+		=> gameObject.setEnablementOfFirst<BehaviourT>(false);
 }

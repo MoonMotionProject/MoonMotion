@@ -258,14 +258,14 @@ public static class InterpolationCurved
 		=> curve.interpolation(true, start, end, ratio);
 	// method: interpolate a floats vector (using doubles interpolation) with clamping using the given curve and start & end & ratio values //
 	public static Vector3 clamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)
-		=> curve.clamped(start.asDoublesVector(), end.asDoublesVector(), ratio).asFloatsVector();
+		=> curve.clamped(start.toDoublesVector(), end.toDoublesVector(), ratio).asFloatsVector();
 
 	// method: interpolate a doubles vector without clamping using this given curve and the given start & end & ratio values //
 	public static Vector unclamped(this InterpolationCurve curve, Vector start, Vector end, double ratio)
 		=> curve.interpolation(false, start, end, ratio);
 	// method: interpolate a floats vector (using doubles interpolation) without clamping using this given curve and the given start & end & ratio values //
 	public static Vector3 unclamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)
-		=> curve.unclamped(start.asDoublesVector(), end.asDoublesVector(), ratio).asFloatsVector();
+		=> curve.unclamped(start.toDoublesVector(), end.toDoublesVector(), ratio).asFloatsVector();
 	#endregion public methods - double
 
 

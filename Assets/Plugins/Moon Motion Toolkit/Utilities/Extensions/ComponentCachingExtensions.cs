@@ -29,12 +29,12 @@ public static class ComponentCachingExtensions
 			.cache
 			(
 				typeof(ComponentT),
-				()=> gameObject.first<ComponentT>() ?? (addComponentIfNoneFound ? gameObject.add<ComponentT>() : null)
+				()=> gameObject.first<ComponentT>() ?? (addComponentIfNoneFound ? gameObject.addGet<ComponentT>() : null)
 			)
 			.castTo<ComponentT>();
 
 	// method: untrack the cached components for this given game object, then return whether this given game object actually had cached components //
-	public static bool uncache(this GameObject gameObject)
+	public static bool tryToUncache(this GameObject gameObject)
 		=> cachedComponentDictionaries.tryToRemove(gameObject);
 
 	// method: in the cached component dictionaries dictionary, remove all (game object) keys which are destroyed, then return the cached component dictionaries dictionary //

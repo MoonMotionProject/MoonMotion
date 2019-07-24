@@ -148,7 +148,7 @@ public static class TransformExtensions
 	#region setting transformations
 
 	// method: (according to the given boolean:) set this given transform's local position to the given local position, then return this given transform //
-	public static Transform setLocalPosition(this Transform transform, Vector3 localPosition, bool boolean = true)
+	public static Transform setLocalPositionTo(this Transform transform, Vector3 localPosition, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -157,73 +157,60 @@ public static class TransformExtensions
 
 		return transform;
 	}
-
 	// method: (according to the given boolean:) set this given transform's local position to the local position for the given x, y, and z values, then return this given transform //
-	public static Transform setLocalPosition(this Transform transform, float x, float y, float z, bool boolean = true)
-		=> transform.setLocalPosition(new Vector3(x, y, z), boolean);
-
+	public static Transform setLocalPositionTo(this Transform transform, float x, float y, float z, bool boolean = true)
+		=> transform.setLocalPositionTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given transform's local position to the other given transform's local position, then return this given transform //
-	public static Transform setLocalPosition(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPosition(otherTransform.localPosition, boolean);
-
+	public static Transform setLocalPositionTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalPositionTo(otherTransform.localPosition, boolean);
 	// method: (according to the given boolean:) set this given transform's local position to the given game object's local position, then return this given transform //
-	public static Transform setLocalPosition(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalPosition(gameObject.localPosition(), boolean);
-
+	public static Transform setLocalPositionTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalPositionTo(gameObject.localPosition(), boolean);
 	// method: (according to the given boolean:) set this given transform's local position to the given component's local position, then return this given transform //
-	public static Transform setLocalPosition(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalPosition(component.localPosition(), boolean);
+	public static Transform setLocalPositionTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalPositionTo(component.localPosition(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local x position to the given x value, then return this given transform //
-	public static Transform setLocalPositionX(this Transform transform, float x, bool boolean = true)
-		=> transform.setLocalPosition(transform.localPosition.withX(x), boolean);
-
+	public static Transform setLocalPositionXTo(this Transform transform, float x, bool boolean = true)
+		=> transform.setLocalPositionTo(transform.localPosition.withX(x), boolean);
 	// method: (according to the given boolean:) set this given transform's local x position to the other given transform's local x position, then return this given transform //
-	public static Transform setLocalPositionX(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionX(otherTransform.localPositionX(), boolean);
-
+	public static Transform setLocalPositionXTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalPositionXTo(otherTransform.localPositionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x position to the given game object's local x position, then return this given transform //
-	public static Transform setLocalPositionX(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalPositionX(gameObject.localPositionX(), boolean);
-
+	public static Transform setLocalPositionXTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalPositionXTo(gameObject.localPositionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x position to the given component's local x position, then return this given transform //
-	public static Transform setLocalPositionX(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalPositionX(component.localPositionX(), boolean);
+	public static Transform setLocalPositionXTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalPositionXTo(component.localPositionX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local y position to the given y value, then return this given transform //
-	public static Transform setLocalPositionY(this Transform transform, float y, bool boolean = true)
-		=> transform.setLocalPosition(transform.localPosition.withY(y), boolean);
-
+	public static Transform setLocalPositionYTo(this Transform transform, float y, bool boolean = true)
+		=> transform.setLocalPositionTo(transform.localPosition.withY(y), boolean);
 	// method: (according to the given boolean:) set this given transform's local y position to the other given transform's local y position, then return this given transform //
-	public static Transform setLocalPositionY(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionY(otherTransform.localPositionY(), boolean);
-
+	public static Transform setLocalPositionYTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalPositionYTo(otherTransform.localPositionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y position to the given game object's local y position, then return this given transform //
-	public static Transform setLocalPositionY(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalPositionY(gameObject.localPositionY(), boolean);
-
+	public static Transform setLocalPositionYTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalPositionYTo(gameObject.localPositionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y position to the given component's local y position, then return this given transform //
-	public static Transform setLocalPositionY(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalPositionY(component.localPositionY(), boolean);
+	public static Transform setLocalPositionYTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalPositionYTo(component.localPositionY(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local z position to the given z value, then return this given transform //
-	public static Transform setLocalPositionZ(this Transform transform, float z, bool boolean = true)
-		=> transform.setLocalPosition(transform.localPosition.withZ(z), boolean);
-
+	public static Transform setLocalPositionZTo(this Transform transform, float z, bool boolean = true)
+		=> transform.setLocalPositionTo(transform.localPosition.withZ(z), boolean);
 	// method: (according to the given boolean:) set this given transform's local z position to the other given transform's local z position, then return this given transform //
-	public static Transform setLocalPositionZ(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionZ(otherTransform.localPositionZ(), boolean);
-
+	public static Transform setLocalPositionZTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalPositionZTo(otherTransform.localPositionZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z position to the given game object's local z position, then return this given transform //
-	public static Transform setLocalPositionZ(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalPositionZ(gameObject.localPositionZ(), boolean);
-
+	public static Transform setLocalPositionZTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalPositionZTo(gameObject.localPositionZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z position to the given component's local z position, then return this given transform //
-	public static Transform setLocalPositionZ(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalPositionZ(component.localPositionZ(), boolean);
+	public static Transform setLocalPositionZTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalPositionZTo(component.localPositionZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local rotation to the given local rotation, then return this given transform //
-	public static Transform setLocalRotation(this Transform transform, Quaternion localRotation, bool boolean = true)
+	public static Transform setLocalRotationTo(this Transform transform, Quaternion localRotation, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -232,21 +219,18 @@ public static class TransformExtensions
 
 		return transform;
 	}
-
 	// method: (according to the given boolean:) set this given transform's local rotation to the other given transform's local rotation, then return this given transform //
-	public static Transform setLocalRotation(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalRotation(otherTransform.localRotation, boolean);
-
+	public static Transform setLocalRotationTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalRotationTo(otherTransform.localRotation, boolean);
 	// method: (according to the given boolean:) set this given transform's local rotation to the given game object's local rotation, then return this given transform //
-	public static Transform setLocalRotation(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalRotation(gameObject.localRotation(), boolean);
-
+	public static Transform setLocalRotationTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalRotationTo(gameObject.localRotation(), boolean);
 	// method: (according to the given boolean:) set this given transform's local rotation to the given component's local rotation, then return this given transform //
-	public static Transform setLocalRotation(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalRotation(component.localRotation(), boolean);
+	public static Transform setLocalRotationTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalRotationTo(component.localRotation(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local euler angles to the given local euler angles, then return this given transform //
-	public static Transform setLocalEulerAngles(this Transform transform, Vector3 localEulerAngles, bool boolean = true)
+	public static Transform setLocalEulerAnglesTo(this Transform transform, Vector3 localEulerAngles, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -257,72 +241,60 @@ public static class TransformExtensions
 	}
 
 	// method: (according to the given boolean:) set this given transform's local euler angles to the local euler angles for the given x, y, and z values, then return this given transform //
-	public static Transform setLocalEulerAngles(this Transform transform, float x, float y, float z, bool boolean = true)
-		=> transform.setLocalEulerAngles(new Vector3(x, y, z), boolean);
-
+	public static Transform setLocalEulerAnglesTo(this Transform transform, float x, float y, float z, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given transform's local euler angles to the other given transform's local euler angles, then return this given transform //
-	public static Transform setLocalEulerAngles(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngles(otherTransform.localEulerAngles, boolean);
-
+	public static Transform setLocalEulerAnglesTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(otherTransform.localEulerAngles, boolean);
 	// method: (according to the given boolean:) set this given transform's local euler angles to the given game object's local euler angles, then return this given transform //
-	public static Transform setLocalEulerAngles(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalEulerAngles(gameObject.localEulerAngles(), boolean);
-
+	public static Transform setLocalEulerAnglesTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(gameObject.localEulerAngles(), boolean);
 	// method: (according to the given boolean:) set this given transform's local euler angles to the given component's local euler angles, then return this given transform //
-	public static Transform setLocalEulerAngles(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalEulerAngles(component.localEulerAngles(), boolean);
+	public static Transform setLocalEulerAnglesTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(component.localEulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local x euler angle to the given x value, then return this given transform //
-	public static Transform setLocalEulerAngleX(this Transform transform, float x, bool boolean = true)
-		=> transform.setLocalEulerAngles(transform.localEulerAngles.withX(x), boolean);
-
+	public static Transform setLocalEulerAngleXTo(this Transform transform, float x, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(transform.localEulerAngles.withX(x), boolean);
 	// method: (according to the given boolean:) set this given transform's local x euler angle to the other given transform's local x euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleX(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngleX(otherTransform.localEulerAngleX(), boolean);
-
+	public static Transform setLocalEulerAngleXTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalEulerAngleXTo(otherTransform.localEulerAngleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x euler angle to the given game object's local x euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleX(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalEulerAngleX(gameObject.localEulerAngleX(), boolean);
-
+	public static Transform setLocalEulerAngleXTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalEulerAngleXTo(gameObject.localEulerAngleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x euler angle to the given component's local x euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleX(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalEulerAngleX(component.localEulerAngleX(), boolean);
+	public static Transform setLocalEulerAngleXTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalEulerAngleXTo(component.localEulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local y euler angle to the given y value, then return this given transform //
-	public static Transform setLocalEulerAngleY(this Transform transform, float y, bool boolean = true)
-		=> transform.setLocalEulerAngles(transform.localEulerAngles.withY(y), boolean);
-
+	public static Transform setLocalEulerAngleYTo(this Transform transform, float y, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(transform.localEulerAngles.withY(y), boolean);
 	// method: (according to the given boolean:) set this given transform's local y euler angle to the other given transform's local y euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleY(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngleY(otherTransform.localEulerAngleY(), boolean);
-
+	public static Transform setLocalEulerAngleYTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalEulerAngleYTo(otherTransform.localEulerAngleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y euler angle to the given game object's local y euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleY(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalEulerAngleY(gameObject.localEulerAngleY(), boolean);
-
+	public static Transform setLocalEulerAngleYTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalEulerAngleYTo(gameObject.localEulerAngleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y euler angle to the given component's local y euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleY(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalEulerAngleY(component.localEulerAngleY(), boolean);
+	public static Transform setLocalEulerAngleYTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalEulerAngleYTo(component.localEulerAngleY(), boolean);
 
 
 	// method: (according to the given boolean:) set this given transform's local z euler angle to the given z value, then return this given transform //
-	public static Transform setLocalEulerAngleZ(this Transform transform, float z, bool boolean = true)
-		=> transform.setLocalEulerAngles(transform.localEulerAngles.withZ(z), boolean);
-
+	public static Transform setLocalEulerAngleZTo(this Transform transform, float z, bool boolean = true)
+		=> transform.setLocalEulerAnglesTo(transform.localEulerAngles.withZ(z), boolean);
 	// method: (according to the given boolean:) set this given transform's local z euler angle to the other given transform's local z euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleZ(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngleZ(otherTransform.localEulerAngleZ(), boolean);
-
+	public static Transform setLocalEulerAngleZTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalEulerAngleZTo(otherTransform.localEulerAngleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z euler angle to the given game object's local z euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleZ(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalEulerAngleZ(gameObject.localEulerAngleZ(), boolean);
-
+	public static Transform setLocalEulerAngleZTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalEulerAngleZTo(gameObject.localEulerAngleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z euler angle to the given component's local z euler angle, then return this given transform //
-	public static Transform setLocalEulerAngleZ(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalEulerAngleZ(component.localEulerAngleZ(), boolean);
+	public static Transform setLocalEulerAngleZTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalEulerAngleZTo(component.localEulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local scale to the given local scale, then return this given transform //
-	public static Transform setLocalScale(this Transform transform, Vector3 localScale, bool boolean = true)
+	public static Transform setLocalScaleTo(this Transform transform, Vector3 localScale, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -331,126 +303,104 @@ public static class TransformExtensions
 
 		return transform;
 	}
-
 	// method: (according to the given boolean:) set this given transform's local scale to the local scale for the given x, y, and z values, then return this given transform //
-	public static Transform setLocalScale(this Transform transform, float x, float y, float z, bool boolean = true)
-		=> transform.setLocalScale(new Vector3(x, y, z), boolean);
-
+	public static Transform setLocalScaleTo(this Transform transform, float x, float y, float z, bool boolean = true)
+		=> transform.setLocalScaleTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given transform's local scale to the other given transform's local scale, then return this given transform //
-	public static Transform setLocalScale(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScale(otherTransform.localScale, boolean);
-
+	public static Transform setLocalScaleTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalScaleTo(otherTransform.localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's local scale to the given game object's local scale, then return this given transform //
-	public static Transform setLocalScale(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalScale(gameObject.localScale(), boolean);
-
+	public static Transform setLocalScaleTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalScaleTo(gameObject.localScale(), boolean);
 	// method: (according to the given boolean:) set this given transform's local scale to the given component's local scale, then return this given transform //
-	public static Transform setLocalScale(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalScale(component.localScale(), boolean);
+	public static Transform setLocalScaleTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalScaleTo(component.localScale(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local x scale to the given x value, then return this given transform //
-	public static Transform setLocalScaleX(this Transform transform, float x, bool boolean = true)
-		=> transform.setLocalScale(transform.localScale.withX(x), boolean);
-
+	public static Transform setLocalScaleXTo(this Transform transform, float x, bool boolean = true)
+		=> transform.setLocalScaleTo(transform.localScale.withX(x), boolean);
 	// method: (according to the given boolean:) set this given transform's local x scale to the other given transform's local x scale, then return this given transform //
-	public static Transform setLocalScaleX(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleX(otherTransform.localScaleX(), boolean);
-
+	public static Transform setLocalScaleXTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalScaleXTo(otherTransform.localScaleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x scale to the given game object's local x scale, then return this given transform //
-	public static Transform setLocalScaleX(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalScaleX(gameObject.localScaleX(), boolean);
-
+	public static Transform setLocalScaleXTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalScaleXTo(gameObject.localScaleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x scale to the given component's local x scale, then return this given transform //
-	public static Transform setLocalScaleX(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalScaleX(component.localScaleX(), boolean);
+	public static Transform setLocalScaleXTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalScaleXTo(component.localScaleX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local y scale to the given y value, then return this given transform //
-	public static Transform setLocalScaleY(this Transform transform, float y, bool boolean = true)
-		=> transform.setLocalScale(transform.localScale.withY(y), boolean);
-
+	public static Transform setLocalScaleYTo(this Transform transform, float y, bool boolean = true)
+		=> transform.setLocalScaleTo(transform.localScale.withY(y), boolean);
 	// method: (according to the given boolean:) set this given transform's local y scale to the other given transform's local y scale, then return this given transform //
-	public static Transform setLocalScaleY(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleY(otherTransform.localScaleY(), boolean);
-
+	public static Transform setLocalScaleYTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalScaleYTo(otherTransform.localScaleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y scale to the given game object's local y scale, then return this given transform //
-	public static Transform setLocalScaleY(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalScaleY(gameObject.localScaleY(), boolean);
-
+	public static Transform setLocalScaleYTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalScaleYTo(gameObject.localScaleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y scale to the given component's local y scale, then return this given transform //
-	public static Transform setLocalScaleY(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalScaleY(component.localScaleY(), boolean);
+	public static Transform setLocalScaleYTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalScaleYTo(component.localScaleY(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local z scale to the given z value, then return this given transform //
-	public static Transform setLocalScaleZ(this Transform transform, float z, bool boolean = true)
-		=> transform.setLocalScale(transform.localScale.withZ(z), boolean);
-
+	public static Transform setLocalScaleZTo(this Transform transform, float z, bool boolean = true)
+		=> transform.setLocalScaleTo(transform.localScale.withZ(z), boolean);
 	// method: (according to the given boolean:) set this given transform's local z scale to the other given transform's local z scale, then return this given transform //
-	public static Transform setLocalScaleZ(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleZ(otherTransform.localScaleZ(), boolean);
-
+	public static Transform setLocalScaleZTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalScaleZTo(otherTransform.localScaleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z scale to the given game object's local z scale, then return this given transform //
-	public static Transform setLocalScaleZ(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocalScaleZ(gameObject.localScaleZ(), boolean);
-
+	public static Transform setLocalScaleZTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalScaleZTo(gameObject.localScaleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z scale to the given component's local z scale, then return this given transform //
-	public static Transform setLocalScaleZ(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocalScaleZ(component.localScaleZ(), boolean);
+	public static Transform setLocalScaleZTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalScaleZTo(component.localScaleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's local transformations (local position, local rotation, local scale) respectively to the given local position, local rotation, and local scale, then return this given transform //
-	public static Transform setLocals(this Transform transform, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
+	public static Transform setLocalsTo(this Transform transform, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
 		=> transform
-			.setLocalPosition(localPosition, boolean)
-			.setLocalRotation(localRotation, boolean)
-			.setLocalScale(localScale, boolean);
-
+			.setLocalPositionTo(localPosition, boolean)
+			.setLocalRotationTo(localRotation, boolean)
+			.setLocalScaleTo(localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's local transformations (local position, local euler angles, local scale) respectively to the given local position, local euler angles, and local scale, then return this given transform //
-	public static Transform setLocals(this Transform transform, Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
+	public static Transform setLocalsTo(this Transform transform, Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
 		=> transform
-			.setLocalPosition(localPosition, boolean)
-			.setLocalEulerAngles(localEulerAngles, boolean)
-			.setLocalScale(localScale, boolean);
-
+			.setLocalPositionTo(localPosition, boolean)
+			.setLocalEulerAnglesTo(localEulerAngles, boolean)
+			.setLocalScaleTo(localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's local transformations (local position, local rotation, local scale) respectively to the other given transform's local position, local rotation, and local scale, then return this given transform //
-	public static Transform setLocals(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setLocals(otherTransform.localPosition, otherTransform.localRotation, otherTransform.localScale, boolean);
-
+	public static Transform setLocalsTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setLocalsTo(otherTransform.localPosition, otherTransform.localRotation, otherTransform.localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's local transformations (local position, local rotation, local scale) respectively to the given game object's local position, local rotation, and local scale, then return this given transform //
-	public static Transform setLocals(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setLocals(gameObject.localPosition(), gameObject.localRotation(), gameObject.localScale(), boolean);
-
+	public static Transform setLocalsTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setLocalsTo(gameObject.localPosition(), gameObject.localRotation(), gameObject.localScale(), boolean);
 	// method: (according to the given boolean:) set this given transform's local transformations (local position, local rotation, local scale) respectively to the given component's local position, local rotation, and local scale, then return this given transform //
-	public static Transform setLocals(this Transform transform, Component component, bool boolean = true)
-		=> transform.setLocals(component.localPosition(), component.localRotation(), component.localScale(), boolean);
-
+	public static Transform setLocalsTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setLocalsTo(component.localPosition(), component.localRotation(), component.localScale(), boolean);
 	// method: (according to the given boolean:) set this given transform's (nonscale) local transformations (local position, local rotation) respectively to the given local position and local rotation //
-	public static Transform setLocals(this Transform transform, Vector3 localPosition, Quaternion localRotation, bool boolean = true)
-		=> transform.setLocalPosition(localPosition, boolean).setLocalRotation(localRotation, boolean);
-
+	public static Transform setLocalsTo(this Transform transform, Vector3 localPosition, Quaternion localRotation, bool boolean = true)
+		=> transform.setLocalPositionTo(localPosition, boolean).setLocalRotationTo(localRotation, boolean);
 	// method: (according to the given boolean:) set this given transform's (nonposition) local transformations (local rotation, local scale) respectively to the given local rotation and local scale //
-	public static Transform setLocals(this Transform transform, Quaternion localRotation, Vector3 localScale, bool boolean = true)
-		=> transform.setLocalRotation(localRotation, boolean).setLocalScale(localScale, boolean);
+	public static Transform setLocalsTo(this Transform transform, Quaternion localRotation, Vector3 localScale, bool boolean = true)
+		=> transform.setLocalRotationTo(localRotation, boolean).setLocalScaleTo(localScale, boolean);
 
 	// method: (according to the given boolean:) set this given transform's local transformations to its parent's while temporarily childed to the other given transform, then return this given transform //
 	public static Transform setLocalsParentlyForRelativeTo(this Transform transform, Transform otherTransform, bool boolean = true)
 	{
 		Transform extervalParent = transform.parent;
-		return transform.actUponWithParentTemporarilySwappedTo(otherTransform, transform_ => transform_.setLocals(extervalParent), boolean);
+		return transform.actUponWithParentTemporarilySwappedTo(otherTransform, transform_ => transform_.setLocalsTo(extervalParent), boolean);
 	}
-
 	// method: (according to the given boolean:) set this given transform's local transformations to its parent's while temporarily childed to the given game object, then return this given transform //
 	public static Transform setLocalsParentlyForRelativeTo(this Transform transform, GameObject gameObject, bool boolean = true)
 		=> transform.setLocalsParentlyForRelativeTo(gameObject.transform, boolean);
-
 	// method: (according to the given boolean:) set this given transform's local transformations to its parent's while temporarily childed to the given component, then return this given transform //
 	public static Transform setLocalsParentlyForRelativeTo(this Transform transform, Component component, bool boolean = true)
 		=> transform.setLocalsParentlyForRelativeTo(component.transform, boolean);
-
 	// method: (according to the given boolean:) set this given transform's local transformations to its parent's while temporarily childed to the transform of the specified singleton behaviour class, then return this given transform //
 	public static Transform setLocalsParentlyForRelativeTo<SingletonBehaviourT>(this Transform transform, bool boolean = true) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> transform.setLocalsParentlyForRelativeTo(SingletonBehaviour<SingletonBehaviourT>.transform, boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) position to the given (global) position, then return this given transform //
-	public static Transform setPosition(this Transform transform, Vector3 position, bool boolean = true)
+	public static Transform setPositionTo(this Transform transform, Vector3 position, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -459,73 +409,60 @@ public static class TransformExtensions
 
 		return transform;
 	}
-
 	// method: (according to the given boolean:) set this given transform's (global) position to the (global) position for the given x, y, and z values, then return this given transform //
-	public static Transform setPosition(this Transform transform, float x, float y, float z, bool boolean = true)
-		=> transform.setPosition(new Vector3(x, y, z), boolean);
-
+	public static Transform setPositionTo(this Transform transform, float x, float y, float z, bool boolean = true)
+		=> transform.setPositionTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given transform's position to the other given transform's position, then return this given transform //
-	public static Transform setPosition(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setPosition(otherTransform.position, boolean);
-
+	public static Transform setPositionTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setPositionTo(otherTransform.position, boolean);
 	// method: (according to the given boolean:) set this given transform's position to the given game object's position, then return this given transform //
-	public static Transform setPosition(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setPosition(gameObject.position(), boolean);
-
+	public static Transform setPositionTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setPositionTo(gameObject.position(), boolean);
 	// method: (according to the given boolean:) set this given transform's position to the given component's position, then return this given transform //
-	public static Transform setPosition(this Transform transform, Component component, bool boolean = true)
-		=> transform.setPosition(component.position(), boolean);
+	public static Transform setPositionTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setPositionTo(component.position(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) x position to the given x value, then return this given transform //
-	public static Transform setPositionX(this Transform transform, float x, bool boolean = true)
-		=> transform.setPosition(transform.position.withX(x), boolean);
-
+	public static Transform setPositionXTo(this Transform transform, float x, bool boolean = true)
+		=> transform.setPositionTo(transform.position.withX(x), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x position to the other given transform's (global) x position, then return this given transform //
-	public static Transform setPositionX(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setPositionX(otherTransform.positionX(), boolean);
-
+	public static Transform setPositionXTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setPositionXTo(otherTransform.positionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x position to the given game object's (global) x position, then return this given transform //
-	public static Transform setPositionX(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setPositionX(gameObject.positionX(), boolean);
-
+	public static Transform setPositionXTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setPositionXTo(gameObject.positionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x position to the given component's (global) x position, then return this given transform //
-	public static Transform setPositionX(this Transform transform, Component component, bool boolean = true)
-		=> transform.setPositionX(component.positionX(), boolean);
+	public static Transform setPositionXTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setPositionXTo(component.positionX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) y position to the given y value, then return this given transform //
-	public static Transform setPositionY(this Transform transform, float y, bool boolean = true)
-		=> transform.setPosition(transform.position.withY(y), boolean);
-
+	public static Transform setPositionYTo(this Transform transform, float y, bool boolean = true)
+		=> transform.setPositionTo(transform.position.withY(y), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y position to the other given transform's (global) y position, then return this given transform //
-	public static Transform setPositionY(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setPositionY(otherTransform.positionY(), boolean);
-
+	public static Transform setPositionYTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setPositionYTo(otherTransform.positionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y position to the given game object's (global) y position, then return this given transform //
-	public static Transform setPositionY(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setPositionY(gameObject.positionY(), boolean);
-
+	public static Transform setPositionYTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setPositionYTo(gameObject.positionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y position to the given component's (global) y position, then return this given transform //
-	public static Transform setPositionY(this Transform transform, Component component, bool boolean = true)
-		=> transform.setPositionY(component.positionY(), boolean);
+	public static Transform setPositionYTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setPositionYTo(component.positionY(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) z position to the given z value, then return this given transform //
-	public static Transform setPositionZ(this Transform transform, float z, bool boolean = true)
-		=> transform.setPosition(transform.position.withZ(z), boolean);
-
+	public static Transform setPositionZTo(this Transform transform, float z, bool boolean = true)
+		=> transform.setPositionTo(transform.position.withZ(z), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z position to the other given transform's (global) z position, then return this given transform //
-	public static Transform setPositionZ(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setPositionZ(otherTransform.positionZ(), boolean);
-
+	public static Transform setPositionZTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setPositionZTo(otherTransform.positionZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z position to the given game object's (global) z position, then return this given transform //
-	public static Transform setPositionZ(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setPositionZ(gameObject.positionZ(), boolean);
-
+	public static Transform setPositionZTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setPositionZTo(gameObject.positionZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z position to the given component's (global) z position, then return this given transform //
-	public static Transform setPositionZ(this Transform transform, Component component, bool boolean = true)
-		=> transform.setPositionZ(component.positionZ(), boolean);
+	public static Transform setPositionZTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setPositionZTo(component.positionZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) rotation to the given (global) rotation, then return this given transform //
-	public static Transform setRotation(this Transform transform, Quaternion rotation, bool boolean = true)
+	public static Transform setRotationTo(this Transform transform, Quaternion rotation, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -534,21 +471,18 @@ public static class TransformExtensions
 
 		return transform;
 	}
-
 	// method: (according to the given boolean:) set this given transform's (global) rotation to the other given transform's (global) rotation, then return this given transform //
-	public static Transform setRotation(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setRotation(otherTransform.rotation, boolean);
-
+	public static Transform setRotationTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setRotationTo(otherTransform.rotation, boolean);
 	// method: (according to the given boolean:) set this given transform's (global) rotation to the given game object's (global) rotation, then return this given transform //
-	public static Transform setRotation(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setRotation(gameObject.rotation(), boolean);
-
+	public static Transform setRotationTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setRotationTo(gameObject.rotation(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) rotation to the given component's (global) rotation, then return this given transform //
-	public static Transform setRotation(this Transform transform, Component component, bool boolean = true)
-		=> transform.setRotation(component.rotation(), boolean);
+	public static Transform setRotationTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setRotationTo(component.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the given (global) euler angles, then return this given transform //
-	public static Transform setEulerAngles(this Transform transform, Vector3 eulerAngles, bool boolean = true)
+	public static Transform setEulerAnglesTo(this Transform transform, Vector3 eulerAngles, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -557,118 +491,99 @@ public static class TransformExtensions
 
 		return transform;
 	}
-
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the (global) euler angles for the given x, y, and z values, then return this given transform //
-	public static Transform setEulerAngles(this Transform transform, float x, float y, float z, bool boolean = true)
-		=> transform.setEulerAngles(new Vector3(x, y, z), boolean);
-
+	public static Transform setEulerAnglesTo(this Transform transform, float x, float y, float z, bool boolean = true)
+		=> transform.setEulerAnglesTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the other given transform's (global) euler angles, then return this given transform //
-	public static Transform setEulerAngles(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngles(otherTransform.eulerAngles, boolean);
-
+	public static Transform setEulerAnglesTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setEulerAnglesTo(otherTransform.eulerAngles, boolean);
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the given game object's (global) euler angles, then return this given transform //
-	public static Transform setEulerAngles(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setEulerAngles(gameObject.eulerAngles(), boolean);
-
+	public static Transform setEulerAnglesTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setEulerAnglesTo(gameObject.eulerAngles(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the given component's (global) euler angles, then return this given transform //
-	public static Transform setEulerAngles(this Transform transform, Component component, bool boolean = true)
-		=> transform.setEulerAngles(component.eulerAngles(), boolean);
+	public static Transform setEulerAnglesTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setEulerAnglesTo(component.eulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) x euler angle to the given x value, then return this given transform //
-	public static Transform setEulerAngleX(this Transform transform, float x, bool boolean = true)
-		=> transform.setEulerAngles(transform.eulerAngles.withX(x), boolean);
-
+	public static Transform setEulerAngleXTo(this Transform transform, float x, bool boolean = true)
+		=> transform.setEulerAnglesTo(transform.eulerAngles.withX(x), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x euler angle to the other given transform's (global) x euler angle, then return this given transform //
-	public static Transform setEulerAngleX(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngleX(otherTransform.eulerAngleX(), boolean);
-
+	public static Transform setEulerAngleXTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setEulerAngleXTo(otherTransform.eulerAngleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x euler angle to the given game object's (global) x euler angle, then return this given transform //
-	public static Transform setEulerAngleX(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setEulerAngleX(gameObject.eulerAngleX(), boolean);
-
+	public static Transform setEulerAngleXTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setEulerAngleXTo(gameObject.eulerAngleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x euler angle to the given component's (global) x euler angles, then return this given transform //
-	public static Transform setEulerAngleX(this Transform transform, Component component, bool boolean = true)
-		=> transform.setEulerAngleX(component.eulerAngleX(), boolean);
+	public static Transform setEulerAngleXTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setEulerAngleXTo(component.eulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) y euler angle to the given y value, then return this given transform //
-	public static Transform setEulerAngleY(this Transform transform, float y, bool boolean = true)
-		=> transform.setEulerAngles(transform.eulerAngles.withY(y), boolean);
-
+	public static Transform setEulerAngleYTo(this Transform transform, float y, bool boolean = true)
+		=> transform.setEulerAnglesTo(transform.eulerAngles.withY(y), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y euler angle to the other given transform's (global) y euler angle, then return this given transform //
-	public static Transform setEulerAngleY(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngleY(otherTransform.eulerAngleY(), boolean);
-
+	public static Transform setEulerAngleYTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setEulerAngleYTo(otherTransform.eulerAngleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y euler angle to the given game object's (global) y euler angle, then return this given transform //
-	public static Transform setEulerAngleY(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setEulerAngleY(gameObject.eulerAngleY(), boolean);
-
+	public static Transform setEulerAngleYTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setEulerAngleYTo(gameObject.eulerAngleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y euler angle to the given component's (global) y euler angles, then return this given transform //
-	public static Transform setEulerAngleY(this Transform transform, Component component, bool boolean = true)
-		=> transform.setEulerAngleY(component.eulerAngleY(), boolean);
+	public static Transform setEulerAngleYTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setEulerAngleYTo(component.eulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the given z value, then return this given transform //
-	public static Transform setEulerAngleZ(this Transform transform, float z, bool boolean = true)
-		=> transform.setEulerAngles(transform.eulerAngles.withZ(z), boolean);
-
+	public static Transform setEulerAngleZTo(this Transform transform, float z, bool boolean = true)
+		=> transform.setEulerAnglesTo(transform.eulerAngles.withZ(z), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the other given transform's (global) z euler angle, then return this given transform //
-	public static Transform setEulerAngleZ(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngleZ(otherTransform.eulerAngleZ(), boolean);
+	public static Transform setEulerAngleZTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setEulerAngleZTo(otherTransform.eulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the given game object's (global) z euler angle, then return this given transform //
-	public static Transform setEulerAngleZ(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setEulerAngleZ(gameObject.eulerAngleZ(), boolean);
-
+	public static Transform setEulerAngleZTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setEulerAngleZTo(gameObject.eulerAngleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the given component's (global) z euler angles, then return this given transform //
-	public static Transform setEulerAngleZ(this Transform transform, Component component, bool boolean = true)
-		=> transform.setEulerAngleZ(component.eulerAngleZ(), boolean);
+	public static Transform setEulerAngleZTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setEulerAngleZTo(component.eulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global rotation) respectively to the given (global) position and (global) rotation //
-	public static Transform setGlobals(this Transform transform, Vector3 position, Quaternion rotation, bool boolean = true)
+	public static Transform setGlobalsTo(this Transform transform, Vector3 position, Quaternion rotation, bool boolean = true)
 		=> transform
-					.setPosition(position, boolean)
-					.setRotation(rotation, boolean);
-
+					.setPositionTo(position, boolean)
+					.setRotationTo(rotation, boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global rotation) respectively to the other given transform's (global) position and (global) rotation //
-	public static Transform setGlobals(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setGlobals(otherTransform.position, otherTransform.rotation, boolean);
-
+	public static Transform setGlobalsTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setGlobalsTo(otherTransform.position, otherTransform.rotation, boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global rotation) respectively to the given game object's (global) position and (global) rotation //
-	public static Transform setGlobals(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setGlobals(gameObject.position(), gameObject.rotation(), boolean);
-
+	public static Transform setGlobalsTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setGlobalsTo(gameObject.position(), gameObject.rotation(), boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global rotation) respectively to the given component's (global) position and (global) rotation //
-	public static Transform setGlobals(this Transform transform, Component component, bool boolean = true)
-		=> transform.setGlobals(component.position(), component.rotation(), boolean);
+	public static Transform setGlobalsTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setGlobalsTo(component.position(), component.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global euler angles) respectively to the given (global) position and (global) euler angles //
-	public static Transform setGlobals(this Transform transform, Vector3 position, Vector3 eulerAngles, bool boolean = true)
+	public static Transform setGlobalsTo(this Transform transform, Vector3 position, Vector3 eulerAngles, bool boolean = true)
 		=> transform
-					.setPosition(position, boolean)
-					.setEulerAngles(eulerAngles, boolean);
+					.setPositionTo(position, boolean)
+					.setEulerAnglesTo(eulerAngles, boolean);
 
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global rotation) and local scale respectively to the given (global) position and (global) rotation and local scale //
-	public static Transform setGlobalsAndLocalScale(this Transform transform, Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
+	public static Transform setGlobalsAndLocalScaleTo(this Transform transform, Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
 		=> transform
-					.setGlobals(position, rotation, boolean)
-					.setLocalScale(localScale, boolean);
-
+					.setGlobalsTo(position, rotation, boolean)
+					.setLocalScaleTo(localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global euler angles) and local scale respectively to the other given transform's (global) position and (global) euler angles and local scale //
-	public static Transform setGlobalsAndLocalScale(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.setGlobalsAndLocalScale(otherTransform.position, otherTransform.rotation, otherTransform.localScale, boolean);
-
+	public static Transform setGlobalsAndLocalScaleTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=> transform.setGlobalsAndLocalScaleTo(otherTransform.position, otherTransform.rotation, otherTransform.localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global euler angles) and local scale respectively to the given game object's (global) position and (global) euler angles and local scale //
-	public static Transform setGlobalsAndLocalScale(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.setGlobalsAndLocalScale(gameObject.position(), gameObject.rotation(), gameObject.localScale(), boolean);
-
+	public static Transform setGlobalsAndLocalScaleTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setGlobalsAndLocalScaleTo(gameObject.position(), gameObject.rotation(), gameObject.localScale(), boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global euler angles) and local scale respectively to the given component's (global) position and (global) euler angles and local scale //
-	public static Transform setGlobalsAndLocalScale(this Transform transform, Component component, bool boolean = true)
-		=> transform.setGlobalsAndLocalScale(component.position(), component.rotation(), component.localScale(), boolean);
-
+	public static Transform setGlobalsAndLocalScaleTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setGlobalsAndLocalScaleTo(component.position(), component.rotation(), component.localScale(), boolean);
 	// method: (according to the given boolean:) set this given transform's global transformations (global position, global euler angles) and local scale respectively to the given (global) position and (global) euler angles and local scale //
-	public static Transform setGlobalsAndLocalScale(this Transform transform, Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
+	public static Transform setGlobalsAndLocalScaleTo(this Transform transform, Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
 		=> transform
-					.setGlobals(position, eulerAngles, boolean)
-					.setLocalScale(localScale, boolean);
+					.setGlobalsTo(position, eulerAngles, boolean)
+					.setLocalScaleTo(localScale, boolean);
 	#endregion setting transformations
 
 
@@ -676,103 +591,103 @@ public static class TransformExtensions
 
 	// method: (according to the given boolean:) reset this given transform's local position to zeroes, then return this given transform //
 	public static Transform resetLocalPosition(this Transform transform, bool boolean = true)
-		=> transform.setLocalPosition(Vector3.zero, boolean);
+		=> transform.setLocalPositionTo(Vector3.zero, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local x position to zero, then return this given transform //
 	public static Transform resetLocalPositionX(this Transform transform, bool boolean = true)
-		=> transform.setLocalPositionX(0f, boolean);
+		=> transform.setLocalPositionXTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local y position to zero, then return this given transform //
 	public static Transform resetLocalPositionY(this Transform transform, bool boolean = true)
-		=> transform.setLocalPositionY(0f, boolean);
+		=> transform.setLocalPositionYTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local z position to zero, then return this given transform //
 	public static Transform resetLocalPositionZ(this Transform transform, bool boolean = true)
-		=> transform.setLocalPositionZ(0f, boolean);
+		=> transform.setLocalPositionZTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local rotation to no rotation, then return this given transform //
 	public static Transform resetLocalRotation(this Transform transform, bool boolean = true)
-		=> transform.setLocalRotation(Quaternion.identity, boolean);
+		=> transform.setLocalRotationTo(Quaternion.identity, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local euler angles to zeroes, then return this given transform //
 	public static Transform resetLocalEulerAngles(this Transform transform, bool boolean = true)
-		=> transform.setLocalEulerAngles(Vector3.zero, boolean);
+		=> transform.setLocalEulerAnglesTo(Vector3.zero, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local x euler angle to zero, then return this given transform //
 	public static Transform resetLocalEulerAngleX(this Transform transform, bool boolean = true)
-		=> transform.setLocalEulerAngleX(0f, boolean);
+		=> transform.setLocalEulerAngleXTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local y euler angle to zero, then return this given transform //
 	public static Transform resetLocalEulerAngleY(this Transform transform, bool boolean = true)
-		=> transform.setLocalEulerAngleY(0f, boolean);
+		=> transform.setLocalEulerAngleYTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local z euler angle to zero, then return this given transform //
 	public static Transform resetLocalEulerAngleZ(this Transform transform, bool boolean = true)
-		=> transform.setLocalEulerAngleZ(0f, boolean);
+		=> transform.setLocalEulerAngleZTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local scale to ones, then return this given transform //
 	public static Transform resetLocalScale(this Transform transform, bool boolean = true)
-		=> transform.setLocalScale(Vector3.one, boolean);
+		=> transform.setLocalScaleTo(Vector3.one, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local x scale to one, then return this given transform //
 	public static Transform resetLocalScaleX(this Transform transform, bool boolean = true)
-		=> transform.setLocalScaleX(1f, boolean);
+		=> transform.setLocalScaleXTo(1f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local y scale to one, then return this given transform //
 	public static Transform resetLocalScaleY(this Transform transform, bool boolean = true)
-		=> transform.setLocalScaleY(1f, boolean);
+		=> transform.setLocalScaleYTo(1f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local z scale to one, then return this given transform //
 	public static Transform resetLocalScaleZ(this Transform transform, bool boolean = true)
-		=> transform.setLocalScaleZ(1f, boolean);
+		=> transform.setLocalScaleZTo(1f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's local transformations (local position, local rotation, local scale) respectively to the zeroes, no rotation, and ones, then return this given transform //
 	public static Transform resetLocals(this Transform transform, bool boolean = true)
-		=> transform.setLocals(Vector3.zero, Quaternion.identity, Vector3.one, boolean);
+		=> transform.setLocalsTo(Vector3.zero, Quaternion.identity, Vector3.one, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) position to zeroes, then return this given transform //
 	public static Transform resetPosition(this Transform transform, bool boolean = true)
-		=> transform.setPosition(Vector3.zero, boolean);
+		=> transform.setPositionTo(Vector3.zero, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) x position to zero, then return this given transform //
 	public static Transform resetPositionX(this Transform transform, bool boolean = true)
-		=> transform.setPositionX(0f, boolean);
+		=> transform.setPositionXTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) y position to zero, then return this given transform //
 	public static Transform resetPositionY(this Transform transform, bool boolean = true)
-		=> transform.setPositionY(0f, boolean);
+		=> transform.setPositionYTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) z position to zero, then return this given transform //
 	public static Transform resetPositionZ(this Transform transform, bool boolean = true)
-		=> transform.setPositionZ(0f, boolean);
+		=> transform.setPositionZTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) rotation to no rotation, then return this given transform //
 	public static Transform resetRotation(this Transform transform, bool boolean = true)
-		=> transform.setRotation(Quaternion.identity, boolean);
+		=> transform.setRotationTo(Quaternion.identity, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) euler angles to zeroes, then return this given transform //
 	public static Transform resetEulerAngles(this Transform transform, bool boolean = true)
-		=> transform.setEulerAngles(Vector3.zero, boolean);
+		=> transform.setEulerAnglesTo(Vector3.zero, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) x euler angle to zero, then return this given transform //
 	public static Transform resetEulerAngleX(this Transform transform, bool boolean = true)
-		=> transform.setEulerAngleX(0f, boolean);
+		=> transform.setEulerAngleXTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) y euler angle to zero, then return this given transform //
 	public static Transform resetEulerAngleY(this Transform transform, bool boolean = true)
-		=> transform.setEulerAngleY(0f, boolean);
+		=> transform.setEulerAngleYTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's (global) z euler angle to zero, then return this given transform //
 	public static Transform resetEulerAngleZ(this Transform transform, bool boolean = true)
-		=> transform.setEulerAngleZ(0f, boolean);
+		=> transform.setEulerAngleZTo(0f, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's global transformations (global position, global rotation) respectively to zeroes and no rotation //
 	public static Transform resetGlobals(this Transform transform, bool boolean = true)
-		=> transform.setGlobals(Vector3.zero, Quaternion.identity, boolean);
+		=> transform.setGlobalsTo(Vector3.zero, Quaternion.identity, boolean);
 
 	// method: (according to the given boolean:) reset this given transform's global transformations (global position, global rotation) and local scale respectively to zeroes, no rotation, and ones //
 	public static Transform resetGlobalsAndLocalScale(this Transform transform, bool boolean = true)
-		=> transform.setGlobalsAndLocalScale(Vector3.zero, Quaternion.identity, Vector3.one, boolean);
+		=> transform.setGlobalsAndLocalScaleTo(Vector3.zero, Quaternion.identity, Vector3.one, boolean);
 	#endregion resetting transformations
 
 
@@ -885,66 +800,46 @@ public static class TransformExtensions
 	#endregion directions
 
 
-	#region distance
-
-	// method: return the closest (by position) of the given game objects to this given transform //
-	public static GameObject closestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.itemWithMin(otherGameObject => transform.position.distanceWith(otherGameObject.position()));
-
-	// method: return the closest (by position) of the given transforms to this given transform //
-	public static Transform closestOf(this Transform transform, IEnumerable<Transform> transforms)
-		=> transforms.itemWithMin(otherTransform => transform.position.distanceWith(otherTransform.position));
-
-	// method: return the closest of the given positions to this given transform's position //
-	public static Vector3 closestOf(this Transform transform, IEnumerable<Vector3> positions)
-		=> positions.itemWithMin(otherPosition => transform.position.distanceWith(otherPosition));
-
-	// method: return the farthest (by position) of the given game objects to this given transform //
-	public static GameObject farthestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.itemWithMax(otherGameObject => transform.position.distanceWith(otherGameObject.position()));
-
-	// method: return the farthest (by position) of the given transforms to this given transform //
-	public static Transform farthestOf(this Transform transform, IEnumerable<Transform> transforms)
-		=> transforms.itemWithMax(otherTransform => transform.position.distanceWith(otherTransform.position));
-
-	// method: return the farthest of the given positions to this given transform's position //
-	public static Vector3 farthestOf(this Transform transform, IEnumerable<Vector3> positions)
-		=> positions.itemWithMax(otherPosition => transform.position.distanceWith(otherPosition));
-	#endregion distance
-
-
 	#region transformation averages
 
 	// method: determine the average of these given transforms' local positions //
 	public static Vector3 averageLocalPosition(this Transform[] transforms)
-		=> transforms.asLocalPositions().average();
+		=> transforms.selectLocalPositions().average();
 
 	// method: determine the average of these given transforms' local scales //
 	public static Vector3 averageLocalScale(this Transform[] transforms)
-		=> transforms.asLocalScales().average();
+		=> transforms.selectLocalScales().average();
 
 	// method: determine the average of these given transforms' (global) positions //
 	public static Vector3 averagePosition(this Transform[] transforms)
-		=> transforms.asPositions().average();
+		=> transforms.selectPositions().average();
 	#endregion transformation averages
 
 
-	#region conversion
+	#region selection
 
-	// method: return the enumerable version of this given transform //
+	// methods: return a selection of local positions corresponding to this given array of transforms //
+	public static IEnumerable<Vector3> selectLocalPositions(this Transform[] transforms)
+		=> transforms.select(transform => transform.localPosition);
+
+	// methods: return a selection of local scales corresponding to this given array of transforms //
+	public static IEnumerable<Vector3> selectLocalScales(this Transform[] transforms)
+		=> transforms.select(transform => transform.localScale);
+
+	// methods: return a selection of (global) positions corresponding to this given array of transforms //
+	public static IEnumerable<Vector3> selectPositions(this Transform[] transforms)
+		=> transforms.select(transform => transform.position);
+
+	// method: return a selection of the game objects for this given enumerable of transforms //
+	public static IEnumerable<Vector3> selectObjects(this Transform[] transforms)
+		=> transforms.select(transform => transform.position);
+	#endregion selection
+
+
+	#region casting
+
+	// method: return the enumerable (of child transforms) for this given transform //
 	public static IEnumerable<Transform> asEnumerable(this Transform transform)
-		=> transform.Cast<Transform>();
-
-	// methods: return an array of local positions corresponding to this given array of transforms //
-	public static Vector3[] asLocalPositions(this Transform[] transforms)
-		=> transforms.Select(transform => transform.localPosition).ToArray();
-
-	// methods: return an array of local scales corresponding to this given array of transforms //
-	public static Vector3[] asLocalScales(this Transform[] transforms)
-		=> transforms.Select(transform => transform.localScale).ToArray();
-
-	// methods: return an array of (world) positions corresponding to this given array of transforms //
-	public static Vector3[] asPositions(this Transform[] transforms)
-		=> transforms.Select(transform => transform.position).ToArray();
-	#endregion conversion
+		=> transform.castToIEnumerable<Transform>();
+	#endregion casting
 }

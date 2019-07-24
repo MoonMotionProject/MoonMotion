@@ -33,10 +33,10 @@ public class MatchPositionCoordinatesToTarget : AutomaticBehaviour<MatchPosition
 	// at each update: //
 	protected virtual void Update()
 	{
-		setPosition	(transform.position
-										.withX(targetTransform.positionX(), matchX)
-										.withY(targetTransform.positionY(), matchY)
-										.withZ(targetTransform.positionZ(), matchZ)
-					);
+		setPositionTo	(transform.position
+							.withX(targetTransform.positionX(), matchX)
+							.withY(targetTransform.positionY(), matchY)
+							.withZ(targetTransform.positionZ(), matchZ)
+						);
 	}
 }

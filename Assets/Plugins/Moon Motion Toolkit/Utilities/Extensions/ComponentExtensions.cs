@@ -18,18 +18,20 @@ public static class ComponentExtensions
 	
 	#region destruction
 
-	// method: destroy this given component's game object according to the given booleanic function upon this given component //
-	public static void destroyObject<ComponentT>(this ComponentT component, Func<ComponentT, bool> function) where ComponentT : Component
-	{
-		if (function(component))
+	// method: destroy this given component's game object according to the given booleanic function upon this given component, then return the result of that function //
+	public static bool destroyObject<ComponentT>(this ComponentT component, Func<ComponentT, bool> function) where ComponentT : Component
+		=> function(component).forWhich(result =>
 		{
-			component.gameObject.destroy();
-		}
-	}
+			if (result)
+			{
+				component.gameObject.destroy();
+			}
+		});
 
 	// method: (according to the given boolean:) destroy this given component's game object //
 	public static void destroyObject(this Component component, bool boolean = true)
-		=> component.destroyObject(component_ => boolean);
+		=> boolean.after(()=>
+			component.destroyObject(component_ => boolean));
 
 	// method: destroy all components in this given enumerable of components for which the given function returns true, then return this given enumerable //
 	public static IEnumerable<ComponentT> destroyWhere<ComponentT>(this IEnumerable<ComponentT> enumerable, Func<ComponentT, bool> function) where ComponentT : Component
@@ -108,9 +110,9 @@ public static class ComponentExtensions
 
 	#region connection
 
-	// method: return the array of game objects corresponding to these given components //
-	public static GameObject[] gameObjects(this Component[] components)
-		=> components.Select(component => component.gameObject).ToArray();
+	// method: return a selection of the game objects corresponding to these given components //
+	public static IEnumerable<GameObject> selectObjects(this IEnumerable<Component> components)
+		=> components.select(component => component.gameObject);
 	#endregion connection
 
 
@@ -145,135 +147,131 @@ public static class ComponentExtensions
 	#region adding components
 
 	// method: add a new component of the specified class to this given game object, then return the new component //
-	public static ComponentT add<ComponentT>(this GameObject gameObject) where ComponentT : Component
+	public static ComponentT addGet<ComponentT>(this GameObject gameObject) where ComponentT : Component
 		=> gameObject.AddComponent<ComponentT>();
 
 	// method: add a new component of the specified class to this given transform's game object, then return the new component //
-	public static ComponentT add<ComponentT>(this Transform transform) where ComponentT : Component
-		=> transform.gameObject.add<ComponentT>();
+	public static ComponentT addGet<ComponentT>(this Transform transform) where ComponentT : Component
+		=> transform.gameObject.addGet<ComponentT>();
 
 	// method: add a new component of the specified class to this given component's game object, then return the new component //
-	public static NewComponentT add<NewComponentT>(this Component component) where NewComponentT : Component
-		=> component.gameObject.add<NewComponentT>();
+	public static NewComponentT addGet<NewComponentT>(this Component component) where NewComponentT : Component
+		=> component.gameObject.addGet<NewComponentT>();
 
 	// method: add a new component of the specified class to this given game object, then return this given game object //
-	public static GameObject afterAdding<ComponentT>(this GameObject gameObject) where ComponentT : Component
+	public static GameObject add<ComponentT>(this GameObject gameObject) where ComponentT : Component
 		=>	gameObject.after(()=>
-				gameObject.add<ComponentT>());
+				gameObject.addGet<ComponentT>());
 
 	// method: add a new component of the specified class to this given transform's game object, then return this given transform //
-	public static Transform afterAdding<ComponentT>(this Transform transform) where ComponentT : Component
-		=> transform.gameObject.afterAdding<ComponentT>().transform;
+	public static Transform add<ComponentT>(this Transform transform) where ComponentT : Component
+		=> transform.gameObject.add<ComponentT>().transform;
 
-	// method: add a new component of the specified class to this given component's game object, then return this given component //
-	public static ThisComponentT afterAdding<ThisComponentT, NewComponentT>(this ThisComponentT component) where ThisComponentT : Component where NewComponentT : Component
-	{
-		component.gameObject.afterAdding<NewComponentT>();
-
-		return component;
-	}
+	// method: add a new component of the specified class to this given component's game object, then return this given component's game object //
+	public static GameObject add<NewComponentT>(this Component component) where NewComponentT : Component
+		=> component.gameObject.add<NewComponentT>();
 
 	// method: if this given game object has none of the specified component, add a new component of the specified class to this given game object, then return the first such component on this given game object //
-	public static ComponentT ensure<ComponentT>(this GameObject gameObject) where ComponentT : Component
-		=> gameObject.first<ComponentT>() ?? gameObject.add<ComponentT>();
+	public static ComponentT ensured<ComponentT>(this GameObject gameObject) where ComponentT : Component
+		=> gameObject.first<ComponentT>() ?? gameObject.addGet<ComponentT>();
 
 	// method: if this given transform's game object has none of the specified component, add a new component of the specified class to this given transform's game object, then return the first such component on this given transform's game object //
-	public static ComponentT ensure<ComponentT>(this Transform transform) where ComponentT : Component
-		=> transform.gameObject.ensure<ComponentT>();
+	public static ComponentT ensured<ComponentT>(this Transform transform) where ComponentT : Component
+		=> transform.gameObject.ensured<ComponentT>();
 
 	// method: if this given component's game object has none of the specified component, add a new component of the specified class to this given component's game object, then return the first such component on this given component's game object //
-	public static ComponentT ensure<ComponentT>(this Component component) where ComponentT : Component
-		=> component.gameObject.ensure<ComponentT>();
+	public static ComponentT ensured<ComponentT>(this Component component) where ComponentT : Component
+		=> component.gameObject.ensured<ComponentT>();
 	#endregion adding components
 
 
 	#region getting components in a given array
 
-	// method: return an enumerable of the specified class of components, optionally including inactive components according to the given boolean, in these given game objects //
-	public static IEnumerable<ComponentT> select<ComponentT>(this GameObject[] gameObjects, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObjects.selectWhereYull(gameObject => gameObject.first<ComponentT>(includeInactiveComponents));
+	// method: return a selection of the specified class of components in these given game objects, optionally including inactive components according to the given boolean //
+	public static IEnumerable<ComponentT> selectEachFirst<ComponentT>(this GameObject[] gameObjects, bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObjects.selectFromYull(gameObject => gameObject.first<ComponentT>(includeInactiveComponents));
 
-	// method: return an enumerable of the specified class of components, optionally including inactive components according to the given boolean, in these given transforms //
-	public static IEnumerable<ComponentT> select<ComponentT>(this Transform[] transforms, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transforms.selectWhereYull(transform => transform.first<ComponentT>(includeInactiveComponents));
+	// method: return a selection of the specified class of components in these given transforms, optionally including inactive components according to the given boolean //
+	public static IEnumerable<ComponentT> selectEachFirst<ComponentT>(this Transform[] transforms, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transforms.selectFromYull(transform => transform.first<ComponentT>(includeInactiveComponents));
 	#endregion getting components in a given array
 
 
 	#region determining local components
 
-	// method: return whether this game object has any of the specified type of component, optionally including inactive components according to the given boolean //
+	// method: return whether this given game object has any of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool any<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.select<ComponentT>(includeInactiveComponents).any();
+		=> gameObject.pick<ComponentT>(includeInactiveComponents).any();
 
-	// method: return whether this transform has any of the specified type of component, optionally including inactive components according to the given boolean //
+	// method: return whether this given transform has any of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool any<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
 		=> transform.gameObject.any<ComponentT>(includeInactiveComponents);
 
-	// method: return whether this component's game object has any of the specified type of component, optionally including inactive components according to the given boolean //
+	// method: return whether this given component's game object has any of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool any<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.any<ComponentT>(includeInactiveComponents);
 
-	// method: return whether this game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
+	// method: return whether this given game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
 	public static bool any<ComponentT>(this GameObject gameObject, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.select<ComponentT>(includeInactiveComponents).any(function);
+		=> gameObject.pick<ComponentT>(includeInactiveComponents).any(function);
 
-	// method: return whether this transform's game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
+	// method: return whether this given transform's game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
 	public static bool any<ComponentT>(this Transform transform, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
 		=> transform.gameObject.any(function, includeInactiveComponents);
 
-	// method: return whether this component's game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
+	// method: return whether this given component's game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
 	public static bool any<ComponentT>(this Component component, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.any(function, includeInactiveComponents);
 
-	// method: return whether this game object has none of the specified type of component, optionally including inactive components according to the given boolean //
+	// method: return whether this given game object has none of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool hasNo<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> !gameObject.any<ComponentT>(includeInactiveComponents);
 
-	// method: return whether this transform has none of the specified type of component, optionally including inactive components according to the given boolean //
+	// method: return whether this given transform has none of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool hasNo<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
 		=> transform.gameObject.hasNo<ComponentT>(includeInactiveComponents);
 
-	// method: return whether this component's game object has none of the specified type of component, optionally including inactive components according to the given boolean //
+	// method: return whether this given component's game object has none of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool hasNo<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.hasNo<ComponentT>(includeInactiveComponents);
 
-	// method: return whether this game object contains any components other than the specified component, optionally including inactive components according to the given boolean //
+	// method: return whether this given game object contains any components other than the specified component, optionally including inactive components according to the given boolean //
 	public static bool anyComponentOtherThan(this GameObject gameObject, Component component, bool includeInactiveComponents = true)
 		=> gameObject.components(includeInactiveComponents).containsOtherThan(component);
 
-	// method: return whether this transform contains any components other than the given component, optionally including inactive components according to the given boolean //
+	// method: return whether this given transform contains any components other than the given component, optionally including inactive components according to the given boolean //
 	public static bool anyComponentOtherThan(this Transform transform, Component component, bool includeInactiveComponents = true)
 		=> transform.gameObject.anyComponentOtherThan(component, includeInactiveComponents);
 
-	// method: return whether this component's game object has any components other than this given component, optionally including inactive components according to the given boolean //
+	// method: return whether this given component's game object has any components other than this given component, optionally including inactive components according to the given boolean //
 	public static bool anyOtherComponent(this Component component, bool includeInactiveComponents = true)
 		=> component.gameObject.anyComponentOtherThan(component, includeInactiveComponents);
 
-	// method: return whether this game object contains any components other than the given component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool anyComponentOtherThan(this GameObject gameObject, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> gameObject.components(includeInactiveComponents).whereNot(component).any(function);
+	// method: return whether this given game object contains any components other than the given component for which the given function returns true, optionally including inactive components according to the given boolean //
+	public static bool anyComponentExcept(this GameObject gameObject, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+		=> gameObject.components(includeInactiveComponents).except(component).any(function);
 
-	// method: return whether this transform contains any components other than the given component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool anyComponentOtherThan(this Transform transform, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> transform.gameObject.anyComponentOtherThan(component, function, includeInactiveComponents);
+	// method: return whether this given transform contains any components other than the given component for which the given function returns true, optionally including inactive components according to the given boolean //
+	public static bool anyComponentExcept(this Transform transform, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+		=> transform.gameObject.anyComponentExcept(component, function, includeInactiveComponents);
 
-	// method: return whether this component's game object has any components other than this given component for which the given function returns true, optionally including inactive components according to the given boolean //
+	// method: return whether this given component's game object has any components other than this given component for which the given function returns true, optionally including inactive components according to the given boolean //
 	public static bool anyOtherComponent(this Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> component.gameObject.anyComponentOtherThan(component, function, includeInactiveComponents);
+		=> component.gameObject.anyComponentExcept(component, function, includeInactiveComponents);
 
-	// method: return whether this game object has any automatic behaviours, optionally including inactive components according to the given boolean //
+	// method: return whether this given game object has any automatic behaviours, optionally including inactive components according to the given boolean //
 	public static bool anyAutomaticBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
 		=> gameObject.automaticBehaviours(includeInactiveComponents).any();
 
-	// method: return whether this transform has any automatic behaviours, optionally including inactive components according to the given boolean //
+	// method: return whether this given transform has any automatic behaviours, optionally including inactive components according to the given boolean //
 	public static bool anyAutomaticBehaviours(this Transform transform, bool includeInactiveComponents = true)
 		=> transform.gameObject.anyAutomaticBehaviours(includeInactiveComponents);
 
-	// method: return whether this component's game object has any automatic behaviours, optionally including inactive components according to the given boolean //
+	// method: return whether this given component's game object has any automatic behaviours, optionally including inactive components according to the given boolean //
 	public static bool anyAutomaticBehaviours(this Component component, bool includeInactiveComponents = true)
 		=> component.gameObject.anyAutomaticBehaviours(includeInactiveComponents);
 
-	// method: return whether this automatic behaviour's game object has any other automatic behaviours, optionally including inactive components according to the given boolean //
+	// method: return whether this given automatic behaviour's game object has any other automatic behaviours, optionally including inactive components according to the given boolean //
 	public static bool anyOtherAutomaticBehaviours<AutomaticBehaviourT>(this AutomaticBehaviourT automaticBehaviour, bool includeInactiveComponents = true) where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 		=> automaticBehaviour.automaticBehaviours().containsOtherThan(automaticBehaviour);
 	#endregion determining local components
@@ -283,20 +281,20 @@ public static class ComponentExtensions
 
 	// method: return this given game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT first<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> includeInactiveComponents ? gameObject.GetComponent<ComponentT>() : gameObject.select<ComponentT>(false).FirstOrDefault();
+		=> includeInactiveComponents ? gameObject.GetComponent<ComponentT>() : gameObject.pick<ComponentT>(false).FirstOrDefault();
 
-	// method: return an enumerable of the specified class of components, optionally including inactive components according to the given boolean, on this given game object //
-	public static IEnumerable<ComponentT> select<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given game object //
+	public static List<ComponentT> pick<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.GetComponents<ComponentT>().where(
 			component => component.gameObject.activeInHierarchy,
 			!includeInactiveComponents);
 
-	// method: return an enumerable of the specified interface of components, optionally including inactive components according to the given boolean, on this given game object //
-	public static IEnumerable<ComponentI> selectI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentI : class
+	// method: return a list of the specified interface of components, optionally including inactive components according to the given boolean, on this given game object //
+	public static List<ComponentI> pickI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentI : class
 	{
 		if (!typeof(ComponentI).IsInterface)
 		{
-			return default(IEnumerable<ComponentI>).returnWithError(typeof(ComponentI).Name+" is not an interface");
+			return default(IEnumerable<ComponentI>).manifest().returnWithError(typeof(ComponentI).Name+" is not an interface");
 		}
 
 		return gameObject.GetComponents<ComponentI>().where(
@@ -308,77 +306,89 @@ public static class ComponentExtensions
 	public static ComponentT first<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
 		=> transform.gameObject.first<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of the specified class of components, optionally including inactive components according to the given boolean, on this given transform //
-	public static IEnumerable<ComponentT> select<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.select<ComponentT>(includeInactiveComponents);
+	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given transform //
+	public static List<ComponentT> pick<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.pick<ComponentT>(includeInactiveComponents);
 
 	// method: return this given component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT first<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.first<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> select<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.select<ComponentT>(includeInactiveComponents);
+	// method: return a list of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> pick<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.pick<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of all components on this given component's game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<Component> components(this GameObject gameObject, bool includeInactiveComponents = true)
-		=> gameObject.select<Component>(includeInactiveComponents);
-
-	// method: return an enumerable of all components on this given component's game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<Component> components(this Transform transform, bool includeInactiveComponents = true)
+	// method: return a list of all components on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<Component> components(this GameObject gameObject, bool includeInactiveComponents = true)
+		=> gameObject.pick<Component>(includeInactiveComponents);
+	// method: return a list of all components on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<Component> components(this Transform transform, bool includeInactiveComponents = true)
 		=> transform.gameObject.components();
-
-	// method: return an enumerable of all components on this given component's game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<Component> components(this Component component, bool includeInactiveComponents = true)
+	// method: return a list of all components on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<Component> components(this Component component, bool includeInactiveComponents = true)
 		=> component.gameObject.components();
 
-	// method: return an enumerable of all automatic behaviours on this given game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<IAutomaticBehaviour> automaticBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
-		=> gameObject.selectI<IAutomaticBehaviour>(includeInactiveComponents);
-	
-	// method: return an enumerable of all automatic behaviours on this given transform's game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<IAutomaticBehaviour> automaticBehaviours(this Transform transform, bool includeInactiveComponents = true)
+	// method: return a list of all automatic behaviours on this given game object, optionally including inactive components according to the given boolean //
+	public static List<IAutomaticBehaviour> automaticBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
+		=> gameObject.pickI<IAutomaticBehaviour>(includeInactiveComponents);
+	// method: return a list of all automatic behaviours on this given transform's game object, optionally including inactive components according to the given boolean //
+	public static List<IAutomaticBehaviour> automaticBehaviours(this Transform transform, bool includeInactiveComponents = true)
 		=> transform.gameObject.automaticBehaviours();
-
-	// method: return an enumerable of all automatic behaviours on this given component's game object, optionally including inactive components according to the given boolean //
-	public static IEnumerable<IAutomaticBehaviour> automaticBehaviours(this Component component, bool includeInactiveComponents = true)
+	// method: return a list of all automatic behaviours on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<IAutomaticBehaviour> automaticBehaviours(this Component component, bool includeInactiveComponents = true)
 		=> component.gameObject.automaticBehaviours();
 	#endregion getting local components
 
 
 	#region iterating local components
 
-	// method: invoke the given action on each of the specified class of components on this given game object, optionally including inactive components according to the given boolean, then return an enumerable of those components //
-	public static IEnumerable<ComponentT> forEach<ComponentT>(this GameObject gameObject, Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.select<ComponentT>(includeInactiveComponents).forEach(action);
-
-	// method: invoke the given action on each of the specified class of components on this given transform's game object, optionally including inactive components according to the given boolean, then return an enumerable of those components //
-	public static IEnumerable<ComponentT> forEach<ComponentT>(this Transform transform, Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.forEach(action, includeInactiveComponents);
-
-	// method: invoke the given action on each of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean, then return an enumerable of those components //
-	public static IEnumerable<ComponentT> forEach<ComponentT>(this Component component, Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.forEach(action, includeInactiveComponents);
+	// method: invoke the given action on each of the specified class of components on this given game object, optionally including inactive components according to the given boolean, then return this given game object //
+	public static GameObject forEach<ComponentT>(this GameObject gameObject, Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.after(()=>
+			gameObject.pick<ComponentT>(includeInactiveComponents).forEach(action));
+	// method: invoke the given action on each of the specified class of components on this given transform's game object, optionally including inactive components according to the given boolean, then return this given transform //
+	public static Transform forEach<ComponentT>(this Transform transform, Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.forEach(action, includeInactiveComponents).transform;
+	// method: invoke the given action on each of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean, then return this given component //
+	public static ComponentTThis forEach<ComponentTThis, ComponentTEach>(this ComponentTThis component, Action<ComponentTEach> action, bool includeInactiveComponents = true) where ComponentTThis : Component where ComponentTEach : Component
+		=> component.after(()=>
+			component.gameObject.forEach(action, includeInactiveComponents));
 	#endregion iterating local components
+
+
+	#region determining child components
+
+	// method: return whether this given game object has any of the specified type of child component, optionally including inactive components according to the given boolean //
+	public static bool anyChildren<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.children<ComponentT>(includeInactiveComponents).any();
+
+	// method: return whether this given transform has any of the specified type of child component, optionally including inactive components according to the given boolean //
+	public static bool anyChildren<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.children<ComponentT>(includeInactiveComponents).any();
+
+	// method: return whether this given component has any of the specified type of child component, optionally including inactive components according to the given boolean //
+	public static bool anyChildren<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.children<ComponentT>(includeInactiveComponents).any();
+	#endregion determining child components
 
 
 	#region getting child components
 
 	// method: return this given game object's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public static ComponentT selectChild<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectChildren<ComponentT>(includeInactiveComponents).FirstOrDefault();
+	public static ComponentT firstChild<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.children<ComponentT>(includeInactiveComponents).FirstOrDefault();
 
 	// method: return this given transform's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public static ComponentT selectChild<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.selectChild<ComponentT>(includeInactiveComponents);
+	public static ComponentT firstChild<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.firstChild<ComponentT>(includeInactiveComponents);
 
 	// method: return this given component's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public static ComponentT selectChild<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.selectChild<ComponentT>(includeInactiveComponents);
+	public static ComponentT firstChild<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.firstChild<ComponentT>(includeInactiveComponents);
 
 	// method: return this given game object's last child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT lastChild<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectChildren<ComponentT>(includeInactiveComponents).LastOrDefault();
+		=> gameObject.children<ComponentT>(includeInactiveComponents).LastOrDefault();
 
 	// method: return this given transform's last child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT lastChild<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
@@ -388,17 +398,17 @@ public static class ComponentExtensions
 	public static ComponentT lastChild<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.lastChild<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of this given game object's child components of the specified class, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectChildren<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return a list of this given game object's child components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> children<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.GetComponentsInChildren<ComponentT>(includeInactiveComponents).where(component => component.whereNotOn(gameObject));
 
-	// method: return an enumerable of this given transform's child components of the specified class, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectChildren<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.selectChildren<ComponentT>(includeInactiveComponents);
+	// method: return a list of this given transform's child components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> children<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.children<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of this given component's child components of the specified class, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectChildren<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.selectChildren<ComponentT>(includeInactiveComponents);
+	// method: return a list of this given component's child components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> children<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.children<ComponentT>(includeInactiveComponents);
 	#endregion getting child components
 
 
@@ -444,17 +454,17 @@ public static class ComponentExtensions
 	public static ComponentT firstParent<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.firstParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of this given game object's parent's components of the specified class, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectParent<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.parent().select<ComponentT>(includeInactiveComponents);
+	// method: return a list of this given game object's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> parental<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.parent().pick<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of this given transform's parent's components of the specified class, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectParent<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.selectParent<ComponentT>(includeInactiveComponents);
+	// method: return a list of this given transform's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> parental<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.parental<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of this given component's parent's components of the specified class, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectParent<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.selectParent<ComponentT>(includeInactiveComponents);
+	// method: return a list of this given component's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> parental<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.parental<ComponentT>(includeInactiveComponents);
 
 	// method: return this given game object's first ancestor component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstAncestor<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
@@ -462,22 +472,22 @@ public static class ComponentExtensions
 
 	// method: return this given transform's first ancestor component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstAncestor<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
-		=> includeInactiveComponents ? transform.selectAncestor<ComponentT>(true).FirstOrDefault() : transform.parent.GetComponentInParent<ComponentT>();
+		=> includeInactiveComponents ? transform.ancestral<ComponentT>(true).FirstOrDefault() : transform.parent.GetComponentInParent<ComponentT>();
 
 	// method: return this given component's first ancestor component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstAncestor<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.transform.firstAncestor<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given game object's ancestor components of the specified class, optionally including inactive components according to the given boolean //
-	public static ComponentT[] selectAncestor<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return an array of this given game object's ancestral components of the specified class, optionally including inactive components according to the given boolean //
+	public static ComponentT[] ancestral<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.parent().GetComponentsInParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given transform's ancestor components of the specified class, optionally including inactive components according to the given boolean //
-	public static ComponentT[] selectAncestor<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return an array of this given transform's ancestral components of the specified class, optionally including inactive components according to the given boolean //
+	public static ComponentT[] ancestral<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
 		=> transform.parent.GetComponentsInParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given component's ancestor components of the specified class, optionally including inactive components according to the given boolean //
-	public static ComponentT[] selectAncestor<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return an array of this given component's ancestral components of the specified class, optionally including inactive components according to the given boolean //
+	public static ComponentT[] ancestral<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.parent().GetComponentsInParent<ComponentT>(includeInactiveComponents);
 	#endregion getting parent components
 
@@ -496,16 +506,16 @@ public static class ComponentExtensions
 	public static ComponentT firstLocalOrAncestor<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.gameObject.firstLocalOrAncestor<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given game object's local and ancestor components of the specified class, optionally including inactive components according to the given boolean //
-	public static ComponentT[] selectLocalAndAncestor<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return an array of this given game object's local and ancestral components of the specified class, optionally including inactive components according to the given boolean //
+	public static ComponentT[] localAndAncestral<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.GetComponentsInParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given transform's local and ancestor components of the specified class, optionally including inactive components according to the given boolean //
-	public static ComponentT[] selectLocalAndAncestor<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return an array of this given transform's local and ancestral components of the specified class, optionally including inactive components according to the given boolean //
+	public static ComponentT[] localAndAncestral<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
 		=> transform.GetComponentsInParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given component's local and ancestor components of the specified class, optionally including inactive components according to the given boolean //
-	public static ComponentT[] selectLocalAndAncestor<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return an array of this given component's local and ancestral components of the specified class, optionally including inactive components according to the given boolean //
+	public static ComponentT[] localAndAncestral<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> component.GetComponentsInParent<ComponentT>(includeInactiveComponents);
 	#endregion getting parent or self components
 
@@ -644,288 +654,288 @@ public static class ComponentExtensions
 	#region setting transformations
 
 	// method: (according to the given boolean:) set the local position of the transform of this given component to the given local position, then return this given component //
-	public static ComponentT setLocalPosition<ComponentT>(this ComponentT component, Vector3 localPosition, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalPositionTo<ComponentT>(this ComponentT component, Vector3 localPosition, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalPosition(localPosition, boolean);
+		component.transform.setLocalPositionTo(localPosition, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the local position of the transform of this given component to the local position for the given x, y, and z values, then return this given component //
-	public static ComponentT setLocalPosition<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalPositionTo<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalPosition(x, y, z, boolean);
+		component.transform.setLocalPositionTo(x, y, z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalPosition<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPosition(transform.localPosition, boolean);
+	public static ComponentT setLocalPositionTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionTo(transform.localPosition, boolean);
 
-	public static ComponentT setLocalPosition<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPosition(gameObject.localPosition(), boolean);
+	public static ComponentT setLocalPositionTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionTo(gameObject.localPosition(), boolean);
 
-	public static ComponentT setLocalPosition<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPosition(otherComponent.localPosition(), boolean);
+	public static ComponentT setLocalPositionTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionTo(otherComponent.localPosition(), boolean);
 
 
 	// method: (according to the given boolean:) set the local x position of the transform of this given component to the given x value, then return this given component //
-	public static ComponentT setLocalPositionX<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalPositionXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalPositionX(x, boolean);
+		component.transform.setLocalPositionXTo(x, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalPositionX<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionX(transform.localPositionX(), boolean);
+	public static ComponentT setLocalPositionXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionXTo(transform.localPositionX(), boolean);
 
-	public static ComponentT setLocalPositionX<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionX(gameObject.localPositionX(), boolean);
+	public static ComponentT setLocalPositionXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionXTo(gameObject.localPositionX(), boolean);
 
-	public static ComponentT setLocalPositionX<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionX(otherComponent.localPositionX(), boolean);
+	public static ComponentT setLocalPositionXTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionXTo(otherComponent.localPositionX(), boolean);
 
 	// method: (according to the given boolean:) set the local y position of the transform of this given component to the given y value, then return this given component //
-	public static ComponentT setLocalPositionY<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalPositionYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalPositionY(y, boolean);
+		component.transform.setLocalPositionYTo(y, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalPositionY<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionY(transform.localPositionY(), boolean);
+	public static ComponentT setLocalPositionYTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionYTo(transform.localPositionY(), boolean);
 
-	public static ComponentT setLocalPositionY<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionY(gameObject.localPositionY(), boolean);
+	public static ComponentT setLocalPositionYTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionYTo(gameObject.localPositionY(), boolean);
 
-	public static ComponentT setLocalPositionY<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionY(otherComponent.localPositionY(), boolean);
+	public static ComponentT setLocalPositionYTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionYTo(otherComponent.localPositionY(), boolean);
 
 	// method: (according to the given boolean:) set the local z position of the transform of this given component to the given z value, then return this given component //
-	public static ComponentT setLocalPositionZ<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalPositionZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalPositionZ(z, boolean);
+		component.transform.setLocalPositionZTo(z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalPositionZ<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionZ(transform.localPositionZ(), boolean);
+	public static ComponentT setLocalPositionZTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionZTo(transform.localPositionZ(), boolean);
 
-	public static ComponentT setLocalPositionZ<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionZ(gameObject.localPositionZ(), boolean);
+	public static ComponentT setLocalPositionZTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionZTo(gameObject.localPositionZ(), boolean);
 
-	public static ComponentT setLocalPositionZ<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalPositionZ(otherComponent.localPositionZ(), boolean);
+	public static ComponentT setLocalPositionZTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalPositionZTo(otherComponent.localPositionZ(), boolean);
 
 	// method: (according to the given boolean:) set the local rotation of the transform of this given component to the given local rotation, then return this given component //
-	public static ComponentT setLocalRotation<ComponentT>(this ComponentT component, Quaternion localRotation, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalRotationTo<ComponentT>(this ComponentT component, Quaternion localRotation, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalRotation(localRotation, boolean);
+		component.transform.setLocalRotationTo(localRotation, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalRotation<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalRotation(transform.localRotation, boolean);
+	public static ComponentT setLocalRotationTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalRotationTo(transform.localRotation, boolean);
 
-	public static ComponentT setLocalRotation<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalRotation(gameObject.localRotation(), boolean);
+	public static ComponentT setLocalRotationTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalRotationTo(gameObject.localRotation(), boolean);
 
-	public static ComponentT setLocalRotation<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalRotation(otherComponent.localRotation(), boolean);
+	public static ComponentT setLocalRotationTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalRotationTo(otherComponent.localRotation(), boolean);
 
 	// method: (according to the given boolean:) set the local euler angles of the transform of this given component to the given local euler angles, then return this given component //
-	public static ComponentT setLocalEulerAngles<ComponentT>(this ComponentT component, Vector3 localEulerAngles, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalEulerAnglesTo<ComponentT>(this ComponentT component, Vector3 localEulerAngles, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalEulerAngles(localEulerAngles, boolean);
+		component.transform.setLocalEulerAnglesTo(localEulerAngles, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the local euler angles of the transform of this given component to the local euler angles for the given x, y, and z values, then return this given component //
-	public static ComponentT setLocalEulerAngles<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalEulerAnglesTo<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalEulerAngles(x, y, z, boolean);
+		component.transform.setLocalEulerAnglesTo(x, y, z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalEulerAngles<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngles(transform.localEulerAngles, boolean);
+	public static ComponentT setLocalEulerAnglesTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAnglesTo(transform.localEulerAngles, boolean);
 
-	public static ComponentT setLocalEulerAngles<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngles(gameObject.localEulerAngles(), boolean);
+	public static ComponentT setLocalEulerAnglesTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAnglesTo(gameObject.localEulerAngles(), boolean);
 
-	public static ComponentT setLocalEulerAngles<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngles(otherComponent.localEulerAngles(), boolean);
+	public static ComponentT setLocalEulerAnglesTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAnglesTo(otherComponent.localEulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set the local x euler angle of the transform of this given component to the given x value, then return this given component //
-	public static ComponentT setLocalEulerAngleX<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalEulerAngleXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalEulerAngleX(x, boolean);
+		component.transform.setLocalEulerAngleXTo(x, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalEulerAngleX<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleX(transform.localEulerAngleX(), boolean);
+	public static ComponentT setLocalEulerAngleXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleXTo(transform.localEulerAngleX(), boolean);
 
-	public static ComponentT setLocalEulerAngleX<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleX(gameObject.localEulerAngleX(), boolean);
+	public static ComponentT setLocalEulerAngleXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleXTo(gameObject.localEulerAngleX(), boolean);
 
-	public static ComponentT setLocalEulerAngleX<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleX(otherComponent.localEulerAngleX(), boolean);
+	public static ComponentT setLocalEulerAngleXTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleXTo(otherComponent.localEulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set the local y euler angle of the transform of this given component to the given y value, then return this given component //
-	public static ComponentT setLocalEulerAngleY<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalEulerAngleYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalEulerAngleY(y, boolean);
+		component.transform.setLocalEulerAngleYTo(y, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalEulerAngleY<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleY(transform.localEulerAngleY(), boolean);
+	public static ComponentT setLocalEulerAngleYTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleYTo(transform.localEulerAngleY(), boolean);
 
-	public static ComponentT setLocalEulerAngleY<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleY(gameObject.localEulerAngleY(), boolean);
+	public static ComponentT setLocalEulerAngleYTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleYTo(gameObject.localEulerAngleY(), boolean);
 
-	public static ComponentT setLocalEulerAngleY<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleY(otherComponent.localEulerAngleY(), boolean);
+	public static ComponentT setLocalEulerAngleYTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleYTo(otherComponent.localEulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set the local z euler angle of the transform of this given component to the given z value, then return this given component //
-	public static ComponentT setLocalEulerAngleZ<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalEulerAngleZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalEulerAngleZ(z, boolean);
+		component.transform.setLocalEulerAngleZTo(z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalEulerAngleZ<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleZ(transform.localEulerAngleZ(), boolean);
+	public static ComponentT setLocalEulerAngleZTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleZTo(transform.localEulerAngleZ(), boolean);
 
-	public static ComponentT setLocalEulerAngleZ<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleZ(gameObject.localEulerAngleZ(), boolean);
+	public static ComponentT setLocalEulerAngleZTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleZTo(gameObject.localEulerAngleZ(), boolean);
 
-	public static ComponentT setLocalEulerAngleZ<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalEulerAngleZ(otherComponent.localEulerAngleZ(), boolean);
+	public static ComponentT setLocalEulerAngleZTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalEulerAngleZTo(otherComponent.localEulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set the local scale of the transform of this given component to the given local scale, then return this given component //
-	public static ComponentT setLocalScale<ComponentT>(this ComponentT component, Vector3 localScale, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalScaleTo<ComponentT>(this ComponentT component, Vector3 localScale, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalScale(localScale, boolean);
+		component.transform.setLocalScaleTo(localScale, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the local scale of the transform of this given component to the local scale for the given x, y, and z values, then return this given component //
-	public static ComponentT setLocalScale<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalScaleTo<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalScale(x, y, z, boolean);
+		component.transform.setLocalScaleTo(x, y, z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalScale<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScale(transform.localScale, boolean);
+	public static ComponentT setLocalScaleTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleTo(transform.localScale, boolean);
 
-	public static ComponentT setLocalScale<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScale(gameObject.localScale(), boolean);
+	public static ComponentT setLocalScaleTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleTo(gameObject.localScale(), boolean);
 
-	public static ComponentT setLocalScale<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScale(otherComponent.localScale(), boolean);
+	public static ComponentT setLocalScaleTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleTo(otherComponent.localScale(), boolean);
 
 	// method: (according to the given boolean:) set the local x scale of the transform of this given component to the given x value, then return this given component //
-	public static ComponentT setLocalScaleX<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalScaleXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalScaleX(x, boolean);
+		component.transform.setLocalScaleXTo(x, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalScaleX<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleX(transform.localScaleX(), boolean);
+	public static ComponentT setLocalScaleXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleXTo(transform.localScaleX(), boolean);
 
-	public static ComponentT setLocalScaleX<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleX(gameObject.localScaleX(), boolean);
+	public static ComponentT setLocalScaleXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleXTo(gameObject.localScaleX(), boolean);
 
-	public static ComponentT setLocalScaleX<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleX(otherComponent.localScaleX(), boolean);
+	public static ComponentT setLocalScaleXTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleXTo(otherComponent.localScaleX(), boolean);
 
 	// method: (according to the given boolean:) set the local y scale of the transform of this given component to the given y value, then return this given component //
-	public static ComponentT setLocalScaleY<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalScaleYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalScaleY(y, boolean);
+		component.transform.setLocalScaleYTo(y, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalScaleY<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleY(transform.localScaleY(), boolean);
+	public static ComponentT setLocalScaleYTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleYTo(transform.localScaleY(), boolean);
 
-	public static ComponentT setLocalScaleY<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleY(gameObject.localScaleY(), boolean);
+	public static ComponentT setLocalScaleYTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleYTo(gameObject.localScaleY(), boolean);
 
-	public static ComponentT setLocalScaleY<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleY(otherComponent.localScaleY(), boolean);
+	public static ComponentT setLocalScaleYTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleYTo(otherComponent.localScaleY(), boolean);
 
 	// method: (according to the given boolean:) set the local z scale of the transform of this given component to the given z value, then return this given component //
-	public static ComponentT setLocalScaleZ<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalScaleZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocalScaleZ(z, boolean);
+		component.transform.setLocalScaleZTo(z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocalScaleZ<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleZ(transform.localScaleZ(), boolean);
+	public static ComponentT setLocalScaleZTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleZTo(transform.localScaleZ(), boolean);
 
-	public static ComponentT setLocalScaleZ<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleZ(gameObject.localScaleZ(), boolean);
+	public static ComponentT setLocalScaleZTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleZTo(gameObject.localScaleZ(), boolean);
 
-	public static ComponentT setLocalScaleZ<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocalScaleZ(otherComponent.localScaleZ(), boolean);
+	public static ComponentT setLocalScaleZTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalScaleZTo(otherComponent.localScaleZ(), boolean);
 
 	// method: (according to the given boolean:) set the local transformations (local position, local rotation, local scale) for the transform of this given component respectively to the given local position, local rotation, and local scale, then return this given component //
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocals(localPosition, localRotation, localScale, boolean);
+		component.transform.setLocalsTo(localPosition, localRotation, localScale, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setLocals(transform.localPosition, transform.localRotation, transform.localScale, boolean);
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setLocalsTo(transform.localPosition, transform.localRotation, transform.localScale, boolean);
 
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setLocals(gameObject.localPosition(), gameObject.localRotation(), gameObject.localScale(), boolean);
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setLocalsTo(gameObject.localPosition(), gameObject.localRotation(), gameObject.localScale(), boolean);
 
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setLocals(otherComponent.localPosition(), otherComponent.localRotation(), otherComponent.localScale(), boolean);
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setLocalsTo(otherComponent.localPosition(), otherComponent.localRotation(), otherComponent.localScale(), boolean);
 
 	// method: (according to the given boolean:) set the local transformations (local position, local euler angles, local scale) for the transform of this given component respectively to the given local position, local euler angles, and local scale, then return this given component //
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocals(localPosition, localEulerAngles, localScale, boolean);
+		component.transform.setLocalsTo(localPosition, localEulerAngles, localScale, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the (nonscale) local transformations (local position, local rotation) for the transform of this given component respectively to the given local position and local rotation //
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, Vector3 localPosition, Quaternion localRotation, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, Vector3 localPosition, Quaternion localRotation, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocals(localPosition, localRotation, boolean);
+		component.transform.setLocalsTo(localPosition, localRotation, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the (nonposition) local transformations (local rotation, local scale) for the transform of this given component respectively to the given local rotation and local scale //
-	public static ComponentT setLocals<ComponentT>(this ComponentT component, Quaternion localRotation, Vector3 localScale, bool boolean = true) where ComponentT : Component
+	public static ComponentT setLocalsTo<ComponentT>(this ComponentT component, Quaternion localRotation, Vector3 localScale, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setLocals(localRotation, localScale, boolean);
+		component.transform.setLocalsTo(localRotation, localScale, boolean);
 
 		return component;
 	}
@@ -955,220 +965,220 @@ public static class ComponentExtensions
 	}
 
 	// method: (according to the given boolean:) set the (global) position for the transform of this given component to the given (global) position, then return this given component //
-	public static ComponentT setPosition<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
+	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setPosition(position, boolean);
+		component.transform.setPositionTo(position, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the (global) position for the transform of this given component to the (global) position for the given x, y, and z values, then return this given component //
-	public static ComponentT setPosition<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setPosition(x, y, z, boolean);
+		component.transform.setPositionTo(x, y, z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setPosition<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setPosition(transform.position, boolean);
+	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setPositionTo(transform.position, boolean);
 
-	public static ComponentT setPosition<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setPosition(gameObject.position(), boolean);
+	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setPositionTo(gameObject.position(), boolean);
 
-	public static ComponentT setPosition<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setPosition(otherComponent.position(), boolean);
+	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setPositionTo(otherComponent.position(), boolean);
 
 	// method: (according to the given boolean:) set the (global) x position for the transform of this given component to the given x value, then return this given component //
-	public static ComponentT setPositionX<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
+	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setPositionX(x, boolean);
+		component.transform.setPositionXTo(x, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setPositionX<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setPositionX(transform.positionX(), boolean);
+	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setPositionXTo(transform.positionX(), boolean);
 
-	public static ComponentT setPositionX<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setPositionX(gameObject.positionX(), boolean);
+	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setPositionXTo(gameObject.positionX(), boolean);
 
-	public static ComponentT setPositionX<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setPositionX(otherComponent.positionX(), boolean);
+	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setPositionXTo(otherComponent.positionX(), boolean);
 
 	// method: (according to the given boolean:) set the (global) y position for the transform of this given component to the given y value, then return this given component //
-	public static ComponentT setPositionY<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
+	public static ComponentT setPositionYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setPositionY(y, boolean);
+		component.transform.setPositionYTo(y, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setPositionY<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setPositionY(transform.positionY(), boolean);
+	public static ComponentT setPositionYTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setPositionYTo(transform.positionY(), boolean);
 
-	public static ComponentT setPositionY<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setPositionY(gameObject.positionY(), boolean);
+	public static ComponentT setPositionYTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setPositionYTo(gameObject.positionY(), boolean);
 
-	public static ComponentT setPositionY<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setPositionY(otherComponent.positionY(), boolean);
+	public static ComponentT setPositionYTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setPositionYTo(otherComponent.positionY(), boolean);
 
 	// method: (according to the given boolean:) set the (global) z position for the transform of this given component to the given z value, then return this given component //
-	public static ComponentT setPositionZ<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setPositionZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setPositionZ(z, boolean);
+		component.transform.setPositionZTo(z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setPositionZ<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setPositionY(transform.positionZ(), boolean);
+	public static ComponentT setPositionZTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setPositionYTo(transform.positionZ(), boolean);
 
-	public static ComponentT setPositionZ<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setPositionY(gameObject.positionZ(), boolean);
+	public static ComponentT setPositionZTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setPositionYTo(gameObject.positionZ(), boolean);
 
-	public static ComponentT setPositionZ<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setPositionY(otherComponent.positionZ(), boolean);
+	public static ComponentT setPositionZTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setPositionYTo(otherComponent.positionZ(), boolean);
 
 	// method: (according to the given boolean:) set the (global) rotation for the transform of this given component to the given (global) rotation, then return this given component //
-	public static ComponentT setRotation<ComponentT>(this ComponentT component, Quaternion rotation, bool boolean = true) where ComponentT : Component
+	public static ComponentT setRotationTo<ComponentT>(this ComponentT component, Quaternion rotation, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setRotation(rotation, boolean);
+		component.transform.setRotationTo(rotation, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setRotation<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setRotation(transform.rotation, boolean);
+	public static ComponentT setRotationTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setRotationTo(transform.rotation, boolean);
 
-	public static ComponentT setRotation<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setRotation(gameObject.rotation(), boolean);
+	public static ComponentT setRotationTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setRotationTo(gameObject.rotation(), boolean);
 
-	public static ComponentT setRotation<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setRotation(otherComponent.rotation(), boolean);
+	public static ComponentT setRotationTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setRotationTo(otherComponent.rotation(), boolean);
 
 	// method: (according to the given boolean:) set the (global) euler angles of the transform of this given component to the given (global) euler angles, then return this given component //
-	public static ComponentT setEulerAngles<ComponentT>(this ComponentT component, Vector3 eulerAngles, bool boolean = true) where ComponentT : Component
+	public static ComponentT setEulerAnglesTo<ComponentT>(this ComponentT component, Vector3 eulerAngles, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setEulerAngles(eulerAngles, boolean);
+		component.transform.setEulerAnglesTo(eulerAngles, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the (global) euler angles of the transform of this given component to the (global) euler angles for the given x, y, and z values, then return this given component //
-	public static ComponentT setEulerAngles<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setEulerAnglesTo<ComponentT>(this ComponentT component, float x, float y, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setEulerAngles(x, y, z, boolean);
+		component.transform.setEulerAnglesTo(x, y, z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setEulerAngles<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngles(transform.eulerAngles, boolean);
+	public static ComponentT setEulerAnglesTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAnglesTo(transform.eulerAngles, boolean);
 
-	public static ComponentT setEulerAngles<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngles(gameObject.eulerAngles(), boolean);
+	public static ComponentT setEulerAnglesTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAnglesTo(gameObject.eulerAngles(), boolean);
 
-	public static ComponentT setEulerAngles<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngles(otherComponent.eulerAngles(), boolean);
+	public static ComponentT setEulerAnglesTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAnglesTo(otherComponent.eulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set the (global) x euler angle of the transform of this given component to the given x value, then return this given component //
-	public static ComponentT setEulerAngleX<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
+	public static ComponentT setEulerAngleXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setEulerAngleX(x, boolean);
+		component.transform.setEulerAngleXTo(x, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setEulerAngleX<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleX(transform.eulerAngleX(), boolean);
+	public static ComponentT setEulerAngleXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleXTo(transform.eulerAngleX(), boolean);
 
-	public static ComponentT setEulerAngleX<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleX(gameObject.eulerAngleX(), boolean);
+	public static ComponentT setEulerAngleXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleXTo(gameObject.eulerAngleX(), boolean);
 
-	public static ComponentT setEulerAngleX<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleX(otherComponent.eulerAngleX(), boolean);
+	public static ComponentT setEulerAngleXTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleXTo(otherComponent.eulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set the (global) y euler angle of the transform of this given component to the given y value, then return this given component //
-	public static ComponentT setEulerAngleY<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
+	public static ComponentT setEulerAngleYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setEulerAngleY(y, boolean);
+		component.transform.setEulerAngleYTo(y, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setEulerAngleY<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleY(transform.eulerAngleY(), boolean);
+	public static ComponentT setEulerAngleYTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleYTo(transform.eulerAngleY(), boolean);
 
-	public static ComponentT setEulerAngleY<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleY(gameObject.eulerAngleY(), boolean);
+	public static ComponentT setEulerAngleYTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleYTo(gameObject.eulerAngleY(), boolean);
 
-	public static ComponentT setEulerAngleY<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleY(otherComponent.eulerAngleY(), boolean);
+	public static ComponentT setEulerAngleYTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleYTo(otherComponent.eulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set the (global) z euler angle of the transform of this given component to the given z value, then return this given component //
-	public static ComponentT setEulerAngleZ<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
+	public static ComponentT setEulerAngleZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setEulerAngleZ(z, boolean);
+		component.transform.setEulerAngleZTo(z, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setEulerAngleZ<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleZ(transform.eulerAngleZ(), boolean);
+	public static ComponentT setEulerAngleZTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleZTo(transform.eulerAngleZ(), boolean);
 
-	public static ComponentT setEulerAngleZ<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleZ(gameObject.eulerAngleZ(), boolean);
+	public static ComponentT setEulerAngleZTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleZTo(gameObject.eulerAngleZ(), boolean);
 
-	public static ComponentT setEulerAngleZ<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setEulerAngleZ(otherComponent.eulerAngleZ(), boolean);
+	public static ComponentT setEulerAngleZTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setEulerAngleZTo(otherComponent.eulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set the global transformations (global position, global rotation) for the transform of this given component respectively to the given (global) position and (global) rotation //
-	public static ComponentT setGlobals<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, bool boolean = true) where ComponentT : Component
+	public static ComponentT setGlobalsTo<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setGlobals(position, rotation, boolean);
+		component.transform.setGlobalsTo(position, rotation, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setGlobals<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setGlobals(transform.position, transform.rotation, boolean);
+	public static ComponentT setGlobalsTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setGlobalsTo(transform.position, transform.rotation, boolean);
 
-	public static ComponentT setGlobals<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setGlobals(gameObject.position(), gameObject.rotation(), boolean);
+	public static ComponentT setGlobalsTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setGlobalsTo(gameObject.position(), gameObject.rotation(), boolean);
 
-	public static ComponentT setGlobals<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setGlobals(otherComponent.position(), otherComponent.rotation(), boolean);
+	public static ComponentT setGlobalsTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setGlobalsTo(otherComponent.position(), otherComponent.rotation(), boolean);
 
 	// method: (according to the given boolean:) set the global transformations (global position, global euler angles) for the transform of this given component respectively to the given (global) position and (global) euler angles //
-	public static ComponentT setGlobals<ComponentT>(this ComponentT component, Vector3 position, Vector3 eulerAngles, bool boolean = true) where ComponentT : Component
+	public static ComponentT setGlobalsTo<ComponentT>(this ComponentT component, Vector3 position, Vector3 eulerAngles, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setGlobals(position, eulerAngles, boolean);
+		component.transform.setGlobalsTo(position, eulerAngles, boolean);
 
 		return component;
 	}
 
 	// method: (according to the given boolean:) set the global transformations (global position, global rotation) and local scale for the transform of this given component respectively to the given (global) position and (global) rotation and local scale //
-	public static ComponentT setGlobalsAndLocalScale<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true) where ComponentT : Component
+	public static ComponentT setGlobalsAndLocalScaleTo<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setGlobalsAndLocalScale(position, rotation, localScale, boolean);
+		component.transform.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean);
 
 		return component;
 	}
 
-	public static ComponentT setGlobalsAndLocalScale<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
-		=> component.setGlobalsAndLocalScale(transform.position, transform.rotation, transform.localScale, boolean);
+	public static ComponentT setGlobalsAndLocalScaleTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.setGlobalsAndLocalScaleTo(transform.position, transform.rotation, transform.localScale, boolean);
 
-	public static ComponentT setGlobalsAndLocalScale<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
-		=> component.setGlobalsAndLocalScale(gameObject.position(), gameObject.rotation(), gameObject.localScale(), boolean);
+	public static ComponentT setGlobalsAndLocalScaleTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.setGlobalsAndLocalScaleTo(gameObject.position(), gameObject.rotation(), gameObject.localScale(), boolean);
 
-	public static ComponentT setGlobalsAndLocalScale<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
-		=> component.setGlobalsAndLocalScale(otherComponent.position(), otherComponent.rotation(), otherComponent.localScale(), boolean);
+	public static ComponentT setGlobalsAndLocalScaleTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.setGlobalsAndLocalScaleTo(otherComponent.position(), otherComponent.rotation(), otherComponent.localScale(), boolean);
 
 	// method: (according to the given boolean:) set the global transformations (global position, global euler angles) and local scale for the transform of this given component respectively to the given (global) position and (global) euler angles and local scale //
-	public static ComponentT setGlobalsAndLocalScale<ComponentT>(this ComponentT component, Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true) where ComponentT : Component
+	public static ComponentT setGlobalsAndLocalScaleTo<ComponentT>(this ComponentT component, Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true) where ComponentT : Component
 	{
-		component.transform.setGlobalsAndLocalScale(position, eulerAngles, localScale, boolean);
+		component.transform.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean);
 
 		return component;
 	}

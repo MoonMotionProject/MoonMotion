@@ -153,10 +153,10 @@ public static class DoubleExtensions
 		=> Math.Abs(double_);
 
 	public static double withSign(this double double_, bool booleanForSign)
-		=> (double_.magnitude() * booleanForSign.asSign());
+		=> (double_.magnitude() * booleanForSign.toInteger());
 
 	public static double timesSign(this double double_, bool booleanForSign)
-		=> (double_ * booleanForSign.asSign());
+		=> (double_ * booleanForSign.toInteger());
 
 
 	// methods for: math operations //
@@ -203,8 +203,8 @@ public static class DoubleExtensions
 		=> (float) double_;
 
 	// method: return the sign integer for this given double //
-	public static int asSign(this double double_)
-		=> double_.asInteger().asSign();
+	public static int toInteger(this double double_)
+		=> double_.asInteger().toInteger();
 
 	// method: return a vector for this given double (as each coordinate) //
 	public static Vector asVector(this double double_)

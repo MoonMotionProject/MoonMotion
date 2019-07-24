@@ -9,7 +9,7 @@ public static class Texture2DExtensions
 
 	
 	// method: set the name of this given 2D texture to the given name, then return this given 2D texture //
-	public static Texture2D setName(this Texture2D texture2D, string name)
+	public static Texture2D setNameTo(this Texture2D texture2D, string name)
 		=> texture2D.after(()=>
 			texture2D.name = name);
 
@@ -31,7 +31,7 @@ public static class Texture2DExtensions
 	public static Texture2D as2DTextureTemporary(this Color[] colors, int width, int height, TextureWrapMode textureWrapMode = TextureWrapMode.Clamp)
 	{
 		return new Texture2D(width, height, TextureFormat.ARGB32, false)
-			.setName("temporary texture")
+			.setNameTo("temporary texture")
 			.makeTemporary()
 			.applyPixels(colors, textureWrapMode);
 	}

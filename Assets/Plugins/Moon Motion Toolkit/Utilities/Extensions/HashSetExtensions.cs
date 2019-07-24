@@ -16,48 +16,52 @@ public static class HashSetExtensions
 
 	// methods for: adding //
 
-	// method: (according to the given boolean:) add the given item to this given hash set, then return the given item //
-	public static TItem add<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
-		=> item.after(()=>
+	// method: (according to the given boolean:) add the given item to this given hash set, then return this given hash set //
+	public static HashSet<TItem> add<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+		=> set.after(()=>
 			set.Add(item),
 			boolean);
 
-	// method: (according to the given boolean:) add the given item to this given hash set, then return this given hash set //
-	public static HashSet<TItem> afterAdding<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
-		=> set.after(()=>
+	// method: (according to the given boolean:) add the given item to this given hash set, then return the given item //
+	public static TItem addGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+		=> item.after(()=>
 			set.add(item),
 			boolean);
 
-	// method: (according to the given boolean:) add this given item to the given hash set, then return this given item //
-	public static TItem addedTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
-		=> set.add(item);
-
 	// method: (according to the given boolean:) add this given item to the given hash set, then return the given hash set //
-	public static HashSet<TItem> addTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
-		=> set.afterAdding(item);
+	public static HashSet<TItem> addToGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
+		=> set.add(item, boolean);
+
+	// method: (according to the given boolean:) add this given item to the given hash set, then return this given item //
+	public static TItem addTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
+		=> set.addGet(item, boolean);
 
 
 	// methods for: removing //
 
-	// method: (according to the given boolean:) remove the given item from this given hash set, then return the given item //
-	public static TItem remove<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
-		=> item.after(()=>
-			set.Remove(item),
-			boolean);
+	// method: (according to the given boolean:) remove the given item from this given hash set if the given item is contained in this given hash set, then return whether the given item was actually removed from this given hash set //
+	public static bool tryToRemove<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+		=> boolean && set.Remove(item);
 
-	// method: (according to the given boolean:) remove the given item from this given hash set, then return this given hash set //
-	public static HashSet<TItem> afterRemoving<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+	// method: (according to the given boolean:) remove the given item from this given hash set (assuming the given item is actually contained in this given hash set), then return this given hash set //
+	public static HashSet<TItem> remove<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
 		=> set.after(()=>
-			set.remove(item),
+			set.tryToRemove(item),
 			boolean);
 
-	// method: (according to the given boolean:) remove this given item from the given hash set, then return this given item //
-	public static TItem removedFrom<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
-		=> set.remove(item);
+	// method: (according to the given boolean:) remove the given item from this given hash set (assuming the given item is actually contained in this given hash set), then return the given item //
+	public static TItem removeGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+		=> item.after(()=>
+			set.tryToRemove(item),
+			boolean);
 
-	// method: (according to the given boolean:) remove this given item from the given hash set, then return this given item //
-	public static HashSet<TItem> removeFrom<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
-		=> set.afterRemoving(item);
+	// method: (according to the given boolean:) remove this given item from the given hash set (assuming the given item is actually contained in this given hash set), then return this given hash set //
+	public static HashSet<TItem> removeFromGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
+		=> set.remove(item, boolean);
+
+	// method: (according to the given boolean:) remove this given item from the given hash set (assuming the given item is actually contained in this given hash set), then return this given item //
+	public static TItem removeFrom<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
+		=> set.removeGet(item, boolean);
 
 
 	// methods for: iteration //

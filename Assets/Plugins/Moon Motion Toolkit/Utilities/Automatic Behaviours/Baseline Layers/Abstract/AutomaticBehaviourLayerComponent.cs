@@ -22,8 +22,11 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 
 	#region getting piblings
 
-	// an array of the same components on this component's piblings //
-	public IEnumerable<AutomaticBehaviourT> piblings => automaticBehaviour.piblings();
+	// a selection of the same components on this component's piblings //
+	public IEnumerable<AutomaticBehaviourT> selectEachFirstPibling => automaticBehaviour.selectEachFirstPibling();
+
+	// a list of the same components on this component's piblings //
+	public List<AutomaticBehaviourT> eachFirstPibling => automaticBehaviour.eachFirstPibling();
 	#endregion getting piblings
 
 
@@ -52,16 +55,16 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	#region adding components
 
 	// method: add a new component of the specified class to this component's game object, then return the new component //
-	public ComponentT add<ComponentT>() where ComponentT : Component
-		=> gameObject.add<ComponentT>();
+	public ComponentT addGet<ComponentT>() where ComponentT : Component
+		=> gameObject.addGet<ComponentT>();
 
 	// method: add a new component of the specified class to this component's game object, then return this component's game object //
-	public GameObject afterAdding<ComponentT>() where ComponentT : Component
-		=> gameObject.afterAdding<ComponentT>();
+	public GameObject add<ComponentT>() where ComponentT : Component
+		=> gameObject.add<ComponentT>();
 
 	// method: if this game object has none of the specified component, add a new component of the specified class to this game object, then return the first such component on this game object //
-	public ComponentT ensure<ComponentT>() where ComponentT : Component
-		=> gameObject.ensure<ComponentT>();
+	public ComponentT ensured<ComponentT>() where ComponentT : Component
+		=> gameObject.ensured<ComponentT>();
 	#endregion adding components
 
 
@@ -82,8 +85,8 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	public bool anyOtherComponent(bool includeInactiveComponents = true)
 		=> component.anyOtherComponent(includeInactiveComponents);
 
-	public bool anyComponentOtherThan(Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> gameObject.anyComponentOtherThan(component, function, includeInactiveComponents);
+	public bool anyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+		=> gameObject.anyComponentExcept(component, function, includeInactiveComponents);
 
 	public bool anyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = true)
 		=> component.anyOtherComponent(function, includeInactiveComponents);
@@ -102,40 +105,48 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	public ComponentT first<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.first<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of the specified class of components, optionally including inactive components according to the given boolean, on this component's game object //
-	public IEnumerable<ComponentT> select<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.select<ComponentT>(includeInactiveComponents);
+	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this component's game object //
+	public List<ComponentT> pick<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.pick<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of all components on this component's game object, optionally including inactive components according to the given boolean //
-	public IEnumerable<Component> components(bool includeInactiveComponents = true)
+	// method: return a list of all components on this component's game object, optionally including inactive components according to the given boolean //
+	public List<Component> components(bool includeInactiveComponents = true)
 		=> gameObject.components(includeInactiveComponents);
 
-	// method: return an enumerable of all automatic behaviours on this component's game object, optionally including inactive components according to the given boolean //
-	public IEnumerable<IAutomaticBehaviour> automaticBehaviours(bool includeInactiveComponents = true)
+	// method: return a list of all automatic behaviours on this component's game object, optionally including inactive components according to the given boolean //
+	public List<IAutomaticBehaviour> automaticBehaviours(bool includeInactiveComponents = true)
 		=> component.automaticBehaviours(includeInactiveComponents);
 	#endregion getting local components
 
 
 	#region iterating local components
 
-	public IEnumerable<ComponentT> forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
+	public GameObject forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.forEach(action, includeInactiveComponents);
 	#endregion iterating local components
+
+
+	#region determining child components
+
+	// method: return whether this game object has any of the specified type of child component, optionally including inactive components according to the given boolean //
+	public bool anyChildren<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.anyChildren<ComponentT>(includeInactiveComponents);
+	#endregion determining child components
 
 
 	#region getting child components
 
 	// method: return this component's game object's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public ComponentT selectChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectChild<ComponentT>(includeInactiveComponents);
+	public ComponentT firstChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.firstChild<ComponentT>(includeInactiveComponents);
 
 	// method: return this component's game object's last child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public ComponentT lastChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.lastChild<ComponentT>(includeInactiveComponents);
 
 	// method: return an array of this given component's child components of the specified class, optionally including inactive components according to the given boolean //
-	public IEnumerable<ComponentT> selectChildren<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectChildren<ComponentT>(includeInactiveComponents);
+	public IEnumerable<ComponentT> children<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.children<ComponentT>(includeInactiveComponents);
 	#endregion getting child components
 
 
@@ -157,17 +168,17 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	public ComponentT firstParent<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.firstParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this component's parent's components of the specified class, optionally including inactive components according to the given boolean //
-	public IEnumerable<ComponentT> selectParent<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectParent<ComponentT>(includeInactiveComponents);
+	// method: return a list of this component's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public List<ComponentT> parental<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.parental<ComponentT>(includeInactiveComponents);
 
 	// method: return this component's game object's first parent component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public ComponentT firstAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.firstAncestor<ComponentT>(includeInactiveComponents);
 
 	// method: return an array of this component's parent components of the specified class, optionally including inactive components according to the given boolean //
-	public ComponentT[] selectAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectAncestor<ComponentT>(includeInactiveComponents);
+	public ComponentT[] ancestral<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.ancestral<ComponentT>(includeInactiveComponents);
 	#endregion getting parent components
 
 
@@ -178,8 +189,8 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 		=> gameObject.firstLocalOrAncestor<ComponentT>(includeInactiveComponents);
 
 	// method: return an array of this component's local and parent components of the specified class, optionally including inactive components according to the given boolean //
-	public ComponentT[] selectLocalAndAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selectLocalAndAncestor<ComponentT>(includeInactiveComponents);
+	public ComponentT[] localAndAncestral<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.localAndAncestral<ComponentT>(includeInactiveComponents);
 	#endregion getting parent or self components
 
 

@@ -54,5 +54,5 @@ public class AutomaticBehaviourExternalLayer : MonoBehaviour
 
 	// upon being destroyed: //
 	private void OnDestroy()
-		=> gameObject.uncache();
+		=> gameObject.tryToUncache();
 }

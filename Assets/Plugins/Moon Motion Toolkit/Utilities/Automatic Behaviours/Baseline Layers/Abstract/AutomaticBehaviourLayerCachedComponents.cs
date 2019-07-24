@@ -18,6 +18,6 @@ public abstract class	AutomaticBehaviourLayerCachedComponents<AutomaticBehaviour
 		=> gameObject.cache<ComponentT>(addComponentIfNoneFound);
 
 	// method: untrack the cached components for this game object, then return the cached component dictionary for this game object //
-	public bool uncache()
-		=> gameObject.uncache();
+	public bool tryToUncache()
+		=> gameObject.tryToUncache();
 }

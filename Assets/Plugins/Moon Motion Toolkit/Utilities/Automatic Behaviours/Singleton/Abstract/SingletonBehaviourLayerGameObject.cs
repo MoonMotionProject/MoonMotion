@@ -78,13 +78,13 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion layer identification
 
 
-	#region selection
+	#region hierarchy selection
 	#if UNITY_EDITOR
 
 	public static new bool selected => automaticBehaviour.selected;
 	public static new bool notSelected => automaticBehaviour.notSelected;
 	#endif
-	#endregion selection
+	#endregion hierarchy selection
 
 
 	#region printing
@@ -137,11 +137,11 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 
 	public static new float[] childLightsIntensities => automaticBehaviour.childLightsIntensities;
 
-	public static new GameObject setChildLightsIntensities(float[] targetIntensities)
-		=> automaticBehaviour.setChildLightsIntensities(targetIntensities);
+	public static new GameObject setChildLightsIntensitiesTo(float[] targetIntensities)
+		=> automaticBehaviour.setChildLightsIntensitiesTo(targetIntensities);
 
-	public static new GameObject setChildLightsIntensities(float targetIntensity)
-		=> automaticBehaviour.setChildLightsIntensities(targetIntensity);
+	public static new GameObject setChildLightsIntensitiesTo(float targetIntensity)
+		=> automaticBehaviour.setChildLightsIntensitiesTo(targetIntensity);
 
 	public static new GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
 		=> automaticBehaviour.renderChildLightsBy(lightRenderMode);

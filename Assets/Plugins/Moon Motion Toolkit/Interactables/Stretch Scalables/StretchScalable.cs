@@ -32,7 +32,7 @@ namespace Valve.VR.InteractionSystem
 
 		private Vector3 stretchingControllerStartPosition;     // the position upon starting the last stretch of the last controller to be used for stretching
 
-		private float startingControllersDistance;		// the distance between the controllers upon last starting stretching
+		private float startingControllersDistance;		// the distance with the controllers upon last starting stretching
 
 		[HideInInspector] public bool stretchScaling = false;       // whether stretch scaling is currently occurring via this component
 
@@ -65,23 +65,23 @@ namespace Valve.VR.InteractionSystem
 
 				unparent();
 				previousWorldScale = localScale;
-				setParent(hand);
+				setParentTo(hand);
 
 				stretchingControllerStartPosition = stretchingController.position();
-				startingControllersDistance = stretchingControllerStartPosition.distanceWith(hand.position());
+				startingControllersDistance = stretchingControllerStartPosition.distanceWith(hand);
 			}
 			if (stretchingOperation.operatedBeingly())
 			{
 				stretchScaling = true;
 
-				float controllersDistance = stretchingController.position().distanceWith(hand.position());
+				float controllersDistance = stretchingController.position().distanceWith(hand);
 				float stretchDistance = controllersDistance - startingControllersDistance;
 
 				Vector3 targetWorldScale = previousWorldScale + stretchDistance.asVector();
 
 				unparent();
-				setLocalScale(targetWorldScale.atLeast(worldScaleMin).atMost(worldScaleMax).clampedToBeValidScale());
-				setParent(hand);
+				setLocalScaleTo(targetWorldScale.atLeast(worldScaleMin).atMost(worldScaleMax).clampedToBeValidScale());
+				setParentTo(hand);
 			}
 			if (stretchingOperation.operatedUnbecomingly())
 			{

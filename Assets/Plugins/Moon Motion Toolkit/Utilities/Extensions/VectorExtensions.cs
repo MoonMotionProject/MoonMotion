@@ -6,6 +6,36 @@ using UnityEngine;
 // Vector Extensions: provides extension methods for handling vectors //
 public static class VectorExtensions
 {
+	// methods for: accessing //
+
+	// method: return the list of x values of these given vectors //
+	public static List<float> xValues(this IEnumerable<Vector3> vectors)
+		=> vectors.selectXValues().manifest();
+
+	// method: return the list of y values of these given vectors //
+	public static List<float> yValues(this IEnumerable<Vector3> vectors)
+		=> vectors.selectYValues().manifest();
+
+	// method: return the list of z values of these given vectors //
+	public static List<float> zValues(this IEnumerable<Vector3> vectors)
+		=> vectors.selectZValues().manifest();
+
+
+	// methods for: selection //
+
+	// method: return the selection of x values of these given vectors //
+	public static IEnumerable<float> selectXValues(this IEnumerable<Vector3> vectors)
+		=> vectors.select(vector => vector.x);
+
+	// method: return the selection of y values of these given vectors //
+	public static IEnumerable<float> selectYValues(this IEnumerable<Vector3> vectors)
+		=> vectors.select(vector => vector.y);
+
+	// method: return the selection of z values of these given vectors //
+	public static IEnumerable<float> selectZValues(this IEnumerable<Vector3> vectors)
+		=> vectors.select(vector => vector.z);
+
+
 	// methods for: vectrals //
 
 	// method: return the vectral (normalized form) of this given vector //
@@ -44,21 +74,6 @@ public static class VectorExtensions
 		=> (vector.x.valid() && vector.y.valid() && vector.z.valid());
 
 
-	// methods for: distance //
-
-	// method: return the distance with this given vector and the other given vector //
-	public static float distanceWith(this Vector3 vector, Vector3 otherVector)
-		=> Vector3.Distance(vector, otherVector);
-
-	// method: return the closest vector of the given vectors to this given vector //
-	public static Vector3 closestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
-		=> vectors.itemWithMin(otherVector => Vector3.Distance(vector, otherVector));
-
-	// method: return the farthest vector of the given vectors to this given vector //
-	public static Vector3 farthestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
-		=> vectors.itemWithMax(otherVector => Vector3.Distance(vector, otherVector));
-
-
 	// method for: sign determination //
 
 	// method: return whether this given vector is nonnegative //
@@ -74,7 +89,7 @@ public static class VectorExtensions
 
 	// method: return the sign of the directionality ratio of this given vector with the other given vector //
 	public static float directionalitySignWith(this Vector3 vector, Vector3 otherVector)
-		=> vector.directionalityWith(otherVector).asSign();
+		=> vector.directionalityWith(otherVector).toInteger();
 
 
 	// methods for: value replacement //
@@ -108,30 +123,33 @@ public static class VectorExtensions
 
 	// method: return the average (value) of this given vector //
 	public static float average(this Vector3 vector)
-		=> vector.asArray().Average();
+		=> vector.toArray().average();
 
 	// method: return the average x coordinate value of these given vectors //
-	public static float averageX(this Vector3[] vectors)
-		=> vectors.Select(vector => vector.x).Average();
+	public static float averageX(this IEnumerable<Vector3> vectors)
+		=> vectors.selectXValues().average();
 
 	// method: return the average y coordinate value of these given vectors //
-	public static float averageY(this Vector3[] vectors)
-		=> vectors.Select(vector => vector.y).Average();
+	public static float averageY(this IEnumerable<Vector3> vectors)
+		=> vectors.selectYValues().average();
 
 	// method: return the average z coordinate value of these given vectors //
-	public static float averageZ(this Vector3[] vectors)
-		=> vectors.Select(vector => vector.z).Average();
+	public static float averageZ(this IEnumerable<Vector3> vectors)
+		=> vectors.selectZValues().average();
 
-	// method: return an array of averages (average values) corresponding to these given vectors //
-	public static float[] averages(this Vector3[] vectors)
-		=> vectors.Select(vector => vector.x).ToArray();
+	// method: return a selection of averages (average values) corresponding to these given vectors //
+	public static IEnumerable<float> selectAverages(this IEnumerable<Vector3> vectors)
+		=> vectors.select(vector => vector.average());
+	// method: return a list of averages (average values) corresponding to these given vectors //
+	public static List<float> averages(this IEnumerable<Vector3> vectors)
+		=> vectors.selectAverages().manifest();
 
 	// method: determine the average value of these given vectors //
-	public static float averageValue(this Vector3[] vectors)
-		=> vectors.averages().Average();
+	public static float averageValue(this IEnumerable<Vector3> vectors)
+		=> vectors.average().average();
 
 	// method: determine the average (vector) of these given vectors //
-	public static Vector3 average(this Vector3[] vectors)
+	public static Vector3 average(this IEnumerable<Vector3> vectors)
 		=> new Vector3
 		(
 			vectors.averageX(),
@@ -142,16 +160,16 @@ public static class VectorExtensions
 
 	// methods for: conversion //
 
-	// method: return a float array corresponding to this given vector //
-	public static float[] asArray(this Vector3 vector)
+	// method: return the float array corresponding to this given vector //
+	public static float[] toArray(this Vector3 vector)
 		=> new float[] {vector.x, vector.y, vector.z};
 
-	// method: return a float set corresponding to this given vector //
-	public static HashSet<float> asSet(this Vector3 vector)
-		=> new HashSet<float>() {vector.x, vector.y, vector.z};
+	// method: return a floats collection of the specified type created from this given vector's values //
+	public static ICollectionT to<ICollectionT>(this Vector3 vector) where ICollectionT : ICollection<float>, new()
+		=> new ICollectionT() {vector.x, vector.y, vector.z};
 
 	// method: return the doubles vector corresponding to this given floats vector //
-	public static Vector asDoublesVector(this Vector3 floatsVector)
+	public static Vector toDoublesVector(this Vector3 floatsVector)
 		=> new Vector(floatsVector.x, floatsVector.y, floatsVector.z);
 
 	// method: return the floats vector corresponding to this given doubles vector //

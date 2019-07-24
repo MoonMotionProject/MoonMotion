@@ -50,6 +50,6 @@ public class Hovering : AutomaticBehaviour<Hovering>
 	private void Update()
 	{
 		// set the object's local position y coordinate to its starting local position y coordinate modified by a sine calculation using the current time offset by the total time offset, all based on the oscillation settings //
-		setLocalPositionY(localPositionYAwake + (radius * Mathf.Sin((Time.time + totalTimeOffset) * frequencyFactor)));
+		setLocalPositionYTo(localPositionYAwake + (radius * Mathf.Sin((Time.time + totalTimeOffset) * frequencyFactor)));
 	}
 }

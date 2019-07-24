@@ -9,8 +9,8 @@ public static class ActionExtensions
 	// methods for: acting //
 	
 	// method: invoke each of these given actions on the given object, then return these given actions //
-	public static void actOn<TObject>(this Action<TObject>[] actions, TObject object_)
-		=> actions.forEach(action => action(object_));
+	public static IEnumerableT actOn<IEnumerableT, TObject>(this IEnumerableT actions, TObject object_) where IEnumerableT : IEnumerable<Action<TObject>>
+		=> actions.forEach_EnumerableSpecializedViaCasting<IEnumerableT, Action<TObject>>(action => action(object_));
 
 
 	// methods for: logic //

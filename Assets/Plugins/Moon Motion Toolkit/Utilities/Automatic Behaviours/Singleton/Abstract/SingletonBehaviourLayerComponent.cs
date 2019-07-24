@@ -45,16 +45,16 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	// methods for: adding components //
 
 	// method: add a new component of the specified class to this component's game object, then return the new component //
-	public static new ComponentT add<ComponentT>() where ComponentT : Component
-		=> automaticBehaviour.add<ComponentT>();
+	public static new ComponentT addGet<ComponentT>() where ComponentT : Component
+		=> automaticBehaviour.addGet<ComponentT>();
 
 	// method: add a new component of the specified class to this component's game object, then return this component's game object //
-	public static new GameObject afterAdding<ComponentT>() where ComponentT : Component
-		=> automaticBehaviour.afterAdding<ComponentT>();
+	public static new GameObject add<ComponentT>() where ComponentT : Component
+		=> automaticBehaviour.add<ComponentT>();
 
 	// method: if this game object has none of the specified component, add a new component of the specified class to this game object, then return the first such component on this game object //
-	public static new ComponentT ensure<ComponentT>() where ComponentT : Component
-		=> automaticBehaviour.ensure<ComponentT>();
+	public static new ComponentT ensured<ComponentT>() where ComponentT : Component
+		=> automaticBehaviour.ensured<ComponentT>();
 
 
 	// methods for: determining local components //
@@ -74,8 +74,8 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	public static new bool anyOtherComponent(bool includeInactiveComponents = true)
 		=> automaticBehaviour.anyOtherComponent(includeInactiveComponents);
 
-	public static new bool anyComponentOtherThan(Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> automaticBehaviour.anyComponentOtherThan(component, function, includeInactiveComponents);
+	public static new bool anyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+		=> automaticBehaviour.anyComponentExcept(component, function, includeInactiveComponents);
 
 	public static new bool anyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = true)
 		=> automaticBehaviour.anyOtherComponent(function, includeInactiveComponents);
@@ -93,38 +93,46 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	public static new ComponentT first<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> automaticBehaviour.first<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of the specified class of components, optionally including inactive components according to the given boolean, on this component's game object //
-	public static new IEnumerable<ComponentT> select<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> automaticBehaviour.select<ComponentT>(includeInactiveComponents);
+	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this component's game object //
+	public static new List<ComponentT> pick<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.pick<ComponentT>(includeInactiveComponents);
 
-	// method: return an enumerable of all components on this component's game object, optionally including inactive components according to the given boolean //
-	public static new IEnumerable<Component> components(bool includeInactiveComponents = true)
+	// method: return a list of all components on this component's game object, optionally including inactive components according to the given boolean //
+	public static new List<Component> components(bool includeInactiveComponents = true)
 		=> automaticBehaviour.components();
 
-	// method: return an enumerable of all automatic behaviours on this component's game object, optionally including inactive components according to the given boolean //
-	public static new IEnumerable<IAutomaticBehaviour> automaticBehaviours(bool includeInactiveComponents = true)
+	// method: return a list of all automatic behaviours on this component's game object, optionally including inactive components according to the given boolean //
+	public static new List<IAutomaticBehaviour> automaticBehaviours(bool includeInactiveComponents = true)
 		=> automaticBehaviour.automaticBehaviours(includeInactiveComponents);
 
 
 	// methods for: iterating local components //
 
-	public static new IEnumerable<ComponentT> forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
+	public static new GameObject forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
 		=> automaticBehaviour.forEach(action, includeInactiveComponents);
+
+
+	#region determining child components
+
+	// method: return whether this game object has any of the specified type of child component, optionally including inactive components according to the given boolean //
+	public static new bool anyChildren<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.anyChildren<ComponentT>(includeInactiveComponents);
+	#endregion determining child components
 
 
 	// methods for: getting child components //
 
 	// method: return this component's game object's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public static new ComponentT selectChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> automaticBehaviour.selectChild<ComponentT>(includeInactiveComponents);
+	public static new ComponentT firstChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.firstChild<ComponentT>(includeInactiveComponents);
 
 	// method: return this component's game object's last child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT lastChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> automaticBehaviour.lastChild<ComponentT>(includeInactiveComponents);
 
 	// method: return an array of this component's game object's child components of the specified class, optionally including inactive components according to the given boolean //
-	public static new IEnumerable<ComponentT> selectChildren<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> automaticBehaviour.selectChildren<ComponentT>(includeInactiveComponents);
+	public static new IEnumerable<ComponentT> children<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.children<ComponentT>(includeInactiveComponents);
 
 
 	// methods for: getting child or self components //
@@ -144,17 +152,17 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	public static new ComponentT firstParent<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> automaticBehaviour.firstParent<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this component's parent's components of the specified class, optionally including inactive components according to the given boolean //
-	public static new IEnumerable<ComponentT> selectParent<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> automaticBehaviour.selectParent<ComponentT>(includeInactiveComponents);
+	// method: return a list of this component's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static new List<ComponentT> parental<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.parental<ComponentT>(includeInactiveComponents);
 
 	// method: return this component's first parent component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT firstAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> automaticBehaviour.firstAncestor<ComponentT>(includeInactiveComponents);
 
 	// method: return an array of this component's parent components of the specified class, optionally including inactive components according to the given boolean //
-	public static new ComponentT[] selectAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> automaticBehaviour.selectAncestor<ComponentT>(includeInactiveComponents);
+	public static new ComponentT[] ancestral<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.ancestral<ComponentT>(includeInactiveComponents);
 
 
 	// methods for: getting parent or self components //
@@ -164,8 +172,8 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 		=> automaticBehaviour.firstLocalOrAncestor<ComponentT>(includeInactiveComponents);
 
 	// method: return an array of this component's local and parent components of the specified class, optionally including inactive components according to the given boolean //
-	public static new ComponentT[] selectLocalAndAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> automaticBehaviour.selectLocalAndAncestor<ComponentT>(includeInactiveComponents);
+	public static new ComponentT[] localAndAncestral<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> automaticBehaviour.localAndAncestral<ComponentT>(includeInactiveComponents);
 
 
 	// methods for: searching for self or parent based on comparison //

@@ -25,7 +25,7 @@ public static class GameObjectExtensions
 
 	// method: in this given dictionary, remove all (game object) keys which are destroyed, then return this given dictionary //
 	public static Dictionary<GameObject, ObjectT> clean<ObjectT>(this Dictionary<GameObject, ObjectT> dictionary)
-		=> dictionary.afterRemovingWhere(gameObjectKey => gameObjectKey.destroyed());
+		=> dictionary.removeWhere(gameObjectKey => gameObjectKey.destroyed());
 	#endregion existence
 
 
@@ -54,15 +54,15 @@ public static class GameObjectExtensions
 
 	// method: create a fresh game object with this given name, as a child object of the given transform, then return the created game object //
 	public static GameObject createAsChildObjectOf(this string name, Transform parent)
-		=> new GameObject(name).setParent(parent);
+		=> new GameObject(name).setParentTo(parent);
 
 	// method: create a fresh game object with this given name, as a child object of the given game object, then return the created game object //
 	public static GameObject createAsChildObjectOf(this string name, GameObject parentObject)
-		=> new GameObject(name).setParent(parentObject);
+		=> new GameObject(name).setParentTo(parentObject);
 
 	// method: create a fresh game object with this given name, as a child object of the transform of the given component, then return the created game object //
 	public static GameObject createAsChildObjectOf(this string name, Component parentComponent)
-		=> new GameObject(name).setParent(parentComponent);
+		=> new GameObject(name).setParentTo(parentComponent);
 
 	// method: create a fresh game object as a child of this given transform, with the given name (defaulted to "New Game Object"), then return the created game object //
 	public static GameObject createChildObject(this Transform parent, string name = "New Game Object")
@@ -83,42 +83,42 @@ public static class GameObjectExtensions
 	// method: create an instance of this given object template (object instance or prefab), with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject create(this GameObject template, string name = "")
 		=>	UnityEngine.Object.Instantiate(template)
-			.setName(name.substituteIfEmpty(template.name));
+			.setNameTo(name.substituteIfEmpty(template.name));
 
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the given transform, then return the created game object //
 	public static GameObject createAsChildObjectOf(this GameObject template, Transform parent)
-		=> template.create().setParent(parent);
+		=> template.create().setParentTo(parent);
 
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the given game object, then return the created game object //
 	public static GameObject createAsChildObjectOf(this GameObject template, GameObject parentObject)
-		=> template.create().setParent(parentObject);
+		=> template.create().setParentTo(parentObject);
 
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the transform of the given component, then return the created game object //
 	public static GameObject createAsChildObjectOf(this GameObject template, Component parentComponent)
-		=> template.create().setParent(parentComponent);
+		=> template.create().setParentTo(parentComponent);
 
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the transform of the specified singleton behaviour class, then return the created game object //
 	public static GameObject createAsChildObjectOf<SingletonBehaviourT>(this GameObject template) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> template.create().setParent<SingletonBehaviourT>();
+		=> template.create().setParentTo<SingletonBehaviourT>();
 
 	// method: create an instance of the given object template (object instance or prefab), as a child object of this given transform, with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject createChildObject(this Transform parent, GameObject template, string name = "")
 		=> template.createAsChildObjectOf(parent)
-			.setName(name.substituteIfEmpty(template.name));
+			.setNameTo(name.substituteIfEmpty(template.name));
 
 	// method: create an instance of the given object template (object instance or prefab), as a child object of this given game object, with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject createChildObject(this GameObject parentObject, GameObject template, string name = "")
 		=> template.createAsChildObjectOf(parentObject)
-			.setName(name.substituteIfEmpty(template.name));
+			.setNameTo(name.substituteIfEmpty(template.name));
 
 	// method: create an instance of the given object template (object instance or prefab), as a child object of the transform of this given component, with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject createChildObject(this Component parentComponent, GameObject template, string name = "")
 		=> template.createAsChildObjectOf(parentComponent)
-			.setName(name.substituteIfEmpty(template.name));
+			.setNameTo(name.substituteIfEmpty(template.name));
 	#endregion creating templated game objects
 
 
-	#region selection
+	#region hierarchy selection
 	#if UNITY_EDITOR
 
 	// method: return whether this given game object is currently selected //
@@ -129,7 +129,7 @@ public static class GameObjectExtensions
 	public static bool isNotSelected(this GameObject gameObject)
 		=> !gameObject.selected();
 	#endif
-	#endregion selection
+	#endregion hierarchy selection
 
 
 	#region printing
@@ -346,456 +346,396 @@ public static class GameObjectExtensions
 	#region setting transformations
 
 	// method: (according to the given boolean:) set this given game object's local position to the given local position, then return this given game object //
-	public static GameObject setLocalPosition(this GameObject gameObject, Vector3 localPosition, bool boolean = true)
-		=> gameObject.transform.setLocalPosition(localPosition, boolean).gameObject;
-
+	public static GameObject setLocalPositionTo(this GameObject gameObject, Vector3 localPosition, bool boolean = true)
+		=> gameObject.transform.setLocalPositionTo(localPosition, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local position to the local position for the given x, y, and z values, then return this given game object //
-	public static GameObject setLocalPosition(this GameObject gameObject, float x, float y, float z, bool boolean = true)
-		=> gameObject.setLocalPosition(new Vector3(x, y, z), boolean);
-
+	public static GameObject setLocalPositionTo(this GameObject gameObject, float x, float y, float z, bool boolean = true)
+		=> gameObject.setLocalPositionTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given game object's local position to the given transform's local position, then return this given game object //
-	public static GameObject setLocalPosition(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalPosition(transform.localPosition, boolean);
-
+	public static GameObject setLocalPositionTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalPositionTo(transform.localPosition, boolean);
 	// method: (according to the given boolean:) set this given transform's local position to the other given game object's local position, then return this given game object //
-	public static GameObject setLocalPosition(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalPosition(otherGameObject.localPosition(), boolean);
-
+	public static GameObject setLocalPositionTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalPositionTo(otherGameObject.localPosition(), boolean);
 	// method: (according to the given boolean:) set this given transform's local position to the given component's local position, then return this given game object //
-	public static GameObject setLocalPosition(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalPosition(component.localPosition(), boolean);
+	public static GameObject setLocalPositionTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalPositionTo(component.localPosition(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local x position to the given x value, then return this given game object //
-	public static GameObject setLocalPositionX(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.transform.setLocalPositionX(x, boolean).gameObject;
-
+	public static GameObject setLocalPositionXTo(this GameObject gameObject, float x, bool boolean = true)
+		=> gameObject.transform.setLocalPositionXTo(x, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local x position to the given transform's local x position, then return this given game object //
-	public static GameObject setLocalPositionX(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalPositionX(transform.localPositionX(), boolean);
-
+	public static GameObject setLocalPositionXTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalPositionXTo(transform.localPositionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x position to the other given game object's local x position, then return this given game object //
-	public static GameObject setLocalPositionX(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalPositionX(otherGameObject.localPositionX(), boolean);
-
+	public static GameObject setLocalPositionXTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalPositionXTo(otherGameObject.localPositionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x position to the given component's local x position, then return this given game object //
-	public static GameObject setLocalPositionX(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalPositionX(component.localPositionX(), boolean);
+	public static GameObject setLocalPositionXTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalPositionXTo(component.localPositionX(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local y position to the given y value, then return this given game object //
-	public static GameObject setLocalPositionY(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.transform.setLocalPositionY(y, boolean).gameObject;
-
+	public static GameObject setLocalPositionYTo(this GameObject gameObject, float y, bool boolean = true)
+		=> gameObject.transform.setLocalPositionYTo(y, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local y position to the given transform's local y position, then return this given game object //
-	public static GameObject setLocalPositionY(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalPositionY(transform.localPositionY(), boolean);
-
+	public static GameObject setLocalPositionYTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalPositionYTo(transform.localPositionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y position to the other given game object's local y position, then return this given game object //
-	public static GameObject setLocalPositionY(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalPositionY(otherGameObject.localPositionY(), boolean);
-
+	public static GameObject setLocalPositionYTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalPositionYTo(otherGameObject.localPositionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y position to the given component's local y position, then return this given game object //
-	public static GameObject setLocalPositionY(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalPositionY(component.localPositionY(), boolean);
+	public static GameObject setLocalPositionYTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalPositionYTo(component.localPositionY(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local z position to the given z value, then return this given game object //
-	public static GameObject setLocalPositionZ(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.transform.setLocalPositionZ(z, boolean).gameObject;
-
+	public static GameObject setLocalPositionZTo(this GameObject gameObject, float z, bool boolean = true)
+		=> gameObject.transform.setLocalPositionZTo(z, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local z position to the given transform's local z position, then return this given game object //
-	public static GameObject setLocalPositionZ(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalPositionZ(transform.localPositionZ(), boolean);
-
+	public static GameObject setLocalPositionZTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalPositionZTo(transform.localPositionZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z position to the other given game object's local z position, then return this given game object //
-	public static GameObject setLocalPositionZ(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalPositionZ(otherGameObject.localPositionZ(), boolean);
-
+	public static GameObject setLocalPositionZTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalPositionZTo(otherGameObject.localPositionZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z position to the given component's local z position, then return this given game object //
-	public static GameObject setLocalPositionZ(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalPositionZ(component.localPositionZ(), boolean);
+	public static GameObject setLocalPositionZTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalPositionZTo(component.localPositionZ(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local rotation to the given local rotation, then return this given game object //
-	public static GameObject setLocalRotation(this GameObject gameObject, Quaternion localRotation, bool boolean = true)
-		=> gameObject.transform.setLocalRotation(localRotation, boolean).gameObject;
-
+	public static GameObject setLocalRotationTo(this GameObject gameObject, Quaternion localRotation, bool boolean = true)
+		=> gameObject.transform.setLocalRotationTo(localRotation, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local rotation to the given transform's local rotation, then return this given game object //
-	public static GameObject setLocalRotation(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalRotation(transform.localRotation, boolean);
-
+	public static GameObject setLocalRotationTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalRotationTo(transform.localRotation, boolean);
 	// method: (according to the given boolean:) set this given transform's local rotation to the other given game object's local rotation, then return this given game object //
-	public static GameObject setLocalRotation(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalRotation(otherGameObject.localRotation(), boolean);
-
+	public static GameObject setLocalRotationTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalRotationTo(otherGameObject.localRotation(), boolean);
 	// method: (according to the given boolean:) set this given transform's local rotation to the given component's local rotation, then return this given game object //
-	public static GameObject setLocalRotation(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalRotation(component.localRotation(), boolean);
+	public static GameObject setLocalRotationTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalRotationTo(component.localRotation(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local euler angles to the given local euler angles, then return this given game object //
-	public static GameObject setLocalEulerAngles(this GameObject gameObject, Vector3 localEulerAngles, bool boolean = true)
-		=> gameObject.transform.setLocalEulerAngles(localEulerAngles, boolean).gameObject;
-
+	public static GameObject setLocalEulerAnglesTo(this GameObject gameObject, Vector3 localEulerAngles, bool boolean = true)
+		=> gameObject.transform.setLocalEulerAnglesTo(localEulerAngles, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local euler angles to the local euler angles for the given x, y, and z values, then return this given game object //
-	public static GameObject setLocalEulerAngles(this GameObject gameObject, float x, float y, float z, bool boolean = true)
-		=> gameObject.transform.setLocalEulerAngles(x, y, z, boolean).gameObject;
-
+	public static GameObject setLocalEulerAnglesTo(this GameObject gameObject, float x, float y, float z, bool boolean = true)
+		=> gameObject.transform.setLocalEulerAnglesTo(x, y, z, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local euler angles to the given transform's local euler angles, then return this given game object //
-	public static GameObject setLocalEulerAngles(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalEulerAngles(transform.localEulerAngles, boolean);
-
+	public static GameObject setLocalEulerAnglesTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalEulerAnglesTo(transform.localEulerAngles, boolean);
 	// method: (according to the given boolean:) set this given transform's local euler angles to the other given game object's local euler angles, then return this given game object //
-	public static GameObject setLocalEulerAngles(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalEulerAngles(otherGameObject.localEulerAngles(), boolean);
-
+	public static GameObject setLocalEulerAnglesTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalEulerAnglesTo(otherGameObject.localEulerAngles(), boolean);
 	// method: (according to the given boolean:) set this given transform's local euler angles to the given component's local euler angles, then return this given game object //
-	public static GameObject setLocalEulerAngles(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalEulerAngles(component.localEulerAngles(), boolean);
+	public static GameObject setLocalEulerAnglesTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalEulerAnglesTo(component.localEulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local x euler angle to the given x value, then return this given game object //
-	public static GameObject setLocalEulerAngleX(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.transform.setLocalEulerAngleX(x, boolean).gameObject;
-
+	public static GameObject setLocalEulerAngleXTo(this GameObject gameObject, float x, bool boolean = true)
+		=> gameObject.transform.setLocalEulerAngleXTo(x, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local x euler angle to the given transform's local x euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleX(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalEulerAngleX(transform.localEulerAngleX(), boolean);
-
+	public static GameObject setLocalEulerAngleXTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalEulerAngleXTo(transform.localEulerAngleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x euler angle to the other given game object's local x euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleX(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalEulerAngleX(otherGameObject.localEulerAngleX(), boolean);
-
+	public static GameObject setLocalEulerAngleXTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalEulerAngleXTo(otherGameObject.localEulerAngleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local euler x angle to the given component's local x euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleX(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalEulerAngleX(component.localEulerAngleX(), boolean);
+	public static GameObject setLocalEulerAngleXTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalEulerAngleXTo(component.localEulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local y euler angle to the given y value, then return this given game object //
-	public static GameObject setLocalEulerAngleY(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.transform.setLocalEulerAngleY(y, boolean).gameObject;
-
+	public static GameObject setLocalEulerAngleYTo(this GameObject gameObject, float y, bool boolean = true)
+		=> gameObject.transform.setLocalEulerAngleYTo(y, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local y euler angle to the given transform's local y euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleY(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalEulerAngleY(transform.localEulerAngleY(), boolean);
-
+	public static GameObject setLocalEulerAngleYTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalEulerAngleYTo(transform.localEulerAngleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y euler angle to the other given game object's local y euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleY(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalEulerAngleY(otherGameObject.localEulerAngleY(), boolean);
-
+	public static GameObject setLocalEulerAngleYTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalEulerAngleYTo(otherGameObject.localEulerAngleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local euler y angle to the given component's local y euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleY(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalEulerAngleY(component.localEulerAngleY(), boolean);
+	public static GameObject setLocalEulerAngleYTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalEulerAngleYTo(component.localEulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local z euler angle to the given z value, then return this given game object //
-	public static GameObject setLocalEulerAngleZ(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.transform.setLocalEulerAngleZ(z, boolean).gameObject;
-
+	public static GameObject setLocalEulerAngleZTo(this GameObject gameObject, float z, bool boolean = true)
+		=> gameObject.transform.setLocalEulerAngleZTo(z, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local z euler angle to the given transform's local z euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleZ(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalEulerAngleZ(transform.localEulerAngleZ(), boolean);
-
+	public static GameObject setLocalEulerAngleZTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalEulerAngleZTo(transform.localEulerAngleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z euler angle to the other given game object's local z euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleZ(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalEulerAngleZ(otherGameObject.localEulerAngleZ(), boolean);
-
+	public static GameObject setLocalEulerAngleZTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalEulerAngleZTo(otherGameObject.localEulerAngleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local euler z angle to the given component's local z euler angle, then return this given game object //
-	public static GameObject setLocalEulerAngleZ(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalEulerAngleZ(component.localEulerAngleZ(), boolean);
+	public static GameObject setLocalEulerAngleZTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalEulerAngleZTo(component.localEulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local scale to the given local scale, then return this given game object //
-	public static GameObject setLocalScale(this GameObject gameObject, Vector3 localScale, bool boolean = true)
-		=> gameObject.transform.setLocalScale(localScale, boolean).gameObject;
-
+	public static GameObject setLocalScaleTo(this GameObject gameObject, Vector3 localScale, bool boolean = true)
+		=> gameObject.transform.setLocalScaleTo(localScale, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local scale to the local scale for the given x, y, and z values, then return this given game object //
-	public static GameObject setLocalScale(this GameObject gameObject, float x, float y, float z, bool boolean = true)
-		=> gameObject.setLocalScale(new Vector3(x, y, z), boolean);
-
+	public static GameObject setLocalScaleTo(this GameObject gameObject, float x, float y, float z, bool boolean = true)
+		=> gameObject.setLocalScaleTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given game object's local scale to the given transform's local scale, then return this given game object //
-	public static GameObject setLocalScale(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalScale(transform.localScale, boolean);
-
+	public static GameObject setLocalScaleTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalScaleTo(transform.localScale, boolean);
 	// method: (according to the given boolean:) set this given transform's local scale to the other given game object's local scale, then return this given game object //
-	public static GameObject setLocalScale(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalScale(otherGameObject.localScale(), boolean);
-
+	public static GameObject setLocalScaleTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalScaleTo(otherGameObject.localScale(), boolean);
 	// method: (according to the given boolean:) set this given transform's local scale to the given component's local scale, then return this given game object //
-	public static GameObject setLocalScale(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalScale(component.localScale(), boolean);
+	public static GameObject setLocalScaleTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalScaleTo(component.localScale(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local x scale to the given x value, then return this given game object //
-	public static GameObject setLocalScaleX(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.transform.setLocalScaleX(x, boolean).gameObject;
-
+	public static GameObject setLocalScaleXTo(this GameObject gameObject, float x, bool boolean = true)
+		=> gameObject.transform.setLocalScaleXTo(x, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local x scale to the given transform's local x scale, then return this given game object //
-	public static GameObject setLocalScaleX(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalScaleX(transform.localScaleX(), boolean);
-
+	public static GameObject setLocalScaleXTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalScaleXTo(transform.localScaleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x scale to the other given game object's local x scale, then return this given game object //
-	public static GameObject setLocalScaleX(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalScaleX(otherGameObject.localScaleX(), boolean);
-
+	public static GameObject setLocalScaleXTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalScaleXTo(otherGameObject.localScaleX(), boolean);
 	// method: (according to the given boolean:) set this given transform's local x scale to the given component's local x scale, then return this given game object //
-	public static GameObject setLocalScaleX(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalScaleX(component.localScaleX(), boolean);
+	public static GameObject setLocalScaleXTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalScaleXTo(component.localScaleX(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local y scale to the given y value, then return this given game object //
-	public static GameObject setLocalScaleY(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.transform.setLocalScaleY(y, boolean).gameObject;
-
+	public static GameObject setLocalScaleYTo(this GameObject gameObject, float y, bool boolean = true)
+		=> gameObject.transform.setLocalScaleYTo(y, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local y scale to the given transform's local y scale, then return this given game object //
-	public static GameObject setLocalScaleY(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalScaleY(transform.localScaleY(), boolean);
-
+	public static GameObject setLocalScaleYTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalScaleYTo(transform.localScaleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y scale to the other given game object's local y scale, then return this given game object //
-	public static GameObject setLocalScaleY(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalScaleY(otherGameObject.localScaleY(), boolean);
-
+	public static GameObject setLocalScaleYTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalScaleYTo(otherGameObject.localScaleY(), boolean);
 	// method: (according to the given boolean:) set this given transform's local y scale to the given component's local y scale, then return this given game object //
-	public static GameObject setLocalScaleY(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalScaleY(component.localScaleY(), boolean);
+	public static GameObject setLocalScaleYTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalScaleYTo(component.localScaleY(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local z scale to the given z value, then return this given game object //
-	public static GameObject setLocalScaleZ(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.transform.setLocalScaleZ(z, boolean).gameObject;
-
+	public static GameObject setLocalScaleZTo(this GameObject gameObject, float z, bool boolean = true)
+		=> gameObject.transform.setLocalScaleZTo(z, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local z scale to the given transform's local z scale, then return this given game object //
-	public static GameObject setLocalScaleZ(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocalScaleZ(transform.localScaleZ(), boolean);
-
+	public static GameObject setLocalScaleZTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalScaleZTo(transform.localScaleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z scale to the other given game object's local z scale, then return this given game object //
-	public static GameObject setLocalScaleZ(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocalScaleZ(otherGameObject.localScaleZ(), boolean);
-
+	public static GameObject setLocalScaleZTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalScaleZTo(otherGameObject.localScaleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's local z scale to the given component's local z scale, then return this given game object //
-	public static GameObject setLocalScaleZ(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocalScaleZ(component.localScaleZ(), boolean);
+	public static GameObject setLocalScaleZTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalScaleZTo(component.localScaleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's local transformations (local position, local rotation, local scale) respectively to the given local position, local rotation, and local scale, then return this given game object //
-	public static GameObject setLocals(this GameObject gameObject, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
-		=> gameObject.transform.setLocals(localPosition, localRotation, localScale, boolean).gameObject;
-
+	public static GameObject setLocalsTo(this GameObject gameObject, Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
+		=> gameObject.transform.setLocalsTo(localPosition, localRotation, localScale, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local transformations (local position, local rotation, local scale) respectively to the given transform's local position, local rotation, and local scale, then return this given game object //
-	public static GameObject setLocals(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setLocals(transform.localPosition, transform.localRotation, transform.localScale, boolean);
-
+	public static GameObject setLocalsTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setLocalsTo(transform.localPosition, transform.localRotation, transform.localScale, boolean);
 	// method: (according to the given boolean:) set this given game object's local transformations (local position, local rotation, local scale) respectively to the other given game object's local position, local rotation, and local scale, then return this given game object //
-	public static GameObject setLocals(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setLocals(otherGameObject.localPosition(), otherGameObject.localRotation(), otherGameObject.localScale(), boolean);
-
+	public static GameObject setLocalsTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setLocalsTo(otherGameObject.localPosition(), otherGameObject.localRotation(), otherGameObject.localScale(), boolean);
 	// method: (according to the given boolean:) set this given game object's local transformations (local position, local rotation, local scale) respectively to the given component's local position, local rotation, and local scale, then return this given game object //
-	public static GameObject setLocals(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setLocals(component.localPosition(), component.localRotation(), component.localScale(), boolean);
-
+	public static GameObject setLocalsTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setLocalsTo(component.localPosition(), component.localRotation(), component.localScale(), boolean);
 	// method: (according to the given boolean:) set this given game object's local transformations (local position, local euler angles, local scale) respectively to the given local position, local euler angles, and local scale, then return this given game object //
-	public static GameObject setLocals(this GameObject gameObject, Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
-		=> gameObject.transform.setLocals(localPosition, localEulerAngles, localScale, boolean).gameObject;
-
+	public static GameObject setLocalsTo(this GameObject gameObject, Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
+		=> gameObject.transform.setLocalsTo(localPosition, localEulerAngles, localScale, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's (nonscale) local transformations (local position, local rotation) respectively to the given local position and local rotation //
-	public static GameObject setLocals(this GameObject gameObject, Vector3 localPosition, Quaternion localRotation, bool boolean = true)
-		=> gameObject.transform.setLocals(localPosition, localRotation, boolean).gameObject;
-
+	public static GameObject setLocalsTo(this GameObject gameObject, Vector3 localPosition, Quaternion localRotation, bool boolean = true)
+		=> gameObject.transform.setLocalsTo(localPosition, localRotation, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's (nonposition) local transformations (local rotation, local scale) respectively to the given local rotation and local scale //
-	public static GameObject setLocals(this GameObject gameObject, Quaternion localRotation, Vector3 localScale, bool boolean = true)
-		=> gameObject.transform.setLocals(localRotation, localScale, boolean).gameObject;
+	public static GameObject setLocalsTo(this GameObject gameObject, Quaternion localRotation, Vector3 localScale, bool boolean = true)
+		=> gameObject.transform.setLocalsTo(localRotation, localScale, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's local transformations to its parent's while temporarily childed to the given transform, then return this given game object //
 	public static GameObject setLocalsParentlyForRelativeTo(this GameObject gameObject, Transform transform, bool boolean = true)
 		=> gameObject.transform.setLocalsParentlyForRelativeTo(transform, boolean).gameObject;
-
 	// method: (according to the given boolean:) set this given game object's local transformations to its parent's while temporarily childed to the other given game object, then return this given game object //
 	public static GameObject setLocalsParentlyForRelativeTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
 		=> gameObject.transform.setLocalsParentlyForRelativeTo(otherGameObject, boolean).gameObject;
-
 	// method: (according to the given boolean:) set this given game object's local transformations to its parent's while temporarily childed to the given component, then return this given game object //
 	public static GameObject setLocalsParentlyForRelativeTo(this GameObject gameObject, Component component, bool boolean = true)
 		=> gameObject.transform.setLocalsParentlyForRelativeTo(component, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) position to the given (global) position, then return this given game object //
-	public static GameObject setPosition(this GameObject gameObject, Vector3 position, bool boolean = true)
-		=> gameObject.transform.setPosition(position, boolean).gameObject;
-
+	public static GameObject setPositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
+		=> gameObject.transform.setPositionTo(position, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's (global) position to the (global) position for the given x, y, and z values, then return this given game object //
-	public static GameObject setPosition(this GameObject gameObject, float x, float y, float z, bool boolean = true)
-		=> gameObject.setPosition(new Vector3(x, y, z), boolean);
-
+	public static GameObject setPositionTo(this GameObject gameObject, float x, float y, float z, bool boolean = true)
+		=> gameObject.setPositionTo(new Vector3(x, y, z), boolean);
 	// method: (according to the given boolean:) set this given game object's position to the given transform's position, then return this given game object //
-	public static GameObject setPosition(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setPosition(transform.position, boolean);
-
+	public static GameObject setPositionTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setPositionTo(transform.position, boolean);
 	// method: (according to the given boolean:) set this given transform's position to the other given game object's position, then return this given game object //
-	public static GameObject setPosition(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setPosition(otherGameObject.position(), boolean);
-
+	public static GameObject setPositionTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setPositionTo(otherGameObject.position(), boolean);
 	// method: (according to the given boolean:) set this given transform's position to the given component's position, then return this given game object //
-	public static GameObject setPosition(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setPosition(component.position(), boolean);
+	public static GameObject setPositionTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setPositionTo(component.position(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) x position to the given x value, then return this given game object //
-	public static GameObject setPositionX(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.setPositionX(x, boolean).gameObject;
-
+	public static GameObject setPositionXTo(this GameObject gameObject, float x, bool boolean = true)
+		=> gameObject.setPositionXTo(x, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's x position to the given transform's x position, then return this given game object //
-	public static GameObject setPositionX(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setPositionX(transform.positionX(), boolean);
-
+	public static GameObject setPositionXTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setPositionXTo(transform.positionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's x position to the other given game object's x position, then return this given game object //
-	public static GameObject setPositionX(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setPositionX(otherGameObject.positionX(), boolean);
-
+	public static GameObject setPositionXTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setPositionXTo(otherGameObject.positionX(), boolean);
 	// method: (according to the given boolean:) set this given transform's x position to the given component's x position, then return this given game object //
-	public static GameObject setPositionX(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setPositionX(component.positionX(), boolean);
+	public static GameObject setPositionXTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setPositionXTo(component.positionX(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) y position to the given y value, then return this given game object //
-	public static GameObject setPositionY(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.transform.setPositionY(y, boolean).gameObject;
-
+	public static GameObject setPositionYTo(this GameObject gameObject, float y, bool boolean = true)
+		=> gameObject.transform.setPositionYTo(y, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's y position to the given transform's y position, then return this given game object //
-	public static GameObject setPositionY(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setPositionY(transform.positionY(), boolean);
-
+	public static GameObject setPositionYTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setPositionYTo(transform.positionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's y position to the other given game object's y position, then return this given game object //
-	public static GameObject setPositionY(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setPositionY(otherGameObject.positionY(), boolean);
-
+	public static GameObject setPositionYTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setPositionYTo(otherGameObject.positionY(), boolean);
 	// method: (according to the given boolean:) set this given transform's y position to the given component's y position, then return this given game object //
-	public static GameObject setPositionY(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setPositionY(component.positionY(), boolean);
+	public static GameObject setPositionYTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setPositionYTo(component.positionY(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) z position to the given z value, then return this given game object //
-	public static GameObject setPositionZ(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.transform.setPositionZ(z, boolean).gameObject;
+	public static GameObject setPositionZTo(this GameObject gameObject, float z, bool boolean = true)
+		=> gameObject.transform.setPositionZTo(z, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's z position to the given transform's z position, then return this given game object //
-	public static GameObject setPositionZ(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setPositionZ(transform.positionZ(), boolean);
+	public static GameObject setPositionZTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setPositionZTo(transform.positionZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's z position to the other given game object's z position, then return this given game object //
-	public static GameObject setPositionZ(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setPositionZ(otherGameObject.positionZ(), boolean);
+	public static GameObject setPositionZTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setPositionZTo(otherGameObject.positionZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's z position to the given component's z position, then return this given game object //
-	public static GameObject setPositionZ(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setPositionZ(component.positionZ(), boolean);
+	public static GameObject setPositionZTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setPositionZTo(component.positionZ(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) rotation to the given (global) rotation, then return this given game object //
-	public static GameObject setRotation(this GameObject gameObject, Quaternion rotation, bool boolean = true)
-		=> gameObject.transform.setRotation(rotation, boolean).gameObject;
+	public static GameObject setRotationTo(this GameObject gameObject, Quaternion rotation, bool boolean = true)
+		=> gameObject.transform.setRotationTo(rotation, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) rotation to the given transform's (global) rotation, then return this given game object //
-	public static GameObject setRotation(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setRotation(transform.rotation(), boolean);
+	public static GameObject setRotationTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setRotationTo(transform.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) rotation to the other given game object's (global) rotation, then return this given game object //
-	public static GameObject setRotation(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setRotation(otherGameObject.rotation(), boolean);
+	public static GameObject setRotationTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setRotationTo(otherGameObject.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) rotation to the given component's (global) rotation, then return this given game object //
-	public static GameObject setRotation(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setRotation(component.rotation(), boolean);
+	public static GameObject setRotationTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setRotationTo(component.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) euler angles to the given (global) euler angles, then return this given game object //
-	public static GameObject setEulerAngles(this GameObject gameObject, Vector3 eulerAngles, bool boolean = true)
-		=> gameObject.transform.setEulerAngles(eulerAngles, boolean).gameObject;
+	public static GameObject setEulerAnglesTo(this GameObject gameObject, Vector3 eulerAngles, bool boolean = true)
+		=> gameObject.transform.setEulerAnglesTo(eulerAngles, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) euler angles to the (global) euler angles for the given x, y, and z values, then return this given game object //
-	public static GameObject setEulerAngles(this GameObject gameObject, float x, float y, float z, bool boolean = true)
-		=> gameObject.transform.setEulerAngles(x, y, z, boolean).gameObject;
+	public static GameObject setEulerAnglesTo(this GameObject gameObject, float x, float y, float z, bool boolean = true)
+		=> gameObject.transform.setEulerAnglesTo(x, y, z, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) euler angles to the given transform's (global) euler angles, then return this given game object //
-	public static GameObject setEulerAngles(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setEulerAngles(transform.eulerAngles(), boolean);
+	public static GameObject setEulerAnglesTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setEulerAnglesTo(transform.eulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the other given game object's (global) euler angles, then return this given game object //
-	public static GameObject setEulerAngles(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setEulerAngles(otherGameObject.eulerAngles(), boolean);
+	public static GameObject setEulerAnglesTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setEulerAnglesTo(otherGameObject.eulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) euler angles to the given component's (global) euler angles, then return this given game object //
-	public static GameObject setEulerAngles(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setEulerAngles(component.eulerAngles(), boolean);
+	public static GameObject setEulerAnglesTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setEulerAnglesTo(component.eulerAngles(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) x euler angle to the given x value, then return this given game object //
-	public static GameObject setEulerAngleX(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.transform.setEulerAngleX(x, boolean).gameObject;
+	public static GameObject setEulerAngleXTo(this GameObject gameObject, float x, bool boolean = true)
+		=> gameObject.transform.setEulerAngleXTo(x, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) x euler angle to the given transform's (global) x euler angle, then return this given game object //
-	public static GameObject setEulerAngleX(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setEulerAngleX(transform.eulerAngleX(), boolean);
+	public static GameObject setEulerAngleXTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setEulerAngleXTo(transform.eulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) x euler angle to the other given game object's (global) x euler angle, then return this given game object //
-	public static GameObject setEulerAngleX(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setEulerAngleX(otherGameObject.eulerAngleX(), boolean);
+	public static GameObject setEulerAngleXTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setEulerAngleXTo(otherGameObject.eulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) x euler angle to the given component's (global) x euler angle, then return this given game object //
-	public static GameObject setEulerAngleX(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setEulerAngleX(component.eulerAngleX(), boolean);
+	public static GameObject setEulerAngleXTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setEulerAngleXTo(component.eulerAngleX(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) y euler angle to the given y value, then return this given game object //
-	public static GameObject setEulerAngleY(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.transform.setEulerAngleY(y, boolean).gameObject;
+	public static GameObject setEulerAngleYTo(this GameObject gameObject, float y, bool boolean = true)
+		=> gameObject.transform.setEulerAngleYTo(y, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) y euler angle to the given transform's (global) y euler angle, then return this given game object //
-	public static GameObject setEulerAngleY(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setEulerAngleY(transform.eulerAngleY(), boolean);
+	public static GameObject setEulerAngleYTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setEulerAngleYTo(transform.eulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) y euler angle to the other given game object's (global) y euler angle, then return this given game object //
-	public static GameObject setEulerAngleY(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setEulerAngleY(otherGameObject.eulerAngleY(), boolean);
+	public static GameObject setEulerAngleYTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setEulerAngleYTo(otherGameObject.eulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) y euler angle to the given component's (global) y euler angle, then return this given game object //
-	public static GameObject setEulerAngleY(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setEulerAngleY(component.eulerAngleY(), boolean);
+	public static GameObject setEulerAngleYTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setEulerAngleYTo(component.eulerAngleY(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's (global) z euler angle to the given z value, then return this given game object //
-	public static GameObject setEulerAngleZ(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.transform.setEulerAngleZ(z, boolean).gameObject;
+	public static GameObject setEulerAngleZTo(this GameObject gameObject, float z, bool boolean = true)
+		=> gameObject.transform.setEulerAngleZTo(z, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's (global) z euler angle to the given transform's (global) z euler angle, then return this given game object //
-	public static GameObject setEulerAngleZ(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setEulerAngleZ(transform.eulerAngleZ(), boolean);
+	public static GameObject setEulerAngleZTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setEulerAngleZTo(transform.eulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the other given game object's (global) z euler angle, then return this given game object //
-	public static GameObject setEulerAngleZ(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setEulerAngleZ(otherGameObject.eulerAngleZ(), boolean);
+	public static GameObject setEulerAngleZTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setEulerAngleZTo(otherGameObject.eulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the given component's (global) z euler angle, then return this given game object //
-	public static GameObject setEulerAngleZ(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setEulerAngleZ(component.eulerAngleZ(), boolean);
+	public static GameObject setEulerAngleZTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setEulerAngleZTo(component.eulerAngleZ(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) respectively to the given (global) position and (global) rotation //
-	public static GameObject setGlobals(this GameObject gameObject, Vector3 position, Quaternion rotation, bool boolean = true)
-		=> gameObject.transform.setGlobals(position, rotation, boolean).gameObject;
+	public static GameObject setGlobalsTo(this GameObject gameObject, Vector3 position, Quaternion rotation, bool boolean = true)
+		=> gameObject.transform.setGlobalsTo(position, rotation, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) respectively to the given transform's (global) position and (global) rotation //
-	public static GameObject setGlobals(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setGlobals(transform.position, transform.rotation, boolean);
+	public static GameObject setGlobalsTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setGlobalsTo(transform.position, transform.rotation, boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) respectively to the other given game object's (global) position and (global) rotation //
-	public static GameObject setGlobals(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setGlobals(otherGameObject.position(), otherGameObject.rotation(), boolean);
+	public static GameObject setGlobalsTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setGlobalsTo(otherGameObject.position(), otherGameObject.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) respectively to the given component's (global) position and (global) rotation //
-	public static GameObject setGlobals(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setGlobals(component.position(), component.rotation(), boolean);
+	public static GameObject setGlobalsTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setGlobalsTo(component.position(), component.rotation(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global euler angles) respectively to the given (global) position and (global) euler angles //
-	public static GameObject setGlobals(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, bool boolean = true)
-		=> gameObject.transform.setGlobals(position, eulerAngles, boolean).gameObject;
+	public static GameObject setGlobalsTo(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, bool boolean = true)
+		=> gameObject.transform.setGlobalsTo(position, eulerAngles, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) and local scale respectively to the given (global) position and (global) rotation and local scale //
-	public static GameObject setGlobalsAndLocalScale(this GameObject gameObject, Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
-		=> gameObject.transform.setGlobalsAndLocalScale(position, rotation, localScale, boolean).gameObject;
+	public static GameObject setGlobalsAndLocalScaleTo(this GameObject gameObject, Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
+		=> gameObject.transform.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean).gameObject;
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) and local scale respectively to the given transform's (global) position and (global) rotation and local scale //
-	public static GameObject setGlobalsAndLocalScale(this GameObject gameObject, Transform transform, bool boolean = true)
-		=> gameObject.setGlobalsAndLocalScale(transform.position, transform.rotation, transform.localScale, boolean);
+	public static GameObject setGlobalsAndLocalScaleTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.setGlobalsAndLocalScaleTo(transform.position, transform.rotation, transform.localScale, boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) and local scale respectively to the other given game object's (global) position and (global) rotation and local scale //
-	public static GameObject setGlobalsAndLocalScale(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
-		=> gameObject.setGlobalsAndLocalScale(otherGameObject.position(), otherGameObject.rotation(), otherGameObject.localScale(), boolean);
+	public static GameObject setGlobalsAndLocalScaleTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.setGlobalsAndLocalScaleTo(otherGameObject.position(), otherGameObject.rotation(), otherGameObject.localScale(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) and local scale respectively to the given component's (global) position and (global) rotation and local scale //
-	public static GameObject setGlobalsAndLocalScale(this GameObject gameObject, Component component, bool boolean = true)
-		=> gameObject.setGlobalsAndLocalScale(component.position(), component.rotation(), component.localScale(), boolean);
+	public static GameObject setGlobalsAndLocalScaleTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.setGlobalsAndLocalScaleTo(component.position(), component.rotation(), component.localScale(), boolean);
 
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global euler angles) and local scale respectively to the given (global) position and (global) euler angles and local scale //
-	public static GameObject setGlobalsAndLocalScale(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
-		=> gameObject.transform.setGlobalsAndLocalScale(position, eulerAngles, localScale, boolean).gameObject;
+	public static GameObject setGlobalsAndLocalScaleTo(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
+		=> gameObject.transform.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean).gameObject;
 	#endregion setting transformations
 
 
@@ -955,32 +895,24 @@ public static class GameObjectExtensions
 	#endregion advanced rotation
 
 
-	#region distance
+	#region selection
+	
+	// method: return a selection of the transforms for this given enumerable of game objects //
+	public static IEnumerable<Transform> selectTransforms(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.select(gameObject => gameObject.transform);
 
-	// method: return the closest (by position) of the given game objects to this given game object //
-	public static GameObject closestOf(this GameObject gameObject, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.itemWithMin(otherGameObject => gameObject.position().distanceWith(otherGameObject.position()));
+	// method: return an selection of local positions corresponding to this given array of game objects //
+	public static IEnumerable<Vector3> selectLocalPositions(this GameObject[] gameObjects)
+		=> gameObjects.select(gameObject => gameObject.localPosition());
 
-	// method: return the closest (by position) of the given transforms to this given game object //
-	public static Transform closestOf(this GameObject gameObject, IEnumerable<Transform> transforms)
-		=> transforms.itemWithMin(otherTransform => gameObject.position().distanceWith(otherTransform.position));
+	// method: return a selection of local scales corresponding to this given array of game objects //
+	public static IEnumerable<Vector3> selectLocalScales(this GameObject[] gameObjects)
+		=> gameObjects.select(gameObject => gameObject.localScale());
 
-	// method: return the closest of the given positions to this given game object's position //
-	public static Vector3 closestOf(this GameObject gameObject, IEnumerable<Vector3> positions)
-		=> positions.itemWithMin(otherPosition => gameObject.position().distanceWith(otherPosition));
-
-	// method: return the farthest (by position) of the given game objects to this given game object //
-	public static GameObject farthestOf(this GameObject gameObject, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.itemWithMax(otherGameObject => gameObject.position().distanceWith(otherGameObject.position()));
-
-	// method: return the farthest (by position) of the given transforms to this given game object //
-	public static Transform farthestOf(this GameObject gameObject, IEnumerable<Transform> transforms)
-		=> transforms.itemWithMax(otherTransform => gameObject.position().distanceWith(otherTransform.position));
-
-	// method: return the farthest of the given positions to this given game object's position //
-	public static Vector3 farthestOf(this GameObject gameObject, IEnumerable<Vector3> positions)
-		=> positions.itemWithMax(otherPosition => gameObject.position().distanceWith(otherPosition));
-	#endregion distance
+	// method: return a selection of (global) positions corresponding to this given array of game objects //
+	public static IEnumerable<Vector3> selectPositions(this GameObject[] gameObjects)
+		=> gameObjects.select(gameObject => gameObject.position());
+	#endregion selection
 
 
 	#region conversion
@@ -994,43 +926,27 @@ public static class GameObjectExtensions
 	public static GameObject gameObject(this int gameObjectIdee)
 		=> EditorUtility.InstanceIDToObject(gameObjectIdee) as GameObject;
 	#endif
-
-	// method: return an enumerable of the transforms for this given enumerable of game objects //
-	public static IEnumerable<Transform> transforms(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.transform);
-
-	// method: return an array of local positions corresponding to this given array of game objects //
-	public static Vector3[] asLocalPositions(this GameObject[] gameObjects)
-		=> gameObjects.Select(gameObject => gameObject.localPosition()).ToArray();
-
-	// method: return an array of local scales corresponding to this given array of game objects //
-	public static Vector3[] asLocalScales(this GameObject[] gameObjects)
-		=> gameObjects.Select(gameObject => gameObject.localScale()).ToArray();
-
-	// method: return an array of (world) positions corresponding to this given array of game objects //
-	public static Vector3[] asPositions(this GameObject[] gameObjects)
-		=> gameObjects.Select(gameObject => gameObject.position()).ToArray();
 	#endregion conversion
 
 
 	#region child lights
 
 	public static float[] childLightsIntensities(this GameObject gameObject)
-		=> gameObject.GetComponentsInChildren<Light>().intensities();
+		=> gameObject.children<Light>().intensities();
 	
-	public static GameObject setChildLightsIntensities(this GameObject gameObject, float[] targetIntensities)
+	public static GameObject setChildLightsIntensitiesTo(this GameObject gameObject, float[] targetIntensities)
 	{
-		gameObject.GetComponentsInChildren<Light>().setIntensitiesTo(targetIntensities);
+		gameObject.children<Light>().setIntensitiesTo(targetIntensities);
 
 		return gameObject;
 	}
 
-	public static GameObject setChildLightsIntensities(this GameObject gameObject, float targetIntensity)
-		=> gameObject.setChildLightsIntensities(new float[] {targetIntensity});
+	public static GameObject setChildLightsIntensitiesTo(this GameObject gameObject, float targetIntensity)
+		=> gameObject.setChildLightsIntensitiesTo(new float[] {targetIntensity});
 
 	public static GameObject renderChildLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
 	{
-		gameObject.GetComponentsInChildren<Light>().renderBy(lightRenderMode);
+		gameObject.children<Light>().renderBy(lightRenderMode);
 
 		return gameObject;
 	}

@@ -11,14 +11,14 @@ public static class Hierarchy
 	
 	public static readonly string playerName = "Player";
 	
-	public static IEnumerable<Scene> scenes => YieldEach.inCount(SceneManager.sceneCount, sceneIndex =>
+	public static IEnumerable<Scene> selectScenes => Select.forCount(SceneManager.sceneCount, sceneIndex =>
 																	SceneManager.GetSceneAt(sceneIndex));
 
-	public static IEnumerable<GameObject> primogenitorObjects => scenes.selectNested(scene => scene.GetRootGameObjects());
+	public static IEnumerable<GameObject> selectPrimogenitorObjects => selectScenes.selectNested(scene => scene.GetRootGameObjects());
 
-	public static IEnumerable<Transform> primogenitorTransforms => primogenitorObjects.transforms();
+	public static IEnumerable<Transform> selectPrimogenitorTransforms => selectPrimogenitorObjects.selectTransforms();
 
-	public static int primogenitorCount => primogenitorObjects.count();
+	public static int primogenitorCount => selectPrimogenitorObjects.count();
 
 	public static int lastPrimogenitorIndex => primogenitorCount - 1;
 

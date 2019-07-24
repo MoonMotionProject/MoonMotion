@@ -32,7 +32,7 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 	#endregion destruction
 
 
-	#region selection
+	#region hierarchy selection
 	#if UNITY_EDITOR
 
 	public bool selected => gameObject.selected();
@@ -129,11 +129,11 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 
 	public float[] childLightsIntensities => gameObject.childLightsIntensities();
 
-	public GameObject setChildLightsIntensities(float[] targetIntensities)
-		=> gameObject.setChildLightsIntensities(targetIntensities);
+	public GameObject setChildLightsIntensitiesTo(float[] targetIntensities)
+		=> gameObject.setChildLightsIntensitiesTo(targetIntensities);
 
-	public GameObject setChildLightsIntensities(float targetIntensity)
-		=> gameObject.setChildLightsIntensities(targetIntensity);
+	public GameObject setChildLightsIntensitiesTo(float targetIntensity)
+		=> gameObject.setChildLightsIntensitiesTo(targetIntensity);
 
 	public GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
 		=> gameObject.renderChildLightsBy(lightRenderMode);

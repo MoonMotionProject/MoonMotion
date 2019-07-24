@@ -54,12 +54,12 @@ public class Powerup : AutomaticBehaviour<Powerup>
 	protected virtual void takeOutAudios()
 	{
 		// take out the child Powerup Bump Audio (to be parallel in the hierarchy to this powerup) //
-		bumpAudio.setParent(parent);
+		bumpAudio.setParentTo(parent);
 		// rename the Powerup Bump Audio's object //
 		bumpAudio.name = "Powerup "+bumpAudio.name;
 
 		// take out the child Powerup Pickup Audio (to be parallel in the hierarchy to this powerup) //
-		pickupAudio.setParent(parent);
+		pickupAudio.setParentTo(parent);
 		// rename the Powerup Pickup Audio's object //
 		pickupAudio.name = "Powerup "+pickupAudio.name;
 	}
@@ -68,12 +68,12 @@ public class Powerup : AutomaticBehaviour<Powerup>
 	protected virtual void bringBackAudios()
 	{
 		// return the Powerup Bump Audio (that is parallel in the hierarchy to this powerup) to being the child of this powerup //
-		bumpAudio.setParent(transform);
+		bumpAudio.setParentTo(transform);
 		// return the Powerup Bump Audio object's name to what it was named before //
 		bumpAudio.name = originalBumpAudioName;
 		
 		// return the Powerup Pickup Audio (that is parallel in the hierarchy to this powerup) to being the child of this powerup //
-		pickupAudio.setParent(transform);
+		pickupAudio.setParentTo(transform);
 		// return the Powerup Pickup Audio object's name to what it was named before //
 		pickupAudio.name = originalPickupAudioName;
 	}

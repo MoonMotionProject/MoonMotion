@@ -8,7 +8,7 @@ using UnityEngine;
 // #enumerable-e
 public static class ArrayExtensions
 {
-	// methods for: iteration //
+	#region iteration
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given array, then return this given array //
 	public static TItem[] forEach<TItem>(this TItem[] array, Action<TItem> action, bool boolean = true)
@@ -31,11 +31,13 @@ public static class ArrayExtensions
 					ForEach.inCount(width, x =>
 						ForEach.inCount(height, y =>
 							array[Dimensionality.encode2DTo1D(x, y, width)] = function(x, y))));
+	#endregion iteration
 
 
-	// methods for: casting //
+	#region casting
 
 	// method: return this given array of objects cast to the specified class of array (however, there is no guarantee that the given array of objects can be cast to the specified class of array) //
 	public static TCast[] castTo<TCast>(this object[] array)
 		=> Array.ConvertAll(array, object_ => object_.castTo<TCast>());
+	#endregion casting
 }

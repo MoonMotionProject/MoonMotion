@@ -18,6 +18,6 @@ public abstract class	SingletonBehaviourLayerCachedComponents<SingletonBehaviour
 		=> automaticBehaviour.cache<ComponentT>(addComponentIfNoneFound);
 
 	// method: untrack the cached components for this game object, then return the cached component dictionary for this game object //
-	public static new bool uncache()
-		=> automaticBehaviour.uncache();
+	public static new bool tryToUncache()
+		=> automaticBehaviour.tryToUncache();
 }

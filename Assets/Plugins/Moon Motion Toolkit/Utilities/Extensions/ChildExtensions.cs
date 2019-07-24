@@ -75,6 +75,17 @@ public static class ChildExtensions
 	public static GameObject lastChildObject(this Component component)
 		=> component.transform.lastChildObject();
 
+	public static IEnumerable<Transform> selectChildTransforms(this Transform transform)
+	{
+		foreach (Transform childTransform in transform)
+		{
+			yield return childTransform;
+		}
+	}
+	public static IEnumerable<Transform> selectChildTransforms(this GameObject gameObject)
+		=> gameObject.transform.selectChildTransforms();
+	public static IEnumerable<Transform> selectChildTransforms(this Component component)
+		=> component.transform.selectChildTransforms();
 	public static Transform[] childTransforms(this Transform transform)
 	{
 		Transform[] array = new Transform[transform.childCount];
@@ -91,6 +102,17 @@ public static class ChildExtensions
 	public static Transform[] childTransforms(this Component component)
 		=> component.transform.childTransforms();
 
+	public static IEnumerable<GameObject> selectChildObjects(this Transform transform)
+	{
+		foreach (Transform childTransform in transform)
+		{
+			yield return childTransform.gameObject;
+		}
+	}
+	public static IEnumerable<GameObject> selectChildObjects(this GameObject gameObject)
+		=> gameObject.transform.selectChildObjects();
+	public static IEnumerable<GameObject> selectChildObjects(this Component component)
+		=> component.transform.selectChildObjects();
 	public static GameObject[] childObjects(this Transform transform)
 	{
 		GameObject[] array = new GameObject[transform.childCount];
@@ -238,11 +260,20 @@ public static class ChildExtensions
 	// method: return the index of the last child of this given game object //
 	public static int lastChildIndex(this Component component)
 		=> component.transform.lastChildIndex();
+	
+	// method: (according to the given boolean:) invoke the given action on each child transform of this given transform, then return this given transform //
+	public static Transform forEachChildTransform(this Transform transform, Action<Transform> action, bool boolean = true)
+	{
+		if (boolean)
+		{
+			foreach (Transform childTransform in transform)
+			{
+				action(childTransform);
+			}
+		}
 
-	// method: invoke the given action on each child transform of this given transform, then return this given transform //
-	public static Transform forEachChildTransform(this Transform transform, Action<Transform> action)
-		=> transform.after(() =>
-			transform.asEnumerable().forEach(action));
+		return transform;
+	}
 	// method: invoke the given action on each child transform of this given game object, then return this given game object //
 	public static GameObject forEachChildTransform(this GameObject gameObject, Action<Transform> action)
 		=> gameObject.transform.forEachChildTransform(action).gameObject;

@@ -152,10 +152,10 @@ public static class FloatExtensions
 		=> Mathf.Abs(float_);
 
 	public static float withSign(this float float_, bool booleanForSign)
-		=> (float_.magnitude() * booleanForSign.asSign());
+		=> (float_.magnitude() * booleanForSign.toInteger());
 
 	public static float timesSign(this float float_, bool booleanForSign)
-		=> (float_ * booleanForSign.asSign());
+		=> (float_ * booleanForSign.toInteger());
 
 
 	// methods for: math operations //
@@ -228,8 +228,8 @@ public static class FloatExtensions
 		=> (int) float_;
 
 	// method: return the sign integer for this given float //
-	public static int asSign(this float float_)
-		=> float_.asInteger().asSign();
+	public static int toInteger(this float float_)
+		=> float_.asInteger().toInteger();
 
 	// method: return the double for this given float //
 	public static double asDouble(this float float_)

@@ -7,10 +7,10 @@ public static class LightExtensions
 {
 	// methods for: intensities //
 
-	public static float[] intensities(this Light[] lights)
+	public static float[] intensities<IListT>(this IListT lights) where IListT : IList<Light>
 	{
-		float[] childLightIntensities = new float[lights.Length];
-		for (int childLightIndex = 0; childLightIndex < lights.Length; childLightIndex++)
+		float[] childLightIntensities = new float[lights.Count];
+		for (int childLightIndex = 0; childLightIndex < lights.Count; childLightIndex++)
 		{
 			childLightIntensities[childLightIndex] = lights[childLightIndex].intensity;
 		}
@@ -24,7 +24,7 @@ public static class LightExtensions
 		return light;
 	}
 
-	public static Light[] setIntensitiesTo(this Light[] lights, float targetIntensity)
+	public static IEnumerableT setIntensitiesTo<IEnumerableT>(this IEnumerableT lights, float targetIntensity) where IEnumerableT : IEnumerable<Light>
 	{
 		foreach (Light light in lights)
 		{
@@ -34,9 +34,9 @@ public static class LightExtensions
 		return lights;
 	}
 
-	public static Light[] setIntensitiesTo(this Light[] lights, float[] targetIntensities)
+	public static IListT setIntensitiesTo<IListT>(this IListT lights, float[] targetIntensities) where IListT : IList<Light>
 	{
-		for (int childLightIndex = 0; childLightIndex < lights.Length; childLightIndex++)
+		for (int childLightIndex = 0; childLightIndex < lights.Count; childLightIndex++)
 		{
 			lights[childLightIndex].setIntensityTo(targetIntensities[childLightIndex % targetIntensities.Length]);
 		}
@@ -54,7 +54,7 @@ public static class LightExtensions
 		return light;
 	}
 
-	public static Light[] renderBy(this Light[] lights, LightRenderMode lightRenderMode)
+	public static IEnumerableT renderBy<IEnumerableT>(this IEnumerableT lights, LightRenderMode lightRenderMode) where IEnumerableT : IEnumerable<Light>
 	{
 		lights.forEach(light => light.renderBy(lightRenderMode));
 
@@ -64,12 +64,12 @@ public static class LightExtensions
 	public static Light renderByPixel(this Light light)
 		=> light.renderBy(LightRenderMode.ForcePixel);
 
-	public static Light[] renderByPixel(this Light[] lights)
+	public static IEnumerableT renderByPixel<IEnumerableT>(this IEnumerableT lights) where IEnumerableT : IEnumerable<Light>
 		=> lights.renderBy(LightRenderMode.ForcePixel);
 
 	public static Light renderByVertex(this Light light)
 		=> light.renderBy(LightRenderMode.ForceVertex);
 
-	public static Light[] renderByVertex(this Light[] lights)
+	public static IEnumerableT renderByVertex<IEnumerableT>(this IEnumerableT lights) where IEnumerableT : IEnumerable<Light>
 		=> lights.renderBy(LightRenderMode.ForceVertex);
 }

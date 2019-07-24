@@ -22,7 +22,7 @@ public static class ValidationPendingExtensions
 	
 	// method: unpend validation for this given game object, then return this given game object //
 	public static GameObject unpendValidation(this GameObject gameObject)
-		=> gameObjectsPendingValidation.remove(gameObject);
+		=> gameObjectsPendingValidation.removeGet(gameObject);
 	
 	// method: (if this given game object exists and the given boolean is true:) pend validation for this given game object, then return this given game object //
 	public static GameObject pendValidation(this GameObject gameObject, bool boolean = true)

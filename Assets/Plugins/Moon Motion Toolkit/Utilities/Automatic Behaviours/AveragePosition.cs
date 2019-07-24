@@ -20,5 +20,5 @@ public class AveragePosition : AutomaticBehaviour<AveragePosition>
 	// at each update: //
 	protected virtual void Update()
 		// set this transform's position to be the average position of the connected transforms //
-		=> setPosition(transforms.averagePosition());
+		=> setPositionTo(transforms.averagePosition());
 }

@@ -107,10 +107,10 @@ public static class IntegerExtensions
 		=> Mathf.Abs(integer);
 
 	public static int withSign(this int integer, bool booleanForSign)
-		=> (integer.magnitude() * booleanForSign.asSign());
+		=> (integer.magnitude() * booleanForSign.toInteger());
 
 	public static int timesSign(this int integer, bool booleanForSign)
-		=> (integer * booleanForSign.asSign());
+		=> (integer * booleanForSign.toInteger());
 
 
 	// methods for: distance //
@@ -148,7 +148,7 @@ public static class IntegerExtensions
 		=> integer;
 
 	// method: return the sign integer for this given integer //
-	public static int asSign(this int integer)
+	public static int toInteger(this int integer)
 		=> (integer.positive() ? 1 : integer.negative() ? -1 : 0);
 
 	// method: return the boolean for this given integer //

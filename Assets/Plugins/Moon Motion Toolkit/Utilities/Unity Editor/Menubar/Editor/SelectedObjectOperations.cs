@@ -28,6 +28,17 @@ public static class SelectedObjectOperations
 	#endregion operating selections
 
 
+	#region operation methods for: transformations
+
+	[MenuItem("Selected Object/Reset Transformations %#r")]
+	public static void resetTransformations()
+		=> pingSelectedGameObject().resetGlobalsAndLocalScale();
+	[MenuItem("Selected Object/Reset Transformations %#r", true)]
+	public static bool resetTransformations_Validator()
+		=> selectedGameObject;
+	#endregion operation methods for: transformations
+
+
 	#region operation methods for: child lights
 
 	[MenuItem("Selected Object/Render Child Lights By Pixel")]

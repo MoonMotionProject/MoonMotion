@@ -16,7 +16,6 @@ public static class ParticlesSystemExtensions
 	// method: get the color of the current first particle of this given particles system //
 	public static Color colorOfFirstParticle(this ParticleSystem particlesSystem)
 		=> particlesSystem.firstParticle().colorAsPartOf(particlesSystem);
-
 	// method: get the alpha (from 0 to 1) of the current first particle of this given particles system //
 	public static float alphaOfFirstParticle(this ParticleSystem particlesSystem)
 		=> particlesSystem.firstParticle().alphaAsPartOf(particlesSystem);
@@ -35,7 +34,6 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
-
 	// method: (according to the given boolean:) have this given particles system play, then return this given particles system //
 	public static ParticleSystem play(this ParticleSystem particlesSystem, bool boolean = true)
 	{
@@ -49,7 +47,6 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
-
 	// method: (according to the given boolean:) have this given particles system restart, then return this given particles system //
 	public static ParticleSystem restart(this ParticleSystem particlesSystem, bool boolean = true)
 	{
@@ -60,7 +57,6 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
-
 	// method: (according to the given boolean:) have this given particles system stop, then return this given particles system //
 	public static ParticleSystem stop(this ParticleSystem particlesSystem, bool boolean = true)
 	{
@@ -76,42 +72,34 @@ public static class ParticlesSystemExtensions
 	}
 
 	// method: have all of these given particles systems play or stop according to the given boolean, then return these given particles systems //
-	public static ParticleSystem[] togglePlaying(this ParticleSystem[] particlesSystems, bool boolean)
+	public static IEnumerableT togglePlaying<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean) where IEnumerableT : IEnumerable<ParticleSystem>
 	{
-		particlesSystems.forEach(particlesSystem => particlesSystem.togglePlaying(boolean));
+		particlesSystems.forEach(particlesSystem =>
+			particlesSystem.togglePlaying(boolean));
 
 		return particlesSystems;
 	}
-
 	// method: (according to the given boolean:) have all of these given particles systems play, then return these given particles systems //
-	public static ParticleSystem[] play(this ParticleSystem[] particlesSystems, bool boolean = true)
+	public static IEnumerableT play<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean = true) where IEnumerableT : IEnumerable<ParticleSystem>
 	{
-		if (boolean)
-		{
-			particlesSystems.play();
-		}
+		particlesSystems.forEach(particlesSystem =>
+			particlesSystem.play(boolean));
 
 		return particlesSystems;
 	}
-
 	// method: (according to the given boolean:) have all of these given particles systems restart, then return these given particles systems //
-	public static ParticleSystem[] restart(this ParticleSystem[] particlesSystems, bool boolean = true)
+	public static IEnumerableT restart<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean = true) where IEnumerableT : IEnumerable<ParticleSystem>
 	{
-		if (boolean)
-		{
-			particlesSystems.restart();
-		}
+		particlesSystems.forEach(particlesSystem =>
+			particlesSystem.restart(boolean));
 
 		return particlesSystems;
 	}
-
 	// method: (according to the given boolean:) have all of these given particles systems stop, then return these given particles systems //
-	public static ParticleSystem[] stop(this ParticleSystem[] particlesSystems, bool boolean = true)
+	public static IEnumerableT stop<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean = true) where IEnumerableT : IEnumerable<ParticleSystem>
 	{
-		if (boolean)
-		{
-			particlesSystems.stop();
-		}
+		particlesSystems.forEach(particlesSystem =>
+			particlesSystem.stop(boolean));
 
 		return particlesSystems;
 	}

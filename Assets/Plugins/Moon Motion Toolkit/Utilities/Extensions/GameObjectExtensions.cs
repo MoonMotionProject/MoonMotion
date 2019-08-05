@@ -963,21 +963,21 @@ public static class GameObjectExtensions
 
 	public static GameObject togglePlayingChildParticlesSystems(this GameObject gameObject, bool boolean)
 	{
-		gameObject.GetComponentsInChildren<ParticleSystem>().togglePlaying(boolean);
+		gameObject.children<ParticleSystem>().togglePlaying(boolean);
 
 		return gameObject;
 	}
 
 	public static GameObject playChildParticlesSystems(this GameObject gameObject, bool boolean)
 	{
-		gameObject.GetComponentsInChildren<ParticleSystem>().play(boolean);
+		gameObject.children<ParticleSystem>().play(boolean);
 
 		return gameObject;
 	}
 
 	public static GameObject stopChildParticlesSystems(this GameObject gameObject, bool boolean)
 	{
-		gameObject.GetComponentsInChildren<ParticleSystem>().stop(boolean);
+		gameObject.children<ParticleSystem>().stop(boolean);
 
 		return gameObject;
 	}

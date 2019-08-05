@@ -62,10 +62,7 @@ public static class ParticlesSystemExtensions
 	{
 		if (boolean)
 		{
-			if (particlesSystem.isPlaying)
-			{
-				particlesSystem.Stop();
-			}
+			particlesSystem.Stop();
 		}
 
 		return particlesSystem;

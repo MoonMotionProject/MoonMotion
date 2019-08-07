@@ -69,19 +69,19 @@ public class HandHoldingTracker : AutomaticBehaviour<HandHoldingTracker>
 
 	// method: determine whether any interactables are held by this hand holding tracker's hand //
 	public bool anyHeldInteractables()
-		=> heldInteractables().any();
+		=> Any.itemsIn(heldInteractables());
 
 	// method: determine whether any interactables are held by the left hand //
 	public static bool anyHeldInteractablesLeft()
-		=> heldInteractablesLeft().any();
+		=> Any.itemsIn(heldInteractablesLeft());
 
 	// method: determine whether any interactables are held by the right hand //
 	public static bool anyHeldInteractablesRight()
-		=> heldInteractablesRight().any();
+		=> Any.itemsIn(heldInteractablesRight());
 
 	// method: determine whether any interactables are held by the both of the hands //
 	public static bool anyHeldInteractablesEither()
-		=> heldInteractablesBoth().any();
+		=> Any.itemsIn(heldInteractablesBoth());
 
 	// method: determine whether any interactables were held within the given time ago by this hand holding tracker's hand //
 	public bool anyHeldInteractablesWithin(float timeAgo)

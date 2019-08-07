@@ -74,7 +74,7 @@ public class BoosterJetAudio : MonoBehaviour
 	private void Update()
 	{
 		// adjusting volume - for boosting and dependencies met //
-		if (booster.boosting && audioDependencies.met())
+		if (booster.boosting && audioDependencies.areMet())
 		{
 			// initializing volume //
 			float targetVolume = audioComponent.volume;

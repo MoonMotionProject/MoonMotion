@@ -123,7 +123,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 	private void Update()
 	{
 		// for being enabled: adjusting volume and time, aesthetics cycling, vision coloring //
-		if (motivating && dependencies.met())
+		if (motivating && dependencies.areMet())
 		{
 			float maxVolumeToUse = (audioIncreasingEnabled ? volumeMax : volumeMin);
 
@@ -148,7 +148,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 
 				if (visionColoring)
 				{
-					Color colorToFadeTo = ((colors.any()) ? (colorsGoInOrder ? colors[colorIndex] : colors[Random.Range(0, colors.Length)]) : Random.ColorHSV(0f, 1f, 1f, 1f, 0f, 1f, randomVisionColoringOpacity, randomVisionColoringOpacity));
+					Color colorToFadeTo = ((Any.itemsIn(colors)) ? (colorsGoInOrder ? colors[colorIndex] : colors[Random.Range(0, colors.Length)]) : Random.ColorHSV(0f, 1f, 1f, 1f, 0f, 1f, randomVisionColoringOpacity, randomVisionColoringOpacity));
 
 					if ((Time.time - timeOfLastFade) > fadingInterval)
 					{
@@ -157,7 +157,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 						timeOfLastFade = Time.time;
 					}
 
-					if ((colors.any()) && colorsGoInOrder)
+					if (Any.itemsIn(colors) && colorsGoInOrder)
 					{
 						colorIndex++;
 						if (colorIndex >= colors.Length)

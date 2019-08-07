@@ -131,38 +131,4 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 		=> automaticBehaviour.pendValidation();
 	#endif
 	#endregion validation pending
-
-
-	#region child lights
-
-	public static new float[] childLightsIntensities => automaticBehaviour.childLightsIntensities;
-
-	public static new GameObject setChildLightsIntensitiesTo(float[] targetIntensities)
-		=> automaticBehaviour.setChildLightsIntensitiesTo(targetIntensities);
-
-	public static new GameObject setChildLightsIntensitiesTo(float targetIntensity)
-		=> automaticBehaviour.setChildLightsIntensitiesTo(targetIntensity);
-
-	public static new GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
-		=> automaticBehaviour.renderChildLightsBy(lightRenderMode);
-
-	public static new GameObject renderChildLightsByPixel()
-		=> automaticBehaviour.renderChildLightsByPixel();
-
-	public static new GameObject renderChildLightsByVertex()
-		=> automaticBehaviour.renderChildLightsByVertex();
-	#endregion child lights
-
-
-	#region child particles systems
-
-	public static new GameObject togglePlayingChildParticlesSystems(bool boolean)
-		=> automaticBehaviour.togglePlayingChildParticlesSystems(boolean);
-
-	public static new GameObject playChildParticlesSystems(bool boolean)
-		=> automaticBehaviour.playChildParticlesSystems(boolean);
-
-	public static new GameObject stopChildParticlesSystems(bool boolean)
-		=> automaticBehaviour.stopChildParticlesSystems(boolean);
-	#endregion child particles systems
 }

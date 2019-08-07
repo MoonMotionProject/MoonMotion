@@ -64,7 +64,7 @@ public class JumpingSettings : SingletonBehaviour<JumpingSettings>
 
 	// method: determine whether midair jumping is available (considering: whether it is allowed, whether the midair jumping dependencies are met, the tracked number of midair jumps the player has remaining) //
 	public bool midairJumpingAvailable_()
-		=> (midairJumpingAllowed && midairJumpingDependencies.met() && ((midairJumpsCount > 0) || (midairJumpsCount == -1)));
+		=> (midairJumpingAllowed && midairJumpingDependencies.areMet() && ((midairJumpsCount > 0) || (midairJumpsCount == -1)));
 
 	// method: determine whether midair jumping is available (considering: whether it is allowed, whether the midair jumping dependencies are met, the tracked number of midair jumps the player has remaining) //
 	public static bool midairJumpingAvailable()

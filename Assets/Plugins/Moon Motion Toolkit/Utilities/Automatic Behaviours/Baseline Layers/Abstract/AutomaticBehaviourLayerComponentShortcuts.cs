@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 // Automatic Behaviour Layer Component Shortcuts:
 // #auto #shortcuts
-// • provides this behaviour with automatically-connected state and methods (recursively) of its game object's components
+// • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' components
 public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehaviourT> :
 					AutomaticBehaviourLayerComponents<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
@@ -144,7 +144,29 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 	public AudioSource setAudioTimeTo(float targetTime, bool boolean = true)
 		=> audioSource.setTimeTo(targetTime, boolean);
 	#endregion playing
+
+	#region child audio sources
+	public List<float> childAudioVolumes => gameObject.childAudioVolumes();
+	public GameObject setChildAudioVolumesTo(IList<float> targetVolumes)
+		=> gameObject.setChildAudioVolumesTo(targetVolumes);
+	#endregion child audio sources
 	#endregion AudioSource
+
+
+	#region ParticleSystem
+
+	#region child particles systems
+
+	public GameObject togglePlayingChildParticlesSystems(bool boolean)
+		=> gameObject.togglePlayingChildParticlesSystems(boolean);
+
+	public GameObject playChildParticlesSystems(bool boolean)
+		=> gameObject.playChildParticlesSystems(boolean);
+
+	public GameObject stopChildParticlesSystems(bool boolean)
+		=> gameObject.stopChildParticlesSystems(boolean);
+	#endregion child particles systems
+	#endregion ParticleSystem
 
 
 	#region MeshFilter
@@ -165,6 +187,20 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 	public Light setLightIntensityTo(float targetIntensity)
 		=> light.setIntensityTo(targetIntensity);
 	#endregion intensities
+	
+	#region child lights
+	public List<float> childLightIntensities => gameObject.childLightIntensities();
+	public GameObject setChildLightIntensitiesTo(IList<float> targetIntensities)
+		=> gameObject.setChildLightIntensitiesTo(targetIntensities);
+	public GameObject setChildLightIntensitiesTo(float targetIntensity)
+		=> gameObject.setChildLightIntensitiesTo(targetIntensity);
+	public GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
+		=> gameObject.renderChildLightsBy(lightRenderMode);
+	public GameObject renderChildLightsByPixel()
+		=> gameObject.renderChildLightsByPixel();
+	public GameObject renderChildLightsByVertex()
+		=> gameObject.renderChildLightsByVertex();
+	#endregion child lights
 	#endregion Light
 	#endregion Unity
 

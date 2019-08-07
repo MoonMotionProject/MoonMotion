@@ -49,7 +49,7 @@ public class BoosterLaserer : BoosterModuleControllableToggleable
 	// method: determine whether this booster's laserer is currently lasering //
 	public bool boosterLasering()
 	{
-		return (lasering && dependencies.met());
+		return (lasering && dependencies.areMet());
 	}
 	// method: determine whether the given booster's laserer is currently lasering //
 	public static bool laseringBooster(Booster booster)

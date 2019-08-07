@@ -1528,7 +1528,7 @@ public class Controller : MonoBehaviour
 	// method: determine whether the given operation is currently operated at the given state of being (first requires the operation to accept either the given state of being, or no state of beings) //
 	public static bool operated(ControllerOperation operation, Beingness beingness)
 	{
-		if (!(operation.beingnesses.Contains(beingness) || operation.beingnesses.empty()))
+		if (!(operation.beingnesses.Contains(beingness) || operation.beingnesses.isEmpty()))
 		{
 			return false;
 		}
@@ -1708,7 +1708,7 @@ public class Controller : MonoBehaviour
 	// method: determine the set of controllers for which the given operation is currently operated at the given state of being (first requires the operation to accept either the given state of being, or no state of beings) //
 	public static HashSet<Controller> operatedControllers(ControllerOperation operation, Beingness beingness)
 	{
-		if (!(operation.beingnesses.Contains(beingness) || operation.beingnesses.empty()))
+		if (!(operation.beingnesses.Contains(beingness) || operation.beingnesses.isEmpty()))
 		{
 			return new HashSet<Controller>();
 		}

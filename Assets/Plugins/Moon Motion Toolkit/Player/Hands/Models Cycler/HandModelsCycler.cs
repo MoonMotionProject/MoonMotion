@@ -325,7 +325,7 @@ public class HandModelsCycler : MonoBehaviour
 	private void Update()
 	{
 		// if: input is enabled, the input dependencies are met, input is pressing: //
-		if (inputEnabled && inputDependencies.met() && controller.inputPressing(inputs))
+		if (inputEnabled && inputDependencies.areMet() && controller.inputPressing(inputs))
 		{
 			// advance the cycle – globally if set to do so //
 			if (globallyCycle)

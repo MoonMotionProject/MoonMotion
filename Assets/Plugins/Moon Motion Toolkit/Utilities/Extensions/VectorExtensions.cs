@@ -8,32 +8,26 @@ public static class VectorExtensions
 {
 	// methods for: accessing //
 
+	// method: return the selection of x values of these given vectors //
+	public static IEnumerable<float> selectXValues(this IEnumerable<Vector3> vectors)
+		=> vectors.select(vector => vector.x);
 	// method: return the list of x values of these given vectors //
 	public static List<float> xValues(this IEnumerable<Vector3> vectors)
 		=> vectors.selectXValues().manifest();
 
+	// method: return the selection of y values of these given vectors //
+	public static IEnumerable<float> selectYValues(this IEnumerable<Vector3> vectors)
+		=> vectors.select(vector => vector.y);
 	// method: return the list of y values of these given vectors //
 	public static List<float> yValues(this IEnumerable<Vector3> vectors)
 		=> vectors.selectYValues().manifest();
 
-	// method: return the list of z values of these given vectors //
-	public static List<float> zValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectZValues().manifest();
-
-
-	// methods for: selection //
-
-	// method: return the selection of x values of these given vectors //
-	public static IEnumerable<float> selectXValues(this IEnumerable<Vector3> vectors)
-		=> vectors.select(vector => vector.x);
-
-	// method: return the selection of y values of these given vectors //
-	public static IEnumerable<float> selectYValues(this IEnumerable<Vector3> vectors)
-		=> vectors.select(vector => vector.y);
-
 	// method: return the selection of z values of these given vectors //
 	public static IEnumerable<float> selectZValues(this IEnumerable<Vector3> vectors)
 		=> vectors.select(vector => vector.z);
+	// method: return the list of z values of these given vectors //
+	public static List<float> zValues(this IEnumerable<Vector3> vectors)
+		=> vectors.selectZValues().manifest();
 
 
 	// methods for: vectrals //
@@ -173,6 +167,6 @@ public static class VectorExtensions
 		=> new Vector(floatsVector.x, floatsVector.y, floatsVector.z);
 
 	// method: return the floats vector corresponding to this given doubles vector //
-	public static Vector3 asFloatsVector(this Vector doublesVector)
-		=> new Vector3(doublesVector.x.asFloat(), doublesVector.y.asFloat(), doublesVector.z.asFloat());
+	public static Vector3 toFloatsVector(this Vector doublesVector)
+		=> new Vector3(doublesVector.x.toFloat(), doublesVector.y.toFloat(), doublesVector.z.toFloat());
 }

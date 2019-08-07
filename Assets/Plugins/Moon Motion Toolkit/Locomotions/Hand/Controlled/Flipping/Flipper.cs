@@ -126,7 +126,7 @@ public class Flipper : HandLocomotionControlled
 	private void Update()
 	{
 		// if: input is enabled, the input dependencies are met, input is pressing: //
-		if (locomotionInputEnabled && locomotionDependencies.met() && controller.inputPressing(inputsLocomotion))
+		if (locomotionInputEnabled && locomotionDependencies.areMet() && controller.inputPressing(inputsLocomotion))
 		{
 			// flip the player //
 			flip();

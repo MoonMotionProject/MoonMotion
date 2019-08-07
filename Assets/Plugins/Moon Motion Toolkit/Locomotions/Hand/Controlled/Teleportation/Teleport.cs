@@ -1032,14 +1032,14 @@ namespace Valve.VR.InteractionSystem
 
 			if (handType == Hand.HandType.Left)
 			{
-				if (!Teleporter.left || !Teleporter.left.enabled || !Teleporter.left.gameObject || !Teleporter.left.gameObject.activeSelf || !Teleporter.left.locomotionDependencies.met())
+				if (!Teleporter.left || !Teleporter.left.enabled || !Teleporter.left.gameObject || !Teleporter.left.gameObject.activeSelf || !Teleporter.left.locomotionDependencies.areMet())
 				{
 					return false;
 				}
 			}
 			else
 			{
-				if (!Teleporter.right || !Teleporter.right.enabled || !Teleporter.right.gameObject || !Teleporter.right.gameObject.activeSelf || !Teleporter.right.locomotionDependencies.met())
+				if (!Teleporter.right || !Teleporter.right.enabled || !Teleporter.right.gameObject || !Teleporter.right.gameObject.activeSelf || !Teleporter.right.locomotionDependencies.areMet())
 				{
 					return false;
 				}

@@ -49,7 +49,7 @@ public class BoosterFallDampener : BoosterModuleControllableToggleable
 	// method: determine whether this booster is currently fall dampened //
 	public bool fallDampenedBooster()
 	{
-		return (dampenFalling && dependencies.met());
+		return (dampenFalling && dependencies.areMet());
 	}
 	// method: determine whether the given booster is currently fall dampened //
 	public static bool fallDampened(Booster booster)

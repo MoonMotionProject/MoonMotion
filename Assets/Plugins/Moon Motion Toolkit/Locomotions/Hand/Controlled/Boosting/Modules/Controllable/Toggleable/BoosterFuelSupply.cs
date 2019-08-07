@@ -61,7 +61,7 @@ public class BoosterFuelSupply : BoosterModuleControllableToggleable
 	// method: determine whether this booster's supply is currently enabled //
 	public bool enabledSupply()
 	{
-		return (supplyEnabled && dependencies.met());
+		return (supplyEnabled && dependencies.areMet());
 	}
 	// method: determine whether the given booster's supply is currently enabled //
 	public static bool enabledSupply(Booster booster)

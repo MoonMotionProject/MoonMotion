@@ -54,7 +54,7 @@ public class BoosterRelativizer : BoosterModuleControllableToggleable
 	// method: determine whether this booster's relativity transform is currently alternated //
 	public bool boosterRelativityTransformAlternated()
 	{
-		return (alternated && dependencies.met());
+		return (alternated && dependencies.areMet());
 	}
 	// method: determine the current relativity transform to use for the given booster //
 	public static Transform relativityTransform(Booster booster)

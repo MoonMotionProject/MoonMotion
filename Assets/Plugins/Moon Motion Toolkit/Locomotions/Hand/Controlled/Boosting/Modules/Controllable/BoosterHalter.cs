@@ -46,7 +46,7 @@ public class BoosterHalter : BoosterModuleControllable
 	private void Update()
 	{
 		// if: the dependencies are met, input is enabled, input is pressed: //
-		if (other.dependencies.met() && inputEnabled && controller.inputPressed(inputs))
+		if (other.dependencies.areMet() && inputEnabled && controller.inputPressed(inputs))
 		{
 			// halt //
 			halting = true;
@@ -64,7 +64,7 @@ public class BoosterHalter : BoosterModuleControllable
 			}
 		}
 		// otherwise (if input is not pressed) and if the other halter is not halting globally: //
-		else if (!(other && other.haltsGlobally && other.dependencies.met() && other.inputEnabled && other.controller && other.controller.inputPressed(other.inputs)))
+		else if (!(other && other.haltsGlobally && other.dependencies.areMet() && other.inputEnabled && other.controller && other.controller.inputPressed(other.inputs)))
 		{
 			// don't halt //
 			halting = false;

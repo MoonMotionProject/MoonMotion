@@ -50,7 +50,7 @@ public class BoosterJetParticlesToggled : BoosterJetParticles
 		if (booster && emitter)        // (so long as the booster and the emitter actually exist)
 		{
 			// if: the booster is an enabled aesthetic, the dependencies are met, the booster is boosting as necessary: //
-			if (aestheticEnabled && dependencies.met())
+			if (aestheticEnabled && dependencies.areMet())
 			{
 				playEmission();
 			}

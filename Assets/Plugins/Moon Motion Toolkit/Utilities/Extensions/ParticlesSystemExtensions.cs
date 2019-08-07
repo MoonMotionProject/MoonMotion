@@ -5,6 +5,8 @@ using UnityEngine;
 // Particles System Extensions: provides extension methods for handling particles systems //
 public static class ParticlesSystemExtensions
 {
+	#region particles systems
+
 	// method: get the current first particle of this given particles system //
 	public static ParticleSystem.Particle firstParticle(this ParticleSystem particlesSystem)
 	{
@@ -100,4 +102,30 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystems;
 	}
+	#endregion particles systems
+
+
+	#region child particles systems
+
+	public static GameObject togglePlayingChildParticlesSystems(this GameObject gameObject, bool boolean)
+	{
+		gameObject.children<ParticleSystem>().togglePlaying(boolean);
+
+		return gameObject;
+	}
+
+	public static GameObject playChildParticlesSystems(this GameObject gameObject, bool boolean)
+	{
+		gameObject.children<ParticleSystem>().play(boolean);
+
+		return gameObject;
+	}
+
+	public static GameObject stopChildParticlesSystems(this GameObject gameObject, bool boolean)
+	{
+		gameObject.children<ParticleSystem>().stop(boolean);
+
+		return gameObject;
+	}
+	#endregion child particles systems
 }

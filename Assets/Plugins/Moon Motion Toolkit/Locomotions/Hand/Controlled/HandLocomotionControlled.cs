@@ -34,5 +34,5 @@ public abstract class HandLocomotionControlled : HandLocomotion
 
 	// method: determine whether this hand locomotion's input is currently enabled and currently allowed //
 	public virtual bool locomotionInputEnabledAndAllowed()
-		=> (locomotionInputEnabled && locomotionDependencies.met());
+		=> (locomotionInputEnabled && locomotionDependencies.areMet());
 }

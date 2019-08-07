@@ -48,19 +48,19 @@ public static class IEnumerableExtensions
 		=> enumerable.Count(function);
 
 	// method: return whether this given enumerable is empty //
-	public static bool empty<TItem>(this IEnumerable<TItem> enumerable)
+	public static bool isEmpty<TItem>(this IEnumerable<TItem> enumerable)
 		=> (enumerable.count() == 0);
 
 	// method: return whether this given enumerable has any items //
-	public static bool any<TItem>(this IEnumerable<TItem> enumerable)
+	public static bool hasAny<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.Any();
 
 	// method: return whether this given enumerable has any items for which the given function returns true //
-	public static bool any<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
+	public static bool hasAny<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
 		=> enumerable.Any(function);
 
 	// method: return whether this given enumerable has more than one item //
-	public static bool plural<TItem>(this IEnumerable<TItem> enumerable)
+	public static bool isPlural<TItem>(this IEnumerable<TItem> enumerable)
 		=> (enumerable.count() > 1);
 
 	// method: return whether this given enumerable contains the given item //
@@ -69,7 +69,7 @@ public static class IEnumerableExtensions
 
 	// method: return whether this given enumerable contains any item other than the given item //
 	public static bool containsOtherThan<TItem>(this IEnumerable<TItem> enumerable, TItem item)
-		=> enumerable.any(item_ => item_.isNotBaselineEqualTo(item));
+		=> enumerable.hasAny(item_ => item_.isNotBaselineEqualTo(item));
 
 	// method: return whether this given enumerable does not contain the given item //
 	public static bool doesNotContain<TItem>(this IEnumerable<TItem> enumerable, TItem item)
@@ -84,16 +84,23 @@ public static class IEnumerableExtensions
 		=> enumerable.doesNotContain(item);
 
 	// method: return whether this given enumerable contains any item that the other given enumerable also contains //
-	public static bool anyIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
-		=> enumerable.any(item => item.isIn(otherEnumerable));
+	public static bool hasAnyIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
+		=> enumerable.hasAny(item => item.isIn(otherEnumerable));
 
 	// method: return whether this given enumerable contains any item that the other given enumerable does not contain //
-	public static bool anyNotIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
-		=> enumerable.any(item => item.isNotIn(otherEnumerable));
+	public static bool hasAnyNotIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
+		=> enumerable.hasAny(item => item.isNotIn(otherEnumerable));
 
 	// method: return whether this given enumerable contains no item that the other given enumerable also contains //
-	public static bool noneIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
-		=> !enumerable.anyIn(otherEnumerable);
+	public static bool hasNoneIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
+		=> !enumerable.hasAnyIn(otherEnumerable);
+
+
+	// methods for: selection //
+
+	// method: return a list for this given enumerable with its yieldings manifested //
+	public static List<TItem> manifest<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.ToList();
 
 
 	// methods for: accessing //
@@ -113,7 +120,34 @@ public static class IEnumerableExtensions
 	// method: return the first item in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem firstOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.FirstOrDefault();
-	
+
+	public static IEnumerable<TResult> select<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.Select(function);
+	public static List<TResult> pick<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.select(function).manifest();
+
+	public static IEnumerable<TResult> selectByLooping<TItemThis, TItemLooped, TResult>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Func<TItemThis, TItemLooped, TResult> function)
+		 =>	Select.forCount(enumerable.count(), index =>
+				function(enumerable.item(index), enumerableToLoop.item(index % enumerableToLoop.count())));
+	public static List<TResult> pickByLooping<TItemThis, TItemLooped, TResult>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Func<TItemThis, TItemLooped, TResult> function)
+		 => enumerable.selectByLooping(enumerableToLoop, function).manifest();
+
+	public static IEnumerable<TResult> selectFromOnly<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, bool> functionOnly, Func<TItem, TResult> functionSelect)
+		=> enumerable.only(functionOnly).select(functionSelect);
+
+	public static IEnumerable<TResult> selectFromYull<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.selectFromOnly(
+				item => item.isYull(),
+				function);
+
+	public static IEnumerable<TResult> selectFromNull<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.selectFromOnly(
+				item => item.isNull(),
+				function);
+
+	public static IEnumerable<TResult> selectNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
+		=> enumerable.SelectMany(function);
+
 
 	// methods for: removing //
 
@@ -145,33 +179,21 @@ public static class IEnumerableExtensions
 			item_ => item_.baselineEquals(item),
 			boolean);
 
-
-	// methods for: selection //
-	
-	// method: return a list for this given enumerable with its yieldings manifested //
-	public static List<TItem> manifest<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.ToList();
-
-	public static IEnumerable<TResult> select<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
-		=> enumerable.Select(function);
-	public static List<TResult> pick<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
-		=> enumerable.select(function).manifest();
-
-	public static IEnumerable<TResult> selectFromOnly<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, bool> functionOnly, Func<TItem, TResult> functionSelect)
-		=> enumerable.only(functionOnly).select(functionSelect);
-
-	public static IEnumerable<TResult> selectFromYull<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
-		=> enumerable.selectFromOnly(
-				item => item.isYull(),
-				function);
-
-	public static IEnumerable<TResult> selectFromNull<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
-		=> enumerable.selectFromOnly(
-				item => item.isNull(),
-				function);
-
-	public static IEnumerable<TResult> selectNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
-		=> enumerable.SelectMany(function);
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
+	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> enumerable.except(
+			item_ => otherEnumerable.hasAny(otherItem => item_.baselineEquals(otherItem)),
+			boolean);
+	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
+	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> enumerable.except(otherEnumerable, boolean).manifest();
+	// method: instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the given items //
+	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
+		=> enumerable.except(
+			item_ => items.hasAny(otherItem => item_.baselineEquals(otherItem)));
+	// method: instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the given items //
+	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
+		=> enumerable.except(items).manifest();
 
 
 	// methods for: iteration //
@@ -216,7 +238,7 @@ public static class IEnumerableExtensions
 	// method: invoke the given action on the first item in this given enumerable if it has any items, then return this given enumerable //
 	public static IEnumerable<TItem> forFirstIfAny<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action)
 	{
-		if (enumerable.any())
+		if (enumerable.hasAny())
 		{
 			action(enumerable.first());
 		}
@@ -239,8 +261,26 @@ public static class IEnumerableExtensions
 	}
 
 
+	// methods for: randomization //
+
+	// method: return a random item in this given enumerable //
+	public static TItem randomItem<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.item(RandomlyGenerate.fromZeroUntil(enumerable.count()));
+
+	// method: return a random item in this given enumerable except any of the given items, otherwise (if none remain) a random item in this given enumerable //
+	public static TItem randomItemExceptGivenOtherwiseRandomItem<TItem>(this IEnumerable<TItem> enumerable, params TItem[] exceptedItems)
+	{
+		IEnumerable<TItem> enumerableWhereNotExcepted = enumerable.whereNot(exceptedItems);
+		if (enumerableWhereNotExcepted.hasAny())
+		{
+			return enumerableWhereNotExcepted.randomItem();
+		}
+		return enumerable.randomItem();
+	}
+
+
 	// methods for: ordering //
-	
+
 	public static IEnumerable<TItem> implyAscendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.OrderBy(function);
 	public static List<TItem> ascendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable

@@ -16,7 +16,7 @@ public static class PiblingExtensions
 	#endregion pibling iteration
 
 
-	#region getting piblings
+	#region accessing piblings
 
 	public static Transform piblingTransform(this Transform transform, int piblingIndex)
 		=> transform.parent.parent.childTransform(piblingIndex);
@@ -105,7 +105,7 @@ public static class PiblingExtensions
 		=> gameObject.transform.eachFirstPibling<ComponentT>();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.eachFirstPibling<ComponentT>();
-	#endregion getting piblings
+	#endregion accessing piblings
 
 
 	#region pibling iteration

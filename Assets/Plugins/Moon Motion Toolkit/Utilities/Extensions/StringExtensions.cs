@@ -5,22 +5,22 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-// StringExtensions: provides extension methods for handling strings //
+// String Extensions: provides extension methods for handling strings //
 public static class StringExtensions
 {
 	// methods for: handling emptiness, nullness, and onlyness //
 	
 	// method: return whether this given string is empty //
-	public static bool empty(this string string_)
+	public static bool isEmpty(this string string_)
 		=> string_.Equals("");
 
 	// method: return whether this given string is empty or null //
-	public static bool emptyOrNull(this string string_)
-		=> ((string_ == null) || string_.empty());
+	public static bool isEmptyOrNull(this string string_)
+		=> ((string_ == null) || string_.isEmpty());
 
 	// method: return whether this given string is not empty nor null //
-	public static bool notEmptyNorNull(this string string_)
-		=> !string_.emptyOrNull();
+	public static bool isNotEmptyNorNull(this string string_)
+		=> !string_.isEmptyOrNull();
 
 	// method: return this given string with a newline prefix if it is not empty nor null //
 	public static string withPotentialPrefixedNewline(this string string_)
@@ -36,7 +36,7 @@ public static class StringExtensions
 
 	// method: if this given string is empty, return the given target string instead of this given string //
 	public static string substituteIfEmpty(this string string_, string targetString)
-		=> string_.substituteIf(string_.empty(), targetString);
+		=> string_.substituteIf(string_.isEmpty(), targetString);
 
 	// method: return whether this given string contains only (some amount of) the given character //
 	public static bool containsOnly(this string string_, char character)
@@ -93,7 +93,7 @@ public static class StringExtensions
 
 	// method: return this given string reversed //
 	public static string reversed(this string string_)
-		=> string_.toCharacters().reversed().toString();
+		=> string_.characters().reversed().toString();
 
 
 	// methods for: removing characters //
@@ -136,7 +136,7 @@ public static class StringExtensions
 		=> prefix+string_;
 	// method: return this given string with the given prefix if this given string is not empty nor null //
 	public static string withPotentialPrefix(this string string_, string potentialPrefix)
-		=> (string_.notEmptyNorNull() ? string_.withPrefix(potentialPrefix) : string_);
+		=> (string_.isNotEmptyNorNull() ? string_.withPrefix(potentialPrefix) : string_);
 
 
 	// methods for: suffixing //
@@ -146,7 +146,7 @@ public static class StringExtensions
 		=> string_+suffix;
 	// method: return this given string with the given suffix if this given string is not empty nor null //
 	public static string withPotentialSuffix(this string string_, string potentialSuffix)
-		=> (string_.notEmptyNorNull() ? string_.withSuffix(potentialSuffix) : string_);
+		=> (string_.isNotEmptyNorNull() ? string_.withSuffix(potentialSuffix) : string_);
 
 	// method: return this given string with the given repeated suffix repeated the given count of times //
 	public static string withSuffixRepeated(this string string_, string repeatedSuffix, int suffixRepetitionCount)
@@ -194,17 +194,17 @@ public static class StringExtensions
 
 	// methods for: conversion //
 	
-	// method: return the bytes for this given string //
-	public static byte[] toBytes(this string string_)
+	// method: return the bytes corresponding to this given string //
+	public static byte[] bytes(this string string_)
 		=> Encoding.UTF8.GetBytes(string_);
 	// method: return the string parsed from these given bytes //
 	public static string asString(this byte[] bytes)
 		=> BitConverter.ToString(bytes);
 
-	// method: return the characters of this given string //
-	public static char[] toCharacters(this string string_)
+	// method: return the characters (in order) of this given string //
+	public static char[] characters(this string string_)
 		=> string_.ToCharArray();
-	// method: return the characters of this given string //
+	// method: return the string corresponding to these given characters (in order) //
 	public static string toString(this char[] characters)
 		=> new string(characters);
 

@@ -33,5 +33,5 @@ public class Slower : AutomaticBehaviour<Slower>
 	// at each physics update: //
 	protected virtual void FixedUpdate()
 		// slow the attached rigidbody if slowing is currently enabled //
-		=> slowSpeedBy(speedReduction, (slowingDependencies.met() && slowingEnabled));
+		=> slowSpeedBy(speedReduction, (slowingDependencies.areMet() && slowingEnabled));
 }

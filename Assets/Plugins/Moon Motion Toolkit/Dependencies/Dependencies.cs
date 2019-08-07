@@ -22,18 +22,18 @@ public static class Dependencies
 		=> (requisition == DependencyRequisition.when);
 
 	// method: determine whether the given Dependency is met //
-	public static bool met(this Dependency dependency)
+	public static bool isMet(this Dependency dependency)
 		=>	(dependency.requisite ?
 				(dependency.requisite.state() == dependency.requisition.asBoolean()) :
 				false.returnWithError("dependency requisite not given")
 			);
 
 	// method: determine whether the given dependencies are met //
-	public static bool met(this Dependency[] dependencies)
+	public static bool areMet(this Dependency[] dependencies)
 	{
 		foreach (Dependency dependency in dependencies)
 		{
-			if (!dependency.met())
+			if (!dependency.isMet())
 			{
 				return false;
 			}
@@ -42,11 +42,11 @@ public static class Dependencies
 	}
 
 	// method: determine whether the given dependencies are at least partially met – where empty results in false //
-	public static bool partiallyMetWhereEmptyIsFalse(this Dependency[] dependencies)
+	public static bool arePartiallyMetWhereEmptyIsFalse(this Dependency[] dependencies)
 	{
 		foreach (Dependency dependency in dependencies)
 		{
-			if (dependency.met())
+			if (dependency.isMet())
 			{
 				return true;
 			}
@@ -55,6 +55,6 @@ public static class Dependencies
 	}
 
 	// method: determine whether the given dependencies are at least partially met – where empty results in true //
-	public static bool partiallyMetWhereEmptyIsTrue(this Dependency[] dependencies)
-		=> dependencies.empty().otherwiseWhether(dependencies.partiallyMetWhereEmptyIsFalse());
+	public static bool arePartiallyMetWhereEmptyIsTrue(this Dependency[] dependencies)
+		=> dependencies.isEmpty().otherwiseWhether(dependencies.arePartiallyMetWhereEmptyIsFalse());
 }

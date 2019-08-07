@@ -23,7 +23,7 @@ public static class PrimogenitorExtensions
 	#endregion primogenitor indexing
 
 
-	#region getting primogenitors
+	#region accessing primogenitors
 
 	public static Transform primogenitorTransform(this Transform transform)
 		=> transform.root;

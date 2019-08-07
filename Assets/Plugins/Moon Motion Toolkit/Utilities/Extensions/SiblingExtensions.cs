@@ -19,7 +19,7 @@ public static class SiblingExtensions
 	#endregion sibling indexing
 
 
-	#region getting siblings
+	#region accessing siblings
 
 	// method: return a selection of the transforms of this given transform's siblings and itself //
 	public static IEnumerable<Transform> selectSiblingAndSelfTransforms(this Transform transform)
@@ -96,5 +96,5 @@ public static class SiblingExtensions
 	// method: return a list of the game objects of this given component's siblings (not including itself) //
 	public static List<GameObject> siblingObjects(this Component component)
 		=> component.transform.siblingObjects();
-	#endregion getting siblings
+	#endregion accessing siblings
 }

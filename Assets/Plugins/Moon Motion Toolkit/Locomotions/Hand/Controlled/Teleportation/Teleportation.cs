@@ -30,7 +30,7 @@ public class Teleportation : SingletonBehaviour<Teleportation>
 	
 	// method: determine whether the teleportation locomotion is enabled currently //
 	public bool enabledLocomotion_()
-		=> (locomotionEnabled && dependencies.met());
+		=> (locomotionEnabled && dependencies.areMet());
 
 	// method: determine whether the teleportation locomotion is enabled currently //
 	public static bool enabledLocomotion()

@@ -30,5 +30,5 @@ public class Kinematizer : AutomaticBehaviour<Kinematizer>
 	// at each update: //
 	private void Update()
 		// kinematize the attached rigidbody according to the dependencies – if kinematizing is currently enabled //
-		=> setKinematicityTo(kinematizingDependencies.met(), kinematizingEnabled);
+		=> setKinematicityTo(kinematizingDependencies.areMet(), kinematizingEnabled);
 }

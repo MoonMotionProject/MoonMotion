@@ -54,7 +54,7 @@ public class BoosterForceMultiplier : BoosterModuleControllableToggleable
 	// method: determine whether this booster's force multiplier is alternated //
 	public bool alternatedBooster()
 	{
-		return (alternated && dependencies.met());
+		return (alternated && dependencies.areMet());
 	}
 	// method: determine the current force factor for the given booster //
 	public static float forceFactor(Booster booster)

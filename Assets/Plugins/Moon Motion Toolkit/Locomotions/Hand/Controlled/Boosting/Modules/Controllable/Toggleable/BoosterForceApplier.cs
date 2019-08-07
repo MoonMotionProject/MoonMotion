@@ -133,7 +133,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	// method: determine whether this booster is applying force //
 	public bool boosterApplyingForce()
 	{
-		return (applyingForce && dependencies.met());
+		return (applyingForce && dependencies.areMet());
 	}
 	// method: have this force applier apply the given force to the player's rigidbody, if it is set to apply force currently //
 	private void applyForceIfEnabled(Vector3 forceToApply)

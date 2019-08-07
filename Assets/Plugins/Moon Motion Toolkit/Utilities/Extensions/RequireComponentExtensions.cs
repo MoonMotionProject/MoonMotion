@@ -19,7 +19,7 @@ public static class RequireComponentExtensions
 
 	// method: (via reflection:) return whether the given function returns true for any of the RequireComponent attributes of this given component's class, considering inherited RequireComponent attributes according to the given boolean //
 	public static bool anyRequireComponentAttributes_ViaReflection(this Component component, Func<RequireComponent, bool> function, bool considerInheritedRequireComponents = true)
-		=> component.allRequireComponentAttributes_ViaReflection(considerInheritedRequireComponents).any(function);
+		=> component.allRequireComponentAttributes_ViaReflection(considerInheritedRequireComponents).hasAny(function);
 
 	// method: (via reflection:) return whether this given component requires (via the RequireComponent attribute) the specified component type to be on this given component's game object, considering inherited RequireComponent attributes according to the given boolean //
 	public static bool requires_ViaReflection(this Component component, Type potentiallyRequiredComponentType, bool considerInheritedRequireComponents = true)

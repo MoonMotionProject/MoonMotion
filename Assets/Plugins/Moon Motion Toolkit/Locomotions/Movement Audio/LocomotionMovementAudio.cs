@@ -97,7 +97,7 @@ public abstract class LocomotionMovementAudio : MonoBehaviour
 	// at each update: //
 	protected virtual void Update()
 	{
-		if (dependencies.met())
+		if (dependencies.areMet())
 		{
 			incrementVolume();
 		}

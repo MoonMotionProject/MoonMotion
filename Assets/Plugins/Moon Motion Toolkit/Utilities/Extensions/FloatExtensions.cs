@@ -223,13 +223,12 @@ public static class FloatExtensions
 
 	// methods for: conversion //
 
-	// method: return the integer for this given float //
-	public static int asInteger(this float float_)
-		=> (int) float_;
-
-	// method: return the sign integer for this given float //
+	// method: return the nearest integer to this given float //
 	public static int toInteger(this float float_)
-		=> float_.asInteger().toInteger();
+		=> (int) float_;
+	// method: return the sign integer of this given float //
+	public static int sign(this float float_)
+		=> float_.toInteger().sign();
 
 	// method: return the double for this given float //
 	public static double asDouble(this float float_)
@@ -238,15 +237,4 @@ public static class FloatExtensions
 	// method: return a vector for this given float (as each coordinate) //
 	public static Vector3 asVector(this float float_)
 		=> new Vector3(float_, float_, float_);
-
-	// method: return the doubles array for this given floats array //
-	public static double[] asDoublesArray(this float[] floats)
-	{
-		double[] doubles = new double[floats.Length];
-		for (int index = 0; index < floats.Length; index++)
-		{
-			doubles[index] = floats[index];
-		}
-		return doubles;
-	}
 }

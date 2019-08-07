@@ -35,11 +35,11 @@ public abstract class	PlayerDependencyTracker<PlayerDependencyTrackerT> :
 	private void trackState()
 	{
 		// update the tracking for the state of the Dependency Requisite //
-		if (dependenciesTrue.met())
+		if (dependenciesTrue.areMet())
 		{
 			requisiteState = true;
 		}
-		else if (partialDependenciesOtherwiseFalse.partiallyMetWhereEmptyIsFalse())
+		else if (partialDependenciesOtherwiseFalse.arePartiallyMetWhereEmptyIsFalse())
 		{
 			requisiteState = false;
 		}

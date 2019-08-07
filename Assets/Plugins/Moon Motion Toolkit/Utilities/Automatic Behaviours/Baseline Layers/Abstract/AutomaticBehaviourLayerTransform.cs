@@ -22,7 +22,7 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#endregion sibling indexing
 
 
-	#region getting siblings
+	#region accessing siblings
 
 	public IEnumerable<Transform> selectSiblingAndSelfTransforms => transform.selectSiblingAndSelfTransforms();
 	public Transform[] siblingAndSelfTransforms => transform.siblingAndSelfTransforms();
@@ -77,7 +77,7 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#endregion pibling indexing
 
 
-	#region getting piblings
+	#region accessing piblings
 
 	public Transform piblingTransform(int piblingIndex)
 		=> transform.piblingTransform(piblingIndex);
@@ -100,7 +100,7 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 	public IEnumerable<GameObject> selectPiblingObjects => transform.selectPiblingObjects();
 	public GameObject[] piblingObjects => transform.piblingObjects();
-	#endregion getting piblings
+	#endregion accessing piblings
 
 
 	#region counting children
@@ -114,7 +114,7 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#endregion counting children
 
 
-	#region getting children
+	#region accessing children
 
 	public Transform childTransform(int childIndex)
 		=> transform.childTransform(childIndex);
@@ -135,7 +135,7 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 	public IEnumerable<GameObject> selectChildObjects => transform.selectChildObjects();
 	public GameObject[] childObjects => transform.childObjects();
-	#endregion getting children
+	#endregion accessing children
 
 
 	#region destroying children

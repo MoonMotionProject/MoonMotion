@@ -194,30 +194,18 @@ public static class DoubleExtensions
 
 	// methods for: conversion //
 
-	// method: return the nearest integer for this given double //
-	public static int asInteger(this double double_)
-		=> (int) double_;
-
-	// method: return the nearest float for this given double //
-	public static float asFloat(this double double_)
-		=> (float) double_;
-
-	// method: return the sign integer for this given double //
+	// method: return the nearest integer to this given double //
 	public static int toInteger(this double double_)
-		=> double_.asInteger().toInteger();
+		=> (int) double_;
+	// method: return the sign integer of this given double //
+	public static int sign(this double double_)
+		=> double_.toInteger().sign();
+
+	// method: return the nearest float to this given double //
+	public static float toFloat(this double double_)
+		=> (float) double_;
 
 	// method: return a vector for this given double (as each coordinate) //
 	public static Vector asVector(this double double_)
 		=> new Vector(double_, double_, double_);
-
-	// method: return the floats array for this given doubles array //
-	public static float[] asFloatsArray(this double[] doubles)
-	{
-		float[] floats = new float[doubles.Length];
-		for (int index = 0; index < doubles.Length; index++)
-		{
-			floats[index] = doubles[index].asFloat();
-		}
-		return floats;
-	}
 }

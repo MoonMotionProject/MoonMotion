@@ -7,7 +7,7 @@ using UnityEngine;
 // #enumerable-e
 public static class ISetExtensions
 {
-	// methods for: adding //
+	#region adding
 
 	// method: (according to the given boolean:) add the given item to this given set, then return this given set //
 	public static ISet<TItem> add<TItem>(this ISet<TItem> set, TItem item, bool boolean = true)
@@ -27,11 +27,13 @@ public static class ISetExtensions
 	// method: (according to the given boolean:) add this given item to the given set, then return this given item //
 	public static TItem addTo<TItem>(this TItem item, ISet<TItem> set, bool boolean = true)
 		=> set.addGet(item, boolean);
+	#endregion adding
 
 
-	// methods for: iteration //
+	#region iteration
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given set, then return this given set //
 	public static ISet<TItem> forEach<TItem>(this ISet<TItem> set, Action<TItem> action, bool boolean = true)
 		=> set.forEach_CollectionSpecializedViaCasting(action, boolean);
+	#endregion iteration
 }

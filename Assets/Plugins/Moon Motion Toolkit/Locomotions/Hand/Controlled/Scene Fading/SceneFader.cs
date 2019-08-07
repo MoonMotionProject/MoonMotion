@@ -164,7 +164,7 @@ public class SceneFader : HandLocomotionControlled
 	private void Update()
 	{
 		// if: input is enabled, the input dependencies are met, input is pressed, the scene to load is recognized by name: //
-		if (locomotionInputEnabled && locomotionDependencies.met() && controller.inputPressed(inputsLocomotion) && Application.CanStreamedLevelBeLoaded(sceneToLoad))
+		if (locomotionInputEnabled && locomotionDependencies.areMet() && controller.inputPressed(inputsLocomotion) && Application.CanStreamedLevelBeLoaded(sceneToLoad))
 		{
 			// track the last time of scene fading interaction as the current time //
 			lastTimeOfSceneFadingInteraction = Time.time;

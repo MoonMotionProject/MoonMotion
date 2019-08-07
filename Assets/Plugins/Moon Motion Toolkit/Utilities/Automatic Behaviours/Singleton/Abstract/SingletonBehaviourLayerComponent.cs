@@ -87,7 +87,7 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 		=> automaticBehaviour.anyOtherAutomaticBehaviours(includeInactiveComponents);
 
 
-	// methods for: getting local components //
+	// methods for: accessing local components //
 
 	// method: return this component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT first<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -120,7 +120,7 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	#endregion determining child components
 
 
-	// methods for: getting child components //
+	// methods for: accessing child components //
 
 	// method: return this component's game object's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT firstChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -135,7 +135,7 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 		=> automaticBehaviour.children<ComponentT>(includeInactiveComponents);
 
 
-	// methods for: getting child or self components //
+	// methods for: accessing child or self components //
 
 	// method: return this component's first local or child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT firstLocalOrChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -146,7 +146,7 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 		=> automaticBehaviour.localAndChildren<ComponentT>(includeInactiveComponents);
 
 
-	// methods for: getting parent components //
+	// methods for: accessing parent components //
 
 	// method: return this component's parent's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT firstParent<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -165,7 +165,7 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 		=> automaticBehaviour.ancestral<ComponentT>(includeInactiveComponents);
 
 
-	// methods for: getting parent or self components //
+	// methods for: accessing parent or self components //
 
 	// method: return this component's first local or parent component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static new ComponentT firstLocalOrAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component

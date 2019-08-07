@@ -8,7 +8,7 @@ using UnityEngine;
 // #enumerable-e
 public static class ListExtensions
 {
-	// methods for: adding //
+	#region adding
 
 	// method: add the given item to this given list, then return this given list //
 	public static List<TItem> add<TItem>(this List<TItem> list, TItem item)
@@ -33,9 +33,10 @@ public static class ListExtensions
 	// method: add these given items to this given list, then return these given items //
 	public static TItem[] addGet<TItem>(this List<TItem> list, params TItem[] items)
 		=> list.addGet<TItem, TItem[]>(items);
+	#endregion adding
 
 
-	// methods for: removing //
+	#region removing
 
 	// method: remove the first occurrence of the given item from this given list (assuming the given item is actually contained in this given list), then return this given list //
 	public static List<TItem> remove<TItem>(this List<TItem> list, TItem item)
@@ -64,11 +65,13 @@ public static class ListExtensions
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
 	public static TItem[] extract<TItem>(this List<TItem> list, params TItem[] items)
 		=> list.extract<TItem, TItem[]>(items);
+	#endregion removing
 
 
-	// methods for: iteration //
+	#region iteration
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given list, then return this given list //
 	public static List<TItem> forEach<TItem>(this List<TItem> list, Action<TItem> action, bool boolean = true)
 		=> list.forEach_CollectionSpecializedViaCasting(action, boolean);
+	#endregion iteration
 }

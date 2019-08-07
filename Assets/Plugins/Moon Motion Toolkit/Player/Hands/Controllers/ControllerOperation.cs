@@ -38,7 +38,7 @@ public class ControllerOperation : ScriptableObject
 
 	// method: determine whether this operation's dependencies are met //
 	public bool dependenciesMet()
-		=> (dependenciesThorough.met() && dependenciesPartial.partiallyMetWhereEmptyIsTrue());
+		=> (dependenciesThorough.areMet() && dependenciesPartial.arePartiallyMetWhereEmptyIsTrue());
 
 	// method: determine whether this operation is currently operated //
 	public bool operated()

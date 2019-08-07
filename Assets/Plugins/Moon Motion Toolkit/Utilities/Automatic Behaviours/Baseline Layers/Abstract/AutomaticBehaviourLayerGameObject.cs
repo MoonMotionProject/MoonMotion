@@ -123,38 +123,4 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 		=> gameObject.pendValidation();
 	#endif
 	#endregion validation pending
-
-
-	#region child lights
-
-	public float[] childLightsIntensities => gameObject.childLightsIntensities();
-
-	public GameObject setChildLightsIntensitiesTo(float[] targetIntensities)
-		=> gameObject.setChildLightsIntensitiesTo(targetIntensities);
-
-	public GameObject setChildLightsIntensitiesTo(float targetIntensity)
-		=> gameObject.setChildLightsIntensitiesTo(targetIntensity);
-
-	public GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
-		=> gameObject.renderChildLightsBy(lightRenderMode);
-
-	public GameObject renderChildLightsByPixel()
-		=> gameObject.renderChildLightsByPixel();
-
-	public GameObject renderChildLightsByVertex()
-		=> gameObject.renderChildLightsByVertex();
-	#endregion child lights
-
-
-	#region child particles systems
-
-	public GameObject togglePlayingChildParticlesSystems(bool boolean)
-		=> gameObject.togglePlayingChildParticlesSystems(boolean);
-
-	public GameObject playChildParticlesSystems(bool boolean)
-		=> gameObject.playChildParticlesSystems(boolean);
-
-	public GameObject stopChildParticlesSystems(bool boolean)
-		=> gameObject.stopChildParticlesSystems(boolean);
-	#endregion child particles systems
 }

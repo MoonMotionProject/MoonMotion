@@ -152,7 +152,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	// method: determine whether this booster is currently diminished //
 	public bool diminishedBooster()
 	{
-		return (diminishing && dependencies.met());
+		return (diminishing && dependencies.areMet());
 	}
 	// method: determine whether the given booster is currently diminished //
 	public static bool diminished(Booster booster)
@@ -226,7 +226,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 			// if there is a recognized terrain below, calculate distance based on that //
 
 			RaycastHit[] raycastHitsFound = Physics.RaycastAll(relativityTransform.position, -BoosterForceApplier.direction(booster).asDirectionVectorRelativeTo(relativityTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the booster in the direction of the booster's force
-			if (raycastHitsFound.any())		// if at least one raycast hit was found
+			if (Any.itemsIn(raycastHitsFound))
 			{
 				// determine the nearest raycast hit found's: hit distance, hit //
 				float nearestRaycastHitDistance = Mathf.Infinity;		// initialize the nearest raycast hit's distance
@@ -325,9 +325,9 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 		bool mustPreventCurrentlyObstructedBoosting = (diminisher.alwaysPreventBoostingInsideObstructions && diminisher.terrainDistancingLastFoundObstruction);
 
 		// determine the diminishing factor for each axis, where each axis is actually diminished only if it is set to be or if obstructed boosting must currently be prevented //
-		float diminishingFactorX = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesX.met()) ? diminishingFactorForDiminishedAxes : 1f;
-		float diminishingFactorY = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesY.met()) ? diminishingFactorForDiminishedAxes : 1f;
-		float diminishingFactorZ = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesZ.met()) ? diminishingFactorForDiminishedAxes : 1f;
+		float diminishingFactorX = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesX.areMet()) ? diminishingFactorForDiminishedAxes : 1f;
+		float diminishingFactorY = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesY.areMet()) ? diminishingFactorForDiminishedAxes : 1f;
+		float diminishingFactorZ = (mustPreventCurrentlyObstructedBoosting || diminisher.dependenciesZ.areMet()) ? diminishingFactorForDiminishedAxes : 1f;
 
 		// return the diminishing factors for all coordinate axes //
 		return new Vector3(diminishingFactorX, diminishingFactorY, diminishingFactorZ);

@@ -221,7 +221,7 @@ public class LocomotionsCycler : MonoBehaviour
 		controller = hand.GetComponent<Controller>();
 
 		// ensure that the combinations array is not empty of combinations, setting it to have one combination empty of locomotions if it is //
-		if (combinations.empty())
+		if (combinations.isEmpty())
 		{
 			combinations = new LocomotionCombination[] {new LocomotionCombination()};
 		}
@@ -284,7 +284,7 @@ public class LocomotionsCycler : MonoBehaviour
 		if (cyclingAllowed)
 		{
 			// if: input is enabled, the input dependencies are met, input is pressing: //
-			if (inputEnabled && inputDependencies.met() && controller.inputPressing(inputs))
+			if (inputEnabled && inputDependencies.areMet() && controller.inputPressing(inputs))
 			{
 				// cycle the locomotion combination index through the locomotion combinations //
 				index++;

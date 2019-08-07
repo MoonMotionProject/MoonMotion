@@ -83,7 +83,7 @@ public class Treader : HandLocomotionControlled
 	// method: determine whether this hand locomotion's input is currently enabled and currently allowed //
 	public override bool locomotionInputEnabledAndAllowed()
 	{
-		return (locomotionInputEnabled && (locomotionDependencies.met() || dependenciesStuckFailsafe.met()));
+		return (locomotionInputEnabled && (locomotionDependencies.areMet() || dependenciesStuckFailsafe.areMet()));
 	}
 	// method: determine whether this treader's input experiencing valid input (whether its input is touched or pressed – versus neither touched nor pressed) //
 	private bool experiencingValidInput()
@@ -348,7 +348,7 @@ public class Treader : HandLocomotionControlled
 	private void Update()
 	{
 		// if either: the locomotion dependencies are met, the stuck failsafe dependencies are met: //
-		if (locomotionDependencies.met() || dependenciesStuckFailsafe.met())
+		if (locomotionDependencies.areMet() || dependenciesStuckFailsafe.areMet())
 		{
 			// if: regular gauge treading is controlled via toggling (instead of holding), regular gauge input just began: invert the tracking of whether the regular treading toggle is on //
 			if (!heldVersusToggled && locomotionInputEnabledAndAllowed() && controller.inputPressing(inputsLocomotion))
@@ -430,7 +430,7 @@ public class Treader : HandLocomotionControlled
 					float appropriateResponsivnessFactor = responsivenessFactorSkiing;
 					if (!Skier.skiing)
 					{
-						bool driftingWithinOneSecondAgo = dependencyDriftingWithinOneSecondAgo.met();
+						bool driftingWithinOneSecondAgo = dependencyDriftingWithinOneSecondAgo.isMet();
 						if (!driftingWithinOneSecondAgo)
 						{
 							appropriateResponsivnessFactor = responsivenessFactorNonskiingNondrifting;

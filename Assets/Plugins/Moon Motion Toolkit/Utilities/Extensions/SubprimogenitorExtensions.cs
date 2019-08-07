@@ -30,7 +30,7 @@ public static class SubprimogenitorExtensions
 	#endregion subprimogenitor indexing
 
 
-	#region getting subprimogenitors
+	#region accessing subprimogenitors
 
 	public static Transform subprimogenitorTransform(this Transform transform)
 	{
@@ -55,5 +55,5 @@ public static class SubprimogenitorExtensions
 		=> gameObject.transform.subprimogenitorObject();
 	public static GameObject subprimogenitorObject(this Component component)
 		=> component.transform.subprimogenitorObject();
-	#endregion getting subprimogenitors
+	#endregion accessing subprimogenitors
 }

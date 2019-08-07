@@ -67,7 +67,7 @@ public class BoosterPulser : BoosterModuleControllableToggleable
 	// method: determine whether this booster is currently pulsed //
 	public bool pulsedBooster()
 	{
-		return (pulsing && dependencies.met());
+		return (pulsing && dependencies.areMet());
 	}
 	// method: determine the current pulsing force percentage (of the main boosting force) to use for the given booster //
 	public static float pulsingForcePercentage(Booster booster)

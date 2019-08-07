@@ -49,7 +49,7 @@ public class BoosterRefueler : BoosterModuleControllableToggleable
 	// method: determine whether this booster's refueler is currently refueling //
 	public bool boosterRefueling()
 	{
-		return (refueling && dependencies.met());
+		return (refueling && dependencies.areMet());
 	}
 	// method: determine whether the given booster's refueler is currently refueling //
 	public static bool boosterRefueling(Booster booster)

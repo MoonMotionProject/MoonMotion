@@ -49,7 +49,7 @@ public class BoosterVibrator : BoosterModuleControllableToggleable
 	// method: determine whether this booster's vibrating is currently enabled //
 	public bool vibratingEnabled()
 	{
-		return (vibrating && dependencies.met());
+		return (vibrating && dependencies.areMet());
 	}
 	// method: determine whether the given booster's boosting is currently enabled //
 	public static bool vibratingEnabled(Booster booster)

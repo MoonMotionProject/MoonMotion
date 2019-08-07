@@ -251,7 +251,7 @@ public static class GameObjectExtensions
 	#endregion calling local methods
 
 
-	#region getting transformations
+	#region accessing transformations
 
 	// method: return this given game object's local position //
 	public static Vector3 localPosition(this GameObject gameObject)
@@ -340,7 +340,7 @@ public static class GameObjectExtensions
 	// method: return this given game object's (global) z euler angle //
 	public static float eulerAngleZ(this GameObject gameObject)
 		=> gameObject.transform.eulerAngleZ();
-	#endregion getting transformations
+	#endregion accessing transformations
 
 
 	#region setting transformations
@@ -927,59 +927,4 @@ public static class GameObjectExtensions
 		=> EditorUtility.InstanceIDToObject(gameObjectIdee) as GameObject;
 	#endif
 	#endregion conversion
-
-
-	#region child lights
-
-	public static float[] childLightsIntensities(this GameObject gameObject)
-		=> gameObject.children<Light>().intensities();
-	
-	public static GameObject setChildLightsIntensitiesTo(this GameObject gameObject, float[] targetIntensities)
-	{
-		gameObject.children<Light>().setIntensitiesTo(targetIntensities);
-
-		return gameObject;
-	}
-
-	public static GameObject setChildLightsIntensitiesTo(this GameObject gameObject, float targetIntensity)
-		=> gameObject.setChildLightsIntensitiesTo(new float[] {targetIntensity});
-
-	public static GameObject renderChildLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
-	{
-		gameObject.children<Light>().renderBy(lightRenderMode);
-
-		return gameObject;
-	}
-
-	public static GameObject renderChildLightsByPixel(this GameObject gameObject)
-		=> gameObject.renderChildLightsBy(LightRenderMode.ForcePixel);
-
-	public static GameObject renderChildLightsByVertex(this GameObject gameObject)
-		=> gameObject.renderChildLightsBy(LightRenderMode.ForceVertex);
-	#endregion child lights
-
-
-	#region child particles systems
-
-	public static GameObject togglePlayingChildParticlesSystems(this GameObject gameObject, bool boolean)
-	{
-		gameObject.children<ParticleSystem>().togglePlaying(boolean);
-
-		return gameObject;
-	}
-
-	public static GameObject playChildParticlesSystems(this GameObject gameObject, bool boolean)
-	{
-		gameObject.children<ParticleSystem>().play(boolean);
-
-		return gameObject;
-	}
-
-	public static GameObject stopChildParticlesSystems(this GameObject gameObject, bool boolean)
-	{
-		gameObject.children<ParticleSystem>().stop(boolean);
-
-		return gameObject;
-	}
-	#endregion child particles systems
 }

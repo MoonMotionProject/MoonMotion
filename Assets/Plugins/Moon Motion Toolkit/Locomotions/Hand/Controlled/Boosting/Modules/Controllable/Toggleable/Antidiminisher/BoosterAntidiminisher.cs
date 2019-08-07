@@ -84,7 +84,7 @@ public class BoosterAntidiminisher : BoosterModuleControllableToggleable
 		// via Booster Diminisher, track the potential distance from the booster to the nearest terrain (if any) as the potential distance to an antidiminishor, and also track whether the booster is directed at any distance to the 'Antidiminishor' layer in particular //
 		lastPotentialDistanceToAntidiminishor = BoosterDiminisher.distanceToTerrain(booster);
 
-		return (antidiminishing && dependencies.met() && atDistanceToAntidiminishor);
+		return (antidiminishing && dependencies.areMet() && atDistanceToAntidiminishor);
 	}
 	// method: determine whether the given booster's antidiminisher is currently antidiminishing //
 	public static bool antidiminishingBooster(Booster booster)

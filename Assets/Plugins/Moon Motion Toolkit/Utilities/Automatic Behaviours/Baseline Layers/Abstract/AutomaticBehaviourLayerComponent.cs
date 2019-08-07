@@ -20,14 +20,14 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	#endregion destruction
 
 
-	#region getting piblings
+	#region accessing piblings
 
 	// a selection of the same components on this component's piblings //
 	public IEnumerable<AutomaticBehaviourT> selectEachFirstPibling => automaticBehaviour.selectEachFirstPibling();
 
 	// a list of the same components on this component's piblings //
 	public List<AutomaticBehaviourT> eachFirstPibling => automaticBehaviour.eachFirstPibling();
-	#endregion getting piblings
+	#endregion accessing piblings
 
 
 	#region inspector
@@ -99,7 +99,7 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	#endregion determining local components
 
 
-	#region getting local components
+	#region accessing local components
 
 	// method: return this component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public ComponentT first<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -116,7 +116,7 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	// method: return a list of all automatic behaviours on this component's game object, optionally including inactive components according to the given boolean //
 	public List<IAutomaticBehaviour> automaticBehaviours(bool includeInactiveComponents = true)
 		=> component.automaticBehaviours(includeInactiveComponents);
-	#endregion getting local components
+	#endregion accessing local components
 
 
 	#region iterating local components
@@ -134,7 +134,7 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	#endregion determining child components
 
 
-	#region getting child components
+	#region accessing child components
 
 	// method: return this component's game object's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public ComponentT firstChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -144,13 +144,13 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	public ComponentT lastChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.lastChild<ComponentT>(includeInactiveComponents);
 
-	// method: return an array of this given component's child components of the specified class, optionally including inactive components according to the given boolean //
-	public IEnumerable<ComponentT> children<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+	// method: return a list of this given component's child components of the specified class, optionally including inactive components according to the given boolean //
+	public List<ComponentT> children<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.children<ComponentT>(includeInactiveComponents);
-	#endregion getting child components
+	#endregion accessing child components
 
 
-	#region getting child or self components
+	#region accessing child or self components
 
 	// method: return this component's first local or child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public ComponentT firstLocalOrChild<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -159,10 +159,10 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	// method: return an array of this component's local and child components of the specified class, optionally including inactive components according to the given boolean //
 	public ComponentT[] localAndChildren<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.localAndChildren<ComponentT>(includeInactiveComponents);
-	#endregion getting child or self components
+	#endregion accessing child or self components
 
 
-	#region getting parent components
+	#region accessing parent components
 
 	// method: return this component's parent's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public ComponentT firstParent<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -179,10 +179,10 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	// method: return an array of this component's parent components of the specified class, optionally including inactive components according to the given boolean //
 	public ComponentT[] ancestral<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.ancestral<ComponentT>(includeInactiveComponents);
-	#endregion getting parent components
+	#endregion accessing parent components
 
 
-	#region getting parent or self components
+	#region accessing parent or self components
 
 	// method: return this component's first local or parent component of the specified class, optionally including inactive components according to the given boolean (null if none found) //
 	public ComponentT firstLocalOrAncestor<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
@@ -191,7 +191,7 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	// method: return an array of this component's local and parent components of the specified class, optionally including inactive components according to the given boolean //
 	public ComponentT[] localAndAncestral<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.localAndAncestral<ComponentT>(includeInactiveComponents);
-	#endregion getting parent or self components
+	#endregion accessing parent or self components
 
 
 	#region searching for self or parent based on comparison

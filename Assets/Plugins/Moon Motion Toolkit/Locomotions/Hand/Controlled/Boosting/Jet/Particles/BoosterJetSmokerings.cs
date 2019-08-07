@@ -34,7 +34,7 @@ public class BoosterJetSmokerings : BoosterJetParticles
 	private void Update()
 	{
 		// if the booster is boosting as necessary: //
-		if (dependencies.met())
+		if (dependencies.areMet())
 		{
 			// if the player is grounded or the smoke ring is allowed to play when nongrounded and the player is terrained: track that the player was terrained at the last update //
 			if (TerrainResponse.grounded() || (smokeRingWhenNongrounded && TerrainResponse.terrained()))

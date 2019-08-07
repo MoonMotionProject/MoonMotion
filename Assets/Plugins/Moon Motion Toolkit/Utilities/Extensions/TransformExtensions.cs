@@ -81,7 +81,7 @@ public static class TransformExtensions
 	#endregion calling local methods
 
 
-	#region getting transformations
+	#region accessing transformations
 
 	// method: return this given transform's local x position //
 	public static float localPositionX(this Transform transform)
@@ -142,7 +142,7 @@ public static class TransformExtensions
 	// method: return this given transform's z euler angle //
 	public static float eulerAngleZ(this Transform transform)
 		=> transform.eulerAngles.z;
-	#endregion getting transformations
+	#endregion accessing transformations
 
 
 	#region setting transformations

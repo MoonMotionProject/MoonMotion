@@ -74,10 +74,10 @@ public class BoosterFuelSputterer : BoosterModule
 	private void sputterThisSputterer()
 	{
 		// if the module dependencies are met: //
-		if (dependencies.met())
+		if (dependencies.areMet())
 		{
 			// if the particles dependencies are met: play the particles //
-			if (particlesDependencies.met())
+			if (particlesDependencies.areMet())
 			{
 				foreach (ParticleSystem particlesSystem in particlesSystems)
 				{
@@ -89,7 +89,7 @@ public class BoosterFuelSputterer : BoosterModule
 			}
 
 			// if the audio dependencies are met: play the audio //
-			if (audioDependencies.met())
+			if (audioDependencies.areMet())
 			{
 				audioSource.PlayOneShot(audioClip);
 			}

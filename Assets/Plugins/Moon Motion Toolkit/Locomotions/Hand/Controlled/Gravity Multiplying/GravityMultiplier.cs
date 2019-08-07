@@ -352,10 +352,10 @@ public class GravityMultiplier : HandLocomotionControlled
 		else if (!Controller.anyActualInputs(inputsLocomotion))
 		{
 			// if any locomotion dependencies are set: //
-			if (locomotionDependencies.any())
+			if (Any.itemsIn(locomotionDependencies))
 			{
 				// set the alternation of this gravity multiplier to whether the locomotion dependencies are met //
-				alternated = locomotionDependencies.met();
+				alternated = locomotionDependencies.areMet();
 			}
 		}
 	}

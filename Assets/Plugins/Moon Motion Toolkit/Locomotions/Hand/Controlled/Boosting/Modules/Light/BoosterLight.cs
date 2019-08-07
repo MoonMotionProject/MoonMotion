@@ -38,7 +38,7 @@ public class BoosterLight : BoosterModule
 	protected virtual void Update()
 	{
 		// toggle enablement of the lights' objects according to the module dependencies //
-		bool targetEnablement = dependencies.met();
+		bool targetEnablement = dependencies.areMet();
 		foreach (Light light in lights)
 		{
 			light.gameObject.SetActive(targetEnablement);

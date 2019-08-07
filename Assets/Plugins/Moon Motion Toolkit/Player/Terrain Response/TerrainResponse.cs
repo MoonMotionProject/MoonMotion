@@ -205,14 +205,14 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 	// method: determine whether this body player is currently collided with terrain //
 	public static bool collidedWithTerrain()
-		=> collidedTerrains.any();
+		=> Any.itemsIn(collidedTerrains);
 	// method: determine whether this body player is currently collided with terrain //
 	public bool collidedWithTerrain_()
 		=> collidedWithTerrain();
 
 	// method: determine whether this body player is currently collided with ground //
 	public static bool collidedWithGround()
-		=> collidedGroundTerrains.any();
+		=> Any.itemsIn(collidedGroundTerrains);
 	// method: determine whether this body player is currently collided with ground //
 	public bool collidedWithGround_()
 		=> collidedWithGround();
@@ -224,7 +224,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		Vector3 raycastingPosition = (new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z) + (transform.up * raycastingRaise));
 
 		RaycastHit[] raycastHitsFound = Physics.RaycastAll(raycastingPosition, Direction.down.asDirectionVectorRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
-		if (raycastHitsFound.any())		// if at least one raycast hit was found
+		if (Any.itemsIn(raycastHitsFound))
 		{
 			// determine the nearest raycast hit found's: hit distance, hit //
 			float nearestRaycastHitDistance = Mathf.Infinity;		// initialize the nearest raycast hit's distance
@@ -334,7 +334,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		Vector3 raycastingPosition = new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z);
 
 		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), Direction.down.asDirectionVectorRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
-		if (raycastHitsFound.any())		// if at least one raycast hit was found
+		if (Any.itemsIn(raycastHitsFound))
 		{
 			// determine the nearest raycast hit found's: hit distance, hit //
 			float nearestRaycastHitDistance = Mathf.Infinity;		// initialize the nearest raycast hit's distance
@@ -441,7 +441,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 			// determine whether the collided terrain is ground or not //
 			bool ground = recognizedGroundTerrainLayerIndex(collidedObject.layer);
 			// if applicable: play landing feedback (vibration and audio) //
-			if ((ground || feedbackForNongroundTerrainCollision) && dependenciesFeedback.met() && (dependenciesFeedbackNonboostingSpeedThresholdIgnorance.met() || Booster.eitherHandIsBoosting() || PlayerVelocityReader.speed() >= feedbackNonboostingSpeedThreshold))
+			if ((ground || feedbackForNongroundTerrainCollision) && dependenciesFeedback.areMet() && (dependenciesFeedbackNonboostingSpeedThresholdIgnorance.areMet() || Booster.eitherHandIsBoosting() || PlayerVelocityReader.speed() >= feedbackNonboostingSpeedThreshold))
 			{
 				// if the duration of the min interval for time between feedback attempts for the same (either liftoff\landing) event has passed since the last attempt: //
 				if (timeSince(timeOfLastAttemptedLandingFeedback) >= minFeedbackInterval)		
@@ -491,7 +491,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 			// determine whether the collided terrain is ground or not //
 			bool ground = recognizedGroundTerrainLayerIndex(collidedObject.layer);
 			// if applicable: play liftoff feedback (audio) //
-			if ((ground || feedbackForNongroundTerrainCollision) && dependenciesFeedback.met() && (dependenciesFeedbackNonboostingSpeedThresholdIgnorance.met() || Booster.eitherHandIsBoosting() || PlayerVelocityReader.speed() >= feedbackNonboostingSpeedThreshold))
+			if ((ground || feedbackForNongroundTerrainCollision) && dependenciesFeedback.areMet() && (dependenciesFeedbackNonboostingSpeedThresholdIgnorance.areMet() || Booster.eitherHandIsBoosting() || PlayerVelocityReader.speed() >= feedbackNonboostingSpeedThreshold))
 			{
 				// if the duration of the min interval for time between feedback attempts for the same (either liftoff\landing) event has passed since the last attempt: //
 				if (timeSince(timeOfLastAttemptedLiftoffFeedback) >= minFeedbackInterval)		

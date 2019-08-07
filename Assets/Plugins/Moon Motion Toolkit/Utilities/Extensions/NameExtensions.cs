@@ -26,9 +26,6 @@ public static class NameExtensions
 	public static string nameQuoted(this GameObject gameObject)
 		=> gameObject.name.quoted();
 
-
-	// methods for: selection //
-
 	// method: return the selection of names corresponding to these given game objects //
 	public static IEnumerable<string> selectNames(this GameObject[] gameObjects)
 		=> gameObjects.select(gameObject => gameObject.name);

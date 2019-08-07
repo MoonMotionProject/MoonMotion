@@ -144,7 +144,25 @@ public abstract class SingletonBehaviourLayerComponentShortcuts<SingletonBehavio
 	public static new AudioSource setAudioTimeTo(float targetTime, bool boolean = true)
 		=> automaticBehaviour.setAudioTimeTo(targetTime, boolean);
 	#endregion playing
+
+	#region child audio sources
+	public static new List<float> childAudioVolumes => automaticBehaviour.childAudioVolumes;
+	public static new GameObject setChildAudioVolumesTo(IList<float> targetVolumes)
+		=> automaticBehaviour.setChildAudioVolumesTo(targetVolumes);
+	#endregion child audio sources
 	#endregion AudioSource
+
+
+	#region ParticleSystem
+	#region child particles systems
+	public static new GameObject togglePlayingChildParticlesSystems(bool boolean)
+		=> automaticBehaviour.togglePlayingChildParticlesSystems(boolean);
+	public static new GameObject playChildParticlesSystems(bool boolean)
+		=> automaticBehaviour.playChildParticlesSystems(boolean);
+	public static new GameObject stopChildParticlesSystems(bool boolean)
+		=> automaticBehaviour.stopChildParticlesSystems(boolean);
+	#endregion child particles systems
+	#endregion ParticleSystem
 
 
 	#region MeshFilter
@@ -165,6 +183,20 @@ public abstract class SingletonBehaviourLayerComponentShortcuts<SingletonBehavio
 	public static new Light setLightIntensityTo(float targetIntensity)
 		=> automaticBehaviour.setLightIntensityTo(targetIntensity);
 	#endregion intensities
+	
+	#region child lights
+	public static new List<float> childLightIntensities => automaticBehaviour.childLightIntensities;
+	public static new GameObject setChildLightIntensitiesTo(IList<float> targetIntensities)
+		=> automaticBehaviour.setChildLightIntensitiesTo(targetIntensities);
+	public static new GameObject setChildLightIntensitiesTo(float targetIntensity)
+		=> automaticBehaviour.setChildLightIntensitiesTo(targetIntensity);
+	public static new GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
+		=> automaticBehaviour.renderChildLightsBy(lightRenderMode);
+	public static new GameObject renderChildLightsByPixel()
+		=> automaticBehaviour.renderChildLightsByPixel();
+	public static new GameObject renderChildLightsByVertex()
+		=> automaticBehaviour.renderChildLightsByVertex();
+	#endregion child lights
 	#endregion Light
 	#endregion Unity
 

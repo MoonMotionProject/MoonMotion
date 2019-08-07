@@ -180,16 +180,16 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 	private void trackDependenciesForCycling()
 	{
 		// track whether the dependencies for which cycling should occur upon the changing of whether they are met was met last time, for next time, based on this time //
-		dependenciesForCyclingMetLastTime = dependenciesForCycling.met();
+		dependenciesForCyclingMetLastTime = dependenciesForCycling.areMet();
 	}
 	// method: potentially cycle via the dependencies for cycling //
 	private void potentiallyCycleViaDependenciesForCycling()
 	{
 		// if: cycling via the dependencies for cycling is enabled, the dependencies by which to allow cycling via dependencies is met: //
-		if (dependenciesCyclingEnabled && dependenciesForDependenciesCycling.met())
+		if (dependenciesCyclingEnabled && dependenciesForDependenciesCycling.areMet())
 		{
 			// if the dependencies for cycling was different last time than it is now: //
-			if (dependenciesForCyclingMetLastTime != dependenciesForCycling.met())
+			if (dependenciesForCyclingMetLastTime != dependenciesForCycling.areMet())
 			{
 				// advance the cycle, playing cycling audio if set to – cycle globally if set to //
 				if (dependenciesForCyclingCyclesGlobally)
@@ -241,7 +241,7 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 	private void Update()
 	{
 		// if: the module dependencies are met, input is enabled, input is pressing: //
-		if (dependencies.met() && inputEnabled && controller.inputPressing(inputs))
+		if (dependencies.areMet() && inputEnabled && controller.inputPressing(inputs))
 		{
 			// advance the cycle – globally if set to do so //
 			if (globallyCycle)

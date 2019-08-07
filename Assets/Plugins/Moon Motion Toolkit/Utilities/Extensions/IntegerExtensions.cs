@@ -139,21 +139,21 @@ public static class IntegerExtensions
 
 	// methods for: conversion //
 
-	// method: return the bytes for this given integer //
-	public static byte[] toBytes(this int integer)
+	// method: return the bytes corresponding to this given integer //
+	public static byte[] bytes(this int integer)
 		=> BitConverter.GetBytes(integer);
-
-	// method: return the float for this given integer //
-	public static float asFloat(this int integer)
-		=> integer;
-
-	// method: return the sign integer for this given integer //
-	public static int toInteger(this int integer)
-		=> (integer.positive() ? 1 : integer.negative() ? -1 : 0);
 
 	// method: return the boolean for this given integer //
 	public static bool asBoolean(this int integer)
 		=> integer == 1;
+
+	// method: return the sign integer of this given integer //
+	public static int sign(this int integer)
+		=> (integer.positive() ? 1 : integer.negative() ? -1 : 0);
+
+	// method: return the float for this given integer //
+	public static float asFloat(this int integer)
+		=> integer;
 
 	// method: return the random color corresponding to this string as a seed //
 	public static Color seedRandomColor(this int integer)

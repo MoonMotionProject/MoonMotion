@@ -49,7 +49,7 @@ public class BoosterInertiaDampener : BoosterModuleControllableToggleable
 	// method: determine whether this booster's inertia is dampened //
 	public bool inertiaDampenedBooster()
 	{
-		return (dampenInertia && dependencies.met());
+		return (dampenInertia && dependencies.areMet());
 	}
 	// method: determine whether the given booster is currently inertia dampened //
 	public static bool inertiaDampened(Booster booster)

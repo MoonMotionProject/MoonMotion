@@ -5,17 +5,10 @@ using UnityEngine;
 // LightExtensions: provides extension methods for handling lights //
 public static class LightExtensions
 {
-	// methods for: intensities //
+	#region intensities
 
-	public static float[] intensities<IListT>(this IListT lights) where IListT : IList<Light>
-	{
-		float[] childLightIntensities = new float[lights.Count];
-		for (int childLightIndex = 0; childLightIndex < lights.Count; childLightIndex++)
-		{
-			childLightIntensities[childLightIndex] = lights[childLightIndex].intensity;
-		}
-		return childLightIntensities;
-	}
+	public static List<float> intensities<IListT>(this IListT lights) where IListT : IList<Light>
+		=> lights.pick(light => light.intensity);
 
 	public static Light setIntensityTo(this Light light, float targetIntensity)
 	{
@@ -34,18 +27,19 @@ public static class LightExtensions
 		return lights;
 	}
 
-	public static IListT setIntensitiesTo<IListT>(this IListT lights, float[] targetIntensities) where IListT : IList<Light>
+	public static IListT setIntensitiesTo<IListT>(this IListT lights, IList<float> targetIntensities) where IListT : IList<Light>
 	{
-		for (int childLightIndex = 0; childLightIndex < lights.Count; childLightIndex++)
+		for (int lightIndex = 0; lightIndex < lights.Count; lightIndex++)
 		{
-			lights[childLightIndex].setIntensityTo(targetIntensities[childLightIndex % targetIntensities.Length]);
+			lights[lightIndex].setIntensityTo(targetIntensities[lightIndex % targetIntensities.Count]);
 		}
 
 		return lights;
 	}
+	#endregion intensities
 
 
-	// methods for: setting render mode //
+	#region setting render mode
 
 	public static Light renderBy(this Light light, LightRenderMode lightRenderMode)
 	{
@@ -72,4 +66,32 @@ public static class LightExtensions
 
 	public static IEnumerableT renderByVertex<IEnumerableT>(this IEnumerableT lights) where IEnumerableT : IEnumerable<Light>
 		=> lights.renderBy(LightRenderMode.ForceVertex);
+	#endregion setting render mode
+
+
+	#region child lights
+
+	public static List<float> childLightIntensities(this GameObject gameObject)
+		=> gameObject.children<Light>().intensities();
+
+	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, IList<float> targetIntensities)
+		=> gameObject.after(()=>
+			gameObject.children<Light>().setIntensitiesTo(targetIntensities));
+
+	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, float targetIntensity)
+		=> gameObject.setChildLightIntensitiesTo(new float[] { targetIntensity });
+
+	public static GameObject renderChildLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
+	{
+		gameObject.children<Light>().renderBy(lightRenderMode);
+
+		return gameObject;
+	}
+
+	public static GameObject renderChildLightsByPixel(this GameObject gameObject)
+		=> gameObject.renderChildLightsBy(LightRenderMode.ForcePixel);
+
+	public static GameObject renderChildLightsByVertex(this GameObject gameObject)
+		=> gameObject.renderChildLightsBy(LightRenderMode.ForceVertex);
+	#endregion child lights
 }

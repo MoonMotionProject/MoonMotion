@@ -16,7 +16,7 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion sibling indexing
 
 
-	#region getting siblings
+	#region accessing siblings
 
 	public static new IEnumerable<Transform> selectSiblingAndSelfTransforms => automaticBehaviour.selectSiblingAndSelfTransforms;
 	public static new Transform[] siblingAndSelfTransforms => automaticBehaviour.siblingAndSelfTransforms;
@@ -71,7 +71,7 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion pibling indexing
 
 
-	#region getting piblings
+	#region accessing piblings
 
 	public static new Transform piblingTransform(int piblingIndex)
 		=> automaticBehaviour.piblingTransform(piblingIndex);
@@ -94,7 +94,7 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	public static new IEnumerable<GameObject> selectPiblingObjects => automaticBehaviour.selectPiblingObjects;
 	public static new GameObject[] piblingObjects => automaticBehaviour.piblingObjects;
-	#endregion getting piblings
+	#endregion accessing piblings
 
 
 	#region counting children
@@ -108,7 +108,7 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion counting children
 
 
-	#region getting children
+	#region accessing children
 
 	public static new Transform childTransform(int childIndex)
 		=> automaticBehaviour.childTransform(childIndex);
@@ -129,7 +129,7 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	public static new IEnumerable<GameObject> selectChildObjects => automaticBehaviour.selectChildObjects();
 	public static new GameObject[] childObjects => automaticBehaviour.childObjects;
-	#endregion getting children
+	#endregion accessing children
 
 
 	#region destroying children

@@ -31,7 +31,7 @@ public static class ChildExtensions
 	#endregion counting children
 	
 
-	#region getting children
+	#region accessing children
 
 	public static Transform childTransform(this Transform transform, int childIndex)
 		=> transform.GetChild(childIndex);
@@ -128,7 +128,7 @@ public static class ChildExtensions
 		=> gameObject.transform.childObjects();
 	public static GameObject[] childObjects(this Component component)
 		=> component.transform.childObjects();
-	#endregion getting children
+	#endregion accessing children
 
 
 	#region destroying children

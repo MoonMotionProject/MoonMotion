@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 // Interpolation Curved
 // • provides methods for interpolating using a given interpolation curve
@@ -160,112 +161,72 @@ public static class InterpolationCurved
 		=> curve.interpolation(true, start, end, ratio);
 	// method: interpolate a float (using doubles interpolation) with clamping using this given curve and the given start & end & ratio values //
 	public static float clamped(this InterpolationCurve curve, float start, float end, double ratio)
-		=> curve.clamped(start.asDouble(), end.asDouble(), ratio).asFloat();
+		=> curve.clamped(start.asDouble(), end.asDouble(), ratio).toFloat();
 
 	// method: interpolate a doubles array with clamping using this given curve and the given start & ends & ratio values //
-	public static double[] clamped(this InterpolationCurve curve, double start, double[] ends, double ratio)
-	{
-		double[] interpolations = new double[ends.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.clamped(start, ends[index], ratio);
-		}
-		return interpolations;
-	}
+	public static List<double> clamped(this InterpolationCurve curve, double start, IList<double> ends, double ratio)
+		=> ends.pick(end => curve.clamped(start, end, ratio));
 	// method: interpolate a floats array (using doubles interpolation) with clamping using this given curve and the given start & ends & ratio values //
-	public static float[] clamped(this InterpolationCurve curve, float start, float[] ends, double ratio)
-		=> curve.clamped(start.asDouble(), ends.asDoublesArray(), ratio).asFloatsArray();
+	public static List<float> clamped(this InterpolationCurve curve, float start, IList<float> ends, double ratio)
+		=> curve.clamped(start.asDouble(), ends.asDoubles(), ratio).toFloats();
 
 	// method: interpolate a doubles array with clamping using this given curve and the given starts & end & ratio values //
-	public static double[] clamped(this InterpolationCurve curve, double[] starts, double end, double ratio)
-	{
-		double[] interpolations = new double[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.clamped(starts[index], end, ratio);
-		}
-		return interpolations;
-	}
+	public static List<double> clamped(this InterpolationCurve curve, IList<double> starts, double end, double ratio)
+		=> starts.pick(start => curve.clamped(start, end, ratio));
 	// method: interpolate a floats array (using doubles interpolation) with clamping using this given curve and the given starts & end & ratio values //
-	public static float[] clamped(this InterpolationCurve curve, float[] starts, float end, double ratio)
-		=> curve.clamped(starts.asDoublesArray(), end.asDouble(), ratio).asFloatsArray();
+	public static List<float> clamped(this InterpolationCurve curve, IList<float> starts, float end, double ratio)
+		=> curve.clamped(starts.asDoubles(), end.asDouble(), ratio).toFloats();
 
 	// method: interpolate a doubles array with clamping using this given curve and the given starts & ends & ratio values //
-	public static double[] clamped(this InterpolationCurve curve, double[] starts, double[] ends, double ratio)
-	{
-		double[] interpolations = new double[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.clamped(starts[index], ends[index % ends.Length], ratio);
-		}
-		return interpolations;
-	}
+	public static List<double> clamped(this InterpolationCurve curve, IList<double> starts, IList<double> ends, double ratio)
+		=> starts.pickByLooping(ends,
+			(start, end) => curve.clamped(start, end, ratio));
 	// method: interpolate a floats array (using doubles interpolation) with clamping using this given curve and the given starts & ends & ratio values //
-	public static float[] clamped(this InterpolationCurve curve, float[] starts, float[] ends, double ratio)
-		=> curve.clamped(starts.asDoublesArray(), ends.asDoublesArray(), ratio).asFloatsArray();
+	public static List<float> clamped(this InterpolationCurve curve, IList<float> starts, IList<float> ends, double ratio)
+		=> curve.clamped(starts.asDoubles(), ends.asDoubles(), ratio).toFloats();
 
 	// method: interpolate a double without clamping using this given curve and the given start & end & ratio values //
 	public static double unclamped(this InterpolationCurve curve, double start, double end, double ratio)
 		=> curve.interpolation(false, start, end, ratio);
 	// method: interpolate a float (using doubles interpolation) without clamping using this given curve and the given start & end & ratio values //
 	public static float unclamped(this InterpolationCurve curve, float start, float end, double ratio)
-		=> curve.unclamped(start.asDouble(), end.asDouble(), ratio).asFloat();
+		=> curve.unclamped(start.asDouble(), end.asDouble(), ratio).toFloat();
 
 	// method: interpolate a doubles array without clamping using this given curve and the given start & ends & ratio values //
-	public static double[] unclamped(this InterpolationCurve curve, double start, double[] ends, double ratio)
-	{
-		double[] interpolations = new double[ends.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.unclamped(start, ends[index], ratio);
-		}
-		return interpolations;
-	}
+	public static List<double> unclamped(this InterpolationCurve curve, double start, IList<double> ends, double ratio)
+		=> ends.pick(end => curve.unclamped(start, end, ratio));
 	// method: interpolate a floats array (using doubles interpolation) without clamping using this given curve and the given start & ends & ratio values //
-	public static float[] unclamped(this InterpolationCurve curve, float start, float[] ends, double ratio)
-		=> curve.unclamped(start.asDouble(), ends.asDoublesArray(), ratio).asFloatsArray();
+	public static List<float> unclamped(this InterpolationCurve curve, float start, IList<float> ends, double ratio)
+		=> curve.unclamped(start.asDouble(), ends.asDoubles(), ratio).toFloats();
 
 	// method: interpolate a doubles array without clamping using this given curve and the given starts & end & ratio values //
-	public static double[] unclamped(this InterpolationCurve curve, double[] starts, double end, double ratio)
-	{
-		double[] interpolations = new double[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.unclamped(starts[index], end, ratio);
-		}
-		return interpolations;
-	}
+	public static List<double> unclamped(this InterpolationCurve curve, IList<double> starts, double end, double ratio)
+		=> starts.pick(start => curve.unclamped(start, end, ratio));
 	// method: interpolate a floats array (using doubles interpolation) without clamping using this given curve and the given starts & end & ratio values //
-	public static float[] unclamped(this InterpolationCurve curve, float[] starts, float end, double ratio)
-		=> curve.unclamped(starts.asDoublesArray(), end.asDouble(), ratio).asFloatsArray();
+	public static List<float> unclamped(this InterpolationCurve curve, IList<float> starts, float end, double ratio)
+		=> curve.unclamped(starts.asDoubles(), end.asDouble(), ratio).toFloats();
 
 	// method: interpolate a doubles array without clamping using this given curve and the given starts & ends & ratio values //
-	public static double[] unclamped(this InterpolationCurve curve, double[] starts, double[] ends, double ratio)
-	{
-		double[] interpolations = new double[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.unclamped(starts[index], ends[index % ends.Length], ratio);
-		}
-		return interpolations;
-	}
+	public static List<double> unclamped(this InterpolationCurve curve, IList<double> starts, IList<double> ends, double ratio)
+		=> starts.pickByLooping(ends,
+			(start, end) => curve.unclamped(start, end, ratio));
 	// method: interpolate a floats array (using doubles interpolation) without clamping using this given curve and the given starts & ends & ratio values //
-	public static float[] unclamped(this InterpolationCurve curve, float[] starts, float[] ends, double ratio)
-		=> curve.unclamped(starts.asDoublesArray(), ends.asDoublesArray(), ratio).asFloatsArray();
+	public static List<float> unclamped(this InterpolationCurve curve, IList<float> starts, IList<float> ends, double ratio)
+		=> curve.unclamped(starts.asDoubles(), ends.asDoubles(), ratio).toFloats();
 
 	// method: interpolate a doubles vector with clamping using the given curve and start & end & ratio values //
 	public static Vector clamped(this InterpolationCurve curve, Vector start, Vector end, double ratio)
 		=> curve.interpolation(true, start, end, ratio);
 	// method: interpolate a floats vector (using doubles interpolation) with clamping using the given curve and start & end & ratio values //
 	public static Vector3 clamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)
-		=> curve.clamped(start.toDoublesVector(), end.toDoublesVector(), ratio).asFloatsVector();
+		=> curve.clamped(start.toDoublesVector(), end.toDoublesVector(), ratio).toFloatsVector();
 
 	// method: interpolate a doubles vector without clamping using this given curve and the given start & end & ratio values //
 	public static Vector unclamped(this InterpolationCurve curve, Vector start, Vector end, double ratio)
 		=> curve.interpolation(false, start, end, ratio);
 	// method: interpolate a floats vector (using doubles interpolation) without clamping using this given curve and the given start & end & ratio values //
 	public static Vector3 unclamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)
-		=> curve.unclamped(start.toDoublesVector(), end.toDoublesVector(), ratio).asFloatsVector();
+		=> curve.unclamped(start.toDoublesVector(), end.toDoublesVector(), ratio).toFloatsVector();
 	#endregion public methods - double
 
 
@@ -276,74 +237,34 @@ public static class InterpolationCurved
 		=> curve.interpolation(true, start, end, ratio);
 
 	// method: interpolate a floats array with clamping using this given curve and the given start & ends & ratio values //
-	public static float[] clamped(this InterpolationCurve curve, float start, float[] ends, float ratio)
-	{
-		float[] interpolations = new float[ends.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.clamped(start, ends[index], ratio);
-		}
-		return interpolations;
-	}
+	public static List<float> clamped(this InterpolationCurve curve, float start, IList<float> ends, float ratio)
+		=> ends.pick(end => curve.clamped(start, end, ratio));
 
 	// method: interpolate a floats array with clamping using this given curve and the given starts & end & ratio values //
-	public static float[] clamped(this InterpolationCurve curve, float[] starts, float end, float ratio)
-	{
-		float[] interpolations = new float[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.clamped(starts[index], end, ratio);
-		}
-		return interpolations;
-	}
+	public static List<float> clamped(this InterpolationCurve curve, IList<float> starts, float end, float ratio)
+		=> starts.pick(start => curve.clamped(start, end, ratio));
 
 	// method: interpolate a floats array with clamping using this given curve and the given starts & ends & ratio values //
-	public static float[] clamped(this InterpolationCurve curve, float[] starts, float[] ends, float ratio)
-	{
-		float[] interpolations = new float[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.clamped(starts[index], ends[index % ends.Length], ratio);
-		}
-		return interpolations;
-	}
+	public static List<float> clamped(this InterpolationCurve curve, IList<float> starts, IList<float> ends, float ratio)
+		=> starts.pickByLooping(ends,
+			(start, end) => curve.clamped(start, end, ratio));
 
 	// method: interpolate a float without clamping using this given curve and the given start & end & ratio values //
 	public static float unclamped(this InterpolationCurve curve, float start, float end, float ratio)
 		=> curve.interpolation(false, start, end, ratio);
 
 	// method: interpolate a floats array without clamping using this given curve and the given start & ends & ratio values //
-	public static float[] unclamped(this InterpolationCurve curve, float start, float[] ends, float ratio)
-	{
-		float[] interpolations = new float[ends.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.unclamped(start, ends[index], ratio);
-		}
-		return interpolations;
-	}
+	public static List<float> unclamped(this InterpolationCurve curve, float start, IList<float> ends, float ratio)
+		=> ends.pick(end => curve.unclamped(start, end, ratio));
 
 	// method: interpolate a floats array without clamping using this given curve and the given starts & end & ratio values //
-	public static float[] unclamped(this InterpolationCurve curve, float[] starts, float end, float ratio)
-	{
-		float[] interpolations = new float[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.unclamped(starts[index], end, ratio);
-		}
-		return interpolations;
-	}
+	public static List<float> unclamped(this InterpolationCurve curve, IList<float> starts, float end, float ratio)
+		=> starts.pick(start => curve.unclamped(start, end, ratio));
 
 	// method: interpolate a floats array without clamping using this given curve and the given starts & ends & ratio values //
-	public static float[] unclamped(this InterpolationCurve curve, float[] starts, float[] ends, float ratio)
-	{
-		float[] interpolations = new float[starts.Length];
-		for (int index = 0; index < interpolations.Length; index++)
-		{
-			interpolations[index] = curve.unclamped(starts[index], ends[index % ends.Length], ratio);
-		}
-		return interpolations;
-	}
+	public static List<float> unclamped(this InterpolationCurve curve, IList<float> starts, IList<float> ends, float ratio)
+		=> starts.pickByLooping(ends,
+			(start, end) => curve.unclamped(start, end, ratio));
 
 	// method: interpolate a floats vector with clamping using the given curve and start & end & ratio values //
 	public static Vector3 clamped(this InterpolationCurve curve, Vector3 start, Vector3 end, float ratio)

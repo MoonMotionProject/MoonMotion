@@ -9,9 +9,6 @@ using System.Collections.Generic;
 //     - includes options to clamp or not
 public static class InterpolationCurved
 {
-	// methods //
-
-
 	#region private methods - double
 
 	// method: return this given linear ratio double modified for the given interpolation curve and the given clamping boolean //
@@ -42,6 +39,14 @@ public static class InterpolationCurved
 			case InterpolationCurve.smoother:
 			{
 				return (ratio.toThePowerOf(3d) * (ratio * ((6d * ratio) - 15d) + 10d));
+			}
+			case InterpolationCurve.quadraticPalindrome:
+			{
+				return ratio.ratioQuadraticPalindrome();
+			}
+			case InterpolationCurve.dequadratic:
+			{
+				return ratio.atMostOne().ratioDequadratic();
 			}
 		}
 		return ratio.returnWithError("error in InterpolationCurved.asRatioforCurveAndClamping(...)");
@@ -110,6 +115,14 @@ public static class InterpolationCurved
 			{
 				return (ratio.toThePowerOf(3f) * (ratio * ((6f * ratio) - 15f) + 10f));
 			}
+			case InterpolationCurve.quadraticPalindrome:
+			{
+				return ratio.ratioQuadraticPalindrome();
+			}
+			case InterpolationCurve.dequadratic:
+			{
+				return ratio.atMostOne().ratioDequadratic();
+			}
 		}
 		return ratio.returnWithError("error in InterpolationCurved.asRatioforCurveAndClamping(...)");
 	}
@@ -152,6 +165,20 @@ public static class InterpolationCurved
 			curve.interpolation(clamp, start.y, end.y, ratio)
 		);
 	#endregion private methods - float
+
+
+	#region private methods - color
+
+	// method: interpolate a color using this given curve and the given clamping boolean, start & end colors, and ratio //
+	private static Color interpolation(this InterpolationCurve curve, bool clamp, Color start, Color end, float ratio)
+	{
+		if (curve == InterpolationCurve.smootherPalindrome)
+		{
+			throw new NotImplementedException();
+		}
+		return ratio.asRatioforCurveAndClamping(curve, clamp).lerped(start, end, clamp);
+	}
+	#endregion private methods - color
 
 
 	#region public methods - double
@@ -282,4 +309,16 @@ public static class InterpolationCurved
 	public static Vector2 unclamped(this InterpolationCurve curve, Vector2 start, Vector2 end, float ratio)
 		=> curve.interpolation(false, start, end, ratio);
 	#endregion public methods - float
+
+
+	#region public methods - color
+
+	// method: interpolate a color with clamping using this given curve, the given start & end colors, and the given ratio //
+	public static Color clamped(this InterpolationCurve curve, Color start, Color end, float ratio)
+		=> curve.interpolation(true, start, end, ratio);
+
+	// method: interpolate a color without clamping using this given curve, the given start & end colors, and the given ratio //
+	public static Color unclamped(this InterpolationCurve curve, Color start, Color end, float ratio)
+		=> curve.interpolation(false, start, end, ratio);
+	#endregion public methods - color
 }

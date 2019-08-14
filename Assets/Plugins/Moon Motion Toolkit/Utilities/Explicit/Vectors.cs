@@ -5,14 +5,17 @@ using UnityEngine;
 // Vectors: provides generic vector properties //
 public static class Vectors
 {
-	// properties //
-
+	#region common vectors
 
 	// the vector of zeroes //
 	public static Vector3 zeroesVector => Vector3.zero;
 
+	// the vector of ones //
+	public static Vector3 onesVector => Vector3.one;
+	#endregion common vectors
 
-	// properties for: directions //
+
+	#region direction vectors
 
 	public static Vector3 forward => Vector3.forward;
 
@@ -25,4 +28,5 @@ public static class Vectors
 	public static Vector3 up => Vector3.up;
 
 	public static Vector3 down => -Vector3.up;
+	#endregion direction vectors
 }

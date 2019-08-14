@@ -68,10 +68,10 @@ public static class ListExtensions
 	#endregion removing
 
 
-	#region iteration
+	#region acting upon all items
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given list, then return this given list //
 	public static List<TItem> forEach<TItem>(this List<TItem> list, Action<TItem> action, bool boolean = true)
-		=> list.forEach_CollectionSpecializedViaCasting(action, boolean);
-	#endregion iteration
+		=> list.forEach_EnumerableSpecializedViaCasting(action, boolean);
+	#endregion acting upon all items
 }

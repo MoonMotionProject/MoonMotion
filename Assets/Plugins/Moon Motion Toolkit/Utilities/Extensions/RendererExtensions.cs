@@ -19,6 +19,10 @@ public static class RendererExtensions
 
 		return renderer;
 	}
+	// method: set the enablement of this given game object's renderer to the given boolean, then return this given game object //
+	public static GameObject setRendererEnablementTo(this GameObject gameObject, bool boolean)
+		=> gameObject.after(()=>
+			gameObject.first<Renderer>().setEnablementTo(boolean));
 
 	// method: enable this given renderer, then return it //
 	public static Renderer enable(this Renderer renderer)

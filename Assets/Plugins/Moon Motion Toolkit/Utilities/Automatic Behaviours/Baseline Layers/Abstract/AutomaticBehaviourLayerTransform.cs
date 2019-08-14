@@ -140,417 +140,417 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 	#region destroying children
 
-	public Transform destroyChild(int childIndex)
-		=> transform.destroyChild(childIndex);
+	public AutomaticBehaviourT destroyChild(int childIndex)
+		=> selfAfter(()=> transform.destroyChild(childIndex));
 	
-	public Transform destroyChildIfItExists(int childIndex)
-		=> transform.destroyChildIfItExists(childIndex);
+	public AutomaticBehaviourT destroyChildIfItExists(int childIndex)
+		=> selfAfter(()=> transform.destroyChildIfItExists(childIndex));
 	
-	public Transform destroyFirstChild()
-		=> transform.destroyFirstChild();
+	public AutomaticBehaviourT destroyFirstChild()
+		=> selfAfter(()=> transform.destroyFirstChild());
 	
-	public Transform destroyFirstChildIfItExists()
-		=> transform.destroyFirstChildIfItExists();
+	public AutomaticBehaviourT destroyFirstChildIfItExists()
+		=> selfAfter(()=> transform.destroyFirstChildIfItExists());
 	
-	public Transform destroyLastChild()
-		=> transform.destroyLastChild();
+	public AutomaticBehaviourT destroyLastChild()
+		=> selfAfter(()=> transform.destroyLastChild());
 	
-	public Transform destroyLastChildIfItExists()
-		=> transform.destroyLastChildIfItExists();
+	public AutomaticBehaviourT destroyLastChildIfItExists()
+		=> selfAfter(()=> transform.destroyLastChildIfItExists());
 	
-	public Transform destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
-		=> transform.destroyLastChildIfItExists<ComponentT>();
+	public AutomaticBehaviourT destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
+		=> selfAfter(()=> transform.destroyLastChildIfItExists<ComponentT>());
 
-	public Transform destroyChildren()
-		=> transform.destroyChildren();
+	public AutomaticBehaviourT destroyChildren()
+		=> selfAfter(()=> transform.destroyChildren());
 	#endregion destroying children
 
 
 	#region child iteration
 
-	public Transform forEachChildTransform(Action<Transform> action)
-		=> transform.forEachChildTransform(action);
+	public AutomaticBehaviourT forEachChildTransform(Action<Transform> action)
+		=> selfAfter(()=> transform.forEachChildTransform(action));
 
-	public Transform setActivityOfChildrenTo(bool boolean)
-		=> transform.setActivityOfChildrenTo(boolean);
+	public AutomaticBehaviourT setActivityOfChildrenTo(bool boolean)
+		=> selfAfter(()=> transform.setActivityOfChildrenTo(boolean));
 	#endregion child iteration
 
 
 	#region transformations
 
 	public Vector3 localPosition => transform.localPosition;
-	public Transform setLocalPositionTo(Vector3 localPosition, bool boolean = true)
-		=> transform.setLocalPositionTo(localPosition, boolean);
-	public Transform setLocalPositionTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionTo(otherTransform, boolean);
-	public Transform setLocalPositionTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalPositionTo(otherGameObject, boolean);
-	public Transform setLocalPositionTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalPositionTo(otherComponent, boolean);
-	public Transform resetLocalPosition(bool boolean = true)
-		=> transform.resetLocalPosition(boolean);
+	public AutomaticBehaviourT setLocalPositionTo(Vector3 localPosition, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionTo(localPosition, boolean));
+	public AutomaticBehaviourT setLocalPositionTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalPositionTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalPositionTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalPosition(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalPosition(boolean));
 
 
 	public float localPositionX => transform.localPosition.x;
-	public Transform setLocalPositionXTo(float x, bool boolean = true)
-		=> transform.setLocalPositionXTo(x, boolean);
-	public Transform setLocalPositionXTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionXTo(otherTransform, boolean);
-	public Transform resetLocalPositionX(bool boolean = true)
-		=> transform.resetLocalPositionX(boolean);
+	public AutomaticBehaviourT setLocalPositionXTo(float x, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionXTo(x, boolean));
+	public AutomaticBehaviourT setLocalPositionXTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionXTo(otherTransform, boolean));
+	public AutomaticBehaviourT resetLocalPositionX(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalPositionX(boolean));
 
 	public float localPositionY => transform.localPosition.y;
-	public Transform setLocalPositionYTo(float y, bool boolean = true)
-		=> transform.setLocalPositionYTo(y, boolean);
-	public Transform setLocalPositionYTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionYTo(otherTransform, boolean);
-	public Transform setLocalPositionYTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalPositionYTo(otherGameObject, boolean);
-	public Transform setLocalPositionYTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalPositionYTo(otherComponent, boolean);
-	public Transform resetLocalPositionY(bool boolean = true)
-		=> transform.resetLocalPositionY(boolean);
+	public AutomaticBehaviourT setLocalPositionYTo(float y, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionYTo(y, boolean));
+	public AutomaticBehaviourT setLocalPositionYTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionYTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalPositionYTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionYTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalPositionYTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionYTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalPositionY(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalPositionY(boolean));
 
 	public float localPositionZ => transform.localPosition.z;
-	public Transform setLocalPositionZTo(float z, bool boolean = true)
-		=> transform.setLocalPositionZTo(z, boolean);
-	public Transform setLocalPositionZTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalPositionZTo(otherTransform, boolean);
-	public Transform setLocalPositionZTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalPositionZTo(otherGameObject, boolean);
-	public Transform setLocalPositionZTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalPositionZTo(otherComponent, boolean);
-	public Transform resetLocalPositionZ(bool boolean = true)
-		=> transform.resetLocalPositionZ(boolean);
+	public AutomaticBehaviourT setLocalPositionZTo(float z, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionZTo(z, boolean));
+	public AutomaticBehaviourT setLocalPositionZTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionZTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalPositionZTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionZTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalPositionZTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalPositionZTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalPositionZ(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalPositionZ(boolean));
 
 	public Quaternion localRotation => transform.localRotation;
-	public Transform setLocalRotationTo(Quaternion localRotation, bool boolean = true)
-		=> transform.setLocalRotationTo(localRotation, boolean);
-	public Transform setLocalRotationTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalRotationTo(otherTransform, boolean);
-	public Transform setLocalRotationTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalRotationTo(otherGameObject, boolean);
-	public Transform setLocalRotationTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalRotationTo(otherComponent, boolean);
-	public Transform resetLocalRotation(bool boolean = true)
-		=> transform.resetLocalRotation(boolean);
+	public AutomaticBehaviourT setLocalRotationTo(Quaternion localRotation, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalRotationTo(localRotation, boolean));
+	public AutomaticBehaviourT setLocalRotationTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalRotationTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalRotationTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalRotationTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalRotationTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalRotationTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalRotation(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalRotation(boolean));
 
 	public Vector3 localEulerAngles => transform.localEulerAngles;
-	public Transform setLocalEulerAnglesTo(Vector3 localEulerAngles, bool boolean = true)
-		=> transform.setLocalEulerAnglesTo(localEulerAngles, boolean);
-	public Transform setLocalEulerAnglesTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAnglesTo(otherTransform, boolean);
-	public Transform setLocalEulerAnglesTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalEulerAnglesTo(otherGameObject, boolean);
-	public Transform setLocalEulerAnglesTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalEulerAnglesTo(otherComponent, boolean);
-	public Transform resetLocalEulerAngles(bool boolean = true)
-		=> transform.resetLocalEulerAngles(boolean);
+	public AutomaticBehaviourT setLocalEulerAnglesTo(Vector3 localEulerAngles, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAnglesTo(localEulerAngles, boolean));
+	public AutomaticBehaviourT setLocalEulerAnglesTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAnglesTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalEulerAnglesTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAnglesTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalEulerAnglesTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAnglesTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalEulerAngles(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalEulerAngles(boolean));
 
 	public float localEulerAngleX => transform.localEulerAngleX();
-	public Transform setLocalEulerAngleXTo(float localEulerAngleX, bool boolean = true)
-		=> transform.setLocalEulerAngleXTo(localEulerAngleX, boolean);
-	public Transform setLocalEulerAngleXTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngleXTo(otherTransform, boolean);
-	public Transform setLocalEulerAngleXTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalEulerAngleXTo(otherGameObject, boolean);
-	public Transform setLocalEulerAngleXTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalEulerAngleXTo(otherComponent, boolean);
-	public Transform resetLocalEulerAngleX(bool boolean = true)
-		=> transform.resetLocalEulerAngleX(boolean);
+	public AutomaticBehaviourT setLocalEulerAngleXTo(float localEulerAngleX, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleXTo(localEulerAngleX, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleXTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleXTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleXTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleXTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleXTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleXTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalEulerAngleX(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalEulerAngleX(boolean));
 
 	public float localEulerAngleY => transform.localEulerAngleY();
-	public Transform setLocalEulerAngleYTo(float localEulerAngleY, bool boolean = true)
-		=> transform.setLocalEulerAngleYTo(localEulerAngleY, boolean);
-	public Transform setLocalEulerAngleYTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngleYTo(otherTransform, boolean);
-	public Transform setLocalEulerAngleYTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalEulerAngleYTo(otherGameObject, boolean);
-	public Transform setLocalEulerAngleYTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalEulerAngleYTo(otherComponent, boolean);
-	public Transform resetLocalEulerAngleY(bool boolean = true)
-		=> transform.resetLocalEulerAngleY(boolean);
+	public AutomaticBehaviourT setLocalEulerAngleYTo(float localEulerAngleY, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleYTo(localEulerAngleY, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleYTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleYTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleYTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleYTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleYTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleYTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalEulerAngleY(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalEulerAngleY(boolean));
 
 	public float localEulerAngleZ => transform.localEulerAngleZ();
-	public Transform setLocalEulerAngleZTo(float localEulerAngleZ, bool boolean = true)
-		=> transform.setLocalEulerAngleZTo(localEulerAngleZ, boolean);
-	public Transform setLocalEulerAngleZTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalEulerAngleZTo(otherTransform, boolean);
-	public Transform setLocalEulerAngleZTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalEulerAngleZTo(otherGameObject, boolean);
-	public Transform setLocalEulerAngleZTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalEulerAngleZTo(otherComponent, boolean);
-	public Transform resetLocalEulerAngleZ(bool boolean = true)
-		=> transform.resetLocalEulerAngleZ(boolean);
+	public AutomaticBehaviourT setLocalEulerAngleZTo(float localEulerAngleZ, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleZTo(localEulerAngleZ, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleZTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleZTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleZTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleZTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalEulerAngleZTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalEulerAngleZTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalEulerAngleZ(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalEulerAngleZ(boolean));
 
 	public Vector3 localScale => transform.localScale;
-	public Transform setLocalScaleTo(Vector3 localScale, bool boolean = true)
-		=> transform.setLocalScaleTo(localScale, boolean);
-	public Transform setLocalScaleTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleTo(otherTransform, boolean);
-	public Transform setLocalScaleTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalScaleTo(otherGameObject, boolean);
-	public Transform setLocalScaleTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalScaleTo(otherComponent, boolean);
-	public Transform resetLocalScale(bool boolean = true)
-		=> transform.resetLocalScale(boolean);
+	public AutomaticBehaviourT setLocalScaleTo(Vector3 localScale, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleTo(localScale, boolean));
+	public AutomaticBehaviourT setLocalScaleTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalScaleTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalScaleTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalScale(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalScale(boolean));
 
 	public float localScaleX => transform.localScale.x;
-	public Transform setLocalScaleXTo(float x, bool boolean = true)
-		=> transform.setLocalScaleXTo(x, boolean);
-	public Transform setLocalScaleXTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleXTo(otherTransform, boolean);
-	public Transform setLocalScaleXTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalScaleXTo(otherGameObject, boolean);
-	public Transform setLocalScaleXTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalScaleXTo(otherComponent, boolean);
-	public Transform resetLocalScaleX(bool boolean = true)
-		=> transform.resetLocalScaleX(boolean);
+	public AutomaticBehaviourT setLocalScaleXTo(float x, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleXTo(x, boolean));
+	public AutomaticBehaviourT setLocalScaleXTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleXTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalScaleXTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleXTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalScaleXTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleXTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalScaleX(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalScaleX(boolean));
 
 	public float localScaleY => transform.localScale.y;
-	public Transform setLocalScaleYTo(float y, bool boolean = true)
-		=> transform.setLocalScaleYTo(y, boolean);
-	public Transform setLocalScaleYTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleYTo(otherTransform, boolean);
-	public Transform setLocalScaleYTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalScaleYTo(otherGameObject, boolean);
-	public Transform setLocalScaleYTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalScaleYTo(otherComponent, boolean);
-	public Transform resetLocalScaleY(bool boolean = true)
-		=> transform.resetLocalScaleY(boolean);
+	public AutomaticBehaviourT setLocalScaleYTo(float y, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleYTo(y, boolean));
+	public AutomaticBehaviourT setLocalScaleYTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleYTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalScaleYTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleYTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalScaleYTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleYTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalScaleY(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalScaleY(boolean));
 
 	public float localScaleZ => transform.localScale.z;
-	public Transform setLocalScaleZTo(float z, bool boolean = true)
-		=> transform.setLocalScaleZTo(z, boolean);
-	public Transform setLocalScaleZTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalScaleZTo(otherTransform, boolean);
-	public Transform setLocalScaleZTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalScaleZTo(otherGameObject, boolean);
-	public Transform setLocalScaleZTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalScaleZTo(otherComponent, boolean);
-	public Transform resetLocalScaleZ(bool boolean = true)
-		=> transform.resetLocalScaleZ(boolean);
+	public AutomaticBehaviourT setLocalScaleZTo(float z, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleZTo(z, boolean));
+	public AutomaticBehaviourT setLocalScaleZTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleZTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalScaleZTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleZTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalScaleZTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalScaleZTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocalScaleZ(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocalScaleZ(boolean));
 	
-	public Transform setLocalsTo(Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
-		=> transform.setLocalsTo(localPosition, localRotation, localScale, boolean);
-	public Transform setLocalsTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalsTo(otherTransform, boolean);
-	public Transform setLocalsTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalsTo(otherGameObject, boolean);
-	public Transform setLocalsTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalsTo(otherComponent, boolean);
-	public Transform resetLocals(bool boolean = true)
-		=> transform.resetLocals(boolean);
+	public AutomaticBehaviourT setLocalsTo(Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(localPosition, localRotation, localScale, boolean));
+	public AutomaticBehaviourT setLocalsTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalsTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalsTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetLocals(bool boolean = true)
+		=> selfAfter(()=> transform.resetLocals(boolean));
 
-	public Transform setLocalsTo(Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
-		=> transform.setLocalsTo(localPosition, localEulerAngles, localScale, boolean);
+	public AutomaticBehaviourT setLocalsTo(Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(localPosition, localEulerAngles, localScale, boolean));
 	
-	public Transform setLocalsTo(Vector3 localPosition, Quaternion localRotation, bool boolean = true)
-		=> transform.setLocalsTo(localPosition, localRotation, boolean);
+	public AutomaticBehaviourT setLocalsTo(Vector3 localPosition, Quaternion localRotation, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(localPosition, localRotation, boolean));
 	
-	public Transform setLocalsTo(Quaternion localRotation, Vector3 localScale, bool boolean = true)
-		=> transform.setLocalsTo(localRotation, localScale, boolean);
+	public AutomaticBehaviourT setLocalsTo(Quaternion localRotation, Vector3 localScale, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsTo(localRotation, localScale, boolean));
 	
-	public Transform setLocalsParentlyForRelativeTo(Transform otherTransform, bool boolean = true)
-		=> transform.setLocalsParentlyForRelativeTo(otherTransform, boolean);
-	public Transform setLocalsParentlyForRelativeTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setLocalsParentlyForRelativeTo(otherGameObject, boolean);
-	public Transform setLocalsParentlyForRelativeTo(Component otherComponent, bool boolean = true)
-		=> transform.setLocalsParentlyForRelativeTo(otherComponent, boolean);
-	public Transform setLocalsParentlyForRelativeTo<SingletonBehaviourT>(bool boolean = true) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> transform.setLocalsParentlyForRelativeTo<SingletonBehaviourT>(boolean);
+	public AutomaticBehaviourT setLocalsParentlyForRelativeTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsParentlyForRelativeTo(otherTransform, boolean));
+	public AutomaticBehaviourT setLocalsParentlyForRelativeTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsParentlyForRelativeTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setLocalsParentlyForRelativeTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setLocalsParentlyForRelativeTo(otherComponent, boolean));
+	public AutomaticBehaviourT setLocalsParentlyForRelativeTo<SingletonBehaviourT>(bool boolean = true) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> selfAfter(()=> transform.setLocalsParentlyForRelativeTo<SingletonBehaviourT>(boolean));
 
 	public Vector3 position => transform.position;
-	public Transform setPositionTo(Vector3 position, bool boolean = true)
-		=> transform.setPositionTo(position, boolean);
-	public Transform setPositionTo(Transform otherTransform, bool boolean = true)
-		=> transform.setPositionTo(otherTransform, boolean);
-	public Transform setPositionTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setPositionTo(otherGameObject, boolean);
-	public Transform setPositionTo(Component otherComponent, bool boolean = true)
-		=> transform.setPositionTo(otherComponent, boolean);
-	public Transform resetPosition(bool boolean = true)
-		=> transform.resetPosition(boolean);
+	public AutomaticBehaviourT setPositionTo(Vector3 position, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionTo(position, boolean));
+	public AutomaticBehaviourT setPositionTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionTo(otherTransform, boolean));
+	public AutomaticBehaviourT setPositionTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setPositionTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetPosition(bool boolean = true)
+		=> selfAfter(()=> transform.resetPosition(boolean));
 
 	public float positionX => transform.position.x;
-	public Transform setPositionXTo(float x, bool boolean = true)
-		=> transform.setPositionXTo(x, boolean);
-	public Transform setPositionXTo(Transform otherTransform, bool boolean = true)
-		=> transform.setPositionXTo(otherTransform, boolean);
-	public Transform setPositionXTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setPositionXTo(otherGameObject, boolean);
-	public Transform setPositionXTo(Component otherComponent, bool boolean = true)
-		=> transform.setPositionXTo(otherComponent, boolean);
-	public Transform resetPositionX(bool boolean = true)
-		=> transform.resetPositionX(boolean);
+	public AutomaticBehaviourT setPositionXTo(float x, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionXTo(x, boolean));
+	public AutomaticBehaviourT setPositionXTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionXTo(otherTransform, boolean));
+	public AutomaticBehaviourT setPositionXTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionXTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setPositionXTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionXTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetPositionX(bool boolean = true)
+		=> selfAfter(()=> transform.resetPositionX(boolean));
 
 	public float positionY => transform.position.y;
-	public Transform setPositionYTo(float y, bool boolean = true)
-		=> transform.setPositionYTo(y, boolean);
-	public Transform setPositionYTo(Transform otherTransform, bool boolean = true)
-		=> transform.setPositionYTo(otherTransform, boolean);
-	public Transform setPositionYTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setPositionYTo(otherGameObject, boolean);
-	public Transform setPositionYTo(Component otherComponent, bool boolean = true)
-		=> transform.setPositionYTo(otherComponent, boolean);
-	public Transform resetPositionY(bool boolean = true)
-		=> transform.resetPositionY(boolean);
+	public AutomaticBehaviourT setPositionYTo(float y, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionYTo(y, boolean));
+	public AutomaticBehaviourT setPositionYTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionYTo(otherTransform, boolean));
+	public AutomaticBehaviourT setPositionYTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionYTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setPositionYTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionYTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetPositionY(bool boolean = true)
+		=> selfAfter(()=> transform.resetPositionY(boolean));
 
 	public float positionZ => transform.position.z;
-	public Transform setPositionZTo(float z, bool boolean = true)
-		=> transform.setPositionZTo(z, boolean);
-	public Transform setPositionZTo(Transform otherTransform, bool boolean = true)
-		=> transform.setPositionZTo(otherTransform, boolean);
-	public Transform setPositionZTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setPositionZTo(otherGameObject, boolean);
-	public Transform setPositionZTo(Component otherComponent, bool boolean = true)
-		=> transform.setPositionZTo(otherComponent, boolean);
-	public Transform resetPositionZ(bool boolean = true)
-		=> transform.resetPositionZ(boolean);
+	public AutomaticBehaviourT setPositionZTo(float z, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionZTo(z, boolean));
+	public AutomaticBehaviourT setPositionZTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionZTo(otherTransform, boolean));
+	public AutomaticBehaviourT setPositionZTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionZTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setPositionZTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setPositionZTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetPositionZ(bool boolean = true)
+		=> selfAfter(()=> transform.resetPositionZ(boolean));
 
 	public Quaternion rotation => transform.rotation;
-	public Transform setRotationTo(Quaternion rotation, bool boolean = true)
-		=> transform.setRotationTo(rotation, boolean);
-	public Transform setRotationTo(Transform otherTransform, bool boolean = true)
-		=> transform.setRotationTo(otherTransform, boolean);
-	public Transform setRotationTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setRotationTo(otherGameObject, boolean);
-	public Transform setRotationTo(Component otherComponent, bool boolean = true)
-		=> transform.setRotationTo(otherComponent, boolean);
-	public Transform resetRotation(bool boolean = true)
-		=> transform.resetRotation(boolean);
+	public AutomaticBehaviourT setRotationTo(Quaternion rotation, bool boolean = true)
+		=> selfAfter(()=> transform.setRotationTo(rotation, boolean));
+	public AutomaticBehaviourT setRotationTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setRotationTo(otherTransform, boolean));
+	public AutomaticBehaviourT setRotationTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setRotationTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setRotationTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setRotationTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetRotation(bool boolean = true)
+		=> selfAfter(()=> transform.resetRotation(boolean));
 
 	public Vector3 eulerAngles => transform.eulerAngles;
-	public Transform setEulerAnglesTo(Vector3 eulerAngles, bool boolean = true)
-		=> transform.setEulerAnglesTo(eulerAngles, boolean);
-	public Transform setEulerAnglesTo(Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAnglesTo(otherTransform, boolean);
-	public Transform setEulerAnglesTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setEulerAnglesTo(otherGameObject, boolean);
-	public Transform setEulerAnglesTo(Component otherComponent, bool boolean = true)
-		=> transform.setEulerAnglesTo(otherComponent, boolean);
-	public Transform resetEulerAngles(bool boolean = true)
-		=> transform.resetEulerAngles(boolean);
+	public AutomaticBehaviourT setEulerAnglesTo(Vector3 eulerAngles, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAnglesTo(eulerAngles, boolean));
+	public AutomaticBehaviourT setEulerAnglesTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAnglesTo(otherTransform, boolean));
+	public AutomaticBehaviourT setEulerAnglesTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAnglesTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setEulerAnglesTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAnglesTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetEulerAngles(bool boolean = true)
+		=> selfAfter(()=> transform.resetEulerAngles(boolean));
 
 	public float eulerAngleX => transform.eulerAngleX();
-	public Transform setEulerAngleXTo(float eulerAngleX, bool boolean = true)
-		=> transform.setEulerAngleXTo(eulerAngleX, boolean);
-	public Transform setEulerAngleXTo(Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngleXTo(otherTransform, boolean);
-	public Transform setEulerAngleXTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setEulerAngleXTo(otherGameObject, boolean);
-	public Transform setEulerAngleXTo(Component otherComponent, bool boolean = true)
-		=> transform.setEulerAngleXTo(otherComponent, boolean);
-	public Transform resetEulerAngleX(bool boolean = true)
-		=> transform.resetEulerAngleX(boolean);
+	public AutomaticBehaviourT setEulerAngleXTo(float eulerAngleX, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleXTo(eulerAngleX, boolean));
+	public AutomaticBehaviourT setEulerAngleXTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleXTo(otherTransform, boolean));
+	public AutomaticBehaviourT setEulerAngleXTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleXTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setEulerAngleXTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleXTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetEulerAngleX(bool boolean = true)
+		=> selfAfter(()=> transform.resetEulerAngleX(boolean));
 
 	public float eulerAngleY => transform.eulerAngleY();
-	public Transform setEulerAngleYTo(float eulerAngleY, bool boolean = true)
-		=> transform.setEulerAngleYTo(eulerAngleY, boolean);
-	public Transform setEulerAngleYTo(Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngleYTo(otherTransform, boolean);
-	public Transform setEulerAngleYTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setEulerAngleYTo(otherGameObject, boolean);
-	public Transform setEulerAngleYTo(Component otherComponent, bool boolean = true)
-		=> transform.setEulerAngleYTo(otherComponent, boolean);
-	public Transform resetEulerAngleY(bool boolean = true)
-		=> transform.resetEulerAngleY(boolean);
+	public AutomaticBehaviourT setEulerAngleYTo(float eulerAngleY, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleYTo(eulerAngleY, boolean));
+	public AutomaticBehaviourT setEulerAngleYTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleYTo(otherTransform, boolean));
+	public AutomaticBehaviourT setEulerAngleYTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleYTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setEulerAngleYTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleYTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetEulerAngleY(bool boolean = true)
+		=> selfAfter(()=> transform.resetEulerAngleY(boolean));
 
 	public float eulerAngleZ => transform.eulerAngleZ();
-	public Transform setEulerAngleZTo(float eulerAngleZ, bool boolean = true)
-		=> transform.setEulerAngleZTo(eulerAngleZ, boolean);
-	public Transform setEulerAngleZTo(Transform otherTransform, bool boolean = true)
-		=> transform.setEulerAngleZTo(otherTransform, boolean);
-	public Transform setEulerAngleZTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setEulerAngleZTo(otherGameObject, boolean);
-	public Transform setEulerAngleZTo(Component otherComponent, bool boolean = true)
-		=> transform.setEulerAngleZTo(otherComponent, boolean);
-	public Transform resetEulerAngleZ(bool boolean = true)
-		=> transform.resetEulerAngleZ(boolean);
+	public AutomaticBehaviourT setEulerAngleZTo(float eulerAngleZ, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleZTo(eulerAngleZ, boolean));
+	public AutomaticBehaviourT setEulerAngleZTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleZTo(otherTransform, boolean));
+	public AutomaticBehaviourT setEulerAngleZTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleZTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setEulerAngleZTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setEulerAngleZTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetEulerAngleZ(bool boolean = true)
+		=> selfAfter(()=> transform.resetEulerAngleZ(boolean));
 	
-	public Transform setGlobalsTo(Vector3 position, Quaternion rotation, bool boolean = true)
-		=> transform.setGlobalsTo(position, rotation, boolean);
-	public Transform setGlobalsTo(Transform otherTransform, bool boolean = true)
-		=> transform.setGlobalsTo(otherTransform, boolean);
-	public Transform setGlobalsTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setGlobalsTo(otherGameObject, boolean);
-	public Transform setGlobalsTo(Component otherComponent, bool boolean = true)
-		=> transform.setGlobalsTo(otherComponent, boolean);
-	public Transform resetGlobals(bool boolean = true)
-		=> transform.resetGlobals(boolean);
+	public AutomaticBehaviourT setGlobalsTo(Vector3 position, Quaternion rotation, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsTo(position, rotation, boolean));
+	public AutomaticBehaviourT setGlobalsTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsTo(otherTransform, boolean));
+	public AutomaticBehaviourT setGlobalsTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setGlobalsTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetGlobals(bool boolean = true)
+		=> selfAfter(()=> transform.resetGlobals(boolean));
 
-	public Transform setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
-		=> transform.setGlobalsTo(position, eulerAngles, boolean);
+	public AutomaticBehaviourT setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsTo(position, eulerAngles, boolean));
 	
-	public Transform setGlobalsAndLocalScaleTo(Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
-		=> transform.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean);
-	public Transform setGlobalsAndLocalScaleTo(Transform otherTransform, bool boolean = true)
-		=> transform.setGlobalsAndLocalScaleTo(otherTransform, boolean);
-	public Transform setGlobalsAndLocalScaleTo(GameObject otherGameObject, bool boolean = true)
-		=> transform.setGlobalsAndLocalScaleTo(otherGameObject, boolean);
-	public Transform setGlobalsAndLocalScaleTo(Component otherComponent, bool boolean = true)
-		=> transform.setGlobalsAndLocalScaleTo(otherComponent, boolean);
-	public Transform resetGlobalsAndLocalScale(bool boolean = true)
-		=> transform.resetGlobalsAndLocalScale(boolean);
+	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean));
+	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(otherTransform, boolean));
+	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(otherGameObject, boolean));
+	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(otherComponent, boolean));
+	public AutomaticBehaviourT resetGlobalsAndLocalScale(bool boolean = true)
+		=> selfAfter(()=> transform.resetGlobalsAndLocalScale(boolean));
 
-	public Transform setGlobalsAndLocalScaleTo(Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
-		=> transform.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean);
+	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean));
 	#endregion transformations
 
 
 	#region advanced rotation
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target position, then return this behaviour's transform //
-	public Transform lookAt(Vector3 targetPosition, bool boolean = true)
-		=> transform.lookAt(targetPosition, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target position with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT lookAt(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(()=> transform.lookAt(targetPosition, withX, withY, withZ, boolean));
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform, then return this behaviour's transform //
-	public Transform lookAt(Transform targetTransform, bool boolean = true)
-		=> transform.lookAt(targetTransform, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT lookAt(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(()=> transform.lookAt(targetTransform, withX, withY, withZ, boolean));
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform, then return this behaviour's transform //
-	public Transform lookAt(GameObject targetObject, bool boolean = true)
-		=> transform.lookAt(targetObject.transform, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT lookAt(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(()=> transform.lookAt(targetObject.transform, withX, withY, withZ, boolean));
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target component's transform, then return this behaviour's transform //
-	public Transform lookAt(Component targetComponent, bool boolean = true)
-		=> transform.lookAt(targetComponent, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target component's transform with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT lookAt(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(()=> transform.lookAt(targetComponent, withX, withY, withZ, boolean));
 
-	// method: (according to the given boolean:) have this given transform look at the main camera, then return this given transform //
-	public Transform lookAtCamera(bool boolean = true)
-		=> transform.lookAtCamera(boolean);
+	// method: (according to the given boolean:) have this given transform look at the main camera with the specified axes, then return this given transform //
+	public AutomaticBehaviourT lookAtCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(()=> transform.lookAtCamera(withX, withY, withZ, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
-	public Transform rotate(Vector3 rotationAngles, bool boolean = true)
-		=> transform.rotate(rotationAngles, boolean);
+	public AutomaticBehaviourT rotate(Vector3 rotationAngles, bool boolean = true)
+		=> selfAfter(()=> transform.rotate(rotationAngles, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
-	public Transform rotate(float x, float y, float z, bool boolean = true)
-		=> transform.rotate(x, y, z, boolean);
+	public AutomaticBehaviourT rotate(float x, float y, float z, bool boolean = true)
+		=> selfAfter(()=> transform.rotate(x, y, z, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
-	public Transform rotateX(float x, bool boolean = true)
-		=> transform.rotateZ(x, boolean);
+	public AutomaticBehaviourT rotateX(float x, bool boolean = true)
+		=> selfAfter(()=> transform.rotateZ(x, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
-	public Transform rotateY(float y, bool boolean = true)
-		=> transform.rotateZ(y, boolean);
+	public AutomaticBehaviourT rotateY(float y, bool boolean = true)
+		=> selfAfter(()=> transform.rotateZ(y, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
-	public Transform rotateZ(float z, bool boolean = true)
-		=> transform.rotateZ(z, boolean);
+	public AutomaticBehaviourT rotateZ(float z, bool boolean = true)
+		=> selfAfter(()=> transform.rotateZ(z, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
-	public Transform flipX(bool boolean = true)
-		=> transform.flipX(boolean);
+	public AutomaticBehaviourT flipX(bool boolean = true)
+		=> selfAfter(()=> transform.flipX(boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
-	public Transform flipY(bool boolean = true)
-		=> transform.flipY(boolean);
+	public AutomaticBehaviourT flipY(bool boolean = true)
+		=> selfAfter(()=> transform.flipY(boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
-	public Transform flipZ(bool boolean = true)
-		=> transform.flipZ(boolean);
+	public AutomaticBehaviourT flipZ(bool boolean = true)
+		=> selfAfter(()=> transform.flipZ(boolean));
 	#endregion advanced rotation
 
 

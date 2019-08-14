@@ -32,13 +32,13 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 
 	#region inspector
 
-	// method: hide this component in the inspector, then return this component //
+	// method: hide this component in the inspector, then return this behaviour //
 	public AutomaticBehaviourT hideInInspector()
-		=> component.hideInInspector().castTo<AutomaticBehaviourT>();
+		=> selfAfter(()=> component.hideInInspector());
 
-	// method: hide this component in the inspector, then return this component //
+	// method: hide this component in the inspector, then return this behaviour //
 	public AutomaticBehaviourT unhideInInspector()
-		=> component.unhideInInspector().castTo<AutomaticBehaviourT>();
+		=> selfAfter(()=> component.unhideInInspector());
 	#endregion inspector
 
 
@@ -121,8 +121,8 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 
 	#region iterating local components
 
-	public GameObject forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.forEach(action, includeInactiveComponents);
+	public AutomaticBehaviourT forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
+		=> selfAfter(()=> gameObject.forEach(action, includeInactiveComponents));
 	#endregion iterating local components
 
 
@@ -197,8 +197,8 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	#region searching for self or parent based on comparison
 
 	// method: return the first game object out of the game object for this component and its parent game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
-	public GameObject selfOrAncestorWith<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selfOrAncestorWith<ComponentT>(includeInactiveComponents);
+	public GameObject selfOrAncestorObjectWith<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
+		=> gameObject.selfOrAncestorObjectWith<ComponentT>(includeInactiveComponents);
 
 	// method: return the transform of the first game object out of this component and its parent game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
 	public Transform selfOrAncestorTransformWith<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component

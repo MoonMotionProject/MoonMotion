@@ -40,29 +40,37 @@ public static class BehaviourExtensions
 		=> behaviours.setEnablementTo(false);
 
 
-	// methods for: enablement of the first behaviour of the specified type //
+	#region enablement of the first behaviour of the specified type - and returning the given this
 
-	// method: set the enablement of the first behaviour of the specified type on this given game object to the given boolean, then return the specified behaviour //
-	public static BehaviourT setEnablementOfFirst<BehaviourT>(this GameObject gameObject, bool enablement) where BehaviourT : Behaviour
+	public static GameObject setEnablementOfFirst<BehaviourT>(this GameObject gameObject, bool enablement) where BehaviourT : Behaviour
+		=> gameObject.after(()=>
+			gameObject.setEnablementOfFirst<BehaviourT>(enablement));
+
+	public static GameObject enableFirst<BehaviourT>(this GameObject gameObject) where BehaviourT : Behaviour
+		=> gameObject.after(()=>
+			gameObject.enableFirst<BehaviourT>());
+
+	public static GameObject disableFirst<BehaviourT>(this GameObject gameObject) where BehaviourT : Behaviour
+		=> gameObject.after(()=>
+			gameObject.disableFirst<BehaviourT>());
+	#endregion enablement of the first behaviour of the specified type - and returning the given this
+
+
+	#region enablement of the first behaviour of the specified type - and returning of that behaviour
+
+	public static BehaviourT setEnablementOfFirstGet<BehaviourT>(this GameObject gameObject, bool enablement) where BehaviourT : Behaviour
 		=> gameObject.first<BehaviourT>().setEnablementTo(enablement);
+	public static BehaviourT setEnablementOfFirstGet<BehaviourT>(this Component component, bool enablement) where BehaviourT : Behaviour
+		=> component.gameObject.setEnablementOfFirstGet<BehaviourT>(enablement);
 
-	// method: enable the first behaviour of the specified type on this given game object, then return the specified behaviour //
-	public static BehaviourT enableFirst<BehaviourT>(this GameObject gameObject) where BehaviourT : Behaviour
-		=> gameObject.setEnablementOfFirst<BehaviourT>(true);
+	public static BehaviourT enableFirstGet<BehaviourT>(this GameObject gameObject) where BehaviourT : Behaviour
+		=> gameObject.setEnablementOfFirstGet<BehaviourT>(true);
+	public static BehaviourT enableFirstGet<BehaviourT>(this Component component) where BehaviourT : Behaviour
+		=> component.gameObject.enableFirstGet<BehaviourT>();
 
-	// method: disable the first behaviour of the specified type on this given game object, then return the specified behaviour //
-	public static BehaviourT disableFirst<BehaviourT>(this GameObject gameObject) where BehaviourT : Behaviour
-		=> gameObject.setEnablementOfFirst<BehaviourT>(false);
-
-	// method: set the enablement of the first behaviour of the specified type on this given component's game object to the given boolean, then return the specified behaviour //
-	public static BehaviourT setEnablementOfFirst<BehaviourT>(this Component component, bool enablement) where BehaviourT : Behaviour
-		=> component.gameObject.setEnablementOfFirst<BehaviourT>(enablement);
-
-	// method: enable the first behaviour of the specified type on this given component's game object, then return the specified behaviour //
-	public static BehaviourT enableFirst<BehaviourT>(this Component component) where BehaviourT : Behaviour
-		=> component.gameObject.enableFirst<BehaviourT>();
-
-	// method: disable the first behaviour of the specified type on this given component's game object, then return the specified behaviour //
-	public static BehaviourT disableFirst<BehaviourT>(this Component component) where BehaviourT : Behaviour
-		=> component.gameObject.disableFirst<BehaviourT>();
+	public static BehaviourT disableFirstGet<BehaviourT>(this GameObject gameObject) where BehaviourT : Behaviour
+		=> gameObject.setEnablementOfFirstGet<BehaviourT>(false);
+	public static BehaviourT disableFirstGet<BehaviourT>(this Component component) where BehaviourT : Behaviour
+		=> component.gameObject.disableFirstGet<BehaviourT>();
+	#endregion enablement of the first behaviour of the specified type - and returning of that behaviour
 }

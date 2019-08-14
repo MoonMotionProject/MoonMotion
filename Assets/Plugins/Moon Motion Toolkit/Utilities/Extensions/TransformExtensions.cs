@@ -9,6 +9,14 @@ using Valve.VR.InteractionSystem;
 // #auto #transform
 public static class TransformExtensions
 {
+	#region accessing
+
+	// method: return a selection of the transforms for this given enumerable of game objects //
+	public static IEnumerable<Transform> selectTransforms(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.select(gameObject => gameObject.transform);
+	#endregion accessing
+
+
 	#region identification
 
 	// method: return whether this given transform's game object is named 'Player' //
@@ -83,6 +91,10 @@ public static class TransformExtensions
 
 	#region accessing transformations
 
+	// methods: return a selection of local positions corresponding to these given transforms //
+	public static IEnumerable<Vector3> selectLocalPositions(this IList<Transform> transforms)
+		=> transforms.select(transform => transform.localPosition);
+
 	// method: return this given transform's local x position //
 	public static float localPositionX(this Transform transform)
 		=> transform.localPosition.x;
@@ -107,6 +119,10 @@ public static class TransformExtensions
 	public static float localEulerAngleZ(this Transform transform)
 		=> transform.localEulerAngles.z;
 
+	// methods: return a selection of local scales corresponding to these given transforms //
+	public static IEnumerable<Vector3> selectLocalScales(this IList<Transform> transforms)
+		=> transforms.select(transform => transform.localScale);
+
 	// method: return this given transform's local x scale //
 	public static float localScaleX(this Transform transform)
 		=> transform.localScale.x;
@@ -118,6 +134,10 @@ public static class TransformExtensions
 	// method: return this given transform's local z scale //
 	public static float localScaleZ(this Transform transform)
 		=> transform.localScale.z;
+
+	// methods: return a selection of (global) positions corresponding to these given transforms //
+	public static IEnumerable<Vector3> selectPositions(this IList<Transform> transforms)
+		=> transforms.select(transform => transform.position);
 
 	// method: return this given transform's (global) x position //
 	public static float positionX(this Transform transform)
@@ -693,31 +713,45 @@ public static class TransformExtensions
 
 	#region advanced rotation
 
-	// method: (according to the given boolean:) have this given transform look at the given target position, then return this given transform //
-	public static Transform lookAt(this Transform transform, Vector3 targetPosition, bool boolean = true)
+	// method: (according to the given boolean:) have this given transform look at the given target position with the specified axes, then return this given transform //
+	public static Transform lookAt(this Transform transform, Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 	{
+		Vector3 initialRotation = transform.localEulerAngles;
+
 		if (boolean)
 		{
 			transform.LookAt(targetPosition);
+			if (!withX)
+			{
+				transform.setLocalEulerAngleXTo(initialRotation.x);
+			}
+			if (!withY)
+			{
+				transform.setLocalEulerAngleYTo(initialRotation.y);
+			}
+			if (!withZ)
+			{
+				transform.setLocalEulerAngleZTo(initialRotation.z);
+			}
 		}
 
 		return transform;
 	}
 
-	// method: (according to the given boolean:) have this given transform look at the given target transform, then return this given transform //
-	public static Transform lookAt(this Transform transform, Transform targetTransform, bool boolean = true)
+	// method: (according to the given boolean:) have this given transform look at the given target transform with the specified axes, then return this given transform //
+	public static Transform lookAt(this Transform transform, Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 		=> transform.lookAt(targetTransform.position, boolean);
 
-	// method: (according to the given boolean:) have this given transform look at the given target transform, then return this given transform //
-	public static Transform lookAt(this Transform transform, GameObject targetObject, bool boolean = true)
+	// method: (according to the given boolean:) have this given transform look at the given target transform with the specified axes, then return this given transform //
+	public static Transform lookAt(this Transform transform, GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 		=> transform.lookAt(targetObject.transform, boolean);
 
-	// method: (according to the given boolean:) have this given transform look at the given target component's transform, then return this given transform //
-	public static Transform lookAt(this Transform transform, Component targetComponent, bool boolean = true)
+	// method: (according to the given boolean:) have this given transform look at the given target component's transform with the specified axes, then return this given transform //
+	public static Transform lookAt(this Transform transform, Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 		=> transform.lookAt(targetComponent.transform, boolean);
 
-	// method: (according to the given boolean:) have this given transform look at the main camera, then return this given transform //
-	public static Transform lookAtCamera(this Transform transform, bool boolean = true)
+	// method: (according to the given boolean:) have this given transform look at the main camera with the specified axes, then return this given transform //
+	public static Transform lookAtCamera(this Transform transform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 		=> transform.lookAt(Camera.main, boolean);
 
 	// method: (according to the given boolean:) have this given transform rotate by the given (x, y, and z) rotation angles, then return this given transform //
@@ -814,26 +848,6 @@ public static class TransformExtensions
 	public static Vector3 averagePosition(this Transform[] transforms)
 		=> transforms.selectPositions().average();
 	#endregion transformation averages
-
-
-	#region selection
-
-	// methods: return a selection of local positions corresponding to this given array of transforms //
-	public static IEnumerable<Vector3> selectLocalPositions(this Transform[] transforms)
-		=> transforms.select(transform => transform.localPosition);
-
-	// methods: return a selection of local scales corresponding to this given array of transforms //
-	public static IEnumerable<Vector3> selectLocalScales(this Transform[] transforms)
-		=> transforms.select(transform => transform.localScale);
-
-	// methods: return a selection of (global) positions corresponding to this given array of transforms //
-	public static IEnumerable<Vector3> selectPositions(this Transform[] transforms)
-		=> transforms.select(transform => transform.position);
-
-	// method: return a selection of the game objects for this given enumerable of transforms //
-	public static IEnumerable<Vector3> selectObjects(this Transform[] transforms)
-		=> transforms.select(transform => transform.position);
-	#endregion selection
 
 
 	#region casting

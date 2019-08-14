@@ -64,11 +64,11 @@ public static class HashSetExtensions
 		=> set.removeGet(item, boolean);
 
 
-	// methods for: iteration //
+	// methods for: acting upon all items //
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given set, then return this given set //
 	public static HashSet<TItem> forEach<TItem>(this HashSet<TItem> set, Action<TItem> action, bool boolean = true)
-		=> set.forEach_CollectionSpecializedViaCasting(action, boolean);
+		=> set.forEach_EnumerableSpecializedViaCasting(action, boolean);
 
 
 	// methods for: casting //

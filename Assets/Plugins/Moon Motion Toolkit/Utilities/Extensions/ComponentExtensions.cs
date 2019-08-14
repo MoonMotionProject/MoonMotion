@@ -523,7 +523,7 @@ public static class ComponentExtensions
 	#region searching for self or parent based on comparison
 
 	// method: return the first game object out of this given game object and its ancestor game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
-	public static GameObject selfOrAncestorWith<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	public static GameObject selfOrAncestorObjectWith<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 	{
 		if (gameObject.first<ComponentT>(includeInactiveComponents))
 		{
@@ -546,12 +546,12 @@ public static class ComponentExtensions
 	}
 
 	// method: return the first game object out of the game object for this component and that game object's ancestor game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
-	public static GameObject selfOrAncestorWith<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.selfOrAncestorWith<ComponentT>(includeInactiveComponents);
+	public static GameObject selfOrAncestorObjectWith<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.selfOrAncestorObjectWith<ComponentT>(includeInactiveComponents);
 
 	// method: return the transform of the first game object out of this given game object and its ancestor game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
 	public static Transform selfOrAncestorTransformWith<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.selfOrAncestorWith<ComponentT>(includeInactiveComponents).transform;
+		=> gameObject.selfOrAncestorObjectWith<ComponentT>(includeInactiveComponents).transform;
 
 	// method: return the transform of the first game object out of the game object for this component and that game object's ancestor game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
 	public static Transform selfOrAncestorTransformWith<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component

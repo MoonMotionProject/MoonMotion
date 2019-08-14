@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Particles System Extensions: provides extension methods for handling particles systems //
 public static class ParticlesSystemExtensions
 {
-	#region particles systems
+	#region particles
 
 	// method: get the current first particle of this given particles system //
 	public static ParticleSystem.Particle firstParticle(this ParticleSystem particlesSystem)
@@ -18,10 +19,14 @@ public static class ParticlesSystemExtensions
 	// method: get the color of the current first particle of this given particles system //
 	public static Color colorOfFirstParticle(this ParticleSystem particlesSystem)
 		=> particlesSystem.firstParticle().colorAsPartOf(particlesSystem);
+
 	// method: get the alpha (from 0 to 1) of the current first particle of this given particles system //
 	public static float alphaOfFirstParticle(this ParticleSystem particlesSystem)
 		=> particlesSystem.firstParticle().alphaAsPartOf(particlesSystem);
+	#endregion particles
 
+
+	#region playing
 	// method: have this given particles system play or stop according to the given boolean, then return this given particles system //
 	public static ParticleSystem togglePlaying(this ParticleSystem particlesSystem, bool boolean)
 	{
@@ -36,6 +41,14 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
+	// method: have all of these given particles systems play or stop according to the given boolean, then return an enumerable of these given particles systems //
+	public static IEnumerable<ParticleSystem> togglePlaying(this IEnumerable<ParticleSystem> particlesSystems, bool boolean)
+		=> particlesSystems.forEach(particlesSystem =>
+			particlesSystem.togglePlaying(boolean));
+	public static GameObject togglePlayingChildParticlesSystems(this GameObject gameObject, bool boolean)
+		=> gameObject.actUponChildParticlesSystems(childParticlesSystems =>
+			childParticlesSystems.togglePlaying(boolean));
+
 	// method: (according to the given boolean:) have this given particles system play, then return this given particles system //
 	public static ParticleSystem play(this ParticleSystem particlesSystem, bool boolean = true)
 	{
@@ -49,6 +62,14 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
+	// method: (according to the given boolean:) have all of these given particles systems play, then return these given particles systems //
+	public static IEnumerable<ParticleSystem> play(this IEnumerable<ParticleSystem> particlesSystems, bool boolean = true)
+		=> particlesSystems.forEach(particlesSystem =>
+			particlesSystem.play());
+	public static GameObject playChildParticlesSystems(this GameObject gameObject, bool boolean = true)
+		=> gameObject.actUponChildParticlesSystems(childParticlesSystems =>
+			childParticlesSystems.play(boolean));
+
 	// method: (according to the given boolean:) have this given particles system restart, then return this given particles system //
 	public static ParticleSystem restart(this ParticleSystem particlesSystem, bool boolean = true)
 	{
@@ -59,6 +80,11 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
+	// method: (according to the given boolean:) have all of these given particles systems restart, then return these given particles systems //
+	public static IEnumerable<ParticleSystem> restart(this IEnumerable<ParticleSystem> particlesSystems, bool boolean = true)
+		=> particlesSystems.forEach(particlesSystem =>
+			particlesSystem.restart());
+
 	// method: (according to the given boolean:) have this given particles system stop, then return this given particles system //
 	public static ParticleSystem stop(this ParticleSystem particlesSystem, bool boolean = true)
 	{
@@ -69,63 +95,20 @@ public static class ParticlesSystemExtensions
 
 		return particlesSystem;
 	}
-
-	// method: have all of these given particles systems play or stop according to the given boolean, then return these given particles systems //
-	public static IEnumerableT togglePlaying<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean) where IEnumerableT : IEnumerable<ParticleSystem>
-	{
-		particlesSystems.forEach(particlesSystem =>
-			particlesSystem.togglePlaying(boolean));
-
-		return particlesSystems;
-	}
-	// method: (according to the given boolean:) have all of these given particles systems play, then return these given particles systems //
-	public static IEnumerableT play<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean = true) where IEnumerableT : IEnumerable<ParticleSystem>
-	{
-		particlesSystems.forEach(particlesSystem =>
-			particlesSystem.play(boolean));
-
-		return particlesSystems;
-	}
-	// method: (according to the given boolean:) have all of these given particles systems restart, then return these given particles systems //
-	public static IEnumerableT restart<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean = true) where IEnumerableT : IEnumerable<ParticleSystem>
-	{
-		particlesSystems.forEach(particlesSystem =>
-			particlesSystem.restart(boolean));
-
-		return particlesSystems;
-	}
 	// method: (according to the given boolean:) have all of these given particles systems stop, then return these given particles systems //
-	public static IEnumerableT stop<IEnumerableT>(this IEnumerableT particlesSystems, bool boolean = true) where IEnumerableT : IEnumerable<ParticleSystem>
-	{
-		particlesSystems.forEach(particlesSystem =>
-			particlesSystem.stop(boolean));
+	public static IEnumerable<ParticleSystem> stop(this IEnumerable<ParticleSystem> particlesSystems, bool boolean = true)
+		=> particlesSystems.forEach(particlesSystem =>
+			particlesSystem.stop());
+	public static GameObject stopChildParticlesSystems(this GameObject gameObject, bool boolean = true)
+		=> gameObject.actUponChildParticlesSystems(childParticlesSystems =>
+			childParticlesSystems.stop(boolean));
+	#endregion playing
 
-		return particlesSystems;
-	}
-	#endregion particles systems
 
+	#region acting upon child particles systems
 
-	#region child particles systems
-
-	public static GameObject togglePlayingChildParticlesSystems(this GameObject gameObject, bool boolean)
-	{
-		gameObject.children<ParticleSystem>().togglePlaying(boolean);
-
-		return gameObject;
-	}
-
-	public static GameObject playChildParticlesSystems(this GameObject gameObject, bool boolean)
-	{
-		gameObject.children<ParticleSystem>().play(boolean);
-
-		return gameObject;
-	}
-
-	public static GameObject stopChildParticlesSystems(this GameObject gameObject, bool boolean)
-	{
-		gameObject.children<ParticleSystem>().stop(boolean);
-
-		return gameObject;
-	}
-	#endregion child particles systems
+	public static GameObject actUponChildParticlesSystems(this GameObject gameObject, Action<List<ParticleSystem>> action)
+		=> gameObject.after(()=>
+			  action(gameObject.children<ParticleSystem>()));
+	#endregion acting upon child particles systems
 }

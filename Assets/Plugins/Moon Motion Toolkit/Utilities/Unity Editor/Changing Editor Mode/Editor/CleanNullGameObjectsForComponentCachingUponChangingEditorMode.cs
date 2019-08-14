@@ -14,7 +14,5 @@ public static class CleanNullGameObjectsForComponentCachingUponChangingEditorMod
 	}
 
 	private static void cleanNullGameObjectsForComponentCaching(PlayModeStateChange playModeStateChange)
-	{
-		ComponentCachingExtensions.clean();
-	}
+		=> ComponentCachingExtensions.clean();
 }

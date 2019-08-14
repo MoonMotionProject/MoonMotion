@@ -11,6 +11,14 @@ using UnityEngine;
 // #auto #gameobject
 public static class GameObjectExtensions
 {
+	#region accessing
+
+	// method: return a selection of the game objects for these given components //
+	public static IEnumerable<GameObject> selectObjects(this IList<Component> components)
+		=> components.select(component => component.gameObject);
+	#endregion accessing
+
+
 	#region existence
 
 	// note: refer here for how to handle exceptions related to game object existence: https://stackoverflow.com/a/53195170/3900755 //
@@ -175,6 +183,10 @@ public static class GameObjectExtensions
 	public static GameObject[] toggleActivityBy(this GameObject[] gameObjects, Toggling toggling)
 		=> gameObjects.forEach(gameObject => gameObject.toggleActivityBy(toggling));
 
+	// method: toggle the activity of this given game object, then return this given game object //
+	public static GameObject toggleActivity(this GameObject gameObject)
+		=> gameObject.toggleActivityBy(Toggling.invertToggle);
+
 	// method: set the activity of these given game objects to the given boolean, then return them //
 	public static GameObject[] setActivityTo(this GameObject[] gameObjects, bool activity)
 		=> gameObjects.forEach(gameObject => gameObject.setActivityTo(activity));
@@ -256,6 +268,9 @@ public static class GameObjectExtensions
 	// method: return this given game object's local position //
 	public static Vector3 localPosition(this GameObject gameObject)
 		=> gameObject.transform.localPosition;
+	// method: return an selection of local positions corresponding to these given game objects //
+	public static IEnumerable<Vector3> selectLocalPositions(this IList<GameObject> gameObjects)
+		=> gameObjects.select(gameObject => gameObject.localPosition());
 
 	// method: return this given game object's local x position //
 	public static float localPositionX(this GameObject gameObject)
@@ -292,7 +307,10 @@ public static class GameObjectExtensions
 	// method: return this given game object's local scale //
 	public static Vector3 localScale(this GameObject gameObject)
 		=> gameObject.transform.localScale;
-
+	// method: return a selection of local scales corresponding to these given game objects //
+	public static IEnumerable<Vector3> selectLocalScales(this IList<GameObject> gameObjects)
+		=> gameObjects.select(gameObject => gameObject.localScale());
+	
 	// method: return this given game object's local x scale //
 	public static float localScaleX(this GameObject gameObject)
 		=> gameObject.transform.localScaleX();
@@ -308,6 +326,9 @@ public static class GameObjectExtensions
 	// method: return this given game object's (global) position //
 	public static Vector3 position(this GameObject gameObject)
 		=> gameObject.transform.position;
+	// method: return a selection of (global) positions corresponding to these given game objects //
+	public static IEnumerable<Vector3> selectPositions(this IList<GameObject> gameObjects)
+		=> gameObjects.select(gameObject => gameObject.position());
 
 	// method: return this given game object's (global) x position //
 	public static float positionX(this GameObject gameObject)
@@ -893,26 +914,6 @@ public static class GameObjectExtensions
 	public static GameObject flipZ(this GameObject gameObject, bool boolean = true)
 		=> gameObject.transform.flipZ(boolean).gameObject;
 	#endregion advanced rotation
-
-
-	#region selection
-	
-	// method: return a selection of the transforms for this given enumerable of game objects //
-	public static IEnumerable<Transform> selectTransforms(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.transform);
-
-	// method: return an selection of local positions corresponding to this given array of game objects //
-	public static IEnumerable<Vector3> selectLocalPositions(this GameObject[] gameObjects)
-		=> gameObjects.select(gameObject => gameObject.localPosition());
-
-	// method: return a selection of local scales corresponding to this given array of game objects //
-	public static IEnumerable<Vector3> selectLocalScales(this GameObject[] gameObjects)
-		=> gameObjects.select(gameObject => gameObject.localScale());
-
-	// method: return a selection of (global) positions corresponding to this given array of game objects //
-	public static IEnumerable<Vector3> selectPositions(this GameObject[] gameObjects)
-		=> gameObjects.select(gameObject => gameObject.position());
-	#endregion selection
 
 
 	#region conversion

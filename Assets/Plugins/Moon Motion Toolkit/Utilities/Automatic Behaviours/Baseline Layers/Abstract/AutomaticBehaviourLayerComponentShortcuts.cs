@@ -18,41 +18,49 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 
 	#region enablement
 	public bool rendererEnablement => renderer.enablement();
-	public Renderer setRendererEnablementTo(bool boolean)
-		=> renderer.setEnablementTo(boolean);
-	public Renderer enableRenderer()
-		=> renderer.enable();
-	public Renderer disableRenderer()
-		=> renderer.disable();
-	public Renderer toggleRendererEnablementBy(Toggling toggling)
-		=> renderer.toggleEnablementBy(toggling);
+	public AutomaticBehaviourT setRendererEnablementTo(bool boolean)
+		=> selfAfter(()=> renderer.setEnablementTo(boolean));
+	public AutomaticBehaviourT enableRenderer()
+		=> selfAfter(()=> renderer.enable());
+	public AutomaticBehaviourT disableRenderer()
+		=> selfAfter(()=> renderer.disable());
+	public AutomaticBehaviourT toggleRendererEnablementBy(Toggling toggling)
+		=> selfAfter(()=> renderer.toggleEnablementBy(toggling));
 	#endregion enablement
 
 	#region material
 	public Material material => renderer.material;
-	public Renderer setMaterialTo(Material material)
-		=> renderer.setMaterialTo(material);
+	public AutomaticBehaviourT setMaterialTo(Material material)
+		=> selfAfter(()=> renderer.setMaterialTo(material));
 	public Material sharedMaterial => renderer.sharedMaterial;
-	public Renderer setSharedMaterialTo(Material sharedMaterial)
-		=> renderer.setSharedMaterialTo(material);
+	public AutomaticBehaviourT setSharedMaterialTo(Material sharedMaterial)
+		=> selfAfter(()=> renderer.setSharedMaterialTo(material));
 	#endregion material
 
+	#region color
+	public Color color => material.color;
+	public AutomaticBehaviourT setColorTo(Color targetColor)
+		=> selfAfter(()=> material.setColorTo(targetColor));
+	public AutomaticBehaviourT setChildColorsTo(Color targetColor)
+		=> selfAfter(()=> gameObject.setChildColorsTo(targetColor));
+	#endregion color
+
 	#region shadowcasting
-	public Renderer setShadowcastingTo(ShadowCastingMode shadowcasting)
-		=> renderer.setShadowcastingTo(shadowcasting);
-	public Renderer shadowcast()
-		=> renderer.shadowcast();
-	public Renderer nonshadowcast()
-		=> renderer.nonshadowcast();
+	public AutomaticBehaviourT setShadowcastingTo(ShadowCastingMode shadowcasting)
+		=> selfAfter(()=> renderer.setShadowcastingTo(shadowcasting));
+	public AutomaticBehaviourT shadowcast()
+		=> selfAfter(()=> renderer.shadowcast());
+	public AutomaticBehaviourT nonshadowcast()
+		=> selfAfter(()=> renderer.nonshadowcast());
 	#endregion shadowcasting
 
 	#region shadowability
-	public Renderer setShadowabilityTo(bool shadowability)
-		=> renderer.setShadowabilityTo(shadowability);
-	public Renderer shadowable()
-		=> renderer.shadowable();
-	public Renderer nonshadowable()
-		=> renderer.nonshadowable();
+	public AutomaticBehaviourT setShadowabilityTo(bool shadowability)
+		=> selfAfter(()=> renderer.setShadowabilityTo(shadowability));
+	public AutomaticBehaviourT shadowable()
+		=> selfAfter(()=> renderer.shadowable());
+	public AutomaticBehaviourT nonshadowable()
+		=> selfAfter(()=> renderer.nonshadowable());
 	#endregion shadowability
 	#endregion Renderer
 
@@ -61,63 +69,63 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 
 	#region kinematicity
 	public bool kinematicity => rigidbody.kinematicity();
-	public Rigidbody setKinematicityTo(bool kinematicity, bool boolean = true)
-		=> rigidbody.setKinematicityTo(kinematicity, boolean);
-	public Rigidbody kinematize(bool boolean = true)
-		=> rigidbody.kinematize(boolean);
-	public Rigidbody nonkinematize(bool boolean = true)
-		=> rigidbody.nonkinematize(boolean);
+	public AutomaticBehaviourT setKinematicityTo(bool kinematicity, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setKinematicityTo(kinematicity, boolean));
+	public AutomaticBehaviourT kinematize(bool boolean = true)
+		=> selfAfter(()=> rigidbody.kinematize(boolean));
+	public AutomaticBehaviourT nonkinematize(bool boolean = true)
+		=> selfAfter(()=> rigidbody.nonkinematize(boolean));
 	#endregion kinematicity
 
 	#region gravitization
 	public bool gravitization => rigidbody.gravitization();
-	public Rigidbody setGravitizationTo(bool gravitization, bool boolean = true)
-		=> rigidbody.setGravitizationTo(gravitization, boolean);
-	public Rigidbody gravitize(bool boolean = true)
-		=> rigidbody.gravitize(boolean);
-	public Rigidbody nongravitize(bool boolean = true)
-		=> rigidbody.nongravitize(boolean);
+	public AutomaticBehaviourT setGravitizationTo(bool gravitization, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setGravitizationTo(gravitization, boolean));
+	public AutomaticBehaviourT gravitize(bool boolean = true)
+		=> selfAfter(()=> rigidbody.gravitize(boolean));
+	public AutomaticBehaviourT nongravitize(bool boolean = true)
+		=> selfAfter(()=> rigidbody.nongravitize(boolean));
 	#endregion gravitization
 
 	#region velocity vectrals
 	public Vector3 velocityDirection => rigidbody.velocityDirection();
-	public Rigidbody setVelocityDirectionTo(Vector3 direction, bool boolean = true)
-		=> rigidbody.setVelocityDirectionTo(direction, boolean);
+	public AutomaticBehaviourT setVelocityDirectionTo(Vector3 direction, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setVelocityDirectionTo(direction, boolean));
 	public Vector3 angularVelocityAngling => rigidbody.angularVelocityAngling();
-	public Rigidbody setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
-		=> rigidbody.setAngularVelocityAnglingTo(angling, boolean);
+	public AutomaticBehaviourT setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setAngularVelocityAnglingTo(angling, boolean));
 	#endregion velocity vectrals
 
 	#region speeds
 	public float speed => rigidbody.speed();
-	public Rigidbody setSpeedTo(float speed, bool boolean = true)
-		=> rigidbody.setSpeedTo(speed, boolean);
-	public Rigidbody honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
-		=> rigidbody.honeSpeed(honingTarget, honingAmount, boolean);
-	public Rigidbody slowSpeedBy(float speedReduction, bool boolean = true)
-		=> rigidbody.slowSpeedBy(speedReduction, boolean);
+	public AutomaticBehaviourT setSpeedTo(float speed, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setSpeedTo(speed, boolean));
+	public AutomaticBehaviourT honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
+		=> selfAfter(()=> rigidbody.honeSpeed(honingTarget, honingAmount, boolean));
+	public AutomaticBehaviourT slowSpeedBy(float speedReduction, bool boolean = true)
+		=> selfAfter(()=> rigidbody.slowSpeedBy(speedReduction, boolean));
 	public float angularSpeed => rigidbody.angularSpeed();
-	public Rigidbody setAngularSpeedTo(float angularSpeed, bool boolean = true)
-		=> rigidbody.setAngularSpeedTo(angularSpeed, boolean);
+	public AutomaticBehaviourT setAngularSpeedTo(float angularSpeed, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setAngularSpeedTo(angularSpeed, boolean));
 	#endregion speed
 
 	#region velocities
 	public Vector3 velocity => rigidbody.velocity;
 	public Vector3 angularVelocity => rigidbody.angularVelocity;
-	public Rigidbody setVelocityTo(Vector3 velocity, bool boolean = true)
-		=> rigidbody.setVelocityTo(velocity, boolean);
-	public Rigidbody setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
-		=> rigidbody.setAngularVelocityTo(angularVelocity, boolean);
-	public Rigidbody setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
-		=> rigidbody.setVelocitiesTo(directionalVelocity, angularVelocity, boolean);
-	public Rigidbody setVelocitiesTo(Vector3 velocity, bool boolean = true)
-		=> rigidbody.setVelocitiesTo(velocity, boolean);
-	public Rigidbody zeroVelocity(bool boolean = true)
-		=> rigidbody.zeroVelocity(boolean);
-	public Rigidbody zeroAngularVelocity(bool boolean = true)
-		=> rigidbody.zeroAngularVelocity(boolean);
-	public Rigidbody zeroVelocities(bool boolean = true)
-		=> rigidbody.zeroVelocities(boolean);
+	public AutomaticBehaviourT setVelocityTo(Vector3 velocity, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setVelocityTo(velocity, boolean));
+	public AutomaticBehaviourT setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setAngularVelocityTo(angularVelocity, boolean));
+	public AutomaticBehaviourT setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setVelocitiesTo(directionalVelocity, angularVelocity, boolean));
+	public AutomaticBehaviourT setVelocitiesTo(Vector3 velocity, bool boolean = true)
+		=> selfAfter(()=> rigidbody.setVelocitiesTo(velocity, boolean));
+	public AutomaticBehaviourT zeroVelocity(bool boolean = true)
+		=> selfAfter(()=> rigidbody.zeroVelocity(boolean));
+	public AutomaticBehaviourT zeroAngularVelocity(bool boolean = true)
+		=> selfAfter(()=> rigidbody.zeroAngularVelocity(boolean));
+	public AutomaticBehaviourT zeroVelocities(bool boolean = true)
+		=> selfAfter(()=> rigidbody.zeroVelocities(boolean));
 	#endregion velocities
 	#endregion Rigidbody
 
@@ -126,56 +134,67 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 
 	#region audio
 	public new AudioClip audio => audioSource.audio();
-	public AudioSource setAudioTo(AudioClip targetAudio, bool boolean = true)
-		=> audioSource.setAudioTo(targetAudio, boolean);
+	public AutomaticBehaviourT setAudioTo(AudioClip targetAudio, bool boolean = true)
+		=> selfAfter(()=> audioSource.setAudioTo(targetAudio, boolean));
 	public float audioDuration => audioSource.duration();
-	public float audioVolume => audioSource.volume;
-	public AudioSource setAudioVolumeTo(float targetVolume, bool boolean = true)
-		=> audioSource.setVolumeTo(targetVolume, boolean);
 	#endregion audio
+
+	#region volume
+	public float audioVolume => audioSource.volume;
+	public List<float> childAudioVolumes => gameObject.childAudioVolumes();
+	public AutomaticBehaviourT setAudioVolumeTo(float targetVolume, bool boolean = true)
+		=> selfAfter(() => audioSource.setVolumeTo(targetVolume, boolean));
+	public AutomaticBehaviourT setChildAudioVolumesTo(IList<float> targetVolumes)
+		=> selfAfter(() => gameObject.setChildAudioVolumesTo(targetVolumes));
+	#endregion volume
 
 	#region playing
 	public bool audioPlaying => audioSource.playing();
-	public AudioSource audioPlay()
-		=> audioSource.play();
-	public AudioSource audioStop()
-		=> audioSource.stop();
+	public AutomaticBehaviourT playAudio()
+		=> selfAfter(()=> audioSource.play());
+	public AutomaticBehaviourT playChildAudios()
+		=> selfAfter(() => gameObject.playChildAudios());
+	public AutomaticBehaviourT stopAudio()
+		=> selfAfter(()=> audioSource.stop());
+	public AutomaticBehaviourT stopChildAudios()
+		=> selfAfter(() => gameObject.stopChildAudios());
 	public float audioTime => audioSource.time;
-	public AudioSource setAudioTimeTo(float targetTime, bool boolean = true)
-		=> audioSource.setTimeTo(targetTime, boolean);
+	public AutomaticBehaviourT setAudioTimeTo(float targetTime, bool boolean = true)
+		=> selfAfter(()=> audioSource.setTimeTo(targetTime, boolean));
 	#endregion playing
 
-	#region child audio sources
-	public List<float> childAudioVolumes => gameObject.childAudioVolumes();
-	public GameObject setChildAudioVolumesTo(IList<float> targetVolumes)
-		=> gameObject.setChildAudioVolumesTo(targetVolumes);
-	#endregion child audio sources
+	#region acting upon child audio
+	public AutomaticBehaviourT actUponChildAudioSources(Action<List<AudioSource>> action)
+		=> selfAfter(()=> gameObject.actUponChildAudioSources(action));
+	#endregion acting upon child audio
 	#endregion AudioSource
 
 
 	#region ParticleSystem
 
-	#region child particles systems
+	#region playing
+	public AutomaticBehaviourT togglePlayingChildParticlesSystems(bool boolean)
+		=> selfAfter(() => gameObject.togglePlayingChildParticlesSystems(boolean));
+	public AutomaticBehaviourT playChildParticlesSystems(bool boolean = true)
+		=> selfAfter(() => gameObject.playChildParticlesSystems(boolean));
+	public AutomaticBehaviourT stopChildParticlesSystems(bool boolean = true)
+		=> selfAfter(() => gameObject.stopChildParticlesSystems(boolean));
+	#endregion playing
 
-	public GameObject togglePlayingChildParticlesSystems(bool boolean)
-		=> gameObject.togglePlayingChildParticlesSystems(boolean);
-
-	public GameObject playChildParticlesSystems(bool boolean)
-		=> gameObject.playChildParticlesSystems(boolean);
-
-	public GameObject stopChildParticlesSystems(bool boolean)
-		=> gameObject.stopChildParticlesSystems(boolean);
-	#endregion child particles systems
+	#region acting upon child particles systems
+	public AutomaticBehaviourT actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
+		=> selfAfter(()=> gameObject.actUponChildParticlesSystems(action));
+	#endregion acting upon child particles systems
 	#endregion ParticleSystem
 
 
 	#region MeshFilter
 	public Mesh mesh => meshFilter.mesh;
-	public MeshFilter setMeshTo(Mesh mesh, bool boolean = true)
-		=> meshFilter.setMeshTo(mesh, boolean);
+	public AutomaticBehaviourT setMeshTo(Mesh mesh, bool boolean = true)
+		=> selfAfter(()=> meshFilter.setMeshTo(mesh, boolean));
 	public Mesh sharedMesh => meshFilter.sharedMesh;
-	public MeshFilter setSharedMeshTo(Mesh mesh, bool boolean = true)
-		=> meshFilter.setSharedMeshTo(mesh, boolean);
+	public AutomaticBehaviourT setSharedMeshTo(Mesh mesh, bool boolean = true)
+		=> selfAfter(()=> meshFilter.setSharedMeshTo(mesh, boolean));
 	public Mesh sharedMeshOtherwiseMesh => sharedMesh ?? mesh;
 	#endregion MeshFilter
 
@@ -184,23 +203,28 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 
 	#region intensities
 	public float lightIntensity => light.intensity;
-	public Light setLightIntensityTo(float targetIntensity)
-		=> light.setIntensityTo(targetIntensity);
-	#endregion intensities
-	
-	#region child lights
 	public List<float> childLightIntensities => gameObject.childLightIntensities();
-	public GameObject setChildLightIntensitiesTo(IList<float> targetIntensities)
-		=> gameObject.setChildLightIntensitiesTo(targetIntensities);
-	public GameObject setChildLightIntensitiesTo(float targetIntensity)
-		=> gameObject.setChildLightIntensitiesTo(targetIntensity);
-	public GameObject renderChildLightsBy(LightRenderMode lightRenderMode)
-		=> gameObject.renderChildLightsBy(lightRenderMode);
-	public GameObject renderChildLightsByPixel()
-		=> gameObject.renderChildLightsByPixel();
-	public GameObject renderChildLightsByVertex()
-		=> gameObject.renderChildLightsByVertex();
-	#endregion child lights
+	public AutomaticBehaviourT setLightIntensityTo(float targetIntensity)
+		=> selfAfter(()=> light.setIntensityTo(targetIntensity));
+	public AutomaticBehaviourT setChildLightIntensitiesTo(float targetIntensity)
+		=> selfAfter(() => gameObject.setChildLightIntensitiesTo(targetIntensity));
+	public AutomaticBehaviourT setChildLightIntensitiesTo(IList<float> targetIntensities)
+		=> selfAfter(() => gameObject.setChildLightIntensitiesTo(targetIntensities));
+	#endregion intensities
+
+	#region setting render mode
+	public AutomaticBehaviourT renderChildLightsBy(LightRenderMode lightRenderMode)
+		=> selfAfter(() => gameObject.renderChildLightsBy(lightRenderMode));
+	public AutomaticBehaviourT renderChildLightsByPixel()
+		=> selfAfter(() => gameObject.renderChildLightsByPixel());
+	public AutomaticBehaviourT renderChildLightsByVertex()
+		=> selfAfter(() => gameObject.renderChildLightsByVertex());
+	#endregion setting render mode
+
+	#region acting upon child lights
+	public AutomaticBehaviourT actUponChildLights(Action<List<Light>> action)
+		=> selfAfter(()=> gameObject.actUponChildLights(action));
+	#endregion acting upon child lights
 	#endregion Light
 	#endregion Unity
 

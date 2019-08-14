@@ -134,38 +134,38 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	#region destroying children
 
-	public static new Transform destroyChild(int childIndex)
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyChild(int childIndex)
 		=> automaticBehaviour.destroyChild(childIndex);
 	
-	public static new Transform destroyChildIfItExists(int childIndex)
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyChildIfItExists(int childIndex)
 		=> automaticBehaviour.destroyChildIfItExists(childIndex);
 
-	public static new Transform destroyFirstChild()
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyFirstChild()
 		=> automaticBehaviour.destroyFirstChild();
 
-	public static new Transform destroyFirstChildIfItExists()
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyFirstChildIfItExists()
 		=> automaticBehaviour.destroyFirstChildIfItExists();
 
-	public static new Transform destroyLastChild()
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyLastChild()
 		=> automaticBehaviour.destroyLastChild();
 
-	public static new Transform destroyLastChildIfItExists()
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyLastChildIfItExists()
 		=> automaticBehaviour.destroyLastChildIfItExists();
 
-	public static new Transform destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
 		=> automaticBehaviour.destroyLastChildIfItExists<ComponentT>();
 
-	public static new Transform destroyChildren()
+	public static new AutomaticBehaviour<SingletonBehaviourT> destroyChildren()
 		=> automaticBehaviour.destroyChildren();
 	#endregion destroying children
 
 
 	#region child iteration
 
-	public static new Transform forEachChildTransform(Action<Transform> action)
+	public static new AutomaticBehaviour<SingletonBehaviourT> forEachChildTransform(Action<Transform> action)
 		=> automaticBehaviour.forEachChildTransform(action);
 
-	public static new Transform setActivityOfChildrenTo(bool boolean)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setActivityOfChildrenTo(bool boolean)
 		=> automaticBehaviour.setActivityOfChildrenTo(boolean);
 	#endregion child iteration
 
@@ -173,281 +173,281 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#region transformations
 
 	public static new Vector3 localPosition => automaticBehaviour.localPosition;
-	public static new Transform setLocalPositionTo(Vector3 localPosition, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionTo(Vector3 localPosition, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionTo(localPosition, boolean);
-	public static new Transform setLocalPositionTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionTo(otherTransform, boolean);
-	public static new Transform resetLocalPosition(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalPosition(bool boolean = true)
 		=> automaticBehaviour.resetLocalPosition(boolean);
 
 
 	public static new float localPositionX => automaticBehaviour.localPosition.x;
-	public static new Transform setLocalPositionXTo(float x, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionXTo(float x, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionXTo(x, boolean);
-	public static new Transform setLocalPositionXTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionXTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionXTo(otherTransform, boolean);
-	public static new Transform resetLocalPositionX(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalPositionX(bool boolean = true)
 		=> automaticBehaviour.resetLocalPositionX(boolean);
 
 	public static new float localPositionY => automaticBehaviour.localPosition.y;
-	public static new Transform setLocalPositionYTo(float y, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionYTo(float y, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionYTo(y, boolean);
-	public static new Transform setLocalPositionYTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionYTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionYTo(otherTransform, boolean);
-	public static new Transform resetLocalPositionY(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalPositionY(bool boolean = true)
 		=> automaticBehaviour.resetLocalPositionY(boolean);
 
 	public static new float localPositionZ => automaticBehaviour.localPosition.z;
-	public static new Transform setLocalPositionZTo(float z, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionZTo(float z, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionZTo(z, boolean);
-	public static new Transform setLocalPositionZTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalPositionZTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalPositionZTo(otherTransform, boolean);
-	public static new Transform resetLocalPositionZ(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalPositionZ(bool boolean = true)
 		=> automaticBehaviour.resetLocalPositionZ(boolean);
 
 	public static new Quaternion localRotation => automaticBehaviour.localRotation;
-	public static new Transform setLocalRotationTo(Quaternion localRotation, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalRotationTo(Quaternion localRotation, bool boolean = true)
 		=> automaticBehaviour.setLocalRotationTo(localRotation, boolean);
-	public static new Transform setLocalRotationTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalRotationTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalRotationTo(otherTransform, boolean);
-	public static new Transform resetLocalRotation(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalRotation(bool boolean = true)
 		=> automaticBehaviour.resetLocalRotation(boolean);
 
 	public static new Vector3 localEulerAngles => automaticBehaviour.localEulerAngles;
-	public static new Transform setLocalEulerAnglesTo(Vector3 localEulerAngles, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAnglesTo(Vector3 localEulerAngles, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAnglesTo(localEulerAngles, boolean);
-	public static new Transform setLocalEulerAnglesTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAnglesTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAnglesTo(otherTransform, boolean);
-	public static new Transform resetLocalEulerAngles(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalEulerAngles(bool boolean = true)
 		=> automaticBehaviour.resetLocalEulerAngles(boolean);
 
 	public static new float localEulerAngleX => automaticBehaviour.localEulerAngleX;
-	public static new Transform setLocalEulerAngleXTo(float localEulerAngleX, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAngleXTo(float localEulerAngleX, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAngleXTo(localEulerAngleX, boolean);
-	public static new Transform setLocalEulerAngleXTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAngleXTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAngleXTo(otherTransform, boolean);
-	public static new Transform resetLocalEulerAngleX(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalEulerAngleX(bool boolean = true)
 		=> automaticBehaviour.resetLocalEulerAngleX(boolean);
 
 	public static new float localEulerAngleY => automaticBehaviour.localEulerAngleY;
-	public static new Transform setLocalEulerAngleYTo(float localEulerAngleY, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAngleYTo(float localEulerAngleY, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAngleYTo(localEulerAngleY, boolean);
-	public static new Transform setLocalEulerAngleYTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAngleYTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAngleYTo(otherTransform, boolean);
-	public static new Transform resetLocalEulerAngleY(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalEulerAngleY(bool boolean = true)
 		=> automaticBehaviour.resetLocalEulerAngleY(boolean);
 
 	public static new float localEulerAngleZ => automaticBehaviour.localEulerAngleZ;
-	public static new Transform setLocalEulerAngleZTo(float localEulerAngleZ, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAngleZTo(float localEulerAngleZ, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAngleZTo(localEulerAngleZ, boolean);
-	public static new Transform setLocalEulerAngleZTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalEulerAngleZTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalEulerAngleZTo(otherTransform, boolean);
-	public static new Transform resetLocalEulerAngleZ(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalEulerAngleZ(bool boolean = true)
 		=> automaticBehaviour.resetLocalEulerAngleZ(boolean);
 
 	public static new Vector3 localScale => automaticBehaviour.localScale;
-	public static new Transform setLocalScaleTo(Vector3 localScale, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleTo(Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleTo(localScale, boolean);
-	public static new Transform setLocalScaleTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleTo(otherTransform, boolean);
-	public static new Transform resetLocalScale(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalScale(bool boolean = true)
 		=> automaticBehaviour.resetLocalScale(boolean);
 
 	public static new float localScaleX => automaticBehaviour.localScale.x;
-	public static new Transform setLocalScaleXTo(float x, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleXTo(float x, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleXTo(x, boolean);
-	public static new Transform setLocalScaleXTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleXTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleXTo(otherTransform, boolean);
-	public static new Transform resetLocalScaleX(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalScaleX(bool boolean = true)
 		=> automaticBehaviour.resetLocalScaleX(boolean);
 
 	public static new float localScaleY => automaticBehaviour.localScale.y;
-	public static new Transform setLocalScaleYTo(float y, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleYTo(float y, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleYTo(y, boolean);
-	public static new Transform setLocalScaleYTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleYTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleYTo(otherTransform, boolean);
-	public static new Transform resetLocalScaleY(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalScaleY(bool boolean = true)
 		=> automaticBehaviour.resetLocalScaleY(boolean);
 
 	public static new float localScaleZ => automaticBehaviour.localScale.z;
-	public static new Transform setLocalScaleZTo(float z, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleZTo(float z, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleZTo(z, boolean);
-	public static new Transform setLocalScaleZTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalScaleZTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalScaleZTo(otherTransform, boolean);
-	public static new Transform resetLocalScaleZ(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalScaleZ(bool boolean = true)
 		=> automaticBehaviour.resetLocalScaleZ(boolean);
 	
-	public static new Transform setLocalsTo(Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsTo(Vector3 localPosition, Quaternion localRotation, Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setLocalsTo(localPosition, localRotation, localScale, boolean);
-	public static new Transform setLocalsTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalsTo(otherTransform, boolean);
-	public static new Transform resetLocals(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocals(bool boolean = true)
 		=> automaticBehaviour.resetLocals(boolean);
 
-	public static new Transform setLocalsTo(Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsTo(Vector3 localPosition, Vector3 localEulerAngles, Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setLocalsTo(localPosition, localEulerAngles, localScale, boolean);
 	
-	public static new Transform setLocalsTo(Vector3 localPosition, Quaternion localRotation, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsTo(Vector3 localPosition, Quaternion localRotation, bool boolean = true)
 		=> automaticBehaviour.setLocalsTo(localPosition, localRotation, boolean);
 	
-	public static new Transform setLocalsTo(Quaternion localRotation, Vector3 localScale, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsTo(Quaternion localRotation, Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setLocalsTo(localRotation, localScale, boolean);
 
-	public static new Transform setLocalsParentlyForRelativeTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsParentlyForRelativeTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setLocalsParentlyForRelativeTo(otherTransform, boolean);
-	public static new Transform setLocalsParentlyForRelativeTo(GameObject otherGameObject, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsParentlyForRelativeTo(GameObject otherGameObject, bool boolean = true)
 		=> automaticBehaviour.setLocalsParentlyForRelativeTo(otherGameObject, boolean);
-	public static new Transform setLocalsParentlyForRelativeTo(Component otherComponent, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsParentlyForRelativeTo(Component otherComponent, bool boolean = true)
 		=> automaticBehaviour.setLocalsParentlyForRelativeTo(otherComponent, boolean);
-	public static new Transform setLocalsParentlyForRelativeTo<OtherSingletonBehaviourT>(bool boolean = true) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalsParentlyForRelativeTo<OtherSingletonBehaviourT>(bool boolean = true) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
 		=> automaticBehaviour.setLocalsParentlyForRelativeTo<OtherSingletonBehaviourT>(boolean);
 
 	public static new Vector3 position => automaticBehaviour.position;
-	public static new Transform setPositionTo(Vector3 position, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionTo(Vector3 position, bool boolean = true)
 		=> automaticBehaviour.setPositionTo(position, boolean);
-	public static new Transform setPositionTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setPositionTo(otherTransform, boolean);
-	public static new Transform resetPosition(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetPosition(bool boolean = true)
 		=> automaticBehaviour.resetPosition(boolean);
 
 	public static new float positionX => automaticBehaviour.position.x;
-	public static new Transform setPositionXTo(float x, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionXTo(float x, bool boolean = true)
 		=> automaticBehaviour.setPositionXTo(x, boolean);
-	public static new Transform setPositionXTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionXTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setPositionXTo(otherTransform, boolean);
-	public static new Transform resetPositionX(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetPositionX(bool boolean = true)
 		=> automaticBehaviour.resetPositionX(boolean);
 
 	public static new float positionY => automaticBehaviour.position.y;
-	public static new Transform setPositionYTo(float y, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionYTo(float y, bool boolean = true)
 		=> automaticBehaviour.setPositionYTo(y, boolean);
-	public static new Transform setPositionYTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionYTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setPositionYTo(otherTransform, boolean);
-	public static new Transform resetPositionY(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetPositionY(bool boolean = true)
 		=> automaticBehaviour.resetPositionY(boolean);
 
 	public static new float positionZ => automaticBehaviour.position.z;
-	public static new Transform setPositionZTo(float z, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionZTo(float z, bool boolean = true)
 		=> automaticBehaviour.setPositionZTo(z, boolean);
-	public static new Transform setPositionZTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionZTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setPositionZTo(otherTransform, boolean);
-	public static new Transform resetPositionZ(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetPositionZ(bool boolean = true)
 		=> automaticBehaviour.resetPositionZ(boolean);
 
 	public static new Quaternion rotation => automaticBehaviour.rotation;
-	public static new Transform setRotationTo(Quaternion rotation, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setRotationTo(Quaternion rotation, bool boolean = true)
 		=> automaticBehaviour.setRotationTo(rotation, boolean);
-	public static new Transform setRotationTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setRotationTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setRotationTo(otherTransform, boolean);
-	public static new Transform resetRotation(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetRotation(bool boolean = true)
 		=> automaticBehaviour.resetRotation(boolean);
 
 	public static new Vector3 eulerAngles => automaticBehaviour.eulerAngles;
-	public static new Transform setEulerAnglesTo(Vector3 eulerAngles, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAnglesTo(Vector3 eulerAngles, bool boolean = true)
 		=> automaticBehaviour.setEulerAnglesTo(eulerAngles, boolean);
-	public static new Transform setEulerAnglesTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAnglesTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setEulerAnglesTo(otherTransform, boolean);
-	public static new Transform resetEulerAngles(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetEulerAngles(bool boolean = true)
 		=> automaticBehaviour.resetEulerAngles(boolean);
 
 	public static new float eulerAngleX => automaticBehaviour.eulerAngleX;
-	public static new Transform setEulerAngleXTo(float eulerAngleX, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAngleXTo(float eulerAngleX, bool boolean = true)
 		=> automaticBehaviour.setEulerAngleXTo(eulerAngleX, boolean);
-	public static new Transform setEulerAngleXTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAngleXTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setEulerAngleXTo(otherTransform, boolean);
-	public static new Transform resetEulerAngleX(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetEulerAngleX(bool boolean = true)
 		=> automaticBehaviour.resetEulerAngleX(boolean);
 
 	public static new float eulerAngleY => automaticBehaviour.eulerAngleY;
-	public static new Transform setEulerAngleYTo(float eulerAngleY, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAngleYTo(float eulerAngleY, bool boolean = true)
 		=> automaticBehaviour.setEulerAngleYTo(eulerAngleY, boolean);
-	public static new Transform setEulerAngleYTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAngleYTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setEulerAngleYTo(otherTransform, boolean);
-	public static new Transform resetEulerAngleY(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetEulerAngleY(bool boolean = true)
 		=> automaticBehaviour.resetEulerAngleY(boolean);
 
 	public static new float eulerAngleZ => automaticBehaviour.eulerAngleZ;
-	public static new Transform setEulerAngleZTo(float eulerAngleZ, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAngleZTo(float eulerAngleZ, bool boolean = true)
 		=> automaticBehaviour.setEulerAngleZTo(eulerAngleZ, boolean);
-	public static new Transform setEulerAngleZTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setEulerAngleZTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setEulerAngleZTo(otherTransform, boolean);
-	public static new Transform resetEulerAngleZ(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetEulerAngleZ(bool boolean = true)
 		=> automaticBehaviour.resetEulerAngleZ(boolean);
 	
-	public static new Transform setGlobalsTo(Vector3 position, Quaternion rotation, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsTo(Vector3 position, Quaternion rotation, bool boolean = true)
 		=> automaticBehaviour.setGlobalsTo(position, rotation, boolean);
-	public static new Transform setGlobalsTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setGlobalsTo(otherTransform, boolean);
-	public static new Transform resetGlobals(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetGlobals(bool boolean = true)
 		=> automaticBehaviour.resetGlobals(boolean);
 
-	public static new Transform setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
 		=> automaticBehaviour.setGlobalsTo(position, eulerAngles, boolean);
 	
-	public static new Transform setGlobalsAndLocalScaleTo(Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsAndLocalScaleTo(Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean);
-	public static new Transform setGlobalsAndLocalScaleTo(Transform otherTransform, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsAndLocalScaleTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setGlobalsAndLocalScaleTo(otherTransform, boolean);
-	public static new Transform resetGlobalsAndLocalScale(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetGlobalsAndLocalScale(bool boolean = true)
 		=> automaticBehaviour.resetGlobalsAndLocalScale(boolean);
 
-	public static new Transform setGlobalsAndLocalScaleTo(Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsAndLocalScaleTo(Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean);
 	#endregion transformations
 
 
 	#region advanced rotation
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target position, then return this behaviour's transform //
-	public static new Transform lookAt(Vector3 targetPosition, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetPosition, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target position with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.lookAt(targetPosition, withX, withY, withZ, boolean);
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform, then return this behaviour's transform //
-	public static new Transform lookAt(Transform targetTransform, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetTransform, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.lookAt(targetTransform, withX, withY, withZ, boolean);
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform, then return this behaviour's transform //
-	public static new Transform lookAt(GameObject targetObject, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetObject.transform, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.lookAt(targetObject.transform, withX, withY, withZ, boolean);
 
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target component's transform, then return this behaviour's transform //
-	public static new Transform lookAt(Component targetComponent, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetComponent, boolean);
+	// method: (according to the given boolean:) have this behaviour's transform look at the given target component's transform with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.lookAt(targetComponent, withX, withY, withZ, boolean);
 
-	// method: (according to the given boolean:) have this given transform look at the main camera, then return this given transform //
-	public static new Transform lookAtCamera(bool boolean = true)
-		=> automaticBehaviour.lookAtCamera(boolean);
+	// method: (according to the given boolean:) have this given transform look at the main camera with the specified axes, then return this given transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> lookAtCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.lookAtCamera(withX, withY, withZ, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
-	public static new Transform rotate(Vector3 rotationAngles, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(Vector3 rotationAngles, bool boolean = true)
 		=> automaticBehaviour.rotate(rotationAngles, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
-	public static new Transform rotate(float x, float y, float z, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(float x, float y, float z, bool boolean = true)
 		=> automaticBehaviour.rotate(x, y, z, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
-	public static new Transform rotateX(float x, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotateX(float x, bool boolean = true)
 		=> automaticBehaviour.rotateZ(x, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
-	public static new Transform rotateY(float y, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotateY(float y, bool boolean = true)
 		=> automaticBehaviour.rotateZ(y, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
-	public static new Transform rotateZ(float z, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotateZ(float z, bool boolean = true)
 		=> automaticBehaviour.rotateZ(z, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
-	public static new Transform flipX(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> flipX(bool boolean = true)
 		=> automaticBehaviour.flipX(boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
-	public static new Transform flipY(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> flipY(bool boolean = true)
 		=> automaticBehaviour.flipY(boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
-	public static new Transform flipZ(bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> flipZ(bool boolean = true)
 		=> automaticBehaviour.flipZ(boolean);
 	#endregion advanced rotation
 

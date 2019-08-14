@@ -82,27 +82,27 @@ public static class DoubleExtensions
 
 	// method: return whether this given double is unsigned //
 	public static bool unsigned(this double double_)
-		=> (double_ == 0f);
+		=> (double_ == 0d);
 
 	// method: return whether this given double is signed //
 	public static bool signed(this double double_)
-		=> (double_ != 0f);
+		=> (double_ != 0d);
 
 	// method: return whether this given double is positive //
 	public static bool positive(this double double_)
-		=> (double_ > 0f);
+		=> (double_ > 0d);
 
 	// method: return whether this given double is nonpositive //
 	public static bool nonnegative(this double double_)
-		=> (double_ >= 0f);
+		=> (double_ >= 0d);
 
 	// method: return whether this given double is positive //
 	public static bool negative(this double double_)
-		=> (double_ < 0f);
+		=> (double_ < 0d);
 
 	// method: return whether this given double is nonpositive //
 	public static bool nonpositive(this double double_)
-		=> (double_ <= 0f);
+		=> (double_ <= 0d);
 	
 	
 	// methods for: clamping //
@@ -125,20 +125,23 @@ public static class DoubleExtensions
 		return double_;
 	}
 
+	public static double atMostOne(this double double_, bool boolean = true)
+		=> double_.atMost(1d, boolean);
+
 	public static double clampedToRatio(this double double_, bool boolean = true)
-		=> double_.atLeast(0f, boolean).atMost(1f, boolean);
+		=> double_.atLeast(0d, boolean).atMost(1d, boolean);
 
 	public static double clampedValid(this double double_)
 		=> double_.atLeast(double.MinValue).atMost(double.MaxValue);
 
 	public static double clampedValidAndNonnegative(this double double_)
-		=> double_.atLeast(0f).atMost(double.MaxValue);
+		=> double_.atLeast(0d).atMost(double.MaxValue);
 
 	public static double clampedNonnegative(this double double_)
-		=> double_.atLeast(0f);
+		=> double_.atLeast(0d);
 
 	public static double clampedNonpositive(this double double_)
-		=> double_.atMost(0f);
+		=> double_.atMost(0d);
 
 
 	// methods for: distance //
@@ -162,19 +165,28 @@ public static class DoubleExtensions
 	// methods for: math operations //
 
 	public static double halved(this double double_)
-		=> (double_ / 2f);
+		=> (double_ / 2d);
 
 	public static double doubled(this double double_)
-		=> (double_ * 2f);
+		=> (double_ * 2d);
 
 	public static double toThePowerOf(this double double_, double power)
 		=> Math.Pow(double_, power);
 
 	public static double squared(this double double_)
-		=> double_.toThePowerOf(2f);
+		=> double_.toThePowerOf(2d);
 
 	public static double timesPi(this double double_)
 		=> (double_ * Math.PI);
+
+	public static double restOfWhole(this double double_)
+		=> (1d - double_);
+
+	public static double ratioQuadraticPalindrome(this double double_)
+		=> (double_ * double_.restOfWhole());
+
+	public static double ratioDequadratic(this double double_)
+		=> double_.halved().ratioQuadraticPalindrome() * 4f;
 
 
 	// methods for: interpolation //

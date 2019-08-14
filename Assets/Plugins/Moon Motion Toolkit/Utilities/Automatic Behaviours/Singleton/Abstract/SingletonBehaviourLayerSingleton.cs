@@ -18,9 +18,6 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	#region casted instances
 
-	// the singleton instance of this class as an automatic behaviour //
-	public static new AutomaticBehaviour<SingletonBehaviourT> automaticBehaviour => singleton.castTo<AutomaticBehaviour<SingletonBehaviourT>>();
-
 	// the singleton instance of this class as a component //
 	public static new Component component => automaticBehaviour.component;
 
@@ -51,30 +48,32 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 
 	#region singleton
-	// properties //
+	#region properties
 
 
 	// the singleton instance of this class //
 	public static SingletonBehaviourT singleton {get; private set;} = null;
+
+	// the singleton instance of this class as an automatic behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> automaticBehaviour => singleton.castTo<AutomaticBehaviour<SingletonBehaviourT>>();
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => automaticBehaviour.gameObject;
 
 	// this class's singleton transform //
 	public static new Transform transform => automaticBehaviour.transform;
+	#endregion properties
 
 
 
 
-	// updating //
+	#region updating
 
 
-	// before the start: //
+	// before the start: connect to the singleton instance of this inheritor  //
 	public virtual void Awake()
-	{
-		// connect to the singleton instance of this inheritor //
-		singleton = this.castTo<SingletonBehaviourT>();
-		/*(print("Singleton found for: "+className);*/
-	}
+		=> singleton = this.castTo<SingletonBehaviourT>();
+	/*(print("Singleton found for: "+className);*/
+	#endregion updating
 	#endregion singleton
 }

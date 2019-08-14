@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,10 @@ public static class LightExtensions
 {
 	#region intensities
 
-	public static List<float> intensities<IListT>(this IListT lights) where IListT : IList<Light>
+	public static List<float> intensities(this IEnumerable<Light> lights)
 		=> lights.pick(light => light.intensity);
+	public static List<float> childLightIntensities(this GameObject gameObject)
+		=> gameObject.children<Light>().intensities();
 
 	public static Light setIntensityTo(this Light light, float targetIntensity)
 	{
@@ -17,81 +20,53 @@ public static class LightExtensions
 		return light;
 	}
 
-	public static IEnumerableT setIntensitiesTo<IEnumerableT>(this IEnumerableT lights, float targetIntensity) where IEnumerableT : IEnumerable<Light>
-	{
-		foreach (Light light in lights)
-		{
-			light.setIntensityTo(targetIntensity);
-		}
+	public static IEnumerable<Light> setIntensitiesTo(this IEnumerable<Light> lights, float targetIntensity)
+		=> lights.forEach(light => light.setIntensityTo(targetIntensity));
+	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, float targetIntensity)
+		=> gameObject.setChildLightIntensitiesTo(new float[] {targetIntensity});
 
-		return lights;
-	}
+	public static IEnumerable<Light> setIntensitiesTo(this IEnumerable<Light> lights, IEnumerable<float> targetIntensities)
+	=> lights.forEachByLooping(
+			targetIntensities,
+			(light, targetIntensity) => light.setIntensityTo(targetIntensity));
+	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, IEnumerable<float> targetIntensities)
+		=> gameObject.actUponChildLights(childLights =>
+			childLights.setIntensitiesTo(targetIntensities));
 
-	public static IListT setIntensitiesTo<IListT>(this IListT lights, IList<float> targetIntensities) where IListT : IList<Light>
-	{
-		for (int lightIndex = 0; lightIndex < lights.Count; lightIndex++)
-		{
-			lights[lightIndex].setIntensityTo(targetIntensities[lightIndex % targetIntensities.Count]);
-		}
-
-		return lights;
-	}
 	#endregion intensities
 
 
 	#region setting render mode
 
 	public static Light renderBy(this Light light, LightRenderMode lightRenderMode)
-	{
-		light.renderMode = lightRenderMode;
-
-		return light;
-	}
-
-	public static IEnumerableT renderBy<IEnumerableT>(this IEnumerableT lights, LightRenderMode lightRenderMode) where IEnumerableT : IEnumerable<Light>
-	{
-		lights.forEach(light => light.renderBy(lightRenderMode));
-
-		return lights;
-	}
+		=> light.after(()=>
+			light.renderMode = lightRenderMode);
+	public static IEnumerable<Light> renderBy(this IEnumerable<Light> lights, LightRenderMode lightRenderMode)
+		=> lights.forEach(light => light.renderBy(lightRenderMode));
+	public static GameObject renderChildLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
+		=> gameObject.actUponChildLights(childLights =>
+			childLights.renderBy(lightRenderMode));
 
 	public static Light renderByPixel(this Light light)
 		=> light.renderBy(LightRenderMode.ForcePixel);
-
-	public static IEnumerableT renderByPixel<IEnumerableT>(this IEnumerableT lights) where IEnumerableT : IEnumerable<Light>
+	public static IEnumerable<Light> renderByPixel(this IEnumerable<Light> lights)
 		=> lights.renderBy(LightRenderMode.ForcePixel);
-
-	public static Light renderByVertex(this Light light)
-		=> light.renderBy(LightRenderMode.ForceVertex);
-
-	public static IEnumerableT renderByVertex<IEnumerableT>(this IEnumerableT lights) where IEnumerableT : IEnumerable<Light>
-		=> lights.renderBy(LightRenderMode.ForceVertex);
-	#endregion setting render mode
-
-
-	#region child lights
-
-	public static List<float> childLightIntensities(this GameObject gameObject)
-		=> gameObject.children<Light>().intensities();
-
-	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, IList<float> targetIntensities)
-		=> gameObject.after(()=>
-			gameObject.children<Light>().setIntensitiesTo(targetIntensities));
-
-	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, float targetIntensity)
-		=> gameObject.setChildLightIntensitiesTo(new float[] { targetIntensity });
-
-	public static GameObject renderChildLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
-	{
-		gameObject.children<Light>().renderBy(lightRenderMode);
-
-		return gameObject;
-	}
-
 	public static GameObject renderChildLightsByPixel(this GameObject gameObject)
 		=> gameObject.renderChildLightsBy(LightRenderMode.ForcePixel);
 
+	public static Light renderByVertex(this Light light)
+		=> light.renderBy(LightRenderMode.ForceVertex);
+	public static IEnumerable<Light> renderByVertex(this IEnumerable<Light> lights)
+		=> lights.renderBy(LightRenderMode.ForceVertex);
 	public static GameObject renderChildLightsByVertex(this GameObject gameObject)
 		=> gameObject.renderChildLightsBy(LightRenderMode.ForceVertex);
-	#endregion child lights
+	#endregion setting render mode
+
+
+	#region acting upon child lights
+
+	public static GameObject actUponChildLights(this GameObject gameObject, Action<List<Light>> action)
+		=> gameObject.after(()=>
+			  action(gameObject.children<Light>()));
+	#endregion acting upon child lights
 }

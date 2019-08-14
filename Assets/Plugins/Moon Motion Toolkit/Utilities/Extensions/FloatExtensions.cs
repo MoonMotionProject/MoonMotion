@@ -124,6 +124,9 @@ public static class FloatExtensions
 		return float_;
 	}
 
+	public static float atMostOne(this float float_, bool boolean = true)
+		=> float_.atMost(1f, boolean);
+
 	public static float clampedToRatio(this float float_, bool boolean = true)
 		=> float_.atLeast(0f, boolean).atMost(1f, boolean);
 
@@ -174,6 +177,15 @@ public static class FloatExtensions
 
 	public static float timesPi(this float float_)
 		=> (float_ * Mathf.PI);
+
+	public static float restOfWhole(this float float_)
+		=> (1f - float_);
+
+	public static float ratioQuadraticPalindrome(this float float_)
+		=> (float_ * float_.restOfWhole());
+
+	public static float ratioDequadratic(this float float_)
+		=> float_.halved().ratioQuadraticPalindrome() * 4f;
 
 
 	// methods for: interpolation //

@@ -7,5 +7,7 @@ public enum InterpolationCurve
 	cosine,
 	smooth,
 	smoother,
-	smootherPalindrome
+	smootherPalindrome,
+	quadraticPalindrome,
+	dequadratic
 }

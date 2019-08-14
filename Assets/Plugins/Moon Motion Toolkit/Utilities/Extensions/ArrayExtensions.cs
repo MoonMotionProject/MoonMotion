@@ -19,11 +19,11 @@ public static class ArrayExtensions
 	#endregion reversing
 
 
-	#region iteration
+	#region acting upon all items
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given array, then return this given array //
 	public static TItem[] forEach<TItem>(this TItem[] array, Action<TItem> action, bool boolean = true)
-		=> array.forEach_CollectionSpecializedViaCasting(action, boolean);
+		=> array.forEach_EnumerableSpecializedViaCasting(action, boolean);
 
 	// method: (according to the given boolean:) invoke the given action for each item in this given array as a 2D array using the given width and height upon the respective x and y, then return this given array //
 	public static TItem[] forEachAs2D<TItem>(this TItem[] array, int width, int height, Action<int, int> action, bool boolean = true)
@@ -42,7 +42,7 @@ public static class ArrayExtensions
 					ForEach.inCount(width, x =>
 						ForEach.inCount(height, y =>
 							array[Dimensionality.encode2DTo1D(x, y, width)] = function(x, y))));
-	#endregion iteration
+	#endregion acting upon all items
 
 
 	#region casting

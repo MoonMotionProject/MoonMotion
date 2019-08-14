@@ -30,10 +30,10 @@ public static class ISetExtensions
 	#endregion adding
 
 
-	#region iteration
+	#region acting upon all items
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given set, then return this given set //
 	public static ISet<TItem> forEach<TItem>(this ISet<TItem> set, Action<TItem> action, bool boolean = true)
-		=> set.forEach_CollectionSpecializedViaCasting(action, boolean);
-	#endregion iteration
+		=> set.forEach_EnumerableSpecializedViaCasting(action, boolean);
+	#endregion acting upon all items
 }

@@ -16,7 +16,7 @@ public static class FindMissingReferencesInScene
 		Debug.LogError("Missing reference found in: "+objectName+" - property: "+propertyName);
 	}
 
-	[MenuItem("Other Shortcuts/Find Missing References In Scene %#q")]
+	[MenuItem("Status/Find Missing References In Scene %#q")]
 	public static void findMissingReferencesInScene()
 	{
 		bool issueFound = false;

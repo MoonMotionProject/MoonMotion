@@ -7,7 +7,7 @@ using UnityEngine;
 // • based on code from: https://answers.unity.com/questions/707636/clear-console-window.html
 public static class ClearConsole
 {
-	[MenuItem("Other Shortcuts/Clear Console %q")]
+	[MenuItem("Status/Clear Console %q")]
 	public static void clearConsole()
 	{
 		var assembly = Assembly.GetAssembly(typeof(SceneView));

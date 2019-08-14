@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// Selected Object Operations:
-// • provides menubar operations for the current selected object in the hierarchy
-public static class SelectedObjectOperations
+// Hierarchy Selection Operations:
+// • provides menubar operations for the current hierarchy selection
+public static class HierarchySelectionOperations
 {
 	#region operating selections
 
@@ -28,12 +28,34 @@ public static class SelectedObjectOperations
 	#endregion operating selections
 
 
+	#region operation methods for: hierarchy selection
+
+	[MenuItem("Selection/Deselect %#D")]
+	public static void deselect()
+		=> Hierarchy.deselect();
+	[MenuItem("Selection/Deselect %#D", true)]
+	public static bool deselect_Validator()
+		=> selectedGameObject;
+	#endregion operation methods for: hierarchy selection
+
+
+	#region operation methods for: game object activity
+
+	[MenuItem("Selection/Toggle Activity %t")]
+	public static void toggleActivity()
+		=> pingSelectedGameObject().toggleActivity();
+	[MenuItem("Selection/Toggle Activity %t", true)]
+	public static bool toggleActivity_Validator()
+		=> selectedGameObject;
+	#endregion operation methods for: game object activity
+
+
 	#region operation methods for: transformations
 
-	[MenuItem("Selected Object/Reset Transformations %#r")]
+	[MenuItem("Selection/Reset Transformations %#r")]
 	public static void resetTransformations()
-		=> pingSelectedGameObject().resetGlobalsAndLocalScale();
-	[MenuItem("Selected Object/Reset Transformations %#r", true)]
+		=> pingSelectedGameObject().resetLocals();
+	[MenuItem("Selection/Reset Transformations %#r", true)]
 	public static bool resetTransformations_Validator()
 		=> selectedGameObject;
 	#endregion operation methods for: transformations
@@ -41,17 +63,17 @@ public static class SelectedObjectOperations
 
 	#region operation methods for: child lights
 
-	[MenuItem("Selected Object/Render Child Lights By Pixel")]
+	[MenuItem("Selection/Render Child Lights By Pixel")]
 	public static void renderChildLightsByPixel()
 		=> pingSelectedGameObjectAndPrintNamely("rendering child lights by pixel").renderChildLightsByPixel();
-	[MenuItem("Selected Object/Render Child Lights By Pixel", true)]
+	[MenuItem("Selection/Render Child Lights By Pixel", true)]
 	public static bool renderChildLightsByPixel_Validator()
 		=> selectedGameObject;
 
-	[MenuItem("Selected Object/Render Child Lights By Vertex")]
+	[MenuItem("Selection/Render Child Lights By Vertex")]
 	public static void renderChildLightsByVertex()
 		=> pingSelectedGameObjectAndPrintNamely("rendering child lights by vertex").renderChildLightsByVertex();
-	[MenuItem("Selected Object/Render Child Lights By Vertex", true)]
+	[MenuItem("Selection/Render Child Lights By Vertex", true)]
 	public static bool renderChildLightsByVertex_Validator()
 		=> selectedGameObject;
 	#endregion operation methods for: child lights

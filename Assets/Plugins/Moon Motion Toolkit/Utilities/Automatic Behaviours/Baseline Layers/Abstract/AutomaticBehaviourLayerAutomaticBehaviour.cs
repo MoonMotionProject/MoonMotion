@@ -12,7 +12,7 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 {
 	#region casted instances
 
-	// this instance as an instance of a particular class specializing AutomaticBehaviour //
+	// this instance as an instance of the particular derived class specializing AutomaticBehaviour //
 	public AutomaticBehaviourT automaticBehaviour => this.castTo<AutomaticBehaviourT>();
 
 	// this instance as a component //
@@ -21,6 +21,15 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 	// this instance as a mono behaviour //
 	public MonoBehaviour monoBehaviour => this.castTo<MonoBehaviour>();
 	#endregion casted instances
+
+
+
+
+	#region self returning after acting
+
+	public AutomaticBehaviourT selfAfter(Action action)
+		=> automaticBehaviour.after(action);
+	#endregion self returning after acting
 
 
 

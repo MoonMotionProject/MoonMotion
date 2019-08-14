@@ -48,21 +48,25 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	// method: return whether this behaviour's game object is active globally //
 	public static new bool activeGlobally => automaticBehaviour.activeGlobally;
 
-	// method: set the activity of this behaviour's game object to the given boolean, then return this behaviour's game object //
-	public static new GameObject setActivityTo(bool boolean)
+	// method: set the activity of this behaviour's game object to the given boolean, then return this behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> setActivityTo(bool boolean)
 		=> automaticBehaviour.setActivityTo(boolean);
 
-	// method: activate this behaviour's game object, then return this behaviour's game object //
-	public static new GameObject activate()
+	// method: activate this behaviour's game object, then return this behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> activate()
 		=> automaticBehaviour.activate();
 
-	// method: deactivate this behaviour's game object, then return this behaviour's game object //
-	public static new GameObject deactivate()
+	// method: deactivate this behaviour's game object, then return this behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> deactivate()
 		=> automaticBehaviour.deactivate();
 
-	// method: toggle the activity of this behaviour's game object using the given toggling, then return this behaviour's game object //
-	public static new GameObject toggleActivityBy(Toggling toggling)
+	// method: toggle the activity of this behaviour's game object using the given toggling, then return this behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> toggleActivityBy(Toggling toggling)
 		=> automaticBehaviour.toggleActivityBy(toggling);
+
+	// method: toggle the activity of this behaviour's game object, then return this behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> toggleActivity()
+		=> automaticBehaviour.toggleActivity();
 	#endregion activity
 
 
@@ -89,34 +93,34 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 
 	#region printing
 
-	// method: have this behaviour's game object print the given string, prefixed with this behaviour's game object's name, then return this behaviour's game object //
-	public static new GameObject printNamely(string string_)
+	// method: have this behaviour's game object print the given string, prefixed with this behaviour's game object's name, then return this behaviour //
+	public static new AutomaticBehaviour<SingletonBehaviourT> printNamely(string string_)
 		=> automaticBehaviour.printNamely(string_);
 	#endregion printing
 
 
 	#region layer setting
 
-	public static new GameObject setLayerTo(string layerName, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLayerTo(string layerName, bool boolean = true)
 		=> automaticBehaviour.setLayerTo(layerName, boolean);
 
-	public static new GameObject setLayerTo(int layerIndex, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLayerTo(int layerIndex, bool boolean = true)
 		=> automaticBehaviour.setLayerTo(layerIndex, boolean);
 
-	public static new GameObject setChildLayerTo(string layerName, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setChildLayerTo(string layerName, bool boolean = true)
 		=> automaticBehaviour.setChildLayerTo(layerName, boolean);
 
-	public static new GameObject setChildLayersTo(int layerIndex, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> setChildLayersTo(int layerIndex, bool boolean = true)
 		=> automaticBehaviour.setChildLayersTo(layerIndex, boolean);
 	#endregion layer setting
 
 
 	#region calling local methods
 
-	public static new GameObject callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
+	public static new AutomaticBehaviour<SingletonBehaviourT> callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
 		=> automaticBehaviour.callAllLocal(methodName, sendMessageOptions, boolean);
 
-	public static new GameObject validate()
+	public static new AutomaticBehaviour<SingletonBehaviourT> validate()
 		=> automaticBehaviour.validate();
 	#endregion calling local methods
 
@@ -124,10 +128,10 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#region validation pending
 	#if UNITY_EDITOR
 
-	public static new GameObject unpendValidation()
+	public static new AutomaticBehaviour<SingletonBehaviourT> unpendValidation()
 		=> automaticBehaviour.unpendValidation();
 
-	public static new GameObject pendValidation()
+	public static new AutomaticBehaviour<SingletonBehaviourT> pendValidation()
 		=> automaticBehaviour.pendValidation();
 	#endif
 	#endregion validation pending

@@ -4,16 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// IEnumerable Extensions: provides extension methods for handling enumerables //
+// IEnumerable Extensions: provides extension methods and related constants for handling enumerables //
 // #enumerable-e
 public static class IEnumerableExtensions
 {
-	// constants //
+	#region constants
 
 
-	// constants for: listing //
+	#region listing
 
 	public const string listingSeparatorDefault = ", ";
+	#endregion listing
+	#endregion constants
+
+
+
+
+	#region methods
 
 
 	/*// methods for: copying //
@@ -23,21 +30,23 @@ public static class IEnumerableExtensions
 		=> new IEnumerableT(enumerable);*/
 
 
-	// methods for: printing //
+	#region printing
 
 	// method: print the string listing of this given enumerable, using the given separator string (comma by default), then return the string listing //
 	public static string printListing<TItem>(this IEnumerable<TItem> enumerable, string separator = listingSeparatorDefault)
 		=> enumerable.asListing(separator).print();
+	#endregion printing
 
 
-	// methods for: listing //
+	#region listing
 
 	// method: return the string listing of this given enumerable, using the given separator string (comma by default) //
 	public static string asListing<TItem>(this IEnumerable<TItem> enumerable, string separator = listingSeparatorDefault)
 		=> string.Join(separator, enumerable);
+	#endregion listing
 
 
-	// methods for: determining content //
+	#region determining content
 
 	// method: return the number of items in this given enumerable //
 	public static int count<TItem>(this IEnumerable<TItem> enumerable)
@@ -94,16 +103,18 @@ public static class IEnumerableExtensions
 	// method: return whether this given enumerable contains no item that the other given enumerable also contains //
 	public static bool hasNoneIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable)
 		=> !enumerable.hasAnyIn(otherEnumerable);
+	#endregion determining content
 
 
-	// methods for: selection //
+	#region manifestation
 
 	// method: return a list for this given enumerable with its yieldings manifested //
 	public static List<TItem> manifest<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.ToList();
+	#endregion manifestation
 
 
-	// methods for: accessing //
+	#region accessing items by index
 
 	// method: return the item at the given index in this given enumerable (assuming an item is there) //
 	public static TItem item<TItem>(this IEnumerable<TItem> enumerable, int index)
@@ -112,6 +123,10 @@ public static class IEnumerableExtensions
 	// method: return the item at the given index in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem itemOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable, int index)
 		=> enumerable.ElementAtOrDefault(index);
+	#endregion accessing items by index
+
+
+	#region accessing first items
 
 	// method: return the first item in this given enumerable (assuming an item is there) //
 	public static TItem first<TItem>(this IEnumerable<TItem> enumerable)
@@ -120,6 +135,10 @@ public static class IEnumerableExtensions
 	// method: return the first item in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem firstOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.FirstOrDefault();
+	#endregion accessing first items
+
+
+	#region retrieval (accessing particulars via functions)
 
 	public static IEnumerable<TResult> select<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.Select(function);
@@ -147,9 +166,10 @@ public static class IEnumerableExtensions
 
 	public static IEnumerable<TResult> selectNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
 		=> enumerable.SelectMany(function);
+	#endregion retrieval (accessing particulars via functions)
 
 
-	// methods for: removing //
+	#region removing
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns true //
 	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
@@ -194,10 +214,12 @@ public static class IEnumerableExtensions
 	// method: instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the given items //
 	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
 		=> enumerable.except(items).manifest();
+	#endregion removing
 
 
-	// methods for: iteration //
+	#region acting upon all items
 
+	#region acting upon all items - without indexing
 	// method: return a selection of the items in this given enumerable for which invocation of the given action is yielded //
 	private static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action)
 	{
@@ -228,12 +250,69 @@ public static class IEnumerableExtensions
 		=> enumerable.after(()=>
 			enumerable.castTo<IEnumerable<TItem>>().forEach(action),
 			boolean);
+	#endregion acting upon all items - without indexing
 
+	#region acting upon all items - with indexing
+	// method: return a selection of the items in this given enumerable for which invocation of the given indexed action is yielded //
+	private static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction)
+	{
+		for (int index = 0; index < enumerable.count(); index++)
+		{
+			TItem item = enumerable.item(index);
+
+			indexedAction(index, item);
+			yield return item;
+		}
+	}
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which invocation of the given indexed action is yielded //
+	public static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction, bool boolean = true)
+		=> boolean ? enumerable.imply(indexedAction) : enumerable;
+	// method: (according to the given boolean:) invoke the given indexed action on each item in this given enumerable, then return this given enumerable //
+	public static IEnumerable<TItem> forEach<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction, bool boolean = true)
+	{
+		if (boolean)
+		{
+			for (int index = 0; index < enumerable.count(); index++)
+			{
+				indexedAction(index, enumerable.item(index));
+			}
+		}
+
+		return enumerable;
+	}
+	// method: (according to the given boolean:) invoke the given indexed action on each item in this given enumerable, then return this given enumerable //
+	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<int, TItem> indexedAction, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
+		=> enumerable.after(()=>
+			enumerable.castTo<IEnumerable<TItem>>().forEach(indexedAction),
+			boolean);
+	#endregion acting upon all items - with indexing
+
+	#region acting upon all items - by looping
+	public static IEnumerable<TItemThis> implyByLooping<TItemThis, TItemLooped>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true)
+		 => enumerable.imply(
+			 (index, item) => action(item, enumerableToLoop.item(index % enumerableToLoop.count())),
+			 boolean);
+	public static IEnumerable<TItemThis> forEachByLooping<TItemThis, TItemLooped>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true)
+		 => enumerable.forEach(
+			 (index, item) => action(item, enumerableToLoop.item(index % enumerableToLoop.count())),
+			 boolean);
+	public static IEnumerableT forEachByLooping_EnumerableSpecializedViaCasting<IEnumerableT, TItemThis, TItemLooped>(this IEnumerableT enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true) where IEnumerableT : IEnumerable<TItemThis>
+		=> enumerable.after(()=>
+			enumerable.castTo<IEnumerable<TItemThis>>().forEachByLooping(enumerableToLoop, action),
+			boolean);
+	#endregion acting upon all items - by looping
+
+	#region acting upon all items - only for which the given function returns true
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable where the given function returns true, then return this given enumerable //
 	public static IEnumerable<TItem> forEachWhere<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, Action<TItem> action, bool boolean = true)
 		=> enumerable.after(()=>
 			enumerable.forEach(action.predicatedWith(function)),
 			boolean);
+	#endregion acting upon all items - only for which the given function returns true
+	#endregion acting upon all items
+
+
+	#region acting upon first items
 
 	// method: invoke the given action on the first item in this given enumerable if it has any items, then return this given enumerable //
 	public static IEnumerable<TItem> forFirstIfAny<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action)
@@ -259,9 +338,10 @@ public static class IEnumerableExtensions
 
 		return default(TItem);
 	}
+	#endregion acting upon first items
 
 
-	// methods for: randomization //
+	#region randomization
 
 	// method: return a random item in this given enumerable //
 	public static TItem randomItem<TItem>(this IEnumerable<TItem> enumerable)
@@ -277,9 +357,10 @@ public static class IEnumerableExtensions
 		}
 		return enumerable.randomItem();
 	}
+	#endregion randomization
 
 
-	// methods for: ordering //
+	#region ordering
 
 	public static IEnumerable<TItem> implyAscendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.OrderBy(function);
@@ -300,9 +381,10 @@ public static class IEnumerableExtensions
 		=> enumerable.implyDescendingBy(item => item);
 	public static List<TItem> descending<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
 		=> enumerable.implyDescending().manifest();
+	#endregion ordering
 
 
-	// methods for: extremes //
+	#region extremes
 
 	public static TResult min<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.Min(function);
@@ -315,17 +397,21 @@ public static class IEnumerableExtensions
 
 	public static TItem maxBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.implyDescendingBy(function).first();
+	#endregion extremes
 
 
-	// methods for: averaging //
+	#region averaging
 
 	public static float average(this IEnumerable<float> enumerable)
 		=> enumerable.Average();
+	#endregion averaging
 
 
-	// methods for: casting //
+	#region casting
 
 	// method: return this given enumerable cast to an IEnumerable of the specified type of item //
 	public static IEnumerable<TItem> castToIEnumerable<TItem>(this IEnumerable enumerable)
 		=> enumerable.Cast<TItem>();
+	#endregion casting
+	#endregion methods
 }

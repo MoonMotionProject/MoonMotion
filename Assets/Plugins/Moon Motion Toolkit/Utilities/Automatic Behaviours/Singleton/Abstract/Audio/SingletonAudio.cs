@@ -10,18 +10,19 @@ public abstract class SingletonAudio<SingletonAudioT> :
 					SingletonBehaviour<SingletonAudioT>
 						where SingletonAudioT : SingletonAudio<SingletonAudioT>
 {
-	// properties/methods //
+	#region properties/methods
 
-	// properties/methods for: audio shortcuts //
+	#region audio shortcuts
 	public static float duration => audioDuration;
 	public static float volume => audioVolume;
-	public static AudioSource setVolumeTo(float targetVolume, bool boolean = true)
+	public static AutomaticBehaviour<SingletonAudioT> setVolumeTo(float targetVolume, bool boolean = true)
 		=> setAudioVolumeTo(targetVolume, boolean);
 	public static bool playing => automaticBehaviour.audioPlaying;
-	public static AudioSource setTimeTo(float targetTime, bool boolean = true)
+	public static AutomaticBehaviour<SingletonAudioT> setTimeTo(float targetTime, bool boolean = true)
 		=> automaticBehaviour.setAudioTimeTo(targetTime, boolean);
+	#endregion audio shortcuts
 
-	// properties/methods for: smoothing audio time //
+	#region smoothing audio time
 	private static float previousAudioTime_ = -1f;		// used by 'previousAudioTime' property to handle uninitialized case (via -1 flag)
 	private static float previousAudioTime => (previousAudioTime_ == -1f) ? (previousAudioTime_ = audioTime) : previousAudioTime_;		// only previous before Late Update, in which it is made current for "previous" usage in the next Update or other event before the next Late Update
 	private static float setPreviousAudioTime(float targetPreviousAudioTime)
@@ -31,28 +32,31 @@ public abstract class SingletonAudio<SingletonAudioT> :
 	private static float lastTimeOfNewAudioTime => (lastTimeOfNewAudioTime_ == -1f) ? (lastTimeOfNewAudioTime_ = time) : lastTimeOfNewAudioTime_;
 	private static float setLastTimeOfNewAudioTime(float targetLastTimeOfNewAudioTime)
 		=> lastTimeOfNewAudioTime_ = targetLastTimeOfNewAudioTime;
-	public static float smoothedAudioTime => audioTimeIsNew ? audioTime : (audioTime + timeSince(lastTimeOfNewAudioTime));		// only accurate before Late Update (due to how 'previousAudioTime' is updated)
+	public static float smoothedAudioTime => audioTimeIsNew ? audioTime : (audioTime + timeSince(lastTimeOfNewAudioTime));      // only accurate before Late Update (due to how 'previousAudioTime' is updated)
+	#endregion smoothing audio time
+	#endregion properties/methods
 
 
 
 
-	// methods //
+	#region methods
 
-	
+
 	// methods for: playing //
 
-	public static AudioSource play()
-		=> audioPlay();
+	public static AutomaticBehaviour<SingletonAudioT> play()
+		=> playAudio();
 
-	public static AudioSource stop()
-		=> audioStop();
+	public static AutomaticBehaviour<SingletonAudioT> stop()
+		=> stopAudio();
+	#endregion methods
 
 
 
 
-	// updating //
+	#region updating
 
-	
+
 	// at each late update: //
 	public virtual void LateUpdate()
 	{
@@ -66,4 +70,5 @@ public abstract class SingletonAudio<SingletonAudioT> :
 			setPreviousAudioTime(audioTime);
 		}
 	}
+	#endregion updating
 }

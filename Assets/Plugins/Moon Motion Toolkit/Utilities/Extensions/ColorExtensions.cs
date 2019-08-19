@@ -5,7 +5,7 @@ using UnityEngine;
 // Color Extensions: provides extension methods for handling colors //
 public static class ColorExtensions
 {
-	#region setting
+	#region setting color
 
 	// method: set the color of this given material to the given target color, then return this given material //
 	public static Material setColorTo(this Material material, Color targetColor)
@@ -16,7 +16,7 @@ public static class ColorExtensions
 		=> renderer.after(()=>
 			renderer.material.setColorTo(targetColor));
 	// method: set the color of these given renderers' materials to the given target color, then return an enumerable of these given renderers //
-	public static IEnumerable<Renderer> setColorsTo(this IEnumerable<Renderer> renderers, Color targetColor)
+	public static IEnumerable<Renderer> setColorTo(this IEnumerable<Renderer> renderers, Color targetColor)
 		=> renderers.forEach(renderer => renderer.setColorTo(targetColor));
 	// method: set the color of this given component's renderer's material to the given target color, then return this given component //
 	public static Component setColorTo(this Component component, Color targetColor)
@@ -26,16 +26,61 @@ public static class ColorExtensions
 	public static GameObject setColorTo(this GameObject gameObject, Color targetColor)
 		=> gameObject.after(()=>
 			gameObject.transform.setColorTo(targetColor));
-	#endregion setting
-
-
-	#region setting child colors
-
 	// method: set the color of this given game object's child renderers' to the given target color, then return this given game object //
-	public static GameObject setChildColorsTo(this GameObject gameObject, Color targetColor)
+	public static GameObject setChildrenColorTo(this GameObject gameObject, Color targetColor)
 		=> gameObject.after(()=>
-			gameObject.children<Renderer>().setColorsTo(targetColor));
-	#endregion setting child colors
+			gameObject.children<Renderer>().setColorTo(targetColor));
+	#endregion setting color
+
+
+	#region setting a given color variable by name
+	// method: set the color variable for the given name of this given material to the given target color, then return this given material //
+	public static Material setColor(this Material material, string colorName, Color targetColor)
+		=> material.after(()=>
+			material.SetColor(colorName, targetColor));
+	// method: set the color variable for the given name of this given renderer's material to the given target color, then return this given renderer //
+	public static Renderer setColor(this Renderer renderer, string colorName, Color targetColor)
+		=> renderer.after(()=>
+			renderer.material.setColor(colorName, targetColor));
+	// method: set the color variable for the given name of these given renderers' materials to the given target color, then return an enumerable of these given renderers //
+	public static IEnumerable<Renderer> setColors(this IEnumerable<Renderer> renderers, string colorName, Color targetColor)
+		=> renderers.forEach(renderer => renderer.setColor(colorName, targetColor));
+	// method: set the color variable for the given name of this given component's renderer's material to the given target color, then return this given component //
+	public static Component setColor(this Component component, string colorName, Color targetColor)
+		=> component.after(()=>
+			component.first<Renderer>().setColor(colorName, targetColor));
+	// method: set the color variable for the given name of this given game object's renderer's material to the given target color, then return this given game object //
+	public static GameObject setColor(this GameObject gameObject, string colorName, Color targetColor)
+		=> gameObject.after(()=>
+			gameObject.transform.setColor(colorName, targetColor));
+	#endregion setting a given color variable by name
+
+
+	#region setting emission color
+	// method: set the emission color of this given material to the given target color, then return this given material //
+	public static Material setEmissionColorTo(this Material material, Color targetColor)
+		=> material.setColor("_EmissionColor", targetColor);
+	// method: set the emission color of this given renderer's material to the given target color, then return this given renderer //
+	public static Renderer setEmissionColorTo(this Renderer renderer, Color targetColor)
+		=> renderer.after(()=>
+			renderer.material.setEmissionColorTo(targetColor));
+	// method: set the emission color of these given renderers' materials to the given target color, then return an enumerable of these given renderers //
+	public static IEnumerable<Renderer> setEmissionColorTo(this IEnumerable<Renderer> renderers, Color targetColor)
+		=> renderers.forEach(renderer => renderer.setEmissionColorTo(targetColor));
+	// method: set the emission color of this given component's renderer's material to the given target color, then return this given component //
+	public static Component setEmissionColorTo(this Component component, Color targetColor)
+		=> component.after(()=>
+			component.first<Renderer>().setEmissionColorTo(targetColor));
+	// method: set the emission color of this given game object's renderer's material to the given target color, then return this given game object //
+	public static GameObject setEmissionColorTo(this GameObject gameObject, Color targetColor)
+		=> gameObject.after(()=>
+			gameObject.transform.setEmissionColorTo(targetColor));
+	// method: (according to the given boolean:) set the emission color of this given game object's child renderers' to the given target color, then return this given game object //
+	public static GameObject setChildrenEmissionColorTo(this GameObject gameObject, Color targetColor, bool boolean = true)
+		=> gameObject.after(()=>
+			gameObject.children<Renderer>().setEmissionColorTo(targetColor),
+			boolean);
+	#endregion setting emission color
 
 
 

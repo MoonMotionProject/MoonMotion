@@ -167,12 +167,14 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 
 	#region child iteration
-
 	public AutomaticBehaviourT forEachChildTransform(Action<Transform> action)
 		=> selfAfter(()=> transform.forEachChildTransform(action));
-
 	public AutomaticBehaviourT setActivityOfChildrenTo(bool boolean)
 		=> selfAfter(()=> transform.setActivityOfChildrenTo(boolean));
+	public AutomaticBehaviourT activateChildren()
+		=> selfAfter(()=> transform.activateChildren());
+	public AutomaticBehaviourT deactivateChildren()
+		=> selfAfter(()=> transform.deactivateChildren());
 	#endregion child iteration
 
 

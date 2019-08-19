@@ -41,8 +41,10 @@ public abstract class AutomaticBehaviourLayerComponentShortcuts<AutomaticBehavio
 	public Color color => material.color;
 	public AutomaticBehaviourT setColorTo(Color targetColor)
 		=> selfAfter(()=> material.setColorTo(targetColor));
-	public AutomaticBehaviourT setChildColorsTo(Color targetColor)
-		=> selfAfter(()=> gameObject.setChildColorsTo(targetColor));
+	public AutomaticBehaviourT setChildrenColorTo(Color targetColor)
+		=> selfAfter(()=> gameObject.setChildrenColorTo(targetColor));
+	public AutomaticBehaviourT setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
+		=> selfAfter(()=> gameObject.setChildrenEmissionColorTo(targetColor, boolean));
 	#endregion color
 
 	#region shadowcasting

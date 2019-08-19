@@ -41,8 +41,10 @@ public abstract class SingletonBehaviourLayerComponentShortcuts<SingletonBehavio
 	public static new Color color => material.color;
 	public static new AutomaticBehaviour<SingletonBehaviourT> setColorTo(Color targetColor)
 		=> automaticBehaviour.setColorTo(targetColor);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setChildColorsTo(Color targetColor)
-		=> automaticBehaviour.setChildColorsTo(targetColor);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setChildrenColorTo(Color targetColor)
+		=> automaticBehaviour.setChildrenColorTo(targetColor);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
+		=> automaticBehaviour.setChildrenEmissionColorTo(targetColor, boolean);
 	#endregion color
 
 	#region shadowcasting

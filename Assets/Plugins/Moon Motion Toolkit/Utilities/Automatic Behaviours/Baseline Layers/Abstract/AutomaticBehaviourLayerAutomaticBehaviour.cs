@@ -36,7 +36,7 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 
 	#region names
 
-	public static string className => typeof(AutomaticBehaviourT).FullName;
+	public string className => GetType().FullName;
 
 	public string printClassName()
 		=> className.print();

@@ -161,12 +161,14 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 
 	#region child iteration
-
 	public static new AutomaticBehaviour<SingletonBehaviourT> forEachChildTransform(Action<Transform> action)
 		=> automaticBehaviour.forEachChildTransform(action);
-
 	public static new AutomaticBehaviour<SingletonBehaviourT> setActivityOfChildrenTo(bool boolean)
 		=> automaticBehaviour.setActivityOfChildrenTo(boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> activateChildren()
+		=> automaticBehaviour.activateChildren();
+	public static new AutomaticBehaviour<SingletonBehaviourT> deactivateChildren()
+		=> automaticBehaviour.deactivateChildren();
 	#endregion child iteration
 
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class TrackTimeOfAwake: TrackingBehaviour<TrackTimeOfAwake>
+public class TrackTimeOfAwake : TrackingBehaviour<TrackTimeOfAwake>
 {
 	// variables //
 

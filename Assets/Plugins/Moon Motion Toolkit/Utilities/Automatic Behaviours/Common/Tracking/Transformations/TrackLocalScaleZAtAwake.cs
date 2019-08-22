@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class TrackLocalScaleZAtAwake: TrackingBehaviour<TrackLocalScaleZAtAwake>
+public class TrackLocalScaleZAtAwake : TrackingBehaviour<TrackLocalScaleZAtAwake>
 {
 	// variables //
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class TrackPositionYAtAwake: TrackingBehaviour<TrackPositionYAtAwake>
+public class TrackPositionYAtAwake : TrackingBehaviour<TrackPositionYAtAwake>
 {
 	// variables //
 

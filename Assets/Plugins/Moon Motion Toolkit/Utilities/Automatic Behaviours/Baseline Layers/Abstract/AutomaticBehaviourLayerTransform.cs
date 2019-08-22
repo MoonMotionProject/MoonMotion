@@ -212,6 +212,8 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 		=> selfAfter(()=> transform.setLocalPositionYTo(otherComponent, boolean));
 	public AutomaticBehaviourT resetLocalPositionY(bool boolean = true)
 		=> selfAfter(()=> transform.resetLocalPositionY(boolean));
+	public AutomaticBehaviourT negateLocalPositionY(bool boolean = true)
+		=> selfAfter(()=> transform.negateLocalPositionY(boolean));
 
 	public float localPositionZ => transform.localPosition.z;
 	public AutomaticBehaviourT setLocalPositionZTo(float z, bool boolean = true)
@@ -397,6 +399,8 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 		=> selfAfter(()=> transform.setPositionYTo(otherComponent, boolean));
 	public AutomaticBehaviourT resetPositionY(bool boolean = true)
 		=> selfAfter(()=> transform.resetPositionY(boolean));
+	public AutomaticBehaviourT negatePositionY(bool boolean = true)
+		=> selfAfter(()=> transform.negatePositionY(boolean));
 
 	public float positionZ => transform.position.z;
 	public AutomaticBehaviourT setPositionZTo(float z, bool boolean = true)
@@ -478,12 +482,11 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 		=> selfAfter(()=> transform.setGlobalsTo(otherGameObject, boolean));
 	public AutomaticBehaviourT setGlobalsTo(Component otherComponent, bool boolean = true)
 		=> selfAfter(()=> transform.setGlobalsTo(otherComponent, boolean));
+	public AutomaticBehaviourT setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
+		=> selfAfter(()=> transform.setGlobalsTo(position, eulerAngles, boolean));
 	public AutomaticBehaviourT resetGlobals(bool boolean = true)
 		=> selfAfter(()=> transform.resetGlobals(boolean));
 
-	public AutomaticBehaviourT setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
-		=> selfAfter(()=> transform.setGlobalsTo(position, eulerAngles, boolean));
-	
 	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
 		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean));
 	public AutomaticBehaviourT setGlobalsAndLocalScaleTo(Transform otherTransform, bool boolean = true)

@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • validates this behaviour according to its automatic behaviour inspector attributes
 public abstract class	AutomaticBehaviourLayerInspectorAttributes<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerComponentShortcuts<AutomaticBehaviourT>
+					AutomaticBehaviourLayerComponentShortcutsMoonMotion<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
 	// upon validation: //

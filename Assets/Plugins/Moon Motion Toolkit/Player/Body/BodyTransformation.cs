@@ -7,8 +7,10 @@ using Valve.VR.InteractionSystem;
 // Body Transformation
 // • keeps this body positioned under the headset (by matching x and z position to it) but above the floor (by adjusting y position from it)
 // • prevents local rotation of this body
-// • the body's y positioning is fixed (by being inverted) for the player being rotated 180° around the z axis, according to whether the flipping locomotion (via Flipper) has the player flipped currently
-public class BodyTransformation : MonoBehaviour
+// • corrects (inverts) the body's y positioning according to the flipping locomotion (for the player being rotated 180° around the z axis, according to whether the flipping locomotion (via Flipper) has the player flipped currently)
+[RequireComponent(typeof(TrackLocalRotationAtAwake))]
+[RequireComponent(typeof(TrackCapsuleCollidersAtAwake))]
+public class BodyTransformation : AutomaticBehaviour<BodyTransformation>
 {
 	// variables //
 	
@@ -22,15 +24,8 @@ public class BodyTransformation : MonoBehaviour
 	public Transform floorTransform;
 	
 
-	// tracking: original local rotation //
-	private Quaternion originalLocalRotation;
+	// settings //
 
-
-	// connections - automatic: any capsule colliders on this body //
-	private CapsuleCollider[] capsuleColliders;
-
-
-	// setting: the height of the part of the player's head above their eyes (adds additional height to this body collider to avoid the player colliding with ceilings and the like directly at their eye level) //
     [BoxGroup("Height of Head Above Eyes")]
 	[Tooltip("adds additional height to this body collider to avoid the player colliding with ceilings and the like directly at their eye level")]
 	public float headAboveEyesHeight = .06f;
@@ -41,32 +36,25 @@ public class BodyTransformation : MonoBehaviour
 	// updating //
 
 	
-	// before the start: tracking of original rotation, connection to capsule collider //
-    private void Awake()
-    {
-        originalLocalRotation = transform.localRotation;
-		capsuleColliders = GetComponents<CapsuleCollider>();
-    }
-	
 	// at the end of each update: //
-    private void LateUpdate()
+	private void LateUpdate()
     {
 		// local rotation locking //
-        transform.localRotation = originalLocalRotation;
+        setLocalRotationTo(localRotationAwake);
        
 		// following x and z position of headset and setting y position to have the collider be just above the floor... but since the collider is a capsule it will be limited in height to a sphere formed from its two halfspheres once the nonspherical part of its height is entirely diminished (as a result of the entire height setting diminishing) //
-		float distanceFromFloor = Vector3.Dot(headsetTransform.localPosition, Vector3.up) + headAboveEyesHeight;		// determine the distance from the headset to the floor – but offset it by the head above eyes height to fudge for how the part of one's head above their eyes should collide with a ceiling or similar object before their eyes do
+		float distanceFromFloor = Vector3.Dot(headsetTransform.localPosition, Vectors.up) + headAboveEyesHeight;		// determine the distance from the headset to the floor – but offset it by the head above eyes height to fudge for how the part of one's head above their eyes should collide with a ceiling or similar object before their eyes do
 		// set any capsule colliders' heights to be whichever is greater: the distance from the headset to the floor, twice the length of the capsule collider's radius (since ∗) //
-		foreach (CapsuleCollider capsuleCollider in capsuleColliders)
+		foreach (CapsuleCollider capsuleCollider in capsuleCollidersAwake)
 		{
 			capsuleCollider.height = Mathf.Max(distanceFromFloor, (capsuleCollider.radius * 2));
 		}
-        transform.position = new Vector3(headsetTransform.position.x, floorTransform.position.y + (capsuleColliders[0].height / 2), headsetTransform.position.z);		// the x and z position follow the headset; the y position is set to be half of the first (although all are likely the same height – by default, there is just one nontrigger one followed by one trigger one of the same height) capsule collider's height up from the floor position
+        transform.position = new Vector3(headsetTransform.position.x, floorTransform.position.y + (capsuleCollidersAwake[0].height.halved()), headsetTransform.position.z);		// the x and z position follow the headset; the y position is set to be half of the first (although all are likely the same height – by default, there is just one nontrigger one followed by one trigger one of the same height) capsule collider's height up from the floor position
 
 		// if this body's y position should be inverted currently since the flipping locomotion has the player flipped via 180° rotation around the z axis: //
 		if (Flipper.flipped)
 		{
-			transform.localPosition = new Vector3(transform.localPosition.x, -transform.localPosition.y, transform.localPosition.z);
+			negateLocalPositionY();
 		}
     }
 }

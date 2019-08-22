@@ -206,6 +206,8 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> automaticBehaviour.setLocalPositionZTo(otherTransform, boolean);
 	public static new AutomaticBehaviour<SingletonBehaviourT> resetLocalPositionZ(bool boolean = true)
 		=> automaticBehaviour.resetLocalPositionZ(boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> negateLocalPositionY(bool boolean = true)
+		=> automaticBehaviour.negateLocalPositionY(boolean);
 
 	public static new Quaternion localRotation => automaticBehaviour.localRotation;
 	public static new AutomaticBehaviour<SingletonBehaviourT> setLocalRotationTo(Quaternion localRotation, bool boolean = true)
@@ -327,6 +329,8 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> automaticBehaviour.setPositionYTo(otherTransform, boolean);
 	public static new AutomaticBehaviour<SingletonBehaviourT> resetPositionY(bool boolean = true)
 		=> automaticBehaviour.resetPositionY(boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> negatePositionY(bool boolean = true)
+		=> automaticBehaviour.negatePositionY(boolean);
 
 	public static new float positionZ => automaticBehaviour.position.z;
 	public static new AutomaticBehaviour<SingletonBehaviourT> setPositionZTo(float z, bool boolean = true)
@@ -380,11 +384,10 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> automaticBehaviour.setGlobalsTo(position, rotation, boolean);
 	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsTo(Transform otherTransform, bool boolean = true)
 		=> automaticBehaviour.setGlobalsTo(otherTransform, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> resetGlobals(bool boolean = true)
-		=> automaticBehaviour.resetGlobals(boolean);
-
 	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsTo(Vector3 position, Vector3 eulerAngles, bool boolean = true)
 		=> automaticBehaviour.setGlobalsTo(position, eulerAngles, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> resetGlobals(bool boolean = true)
+		=> automaticBehaviour.resetGlobals(boolean);
 	
 	public static new AutomaticBehaviour<SingletonBehaviourT> setGlobalsAndLocalScaleTo(Vector3 position, Quaternion rotation, Vector3 localScale, bool boolean = true)
 		=> automaticBehaviour.setGlobalsAndLocalScaleTo(position, rotation, localScale, boolean);

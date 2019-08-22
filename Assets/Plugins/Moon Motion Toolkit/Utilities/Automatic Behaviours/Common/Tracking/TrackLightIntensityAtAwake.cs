@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class TrackLightIntensityAtAwake: TrackingBehaviour<TrackLightIntensityAtAwake>
+public class TrackLightIntensityAtAwake : TrackingBehaviour<TrackLightIntensityAtAwake>
 {
 	// variables //
 

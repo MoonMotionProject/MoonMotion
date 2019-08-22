@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class TrackLocalRotationAtAwake: TrackingBehaviour<TrackLocalRotationAtAwake>
+public class TrackLocalRotationAtAwake : TrackingBehaviour<TrackLocalRotationAtAwake>
 {
 	// variables //
 

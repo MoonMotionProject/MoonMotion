@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class TrackLocalEulerAnglesAtAwake: TrackingBehaviour<TrackLocalEulerAnglesAtAwake>
+public class TrackLocalEulerAnglesAtAwake : TrackingBehaviour<TrackLocalEulerAnglesAtAwake>
 {
 	// variables //
 

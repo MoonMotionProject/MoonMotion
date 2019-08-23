@@ -6,5 +6,5 @@ using UnityEngine;
 public static class Layer
 {
 	public static readonly string defaultName = "Default";
-	public static readonly int defaultIndex = defaultName.toLayerIndex();
+	public static readonly int defaultIndex = defaultName.asLayerIndex();
 }

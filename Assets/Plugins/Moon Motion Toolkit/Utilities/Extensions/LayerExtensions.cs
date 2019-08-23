@@ -5,11 +5,12 @@ using UnityEngine;
 // LayerExtensions: provides extension methods for handling layers //
 public static class LayerExtensions
 {
-	// methods for: identification //
+	#region identification
+
 
 	// method: return the layer name for this given game object //
 	public static string layerName(this GameObject gameObject)
-		=> gameObject.layer.toLayerName();
+		=> gameObject.layer.asLayerName();
 	// method: return the layer name for the game object of this given component //
 	public static string layerName(this Component component)
 		=> component.gameObject.layerName();
@@ -34,25 +35,59 @@ public static class LayerExtensions
 	// method: return whether this given component's game object is not on the default layer //
 	public static bool isNotOnDefaultLayer(this Component component)
 		=> component.gameObject.isNotOnDefaultLayer();
+	#endregion identification
 
 
-	// methods for: comparison //
+
+
+	#region matching
+
 
 	// method: return whether the layer of this given game object matches the layer for the given layer index //
 	public static bool layerMatches(this GameObject gameObject, int layerIndex)
 		=> (gameObject.layer == layerIndex);
-
 	// method: return whether the layer of the game object of this given component matches the layer for the given layer index //
 	public static bool layerMatches(this Component component, int layerIndex)
 		=> component.gameObject.layerMatches(layerIndex);
-
 	// method: return whether the layer of this given game object matches the layer for the given layer name //
 	public static bool layerMatches(this GameObject gameObject, string layerName)
-		=> gameObject.layerMatches(layerName.toLayerIndex());
-
+		=> gameObject.layerMatches(layerName.asLayerIndex());
 	// method: return whether the layer of the game object of this given component matches the layer for the given layer name //
 	public static bool layerMatches(this Component component, string layerName)
 		=> component.gameObject.layerMatches(layerName);
+
+	// method: return whether this given layer index matches the given layer name //
+	public static bool asLayerIndexMatches(this int layerIndex, string layerName)
+		=> (layerIndex == layerName.asLayerIndex());
+	// method: return whether this given layer name matches the given layer index //
+	public static bool asLayerNameMatches(this string layerName, int layerIndex)
+		=> layerIndex.asLayerIndexMatches(layerName);
+
+	// method: return whether any of the given layer indeces matches the given layer name //
+	public static bool hasAnyThatAsLayerIndexMatches(this IEnumerable<int> layerIndeces, string layerName)
+		=> layerIndeces.hasAny(layerIndex =>
+			layerIndex.asLayerIndexMatches(layerName));
+	// method: return whether this given layer name matches any of the given layer indeces //
+	public static bool matchesAnyLayerIndexIn(this string layerName, IEnumerable<int> layerIndeces)
+		=> layerIndeces.hasAnyThatAsLayerIndexMatches(layerName);
+	// method: return whether any of the given layer names matches the given layer index //
+	public static bool hasAnyThatAsLayerNameMatches(this IEnumerable<string> layerNames, int layerIndex)
+		=> layerNames.hasAny(layerName =>
+			layerName.asLayerNameMatches(layerIndex));
+	// method: return whether this given layer index matches any of the given layer names //
+	public static bool matchesAnyLayerNameIn(this int layerIndex, IEnumerable<string> layerNames)
+		=> layerNames.hasAnyThatAsLayerNameMatches(layerIndex);
+	// method: return whether this given layer index matches any of the given layer names //
+	public static bool matchesAnyLayerNameIn(this int layerIndex, params IEnumerable<string>[] layerNameses)
+		=> layerNameses.hasAny(layerNames =>
+			layerIndex.matchesAnyLayerNameIn(layerNames));
+	#endregion matching
+
+
+
+
+	#region containing
+
 
 	// method: return whether the layer of this given game object contains the given string //
 	public static bool layerContains(this GameObject gameObject, string string_)
@@ -61,10 +96,17 @@ public static class LayerExtensions
 	// method: return whether the layer of the game object of this given component contains the given string //
 	public static bool layerContains(this Component component, string string_)
 		=> component.gameObject.layerContains(string_);
+	#endregion containing
+
+
+
+
+	#region matching or containing
+
 
 	// method: return whether the layer name of this given game object matches or contains (based on the given boolean) the given layer name //
 	public static bool layerMatchesOrContains(this GameObject gameObject, string layerName, bool matchesVersusContains)
-		=>	(
+		=> (
 				matchesVersusContains ?
 					gameObject.layerMatches(layerName) :
 					gameObject.layerContains(layerName)
@@ -73,9 +115,12 @@ public static class LayerExtensions
 	// method: return whether the layer name of the game object for this given component matches or contains (based on the given boolean) the given layer name //
 	public static bool layerMatchesOrContains(this Component component, string layerName, bool matchesVersusContains)
 		=> component.gameObject.layerMatchesOrContains(layerName, matchesVersusContains);
+	#endregion matching or containing
 
 
-	// methods for: searching for self or parent based on comparison //
+
+
+	#region searching for self or parent based on comparison
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given layer name (null if none found) //
 	public static GameObject selfOrParentWithLayer(this GameObject gameObject, string layerName)
@@ -92,9 +137,13 @@ public static class LayerExtensions
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a layer name containing the given string (null if none found) //
 	public static GameObject selfOrParentWithLayerContaining(this Component component, string string_)
 		=> component.gameObject.selfOrParentWithLayerContaining(string_);
+	#endregion searching for self or parent based on comparison
 
 
-	// methods for: setting //
+
+
+	#region setting
+
 
 	// method: (according to the given boolean:) set this given game object's layer to the layer for the given layer index, then return this given game object //
 	public static GameObject setLayerTo(this GameObject gameObject, int layerIndex, bool boolean = true)
@@ -106,19 +155,9 @@ public static class LayerExtensions
 
 		return gameObject;
 	}
-
 	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer index, then return this given transform //
 	public static Transform setLayerTo(this Transform transform, int layerIndex, bool boolean = true)
 		=> transform.gameObject.setLayerTo(layerIndex).transform;
-
-	// method: (according to the given boolean:) set this given game object's layer to the layer for the given layer name, then return this given game object //
-	public static GameObject setLayerTo(this GameObject gameObject, string layerName, bool boolean = true)
-		=> gameObject.setLayerTo(layerName.toLayerIndex(), boolean);
-
-	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer name, then return this given transform //
-	public static Transform setLayerTo(this Transform transform, string layerName, bool boolean = true)
-		=> transform.gameObject.setLayerTo(layerName, boolean).transform;
-
 	// method: (according to the given boolean:) set these given game objects' layers to the layer for the given layer index, then return these given game objects //
 	public static GameObject[] setLayerTo(this GameObject[] gameObjects, int layerIndex, bool boolean = true)
 	{
@@ -126,7 +165,6 @@ public static class LayerExtensions
 
 		return gameObjects;
 	}
-
 	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer index, then return these given transforms //
 	public static Transform[] setLayerTo(this Transform[] transforms, int layerIndex, bool boolean = true)
 	{
@@ -134,39 +172,42 @@ public static class LayerExtensions
 
 		return transforms;
 	}
+	public static GameObject setChildLayersTo(this GameObject gameObject, int layerIndex, bool boolean = true)
+		=> gameObject.setChildLayersTo(layerIndex.asLayerName(), boolean).gameObject;
+	public static Transform setChildLayersTo(this Transform transform, int layerIndex, bool boolean = true)
+		=> transform.setChildLayersTo(layerIndex.asLayerName(), boolean);
 
+	// method: (according to the given boolean:) set this given game object's layer to the layer for the given layer name, then return this given game object //
+	public static GameObject setLayerTo(this GameObject gameObject, string layerName, bool boolean = true)
+		=> gameObject.setLayerTo(layerName.asLayerIndex(), boolean);
+	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer name, then return this given transform //
+	public static Transform setLayerTo(this Transform transform, string layerName, bool boolean = true)
+		=> transform.gameObject.setLayerTo(layerName, boolean).transform;
 	// method: (according to the given boolean:) set this given game object's layer to the layer for the given layer name, then return these given game objects //
 	public static GameObject[] setLayerTo(this GameObject[] gameObjects, string layerName, bool boolean = true)
-		=> gameObjects.setLayerTo(layerName.toLayerIndex(), boolean);
-
+		=> gameObjects.setLayerTo(layerName.asLayerIndex(), boolean);
 	// method: (according to the given boolean:) set this given transform's game object's layer to the layer for the given layer name, then return these given transforms //
 	public static Transform[] setLayerTo(this Transform[] transforms, string layerName, bool boolean = true)
-		=> transforms.setLayerTo(layerName.toLayerIndex(), boolean);
-
+		=> transforms.setLayerTo(layerName.asLayerIndex(), boolean);
+	public static GameObject setChildLayersTo(this GameObject gameObject, string layerName, bool boolean = true)
+		=> gameObject.transform.setChildLayersTo(layerName, boolean).gameObject;
 	public static Transform setChildLayersTo(this Transform transform, string layerName, bool boolean = true)
 	{
 		transform.forEachChildTransform(childTransform => childTransform.setLayerTo(layerName, boolean));
 
 		return transform;
 	}
-
-	public static GameObject setChildLayersTo(this GameObject gameObject, string layerName, bool boolean = true)
-		=> gameObject.transform.setChildLayersTo(layerName, boolean).gameObject;
-
-	public static Transform setChildLayersTo(this Transform transform, int layerIndex, bool boolean = true)
-		=> transform.setChildLayersTo(layerIndex.toLayerName(), boolean);
-
-	public static GameObject setChildLayersTo(this GameObject gameObject, int layerIndex, bool boolean = true)
-		=> gameObject.setChildLayersTo(layerIndex.toLayerName(), boolean).gameObject;
+	#endregion setting
 
 
-	// methods for: conversion //
-	
+	#region conversion
+
 	// method: return the layer name for this given layer index //
-	public static string toLayerName(this int integer)
+	public static string asLayerName(this int integer)
 		=> LayerMask.LayerToName(integer);
 
 	// method: return the layer index for this given layer name //
-	public static int toLayerIndex(this string string_)
+	public static int asLayerIndex(this string string_)
 		=> LayerMask.NameToLayer(string_);
+	#endregion conversion
 }

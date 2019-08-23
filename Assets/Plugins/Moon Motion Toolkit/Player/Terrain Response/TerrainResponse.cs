@@ -29,9 +29,9 @@ using NaughtyAttributes;
 // • provides methods for determining whether the player is within a given distance to terrain below, as well as for the player being within air nonrushing distance to terrain below (a condition for Air Rushing Audio, hooked up via Dependencies)
 public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 {
-	// enumerations //
+	#region enumerations
 
-	
+
 	// enumeration of: recognized terrain types //
 	public enum RecognizedTerrainType
 	{
@@ -39,14 +39,15 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		groundOnly,
 		nongroundOnly
 	}
+	#endregion enumerations
 
 
 
 
-	// variables //
+	#region variables
 
 
-	// settings for: recognized layers handling //
+	#region settings for: recognized layers handling
 
 	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
 	[Header("Ground Terrain")]
@@ -59,9 +60,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[Tooltip("array of text specifications for recognized nonground terrain layer names")]
 	[ReorderableList]
 	public string[] recognizedNongroundTerrainLayerNames = new string[] {"Terrain - Nonground"};
+	#endregion settings for: recognized layers handling
 
 
-	// variables for: raycasting in general //
+	#region variables for: raycasting in general
 
 	[BoxGroup("Raycasting")]
 	[Header("Source")]
@@ -70,9 +72,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 	[Tooltip("the collision raycasting raise (height above the player body's position from which to start raycasting from (don't worry – player layer objects will not block detection of terrain)) by which to ensure that any object immediately below the player is beneath the starting point of raycasts")]
 	private static float raycastingRaise = .01f;
+	#endregion variables for: raycasting in general
 
 
-	// trackings for: collided terrains tracking and groundedness determination //
+	#region trackings for: collided terrains tracking and groundedness determination
 
 	[Tooltip("all collided terrains (including both: all collided ground terrains, all collided nonground terrains)")]
 	[HideInInspector] public static HashSet<GameObject> collidedTerrains = new HashSet<GameObject>();
@@ -82,9 +85,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 	[Tooltip("all collided nonground terrains")]
 	[HideInInspector] public static HashSet<GameObject> collidedNongroundTerrains = new HashSet<GameObject>();
+	#endregion trackings for: collided terrains tracking and groundedness determination
 
 
-	// settings for: collision determination //
+	#region settings for: collision determination
 
 	[BoxGroup("Raycasting")]
 	[Header("Terrain Collision Determination")]
@@ -94,9 +98,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	public static bool playerWasJustTerrained, playerWasJustGrounded;		// tracking: whether the player was just terrrarined\grounded (respectively) last frame
 
 	private static bool playerIsTerrained, playerIsGrounded;        // tracking: whether the player is currently terrained\grounded (respectively) – used to set the corresponding trackings for whether the player was just terrained\grounded, and may be inaccurate for the current frame depending on whether the Terrain Response singleton has updated for the current frame yet
+	#endregion settings for: collision determination
 
 
-	// variables for: feedback //
+	#region variables for: feedback
 
 	[BoxGroup("Feedback")]
 	[Header("Interval")]
@@ -142,46 +147,40 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[Header("Nonground")]
 	[Tooltip("whether to play landing and liftoff feedback for nonground terrain collision")]
 	public bool feedbackForNongroundTerrainCollision = true;
+	#endregion variables for: feedback
 
 
-	// trackings for: landing and liftoff events //
+	#region landing and liftoff events
 
 	[Tooltip("the time of the last attempted landing feedback (to reduce feedback spamming)")]
 	private float timeOfLastAttemptedLandingFeedback = -1f;
 
 	[Tooltip("the time of the last attempted liftoff feedback (to reduce feedback spamming)")]
 	private float timeOfLastAttemptedLiftoffFeedback = -1f;
+	#endregion landing and liftoff events
+	#endregion variables
 
 
 
 
-	// methods //
+	#region methods
 
-	
-	// methods for: recognized layers handling //
-	
-	// method: check if the given layer index matches the layer index of any layer with one of the recognized layer names in the given array of text specifications for recognized layer names //
-	private static bool recognizedLayerIndex(int layerIndex, string[] recognizedLayerNames)
-	{
-		foreach (string recognizedLayerName in recognizedLayerNames)
-		{
-			if (layerIndex == LayerMask.NameToLayer(recognizedLayerName))
-				return true;
-		}
-		return false;
-	}
+
+	#region methods for: recognized layers handling
 
 	// method: check if the given layer index matches to a recognized ground terrain layer //
 	public static bool recognizedGroundTerrainLayerIndex(int layerIndex)
-		=> recognizedLayerIndex(layerIndex, singleton.recognizedGroundTerrainLayerNames);
+		=> layerIndex.matchesAnyLayerNameIn(singleton.recognizedGroundTerrainLayerNames);
 
 	// method: check if the given layer index matches to a recognized nonground terrain layer //
 	public static bool recognizedNongroundTerrainLayerIndex(int layerIndex)
-		=> recognizedLayerIndex(layerIndex, singleton.recognizedNongroundTerrainLayerNames);
+		=> layerIndex.matchesAnyLayerNameIn(singleton.recognizedNongroundTerrainLayerNames);
 
 	// method: check if the given layer index matches to a recognized terrain layer //
 	public static bool recognizedTerrainLayerIndex(int layerIndex)
-		=> (recognizedGroundTerrainLayerIndex(layerIndex) || recognizedNongroundTerrainLayerIndex(layerIndex));
+		=> layerIndex.matchesAnyLayerNameIn(
+			singleton.recognizedGroundTerrainLayerNames,
+			singleton.recognizedNongroundTerrainLayerNames);
 
 	// method: check if the given layer index matches to a recognized terrain layer of the given recognized terrain type //
 	public static bool recognizedTypedTerrainLayerIndex(RecognizedTerrainType recognizedTerrainType, int layerIndex)
@@ -199,9 +198,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 			return recognizedNongroundTerrainLayerIndex(layerIndex);
 		}
 	}
-	
+	#endregion methods for: recognized layers handling
 
-	// methods for: collided terrains tracking and groundedness determination //
+
+	#region methods for: collided terrains tracking and groundedness determination
 
 	// method: determine whether this body player is currently collided with terrain //
 	public static bool collidedWithTerrain()
@@ -269,9 +269,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: determine whether this body/player is currently grounded (both colliding with a recognized ground terrain and raycasting to a recognized ground terrain) //
 	public static bool grounded()
 		=> (singleton && singleton.grounded_());
+	#endregion methods for: collided terrains tracking and groundedness determination
 
 
-	// methods for: determining the min feedback interval //
+	#region methods for: determining the min feedback interval
 
 	// method: determine the min feedback interval for lifting and landoff events //
 	public float minEventFeedbackInterval_()
@@ -299,9 +300,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: toggle nonground feedback to the given boolean //
 	public static void toggleNongroundFeedback(bool boolean)
 		=> singleton.toggleNongroundFeedback_(boolean);
+	#endregion methods for: determining the min feedback interval
 
 
-	// methods for: playing feedback audio //
+	#region methods for: playing feedback audio
 
 	// method: play a random landing audio //
 	public void playRandomLandingAudio_()
@@ -323,9 +325,10 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: play a random liftoff audio //
 	public static void playRandomLiftoffAudio()
 		=> singleton.playRandomLiftoffAudio_();
+	#endregion methods for: playing feedback audio
 
 
-	// methods for: determining whether the player is within a given distance to terrain below //
+	#region methods for: determining whether the player is within a given distance to terrain below
 
 	// method: determine whether the player is within the given distance to terrain below //
 	public bool withinDistanceToTerrainBelow_(float maxDistanceBelow)
@@ -367,11 +370,13 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: determine whether the player is within the air nonrushing distance to terrain below //
 	public static bool withinAirNonrushingDistanceToTerrainBelow()
 		=> withinDistanceToTerrainBelow(AirRushingAudio.singleton.airNonrushingDistance);
+	#endregion methods for: determining whether the player is within a given distance to terrain below
+	#endregion methods
 
 
 
 
-	// events //
+	#region events
 
 
 	// event: landing //
@@ -394,13 +399,14 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// event: ungrounding //
 	public delegate void ungroundingDelegate();
 	public static event ungroundingDelegate ungroundingEvent;
-	
-	
-	
-	
-	// updating //
+	#endregion events
 
-	
+
+
+
+	#region updating
+
+
 	// at each physics update: //
 	private void FixedUpdate()
 	{
@@ -515,4 +521,5 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 			}
 		}
 	}
+	#endregion updating
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 // Integer Extensions: provides extension methods for handling integers //
 public static class IntegerExtensions
 {
-	// methods for: comparison //
+	#region comparison
 
 	public static bool equals(this int integer, float float_)
 		=> (integer == float_);
@@ -22,9 +22,10 @@ public static class IntegerExtensions
 
 	public static bool greaterThanOrEqualTo(this int integer, float float_)
 		=> (integer >= float_);
+	#endregion comparison
 
 
-	// methods for: parity determination //
+	#region parity determination
 
 	// method: return whether this given integer is even //
 	public static bool even(this int integer)
@@ -33,9 +34,10 @@ public static class IntegerExtensions
 	// method: return whether this given integer is odd //
 	public static bool odd(this int integer)
 		=> ((integer % 2) == 1);
+	#endregion parity determination
 
 
-	// methods for: range determination //
+	#region range determination
 
 	// method: return whether this given integer is within (in inclusive range of) the given lower and upper bound values //
 	public static bool within(this int integer, float lower, float upper)
@@ -44,16 +46,18 @@ public static class IntegerExtensions
 	// method: return whether this given integer is between (in exclusive range of) the given lower and upper bound values //
 	public static bool between(this int integer, float lower, float upper)
 		=> (lower < integer) && (integer < upper);
+	#endregion range determination
 
 
-	// methods for: validity determination //
+	#region validity determination
 
 	// method: return whether this given integer is valid //
 	public static bool valid(this int integer)
 		=> integer.within(int.MinValue, int.MaxValue);
+	#endregion validity determination
 
 
-	// methods for: sign determination //
+	#region sign determination
 
 	// method: return whether this given integer is unsigned //
 	public static bool unsigned(this int integer)
@@ -78,9 +82,10 @@ public static class IntegerExtensions
 	// method: return whether this given integer is nonpositive //
 	public static bool nonpositive(this int integer)
 		=> (integer <= 0);
+	#endregion sign determination
 
 
-	// methods for: clamping //
+	#region clamping
 
 	public static int least(this int integer, int otherInteger)
 		=> Mathf.Max(integer, otherInteger);
@@ -99,9 +104,10 @@ public static class IntegerExtensions
 
 	public static int clampedNonpositive(this int integer)
 		=> integer.most(0);
+	#endregion clamping
 
 
-	// methods for: sign manipulation //
+	#region sign manipulation
 
 	public static int magnitude(this int integer)
 		=> Mathf.Abs(integer);
@@ -111,18 +117,20 @@ public static class IntegerExtensions
 
 	public static int timesSign(this int integer, bool booleanForSign)
 		=> (integer * booleanForSign.toInteger());
+	#endregion sign manipulation
 
 
-	// methods for: distance //
+	#region distance
 
 	public static int distanceFrom(this int integer, int otherInteger)
 		=> (integer - otherInteger).magnitude();
 
 	public static float distanceFrom(this int integer, float someFloat_)
 		=> (integer - someFloat_).magnitude();
+	#endregion distance
 
 
-	// methods for: math operations //
+	#region math operations
 
 	public static float halved(this int integer)
 		=> (integer / 2f);
@@ -135,9 +143,10 @@ public static class IntegerExtensions
 
 	public static int squared(this int integer)
 		=> ((int)integer.toThePowerOf(2));
+	#endregion math operations
 
 
-	// methods for: conversion //
+	#region conversion
 
 	// method: return the bytes corresponding to this given integer //
 	public static byte[] bytes(this int integer)
@@ -158,4 +167,5 @@ public static class IntegerExtensions
 	// method: return the random color corresponding to this string as a seed //
 	public static Color seedRandomColor(this int integer)
 		=> integer.hashedString().asHashedStringToColor();
+	#endregion conversion
 }

@@ -85,9 +85,7 @@ public class Turner : HandLocomotionControlled
 	
 	// method: change the turning degrees to the given amount //
 	public void changeDegreesAmount(float amount)
-	{
-		degreesAmount = amount;
-	}
+		=> degreesAmount = amount;
 	// method: change the turning degrees to the given amount globally (for both hands) //
 	public void changeDegreesAmountGlobally_(float amount)
 	{
@@ -96,15 +94,13 @@ public class Turner : HandLocomotionControlled
 	}
 	// method: change the turning degrees to the given amount globally (for both hands) //
 	public static void changeDegreesAmountGlobally(float amount)
-	{
-		left.changeDegreesAmountGlobally_(amount);
-	}
+		=> left.changeDegreesAmountGlobally_(amount);
 
-	
-	
-	
+
+
+
 	// updating //
-	
+
 
 	// before the start: //
 	protected override void Awake()

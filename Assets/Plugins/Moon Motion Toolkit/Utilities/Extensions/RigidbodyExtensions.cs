@@ -5,7 +5,7 @@ using UnityEngine;
 // Rigidbody Extensions: provides extension methods for handling rigidbodies //
 public static class RigidbodyExtensions
 {
-	// methods for: kinematicity //
+	#region kinematicity
 
 	// method: return the kinematicity of this given rigidbody //
 	public static bool kinematicity(this Rigidbody rigidbody)
@@ -29,9 +29,10 @@ public static class RigidbodyExtensions
 	// method: (according to the given boolean:) make this given rigidbody nonkinematic, then return this given rigidbody //
 	public static Rigidbody nonkinematize(this Rigidbody rigidbody, bool boolean = true)
 		=> rigidbody.setKinematicityTo(false, boolean);
+	#endregion kinematicity
 
 
-	// methods for: gravitization //
+	#region gravitization
 
 	// method: return the gravitization of this given rigidbody //
 	public static bool gravitization(this Rigidbody rigidbody)
@@ -55,9 +56,25 @@ public static class RigidbodyExtensions
 	// method: (according to the given boolean:) make this given rigidbody not use gravity, then return this given rigidbody //
 	public static Rigidbody nongravitize(this Rigidbody rigidbody, bool boolean = true)
 		=> rigidbody.setGravitizationTo(false, boolean);
+	#endregion gravitization
 
 
-	// methods for: velocity vectrals (direction, for rotational velocity; angling, for angular velocity) //
+	#region moving position
+
+	// method: (according to the given boolean:) move this given rigidbody's position to the given position (try to set it, but respect collisions in the way), then return this given rigidbody //
+	public static Rigidbody movePositionTo(this Rigidbody rigidbody, Vector3 position, bool boolean = true)
+	{
+		if (boolean)
+		{
+			rigidbody.MovePosition(position);
+		}
+
+		return rigidbody;
+	}
+	#endregion moving position
+
+
+	#region velocity vectrals (direction, for rotational velocity; angling, for angular velocity)
 
 	// method: return the (directional) speed of this given rigidbody //
 	public static Vector3 velocityDirection(this Rigidbody rigidbody)
@@ -74,9 +91,10 @@ public static class RigidbodyExtensions
 	// method: (according to the given boolean:) set the (angular velocity) angling of this given rigidbody to the given (angular velocity) angling, then return this given rigidbody //
 	public static Rigidbody setAngularVelocityAnglingTo(this Rigidbody rigidbody, Vector3 angling, bool boolean = true)
 		=> rigidbody.setAngularVelocityTo((rigidbody.angularSpeed() * angling.vectral()), boolean);
+	#endregion velocity vectrals (direction, for rotational velocity; angling, for angular velocity)
 
 
-	// methods for: speeds //
+	#region speeds
 
 	// method: return the (directional velocity) speed of this given rigidbody //
 	public static float speed(this Rigidbody rigidbody)
@@ -101,9 +119,10 @@ public static class RigidbodyExtensions
 	// method: (according to the given boolean:) set the angular (velocity) speed of this given rigidbody to the given speed, then return this given rigidbody //
 	public static Rigidbody setAngularSpeedTo(this Rigidbody rigidbody, float angularSpeed, bool boolean = true)
 		=> rigidbody.setAngularVelocityTo((angularSpeed * rigidbody.angularVelocityAngling()), boolean);
+	#endregion speeds
 
 
-	// methods for: velocities //
+	#region velocities
 
 	// method: (according to the given boolean:) set this given rigidbody's (directional) velocity to the given (directional) velocity, then return this given rigidbody //
 	public static Rigidbody setVelocityTo(this Rigidbody rigidbody, Vector3 velocity, bool boolean = true)
@@ -146,4 +165,5 @@ public static class RigidbodyExtensions
 	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given rigidbody, then return this given rigidbody //
 	public static Rigidbody zeroVelocities(this Rigidbody rigidbody, bool boolean = true)
 		=> rigidbody.setVelocitiesTo(Vectors.zeroesVector, boolean);
+	#endregion velocities
 }

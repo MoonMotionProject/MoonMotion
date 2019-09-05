@@ -5,7 +5,7 @@ using UnityEngine;
 // TimeExtensions: provides extension methods for handling time //
 public static class TimeExtensions
 {
-	// methods for: updating rates //
+	#region update rates
 
 	// method: return this given float multiplied by the most recent Update duration //
 	public static float forUpdateInterval(this float float_)
@@ -30,11 +30,13 @@ public static class TimeExtensions
 	// method: return this given vector multiplied by the most recent FixedUpdate duration //
 	public static Vector3 forFixedUpdateInterval(this Vector3 vector)
 		=> (vector * Time.fixedDeltaTime);
+	#endregion update rates
 
 
-	// methods for: displacement //
+	#region displacement
 
 	// method: return the amount of time past the given previous time this given time is //
 	public static float since(this float time, float previousTime)
 		=> time - previousTime;
+	#endregion displacement
 }

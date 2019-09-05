@@ -86,6 +86,11 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 		=> selfAfter(()=> rigidbody.nongravitize(boolean));
 	#endregion gravitization
 
+	#region moving position
+	public AutomaticBehaviourT movePositionTo(Vector3 position, bool boolean = true)
+		=> selfAfter(()=> rigidbody.movePositionTo(position, boolean));
+	#endregion moving position
+
 	#region velocity vectrals
 	public Vector3 velocityDirection => rigidbody.velocityDirection();
 	public AutomaticBehaviourT setVelocityDirectionTo(Vector3 direction, bool boolean = true)

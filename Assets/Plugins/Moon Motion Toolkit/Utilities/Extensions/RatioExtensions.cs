@@ -5,8 +5,8 @@ using UnityEngine;
 // Ratio Extensions: provides extension methods for calculating ratios (mostly for use with Interpolation Curved) //
 public static class RatioExtensions
 {
-	// methods for: progression //
-	
+	#region progression
+
 	// method: determine the progression of this given progressor (changing value) from the given start progression to the given end progression //
 	public static float progressionWithin(this float progressor, float start, float end)
 		=> ((progressor - start) / (end - start));
@@ -47,4 +47,5 @@ public static class RatioExtensions
 	// method: determine the progression of this given progressor (changing value) from the start progression (0) until the given end progression //
 	public static float progressionUntil(this int progressor, int end)
 		=> progressor.asFloat().progressionUntil(end);
+	#endregion progression
 }

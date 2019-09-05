@@ -6,7 +6,7 @@ using UnityEngine;
 // Unity Object Extensions: provides extension methods for handling Unity objects //
 public static class UnityObjectExtensions
 {
-	// methods for: destruction //
+	#region destruction
 
 	#if UNITY_EDITOR
 	// method: destroy this given Unity object (unconditionally and without waiting for inspectors) //
@@ -65,4 +65,5 @@ public static class UnityObjectExtensions
 			unityObject.destroy_Unconditionally();
 		}
 	}
+	#endregion destruction
 }

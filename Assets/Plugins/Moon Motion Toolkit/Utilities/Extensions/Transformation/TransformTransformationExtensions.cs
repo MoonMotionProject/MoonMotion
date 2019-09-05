@@ -5,7 +5,7 @@ using UnityEngine;
 // Transform Transformation Extensions: provides extension methods for handling transform transformations //
 public static class TransformTransformationExtensions
 {
-	// methods: return a selection of local positions corresponding to these given transforms //
+	// method: return a selection of local positions corresponding to these given transforms //
 	public static IEnumerable<Vector3> selectLocalPositions(this IList<Transform> transforms)
 		=> transforms.select(transform => transform.localPosition);
 	// method: (according to the given boolean:) set this given transform's local position to the given local position, then return this given transform //
@@ -217,7 +217,7 @@ public static class TransformTransformationExtensions
 
 
 
-	// methods: return a selection of local scales corresponding to these given transforms //
+	// method: return a selection of local scales corresponding to these given transforms //
 	public static IEnumerable<Vector3> selectLocalScales(this IList<Transform> transforms)
 		=> transforms.select(transform => transform.localScale);
 	// method: (according to the given boolean:) set this given transform's local scale to the given local scale, then return this given transform //
@@ -362,9 +362,12 @@ public static class TransformTransformationExtensions
 
 
 
-	// methods: return a selection of (global) positions corresponding to these given transforms //
+	// method: return a selection of (global) positions corresponding to these given transforms //
 	public static IEnumerable<Vector3> selectPositions(this IList<Transform> transforms)
 		=> transforms.select(transform => transform.position);
+	// method: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's position to the given position (try to set it, but respect collisions in the way), then return this given transform //
+	public static Transform movePositionTo(this Transform transform, Vector3 position, bool boolean = true)
+		=> transform.rigidbody().movePositionTo(position, boolean).transform;
 	// method: (according to the given boolean:) set this given transform's (global) position to the given (global) position, then return this given transform //
 	public static Transform setPositionTo(this Transform transform, Vector3 position, bool boolean = true)
 	{

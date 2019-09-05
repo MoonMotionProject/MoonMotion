@@ -6,8 +6,8 @@ using UnityEngine;
 // BooleanExtensions: provides extension methods for handling booleans //
 public static class BooleanExtensions
 {
-	// methods for: logic //
-	
+	#region logic
+
 	public static bool and(this bool boolean, bool otherBoolean)
 		=> (boolean && otherBoolean);
 
@@ -31,18 +31,21 @@ public static class BooleanExtensions
 				true :
 				boolean
 			);
+	#endregion logic
 
 
-	// methods for: acting //
+	#region acting
 
 	// method: return the given action on the specified class predicated with the given boolean //
 	public static Action<ObjectT> predicating<ObjectT>(this bool boolean, Action<ObjectT> action)
 		=> action.predicatedWith(boolean);
+	#endregion acting
 
 
-	// methods for: conversion //
+	#region conversion
 
 	// method: return the sign integer for this given boolean //
 	public static int toInteger(this bool boolean)
 		=> (boolean ? 1 : -1);
+	#endregion conversion
 }

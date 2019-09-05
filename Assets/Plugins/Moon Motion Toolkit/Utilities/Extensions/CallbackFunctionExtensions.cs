@@ -9,11 +9,11 @@ using static UnityEditor.EditorApplication;
 public static class CallbackFunctionExtensions
 {
 	#if UNITY_EDITOR
-	// methods for: editor events //
-
+	#region editor events
 
 	// method: plan to execute this given callback function next time all inspectors have updated, then return this given callback function //
 	public static CallbackFunction executeAfterAllInspectorsHaveNextUpdated(this CallbackFunction callbackFunction)
 		=> EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(callbackFunction);
+	#endregion editor events
 	#endif
 }

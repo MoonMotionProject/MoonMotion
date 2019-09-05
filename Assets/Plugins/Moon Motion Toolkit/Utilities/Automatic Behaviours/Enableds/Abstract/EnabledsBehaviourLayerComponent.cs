@@ -10,8 +10,8 @@ public abstract class	EnabledsBehaviourLayerComponent<EnabledsBehaviourT> :
 					EnabledsBehaviourLayerEnableds<EnabledsBehaviourT>
 						where EnabledsBehaviourT : EnabledsBehaviour<EnabledsBehaviourT>
 {
-	// methods for: destruction //
-	
+	#region destruction
+
 	// method: (according to the given boolean:) destroy this component //
 	public static void destroyEnableds(bool boolean = true)
 		=>	forEachCopiedEnabled
@@ -23,4 +23,5 @@ public abstract class	EnabledsBehaviourLayerComponent<EnabledsBehaviourT> :
 	// method: destroy all objects of enableds of this behaviour for which the given function returns true, then return this behaviour's enableds //
 	public static HashSet<EnabledsBehaviourT> destroyObjectsOfEnabledsWhere(Func<EnabledsBehaviourT, bool> function)
 		=> enabledsCopy.destroyObjectsWhere(function);
+	#endregion destruction
 }

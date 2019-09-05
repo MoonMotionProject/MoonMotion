@@ -6,7 +6,7 @@ using UnityEngine;
 // Object Extensions: provides extension methods for handling objects //
 public static class ObjectExtensions
 {
-	// methods for: yullness (whether an object is set to yull versus null) //
+	#region yullness (whether an object is set to yull versus null)
 
 	// method: return whether this given object is yull (nonnull) //
 	public static bool isYull(this object object_)
@@ -15,9 +15,10 @@ public static class ObjectExtensions
 	// method: return whether this given object is null //
 	public static bool isNull(this object object_)
 		=> object_ == null;
+	#endregion yullness (whether an object is set to yull versus null)
 
 
-	// methods for: reflection //
+	#region reflection
 
 	// method: return the type of this given object //
 	public static Type type_ViaReflection<ObjectT>(this ObjectT object_)
@@ -26,31 +27,35 @@ public static class ObjectExtensions
 	// method: return the class name of this given object //
 	public static string className_ViaReflection<ObjectT>(this ObjectT object_)
 		=> object_.type_ViaReflection().Name;
+	#endregion reflection
 
 
-	// methods for: printing //
+	#region printing
 
 	// method: print this given object, then return it //
 	public static ObjectT print<ObjectT>(this ObjectT object_)
 		=> object_.after(()=>
 			object_.ToString().print());
+	#endregion printing
 
 
-	// methods for: determining content //
+	#region determining content
 
 	// method: return whether this given object is any of the given other objects
 	public static bool isAnyOf<ObjectT>(this ObjectT object_, params ObjectT[] otherObjects)
 		=> otherObjects.contains(object_);
+	#endregion determining content
 
 
-	// methods for: accessing //
+	#region accessing
 
 	// method: (re)return this given object (useful for triggering getters, perhaps to force a getter to cache) //
 	public static ObjectT rereturn<ObjectT>(this ObjectT objectT_)
 		=> objectT_;
+	#endregion accessing
 
 
-	// methods for: comparison //
+	#region comparison
 
 	// method: return whether this given object is "baseline equal" to the other given object (whether it is equal as a value type or as a reference, respective to it's type) //
 	public static bool baselineEquals<ObjectT>(this ObjectT object_, ObjectT objectOther)
@@ -59,16 +64,18 @@ public static class ObjectExtensions
 	// method: return whether this given object is not baseline equal to the other given object //
 	public static bool isNotBaselineEqualTo<ObjectT>(this ObjectT object_, ObjectT objectOther)
 		=> !object_.baselineEquals(objectOther);
+	#endregion comparison
 
 
-	// methods for: setting //
+	#region setting
 
 	// method: set the other given object to this given object, then return the each of them //
 	public static ObjectT replace<ObjectT>(this ObjectT objectThis, ref ObjectT objectOther) where ObjectT : class
 		=> objectOther = objectThis;
+	#endregion setting
 
 
-	// acting //
+	#region acting
 
 	/*// method: return this given object (ignoring the other given object; it serves as a place to execute code before returning this given object) //
 	public static ObjectT after<ObjectT>(this ObjectT object_, object whatever)
@@ -129,23 +136,26 @@ public static class ObjectExtensions
 		=> object_.isNull() ?
 			function(object_) :
 			default(TResult);
+	#endregion acting
 
 
-	// methods for: casting //
+	#region casting
 
 	// method: return this given object cast to the specified type (however, there is no guarantee that the given object can be cast to the specified type) //
 	public static TCast castTo<TCast>(this object object_)
 		=> (TCast)object_;
+	#endregion casting
 
 
-	// methods for: conversion //
+	#region conversion
 
 	// method: return this given object converted to a string with null represented //
 	public static string asStringWithNullRepresented(this object object_)
 		=> object_.isYull() ? ""+object_ : "null";
+	#endregion conversion
 
 
-	// methods for: composition //
+	#region composition
 
 	// method: return the key value pair for this given object as the key and the other given object as the value //
 	public static KeyValuePair<TKey, TValue> asKeyPairWithValue<TKey, TValue>(this TKey key, TValue value)
@@ -154,4 +164,5 @@ public static class ObjectExtensions
 	// method: return the key value pair for this given object as the value and the other given object as the key //
 	public static KeyValuePair<TKey, TValue> asValuePairWithKey<TValue, TKey>(this TValue value, TKey key)
 		=> key.asKeyPairWithValue(value);
+	#endregion composition
 }

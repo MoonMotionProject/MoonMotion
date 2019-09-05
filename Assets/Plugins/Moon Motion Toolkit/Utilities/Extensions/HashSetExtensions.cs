@@ -7,14 +7,15 @@ using UnityEngine;
 // #enumerable-e
 public static class HashSetExtensions
 {
-	// methods for: copying //
+	#region copying
 
 	// method: return a new copy of this given hash set //
 	public static HashSet<TItem> copy<TItem>(this HashSet<TItem> set)
 		=> new HashSet<TItem>(set);
+	#endregion copying
 
 
-	// methods for: adding //
+	#region adding
 
 	// method: (according to the given boolean:) add the given item to this given hash set, then return this given hash set //
 	public static HashSet<TItem> add<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
@@ -35,9 +36,10 @@ public static class HashSetExtensions
 	// method: (according to the given boolean:) add this given item to the given hash set, then return this given item //
 	public static TItem addTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
 		=> set.addGet(item, boolean);
+	#endregion adding
 
 
-	// methods for: removing //
+	#region removing
 
 	// method: (according to the given boolean:) remove the given item from this given hash set if the given item is contained in this given hash set, then return whether the given item was actually removed from this given hash set //
 	public static bool tryToRemove<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
@@ -62,18 +64,21 @@ public static class HashSetExtensions
 	// method: (according to the given boolean:) remove this given item from the given hash set (assuming the given item is actually contained in this given hash set), then return this given item //
 	public static TItem removeFrom<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
 		=> set.removeGet(item, boolean);
+	#endregion removing
 
 
-	// methods for: acting upon all items //
+	#region acting upon all items
 
 	// method: (according to the given boolean:) invoke the given action on each item in this given set, then return this given set //
 	public static HashSet<TItem> forEach<TItem>(this HashSet<TItem> set, Action<TItem> action, bool boolean = true)
 		=> set.forEach_EnumerableSpecializedViaCasting(action, boolean);
+	#endregion acting upon all items
 
 
-	// methods for: casting //
+	#region casting
 
 	// method: return this given hash set cast to the corresponding (interface) set //
 	public static ISet<TItem> castToISet<TItem>(this HashSet<TItem> set)
 		=> set;
+	#endregion casting
 }

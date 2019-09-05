@@ -6,8 +6,8 @@ using UnityEngine;
 // Function Extensions: provides extension methods for handling functions //
 public static class FunctionExtensions
 {
-	// methods for: logic //
-	
+	#region logic
+
 	// method: return the given action on the specified type predicated with this given booleanic function upon the specified type //
 	public static Action<ObjectT> predicating<ObjectT>(this Func<ObjectT, bool> function, Action<ObjectT> action)
 		=> action.predicatedWith(function);
@@ -15,11 +15,13 @@ public static class FunctionExtensions
 	// method: return this given function negated //
 	public static Func<ObjectT, bool> negated<ObjectT>(this Func<ObjectT, bool> function)
 		=> (object_ => !function(object_));
+	#endregion logic
 
 
-	// methods for: conversion //
-	
+	#region conversion
+
 	// method: return the predicate corresponding to this given (predicate) function //
 	public static Predicate<ObjectT> asPredicate<ObjectT>(this Func<ObjectT, bool> function)
 		=> (object_ => function(object_));
+	#endregion conversion
 }

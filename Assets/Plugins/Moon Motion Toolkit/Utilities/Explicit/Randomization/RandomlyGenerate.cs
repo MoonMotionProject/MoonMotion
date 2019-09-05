@@ -5,11 +5,8 @@ using UnityEngine;
 // Randomly Generate: provides methods for random generation //
 public static class RandomlyGenerate
 {
-	// methods //
+	#region randomly generating within a given range
 
-	
-	// methods for: randomly generating within a given range //
-	
 	// method: generate a random float in the range within the two given floats //
 	public static float within(float floatFirst, float floatSecond)
 		=> Random.Range(floatFirst, floatSecond);
@@ -45,4 +42,5 @@ public static class RandomlyGenerate
 			Random.Range(vectorFirst.y, vectorSecond.y),
 			Random.Range(vectorFirst.z, vectorSecond.z)
 		);
+	#endregion randomly generating within a given range
 }

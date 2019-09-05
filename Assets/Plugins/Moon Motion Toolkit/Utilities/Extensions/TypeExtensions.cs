@@ -6,9 +6,6 @@ using UnityEngine;
 // Type Extensions: provides extension methods for handling types //
 public static class TypeExtensions
 {
-	// methods for: purpose //
-
-	
 	// method: return the static property of this given type with the given name and the specified type //
 	public static PropertyT getStaticProperty<PropertyT>(this Type type, string propertyName)
 		=> (PropertyT) type.GetProperty(propertyName).GetValue(null);

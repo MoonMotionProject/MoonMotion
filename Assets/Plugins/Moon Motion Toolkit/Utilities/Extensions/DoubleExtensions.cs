@@ -7,7 +7,7 @@ using UnityEngine;
 // Double Extensions: provides extension methods for handling doubles //
 public static class DoubleExtensions
 {
-	// methods for: comparison //
+	#region comparison
 
 	public static bool equals(this double double_, double otherDouble)
 		=> (double_ == otherDouble);
@@ -23,9 +23,10 @@ public static class DoubleExtensions
 
 	public static bool greaterThanOrEqualTo(this double double_, double otherDouble)
 		=> (double_ >= otherDouble);
+	#endregion comparison
 
 
-	// methods for: parity determination //
+	#region parity determination
 
 	// method: return whether this given double is even //
 	public static bool even(this double double_)
@@ -34,9 +35,10 @@ public static class DoubleExtensions
 	// method: return whether this given double is odd //
 	public static bool odd(this double double_)
 		=> ((double_ % 2d) == 1d);
+	#endregion parity determination
 
 
-	// methods for: range determination //
+	#region range determination
 
 	// method: return whether this given double is within (in inclusive range of) the given lower and upper bound values //
 	public static bool within(this double double_, double lower, double upper)
@@ -69,16 +71,18 @@ public static class DoubleExtensions
 	// method: return whether this given double is between (in exclusive range of) all of the given ranges //
 	public static bool betweenAllOf(this double double_, Vector2[] ranges)
 		=> ranges.All(range => double_.between(range));
+	#endregion range determination
 
 
-	// methods for: validity determination //
+	#region validity determination
 
 	// method: return whether this given double is valid //
 	public static bool valid(this double double_)
 		=> double_.within(double.MinValue, double.MaxValue);
+	#endregion validity determination
 
 
-	// methods for: sign determination //
+	#region sign determination
 
 	// method: return whether this given double is unsigned //
 	public static bool unsigned(this double double_)
@@ -103,10 +107,11 @@ public static class DoubleExtensions
 	// method: return whether this given double is nonpositive //
 	public static bool nonpositive(this double double_)
 		=> (double_ <= 0d);
-	
-	
-	// methods for: clamping //
-	
+	#endregion sign determination
+
+
+	#region clamping
+
 	public static double atLeast(this double double_, double otherDouble, bool boolean = true)
 	{
 		if (boolean)
@@ -142,15 +147,17 @@ public static class DoubleExtensions
 
 	public static double clampedNonpositive(this double double_)
 		=> double_.atMost(0d);
+	#endregion clamping
 
 
-	// methods for: distance //
+	#region distance
 
 	public static double distanceFrom(this double double_, double otherDouble)
 		=> (double_ - otherDouble).magnitude();
+	#endregion distance
 
 
-	// methods for: sign manipulation //
+	#region sign manipulation
 
 	public static double magnitude(this double double_)
 		=> Math.Abs(double_);
@@ -160,9 +167,10 @@ public static class DoubleExtensions
 
 	public static double timesSign(this double double_, bool booleanForSign)
 		=> (double_ * booleanForSign.toInteger());
+	#endregion sign manipulation
 
 
-	// methods for: math operations //
+	#region math operations
 
 	public static double halved(this double double_)
 		=> (double_ / 2d);
@@ -187,9 +195,10 @@ public static class DoubleExtensions
 
 	public static double ratioDequadratic(this double double_)
 		=> double_.halved().ratioQuadraticPalindrome() * 4f;
+	#endregion math operations
 
 
-	// methods for: interpolation //
+	#region interpolation
 
 	// method: return this given ratio double "lerped" (linearly interpolated) along the range from the given start double to the given end double - without clamping //
 	public static double lerpedUnclampingly(this double ratio, double start, double end)
@@ -202,9 +211,10 @@ public static class DoubleExtensions
 	// method: return this given ratio double "lerped" (linearly interpolated) along the range from the given start double to the given end double - with clamping according to the given 'clamp' boolean //
 	public static double lerped(this double ratio, double start, double end, bool clamp)
 		=> clamp ? ratio.lerpedClampingly(start, end) : ratio.lerpedUnclampingly(start, end);
+	#endregion interpolation
 
 
-	// methods for: conversion //
+	#region conversion
 
 	// method: return the nearest integer to this given double //
 	public static int toInteger(this double double_)
@@ -220,4 +230,5 @@ public static class DoubleExtensions
 	// method: return a vector for this given double (as each coordinate) //
 	public static Vector asVector(this double double_)
 		=> new Vector(double_, double_, double_);
+	#endregion conversion
 }

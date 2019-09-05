@@ -6,7 +6,7 @@ using UnityEngine;
 // Float Extensions: provides extension methods for handling floats //
 public static class FloatExtensions
 {
-	// methods for: comparison //
+	#region comparison
 
 	public static bool equals(this float float_, float otherFloat)
 		=> (float_ == otherFloat);
@@ -22,9 +22,10 @@ public static class FloatExtensions
 
 	public static bool greaterThanOrEqualTo(this float float_, float otherFloat)
 		=> (float_ >= otherFloat);
+	#endregion comparison
 
 
-	// methods for: parity determination //
+	#region parity determination
 
 	// method: return whether this given float is even //
 	public static bool even(this float float_)
@@ -33,9 +34,10 @@ public static class FloatExtensions
 	// method: return whether this given float is odd //
 	public static bool odd(this float float_)
 		=> ((float_ % 2f) == 1f);
+	#endregion parity determination
 
 
-	// methods for: range determination //
+	#region range determination
 
 	// method: return whether this given float is within (in inclusive range of) the given lower and upper bound values //
 	public static bool within(this float float_, float lower, float upper)
@@ -68,16 +70,18 @@ public static class FloatExtensions
 	// method: return whether this given float is between (in exclusive range of) all of the given ranges //
 	public static bool betweenAllOf(this float float_, Vector2[] ranges)
 		=> ranges.All(range => float_.between(range));
+	#endregion range determination
 
 
-	// methods for: validity determination //
+	#region validity determination
 
 	// method: return whether this given float is valid //
 	public static bool valid(this float float_)
 		=> float_.within(float.MinValue, float.MaxValue);
+	#endregion validity determination
 
 
-	// methods for: sign determination //
+	#region sign determination
 
 	// method: return whether this given float is unsigned //
 	public static bool unsigned(this float float_)
@@ -102,9 +106,10 @@ public static class FloatExtensions
 	// method: return whether this given float is nonpositive //
 	public static bool nonpositive(this float float_)
 		=> (float_ <= 0f);
+	#endregion sign determination
 
 
-	// methods for: clamping //
+	#region clamping
 
 	public static float atLeast(this float float_, float otherFloat, bool boolean = true)
 	{
@@ -141,15 +146,17 @@ public static class FloatExtensions
 
 	public static float clampedNonpositive(this float float_)
 		=> float_.atMost(0f);
+	#endregion clamping
 
 
-	// methods for: distance //
+	#region distance
 
 	public static float distanceFrom(this float float_, float otherFloat)
 		=> (float_ - otherFloat).magnitude();
+	#endregion distance
 
 
-	// methods for: sign manipulation //
+	#region sign manipulation
 
 	public static float magnitude(this float float_)
 		=> Mathf.Abs(float_);
@@ -159,9 +166,10 @@ public static class FloatExtensions
 
 	public static float timesSign(this float float_, bool booleanForSign)
 		=> (float_ * booleanForSign.toInteger());
+	#endregion sign manipulation
 
 
-	// methods for: math operations //
+	#region math operations
 
 	public static float halved(this float float_)
 		=> (float_ / 2f);
@@ -186,9 +194,10 @@ public static class FloatExtensions
 
 	public static float ratioDequadratic(this float float_)
 		=> float_.halved().ratioQuadraticPalindrome() * 4f;
+	#endregion math operations
 
 
-	// methods for: interpolation //
+	#region interpolation
 
 	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start float to the given end float - without clamping //
 	public static float lerpedUnclampingly(this float ratio, float start, float end)
@@ -231,9 +240,10 @@ public static class FloatExtensions
 				ratio.lerped(starts.x, ends.x, clamp),
 				ratio.lerped(starts.y, ends.y, clamp)
 			);
+	#endregion interpolation
 
 
-	// methods for: conversion //
+	#region conversion
 
 	// method: return the nearest integer to this given float //
 	public static int toInteger(this float float_)
@@ -249,4 +259,5 @@ public static class FloatExtensions
 	// method: return a vector for this given float (as each coordinate) //
 	public static Vector3 asVector(this float float_)
 		=> new Vector3(float_, float_, float_);
+	#endregion conversion
 }

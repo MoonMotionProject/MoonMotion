@@ -86,6 +86,11 @@ public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> automaticBehaviour.nongravitize(boolean);
 	#endregion gravitization
 
+	#region moving position
+	public static new AutomaticBehaviour<SingletonBehaviourT> movePositionTo(Vector3 position, bool boolean = true)
+		=> automaticBehaviour.movePositionTo(position, boolean);
+	#endregion moving position
+
 	#region velocity vectrals
 	public static new Vector3 velocityDirection => automaticBehaviour.velocityDirection;
 	public static new AutomaticBehaviour<SingletonBehaviourT> setVelocityDirectionTo(Vector3 direction, bool boolean = true)

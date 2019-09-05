@@ -6,7 +6,7 @@ using UnityEngine;
 // Doubles: provides methods for handling doubles //
 public static class Doubles
 {
-	// methods for: extremes //
+	#region extremes
 
 	// method: return the max value of these two given doubles //
 	public static double maxOf(double firstDouble, double secondDouble)
@@ -15,4 +15,5 @@ public static class Doubles
 	// method: return the min value of these two given doubles //
 	public static double minOf(double firstDouble, double secondDouble)
 		=> Math.Min(firstDouble, secondDouble);
+	#endregion extremes
 }

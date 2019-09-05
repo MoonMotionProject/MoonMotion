@@ -10,8 +10,8 @@ using static UnityEditor.EditorApplication;
 public static class EditorEvents
 {
 	#if UNITY_EDITOR
-	// methods for: inspector //
-
+	#region inspector
+	
 	// method: plan to execute the given callback function next time all inspectors have updated, then return the given callback function //
 	private static CallbackFunction afterAllInspectorsHaveNextUpdatedExecute_WithoutPreventingExecutionIfEditorModeChangesFirst(CallbackFunction callbackFunction)
 		=> callbackFunction.after(()=>
@@ -38,5 +38,6 @@ public static class EditorEvents
 		=>	preventExecutionIfEditorModeChangesFirst ?
 				afterAllInspectorsHaveNextUpdatedExecute_PreventingExecutionIfEditorModeChangesFirst(callbackFunction) :
 				afterAllInspectorsHaveNextUpdatedExecute_WithoutPreventingExecutionIfEditorModeChangesFirst(callbackFunction);
+	#endregion inspector
 	#endif
 }

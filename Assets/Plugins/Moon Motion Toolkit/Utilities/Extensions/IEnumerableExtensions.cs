@@ -23,11 +23,12 @@ public static class IEnumerableExtensions
 	#region methods
 
 
-	/*// methods for: copying //
+	/*#region copying
 
 	// method: return a copy of this given enumerable //
 	public static IEnumerableCustomT copy<IEnumerableCustomT, TItem>(this IEnumerableCustomT enumerable) where IEnumerableCustomT : IEnumerableCustom<TItem>, new()
-		=> new IEnumerableT(enumerable);*/
+		=> new IEnumerableT(enumerable);
+	#endregion copying*/
 
 
 	#region printing

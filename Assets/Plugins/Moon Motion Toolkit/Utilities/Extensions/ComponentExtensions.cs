@@ -72,7 +72,6 @@ public static class ComponentExtensions
 
 		return null;
 	}
-
 	// method: return this given component if it is not attached to the given game object, otherwise returning null //
 	public static ComponentT whereNotOn<ComponentT>(this ComponentT component, GameObject gameObject) where ComponentT : Component
 	{
@@ -83,7 +82,6 @@ public static class ComponentExtensions
 
 		return null;
 	}
-
 	// method: return this given component if it is attached to the given transform, otherwise returning null //
 	public static ComponentT whereOn<ComponentT>(this ComponentT component, Transform transform) where ComponentT : Component
 	{
@@ -94,7 +92,6 @@ public static class ComponentExtensions
 
 		return null;
 	}
-
 	// method: return this given component if it is not attached to the given transform, otherwise returning null //
 	public static ComponentT whereNotOn<ComponentT>(this ComponentT component, Transform transform) where ComponentT : Component
 	{
@@ -105,15 +102,15 @@ public static class ComponentExtensions
 
 		return null;
 	}
-	#endregion attachment
 
-
-	#region connection
-
-	// method: return a selection of the game objects corresponding to these given components //
+	// method: return a selection of the game objects these given components are attached to //
 	public static IEnumerable<GameObject> selectObjects(this IEnumerable<Component> components)
 		=> components.select(component => component.gameObject);
-	#endregion connection
+
+	// method: return the first rigidbody attached to this given component (null if none found), optionally including inactive rigidbodies according to the given boolean //
+	public static Rigidbody rigidbody(this Component component, bool includeInactiveRigidbodies = true)
+		=> component.first<Rigidbody>(includeInactiveRigidbodies);
+	#endregion attachment
 
 
 	#region calling local methods

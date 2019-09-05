@@ -6,21 +6,23 @@ using UnityEngine;
 // Name Extensions: provides extension methods for handling (game object) names //
 public static class NameExtensions
 {
-	// methods for: printing //
+	#region printing
 
 	// method: print this given game object's name, then return this given game object's name //
 	public static string printName(this GameObject gameObject)
 		=> gameObject.name.print();
+	#endregion printing
 
 
-	// methods for: listing //
+	#region listing
 
 	// method: return the string that is the listing of the names corresponding to these given game objects //
 	public static string namesListing(this GameObject[] gameObjects)
 		=> gameObjects.selectNames().asListing();
+	#endregion listing
 
 
-	// methods for: accessing //
+	#region accessing
 
 	// method: return this given game object's name quoted //
 	public static string nameQuoted(this GameObject gameObject)
@@ -29,9 +31,10 @@ public static class NameExtensions
 	// method: return the selection of names corresponding to these given game objects //
 	public static IEnumerable<string> selectNames(this GameObject[] gameObjects)
 		=> gameObjects.select(gameObject => gameObject.name);
+	#endregion accessing
 
 
-	// methods for: setting //
+	#region setting
 
 	// method: (according to the given boolean:) set this given game object's name to the given name, then return this given game object //
 	public static GameObject setNameTo(this GameObject gameObject, string name, bool boolean = true)
@@ -53,9 +56,10 @@ public static class NameExtensions
 
 		return gameObject;
 	}
+	#endregion setting
 
 
-	// methods for: comparison //
+	#region comparison
 
 	// method: return whether the name of this given game object matches the given name //
 	public static bool nameMatches(this GameObject gameObject, string name)
@@ -81,9 +85,10 @@ public static class NameExtensions
 	// method: return whether the name of the game object for this given component matches or contains (based on the given boolean) the given name //
 	public static bool nameMatchesOrContains(this Component component, string name, bool matchesVersusContains)
 		=> component.gameObject.nameMatchesOrContains(name, matchesVersusContains);
+	#endregion comparison
 
 
-	// methods for: searching for self or parent based on comparison //
+	#region searching for self or parent based on comparison 
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given name (null if none found) //
 	public static GameObject selfOrParentWithName(this GameObject gameObject, string name)
@@ -98,4 +103,5 @@ public static class NameExtensions
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a name containing the given string (null if none found) //
 	public static GameObject selfOrParentWithNameContaining(this Component component, string string_)
 		=> component.gameObject.selfOrParentWithNameContaining(string_);
+	#endregion searching for self or parent based on comparison 
 }

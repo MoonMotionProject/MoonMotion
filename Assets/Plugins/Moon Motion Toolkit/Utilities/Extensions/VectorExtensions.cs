@@ -6,7 +6,7 @@ using UnityEngine;
 // Vector Extensions: provides extension methods for handling vectors //
 public static class VectorExtensions
 {
-	// methods for: accessing //
+	#region accessing
 
 	// method: return the selection of x values of these given vectors //
 	public static IEnumerable<float> selectXValues(this IEnumerable<Vector3> vectors)
@@ -28,16 +28,18 @@ public static class VectorExtensions
 	// method: return the list of z values of these given vectors //
 	public static List<float> zValues(this IEnumerable<Vector3> vectors)
 		=> vectors.selectZValues().manifest();
+	#endregion accessing
 
 
-	// methods for: vectrals //
+	#region vectrals
 
 	// method: return the vectral (normalized form) of this given vector //
 	public static Vector3 vectral(this Vector3 vector)
 		=> vector.normalized;
+	#endregion vectrals
 
 
-	// methods for: clamping //
+	#region clamping
 
 	public static Vector3 atLeast(this Vector3 vector, Vector3 otherVector, bool boolean = true)
 	{
@@ -59,23 +61,26 @@ public static class VectorExtensions
 
 	public static Vector3 clampedValidAndNonnegative(this Vector3 vector)
 		=> new Vector3(vector.x.clampedValidAndNonnegative(), vector.y.clampedValidAndNonnegative(), vector.z.clampedValidAndNonnegative());
+	#endregion clamping
 
 
-	// methods for: validity determination //
+	#region validity determination
 
 	// method: return whether this given vector is valid //
 	public static bool valid(this Vector3 vector)
 		=> (vector.x.valid() && vector.y.valid() && vector.z.valid());
+	#endregion validity determination
 
 
-	// method for: sign determination //
+	#region sign determination
 
 	// method: return whether this given vector is nonnegative //
 	public static bool nonnegative(this Vector3 vector)
 		=> (vector.x.nonnegative() && vector.y.nonnegative() && vector.z.nonnegative());
+	#endregion sign determination
 
 
-	// methods for: directionality //
+	#region directionality
 
 	// method: return the directionality ratio of this given vector with the other given vector //
 	public static float directionalityWith(this Vector3 vector, Vector3 otherVector)
@@ -84,9 +89,10 @@ public static class VectorExtensions
 	// method: return the sign of the directionality ratio of this given vector with the other given vector //
 	public static float directionalitySignWith(this Vector3 vector, Vector3 otherVector)
 		=> vector.directionalityWith(otherVector).toInteger();
+	#endregion directionality
 
 
-	// methods for: value replacement //
+	#region value replacement
 
 	// method: (according to the given boolean:) return this given vector but with its x value set to the given x value //
 	public static Vector3 withX(this Vector3 vector, float x, bool boolean = true)
@@ -111,9 +117,10 @@ public static class VectorExtensions
 	// method: (according to the given boolean:) return this given vector but with its z value set to zero //
 	public static Vector3 withZZero(this Vector3 vector, bool boolean = true)
 		=> vector.withZ(0f, boolean);
+	#endregion value replacement
 
 
-	// methods for: math operations //
+	#region math operations
 
 	// method: return the average (value) of this given vector //
 	public static float average(this Vector3 vector)
@@ -150,9 +157,10 @@ public static class VectorExtensions
 			vectors.averageY(),
 			vectors.averageZ()
 		);
+	#endregion math operations
 
 
-	// methods for: conversion //
+	#region conversion
 
 	// method: return the float array corresponding to this given vector //
 	public static float[] toArray(this Vector3 vector)
@@ -169,4 +177,5 @@ public static class VectorExtensions
 	// method: return the floats vector corresponding to this given doubles vector //
 	public static Vector3 toFloatsVector(this Vector doublesVector)
 		=> new Vector3(doublesVector.x.toFloat(), doublesVector.y.toFloat(), doublesVector.z.toFloat());
+	#endregion conversion
 }

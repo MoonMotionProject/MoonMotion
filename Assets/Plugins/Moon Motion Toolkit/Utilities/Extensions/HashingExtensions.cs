@@ -6,19 +6,18 @@ using UnityEngine;
 // Hashing Extensions: provides extension methods and related functionality for hashing //
 public static class HashingExtensions
 {
-	// constants //
+	#region constants
 
-	
+
 	private static MD5 hashingAlgorithm = MD5.Create();
+	#endregion constants
 
 
 
 
-	// methods //
+	#region methods
 
 
-	// methods for: hashing //
-	
 	// method: return the hashed bytes for these given bytes //
 	public static byte[] hashed(this byte[] bytes)
 		=> hashingAlgorithm.ComputeHash(bytes);
@@ -38,4 +37,5 @@ public static class HashingExtensions
 	// method: return the hashed string for this given integer //
 	public static string hashedString(this int integer)
 		=> integer.hashedBytes().asString();
+	#endregion methods
 }

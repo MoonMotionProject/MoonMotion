@@ -7,7 +7,7 @@ using UnityEngine;
 // Attribution Extensions: provides extension methods for handling attribution //
 public static class AttributionExtensions
 {
-	// methods for: objects in general //
+	#region objects in general
 
 
 	// method: (via reflection:) return whether this given object's class has the specified attribute, including inherited attributes according to the given boolean //
@@ -15,9 +15,10 @@ public static class AttributionExtensions
 		=> Attribute.IsDefined(
 			object_.GetType(), typeof(AttributeT),
 			includeInheritedAttributes);
+	#endregion objects in general
 
 
-	// methods for: components //
+	#region components
 
 	// method: return whether this given component's class has the specified attribute, including inherited attributes according to the given boolean //
 	public static bool attributed<ComponentTThis, AttributeT>(this ComponentTThis component, bool includeInheritedAttributes = true) where ComponentTThis : Component where AttributeT : Attribute
@@ -41,4 +42,5 @@ public static class AttributionExtensions
 				includeInheritedAttributes
 			)
 			.castTo<AttributeT>();
+	#endregion components
 }

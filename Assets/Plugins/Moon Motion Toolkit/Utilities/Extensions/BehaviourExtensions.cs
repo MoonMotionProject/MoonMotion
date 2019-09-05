@@ -6,7 +6,7 @@ using UnityEngine;
 // #auto
 public static class BehaviourExtensions
 {
-	// methods for: enablement of this given behaviour //
+	#region enablement of this given behaviour
 
 	// method: set the enablement of this given behaviour to the given boolean, then return this given behaviour //
 	public static BehaviourT setEnablementTo<BehaviourT>(this BehaviourT behaviour, bool enablement) where BehaviourT : Behaviour
@@ -20,9 +20,10 @@ public static class BehaviourExtensions
 	// method: disable this given behaviour, then return it //
 	public static BehaviourT disable<BehaviourT>(this BehaviourT behaviour) where BehaviourT : Behaviour
 		=> behaviour.setEnablementTo(false);
+	#endregion enablement of this given behaviour
 
 
-	// methods for: enablement of these given behaviours //
+	#region enablement of these given behaviours
 
 	public static BehaviourT[] setEnablementTo<BehaviourT>(this BehaviourT[] behaviours, bool enablement) where BehaviourT : Behaviour
 		=> behaviours.forEach(behaviour => behaviour.setEnablementTo(enablement));
@@ -38,6 +39,7 @@ public static class BehaviourExtensions
 		=> behaviours.setEnablementTo(false);
 	public static List<BehaviourT> disable<BehaviourT>(this List<BehaviourT> behaviours) where BehaviourT : Behaviour
 		=> behaviours.setEnablementTo(false);
+	#endregion enablement of these given behaviours
 
 
 	#region enablement of the first behaviour of the specified type - and returning the given this

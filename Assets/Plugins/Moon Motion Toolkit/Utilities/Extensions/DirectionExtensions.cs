@@ -5,8 +5,8 @@ using UnityEngine;
 // Direction Extensions: provides extension methods for handling directions //
 public static class DirectionExtensions
 {
-	// methods for: conversion //
-	
+	#region conversion
+
 	// method: return the (global) direction vector corresponding to this given direction //
 	public static Vector3 asGlobalDirectionVector(this Direction direction)
 	{
@@ -52,4 +52,5 @@ public static class DirectionExtensions
 		}
 		return Vector3.zero;
 	}
+	#endregion conversion
 }

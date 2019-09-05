@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 // Throwable Extensions: provides extension methods for handling throwables //
 public static class ThrowableExtensions
 {
-	// methods for: toggling swapping //
+	#region toggling swapping
 
 	// method: set the enablement of this given throwable's swapping setting to the given boolean, then return this given throwable //
 	public static Throwable setSwappingEnablementTo(this Throwable throwable, bool boolean)
@@ -23,9 +23,10 @@ public static class ThrowableExtensions
 	// method: enable swapping for this given throwable, then return it //
 	public static Throwable enableSwapping(this Throwable throwable)
 		=> throwable.setSwappingEnablementTo(true);
+	#endregion toggling swapping
 
 
-	// methods for: toggling catching //
+	#region toggling catching
 
 	// method: set the enablement of this given throwable's catching setting to the given boolean, then return this given throwable //
 	public static Throwable setCatchingEnablementTo(this Throwable throwable, bool boolean)
@@ -42,4 +43,5 @@ public static class ThrowableExtensions
 	// method: enable catching for this given throwable, then return it //
 	public static Throwable enableCatching(this Throwable throwable)
 		=> throwable.setCatchingEnablementTo(true);
+	#endregion toggling catching
 }

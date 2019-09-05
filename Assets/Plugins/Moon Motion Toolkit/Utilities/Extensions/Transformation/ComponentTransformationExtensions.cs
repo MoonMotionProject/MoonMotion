@@ -439,6 +439,10 @@ public static class ComponentTransformationExtensions
 	// method: return the (global) position of the transform of this given component //
 	public static Vector3 position<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.position;
+	// method: (assumes this component has a rigidbody attached:) (according to the given boolean:) move this given component's position to the given position (try to set it, but respect collisions in the way), then return this given component //
+	public static ComponentT movePositionTo<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.rigidbody().movePositionTo(position, boolean));
 	// method: (according to the given boolean:) set the (global) position for the transform of this given component to the given (global) position, then return this given component //
 	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
 	{

@@ -338,7 +338,11 @@ public static class GameObjectTransformationExtensions
 		=> gameObject.transform.position;
 	// method: return a selection of (global) positions corresponding to these given game objects //
 	public static IEnumerable<Vector3> selectPositions(this IList<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.position());// method: (according to the given boolean:) set this given game object's (global) position to the given (global) position, then return this given game object //
+		=> gameObjects.select(gameObject => gameObject.position());
+	// method: (assumes this game object has a rigidbody attached:) (according to the given boolean:) move this given game object's position to the given position (try to set it, but respect collisions in the way), then return this given game object //
+	public static GameObject movePositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
+		=> gameObject.rigidbody().movePositionTo(position, boolean).gameObject;
+	// method: (according to the given boolean:) set this given game object's (global) position to the given (global) position, then return this given game object //
 	public static GameObject setPositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
 		=> gameObject.transform.setPositionTo(position, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's (global) position to the (global) position for the given x, y, and z values, then return this given game object //

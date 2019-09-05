@@ -5,9 +5,6 @@ using UnityEngine;
 // Texture 2D Extensions: provides extension methods for handling 2D textures //
 public static class Texture2DExtensions
 {
-	// methods for: purpose //
-
-	
 	// method: set the name of this given 2D texture to the given name, then return this given 2D texture //
 	public static Texture2D setNameTo(this Texture2D texture2D, string name)
 		=> texture2D.after(()=>

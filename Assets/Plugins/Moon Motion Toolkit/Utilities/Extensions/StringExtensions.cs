@@ -8,8 +8,8 @@ using UnityEngine;
 // String Extensions: provides extension methods for handling strings //
 public static class StringExtensions
 {
-	// methods for: handling emptiness, nullness, and onlyness //
-	
+	#region handling emptiness, nullness, and onlyness
+
 	// method: return whether this given string is empty //
 	public static bool isEmpty(this string string_)
 		=> string_.Equals("");
@@ -59,9 +59,10 @@ public static class StringExtensions
 	// method: if this given string is contains only spaces, return the given target string instead of this given string //
 	public static string substituteIfContainsOnlySpaces(this string string_, string targetString)
 		=> string_.substituteIf(string_.containsOnlySpaces(), targetString);
+	#endregion handling emptiness, nullness, and onlyness
 
 
-	// methods for: regex //
+	#region regex
 
 	// method: return whether this given string matches the given regex //
 	public static bool matches(this string string_, Regex regex)
@@ -69,16 +70,18 @@ public static class StringExtensions
 	// method: return whether this given string matches the regex for the given regex string //
 	public static bool matches(this string string_, string regexString)
 		=> string_.matches(regexString.toRegex());
+	#endregion regex
 
 
-	// methods for: email //
+	#region email
 
 	// method: return whether this given string is an email address //
 	public static bool isAnEmailAddress(this string string_)
 		=> string_.matches(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+	#endregion email
 
 
-	// methods for: printing //
+	#region printing
 
 	// method: print this given string, then return it //
 	public static string print(this string string_)
@@ -87,16 +90,18 @@ public static class StringExtensions
 
 		return string_;
 	}
+	#endregion printing
 
 
-	// methods for: reversing //
+	#region reversing
 
 	// method: return this given string reversed //
 	public static string reversed(this string string_)
 		=> string_.characters().reversed().toString();
+	#endregion reversing
 
 
-	// methods for: removing characters //
+	#region removing characters
 
 	public static string withoutCharacterLast(this string string_)
 		=> string_.Substring(0, string_.Length - 1);
@@ -115,9 +120,10 @@ public static class StringExtensions
 
 	public static string withoutHyphens(this string string_)
 		=> string_.Replace("-", "");
+	#endregion removing characters
 
 
-	// methods for: repeating //
+	#region repeating
 
 	// method: return the concatenation of this given string repeated the given count of times //
 	public static string repeated(this string string_, int repetitionCount)
@@ -127,9 +133,10 @@ public static class StringExtensions
 			concatenatedRepetitions = concatenatedRepetitions.withSuffix(string_));
 		return concatenatedRepetitions;
 	}
+	#endregion repeating
 
 
-	// methods for: prefixing //
+	#region prefixing
 
 	// method: return this given string with the given prefix //
 	public static string withPrefix(this string string_, string prefix)
@@ -137,9 +144,10 @@ public static class StringExtensions
 	// method: return this given string with the given prefix if this given string is not empty nor null //
 	public static string withPotentialPrefix(this string string_, string potentialPrefix)
 		=> (string_.isNotEmptyNorNull() ? string_.withPrefix(potentialPrefix) : string_);
+	#endregion prefixing
 
 
-	// methods for: suffixing //
+	#region suffixing
 
 	// method: return this given string with the given suffix //
 	public static string withSuffix(this string string_, string suffix)
@@ -168,9 +176,10 @@ public static class StringExtensions
 	// method: return this given string with the given number of spaces suffixed if this given string is not empty nor null //
 	public static string withPotentialTrailingSpaces(this string string_, int trailingSpacesCount)
 		=> string_.withPotentialSuffixRepeated(" ", trailingSpacesCount);
+	#endregion suffixing
 
 
-	// methods for: surrounding //
+	#region surrounding
 
 	// method: return this given string surrounded by the other given string //
 	public static string surroundedBy(this string string_, string otherString)
@@ -183,17 +192,19 @@ public static class StringExtensions
 	// method: return this given string surrounded by airquotes //
 	public static string airquoted(this string string_)
 		=> string_.surroundedBy("\"");
+	#endregion surrounding
 
 
-	// methods for: representation //
+	#region representation
 
 	// method: return this given string represented as a string such that if it is null then "null" is returned (otherwise the given string is returned) //
 	public static string withNullRepresented(this string string_)
 		=> string_ ?? "null";
+	#endregion representation
 
 
-	// methods for: conversion //
-	
+	#region conversion
+
 	// method: return the bytes corresponding to this given string //
 	public static byte[] bytes(this string string_)
 		=> Encoding.UTF8.GetBytes(string_);
@@ -231,4 +242,5 @@ public static class StringExtensions
 	// method: return the regex for this given string //
 	public static Regex toRegex(this string string_)
 		=> new Regex(string_);
+	#endregion conversion
 }

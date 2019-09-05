@@ -42,13 +42,14 @@ public abstract class SingletonAudio<SingletonAudioT> :
 	#region methods
 
 
-	// methods for: playing //
+	#region playing
 
 	public static AutomaticBehaviour<SingletonAudioT> play()
 		=> playAudio();
 
 	public static AutomaticBehaviour<SingletonAudioT> stop()
 		=> stopAudio();
+	#endregion playing
 	#endregion methods
 
 

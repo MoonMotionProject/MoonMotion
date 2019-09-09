@@ -1,4 +1,5 @@
 ﻿// enumeration of: possible interpolation curves //
+// #curve
 public enum InterpolationCurve
 {
 	linear,
@@ -9,5 +10,7 @@ public enum InterpolationCurve
 	smoother,
 	smootherPalindrome,
 	quadraticPalindrome,
-	dequadratic
+	dequadratic,
+	start,
+	end
 }

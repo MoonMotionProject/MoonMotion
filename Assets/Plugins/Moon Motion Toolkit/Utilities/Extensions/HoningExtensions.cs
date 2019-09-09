@@ -14,7 +14,7 @@ public static class HoningExtensions
 		}
 		else
 		{
-			float targetDistance = target.distanceFrom(float_);
+			float targetDistance = target.distanceWith(float_);
 			if (targetDistance < honingAmount)
 			{
 				honingAmount *= (targetDistance / honingAmount.magnitude());

@@ -206,7 +206,7 @@ public class Booster : HandLocomotionControlled
 				// determine the player's current velocity //
 				Vector3 currentPlayerVelocity = PlayerVelocityReader.velocity();
 				// determining the rotation vector for the force direction relative to this booster //
-				Vector3 forceDirectionRelative = BoosterForceApplier.direction(this).asDirectionVectorRelativeTo(BoosterRelativizer.relativityTransform(this));
+				Vector3 forceDirectionRelative = BoosterForceApplier.direction(this).asDirectionRelativeTo(BoosterRelativizer.relativityTransform(this));
 				// determining the speed of the player's rigidbody in the direction of the booster's force aiming //
 				float bodySpeedInBoosterDirection = Vector3.Dot(currentPlayerVelocity, forceDirectionRelative);
 				// fuel usage via Booster Defueler //
@@ -224,7 +224,7 @@ public class Booster : HandLocomotionControlled
 					{
 						if (BoosterPulser.pulsingPlayerUpDirectionOnly(this))
 						{
-							Vector3 playerUpDirection = Direction.up.asDirectionVectorRelativeTo(playerTransform);
+							Vector3 playerUpDirection = BasicDirection.up.asDirectionRelativeTo(playerTransform);
 							float forceToApplyForPlayerUpOnly = Vector3.Dot(forceToApply, playerUpDirection);
 							forceToApply += (playerUpDirection * forceToApplyForPlayerUpOnly * BoosterPulser.pulsingForcePercentage(this) * Mathf.Sin(Time.time / BoosterPulser.pulsingForceFrequency(this)));
 						}

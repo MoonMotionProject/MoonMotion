@@ -20,7 +20,7 @@ public static class ComponentExtensions
 
 	// method: destroy this given component's game object according to the given booleanic function upon this given component, then return the result of that function //
 	public static bool destroyObject<ComponentT>(this ComponentT component, Func<ComponentT, bool> function) where ComponentT : Component
-		=> function(component).forWhich(result =>
+		=> function(component).after(result =>
 		{
 			if (result)
 			{
@@ -106,6 +106,21 @@ public static class ComponentExtensions
 	// method: return a selection of the game objects these given components are attached to //
 	public static IEnumerable<GameObject> selectObjects(this IEnumerable<Component> components)
 		=> components.select(component => component.gameObject);
+	// method: return a list of the game objects these given components are attached to //
+	public static List<GameObject> objects(this IEnumerable<Component> components)
+		=> components.selectObjects().manifest();
+	// method: return the set of the game objects these given components are attached to //
+	public static HashSet<GameObject> uniqueObjects(this IEnumerable<Component> components)
+		=> components.selectObjects().toSet();
+	// method: return a selection of all rigidbodies these given components are attached to //
+	public static IEnumerable<Rigidbody> selectRigidbodies(this IEnumerable<Component> components)
+		=> components.select(component => component.rigidbody()).onlyYull();
+	// method: return a list of all rigidbodies these given components are attached to //
+	public static List<Rigidbody> rigidbodies(this IEnumerable<Component> components)
+		=> components.selectRigidbodies().manifest();
+	// method: return the set of all rigidbodies these given components are attached to //
+	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<Component> components)
+		=> components.selectRigidbodies().toSet();
 
 	// method: return the first rigidbody attached to this given component (null if none found), optionally including inactive rigidbodies according to the given boolean //
 	public static Rigidbody rigidbody(this Component component, bool includeInactiveRigidbodies = true)

@@ -40,6 +40,24 @@ public static class LayerExtensions
 
 
 
+	#region defaulting
+
+	// method: return these given layer names, unless none are given, in which case return only the default layer name //
+	public static IEnumerable<string> defaultLayerIfNone(this IEnumerable<string> layerNames)
+		=>	layerNames.hasAny() ?
+				layerNames :
+				new string[] {Layer.defaultName};
+
+	// method: return these given layer indeces, unless none are given, in which case return only the default layer index //
+	public static IEnumerable<int> defaultLayerIfNone(this IEnumerable<int> layerIndeces)
+		=>	layerIndeces.hasAny() ?
+				layerIndeces :
+				new int[] {0};
+	#endregion defaulting
+
+
+
+
 	#region matching
 
 
@@ -200,6 +218,8 @@ public static class LayerExtensions
 	#endregion setting
 
 
+
+
 	#region conversion
 
 	// method: return the layer name for this given layer index //
@@ -209,5 +229,12 @@ public static class LayerExtensions
 	// method: return the layer index for this given layer name //
 	public static int asLayerIndex(this string string_)
 		=> LayerMask.NameToLayer(string_);
+
+	// method: return the layer mask for these given layer names //
+	public static int asLayerMask(params string[] layerNames)
+		=> LayerMask.GetMask(layerNames);
+	// method: return the layer mask for these given layer names //
+	public static int asLayerMask(this IEnumerable<string> layerNames)
+		=> LayerMask.GetMask(layerNames.toArray());
 	#endregion conversion
 }

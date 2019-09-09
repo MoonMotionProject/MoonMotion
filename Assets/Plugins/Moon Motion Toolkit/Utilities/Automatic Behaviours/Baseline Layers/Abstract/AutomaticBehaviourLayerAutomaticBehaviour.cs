@@ -38,12 +38,6 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 
 	public string className => GetType().FullName;
 
-	public string printClassName()
-		=> className.print();
-
-	public string printName()
-		=> gameObject.printName();
-
 	public string nameQuoted => gameObject.nameQuoted();
 	#endregion names
 
@@ -52,8 +46,28 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 
 	#region printing
 
+	#region printing this automatic behaviour's name
+	public string printClassName()
+		=> className.print();
+	public string printName()
+		=> gameObject.printName();
+	#endregion printing this automatic behaviour's name
+
+	#region printing what is given
 	public static ObjectT print<ObjectT>(ObjectT object_)
 		=> object_.print();
+	public static IEnumerable<TItem> printListingOf<TItem>(IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
+		=> enumerable.printListing();
+	public static ObjectT log<ObjectT>(ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator)
+		=> object_.logAs(prefix, loggingSeparator);
+	#endregion printing what is given
+
+	#region printing this automatic behaviour
+	public AutomaticBehaviourT print()
+		=> print(automaticBehaviour);
+	public AutomaticBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
+		=> automaticBehaviour.logAs<AutomaticBehaviourT>(prefix, loggingSeparator);
+	#endregion printing this automatic behaviour
 	#endregion printing
 
 

@@ -255,7 +255,7 @@ public abstract class GravityZone : Locomotion
 	// method: determine whether the player is within gravity zonage that is actually enabled to gravitize the player with a nonzero force, or the scene has a nonzero gravitation force /* the scene gravity possibility is inconsistent to consider here, but convenient for now */ //
 	public static bool playerWithinNonzerolyAffectingZonage()
 	{
-		if (Physics.gravity != Vectors.zeroesVector)
+		if (Physics.gravity != FloatsVector.zeroes)
 		{
 			return true;
 		}
@@ -268,7 +268,7 @@ public abstract class GravityZone : Locomotion
 			foreach (Collider playerCollidingGravityZoneCollider in playerCollidingGravityZoneColliders)
 			{
 				GravityZone playerCollidingGravityZone = playerCollidingGravityZoneCollider.GetComponent<GravityZone>();
-				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vectors.zeroesVector))
+				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != FloatsVector.zeroes))
 				{
 					return true;
 				}
@@ -299,7 +299,7 @@ public abstract class GravityZone : Locomotion
 	// method: determine whether the player is within box gravity zonage that is actually enabled to gravitize the player with a nonzero force, or the scene has a nonzero gravitation force /* the scene gravity possibility is inconsistent to consider here, but convenient for now */ //
 	public static bool playerWithinNonzerolyAffectingZonageBox()
 	{
-		if (Physics.gravity != Vectors.zeroesVector)
+		if (Physics.gravity != FloatsVector.zeroes)
 		{
 			return true;
 		}
@@ -312,7 +312,7 @@ public abstract class GravityZone : Locomotion
 			foreach (Collider playerCollidingGravityZoneCollider in playerCollidingGravityZoneColliders)
 			{
 				GravityZone playerCollidingGravityZone = playerCollidingGravityZoneCollider.GetComponent<GravityZone>();
-				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vectors.zeroesVector) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneBox>())
+				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != FloatsVector.zeroes) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneBox>())
 				{
 					return true;
 				}
@@ -352,7 +352,7 @@ public abstract class GravityZone : Locomotion
 			foreach (Collider playerCollidingGravityZoneCollider in playerCollidingGravityZoneColliders)
 			{
 				GravityZone playerCollidingGravityZone = playerCollidingGravityZoneCollider.GetComponent<GravityZone>();
-				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != Vectors.zeroesVector) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneSphere>())
+				if (playerCollidingGravityZone.gravitizingEnabled && playerCollidingGravityZone.gravitizeRigidbodies && (playerCollidingGravityZone.gravitationForce != FloatsVector.zeroes) && playerCollidingGravityZoneCollider.GetComponent<GravityZoneSphere>())
 				{
 					return true;
 				}

@@ -38,7 +38,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 	public Slower slower => cache<Slower>();
 	public FacePlayerCamera facePlayerCamera => cache<FacePlayerCamera>();
 	public Hovering hovering => cache<Hovering>();
-	public Spinning spinning => cache<Spinning>();
+	public BasicSpinning basicSpinning => cache<BasicSpinning>();
 
 
 	#region Trackings

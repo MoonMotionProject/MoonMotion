@@ -215,7 +215,7 @@ public static class GameObjectExtensions
 
 	// method: if this given object exists and the given boolean is true, execute the given action on this given object and return this given object //
 	public static GameObject ifExists(this GameObject gameObject, Action<GameObject> action, bool boolean = true)
-		=> gameObject.forWhich(
+		=> gameObject.after(
 			action,
 			gameObject.exists().and(boolean));
 
@@ -237,7 +237,7 @@ public static class GameObjectExtensions
 
 	// method: if this given object is destroyed and the given boolean is true, execute the given action on this given object and return this given object //
 	public static GameObject ifDestroyed(this GameObject gameObject, Action<GameObject> action, bool boolean = true)
-		=> gameObject.forWhich(
+		=> gameObject.after(
 			action,
 			gameObject.destroyed().and(boolean));
 

@@ -156,15 +156,15 @@ public static class TransformExtensions
 
 	// method: (according to the given boolean:) have this given transform rotate by the given x rotation angle, then return this given transform //
 	public static Transform rotateX(this Transform transform, float x, bool boolean = true)
-		=> transform.rotate(Vectors.zeroesVector.withX(x), boolean);
+		=> transform.rotate(FloatsVector.zeroes.withX(x), boolean);
 
 	// method: (according to the given boolean:) have this given transform rotate by the given y rotation angle, then return this given transform //
 	public static Transform rotateY(this Transform transform, float y, bool boolean = true)
-		=> transform.rotate(Vectors.zeroesVector.withY(y), boolean);
+		=> transform.rotate(FloatsVector.zeroes.withY(y), boolean);
 
 	// method: (according to the given boolean:) have this given transform rotate by the given z rotation angle, then return this given transform //
 	public static Transform rotateZ(this Transform transform, float z, bool boolean = true)
-		=> transform.rotate(Vectors.zeroesVector.withZ(z), boolean);
+		=> transform.rotate(FloatsVector.zeroes.withZ(z), boolean);
 
 	// method: (according to the given boolean:) have this given transform rotate by 180° on the x axis, then return this given transform //
 	public static Transform flipX(this Transform transform, bool boolean = true)
@@ -206,9 +206,9 @@ public static class TransformExtensions
 	public static Vector3 down(this Transform transform)
 		=> -transform.up;
 
-	// method: return the direction vector for the given direction as relative to this given transform //
-	public static Vector3 vectorForRelativeDirection(this Transform transform, Direction direction)
-		=> direction.asDirectionVectorRelativeTo(transform);
+	// method: return the direction for the given basic direction as relative to this given transform //
+	public static Vector3 vectorForRelativeDirection(this Transform transform, BasicDirection basicDirection)
+		=> basicDirection.asDirectionRelativeTo(transform);
 	#endregion directions
 
 
@@ -232,6 +232,6 @@ public static class TransformExtensions
 
 	// method: return the enumerable (of child transforms) for this given transform //
 	public static IEnumerable<Transform> asEnumerable(this Transform transform)
-		=> transform.castToIEnumerable<Transform>();
+		=> transform.Cast<Transform>();
 	#endregion casting
 }

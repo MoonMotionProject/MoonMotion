@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Distance Extensions: provides extension methods for handling distances //
+// Distance Extensions: provides extension methods for handling distances (magnitudes of displacement) //
 public static class DistanceExtensions
 {
 	// method: return the distance with this given vector and the other given vector //
@@ -17,6 +17,9 @@ public static class DistanceExtensions
 	// method: return the distance with this given position and the given component //
 	public static float distanceWith(this Vector3 position, Component component)
 		=> position.distanceWith(component.position());
+	// method: return the distance with this given position and the main camera //
+	public static float distanceWithCamera(this Vector3 position)
+		=> position.distanceWith(Camera.main);
 
 	// method: return the distance with this given game object and the given position //
 	public static float distanceWith(this GameObject gameObject, Vector3 position)
@@ -30,6 +33,9 @@ public static class DistanceExtensions
 	// method: return the distance with this given game object and the given component //
 	public static float distanceWith(this GameObject gameObject, Component component)
 		=> gameObject.position().distanceWith(component.position());
+	// method: return the distance with this given game object and the main camera //
+	public static float distanceWithCamera(this GameObject gameObject)
+		=> gameObject.position().distanceWithCamera();
 
 	// method: return the distance with this given transform and the given position //
 	public static float distanceWith(this Transform transform, Vector3 position)
@@ -43,6 +49,9 @@ public static class DistanceExtensions
 	// method: return the distance with this given transform and the given component //
 	public static float distanceWith(this Transform transform, Component component)
 		=> transform.position.distanceWith(component.position());
+	// method: return the distance with this given transform and the main camera //
+	public static float distanceWithCamera(this Transform transform)
+		=> transform.position.distanceWithCamera();
 
 	// method: return the distance with this given component and the given position //
 	public static float distanceWith(this Component component, Vector3 position)
@@ -56,6 +65,9 @@ public static class DistanceExtensions
 	// method: return the distance with this given transform and the other given component //
 	public static float distanceWith(this Component component, Component otherComponent)
 		=> component.position().distanceWith(otherComponent.position());
+	// method: return the distance with this given component and the main camera //
+	public static float distanceWithCamera(this Component component)
+		=> component.position().distanceWithCamera();
 
 
 	// method: return the closest vector of the given vectors to this given vector //

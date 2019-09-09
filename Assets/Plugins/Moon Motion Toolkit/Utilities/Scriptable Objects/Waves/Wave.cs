@@ -7,43 +7,38 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Wave", menuName = "Wave")]
 public class Wave : ScriptableObject
 {
-	// constants //
-
+	#region constants
 	
-	// constants for: sine //
-	
+	#region sine
 	public const float troughSine = -1f;
 	public const float crestSine = 1f;
 	public const float durationSine = 1f;
 	public const float durationalOffsetSine = 0f;
-
-
-	// constants for: default //
-
-	public const float troughDefault = troughSine;
-	public const float crestDefault = crestSine;
-	public const float durationDefault = durationSine;
-	public const float durationalOffsetDefault = durationalOffsetSine;
+	#endregion sine
+	#endregion constants
 
 
 
 
-	// variables //
+	#region variables
 
 
-	// settings //
+	#region settings
 
-	public float trough = troughDefault;
-	public float crest = crestDefault;
-	public float duration = durationDefault;
-	public float durationalOffset = durationalOffsetDefault;
+	public float trough = Default.waveTrough;
+	public float crest = Default.waveCrest;
+	public float duration = Default.waveDuration;
+	public float durationalOffset = Default.waveDurationalOffset;
+	#endregion settings
+	#endregion variables
 
 
 
 
-	// methods //
+	#region methods
 
 
 	public float at(float progression)
 		=> progression.waved(trough, crest, duration, durationalOffset);
+	#endregion methods
 }

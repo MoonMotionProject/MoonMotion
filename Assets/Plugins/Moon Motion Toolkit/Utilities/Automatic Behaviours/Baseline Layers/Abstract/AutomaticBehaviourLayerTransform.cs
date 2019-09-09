@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Automatic Behaviour Layer Transform:
@@ -579,9 +580,9 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	// the down direction relative to this transform //
 	public Vector3 downLocal => transform.down();
 
-	// method: return the direction vector for the given direction relative to this transform //
-	public Vector3 vectorForRelativeDirection(Direction direction)
-		=> transform.vectorForRelativeDirection(direction);
+	// method: return the direction for the given basic direction relative to this transform //
+	public Vector3 vectorForRelativeDirection(BasicDirection basicDirection)
+		=> transform.vectorForRelativeDirection(basicDirection);
 	#endregion directions
 
 
@@ -607,4 +608,51 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	public GameObject farthestOf(IEnumerable<GameObject> gameObjects)
 		=> transform.farthestOf(gameObjects);
 	#endregion distance
+
+
+	#region targetedly forcing
+
+	#region single-targetedly forcing
+	public AutomaticBehaviourT forceTarget(GameObject targetObject, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetObject, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT forceTarget(Component targetComponent, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetComponent, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT attract(GameObject targetObject, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetObject, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT attract(Component targetComponent, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetComponent, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT repel(GameObject targetObject, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetObject, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT repel(Component targetComponent, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetComponent, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	#endregion single-targetedly forcing
+
+	#region multi-targetedly forcing
+	public AutomaticBehaviourT forceTarget(IEnumerable<GameObject> targetObjects, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetObjects, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT forceTarget(IEnumerable<Component> targetComponents, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetComponents, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT attract(IEnumerable<GameObject> targetObjects, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetObjects, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT attract(IEnumerable<Component> targetComponents, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetComponents, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT repel(IEnumerable<GameObject> targetObjects, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetObjects, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public AutomaticBehaviourT repel(IEnumerable<Component> targetComponents, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetComponents, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	#endregion multi-targetedly forcing
+	#endregion targetedly forcing
+
+
+	#region radially forcing
+
+	public List<GameObject> forceRadially(Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.forceRadially(tug, magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+
+	public List<GameObject> suck(float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.suck(magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+
+	public List<GameObject> repulse(float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.repulse(magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+	#endregion radially forcing
 }

@@ -82,7 +82,7 @@ public static class ParentExtensions
 		=> gameObject.transform.setParentTo<ParentSingletonBehaviourT>(boolean).gameObject;
 	// method: (according to the given boolean:) set this given component's parent to the transform of the specified singleton behaviour class then return this given component //
 	public static ComponentT setParentTo<ComponentT, ParentSingletonBehaviourT>(this ComponentT component, bool boolean = true) where ComponentT : Component where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
-		=> component.after(() =>
+		=> component.after(()=>
 			component.transform.setParentTo<ParentSingletonBehaviourT>(boolean));
 
 	// method: (according to the given boolean:) unparent this given transform (set its parent to null), then return this given transform //
@@ -93,7 +93,7 @@ public static class ParentExtensions
 		=> gameObject.transform.unparent(boolean).gameObject;
 	// method: (according to the given boolean:) unparent the transform of this given component (set its parent to null), then return this given component //
 	public static ComponentT unparent<ComponentT>(this ComponentT component, bool boolean = true) where ComponentT : Component
-		=> component.after(() =>
+		=> component.after(()=>
 			component.transform.unparent(boolean));
 
 	// method: (according to the given boolean:) temporarily change this given transform's parent to the given other transform, during so invoking the given action on this given transform, then return this given transform //

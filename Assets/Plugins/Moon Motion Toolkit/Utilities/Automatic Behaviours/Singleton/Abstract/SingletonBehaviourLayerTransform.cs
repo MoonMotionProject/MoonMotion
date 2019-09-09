@@ -477,9 +477,9 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	// method: return the vector for the down direction relative to this transform //
 	public static new Vector3 downLocal => automaticBehaviour.downLocal;
 
-	// method: return the vector for the given direction relative to this transform //
-	public static new Vector3 vectorForRelativeDirection(Direction direction)
-		=> automaticBehaviour.vectorForRelativeDirection(direction);
+	// method: return the vector for the given basic direction relative to this transform //
+	public static new Vector3 vectorForRelativeDirection(BasicDirection basicDirection)
+		=> automaticBehaviour.vectorForRelativeDirection(basicDirection);
 	#endregion directions
 
 
@@ -505,4 +505,51 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	public static new GameObject farthestOf(IEnumerable<GameObject> gameObjects)
 		=> automaticBehaviour.farthestOf(gameObjects);
 	#endregion distance
+
+
+	#region targetedly forcing
+
+	#region single-targetedly forcing
+	public static new AutomaticBehaviour<SingletonBehaviourT> forceTarget(GameObject targetObject, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetObject, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> forceTarget(Component targetComponent, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetComponent, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> attract(GameObject targetObject, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetObject, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> attract(Component targetComponent, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetComponent, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> repel(GameObject targetObject, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetObject, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> repel(Component targetComponent, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetComponent, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	#endregion single-targetedly forcing
+
+	#region multi-targetedly forcing
+	public static new AutomaticBehaviour<SingletonBehaviourT> forceTarget(IEnumerable<GameObject> targetObjects, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetObjects, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> forceTarget(IEnumerable<Component> targetComponents, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.forceTarget(targetComponents, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> attract(IEnumerable<GameObject> targetObjects, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetObjects, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> attract(IEnumerable<Component> targetComponents, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.attract(targetComponents, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> repel(IEnumerable<GameObject> targetObjects, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetObjects, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	public static new AutomaticBehaviour<SingletonBehaviourT> repel(IEnumerable<Component> targetComponents, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=> automaticBehaviour.repel(targetComponents, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+	#endregion multi-targetedly forcing
+	#endregion targetedly forcing
+
+
+	#region radially forcing
+
+	public static new List<GameObject> forceRadially(Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> automaticBehaviour.forceRadially(tug, magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+
+	public static new List<GameObject> suck(float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> automaticBehaviour.suck(magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+
+	public static new List<GameObject> repulse(float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> automaticBehaviour.repulse(magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+	#endregion radially forcing
 }

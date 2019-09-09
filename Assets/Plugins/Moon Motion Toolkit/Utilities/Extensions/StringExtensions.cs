@@ -16,11 +16,15 @@ public static class StringExtensions
 
 	// method: return whether this given string is empty or null //
 	public static bool isEmptyOrNull(this string string_)
-		=> ((string_ == null) || string_.isEmpty());
+		=> (string_.isNull() || string_.isEmpty());
 
 	// method: return whether this given string is not empty nor null //
 	public static bool isNotEmptyNorNull(this string string_)
 		=> !string_.isEmptyOrNull();
+
+	// method: if this given string is null, return an empty string; otherwise, return this given string //
+	public static string emptyIfNull(this string string_)
+		=> string_.isNull() ? "" : string_;
 
 	// method: return this given string with a newline prefix if it is not empty nor null //
 	public static string withPotentialPrefixedNewline(this string string_)

@@ -4,45 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// IEnumerable Extensions: provides extension methods and related constants for handling enumerables //
+// IEnumerable Extensions: provides extension methods for handling enumerables //
 // #enumerable-e
 public static class IEnumerableExtensions
 {
-	#region constants
-
-
-	#region listing
-
-	public const string listingSeparatorDefault = ", ";
-	#endregion listing
-	#endregion constants
-
-
-
-
-	#region methods
-
-
 	/*#region copying
 
 	// method: return a copy of this given enumerable //
 	public static IEnumerableCustomT copy<IEnumerableCustomT, TItem>(this IEnumerableCustomT enumerable) where IEnumerableCustomT : IEnumerableCustom<TItem>, new()
 		=> new IEnumerableT(enumerable);
 	#endregion copying*/
-
-
+	
+	
 	#region printing
-
-	// method: print the string listing of this given enumerable, using the given separator string (comma by default), then return the string listing //
-	public static string printListing<TItem>(this IEnumerable<TItem> enumerable, string separator = listingSeparatorDefault)
-		=> enumerable.asListing(separator).print();
+	
+	// method: print the string listing of this given enumerable, using the given separator string (comma by default), then return this given enumerable //
+	public static IEnumerable<TItem> printListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
+		=>	enumerable.after(()=>
+				enumerable.asListing(separator).print());
 	#endregion printing
 
 
 	#region listing
 
 	// method: return the string listing of this given enumerable, using the given separator string (comma by default) //
-	public static string asListing<TItem>(this IEnumerable<TItem> enumerable, string separator = listingSeparatorDefault)
+	public static string asListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
 		=> string.Join(separator, enumerable);
 	#endregion listing
 
@@ -60,6 +46,10 @@ public static class IEnumerableExtensions
 	// method: return whether this given enumerable is empty //
 	public static bool isEmpty<TItem>(this IEnumerable<TItem> enumerable)
 		=> (enumerable.count() == 0);
+
+	// method: return whether this given enumerable is empty or null //
+	public static bool isEmptyOrNull<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.isEmpty() || enumerable.isNull();
 
 	// method: return whether this given enumerable has any items //
 	public static bool hasAny<TItem>(this IEnumerable<TItem> enumerable)
@@ -107,6 +97,14 @@ public static class IEnumerableExtensions
 	#endregion determining content
 
 
+	#region defaulting
+
+	// method: if this given enumerable is null, return an empty enumerable of the same type; otherwise, return this given enumerable //
+	public static IEnumerable<TItem> emptyIfNull<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.isNull() ? new TItem[] { } : enumerable;
+	#endregion defaulting
+
+
 	#region manifestation
 
 	// method: return a list for this given enumerable with its yieldings manifested //
@@ -133,13 +131,17 @@ public static class IEnumerableExtensions
 	public static TItem first<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.First();
 
+	// method: return the first item in this given enumerable, otherwise (if an item is not there) returning the given fallback item //
+	public static TItem firstOtherwise<TItem>(this IEnumerable<TItem> enumerable, TItem fallbackItem)
+		=> enumerable.hasAny() ? enumerable.first() : fallbackItem;
+
 	// method: return the first item in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem firstOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.FirstOrDefault();
 	#endregion accessing first items
 
 
-	#region retrieval (accessing particulars via functions)
+	#region retrieval
 
 	public static IEnumerable<TResult> select<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.Select(function);
@@ -167,7 +169,7 @@ public static class IEnumerableExtensions
 
 	public static IEnumerable<TResult> selectNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
 		=> enumerable.SelectMany(function);
-	#endregion retrieval (accessing particulars via functions)
+	#endregion retrieval
 
 
 	#region removing
@@ -187,6 +189,12 @@ public static class IEnumerableExtensions
 	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns false //
 	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
 		=> enumerable.except(function, boolean).manifest();
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are yull //
+	public static IEnumerable<TItem> onlyYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
+		=> enumerable.only(
+			item => item.isYull(),
+			boolean);
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are equal to the given item //
 	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
@@ -344,19 +352,19 @@ public static class IEnumerableExtensions
 
 	#region randomization
 
-	// method: return a random item in this given enumerable //
+	// method: return a random item in this given enumerable if it has any items; otherwise, return the default value of the given item type //
 	public static TItem randomItem<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.item(RandomlyGenerate.fromZeroUntil(enumerable.count()));
+		=> enumerable.hasAny() ? enumerable.item(RandomlyGenerate.fromZeroUntil(enumerable.count())) : default(TItem);
 
 	// method: return a random item in this given enumerable except any of the given items, otherwise (if none remain) a random item in this given enumerable //
 	public static TItem randomItemExceptGivenOtherwiseRandomItem<TItem>(this IEnumerable<TItem> enumerable, params TItem[] exceptedItems)
 	{
 		IEnumerable<TItem> enumerableWhereNotExcepted = enumerable.whereNot(exceptedItems);
-		if (enumerableWhereNotExcepted.hasAny())
-		{
-			return enumerableWhereNotExcepted.randomItem();
-		}
-		return enumerable.randomItem();
+
+		return	(enumerableWhereNotExcepted.hasAny() ?
+					enumerableWhereNotExcepted.randomItem() :
+					enumerable.randomItem()
+				);
 	}
 	#endregion randomization
 
@@ -408,11 +416,18 @@ public static class IEnumerableExtensions
 	#endregion averaging
 
 
-	#region casting
+	#region conversion
 
-	// method: return this given enumerable cast to an IEnumerable of the specified type of item //
-	public static IEnumerable<TItem> castToIEnumerable<TItem>(this IEnumerable enumerable)
-		=> enumerable.Cast<TItem>();
-	#endregion casting
-	#endregion methods
+	// method: return this given enumerable as an enumerable of its type of item (effectively generalizing it to an enumerable of those items if it was passed as something more specific, such as a list of those items) //
+	public static IEnumerable<TItem> asEnumerable<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable;
+
+	// method: return this given enumerable converted to a set (maintaining only unique items) //
+	public static HashSet<TItem> toSet<TItem>(this IEnumerable<TItem> enumerable)
+		=> new HashSet<TItem>(enumerable);
+
+	// method: return this given enumerable converted to an array //
+	public static TItem[] toArray<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.ToArray();
+	#endregion conversion
 }

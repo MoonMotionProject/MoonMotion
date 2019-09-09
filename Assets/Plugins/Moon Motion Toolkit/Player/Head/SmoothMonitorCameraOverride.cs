@@ -28,7 +28,7 @@ public class SmoothMonitorCameraOverride : SingletonBehaviour<SmoothMonitorCamer
 	public float rotationSmoothingSpeed = 5f;
 
 	[Tooltip("the position velocity referenced by the 'SmoothDamp' call used for position smoothing")]
-    private Vector3 positionVelocity = Vectors.zeroesVector;
+    private Vector3 positionVelocity = FloatsVector.zeroes;
 
 
 

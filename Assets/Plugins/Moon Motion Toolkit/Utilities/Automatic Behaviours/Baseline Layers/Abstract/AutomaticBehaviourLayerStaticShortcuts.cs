@@ -32,6 +32,17 @@ public abstract class	AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT
 	#region Moon Motion - Moon Motion Toolkit - Utilities - Explicit
 
 
+	#region Direction
+
+	public static Vector3 forwardGlobal => Direction.forward;
+	public static Vector3 backwardGlobal => Direction.backward;
+	public static Vector3 rightGlobal => Direction.right;
+	public static Vector3 leftGlobal => Direction.left;
+	public static Vector3 upGlobal => Direction.up;
+	public static Vector3 downGlobal => Direction.down;
+	#endregion Direction
+
+
 	#region Doubles
 
 	#region extremes
@@ -42,7 +53,16 @@ public abstract class	AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT
 	#endregion extremes
 	#endregion Doubles
 
+
+	#region EditorEvents
 	
+	#if UNITY_EDITOR
+	public static CallbackFunction afterAllInspectorsHaveNextUpdatedExecute(CallbackFunction callbackFunction, bool preventExecutionIfEditorModeChangesFirst = false)
+		=> EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(callbackFunction, preventExecutionIfEditorModeChangesFirst);
+	#endif
+	#endregion EditorEvents
+
+
 	#region Floats
 
 	#region extremes
@@ -61,33 +81,10 @@ public abstract class	AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT
 	#endregion Functions
 
 	
-	#region Vectors
-
-	#region common vectors
-	// the vector of zeroes //
-	public static Vector3 zeroesVector => Vector3.zero;
-	// the vector of ones //
-	public static Vector3 onesVector => Vector3.one;
-	#endregion common vectors
-
-	#region direction vectors
-	public static Vector3 forwardGlobal => Vectors.forward;
-	public static Vector3 backwardGlobal => Vectors.backward;
-	public static Vector3 rightGlobal => Vectors.right;
-	public static Vector3 leftGlobal => Vectors.left;
-	public static Vector3 upGlobal => Vectors.up;
-	public static Vector3 downGlobal => Vectors.down;
-	#endregion direction vectors
-	#endregion Vectors
-
+	#region FloatsVector
 	
-	#region EditorEvents
-
-
-	#if UNITY_EDITOR
-	public static CallbackFunction afterAllInspectorsHaveNextUpdatedExecute(CallbackFunction callbackFunction, bool preventExecutionIfEditorModeChangesFirst = false)
-		=> EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(callbackFunction, preventExecutionIfEditorModeChangesFirst);
-	#endif
-	#endregion EditorEvents
+	public static Vector3 zeroesFloatsVector => FloatsVector.zeroes;
+	public static Vector3 onesFloatsVector => FloatsVector.ones;
+	#endregion FloatsVector
 	#endregion Moon Motion - Moon Motion Toolkit - Utilities - Explicit
 }

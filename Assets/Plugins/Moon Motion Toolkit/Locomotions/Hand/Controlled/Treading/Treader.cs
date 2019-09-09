@@ -386,8 +386,8 @@ public class Treader : HandLocomotionControlled
 				}
 
 				// initialize the treading velocity (which is just for x and z) as a proportionality (that is, without scaling it to the appropriate magnitude/speed yet) //
-				Vector3 treadingVelocityProportionalityForwardPart = Vectors.zeroesVector;		// define the forward part to be the forward direction of this treader
-				Vector3 treadingVelocityProportionalityRightwardPart = Vectors.zeroesVector;		// initialize the rightward part as a zeroes vector
+				Vector3 treadingVelocityProportionalityForwardPart = FloatsVector.zeroes;		// define the forward part to be the forward direction of this treader
+				Vector3 treadingVelocityProportionalityRightwardPart = FloatsVector.zeroes;		// initialize the rightward part as a zeroes vector
 				if (controller.inputTouched(inputsLocomotion))       // if any touchpad input is being used: proportion the velocity parts based on the touchpad input position's coordinates' signage
 				{
 					// proportion the forward part of the velocity based on the touchpad's y (used for z) input position //

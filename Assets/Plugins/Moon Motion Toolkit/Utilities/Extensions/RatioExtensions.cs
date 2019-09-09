@@ -31,6 +31,9 @@ public static class RatioExtensions
 	// method: determine the progression of this given progressor (changing value) from the start progression (0) to the given end progression //
 	public static float progressionTo(this float progressor, float end)
 		=> progressor.progressionWithin(0f, end);
+	// method: determine the progression of this given position from the given start position to the given distance //
+	public static float distalProgressionTo(this Vector3 progressionPosition, float distance, Vector3 startPosition)
+		=> startPosition.distanceWith(progressionPosition).progressionTo(distance);
 	// method: determine the progression of this given progressor (changing value) from the start progression (0) to the given end progression //
 	public static double progressionTo(this double progressor, double end)
 		=> progressor.progressionWithin(0d, end);

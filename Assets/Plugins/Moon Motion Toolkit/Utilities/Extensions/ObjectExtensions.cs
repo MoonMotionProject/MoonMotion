@@ -6,16 +6,20 @@ using UnityEngine;
 // Object Extensions: provides extension methods for handling objects //
 public static class ObjectExtensions
 {
-	#region yullness (whether an object is set to yull versus null)
-
-	// method: return whether this given object is yull (nonnull) //
-	public static bool isYull(this object object_)
-		=> object_ != null;
-
-	// method: return whether this given object is null //
+	#region yullness (whether an object is not null)
+	// methods: return whether this given object is null\yull, respectively... also checking in case of being a Unity object since Unity overloads null to be true sometimes and I want to recognize those cases, to be consistent //
+	
 	public static bool isNull(this object object_)
-		=> object_ == null;
-	#endregion yullness (whether an object is set to yull versus null)
+		=>	(object_ == null) ||
+			(
+				typeof(UnityEngine.Object).IsInstanceOfType(object_) &&
+				((object_.castTo<UnityEngine.Object>()) == null)
+			);
+	
+	public static bool isYull(this object object_)
+		=> !object_.isNull();
+	#endregion yullness (whether an object is not null)
+
 
 
 	#region reflection
@@ -30,20 +34,28 @@ public static class ObjectExtensions
 	#endregion reflection
 
 
-	#region printing
+	#region printing what is given
 
 	// method: print this given object, then return it //
 	public static ObjectT print<ObjectT>(this ObjectT object_)
 		=> object_.after(()=>
 			object_.ToString().print());
-	#endregion printing
+
+	// method: print this given object, logged as following the given prefix and using the given logging separator, then return this given object //
+	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator)
+		=> object_.after(()=>
+			(prefix+loggingSeparator+object_.ToString()).print());
+	#endregion printing what is given
 
 
 	#region determining content
 
 	// method: return whether this given object is any of the given other objects
-	public static bool isAnyOf<ObjectT>(this ObjectT object_, params ObjectT[] otherObjects)
+	public static bool isAnyOf<ObjectT>(this ObjectT object_, IEnumerable<ObjectT> otherObjects)
 		=> otherObjects.contains(object_);
+	// method: return whether this given object is any of the given other objects
+	public static bool isAnyOf<ObjectT>(this ObjectT object_, params ObjectT[] otherObjects)
+		=> object_.isAnyOf(otherObjects.asEnumerable());
 	#endregion determining content
 
 
@@ -94,7 +106,7 @@ public static class ObjectExtensions
 	}
 
 	// method: (according to the given boolean:) execute the given action on this given object, then return this given object //
-	public static ObjectT forWhich<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+	public static ObjectT after<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
 	{
 		action.predicatedWith(boolean)(object_);
 
@@ -102,52 +114,52 @@ public static class ObjectExtensions
 	}
 
 	// method: (according to the given boolean:) if this given object is yull, execute the given action, then return this given object //
-	public static ObjectT ifYull<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
+	public static ObjectT afterIfYullDoing<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
 		=> object_.after(
 			action,
 			object_.isYull().and(boolean));
 
 	// method: if this given object is yull and the given boolean is true, execute the given action on this given object and return this given object //
-	public static ObjectT ifYull<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
-		=> object_.forWhich(
+	public static ObjectT afterIfYullDoing<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+		=> object_.after(
 			action,
 			object_.isYull().and(boolean));
 
-	// method: if this given object is yull, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
-	public static TResult ifYull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
-		=> object_.isYull() ?
-			function(object_) :
-			default(TResult);
-
 	// method: (according to the given boolean:) if this given object is null, execute the given action, then return this given object //
-	public static ObjectT ifNull<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
+	public static ObjectT afterIfNullDoing<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
 		=> object_.after(
 			action,
 			object_.isNull().and(boolean));
 
 	// method: if this given object is null and the given boolean is true, execute the given action on this given object and return this given object //
-	public static ObjectT ifNull<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
-		=> object_.forWhich(
+	public static ObjectT afterIfNullDoing<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+		=> object_.after(
 			action,
 			object_.isNull().and(boolean));
-
-	// method: if this given object is null, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
-	public static TResult ifNull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
-		=> object_.isNull() ?
-			function(object_) :
-			default(TResult);
 	#endregion acting
 
 
-	#region casting
+	#region retrieval
+	
+	// method: if this given object is yull, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
+	public static TResult pickIfYull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
+		=> object_.isYull() ?
+			function(object_) :
+			default(TResult);
 
-	// method: return this given object cast to the specified type (however, there is no guarantee that the given object can be cast to the specified type) //
-	public static TCast castTo<TCast>(this object object_)
-		=> (TCast)object_;
-	#endregion casting
+	// method: if this given object is null, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
+	public static TResult pickIfNull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
+		=> object_.isNull() ?
+			function(object_) :
+			default(TResult);
+	#endregion retrieval
 
 
 	#region conversion
+
+	// method: return this given object cast to the specified type (however, there is no guarantee that the given object can be cast to the specified type) //
+	public static TCast castTo<TCast>(this object object_)
+		=> (TCast) object_;
 
 	// method: return this given object converted to a string with null represented //
 	public static string asStringWithNullRepresented(this object object_)

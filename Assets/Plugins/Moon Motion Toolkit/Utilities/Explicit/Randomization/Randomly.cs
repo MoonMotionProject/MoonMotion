@@ -11,10 +11,7 @@ public static class Randomly
 	public static TItem chosenFrom<TItem>(IEnumerable<TItem> enumerable)
 		=> enumerable.randomItem();
 	// method: return a random object out of these given objects //
-	public static ObjectT chosenFrom<ObjectT>(IList<ObjectT> objects)
-		=> objects[RandomlyGenerate.fromZeroUntil(objects.Count)];
-	// method: return a random object out of these given objects //
 	public static ObjectT chosenFrom<ObjectT>(params ObjectT[] objects)
-		=> chosenFrom(objects);
+		=> chosenFrom(objects.asEnumerable());
 	#endregion choosing
 }

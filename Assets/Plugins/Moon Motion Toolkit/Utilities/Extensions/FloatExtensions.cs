@@ -151,7 +151,7 @@ public static class FloatExtensions
 
 	#region distance
 
-	public static float distanceFrom(this float float_, float otherFloat)
+	public static float distanceWith(this float float_, float otherFloat)
 		=> (float_ - otherFloat).magnitude();
 	#endregion distance
 
@@ -162,10 +162,10 @@ public static class FloatExtensions
 		=> Mathf.Abs(float_);
 
 	public static float withSign(this float float_, bool booleanForSign)
-		=> (float_.magnitude() * booleanForSign.toInteger());
+		=> (float_.magnitude() * booleanForSign.asSign());
 
 	public static float timesSign(this float float_, bool booleanForSign)
-		=> (float_ * booleanForSign.toInteger());
+		=> (float_ * booleanForSign.asSign());
 	#endregion sign manipulation
 
 

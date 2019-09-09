@@ -22,11 +22,21 @@ public static class HashSetExtensions
 		=> set.after(()=>
 			set.Add(item),
 			boolean);
+	// method: (according to the given boolean:) add the given items to this given hash set, then return this given hash set //
+	public static HashSet<TItem> add<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
+		=> set.after(()=>
+			set.UnionWith(items),
+			boolean);
 
 	// method: (according to the given boolean:) add the given item to this given hash set, then return the given item //
 	public static TItem addGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
 		=> item.after(()=>
 			set.add(item),
+			boolean);
+	// method: (according to the given boolean:) add the given items to this given hash set, then return the given items //
+	public static IEnumerable<TItem> addGet<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
+		=> items.after(()=>
+			set.add(items),
 			boolean);
 
 	// method: (according to the given boolean:) add this given item to the given hash set, then return the given hash set //
@@ -36,6 +46,9 @@ public static class HashSetExtensions
 	// method: (according to the given boolean:) add this given item to the given hash set, then return this given item //
 	public static TItem addTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
 		=> set.addGet(item, boolean);
+	// method: (according to the given boolean:) add these given items to the given hash set, then return these given items //
+	public static IEnumerable<TItem> addTo<TItem>(this IEnumerable<TItem> items, HashSet<TItem> set, bool boolean = true)
+		=> set.addGet(items, boolean);
 	#endregion adding
 
 

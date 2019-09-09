@@ -43,7 +43,7 @@ public class BodyTransformation : AutomaticBehaviour<BodyTransformation>
         setLocalRotationTo(localRotationAwake);
        
 		// following x and z position of headset and setting y position to have the collider be just above the floor... but since the collider is a capsule it will be limited in height to a sphere formed from its two halfspheres once the nonspherical part of its height is entirely diminished (as a result of the entire height setting diminishing) //
-		float distanceFromFloor = Vector3.Dot(headsetTransform.localPosition, Vectors.up) + headAboveEyesHeight;		// determine the distance from the headset to the floor – but offset it by the head above eyes height to fudge for how the part of one's head above their eyes should collide with a ceiling or similar object before their eyes do
+		float distanceFromFloor = Vector3.Dot(headsetTransform.localPosition, Direction.up) + headAboveEyesHeight;		// determine the distance from the headset to the floor – but offset it by the head above eyes height to fudge for how the part of one's head above their eyes should collide with a ceiling or similar object before their eyes do
 		// set any capsule colliders' heights to be whichever is greater: the distance from the headset to the floor, twice the length of the capsule collider's radius (since ∗) //
 		foreach (CapsuleCollider capsuleCollider in capsuleCollidersAwake)
 		{

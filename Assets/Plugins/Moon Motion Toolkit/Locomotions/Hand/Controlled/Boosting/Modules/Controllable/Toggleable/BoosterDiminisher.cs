@@ -225,7 +225,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 			
 			// if there is a recognized terrain below, calculate distance based on that //
 
-			RaycastHit[] raycastHitsFound = Physics.RaycastAll(relativityTransform.position, -BoosterForceApplier.direction(booster).asDirectionVectorRelativeTo(relativityTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the booster in the direction of the booster's force
+			RaycastHit[] raycastHitsFound = Physics.RaycastAll(relativityTransform.position, -BoosterForceApplier.direction(booster).asDirectionRelativeTo(relativityTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the booster in the direction of the booster's force
 			if (Any.itemsIn(raycastHitsFound))
 			{
 				// determine the nearest raycast hit found's: hit distance, hit //

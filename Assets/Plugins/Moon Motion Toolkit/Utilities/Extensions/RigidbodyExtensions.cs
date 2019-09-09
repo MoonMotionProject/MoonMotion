@@ -156,14 +156,31 @@ public static class RigidbodyExtensions
 
 	// method: (according to the given boolean:) zero the (directional) velocity of this given rigidbody, then return this given rigidbody //
 	public static Rigidbody zeroVelocity(this Rigidbody rigidbody, bool boolean = true)
-		=> rigidbody.setVelocityTo(Vectors.zeroesVector, boolean);
+		=> rigidbody.setVelocityTo(FloatsVector.zeroes, boolean);
 
 	// method: (according to the given boolean:) zero the angulary velocity of this given rigidbody, then return this given rigidbody //
 	public static Rigidbody zeroAngularVelocity(this Rigidbody rigidbody, bool boolean = true)
-		=> rigidbody.setAngularVelocityTo(Vectors.zeroesVector, boolean);
+		=> rigidbody.setAngularVelocityTo(FloatsVector.zeroes, boolean);
 
 	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given rigidbody, then return this given rigidbody //
 	public static Rigidbody zeroVelocities(this Rigidbody rigidbody, bool boolean = true)
-		=> rigidbody.setVelocitiesTo(Vectors.zeroesVector, boolean);
+		=> rigidbody.setVelocitiesTo(FloatsVector.zeroes, boolean);
 	#endregion velocities
+
+
+	#region accelerating
+	// methods: (should be called during FixedUpdate:) (according to the given boolean:) accelerate this given rigidbody by the given acceleration (which should not be a product from multiplication with an update interval), then return this given rigidbody //
+
+	public static Rigidbody accelerateBy(this Rigidbody rigidbody, Vector3 acceleration, bool boolean = true)
+	{
+		if (boolean)
+		{
+			rigidbody.AddForce(acceleration, ForceMode.Acceleration);
+		}
+
+		return rigidbody;
+	}
+	public static Rigidbody accelerateBy(this Rigidbody rigidbody, float accelerationX, float accelerationY, float accelerationZ, bool boolean = true)
+		=> rigidbody.accelerateBy(new Vector3(accelerationX, accelerationY, accelerationZ), boolean);
+	#endregion accelerating
 }

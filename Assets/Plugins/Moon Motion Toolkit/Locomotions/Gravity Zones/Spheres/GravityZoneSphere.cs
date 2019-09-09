@@ -46,18 +46,9 @@ public class GravityZoneSphere : GravityZone
 	}
 	// method: determine the curved attractive force to apply for the given object position //
 	private Vector3 curvedAttractiveForceForPosition(Vector3 objectPosition)
-	{
-		// determine the force of attraction with directionality //
-		Vector3 positionsDifference = (transform.position - objectPosition);
-		Vector3 directionToGravityZone = positionsDifference.normalized;
-		Vector3 attractiveForceInGravityZoneDirection = (attractiveForce * directionToGravityZone);
+		=> objectPosition.directionalAttractionTo(transform, attractiveForce, radiusLength(), attractionCurve);
 
-		// return a calculation of the curved attractive force to apply //
-		float distanceRatio = (Vector3.Distance(objectPosition, transform.position) / radiusLength());
-		return attractionCurve.clamped(attractiveForceInGravityZoneDirection, Vectors.zeroesVector, distanceRatio);
-	}
-	
-	
+
 	// methods for: gravitizing rigidbodies //
 
 	// method: gravitize all rigidbodies inside this gravity zone //

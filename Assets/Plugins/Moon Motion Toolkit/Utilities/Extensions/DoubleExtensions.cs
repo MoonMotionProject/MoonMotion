@@ -163,10 +163,10 @@ public static class DoubleExtensions
 		=> Math.Abs(double_);
 
 	public static double withSign(this double double_, bool booleanForSign)
-		=> (double_.magnitude() * booleanForSign.toInteger());
+		=> (double_.magnitude() * booleanForSign.asSign());
 
 	public static double timesSign(this double double_, bool booleanForSign)
-		=> (double_ * booleanForSign.toInteger());
+		=> (double_ * booleanForSign.asSign());
 	#endregion sign manipulation
 
 

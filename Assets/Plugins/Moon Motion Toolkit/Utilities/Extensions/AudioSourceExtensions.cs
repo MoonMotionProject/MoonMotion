@@ -32,7 +32,7 @@ public static class AudioSourceExtensions
 		=> gameObject.children<AudioSource>().pick(audioSource => audioSource.volume);
 	
 	public static AudioSource setVolumeTo(this AudioSource audioSource, float targetVolume, bool boolean = true)
-		=> audioSource.after(() =>
+		=> audioSource.after(()=>
 			audioSource.volume = targetVolume,
 			boolean);
 	public static IEnumerable<AudioSource> setVolumesTo(this IEnumerable<AudioSource> audioSources, IEnumerable<float> targetVolumes)

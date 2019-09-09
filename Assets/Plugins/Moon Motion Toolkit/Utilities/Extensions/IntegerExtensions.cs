@@ -113,10 +113,10 @@ public static class IntegerExtensions
 		=> Mathf.Abs(integer);
 
 	public static int withSign(this int integer, bool booleanForSign)
-		=> (integer.magnitude() * booleanForSign.toInteger());
+		=> (integer.magnitude() * booleanForSign.asSign());
 
 	public static int timesSign(this int integer, bool booleanForSign)
-		=> (integer * booleanForSign.toInteger());
+		=> (integer * booleanForSign.asSign());
 	#endregion sign manipulation
 
 

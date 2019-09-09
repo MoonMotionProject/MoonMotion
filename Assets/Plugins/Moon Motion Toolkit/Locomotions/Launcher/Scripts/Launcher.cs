@@ -74,10 +74,10 @@ public class Launcher : Locomotion
 			
 			if (layerRecognized)
 			{
-				collidedRigidbody.velocity = Vectors.zeroesVector;
-				collidedRigidbody.angularVelocity = Vectors.zeroesVector;
+				collidedRigidbody.velocity = FloatsVector.zeroes;
+				collidedRigidbody.angularVelocity = FloatsVector.zeroes;
 
-				Vector3 forceDirection = Direction.up.asDirectionVectorRelativeTo(transform);
+				Vector3 forceDirection = BasicDirection.up.asDirectionRelativeTo(transform);
 				Vector3 newVelocity = (launchingForce * forceDirection);
 				collidedRigidbody.velocity = newVelocity;
 

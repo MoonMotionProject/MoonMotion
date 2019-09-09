@@ -223,7 +223,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		// determine the position to raycast from to be the player body's position on x and z but the player's (floor) position on y, adjusted on y by the raise //
 		Vector3 raycastingPosition = (new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z) + (transform.up * raycastingRaise));
 
-		RaycastHit[] raycastHitsFound = Physics.RaycastAll(raycastingPosition, Direction.down.asDirectionVectorRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
+		RaycastHit[] raycastHitsFound = Physics.RaycastAll(raycastingPosition, bodyTransform.down(), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
 		if (Any.itemsIn(raycastHitsFound))
 		{
 			// determine the nearest raycast hit found's: hit distance, hit //
@@ -336,7 +336,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		// determine the position to raycast from to be the player body's position on x and z but the player's (floor) position on y //
 		Vector3 raycastingPosition = new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z);
 
-		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), Direction.down.asDirectionVectorRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
+		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), bodyTransform.down(), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
 		if (Any.itemsIn(raycastHitsFound))
 		{
 			// determine the nearest raycast hit found's: hit distance, hit //

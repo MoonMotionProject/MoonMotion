@@ -38,7 +38,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new Slower slower => automaticBehaviour.slower;
 	public static new FacePlayerCamera facePlayerCamera => automaticBehaviour.facePlayerCamera;
 	public static new Hovering hovering => automaticBehaviour.hovering;
-	public static new Spinning spinning => automaticBehaviour.spinning;
+	public static new BasicSpinning basicSpinning => automaticBehaviour.basicSpinning;
 
 
 	#region Tracking

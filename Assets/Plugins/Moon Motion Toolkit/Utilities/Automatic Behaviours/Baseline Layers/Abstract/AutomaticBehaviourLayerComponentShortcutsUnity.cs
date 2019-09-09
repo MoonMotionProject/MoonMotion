@@ -131,6 +131,16 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	public AutomaticBehaviourT zeroVelocities(bool boolean = true)
 		=> selfAfter(()=> rigidbody.zeroVelocities(boolean));
 	#endregion velocities
+
+	#region accelerating
+	public AutomaticBehaviourT accelerateBy(Vector3 acceleration, bool boolean = true)
+		=> selfAfter(()=> rigidbody.accelerateBy(acceleration, boolean));
+	#endregion accelerating
+
+	#region applying force
+	public AutomaticBehaviourT applyForceOf(Vector3 force, bool boolean = true)
+		=> selfAfter(() => rigidbody.applyForceOf(force, boolean));
+	#endregion applying force
 	#endregion Rigidbody
 
 

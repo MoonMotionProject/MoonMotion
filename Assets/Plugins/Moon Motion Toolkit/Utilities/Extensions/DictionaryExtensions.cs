@@ -71,7 +71,7 @@ public static class DictionaryExtensions
 
 	// method: (according to the given boolean:) record the given key and value as a pair to this given dictionary (if the dictionary doesn't contain it, add it; otherwise, overwrite it), then return the given key and value as a pair //
 	public static KeyValuePair<TKey, TValue> recordGet<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value, bool boolean = true)
-		=> new KeyValuePair<TKey, TValue>(key, value).after(() =>
+		=> new KeyValuePair<TKey, TValue>(key, value).after(()=>
 			dictionary.record(key,
 				value,
 				boolean));

@@ -45,7 +45,7 @@ public static class BooleanExtensions
 	#region conversion
 
 	// method: return the sign integer for this given boolean //
-	public static int toInteger(this bool boolean)
+	public static int asSign(this bool boolean)
 		=> (boolean ? 1 : -1);
 	#endregion conversion
 }

@@ -131,6 +131,16 @@ public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new AutomaticBehaviour<SingletonBehaviourT> zeroVelocities(bool boolean = true)
 		=> automaticBehaviour.zeroVelocities(boolean);
 	#endregion velocities
+
+	#region accelerating
+	public static new AutomaticBehaviour<SingletonBehaviourT> accelerateBy(Vector3 acceleration, bool boolean = true)
+		=> automaticBehaviour.accelerateBy(acceleration, boolean);
+	#endregion accelerating
+
+	#region applying force
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceOf(Vector3 force, bool boolean = true)
+		=> automaticBehaviour.applyForceOf(force, boolean);
+	#endregion applying force
 	#endregion Rigidbody
 
 

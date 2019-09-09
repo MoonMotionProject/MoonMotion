@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-// Hashing Extensions: provides extension methods and related functionality for hashing //
+// Hashing Extensions: provides extension methods and the algorithm for hashing //
 public static class HashingExtensions
 {
 	#region constants
 
 
-	private static MD5 hashingAlgorithm = MD5.Create();
+	private static readonly MD5 hashingAlgorithm = MD5.Create();
 	#endregion constants
 
 

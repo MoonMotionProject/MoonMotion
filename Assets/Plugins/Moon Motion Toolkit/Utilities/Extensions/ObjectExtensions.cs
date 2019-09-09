@@ -140,7 +140,11 @@ public static class ObjectExtensions
 
 
 	#region retrieval
-	
+
+	// method: execute the given function upon this given object and return the function's result //
+	public static TResult pick<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
+		=> function(object_);
+
 	// method: if this given object is yull, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
 	public static TResult pickIfYull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
 		=> object_.isYull() ?

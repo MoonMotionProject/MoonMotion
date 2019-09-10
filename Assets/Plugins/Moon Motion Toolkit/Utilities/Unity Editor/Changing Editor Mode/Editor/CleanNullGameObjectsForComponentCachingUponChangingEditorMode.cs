@@ -5,7 +5,7 @@ using UnityEditor;
 
 // Clean Null Game Objects For Component Caching Upon Changing Editor Mode:
 // • upon changing editor mode, cleans nulls from the dictionary in Component Caching Extensions
-[InitializeOnLoad]      // ensures that this class's constructor is called every time the project recompiles
+[InitializeOnLoad]
 public static class CleanNullGameObjectsForComponentCachingUponChangingEditorMode
 {
 	static CleanNullGameObjectsForComponentCachingUponChangingEditorMode()

@@ -7,7 +7,7 @@ using UnityEngine;
 public static class DirectionalForceExtensions
 {
 	#region calculating directional force
-	// methods: return the directional force with the given or respective tug upon this given provider of a force position, tugged by the given provided forcing position and for the given magnitude, reach, boolean for whether to return zero force outside the reach, and clamping boolean, diminishing magnitude from the given tugging position (until the reach) to zero using the given curve //
+	// methods: return the directional force with the given or respective tug upon this given declared provider of a force position, tugged by the given provided forcing position and for the given magnitude, reach, boolean for whether to return zero force outside the reach, and clamping boolean, diminishing magnitude from the given tugging position (until the reach) to zero using the given curve //
 
 
 	#region calculating directional force with the given tug
@@ -40,8 +40,7 @@ public static class DirectionalForceExtensions
 						reachMagnitudeZeroingCurve,
 						zeroForceOutsideReach,
 						clamp
-					)
-				));
+					)));
 
 	public static Vector3 directionalForceBy(this Component targetComponent, dynamic forcingPosition_PositionProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
 		=> Pass.positionVia(forcingPosition_PositionProvider, new Func<Vector3, Vector3>(forcingPosition =>
@@ -54,8 +53,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 	#endregion calculating directional force with the given tug
 
 
@@ -72,8 +70,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 
 	public static Vector3 directionalAttractionTo(this GameObject targetObject, dynamic forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
 		=> Pass.positionVia(forcingPosition_PositionProvider, new Func<Vector3, Vector3>(forcingPosition =>
@@ -85,8 +82,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 
 	public static Vector3 directionalAttractionTo(this Component targetComponent, dynamic forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
 		=> Pass.positionVia(forcingPosition_PositionProvider, new Func<Vector3, Vector3>(forcingPosition =>
@@ -98,8 +94,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 	#endregion calculating directional attraction
 
 
@@ -116,8 +111,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 
 	public static Vector3 directionalRepulsionFrom(this GameObject targetObject, dynamic forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
 		=> Pass.positionVia(forcingPosition_PositionProvider, new Func<Vector3, Vector3>(forcingPosition =>
@@ -129,8 +123,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 
 	public static Vector3 directionalRepulsionFrom(this Component targetComponent, dynamic forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
 		=> Pass.positionVia(forcingPosition_PositionProvider, new Func<Vector3, Vector3>(forcingPosition =>
@@ -142,8 +135,7 @@ public static class DirectionalForceExtensions
 					   reachMagnitudeZeroingCurve,
 					   zeroForceOutsideReach,
 					   clamp
-				   )
-				));
+				   )));
 	#endregion calculating directional repulsion
 	#endregion calculating directional force
 }

@@ -418,6 +418,10 @@ public static class IEnumerableExtensions
 
 	#region conversion
 
+	// method: return a new enumerable containing only this given item //
+	public static IEnumerable<TItem> startEnumerable<TItem>(this TItem item)
+		=> new TItem[] {item};
+
 	// method: return this given enumerable as an enumerable of its type of item (effectively generalizing it to an enumerable of those items if it was passed as something more specific, such as a list of those items) //
 	public static IEnumerable<TItem> asEnumerable<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable;

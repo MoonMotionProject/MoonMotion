@@ -9,13 +9,18 @@ using UnityEngine;
 public static class Pass
 {
 	#region position
-
-	// method: return the result of the given function for the position via this given dynamo //
+	
 	public static TResult positionVia<TResult>(dynamic dynamo, Func<Vector3, TResult> function)
-	{
-		Vector3 position = Provide.positionVia(dynamo);
-
-		return function(position);
-	}
+		=> function(Provide.positionVia(dynamo));
 	#endregion position
+
+
+	#region Rigidbody
+
+	public static TResult rigidbodyVia<TResult>(dynamic dynamo, Func<Rigidbody, TResult> function)
+		=> function(Provide.rigidbodyVia(dynamo));
+
+	public static TResult rigidbodiesVia<TResult>(dynamic dynamo, Func<IEnumerable<Rigidbody>, TResult> function)
+		=> function(Provide.rigidbodiesVia(dynamo));
+	#endregion Rigidbody
 }

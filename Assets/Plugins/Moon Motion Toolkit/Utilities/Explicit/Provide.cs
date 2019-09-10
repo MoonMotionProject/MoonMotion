@@ -9,8 +9,7 @@ using UnityEngine;
 public static class Provide
 {
 	#region position
-
-	// method: return a position via this given dynamo //
+	
 	public static Vector3 positionVia(dynamic dynamo)
 		=> positionVia_(dynamo);
 
@@ -21,4 +20,34 @@ public static class Provide
 	private static Vector3 positionVia_(GameObject gameObject)
 		=> gameObject.position();
 	#endregion position
+
+
+	#region Rigidbody
+	
+	public static Rigidbody rigidbodyVia(dynamic dynamo)
+		=> rigidbodyVia_(dynamo);
+
+	private static Rigidbody rigidbodyVia_(Rigidbody rigidbody)
+		=> rigidbody;
+	private static Rigidbody rigidbodyVia_(Component component)
+		=> component.rigidbody();
+	private static Rigidbody rigidbodyVia_(GameObject gameObject)
+		=> gameObject.rigidbody();
+
+	public static IEnumerable<Rigidbody> rigidbodiesVia(dynamic dynamo)
+		=> rigidbodiesVia_(dynamo);
+
+	private static IEnumerable<Rigidbody> rigidbodiesVia_(Rigidbody rigidbody)
+		=> rigidbody.startEnumerable();
+	private static IEnumerable<Rigidbody> rigidbodiesVia_(Component component)
+		=> component.rigidbody().startEnumerable();
+	private static IEnumerable<Rigidbody> rigidbodiesVia_(GameObject gameObject)
+		=> gameObject.rigidbody().startEnumerable();
+	private static IEnumerable<Rigidbody> rigidbodiesVia_(IEnumerable<Rigidbody> rigidbodies)
+		=> rigidbodies;
+	private static IEnumerable<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)
+		=> components.rigidbodies();
+	private static IEnumerable<Rigidbody> rigidbodiesVia_(IEnumerable<GameObject> gameObjects)
+		=> gameObjects.rigidbodies();
+	#endregion Rigidbody
 }

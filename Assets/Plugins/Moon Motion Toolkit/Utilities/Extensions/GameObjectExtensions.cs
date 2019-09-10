@@ -249,14 +249,6 @@ public static class GameObjectExtensions
 	#endregion acting
 
 
-	#region attachment
-
-	// method: return the first rigidbody attached to this given game object (null if none found), optionally including inactive rigidbodies according to the given boolean //
-	public static Rigidbody rigidbody(this GameObject gameObject, bool includeInactiveRigidbodies = true)
-		=> gameObject.first<Rigidbody>(includeInactiveRigidbodies);
-	#endregion attachment
-
-
 	#region calling local methods
 
 	// method: if this given game object exists and the given boolean is true: call all of this given game object's mono behaviours' defined methods (ignoring inherited methods that haven't been overriden) with the given name, then return this given game object //

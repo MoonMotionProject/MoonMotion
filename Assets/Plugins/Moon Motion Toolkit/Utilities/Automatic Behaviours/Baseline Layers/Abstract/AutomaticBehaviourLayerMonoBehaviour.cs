@@ -24,4 +24,20 @@ public abstract class	AutomaticBehaviourLayerMonoBehaviour<AutomaticBehaviourT> 
 	public AutomaticBehaviourT planToExecute(string methodName, float delay)
 		=> selfAfter(()=> monoBehaviour.planToExecute(methodName, delay));
 	#endregion planning to execute methods
+
+
+	#region planning to execute functions\actions next frame
+
+	public AutomaticBehaviourT nextFrameExecute(Delegate function, params object[] parameters)
+		=> selfAfter(()=> startCoroutine(nextFrameExecute_Coroutine(function, parameters)));
+	private IEnumerator nextFrameExecute_Coroutine(Delegate function, params object[] parameters)
+	{
+		yield return null;      // skip this frame
+		function.execute(parameters);      // then (by the next frame) execute the given function
+	}
+	public AutomaticBehaviourT nextFrameExecute_(Delegate function, params object[] parameters)
+		=> nextFrameExecute(function, parameters);
+	public AutomaticBehaviourT nextFrameExecute(Action action, params object[] parameters)
+		=> nextFrameExecute_(action, parameters);
+	#endregion planning to execute functions\actions next frame
 }

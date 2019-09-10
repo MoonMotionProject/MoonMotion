@@ -16,4 +16,13 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 	public static new Coroutine startCoroutine(IEnumerator enumerator)
 		=> automaticBehaviour.startCoroutine(enumerator);
 	#endregion coroutines
+
+
+	#region planning to execute functions\actions next frame
+
+	public static new AutomaticBehaviour<SingletonBehaviourT> nextFrameExecute(Delegate function, params object[] parameters)
+		=> automaticBehaviour.nextFrameExecute(function, parameters);
+	public static new AutomaticBehaviour<SingletonBehaviourT> nextFrameExecute(Action action, params object[] parameters)
+		=> automaticBehaviour.nextFrameExecute(action, parameters);
+	#endregion planning to execute functions\actions next frame
 }

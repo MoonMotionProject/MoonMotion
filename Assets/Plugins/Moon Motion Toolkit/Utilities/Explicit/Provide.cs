@@ -8,8 +8,22 @@ using UnityEngine;
 //   · in the current implementation's version of C#, dynamics cannot be the 'this' parameter in extension methods unless the extension method is called upon the static class; thus, this class is used as a cleaner alternative
 public static class Provide
 {
+	#region Transform
+
+	public static Transform transformVia(dynamic dynamo)
+		=> transformVia_(dynamo);
+
+	private static Transform transformVia_(Transform transform)
+		=> transform;
+	private static Transform transformVia_(GameObject gameObject)
+		=> gameObject.transform;
+	private static Transform transformVia_(Component component)
+		=> component.transform;
+	#endregion Transform
+
+
 	#region position
-	
+
 	public static Vector3 positionVia(dynamic dynamo)
 		=> positionVia_(dynamo);
 

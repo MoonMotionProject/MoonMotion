@@ -140,6 +140,38 @@ public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region applying force
 	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceOf(Vector3 force, bool boolean = true)
 		=> automaticBehaviour.applyForceOf(force, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
+		=> automaticBehaviour.applyForceOf(forceX, forceY, forceZ, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyForceAlong(direction, magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyForceAlongLocal(basicDirection, magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyForceAlongGlobal(basicDirection, magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyForwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyBackwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyBackwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyRightwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyRightwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyLeftwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyLeftwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyUpwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyUpwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyDownwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyDownwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalForwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyGlobalForwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyGlobalBackwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyGlobalRightwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyGlobalLeftwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyGlobalUpwardForceOf(magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyGlobalDownwardForceOf(magnitude, boolean);
 	#endregion applying force
 	#endregion Rigidbody
 

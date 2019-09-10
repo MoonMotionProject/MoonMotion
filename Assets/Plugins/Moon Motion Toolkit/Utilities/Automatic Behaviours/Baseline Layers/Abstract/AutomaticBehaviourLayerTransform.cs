@@ -561,28 +561,21 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 
 	#region directions
-
-	// the forward direction relative to this transform //
+	
 	public Vector3 forwardLocal => transform.forward();
-
-	// the backward direction relative to this transform //
+	
 	public Vector3 backwardLocal => transform.backward();
-
-	// the right direction relative to this transform //
+	
 	public Vector3 rightLocal => transform.right();
-
-	// the left direction relative to this transform //
+	
 	public Vector3 leftLocal => transform.left();
-
-	// the up direction relative to this transform //
+	
 	public Vector3 upLocal => transform.up();
-
-	// the down direction relative to this transform //
+	
 	public Vector3 downLocal => transform.down();
-
-	// method: return the direction for the given basic direction relative to this transform //
-	public Vector3 vectorForRelativeDirection(BasicDirection basicDirection)
-		=> transform.vectorForRelativeDirection(basicDirection);
+	
+	public Vector3 relativeDirectionFor(BasicDirection basicDirection)
+		=> transform.relativeDirectionFor(basicDirection);
 	#endregion directions
 
 

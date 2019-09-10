@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Targeted Force Extensions: provides extension methods for handling targeted force //
+// Targeted Force Extensions: provides extension methods for handling targeted force
+// #force
 public static class TargetedForceExtensions
 {
 	#region targetedly forcing

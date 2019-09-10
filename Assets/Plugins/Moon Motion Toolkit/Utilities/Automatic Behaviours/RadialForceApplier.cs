@@ -5,6 +5,7 @@ using NaughtyAttributes;
 
 // RadialForceApplier:
 // • at each physics update, applies radial force
+// #force
 public class RadialForceApplier : AutomaticBehaviour<RadialForceApplier>
 {
 	// variables //

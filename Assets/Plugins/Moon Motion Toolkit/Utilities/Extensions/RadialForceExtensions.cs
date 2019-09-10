@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Radial Force Extensions: provides extension methods for handling radial force //
+// Radial Force Extensions: provides extension methods for handling radial force
+// #force
 public static class RadialForceExtensions
 {
 	#region radially forcing

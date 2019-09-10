@@ -180,38 +180,6 @@ public static class TransformExtensions
 	#endregion advanced rotation
 
 
-	#region directions
-
-	// method: return the vector for the forward direction relative to this given transform //
-	public static Vector3 forward(this Transform transform)
-		=> transform.forward;
-
-	// method: return the vector for the backward direction relative to this given transform //
-	public static Vector3 backward(this Transform transform)
-		=> -transform.forward;
-
-	// method: return the vector for the right direction relative to this given transform //
-	public static Vector3 right(this Transform transform)
-		=> transform.right;
-
-	// method: return the vector for the left direction relative to this given transform //
-	public static Vector3 left(this Transform transform)
-		=> -transform.right;
-
-	// method: return the vector for the up direction relative to this given transform //
-	public static Vector3 up(this Transform transform)
-		=> transform.up;
-
-	// method: return the vector for the down direction relative to this given transform //
-	public static Vector3 down(this Transform transform)
-		=> -transform.up;
-
-	// method: return the direction for the given basic direction as relative to this given transform //
-	public static Vector3 vectorForRelativeDirection(this Transform transform, BasicDirection basicDirection)
-		=> basicDirection.asDirectionRelativeTo(transform);
-	#endregion directions
-
-
 	#region transformation averages
 
 	// method: determine the average of these given transforms' local positions //

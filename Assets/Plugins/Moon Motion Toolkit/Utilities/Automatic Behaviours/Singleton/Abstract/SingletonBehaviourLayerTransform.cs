@@ -458,28 +458,21 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 
 	#region directions
-
-	// method: return the vector for the forward direction relative to this transform //
+	
 	public static new Vector3 forwardLocal => automaticBehaviour.forwardLocal;
-
-	// method: return the vector for the backward direction relative to this transform //
+	
 	public static new Vector3 backwardLocal => automaticBehaviour.backwardLocal;
-
-	// method: return the vector for the right direction relative to this transform //
+	
 	public static new Vector3 rightLocal => automaticBehaviour.rightLocal;
-
-	// method: return the vector for the left direction relative to this transform //
+	
 	public static new Vector3 leftLocal => automaticBehaviour.leftLocal;
-
-	// method: return the vector for the up direction relative to this transform //
+	
 	public static new Vector3 upLocal => automaticBehaviour.upLocal;
-
-	// method: return the vector for the down direction relative to this transform //
+	
 	public static new Vector3 downLocal => automaticBehaviour.downLocal;
-
-	// method: return the vector for the given basic direction relative to this transform //
-	public static new Vector3 vectorForRelativeDirection(BasicDirection basicDirection)
-		=> automaticBehaviour.vectorForRelativeDirection(basicDirection);
+	
+	public static new Vector3 relativeDirectionFor(BasicDirection basicDirection)
+		=> automaticBehaviour.relativeDirectionFor(basicDirection);
 	#endregion directions
 
 

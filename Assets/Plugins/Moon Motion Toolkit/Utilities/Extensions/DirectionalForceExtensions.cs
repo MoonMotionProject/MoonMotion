@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Directional Force Extensions: provides extension methods for handling directional force //
+// Directional Force Extensions: provides extension methods for handling directional force
+// #force
 public static class DirectionalForceExtensions
 {
 	#region calculating directional force

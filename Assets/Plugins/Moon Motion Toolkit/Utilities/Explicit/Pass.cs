@@ -8,8 +8,15 @@ using UnityEngine;
 //   · due to restrictions in the current implementation's version of C#, the function passed to these methods must have its type declared when passed as a lambda; for instance, ~'new Func<Vector3, Vector3>()' with the lambda as usual now put inside those parentheses
 public static class Pass
 {
+	#region Transform
+
+	public static TResult transformVia<TResult>(dynamic dynamo, Func<Transform, TResult> function)
+		=> function(Provide.transformVia(dynamo));
+	#endregion Transform
+
+
 	#region position
-	
+
 	public static TResult positionVia<TResult>(dynamic dynamo, Func<Vector3, TResult> function)
 		=> function(Provide.positionVia(dynamo));
 	#endregion position

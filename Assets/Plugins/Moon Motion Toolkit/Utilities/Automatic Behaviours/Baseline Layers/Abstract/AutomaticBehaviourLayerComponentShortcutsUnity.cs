@@ -139,7 +139,39 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 
 	#region applying force
 	public AutomaticBehaviourT applyForceOf(Vector3 force, bool boolean = true)
-		=> selfAfter(() => rigidbody.applyForceOf(force, boolean));
+		=> selfAfter(()=> rigidbody.applyForceOf(force, boolean));
+	public AutomaticBehaviourT applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceOf(forceX, forceY, forceZ, boolean));
+	public AutomaticBehaviourT applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceAlong(direction, magnitude, boolean));
+	public AutomaticBehaviourT applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceAlongLocal(basicDirection, magnitude, boolean));
+	public AutomaticBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
+	public AutomaticBehaviourT applyForwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyBackwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyBackwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyRightwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyRightwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyLeftwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyLeftwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyUpwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyUpwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyDownwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyDownwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyGlobalForwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyGlobalForwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyGlobalBackwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyGlobalRightwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyGlobalLeftwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyGlobalUpwardForceOf(magnitude, boolean));
+	public AutomaticBehaviourT applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyGlobalDownwardForceOf(magnitude, boolean));
 	#endregion applying force
 	#endregion Rigidbody
 

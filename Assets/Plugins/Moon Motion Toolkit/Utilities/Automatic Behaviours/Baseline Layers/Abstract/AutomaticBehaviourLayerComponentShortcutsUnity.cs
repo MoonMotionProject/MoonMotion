@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // Automatic Behaviour Layer Component Shortcuts Unity:
-// #auto #shortcuts
+// #auto #shortcuts #force
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' Unity components
 public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBehaviourT> :
 					AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehaviourT>
@@ -148,6 +148,8 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 		=> selfAfter(()=> rigidbody.applyForceAlongLocal(basicDirection, magnitude, boolean));
 	public AutomaticBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
+	public AutomaticBehaviourT applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceAlong(basicDirection, distinctivity, magnitude, boolean));
 	public AutomaticBehaviourT applyForwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForwardForceOf(magnitude, boolean));
 	public AutomaticBehaviourT applyBackwardForceOf(float magnitude, bool boolean = true)

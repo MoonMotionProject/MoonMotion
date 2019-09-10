@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
-// #auto #shortcuts #tracking
+// #auto #shortcuts #force
 // • provides this singleton behaviour with static access to its automatic behaviour's Unity component shortcuts layer
 public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerComponentsMoonMotion<SingletonBehaviourT>
@@ -148,6 +148,8 @@ public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> automaticBehaviour.applyForceAlongLocal(basicDirection, magnitude, boolean);
 	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> automaticBehaviour.applyForceAlongGlobal(basicDirection, magnitude, boolean);
+	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
+		=> automaticBehaviour.applyForceAlong(basicDirection, distinctivity, magnitude, boolean);
 	public static new AutomaticBehaviour<SingletonBehaviourT> applyForwardForceOf(float magnitude, bool boolean = true)
 		=> automaticBehaviour.applyForwardForceOf(magnitude, boolean);
 	public static new AutomaticBehaviour<SingletonBehaviourT> applyBackwardForceOf(float magnitude, bool boolean = true)

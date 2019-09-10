@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-// RadialForceApplier:
-// • at each physics update, applies radial force
+// Radial Forcer:
+// • at each physics update, radially forces
 // #force
-public class RadialForceApplier : AutomaticBehaviour<RadialForceApplier>
+[RequireComponent(typeof(Rigidbody))]
+public class RadialForcer : AutomaticBehaviour<RadialForcer>
 {
 	// variables //
 

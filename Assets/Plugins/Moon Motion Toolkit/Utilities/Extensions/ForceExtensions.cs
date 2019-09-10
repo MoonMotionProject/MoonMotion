@@ -21,10 +21,12 @@ public static class ForceExtensions
 
 		return rigidbody;
 	}
+
 	public static GameObject applyForceOf(this GameObject gameObject, Vector3 force, bool boolean = true)
 		=> boolean ?
 				gameObject.rigidbody().applyForceOf(force).gameObject :
 				gameObject;
+
 	public static ComponentT applyForceOf<ComponentT>(this ComponentT component, Vector3 force, bool boolean = true) where ComponentT : Component
 		=> component.after(()=>
 			   component.rigidbody().applyForceOf(force, boolean));
@@ -48,8 +50,10 @@ public static class ForceExtensions
 
 	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, Vector3 direction, float magnitude, bool boolean = true)
 		=> rigidbody.applyForceOf(magnitude * direction, boolean);
+
 	public static GameObject applyForceAlong(this GameObject gameObject, Vector3 direction, float magnitude, bool boolean = true)
 		=> gameObject.applyForceOf(magnitude * direction, boolean);
+
 	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, Vector3 direction, float magnitude, bool boolean = true) where ComponentT : Component
 		=> component.applyForceOf(magnitude * direction, boolean);
 	#endregion given a magnitude and direction
@@ -59,8 +63,10 @@ public static class ForceExtensions
 
 	public static Rigidbody applyForceAlongLocal(this Rigidbody rigidbody, BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> rigidbody.applyForceAlong(basicDirection.asDirectionRelativeTo(rigidbody), magnitude, boolean);
+
 	public static GameObject applyForceAlongLocal(this GameObject gameObject, BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> gameObject.applyForceAlong(basicDirection.asDirectionRelativeTo(gameObject), magnitude, boolean);
+
 	public static ComponentT applyForceAlongLocal<ComponentT>(this ComponentT component, BasicDirection basicDirection, float magnitude, bool boolean = true) where ComponentT : Component
 		=> component.applyForceAlong(basicDirection.asDirectionRelativeTo(component), magnitude, boolean);
 	#endregion given a local basic direction and magnitude
@@ -70,11 +76,26 @@ public static class ForceExtensions
 
 	public static Rigidbody applyForceAlongGlobal(this Rigidbody rigidbody, BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> rigidbody.applyForceAlong(basicDirection.asGlobalDirection(), magnitude, boolean);
+
 	public static GameObject applyForceAlongGlobal(this GameObject gameObject, BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> gameObject.applyForceAlong(basicDirection.asGlobalDirection(), magnitude, boolean);
+
 	public static ComponentT applyForceAlongGlobal<ComponentT>(this ComponentT component, BasicDirection basicDirection, float magnitude, bool boolean = true) where ComponentT : Component
 		=> component.applyForceAlong(basicDirection.asGlobalDirection(), magnitude, boolean);
 	#endregion given a global basic direction and magnitude
+
+
+	#region given a basic direction, distinctivity, and magnitude
+
+	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
+		=> rigidbody.applyForceAlong(basicDirection.asDirection(distinctivity, rigidbody), magnitude, boolean);
+
+	public static GameObject applyForceAlong(this GameObject gameObject, BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
+		=> gameObject.applyForceAlong(basicDirection.asDirection(distinctivity, gameObject), magnitude, boolean);
+
+	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true) where ComponentT : Component
+		=> component.applyForceAlong(basicDirection.asDirection(distinctivity, component), magnitude, boolean);
+	#endregion given a basic direction, distinctivity, and magnitude
 
 
 	#region in the respective basic direction – relative to this given rigidbody provider – given a magnitude

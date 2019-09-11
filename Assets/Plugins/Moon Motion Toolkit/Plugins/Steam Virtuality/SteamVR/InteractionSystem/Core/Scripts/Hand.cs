@@ -167,7 +167,21 @@ namespace Valve.VR.InteractionSystem
 
 				return null;
 			}
+		}/* custom changes by Moon Motion */
+		public void dropAnyAttachedObject()
+		{
+			if (!currentAttachedObject.nameContains("BlankController"))
+			{
+				DetachObject(currentAttachedObject);
+			}
 		}
+		public static Hand left => Controller.left.hand;
+		public static Hand right => Controller.right.hand;
+		public static void dropAnyAttachedObjectsInBothHands()
+		{
+			left.dropAnyAttachedObject();
+			right.dropAnyAttachedObject();
+		}/**/
 
 
 		//-------------------------------------------------

@@ -263,30 +263,6 @@ public static class GameObjectExtensions
 	#endregion calling local methods
 
 
-	#region euler rotation
-
-	// method: (according to the given boolean:) have this given game object rotate by the given (x, y, and z) rotation angles, then return this given game object //
-	public static GameObject rotate(this GameObject gameObject, Vector3 rotationAngles, bool boolean = true)
-		=> gameObject.transform.rotate(rotationAngles, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object rotate by the given x, y, and z rotation angles, then return this given game object //
-	public static GameObject rotate(this GameObject gameObject, float x, float y, float z, bool boolean = true)
-		=> gameObject.transform.rotate(x, y, z, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object rotate by the given x rotation angle, then return this given game object //
-	public static GameObject rotateX(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.transform.rotateX(x, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object rotate by the given y rotation angle, then return this given game object //
-	public static GameObject rotateY(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.transform.rotateY(y, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object rotate by the given z rotation angle, then return this given game object //
-	public static GameObject rotateZ(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.transform.rotateZ(z, boolean).gameObject;
-	#endregion euler rotation
-
-
 	#region conversion
 
 	// method: return the game object idee for this given game object //

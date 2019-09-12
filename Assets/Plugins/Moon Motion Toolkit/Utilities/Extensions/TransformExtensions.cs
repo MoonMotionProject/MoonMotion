@@ -89,44 +89,6 @@ public static class TransformExtensions
 	#endregion calling local methods
 
 
-	#region euler rotation
-
-	// method: (according to the given boolean:) have this given transform rotate by the given (x, y, and z) rotation angles, then return this given transform //
-	public static Transform rotate(this Transform transform, Vector3 rotationAngles, bool boolean = true)
-	{
-		if (boolean)
-		{
-			transform.Rotate(rotationAngles);
-		}
-
-		return transform;
-	}
-
-	// method: (according to the given boolean:) have this given transform rotate by the given x, y, and z rotation angles, then return this given transform //
-	public static Transform rotate(this Transform transform, float x, float y, float z, bool boolean = true)
-	{
-		if (boolean)
-		{
-			transform.Rotate(x, y, z);
-		}
-
-		return transform;
-	}
-
-	// method: (according to the given boolean:) have this given transform rotate by the given x rotation angle, then return this given transform //
-	public static Transform rotateX(this Transform transform, float x, bool boolean = true)
-		=> transform.rotate(FloatsVector.zeroes.withX(x), boolean);
-
-	// method: (according to the given boolean:) have this given transform rotate by the given y rotation angle, then return this given transform //
-	public static Transform rotateY(this Transform transform, float y, bool boolean = true)
-		=> transform.rotate(FloatsVector.zeroes.withY(y), boolean);
-
-	// method: (according to the given boolean:) have this given transform rotate by the given z rotation angle, then return this given transform //
-	public static Transform rotateZ(this Transform transform, float z, bool boolean = true)
-		=> transform.rotate(FloatsVector.zeroes.withZ(z), boolean);
-	#endregion euler rotation
-
-
 	#region transformation averages
 
 	// method: determine the average of these given transforms' local positions //

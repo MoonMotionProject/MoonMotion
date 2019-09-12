@@ -426,42 +426,35 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 
 	#region flipping
-	
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the respective axis, then return this behaviour's transform //
+
 	public static new AutomaticBehaviour<SingletonBehaviourT> flipX(bool boolean = true)
 		=> automaticBehaviour.flipX(boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
+	
 	public static new AutomaticBehaviour<SingletonBehaviourT> flipY(bool boolean = true)
 		=> automaticBehaviour.flipY(boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
+	
 	public static new AutomaticBehaviour<SingletonBehaviourT> flipZ(bool boolean = true)
 		=> automaticBehaviour.flipZ(boolean);
 	#endregion flipping
 
 
 	#region facing
-
-	// method: (according to the given boolean:) have this behaviour's transform face the given target position with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> face(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.face(targetPosition, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform face the given target transform with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> face(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.face(targetTransform, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform face the given target transform with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> face(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.face(targetObject.transform, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform face the given target component's transform with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> face(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.face(targetComponent, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this given transform face the main camera with the specified axes, then return this given transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.faceCamera(withX, withY, withZ, boolean);
+	
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> automaticBehaviour.face(targetPosition, withX, withY, withZ, boolean, upDirection_MaxOf1);
+	
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> automaticBehaviour.face(targetTransform, withX, withY, withZ, boolean, upDirection_MaxOf1);
+	
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> automaticBehaviour.face(targetObject.transform, withX, withY, withZ, boolean, upDirection_MaxOf1);
+	
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> automaticBehaviour.face(targetComponent, withX, withY, withZ, boolean, upDirection_MaxOf1);
+	
+	public static new AutomaticBehaviour<SingletonBehaviourT> faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> automaticBehaviour.faceCamera(withX, withY, withZ, boolean, upDirection_MaxOf1);
 	#endregion facing
 
 

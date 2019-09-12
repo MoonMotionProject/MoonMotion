@@ -265,22 +265,6 @@ public static class GameObjectExtensions
 
 	#region advanced rotation
 
-	// method: (according to the given boolean:) have this given game object look at the given target position, then return this given game object //
-	public static GameObject lookAt(this GameObject gameObject, Vector3 targetPosition, bool boolean = true)
-		=> gameObject.transform.lookAt(targetPosition, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object look at the given target transform, then return this given game object //
-	public static GameObject lookAt(this GameObject gameObject, Transform targetTransform, bool boolean = true)
-		=> gameObject.transform.lookAt(targetTransform, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object look at the given target transform, then return this given game object //
-	public static GameObject lookAt(this GameObject gameObject, GameObject targetObject, bool boolean = true)
-		=> gameObject.transform.lookAt(targetObject, boolean).gameObject;
-
-	// method: (according to the given boolean:) have this given game object look at the main camera, then return this given game object //
-	public static GameObject lookAtCamera(this GameObject gameObject, bool boolean = true)
-		=> gameObject.transform.lookAtCamera(boolean).gameObject;
-
 	// method: (according to the given boolean:) have this given game object rotate by the given (x, y, and z) rotation angles, then return this given game object //
 	public static GameObject rotate(this GameObject gameObject, Vector3 rotationAngles, bool boolean = true)
 		=> gameObject.transform.rotate(rotationAngles, boolean).gameObject;

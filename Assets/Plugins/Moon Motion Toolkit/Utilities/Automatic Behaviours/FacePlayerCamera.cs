@@ -23,7 +23,7 @@ public class FacePlayerCamera : AutomaticBehaviour<FacePlayerCamera>
 	// at each update: //
 	protected virtual void Update()
     {
-        lookAtCamera();
+        faceCamera();
 		flipY(flipYAfterFacing);
 	}
 }

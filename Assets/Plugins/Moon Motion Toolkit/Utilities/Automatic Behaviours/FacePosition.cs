@@ -23,7 +23,7 @@ public class FacePosition : AutomaticBehaviour<FacePosition>
 	
 	// method: face the target object //
 	private void faceTarget()
-		=> lookAt(targetPosition, faceX, faceY, faceZ);
+		=> face(targetPosition, faceX, faceY, faceZ);
 
 
 

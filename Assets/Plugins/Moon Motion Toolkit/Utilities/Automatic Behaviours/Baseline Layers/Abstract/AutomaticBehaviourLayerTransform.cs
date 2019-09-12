@@ -504,27 +504,31 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#endregion transformations
 
 
+	#region facing
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target position with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT face(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(() => transform.face(targetPosition, withX, withY, withZ, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target transform with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT face(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(() => transform.face(targetTransform, withX, withY, withZ, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target transform with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT face(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(() => transform.face(targetObject.transform, withX, withY, withZ, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target component's transform with the specified axes, then return this behaviour's transform //
+	public AutomaticBehaviourT face(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(() => transform.face(targetComponent, withX, withY, withZ, boolean));
+
+	// method: (according to the given boolean:) have this given transform face the main camera with the specified axes, then return this given transform //
+	public AutomaticBehaviourT faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> selfAfter(() => transform.faceCamera(withX, withY, withZ, boolean));
+	#endregion facing
+
+
 	#region advanced rotation
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target position with the specified axes, then return this behaviour's transform //
-	public AutomaticBehaviourT lookAt(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> selfAfter(()=> transform.lookAt(targetPosition, withX, withY, withZ, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
-	public AutomaticBehaviourT lookAt(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> selfAfter(()=> transform.lookAt(targetTransform, withX, withY, withZ, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
-	public AutomaticBehaviourT lookAt(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> selfAfter(()=> transform.lookAt(targetObject.transform, withX, withY, withZ, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target component's transform with the specified axes, then return this behaviour's transform //
-	public AutomaticBehaviourT lookAt(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> selfAfter(()=> transform.lookAt(targetComponent, withX, withY, withZ, boolean));
-
-	// method: (according to the given boolean:) have this given transform look at the main camera with the specified axes, then return this given transform //
-	public AutomaticBehaviourT lookAtCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> selfAfter(()=> transform.lookAtCamera(withX, withY, withZ, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
 	public AutomaticBehaviourT rotate(Vector3 rotationAngles, bool boolean = true)

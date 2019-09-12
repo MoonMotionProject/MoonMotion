@@ -21,7 +21,7 @@ public class FaceObject : AutomaticBehaviour<FaceObject>
 	
 	// method: face the target object //
 	private void faceTarget()
-		=> lookAt(targetObject, faceX, faceY, faceZ);
+		=> face(targetObject, faceX, faceY, faceZ);
 
 
 

@@ -400,28 +400,32 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> automaticBehaviour.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean);
 	#endregion transformations
 
+	
+	#region facing
 
+	// method: (according to the given boolean:) have this behaviour's transform face the given target position with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.face(targetPosition, withX, withY, withZ, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target transform with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.face(targetTransform, withX, withY, withZ, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target transform with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.face(targetObject.transform, withX, withY, withZ, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform face the given target component's transform with the specified axes, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> face(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.face(targetComponent, withX, withY, withZ, boolean);
+
+	// method: (according to the given boolean:) have this given transform face the main camera with the specified axes, then return this given transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
+		=> automaticBehaviour.faceCamera(withX, withY, withZ, boolean);
+	#endregion facing
+
+	
 	#region advanced rotation
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target position with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetPosition, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetTransform, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target transform with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetObject.transform, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform look at the given target component's transform with the specified axes, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> lookAt(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.lookAt(targetComponent, withX, withY, withZ, boolean);
-
-	// method: (according to the given boolean:) have this given transform look at the main camera with the specified axes, then return this given transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> lookAtCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> automaticBehaviour.lookAtCamera(withX, withY, withZ, boolean);
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
 	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(Vector3 rotationAngles, bool boolean = true)

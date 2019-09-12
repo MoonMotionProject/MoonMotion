@@ -91,47 +91,6 @@ public static class TransformExtensions
 
 	#region advanced rotation
 
-	// method: (according to the given boolean:) have this given transform look at the given target position with the specified axes, then return this given transform //
-	public static Transform lookAt(this Transform transform, Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-	{
-		Vector3 initialRotation = transform.localEulerAngles;
-
-		if (boolean)
-		{
-			transform.LookAt(targetPosition);
-			if (!withX)
-			{
-				transform.setLocalEulerAngleXTo(initialRotation.x);
-			}
-			if (!withY)
-			{
-				transform.setLocalEulerAngleYTo(initialRotation.y);
-			}
-			if (!withZ)
-			{
-				transform.setLocalEulerAngleZTo(initialRotation.z);
-			}
-		}
-
-		return transform;
-	}
-
-	// method: (according to the given boolean:) have this given transform look at the given target transform with the specified axes, then return this given transform //
-	public static Transform lookAt(this Transform transform, Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> transform.lookAt(targetTransform.position, boolean);
-
-	// method: (according to the given boolean:) have this given transform look at the given target transform with the specified axes, then return this given transform //
-	public static Transform lookAt(this Transform transform, GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> transform.lookAt(targetObject.transform, boolean);
-
-	// method: (according to the given boolean:) have this given transform look at the given target component's transform with the specified axes, then return this given transform //
-	public static Transform lookAt(this Transform transform, Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> transform.lookAt(targetComponent.transform, boolean);
-
-	// method: (according to the given boolean:) have this given transform look at the main camera with the specified axes, then return this given transform //
-	public static Transform lookAtCamera(this Transform transform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
-		=> transform.lookAt(Camera.main, boolean);
-
 	// method: (according to the given boolean:) have this given transform rotate by the given (x, y, and z) rotation angles, then return this given transform //
 	public static Transform rotate(this Transform transform, Vector3 rotationAngles, bool boolean = true)
 	{

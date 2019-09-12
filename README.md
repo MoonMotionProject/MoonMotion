@@ -43,3 +43,7 @@ So far, Moon Motion is confirmed to work with the [Vive](http://vive.com) as wel
 ## Contributing
 
 Want to share your locomotion with the community? Moon Motion is open source. Feel free to fork the repo and make a pull request!
+
+## Recommended Music
+
+Searching for inspiration? Delve into the universe of sound with [Space Ambient](https://www.youtube.com/channel/UCZ8YN9u9H_tRTi2LTODoXLg) :)

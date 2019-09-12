@@ -400,7 +400,47 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> automaticBehaviour.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean);
 	#endregion transformations
 
+
+	#region euler rotation
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(Vector3 rotationAngles, bool boolean = true)
+		=> automaticBehaviour.rotate(rotationAngles, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(float x, float y, float z, bool boolean = true)
+		=> automaticBehaviour.rotate(x, y, z, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotateX(float x, bool boolean = true)
+		=> automaticBehaviour.rotateZ(x, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotateY(float y, bool boolean = true)
+		=> automaticBehaviour.rotateZ(y, boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> rotateZ(float z, bool boolean = true)
+		=> automaticBehaviour.rotateZ(z, boolean);
+	#endregion euler rotation
+
+
+	#region flipping
 	
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> flipX(bool boolean = true)
+		=> automaticBehaviour.flipX(boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> flipY(bool boolean = true)
+		=> automaticBehaviour.flipY(boolean);
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
+	public static new AutomaticBehaviour<SingletonBehaviourT> flipZ(bool boolean = true)
+		=> automaticBehaviour.flipZ(boolean);
+	#endregion flipping
+
+
 	#region facing
 
 	// method: (according to the given boolean:) have this behaviour's transform face the given target position with the specified axes, then return this behaviour's transform //
@@ -423,42 +463,6 @@ public abstract class SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	public static new AutomaticBehaviour<SingletonBehaviourT> faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 		=> automaticBehaviour.faceCamera(withX, withY, withZ, boolean);
 	#endregion facing
-
-	
-	#region advanced rotation
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(Vector3 rotationAngles, bool boolean = true)
-		=> automaticBehaviour.rotate(rotationAngles, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> rotate(float x, float y, float z, bool boolean = true)
-		=> automaticBehaviour.rotate(x, y, z, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> rotateX(float x, bool boolean = true)
-		=> automaticBehaviour.rotateZ(x, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> rotateY(float y, bool boolean = true)
-		=> automaticBehaviour.rotateZ(y, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> rotateZ(float z, bool boolean = true)
-		=> automaticBehaviour.rotateZ(z, boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> flipX(bool boolean = true)
-		=> automaticBehaviour.flipX(boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> flipY(bool boolean = true)
-		=> automaticBehaviour.flipY(boolean);
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
-	public static new AutomaticBehaviour<SingletonBehaviourT> flipZ(bool boolean = true)
-		=> automaticBehaviour.flipZ(boolean);
-	#endregion advanced rotation
 
 
 	#region directions

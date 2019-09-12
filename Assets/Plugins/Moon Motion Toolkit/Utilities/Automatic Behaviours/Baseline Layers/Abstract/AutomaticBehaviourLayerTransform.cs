@@ -504,6 +504,46 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#endregion transformations
 
 
+	#region euler rotation
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
+	public AutomaticBehaviourT rotate(Vector3 rotationAngles, bool boolean = true)
+		=> selfAfter(() => transform.rotate(rotationAngles, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
+	public AutomaticBehaviourT rotate(float x, float y, float z, bool boolean = true)
+		=> selfAfter(() => transform.rotate(x, y, z, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
+	public AutomaticBehaviourT rotateX(float x, bool boolean = true)
+		=> selfAfter(() => transform.rotateZ(x, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
+	public AutomaticBehaviourT rotateY(float y, bool boolean = true)
+		=> selfAfter(() => transform.rotateZ(y, boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
+	public AutomaticBehaviourT rotateZ(float z, bool boolean = true)
+		=> selfAfter(() => transform.rotateZ(z, boolean));
+	#endregion euler rotation
+
+
+	#region flipping
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
+	public AutomaticBehaviourT flipX(bool boolean = true)
+		=> selfAfter(() => transform.flipX(boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
+	public AutomaticBehaviourT flipY(bool boolean = true)
+		=> selfAfter(() => transform.flipY(boolean));
+
+	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
+	public AutomaticBehaviourT flipZ(bool boolean = true)
+		=> selfAfter(() => transform.flipZ(boolean));
+	#endregion flipping
+
+
 	#region facing
 
 	// method: (according to the given boolean:) have this behaviour's transform face the given target position with the specified axes, then return this behaviour's transform //
@@ -526,42 +566,6 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	public AutomaticBehaviourT faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true)
 		=> selfAfter(() => transform.faceCamera(withX, withY, withZ, boolean));
 	#endregion facing
-
-
-	#region advanced rotation
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
-	public AutomaticBehaviourT rotate(Vector3 rotationAngles, bool boolean = true)
-		=> selfAfter(()=> transform.rotate(rotationAngles, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
-	public AutomaticBehaviourT rotate(float x, float y, float z, bool boolean = true)
-		=> selfAfter(()=> transform.rotate(x, y, z, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
-	public AutomaticBehaviourT rotateX(float x, bool boolean = true)
-		=> selfAfter(()=> transform.rotateZ(x, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
-	public AutomaticBehaviourT rotateY(float y, bool boolean = true)
-		=> selfAfter(()=> transform.rotateZ(y, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
-	public AutomaticBehaviourT rotateZ(float z, bool boolean = true)
-		=> selfAfter(()=> transform.rotateZ(z, boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the x axis, then return this behaviour's transform //
-	public AutomaticBehaviourT flipX(bool boolean = true)
-		=> selfAfter(()=> transform.flipX(boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the y axis, then return this behaviour's transform //
-	public AutomaticBehaviourT flipY(bool boolean = true)
-		=> selfAfter(()=> transform.flipY(boolean));
-
-	// method: (according to the given boolean:) have this behaviour's transform rotate by 180° on the z axis, then return this behaviour's transform //
-	public AutomaticBehaviourT flipZ(bool boolean = true)
-		=> selfAfter(()=> transform.flipZ(boolean));
-	#endregion advanced rotation
 
 
 	#region directions

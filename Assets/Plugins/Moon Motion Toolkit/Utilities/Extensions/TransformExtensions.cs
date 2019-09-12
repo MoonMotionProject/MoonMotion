@@ -89,7 +89,7 @@ public static class TransformExtensions
 	#endregion calling local methods
 
 
-	#region advanced rotation
+	#region euler rotation
 
 	// method: (according to the given boolean:) have this given transform rotate by the given (x, y, and z) rotation angles, then return this given transform //
 	public static Transform rotate(this Transform transform, Vector3 rotationAngles, bool boolean = true)
@@ -124,19 +124,7 @@ public static class TransformExtensions
 	// method: (according to the given boolean:) have this given transform rotate by the given z rotation angle, then return this given transform //
 	public static Transform rotateZ(this Transform transform, float z, bool boolean = true)
 		=> transform.rotate(FloatsVector.zeroes.withZ(z), boolean);
-
-	// method: (according to the given boolean:) have this given transform rotate by 180° on the x axis, then return this given transform //
-	public static Transform flipX(this Transform transform, bool boolean = true)
-		=> transform.rotateX(180f, boolean);
-
-	// method: (according to the given boolean:) have this given transform rotate by 180° on the y axis, then return this given transform //
-	public static Transform flipY(this Transform transform, bool boolean = true)
-		=> transform.rotateY(180f, boolean);
-
-	// method: (according to the given boolean:) have this given transform rotate by 180° on the z axis, then return this given transform //
-	public static Transform flipZ(this Transform transform, bool boolean = true)
-		=> transform.rotateZ(180f, boolean);
-	#endregion advanced rotation
+	#endregion euler rotation
 
 
 	#region transformation averages

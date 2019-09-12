@@ -6,6 +6,18 @@ using UnityEngine;
 // Type Extensions: provides extension methods for handling types //
 public static class TypeExtensions
 {
+	// method: return the class name of this given type //
+	public static string className(this Type type)
+		=> ""+type;		// this is the same as what 'type.FullName' would return
+
+	// method: return the simple class name of this given type //
+	public static string simpleClassName(this Type type)
+		=> type.Name;
+
+	// method: return the asset path of the script asset with this given script asset type (class of a script asset) //
+	public static string assetPath(this Type scriptAssetType)
+		=> Asset.pathForScriptAssetType(scriptAssetType);
+
 	// method: return the static property of this given type with the given name and the specified type //
 	public static PropertyT getStaticProperty<PropertyT>(this Type type, string propertyName)
 		=> (PropertyT) type.GetProperty(propertyName).GetValue(null);

@@ -8,11 +8,23 @@ using UnityEngine;
 // String Extensions: provides extension methods for handling strings //
 public static class StringExtensions
 {
+	#region equality
+
+	// method: return whether this given string is equal to the other given string //
+	public static bool equals(this string string_, string otherString)
+		=> string_.Equals(otherString);
+	#endregion equality
+
+
 	#region handling emptiness, nullness, and onlyness
 
 	// method: return whether this given string is empty //
 	public static bool isEmpty(this string string_)
-		=> string_.Equals("");
+		=> string_.equals("");
+
+	// method: return whether this given string is not empty //
+	public static bool isNotEmpty(this string string_)
+		=> !string_.isEmpty();
 
 	// method: return whether this given string is empty or null //
 	public static bool isEmptyOrNull(this string string_)
@@ -83,18 +95,6 @@ public static class StringExtensions
 	public static bool isAnEmailAddress(this string string_)
 		=> string_.matches(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 	#endregion email
-
-
-	#region printing
-
-	// method: print this given string, then return it //
-	public static string print(this string string_)
-	{
-		MonoBehaviour.print(string_.substituteIfContainsOnlySpaces("{printed an empty string or string of only spaces}"));
-
-		return string_;
-	}
-	#endregion printing
 
 
 	#region reversing

@@ -6,14 +6,6 @@ using UnityEngine;
 // Name Extensions: provides extension methods for handling (game object) names //
 public static class NameExtensions
 {
-	#region printing
-
-	// method: print this given game object's name, then return this given game object's name //
-	public static string printName(this GameObject gameObject)
-		=> gameObject.name.print();
-	#endregion printing
-
-
 	#region listing
 
 	// method: return the string that is the listing of the names corresponding to these given game objects //

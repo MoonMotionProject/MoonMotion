@@ -26,7 +26,7 @@ public static class Callstack
 
 	public static IEnumerable<Attribute> selectAttributesOfAllMethods => selectMethods.selectNested(method => method.GetCustomAttributes());
 
-	public static IEnumerable<string> selectNamesOfAtttributesOfAllMethods => selectAttributesOfAllMethods.select(attribute => attribute.className_ViaReflection());
+	public static IEnumerable<string> selectNamesOfAtttributesOfAllMethods => selectAttributesOfAllMethods.select(attribute => attribute.className());
 
 	public static bool includesMethodNamed(string name)
 		=> selectMethodNames.contains(name);

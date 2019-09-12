@@ -1,11 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 // Mono Behaviour Extensions: provides extension methods for handling mono behaviours //
 // #auto
 public static class MonoBehaviourExtensions
 {
+	#region asset path
+
+	// method: return the asset path of this given mono behaviour's script asset //
+	public static string assetPath(this MonoBehaviour monoBehaviour)
+		=> Asset.pathForMonoBehaviour(monoBehaviour);
+	#endregion asset path
+
+
 	#region coroutines
 
 	// method: have this given mono behaviour have Unity start a coroutine using the given enumerator, then return the started coroutine //
@@ -21,4 +32,12 @@ public static class MonoBehaviourExtensions
 		=> monoBehaviour.after(()=>
 			monoBehaviour.Invoke(methodName, delay));
 	#endregion planning to execute methods
+
+
+	#region conversion
+
+	// method: return this given mono behaviour as a Unity script file //
+	public static MonoScript asScript(this MonoBehaviour monoBehaviour)
+		=> MonoScript.FromMonoBehaviour(monoBehaviour);
+	#endregion conversion
 }

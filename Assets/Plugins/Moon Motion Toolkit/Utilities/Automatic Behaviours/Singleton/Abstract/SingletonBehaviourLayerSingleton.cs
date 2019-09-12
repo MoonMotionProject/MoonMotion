@@ -30,8 +30,6 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	#region names
 
-	public static string staticClassName => singleton.className;
-
 	public static new string nameQuoted => automaticBehaviour.nameQuoted;
 	#endregion names
 
@@ -40,17 +38,17 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	#region printing
 
-	#region printing this automatic behaviour's name
-	public static new string printName()
-		=> automaticBehaviour.printName();
-	#endregion printing this automatic behaviour's name
-
 	#region printing this automatic behaviour
 	public static new SingletonBehaviourT print()
 		=> automaticBehaviour.print();
 	public static new SingletonBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> automaticBehaviour.logAs(prefix, loggingSeparator);
 	#endregion printing this automatic behaviour
+
+	#region printing this automatic behaviour's names
+	public static new SingletonBehaviourT printName()
+		=> automaticBehaviour.printName();
+	#endregion printing this automatic behaviour's names
 	#endregion printing
 	#endregion layer automatic behaviour
 

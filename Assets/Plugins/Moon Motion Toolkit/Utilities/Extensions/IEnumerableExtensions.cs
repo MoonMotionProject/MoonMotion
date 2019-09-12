@@ -14,15 +14,6 @@ public static class IEnumerableExtensions
 	public static IEnumerableCustomT copy<IEnumerableCustomT, TItem>(this IEnumerableCustomT enumerable) where IEnumerableCustomT : IEnumerableCustom<TItem>, new()
 		=> new IEnumerableT(enumerable);
 	#endregion copying*/
-	
-	
-	#region printing
-	
-	// method: print the string listing of this given enumerable, using the given separator string (comma by default), then return this given enumerable //
-	public static IEnumerable<TItem> printListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
-		=>	enumerable.after(()=>
-				enumerable.asListing(separator).print());
-	#endregion printing
 
 
 	#region listing
@@ -58,6 +49,10 @@ public static class IEnumerableExtensions
 	// method: return whether this given enumerable has any items for which the given function returns true //
 	public static bool hasAny<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
 		=> enumerable.Any(function);
+
+	// method: return whether this given enumerable has exactly one item //
+	public static bool hasExactlyOne<TItem>(this IEnumerable<TItem> enumerable)
+		=> (enumerable.count() == 1);
 
 	// method: return whether this given enumerable has more than one item //
 	public static bool isPlural<TItem>(this IEnumerable<TItem> enumerable)

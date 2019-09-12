@@ -34,9 +34,21 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 
 
 
+	#region asset path
+
+	public static string assetPath => typeof(AutomaticBehaviourT).assetPath();
+	#endregion asset path
+
+
+
+	
 	#region names
 
-	public string className => GetType().FullName;
+	public static Type type => typeof(AutomaticBehaviourT);
+
+	public static string className => type.className();
+
+	public static string simpleClassName => type.simpleClassName();
 
 	public string nameQuoted => gameObject.nameQuoted();
 	#endregion names
@@ -46,21 +58,17 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 
 	#region printing
 
-	#region printing this automatic behaviour's name
-	public string printClassName()
-		=> className.print();
-	public string printName()
-		=> gameObject.printName();
-	#endregion printing this automatic behaviour's name
-
 	#region printing what is given
 	public static ObjectT print<ObjectT>(ObjectT object_)
 		=> object_.print();
-	public static IEnumerable<TItem> printListingOf<TItem>(IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
-		=> enumerable.printListing();
 	public static ObjectT log<ObjectT>(ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> object_.logAs(prefix, loggingSeparator);
 	#endregion printing what is given
+
+	#region printing listings
+	public static IEnumerable<TItem> printListingOf<TItem>(IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
+		=> enumerable.printListing();
+	#endregion printing listings
 
 	#region printing this automatic behaviour
 	public AutomaticBehaviourT print()
@@ -68,6 +76,23 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 	public AutomaticBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> automaticBehaviour.logAs<AutomaticBehaviourT>(prefix, loggingSeparator);
 	#endregion printing this automatic behaviour
+
+	#region printing this automatic behaviour's asset path
+	public static string printAssetPath()
+		=> print(assetPath);
+	#endregion printing this automatic behaviour's asset path
+
+	#region printing this automatic behaviour's class names
+	public static string printClassName()
+		=> print(className);
+	public static string printSimpleClassName()
+		=> print(simpleClassName);
+	#endregion printing this automatic behaviour's class names
+
+	#region printing this automatic behaviour's (game object) name
+	public AutomaticBehaviourT printName()
+		=> selfAfter(()=> gameObject.printName());
+	#endregion printing this automatic behaviour's (game object) name
 	#endregion printing
 
 

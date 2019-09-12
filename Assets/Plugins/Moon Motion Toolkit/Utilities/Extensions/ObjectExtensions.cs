@@ -22,30 +22,20 @@ public static class ObjectExtensions
 
 
 
-	#region reflection
+	#region class
 
 	// method: return the type of this given object //
-	public static Type type_ViaReflection<ObjectT>(this ObjectT object_)
-		=> object_.GetType();
+	public static Type type<ObjectT>(this ObjectT object_)
+		=> typeof(ObjectT);
 
 	// method: return the class name of this given object //
-	public static string className_ViaReflection<ObjectT>(this ObjectT object_)
-		=> object_.type_ViaReflection().Name;
-	#endregion reflection
+	public static string className<ObjectT>(this ObjectT object_)
+		=> object_.type().className();
 
-
-	#region printing what is given
-
-	// method: print this given object, then return it //
-	public static ObjectT print<ObjectT>(this ObjectT object_)
-		=> object_.after(()=>
-			object_.ToString().print());
-
-	// method: print this given object, logged as following the given prefix and using the given logging separator, then return this given object //
-	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> object_.after(()=>
-			(prefix+loggingSeparator+object_.ToString()).print());
-	#endregion printing what is given
+	// method: return the simple class name of this given object //
+	public static string simpleClassName<ObjectT>(this ObjectT object_)
+		=> object_.type().simpleClassName();
+	#endregion class
 
 
 	#region determining content

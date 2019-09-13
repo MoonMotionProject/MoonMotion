@@ -127,8 +127,14 @@ public static class StringExtensions
 	public static string trimmedToLength(this string string_, int targetLength)
 		=> string_.Substring(0, targetLength);
 
+	public static string without(this string string_, string stringTemplateToRemove)
+		=> string_.Replace(stringTemplateToRemove, "");
+
+	public static string withoutSpaces(this string string_)
+		=> string_.without(" ");
+
 	public static string withoutHyphens(this string string_)
-		=> string_.Replace("-", "");
+		=> string_.without("-");
 	#endregion removing characters
 
 

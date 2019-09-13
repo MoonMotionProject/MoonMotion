@@ -28,7 +28,7 @@ public static class MonoBehaviourExtensions
 	#region planning to execute methods
 
 	// method: plan to execute the method on this given mono behaviour with the given name after the given delay, then return this given mono behaviour //
-	public static MonoBehaviour planToExecute(this MonoBehaviour monoBehaviour, string methodName, float delay)
+	public static MonoBehaviour planToExecuteAfter(this MonoBehaviour monoBehaviour, float delay, string methodName)
 		=> monoBehaviour.after(()=>
 			monoBehaviour.Invoke(methodName, delay));
 	#endregion planning to execute methods

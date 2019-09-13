@@ -21,19 +21,33 @@ public abstract class	AutomaticBehaviourLayerMonoBehaviour<AutomaticBehaviourT> 
 	#region planning to execute methods
 
 	// method: plan to execute the method on this mono behaviour with the given name after the given delay, then return this (derived automatic) behaviour //
-	public AutomaticBehaviourT planToExecute(string methodName, float delay)
-		=> selfAfter(()=> monoBehaviour.planToExecute(methodName, delay));
+	public AutomaticBehaviourT planToExecuteAfter(float delay, string methodName)
+		=> selfAfter(()=> monoBehaviour.planToExecuteAfter(delay, methodName));
+
+	// methods: plan to execute the given function with the given parameters after the given delay, then return this (derived automatic) behaviour //
+	public AutomaticBehaviourT planToExecuteAfter(float delay, Delegate function, params object[] parameters)
+		=> selfAfter(()=> startCoroutine(planToExecuteAfter_Coroutine(delay, function, parameters)));
+	private IEnumerator planToExecuteAfter_Coroutine(float delay, Delegate function, params object[] parameters)
+	{
+		yield return new WaitForSeconds(delay);      // wait the delay
+		function.execute(parameters);      // then (after the delay) execute the given function with the given parameters
+	}
+	public AutomaticBehaviourT planToExecuteAfter_(float delay, Delegate function, params object[] parameters)
+		=> planToExecuteAfter(delay, function, parameters);
+	public AutomaticBehaviourT planToExecuteAfter(float delay, Action action, params object[] parameters)
+		=> planToExecuteAfter_(delay, action, parameters);
 	#endregion planning to execute methods
 
 
 	#region planning to execute functions\actions next frame
 
+	// methods: plan to execute the given function with the given parameters sometime next frame, then return this (derived automatic) behaviour //
 	public AutomaticBehaviourT nextFrameExecute(Delegate function, params object[] parameters)
 		=> selfAfter(()=> startCoroutine(nextFrameExecute_Coroutine(function, parameters)));
 	private IEnumerator nextFrameExecute_Coroutine(Delegate function, params object[] parameters)
 	{
 		yield return null;      // skip this frame
-		function.execute(parameters);      // then (by the next frame) execute the given function
+		function.execute(parameters);      // then (by the next frame) execute the given function with the given parameters
 	}
 	public AutomaticBehaviourT nextFrameExecute_(Delegate function, params object[] parameters)
 		=> nextFrameExecute(function, parameters);

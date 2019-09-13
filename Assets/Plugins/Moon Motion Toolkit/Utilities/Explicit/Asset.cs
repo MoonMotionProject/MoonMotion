@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -64,10 +65,11 @@ public static class Asset
 	// method: return the asset path of the script asset with the given script asset type (class of a script asset) //
 	public static string pathForScriptAssetType(Type scriptAssetType)
 		=> pathForSimpleClassName(scriptAssetType.simpleClassName());
-
+	
 	// method: return the asset path of the given mono behaviour's script asset //
 	public static string pathForMonoBehaviour(MonoBehaviour monoBehaviour)
 		=> AssetDatabase.GetAssetPath(monoBehaviour.asScript());
 	#endregion to asset paths
 	#endregion conversion
 }
+#endif

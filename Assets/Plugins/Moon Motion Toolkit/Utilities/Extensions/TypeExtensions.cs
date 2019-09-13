@@ -14,9 +14,11 @@ public static class TypeExtensions
 	public static string simpleClassName(this Type type)
 		=> type.Name;
 
+	#if UNITY_EDITOR
 	// method: return the asset path of the script asset with this given script asset type (class of a script asset) //
 	public static string assetPath(this Type scriptAssetType)
 		=> Asset.pathForScriptAssetType(scriptAssetType);
+	#endif
 
 	// method: return the static property of this given type with the given name and the specified type //
 	public static PropertyT getStaticProperty<PropertyT>(this Type type, string propertyName)

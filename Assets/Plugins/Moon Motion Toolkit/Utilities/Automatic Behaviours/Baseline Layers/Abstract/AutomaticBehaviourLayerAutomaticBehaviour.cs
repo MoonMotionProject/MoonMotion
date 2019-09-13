@@ -34,10 +34,12 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 
 
 
+	#if UNITY_EDITOR
 	#region asset path
 
 	public static string assetPath => typeof(AutomaticBehaviourT).assetPath();
 	#endregion asset path
+	#endif
 
 
 
@@ -77,10 +79,12 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 		=> automaticBehaviour.logAs<AutomaticBehaviourT>(prefix, loggingSeparator);
 	#endregion printing this automatic behaviour
 
+	#if UNITY_EDITOR
 	#region printing this automatic behaviour's asset path
 	public static string printAssetPath()
 		=> print(assetPath);
 	#endregion printing this automatic behaviour's asset path
+	#endif
 
 	#region printing this automatic behaviour's class names
 	public static string printClassName()

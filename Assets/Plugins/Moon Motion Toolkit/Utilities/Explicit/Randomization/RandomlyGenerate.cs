@@ -38,9 +38,13 @@ public static class RandomlyGenerate
 	public static Vector3 within(Vector3 vectorFirst, Vector3 vectorSecond)
 		=> new Vector3
 		(
-			Random.Range(vectorFirst.x, vectorSecond.x),
-			Random.Range(vectorFirst.y, vectorSecond.y),
-			Random.Range(vectorFirst.z, vectorSecond.z)
+			within(vectorFirst.x, vectorSecond.x),
+			within(vectorFirst.y, vectorSecond.y),
+			within(vectorFirst.z, vectorSecond.z)
 		);
+
+	// method: generate a random vector in the range within the two vectors given by the two given axes values //
+	public static Vector3 vectorWithin(float vectorAxesValueFirst, float vectorAxesValueSecond)
+		=> within(vectorAxesValueFirst, vectorAxesValueSecond).asVector();
 	#endregion randomly generating within a given range
 }

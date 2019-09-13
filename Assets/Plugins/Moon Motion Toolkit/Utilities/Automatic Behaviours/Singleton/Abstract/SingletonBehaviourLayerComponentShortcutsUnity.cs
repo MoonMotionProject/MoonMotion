@@ -40,6 +40,8 @@ public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> automaticBehaviour.setColorTo(targetColor);
 	public static new AutomaticBehaviour<SingletonBehaviourT> setChildrenColorTo(Color targetColor)
 		=> automaticBehaviour.setChildrenColorTo(targetColor);
+	public static new AutomaticBehaviour<SingletonBehaviourT> randomizeColor()
+		=> automaticBehaviour.randomizeColor();
 	public static new AutomaticBehaviour<SingletonBehaviourT> setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
 		=> automaticBehaviour.setChildrenEmissionColorTo(targetColor, boolean);
 	#endregion color

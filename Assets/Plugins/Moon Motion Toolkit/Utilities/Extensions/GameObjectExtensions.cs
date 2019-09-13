@@ -95,39 +95,32 @@ public static class GameObjectExtensions
 
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the given transform, then return the created game object //
 	public static GameObject createAsChildObjectOf(this GameObject template, Transform parent)
-		=> template.create().setParentTo(parent);
-
+		=> template.create().setParentTo(parent).resetLocalPosition();
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the given game object, then return the created game object //
 	public static GameObject createAsChildObjectOf(this GameObject template, GameObject parentObject)
-		=> template.create().setParentTo(parentObject);
-
+		=> template.createAsChildObjectOf(parentObject.transform);
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the transform of the given component, then return the created game object //
 	public static GameObject createAsChildObjectOf(this GameObject template, Component parentComponent)
-		=> template.create().setParentTo(parentComponent);
-
+		=> template.createAsChildObjectOf(parentComponent.transform);
 	// method: create an instance of this given object template (object instance or prefab), as a child object of the transform of the specified singleton behaviour class, then return the created game object //
 	public static GameObject createAsChildObjectOf<SingletonBehaviourT>(this GameObject template) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> template.create().setParentTo<SingletonBehaviourT>();
+		=> template.createAsChildObjectOf(SingletonBehaviour<SingletonBehaviourT>.transform);
 
 	// method: create an instance of the given object template (object instance or prefab), as a child object of this given transform, with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject createChildObject(this Transform parent, GameObject template, string name = "")
 		=> template.createAsChildObjectOf(parent)
 			.setNameTo(name.substituteIfEmpty(template.name));
-
 	// method: create an instance of the given object template (object instance or prefab), as a child object of this given game object, with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject createChildObject(this GameObject parentObject, GameObject template, string name = "")
-		=> template.createAsChildObjectOf(parentObject)
-			.setNameTo(name.substituteIfEmpty(template.name));
-
+		=> parentObject.transform.createChildObject(template, name);
 	// method: create an instance of the given object template (object instance or prefab), as a child object of the transform of this given component, with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject createChildObject(this Component parentComponent, GameObject template, string name = "")
-		=> template.createAsChildObjectOf(parentComponent)
-			.setNameTo(name.substituteIfEmpty(template.name));
+		=> parentComponent.transform.createChildObject(template, name);
 	#endregion creating templated game objects
 
 
 	#region hierarchy selection
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 
 	// method: return whether this given game object is currently selected //
 	public static bool selected(this GameObject gameObject)

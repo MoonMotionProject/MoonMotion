@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -25,3 +26,4 @@ public static class AssetFile
 		=> titleForAssetPath(Asset.pathForAssetIdee(assetIdee));
 	#endregion conversion
 }
+#endif

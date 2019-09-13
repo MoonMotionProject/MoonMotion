@@ -13,6 +13,14 @@ public static class Default
 	public const Tug tug = Tug.attraction;
 	#endregion miscellaneous
 
+	#region time
+	public const float interval = 1f;
+	#endregion time
+
+	#region direction
+	public static readonly BasicDirection basicDirection = BasicDirection.forward;
+	#endregion direction
+
 	#region force
 	public const float forceMagnitude = 10f;
 	public const float forceReach = float.MaxValue;

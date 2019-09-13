@@ -40,6 +40,8 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 		=> selfAfter(()=> material.setColorTo(targetColor));
 	public AutomaticBehaviourT setChildrenColorTo(Color targetColor)
 		=> selfAfter(()=> gameObject.setChildrenColorTo(targetColor));
+	public AutomaticBehaviourT randomizeColor()
+		=> selfAfter(()=> material.randomizeColor());
 	public AutomaticBehaviourT setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
 		=> selfAfter(()=> gameObject.setChildrenEmissionColorTo(targetColor, boolean));
 	#endregion color

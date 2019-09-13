@@ -34,8 +34,9 @@ public static class PrintingExtensions
 	#endregion printing listings
 
 
+	#if UNITY_EDITOR
 	#region printing asset paths
-
+	
 	// method: print the asset path of the script asset with this given script asset type (class of a script asset), then return this given script asset type //
 	public static Type printAssetPath(this Type scriptAssetType)
 		=> scriptAssetType.after(()=>
@@ -46,6 +47,7 @@ public static class PrintingExtensions
 		=> monoBehaviour.after(()=>
 				print(monoBehaviour.assetPath()));
 	#endregion printing asset paths
+	#endif
 
 
 	#region printing class names

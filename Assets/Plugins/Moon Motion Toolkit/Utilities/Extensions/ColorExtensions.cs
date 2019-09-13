@@ -15,22 +15,32 @@ public static class ColorExtensions
 	public static Renderer setColorTo(this Renderer renderer, Color targetColor)
 		=> renderer.after(()=>
 			renderer.material.setColorTo(targetColor));
-	// method: set the color of these given renderers' materials to the given target color, then return an enumerable of these given renderers //
-	public static IEnumerable<Renderer> setColorTo(this IEnumerable<Renderer> renderers, Color targetColor)
-		=> renderers.forEach(renderer => renderer.setColorTo(targetColor));
 	// method: set the color of this given component's renderer's material to the given target color, then return this given component //
 	public static Component setColorTo(this Component component, Color targetColor)
-		=> component.after(()=>
+		=> component.after(() =>
 			component.first<Renderer>().setColorTo(targetColor));
 	// method: set the color of this given game object's renderer's material to the given target color, then return this given game object //
 	public static GameObject setColorTo(this GameObject gameObject, Color targetColor)
-		=> gameObject.after(()=>
+		=> gameObject.after(() =>
 			gameObject.transform.setColorTo(targetColor));
+
+	// method: set the color of these given renderers' materials to the given target color, then return an enumerable of these given renderers //
+	public static IEnumerable<Renderer> setColorTo(this IEnumerable<Renderer> renderers, Color targetColor)
+		=> renderers.forEach(renderer => renderer.setColorTo(targetColor));
+
 	// method: set the color of this given game object's child renderers' to the given target color, then return this given game object //
 	public static GameObject setChildrenColorTo(this GameObject gameObject, Color targetColor)
 		=> gameObject.after(()=>
 			gameObject.children<Renderer>().setColorTo(targetColor));
 	#endregion setting color
+	
+
+	#region randomizing color
+
+	// method: set the color of this given material to a random color, then return this given material //
+	public static Material randomizeColor(this Material material)
+		=> material.setColorTo(SomeRandom.color);
+	#endregion randomizing color
 
 
 	#region setting a given color variable by name

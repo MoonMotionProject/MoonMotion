@@ -17,7 +17,7 @@ public class IntervaledSpawner : EnabledsBehaviour<IntervaledSpawner>
 	public GameObject template;
 	
 	[Tooltip("the delay to wait between spawnings")]
-	public float interval = 1f;
+	public float interval = Default.interval;
 	
 	[Tooltip("whether to wait the interval before the first spawn (at the start)")]
 	public bool intervalBeforeFirstSpawn = false;
@@ -28,9 +28,9 @@ public class IntervaledSpawner : EnabledsBehaviour<IntervaledSpawner>
 	// methods //
 
 	
-	// method: spawn the set template //
+	// method: spawn the set template, then return the spawned object //
 	[ContextMenu("Spawn")]
-	public void spawn()
+	public virtual GameObject spawn()
 		=> createChildObject(template);
 
 	// method: plan to call 'spawnAndPlanToRepeat' after the interval //

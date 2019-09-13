@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -37,6 +38,10 @@ public static class StringExtensions
 	// method: if this given string is null, return an empty string; otherwise, return this given string //
 	public static string emptyIfNull(this string string_)
 		=> string_.isNull() ? "" : string_;
+
+	// method: return this given string represented as a string such that if it is null then "null" is returned (otherwise the given string is returned) //
+	public static string withNullRepresented(this string string_)
+		=> string_ ?? "null";
 
 	// method: return this given string with a newline prefix if it is not empty nor null //
 	public static string withPotentialPrefixedNewline(this string string_)
@@ -199,12 +204,18 @@ public static class StringExtensions
 	#endregion surrounding
 
 
-	#region representation
+	#region file writing
 
-	// method: return this given string represented as a string such that if it is null then "null" is returned (otherwise the given string is returned) //
-	public static string withNullRepresented(this string string_)
-		=> string_ ?? "null";
-	#endregion representation
+	// method: write this given string to the given path, then return this given string //
+	public static void writeTo(this string string_, string path)
+	{
+		StreamWriter streamWriter = new StreamWriter(path);
+		streamWriter.Write(string_);
+		streamWriter.Flush();
+		streamWriter.Close();
+		streamWriter.Dispose();
+	}
+	#endregion file writing
 
 
 	#region conversion

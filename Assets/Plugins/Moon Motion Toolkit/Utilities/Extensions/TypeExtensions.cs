@@ -29,4 +29,12 @@ public static class TypeExtensions
 	// method: return whether this given type is assignable from the other given type //
 	public static bool isAssignableFrom(this Type type, Type otherType)
 		=> type.isYull() && type.IsAssignableFrom(otherType);
+
+	// method: return the base type of this given type //
+	public static Type baseType(this Type type)
+		=> type.BaseType;
+
+	// method: return whether this given type has a base type (other than 'object') //
+	public static bool hasABaseType(this Type type)
+		=> (type.baseType() != typeof(object));
 }

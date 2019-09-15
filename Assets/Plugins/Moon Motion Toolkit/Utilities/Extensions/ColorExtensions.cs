@@ -17,11 +17,11 @@ public static class ColorExtensions
 			renderer.material.setColorTo(targetColor));
 	// method: set the color of this given component's renderer's material to the given target color, then return this given component //
 	public static Component setColorTo(this Component component, Color targetColor)
-		=> component.after(() =>
+		=> component.after(()=>
 			component.first<Renderer>().setColorTo(targetColor));
 	// method: set the color of this given game object's renderer's material to the given target color, then return this given game object //
 	public static GameObject setColorTo(this GameObject gameObject, Color targetColor)
-		=> gameObject.after(() =>
+		=> gameObject.after(()=>
 			gameObject.transform.setColorTo(targetColor));
 
 	// method: set the color of these given renderers' materials to the given target color, then return an enumerable of these given renderers //

@@ -8,7 +8,7 @@ using Valve.VR.InteractionSystem;
 // #auto
 // • provides this behaviour with automatically-connected properties to its game object's Unity components and typical state of (and so on) those components
 public abstract class	AutomaticBehaviourLayerComponentsUnity<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerMonoBehaviour<AutomaticBehaviourT>
+					AutomaticBehaviourLayerCachedComponents<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
 	public new Renderer renderer => cache<Renderer>();

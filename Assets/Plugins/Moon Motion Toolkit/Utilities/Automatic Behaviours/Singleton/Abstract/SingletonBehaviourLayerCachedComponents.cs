@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • provides this singleton behaviour with static access to its automatic behaviour's cached components layer
 public abstract class	SingletonBehaviourLayerCachedComponents<SingletonBehaviourT> :
-					SingletonBehaviourLayerSingleton<SingletonBehaviourT>
+					SingletonBehaviourLayerAttributeDetection<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	// methods //

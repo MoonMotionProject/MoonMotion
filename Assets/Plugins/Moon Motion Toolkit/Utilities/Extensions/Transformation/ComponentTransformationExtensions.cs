@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Component Transformation Extensions: provides extension methods for handling component transformations //
+// Component Transformation Extensions: provides extension methods for handling component transformations
+// #auto #transform #transformations
 public static class ComponentTransformationExtensions
 {
 	// method: return the local position of the transform of this given component //
@@ -439,10 +440,16 @@ public static class ComponentTransformationExtensions
 	// method: return the (global) position of the transform of this given component //
 	public static Vector3 position<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.position;
-	// method: (assumes this component has a rigidbody attached:) (according to the given boolean:) move this given component's position to the given position (try to set it, but respect collisions in the way), then return this given component //
+	// method: (assumes this component has a rigidbody attached:) (according to the given boolean:) move this given component's (global) position to the given position provider (try to set, but respect collisions in the way), then return this given component //
 	public static ComponentT movePositionTo<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
 		=> component.after(()=>
 			component.rigidbody().movePositionTo(position, boolean));
+	public static ComponentT movePositionTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.movePositionTo(transform.position, boolean);
+	public static ComponentT movePositionTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.movePositionTo(gameObject.position(), boolean);
+	public static ComponentT movePositionTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.movePositionTo(otherComponent.position(), boolean);
 	// method: (according to the given boolean:) set the (global) position for the transform of this given component to the given (global) position, then return this given component //
 	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
 	{
@@ -476,13 +483,20 @@ public static class ComponentTransformationExtensions
 	// method: return the (global) x position of the transform of this given component //
 	public static float positionX<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.positionX();
+	// methods: (assumes this component has a rigidbody attached:) (according to the given boolean:) move this given component's (global) x position to the given x position provider (try to set, but respect collisions in the way), then return this given component //
+	public static ComponentT movePositionXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.rigidbody().movePositionXTo(x, boolean));
+	public static ComponentT movePositionXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.movePositionXTo(transform.position.x, boolean);
+	public static ComponentT movePositionXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.movePositionXTo(gameObject.position().x, boolean);
+	public static ComponentT movePositionXTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.movePositionXTo(otherComponent.position().x, boolean);
 	// method: (according to the given boolean:) set the (global) x position for the transform of this given component to the given x value, then return this given component //
 	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, float x, bool boolean = true) where ComponentT : Component
-	{
-		component.transform.setPositionXTo(x, boolean);
-
-		return component;
-	}
+		=> component.after(()=>
+			component.transform.setPositionXTo(x, boolean));
 	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
 		=> component.setPositionXTo(transform.positionX(), boolean);
 	public static ComponentT setPositionXTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
@@ -502,6 +516,16 @@ public static class ComponentTransformationExtensions
 	// method: return the (global) y position of the transform of this given component //
 	public static float positionY<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.positionY();
+	// methods: (assumes this component has a rigidbody attached:) (according to the given boolean:) move this given component's (global) y position to the given y position provider (try to set, but respect collisions in the way), then return this given component //
+	public static ComponentT movePositionYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.rigidbody().movePositionYTo(y, boolean));
+	public static ComponentT movePositionYTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.movePositionYTo(transform.position.y, boolean);
+	public static ComponentT movePositionYTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.movePositionYTo(gameObject.position().y, boolean);
+	public static ComponentT movePositionYTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.movePositionYTo(otherComponent.position().y, boolean);
 	// method: (according to the given boolean:) set the (global) y position for the transform of this given component to the given y value, then return this given component //
 	public static ComponentT setPositionYTo<ComponentT>(this ComponentT component, float y, bool boolean = true) where ComponentT : Component
 	{
@@ -535,6 +559,16 @@ public static class ComponentTransformationExtensions
 	// method: return the (global) z position of the transform of this given component //
 	public static float positionZ<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.positionZ();
+	// methods: (assumes this component has a rigidbody attached:) (according to the given boolean:) move this given component's (global) z position to the given z position provider (try to set, but respect collisions in the way), then return this given component //
+	public static ComponentT movePositionZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.rigidbody().movePositionZTo(z, boolean));
+	public static ComponentT movePositionZTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.movePositionZTo(transform.position.z, boolean);
+	public static ComponentT movePositionZTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.movePositionZTo(gameObject.position().z, boolean);
+	public static ComponentT movePositionZTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.movePositionZTo(otherComponent.position().z, boolean);
 	// method: (according to the given boolean:) set the (global) z position for the transform of this given component to the given z value, then return this given component //
 	public static ComponentT setPositionZTo<ComponentT>(this ComponentT component, float z, bool boolean = true) where ComponentT : Component
 	{

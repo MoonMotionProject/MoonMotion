@@ -10,17 +10,17 @@ public static class PrintingExtensions
 
 	// method: print this given string, then return it //
 	public static string print(this string string_)
-		=> string_.after(() =>
+		=> string_.after(()=>
 			   MonoBehaviour.print(string_.substituteIfContainsOnlySpaces("{printed an empty string or string of only spaces}")));
 
 	// method: print this given object, then return it //
 	public static ObjectT print<ObjectT>(this ObjectT object_)
-		=> object_.after(() =>
+		=> object_.after(()=>
 			object_.ToString().print());
 
 	// method: print this given object, logged as following the given prefix and using the given logging separator, then return this given object //
 	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> object_.after(() =>
+		=> object_.after(()=>
 			(prefix+loggingSeparator+object_.ToString()).print());
 	#endregion printing what is given
 

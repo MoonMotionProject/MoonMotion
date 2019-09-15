@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto #gameobject
 // • provides this behaviour with properties and methods for its game object
 public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerAttributeDetection<AutomaticBehaviourT>
+					AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
 	#region creating fresh game objects

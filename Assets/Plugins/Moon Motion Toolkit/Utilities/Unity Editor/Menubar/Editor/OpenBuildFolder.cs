@@ -8,5 +8,5 @@ public static class OpenBuildFolder
 {
 	[MenuItem("Explorer/Open Build Folder &%#b")]
 	public static void openBuildFolder()
-		=> Application.OpenURL("file://"+Game.buildFolderPath);
+		=> Application.OpenURL("file://"+Product.buildFolderPath);
 }

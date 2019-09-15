@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • provides the inheritor with detection of its class attributes (which are properly inherited, by the way)
 public abstract class	AutomaticBehaviourLayerAttributeDetection<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerCachedComponents<AutomaticBehaviourT>
+					AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
 	// method: return whether the inheritor's class has the specified attribute, including inherited attributes according to the given boolean //

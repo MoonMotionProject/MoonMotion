@@ -7,8 +7,8 @@ using UnityEngine.Rendering;
 // Automatic Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #force
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' Unity components
-public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehaviourT>
+public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBehaviourT> :
+					AutomaticBehaviourLayerMonoBehaviour<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
 	#region Renderer
@@ -87,11 +87,6 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	public AutomaticBehaviourT nongravitize(bool boolean = true)
 		=> selfAfter(()=> rigidbody.nongravitize(boolean));
 	#endregion gravitization
-
-	#region moving position
-	public AutomaticBehaviourT movePositionTo(Vector3 position, bool boolean = true)
-		=> selfAfter(()=> rigidbody.movePositionTo(position, boolean));
-	#endregion moving position
 
 	#region velocity vectrals
 	public Vector3 velocityDirection => rigidbody.velocityDirection();

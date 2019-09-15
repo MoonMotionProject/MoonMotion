@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Game: provides properties about the game //
-public static class Game
+// Product: provides properties about the product //
+public static class Product
 {
 	#region name
 	public static string name => Application.productName;

@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • provides this behaviour with caching of its components via a dictionary and a method
 public abstract class	AutomaticBehaviourLayerCachedComponents<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT>
+					AutomaticBehaviourLayerAttributeDetection<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
 	// methods //

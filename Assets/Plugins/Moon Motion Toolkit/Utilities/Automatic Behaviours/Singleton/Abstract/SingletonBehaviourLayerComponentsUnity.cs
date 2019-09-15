@@ -8,7 +8,7 @@ using Valve.VR.InteractionSystem;
 // #auto #tracking
 // • provides this singleton behaviour with static access to its automatic behaviour's Unity components layer
 public abstract class	SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT> :
-					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
+					SingletonBehaviourLayerCachedComponents<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	public static new Renderer renderer => automaticBehaviour.renderer;

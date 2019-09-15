@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto #gameobject
 // • provides this singleton behaviour with static access to its automatic behaviour's game object layer
 public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
-					SingletonBehaviourLayerAttributeDetection<SingletonBehaviourT>
+					SingletonBehaviourLayerComponentsMoonMotion<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	#region existence

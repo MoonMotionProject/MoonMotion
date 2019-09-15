@@ -7,8 +7,8 @@ using UnityEngine.Rendering;
 // Singleton Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #force
 // • provides this singleton behaviour with static access to its automatic behaviour's Unity component shortcuts layer
-public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
-					SingletonBehaviourLayerComponentsMoonMotion<SingletonBehaviourT>
+public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
+					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	#region Renderer
@@ -87,11 +87,6 @@ public abstract class SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new AutomaticBehaviour<SingletonBehaviourT> nongravitize(bool boolean = true)
 		=> automaticBehaviour.nongravitize(boolean);
 	#endregion gravitization
-
-	#region moving position
-	public static new AutomaticBehaviour<SingletonBehaviourT> movePositionTo(Vector3 position, bool boolean = true)
-		=> automaticBehaviour.movePositionTo(position, boolean);
-	#endregion moving position
 
 	#region velocity vectrals
 	public static new Vector3 velocityDirection => automaticBehaviour.velocityDirection;

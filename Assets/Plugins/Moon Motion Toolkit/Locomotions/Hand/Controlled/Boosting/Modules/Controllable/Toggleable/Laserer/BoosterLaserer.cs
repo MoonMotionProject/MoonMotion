@@ -121,7 +121,7 @@ public class BoosterLaserer : BoosterModuleControllableToggleable
 		{
 			if (renderer && renderer.gameObject)
 			{
-				renderer.enabled = boosterLasering();
+				renderer.setEnablementTo(boosterLasering());
 			}
 		}
 	}

@@ -63,6 +63,32 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	public AutomaticBehaviourT nonshadowable()
 		=> selfAfter(()=> renderer.nonshadowable());
 	#endregion shadowability
+
+	#region reflection source
+	public AutomaticBehaviourT setReflectionSourceTo(ReflectionSource reflectionSource)
+		=> selfAfter(()=> renderer.setReflectionSourceTo(reflectionSource));
+	public AutomaticBehaviourT setReflectionSourceToSkybox()
+		=> selfAfter(()=> renderer.setReflectionSourceToSkybox());
+	public AutomaticBehaviourT setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox()
+		=> selfAfter(()=> renderer.setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox());
+	public AutomaticBehaviourT setReflectionSourceToBlendedReflectionProbesAndSkybox()
+		=> selfAfter(()=> renderer.setReflectionSourceToBlendedReflectionProbesAndSkybox());
+	public AutomaticBehaviourT setReflectionSourceToSingleMostRelevantProbeOrSkybox()
+		=> selfAfter(()=> renderer.setReflectionSourceToSingleMostRelevantProbeOrSkybox());
+	#endregion reflection source
+
+	#region light probe usage
+	public AutomaticBehaviourT setLightProbeUsageTo(LightProbeUsage lightProbeUsage)
+		=> selfAfter(()=> renderer.setLightProbeUsageTo(lightProbeUsage));
+	public AutomaticBehaviourT setLightProbeUsageToOff()
+		=> selfAfter(()=> renderer.setLightProbeUsageToOff());
+	public AutomaticBehaviourT setLightProbeUsageToBlendProbes()
+		=> selfAfter(()=> renderer.setLightProbeUsageToBlendProbes());
+	public AutomaticBehaviourT setRLightProbeUsageToUseProxyVolume()
+		=> selfAfter(()=> renderer.setRLightProbeUsageToUseProxyVolume());
+	public AutomaticBehaviourT setReflectionSourceToCustomProvided()
+		=> selfAfter(()=> renderer.setReflectionSourceToCustomProvided());
+	#endregion light probe usage
 	#endregion Renderer
 
 
@@ -213,6 +239,21 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 		=> selfAfter(()=> gameObject.actUponChildAudioSources(action));
 	#endregion acting upon child audio
 	#endregion AudioSource
+
+
+	#region LineRenderer
+
+	#region setting starting and ending widths
+	public AutomaticBehaviourT setLineRendererStartingWidthTo(float targetStartingWidth)
+		=> selfAfter(()=> lineRenderer.setStartingWidthTo(targetStartingWidth));
+	public AutomaticBehaviourT setLineRendererEndingWidthTo(float targetEndingWidth)
+		=> selfAfter(()=> lineRenderer.setEndingWidthTo(targetEndingWidth));
+	public AutomaticBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetStartingWidth, float targetEndingWidth)
+		=> selfAfter(()=> lineRenderer.setStartingAndEndingWidthsTo(targetStartingWidth, targetEndingWidth));
+	public AutomaticBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetWidth)
+		=> selfAfter(()=> lineRenderer.setStartingAndEndingWidthsTo(targetWidth));
+	#endregion setting starting and ending widths
+	#endregion LineRenderer
 
 
 	#region ParticleSystem

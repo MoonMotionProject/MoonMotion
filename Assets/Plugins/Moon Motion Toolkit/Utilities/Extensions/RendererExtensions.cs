@@ -6,101 +6,92 @@ using UnityEngine.Rendering;
 // Renderer Extensions: provides extension methods for handling renderers //
 public static class RendererExtensions
 {
-	#region enablement
+	#region game object's renderer enablement
 
-	// method: return the enablement of this given renderer //
-	public static bool enablement(this Renderer renderer)
-		=> renderer.enabled;
-
-	// method: set the enablement of this given renderer to the given boolean, then return this given renderer //
-	public static Renderer setEnablementTo(this Renderer renderer, bool boolean)
-	{
-		renderer.enabled = boolean;
-
-		return renderer;
-	}
 	// method: set the enablement of this given game object's renderer to the given boolean, then return this given game object //
-	public static GameObject setRendererEnablementTo(this GameObject gameObject, bool boolean)
+	public static GameObject setRendererEnablementTo(this GameObject gameObject, bool enablement)
 		=> gameObject.after(()=>
-			gameObject.first<Renderer>().setEnablementTo(boolean));
-
-	// method: enable this given renderer, then return it //
-	public static Renderer enable(this Renderer renderer)
-		=> renderer.setEnablementTo(true);
-
-	// method: disable this given renderer, then return it //
-	public static Renderer disable(this Renderer renderer)
-		=> renderer.setEnablementTo(false);
-
-	// method: toggle the enablement of this given renderers using the given toggling, then return this given renderer //
-	public static Renderer toggleEnablementBy(this Renderer renderer, Toggling toggling)
-		=> renderer.setEnablementTo(renderer.enablement().toggledBy(toggling));
-
-	// method: toggle the enablement of these given renderers using the given toggling, then return them //
-	public static Renderer[] toggleEnablementBy(this Renderer[] renderers, Toggling toggling)
-		=> renderers.forEach(renderer => renderer.toggleEnablementBy(toggling));
-
-	// method: set the enablement of these given renderers to the given boolean, then return them //
-	public static Renderer[] setEnablementTo(this Renderer[] renderers, bool boolean)
-		=> renderers.forEach(renderer => renderer.setEnablementTo(boolean));
-
-	// method: enable these given renderers, then return them //
-	public static Renderer[] enable(this Renderer[] renderers)
-		=> renderers.setEnablementTo(true);
-
-	// method: disable these given renderers, then return them //
-	public static Renderer[] disable(this Renderer[] renderers)
-		=> renderers.setEnablementTo(false);
-	#endregion enablement
+			gameObject.first<Renderer>().setEnablementTo(enablement));
+	#endregion game object's renderer enablement
 
 
 	#region material
 
-	public static Renderer setMaterialTo(this Renderer renderer, Material material)
-	{
-		renderer.material = material;
-
-		return renderer;
-	}
-	public static Renderer setSharedMaterialTo(this Renderer renderer, Material sharedMaterial)
-	{
-		renderer.sharedMaterial = sharedMaterial;
-
-		return renderer;
-	}
+	public static RendererT setMaterialTo<RendererT>(this RendererT renderer, Material material) where RendererT : Renderer
+		=> renderer.after(()=>
+			renderer.material = material);
+	public static RendererT setSharedMaterialTo<RendererT>(this RendererT renderer, Material sharedMaterial) where RendererT : Renderer
+		=> renderer.after(()=>
+			renderer.sharedMaterial = sharedMaterial);
 	#endregion material
 
 
 	#region shadowcasting
 
-	public static Renderer setShadowcastingTo(this Renderer renderer, ShadowCastingMode shadowcasting)
-	{
-		renderer.shadowCastingMode = shadowcasting;
+	public static RendererT setShadowcastingTo<RendererT>(this RendererT renderer, ShadowCastingMode shadowcasting) where RendererT : Renderer
+		=> renderer.after(()=>
+			renderer.shadowCastingMode = shadowcasting);
 
-		return renderer;
-	}
-
-	public static Renderer shadowcast(this Renderer renderer)
+	public static RendererT shadowcast<RendererT>(this RendererT renderer) where RendererT : Renderer
 		=> renderer.setShadowcastingTo(ShadowCastingMode.On);
 
-	public static Renderer nonshadowcast(this Renderer renderer)
+	public static RendererT nonshadowcast<RendererT>(this RendererT renderer) where RendererT : Renderer
 		=> renderer.setShadowcastingTo(ShadowCastingMode.Off);
 	#endregion shadowcasting
 
 
 	#region shadowability
 
-	public static Renderer setShadowabilityTo(this Renderer renderer, bool shadowability)
-	{
-		renderer.receiveShadows = shadowability;
+	public static RendererT setShadowabilityTo<RendererT>(this RendererT renderer, bool shadowability) where RendererT : Renderer
+		=> renderer.after(()=>
+			renderer.receiveShadows = shadowability);
 
-		return renderer;
-	}
-
-	public static Renderer shadowable(this Renderer renderer)
+	public static RendererT shadowable<RendererT>(this RendererT renderer) where RendererT : Renderer
 		=> renderer.setShadowabilityTo(true);
 
-	public static Renderer nonshadowable(this Renderer renderer)
+	public static RendererT nonshadowable<RendererT>(this RendererT renderer) where RendererT : Renderer
 		=> renderer.setShadowabilityTo(false);
 	#endregion shadowability
+
+
+	#region reflection source
+
+	private static RendererT setReflectionSourceTo<RendererT>(this RendererT renderer, ReflectionProbeUsage reflectionProbeUsage) where RendererT : Renderer
+		=> renderer.after(()=>
+			renderer.reflectionProbeUsage = reflectionProbeUsage);
+	public static RendererT setReflectionSourceTo<RendererT>(this RendererT renderer, ReflectionSource reflectionSource) where RendererT : Renderer
+		=> renderer.setReflectionSourceTo(reflectionSource.asReflectionProbeUsage());
+
+	public static RendererT setReflectionSourceToSkybox<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setReflectionSourceTo(ReflectionSource.skybox);
+
+	public static RendererT setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setReflectionSourceTo(ReflectionSource.blendedReflectionProbesOtherwiseSkybox);
+
+	public static RendererT setReflectionSourceToBlendedReflectionProbesAndSkybox<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setReflectionSourceTo(ReflectionSource.blendedReflectionProbesAndSkybox);
+
+	public static RendererT setReflectionSourceToSingleMostRelevantProbeOrSkybox<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setReflectionSourceTo(ReflectionSource.singleMostRelevantProbeOrSkybox);
+	#endregion reflection source
+
+
+	#region light probe usage
+
+	public static RendererT setLightProbeUsageTo<RendererT>(this RendererT renderer, LightProbeUsage lightProbeUsage) where RendererT : Renderer
+		=> renderer.after(()=>
+			renderer.lightProbeUsage = lightProbeUsage);
+
+	public static RendererT setLightProbeUsageToOff<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setLightProbeUsageTo(LightProbeUsage.Off);
+
+	public static RendererT setLightProbeUsageToBlendProbes<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setLightProbeUsageTo(LightProbeUsage.BlendProbes);
+
+	public static RendererT setRLightProbeUsageToUseProxyVolume<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setLightProbeUsageTo(LightProbeUsage.UseProxyVolume);
+
+	public static RendererT setReflectionSourceToCustomProvided<RendererT>(this RendererT renderer) where RendererT : Renderer
+		=> renderer.setLightProbeUsageTo(LightProbeUsage.CustomProvided);
+	#endregion light probe usage
 }

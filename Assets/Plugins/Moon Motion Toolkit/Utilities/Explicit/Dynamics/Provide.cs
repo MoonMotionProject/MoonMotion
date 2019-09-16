@@ -6,6 +6,7 @@ using UnityEngine;
 // • provides methods for having dynamos provide certain types
 //   · a 'dynamo' is a dynamic type, which can be specified as a parameter in a method using the keyword 'dynamic'
 //   · in the current implementation's version of C#, dynamics cannot be the 'this' parameter in extension methods unless the extension method is called upon the static class; thus, this class is used as a cleaner alternative
+// #auto #dynamics
 public static class Provide
 {
 	#region Transform

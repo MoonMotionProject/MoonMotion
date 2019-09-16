@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Disable Behaviours If Editor At Start:
-// • 
+// • at the start, if running in the editor, disables the set behaviours
 public class DisableBehavioursIfEditorAtStart : AutomaticBehaviour<DisableBehavioursIfEditorAtStart>
 {
 	// variables //
@@ -13,7 +13,7 @@ public class DisableBehavioursIfEditorAtStart : AutomaticBehaviour<DisableBehavi
 
 	
 	[Tooltip("the behaviours to disable at the start if running in the editor")]
-	public MonoBehaviour[] behaviours;
+	public Behaviour[] behaviours;
 
 
 
@@ -24,6 +24,6 @@ public class DisableBehavioursIfEditorAtStart : AutomaticBehaviour<DisableBehavi
 	#if UNITY_EDITOR
 	// at the start: //
 	private void Start()
-		=> behaviours.setEnablementTo(false);
+		=> behaviours.disableEach();
 	#endif
 }

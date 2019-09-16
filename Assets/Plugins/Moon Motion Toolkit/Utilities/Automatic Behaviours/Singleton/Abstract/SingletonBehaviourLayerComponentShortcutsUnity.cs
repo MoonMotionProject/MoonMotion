@@ -63,6 +63,32 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new AutomaticBehaviour<SingletonBehaviourT> nonshadowable()
 		=> automaticBehaviour.nonshadowable();
 	#endregion shadowability
+
+	#region reflection source
+	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceTo(ReflectionSource reflectionSource)
+		=> automaticBehaviour.setReflectionSourceTo(reflectionSource);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToSkybox()
+		=> automaticBehaviour.setReflectionSourceToSkybox();
+	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox()
+		=> automaticBehaviour.setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox();
+	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToBlendedReflectionProbesAndSkybox()
+		=> automaticBehaviour.setReflectionSourceToBlendedReflectionProbesAndSkybox();
+	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToSingleMostRelevantProbeOrSkybox()
+		=> automaticBehaviour.setReflectionSourceToSingleMostRelevantProbeOrSkybox();
+	#endregion reflection source
+
+	#region light probe usage
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLightProbeUsageTo(LightProbeUsage lightProbeUsage)
+		=> automaticBehaviour.setLightProbeUsageTo(lightProbeUsage);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLightProbeUsageToOff()
+		=> automaticBehaviour.setLightProbeUsageToOff();
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLightProbeUsageToBlendProbes()
+		=> automaticBehaviour.setLightProbeUsageToBlendProbes();
+	public static new AutomaticBehaviour<SingletonBehaviourT> setRLightProbeUsageToUseProxyVolume()
+		=> automaticBehaviour.setRLightProbeUsageToUseProxyVolume();
+	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToCustomProvided()
+		=> automaticBehaviour.setReflectionSourceToCustomProvided();
+	#endregion light probe usage
 	#endregion Renderer
 
 
@@ -213,6 +239,21 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> automaticBehaviour.actUponChildAudioSources(action);
 	#endregion acting upon child audio
 	#endregion AudioSource
+
+
+	#region LineRenderer
+
+	#region setting starting and ending widths
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingWidthTo(float targetStartingWidth)
+		=> automaticBehaviour.setLineRendererStartingWidthTo(targetStartingWidth);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererEndingWidthTo(float targetEndingWidth)
+		=> automaticBehaviour.setLineRendererEndingWidthTo(targetEndingWidth);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetStartingWidth, float targetEndingWidth)
+		=> automaticBehaviour.setLineRendererStartingAndEndingWidthsTo(targetStartingWidth, targetEndingWidth);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetWidth)
+		=> automaticBehaviour.setLineRendererStartingAndEndingWidthsTo(targetWidth);
+	#endregion setting starting and ending widths
+	#endregion LineRenderer
 
 
 	#region ParticleSystem

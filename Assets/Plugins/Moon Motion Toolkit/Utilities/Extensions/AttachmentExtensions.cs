@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Attachment: provides extension methods for handling attachment //
-public static class Attachment
+// Attachment Extensions: provides extension methods for handling attachment //
+public static class AttachmentExtensions
 {
 	#region GameObject
 

@@ -13,8 +13,4 @@ public static class Product
 	#region company
 	public static string company => Application.companyName;
 	#endregion company
-
-	#region build folder path
-	public static string buildFolderPath => "C:/Git Hub/"+(name.matches(MoonMotion.newProjectName) ? MoonMotion.nameWithoutSpaces : nameWithoutSpaces)+"/Publication/Build";
-	#endregion build folder path
 }

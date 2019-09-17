@@ -110,25 +110,65 @@ public static class StringExtensions
 	#endregion reversing
 
 
+	#region locating contained string
+
+	// method: return the index of the first occurrence of the given sought string in this given string, otherwise returning -1 if the given sought string is not found in this given string //
+	public static int indexOfFirst(this string string_, string soughtString)
+		=> string_.IndexOf(soughtString);
+
+	// method: return the index after the end of the first currence of the given sought string, otherwise returning -1 if the given sought string is not found in this given string //
+	public static int indexAfterFirst(this string string_, string soughtString)
+		=> string_.indexOfFirst(soughtString).ifNonnegativeThenPlus(soughtString.Length);
+	#endregion locating contained string
+
+
+	#region replacing characters
+
+	public static string withReplaced(this string string_, string stringTemplateToReplace, string replacementString)
+		=> string_.Replace(stringTemplateToReplace, replacementString);
+	#endregion replacing characters
+
+
 	#region removing characters
 
+	public static string fromThenUntil(this string string_, int indexFrom, int indexUntil)
+		=> string_.Substring(indexFrom, indexUntil);
+
+	public static string from(this string string_, int index)
+		=> string_.Substring(index);
+
+	public static string until(this string string_, int index)
+		=> string_.Substring(0, index);
+
+	public static string withoutCharactersFromFirst(this string string_, string soughtString)
+		=> string_.until(string_.indexOfFirst(soughtString));
+
+	public static string withoutCharactersFromFirstBackslash(this string string_)
+		=> string_.withoutCharactersFromFirst("\\");
+
+	public static string withoutCharactersAfterFirst(this string string_, string soughtString)
+		=> string_.until(string_.indexAfterFirst(soughtString));
+
+	public static string withoutCharactersAfterFirstBackslash(this string string_)
+		=> string_.withoutCharactersAfterFirst("\\");
+
 	public static string withoutCharacterLast(this string string_)
-		=> string_.Substring(0, string_.Length - 1);
+		=> string_.until(string_.Length - 1);
 
 	public static string withoutCharactersFromEnd(this string string_, int numberOfCharactersToRemove)
-		=> string_.Substring(0, string_.Length - numberOfCharactersToRemove);
+		=> string_.until(string_.Length - numberOfCharactersToRemove);
 
 	public static string withoutCharacterFirst(this string string_)
-		=> string_.Substring(1);
+		=> string_.from(1);
 
 	public static string withoutCharactersFromStart(this string string_, int numberOfCharactersToRemove)
-		=> string_.Substring(numberOfCharactersToRemove);
+		=> string_.from(numberOfCharactersToRemove);
 
 	public static string trimmedToLength(this string string_, int targetLength)
-		=> string_.Substring(0, targetLength);
+		=> string_.until(targetLength);
 
 	public static string without(this string string_, string stringTemplateToRemove)
-		=> string_.Replace(stringTemplateToRemove, "");
+		=> string_.withReplaced(stringTemplateToRemove, "");
 
 	public static string withoutSpaces(this string string_)
 		=> string_.without(" ");

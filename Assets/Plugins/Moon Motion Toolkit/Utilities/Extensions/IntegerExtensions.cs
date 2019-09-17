@@ -132,6 +132,9 @@ public static class IntegerExtensions
 
 	#region math operations
 
+	public static int ifNonnegativeThenPlus(this int integer, int addendInteger)
+		=> integer.nonnegative() ? (integer + addendInteger) : integer;
+
 	public static float halved(this int integer)
 		=> (integer / 2f);
 

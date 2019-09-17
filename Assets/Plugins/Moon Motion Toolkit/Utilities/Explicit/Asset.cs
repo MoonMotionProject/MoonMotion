@@ -38,7 +38,7 @@ public static class Asset
 											filteredScriptAssetIdees.first() :
 											filteredScriptAssetIdees.isPlural() ?
 												filteredScriptAssetIdees.firstWhere(assetIdee =>
-					AssetFile.titleForAssetIdee(assetIdee).equals(simpleClassName)) :
+					AssetFile.titleForAssetIdee(assetIdee).matches(simpleClassName)) :
 												"";
 
 			if (matchingAssetIdee.isNotEmptyNorNull())

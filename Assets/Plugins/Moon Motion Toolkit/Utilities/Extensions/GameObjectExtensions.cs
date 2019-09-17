@@ -37,14 +37,6 @@ public static class GameObjectExtensions
 	#endregion existence
 
 
-	#region identification
-
-	// method: return whether this given game object is named 'Player' //
-	public static bool isPlayer(this GameObject gameObject)
-		=> gameObject.nameMatches(Hierarchy.playerName);
-	#endregion identification
-
-
 	#region hierarchy
 
 	// method: make this given game object temporary, then return it //

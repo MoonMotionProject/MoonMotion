@@ -6,12 +6,14 @@ using UnityEngine;
 public static class MoonMotion
 {
 	#region names
-	public static string name => "Moon Motion";
-	public static string nameWithoutSpaces => name.withoutSpaces();
+	public static readonly string name = "Moon Motion";
+	public static readonly string nameWithoutSpaces = name.withoutSpaces();
 
-	public static string toolkitName => name+" Toolkit";
-	public static string toolkitNameWithoutSpaces => toolkitName.withoutSpaces();
+	public static readonly string toolkitName = name+" Toolkit";
+	public static readonly string toolkitNameWithoutSpaces = toolkitName.withoutSpaces();
 
-	public static string newProjectName => "New Moon Motion Project";
+	public static readonly string newProjectName = "New Moon Motion Project";
+
+	public static readonly string playerName = "Player";
 	#endregion names
 }

@@ -17,14 +17,6 @@ public static class TransformExtensions
 	#endregion accessing
 
 
-	#region identification
-
-	// method: return whether this given transform's game object is named 'Player' //
-	public static bool isPlayer(this Transform transform)
-		=> transform.gameObject.isPlayer();
-	#endregion identification
-
-
 	#region destruction
 
 	// method: destroy the game object of this given transform //

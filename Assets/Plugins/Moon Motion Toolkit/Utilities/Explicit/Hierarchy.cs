@@ -10,8 +10,6 @@ public static class Hierarchy
 	#region state
 
 
-	public static readonly string playerName = "Player";
-	
 	public static IEnumerable<Scene> selectScenes => Select.forCount(SceneManager.sceneCount, sceneIndex =>
 																	SceneManager.GetSceneAt(sceneIndex));
 

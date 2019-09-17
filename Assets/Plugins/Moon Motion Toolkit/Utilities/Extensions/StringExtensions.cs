@@ -11,8 +11,8 @@ public static class StringExtensions
 {
 	#region equality
 
-	// method: return whether this given string is equal to the other given string //
-	public static bool equals(this string string_, string otherString)
+	// method: return whether this given string matches (is equal to) the other given string //
+	public static bool matches(this string string_, string otherString)
 		=> string_.Equals(otherString);
 	#endregion equality
 
@@ -21,7 +21,7 @@ public static class StringExtensions
 
 	// method: return whether this given string is empty //
 	public static bool isEmpty(this string string_)
-		=> string_.equals("");
+		=> !string_.hasAny();
 
 	// method: return whether this given string is not empty //
 	public static bool isNotEmpty(this string string_)
@@ -86,11 +86,11 @@ public static class StringExtensions
 	#region regex
 
 	// method: return whether this given string matches the given regex //
-	public static bool matches(this string string_, Regex regex)
+	public static bool matchesRegex(this string string_, Regex regex)
 		=> regex.IsMatch(string_);
 	// method: return whether this given string matches the regex for the given regex string //
-	public static bool matches(this string string_, string regexString)
-		=> string_.matches(regexString.toRegex());
+	public static bool matchesRegex(this string string_, string regexString)
+		=> string_.matchesRegex(regexString.toRegex());
 	#endregion regex
 
 
@@ -98,7 +98,7 @@ public static class StringExtensions
 
 	// method: return whether this given string is an email address //
 	public static bool isAnEmailAddress(this string string_)
-		=> string_.matches(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+		=> string_.matchesRegex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 	#endregion email
 
 

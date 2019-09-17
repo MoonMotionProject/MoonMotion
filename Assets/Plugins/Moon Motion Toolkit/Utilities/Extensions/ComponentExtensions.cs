@@ -8,14 +8,6 @@ using UnityEngine;
 // #auto #component
 public static class ComponentExtensions
 {
-	#region identification
-
-	// method: return whether this given component's game object is named 'Player' //
-	public static bool isPlayer(this Component component)
-		=> component.gameObject.isPlayer();
-	#endregion identification
-	
-	
 	#region destruction
 
 	// method: destroy this given component's game object according to the given booleanic function upon this given component, then return the result of that function //

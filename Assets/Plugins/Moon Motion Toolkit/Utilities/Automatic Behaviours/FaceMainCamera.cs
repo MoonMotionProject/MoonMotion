@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR.InteractionSystem;
 
-// Face Player Camera: updates this object to always face the player camera //
+// Face Main Camera: updates this object to always face the main camera //
 [CacheTransform]
-public class FacePlayerCamera : AutomaticBehaviour<FacePlayerCamera>
+public class FaceMainCamera : AutomaticBehaviour<FaceMainCamera>
 {
 	// variables //
 
 	
 	// settings //
-	[Tooltip("whether to flip the y rotation after facing the player camera (useful for text)")]
+	[Tooltip("whether to flip the y rotation after facing the main camera (useful for text)")]
 	public bool flipYAfterFacing = true;
 
 

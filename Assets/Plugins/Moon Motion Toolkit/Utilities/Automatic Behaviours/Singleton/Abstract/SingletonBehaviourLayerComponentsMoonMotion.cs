@@ -36,7 +36,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 
 	public static new Kinematizer kinematizer => automaticBehaviour.kinematizer;
 	public static new Slower slower => automaticBehaviour.slower;
-	public static new FacePlayerCamera facePlayerCamera => automaticBehaviour.facePlayerCamera;
+	public static new FaceMainCamera faceMainCamera => automaticBehaviour.faceMainCamera;
 	public static new Hovering hovering => automaticBehaviour.hovering;
 	public static new BasicSpinning basicSpinning => automaticBehaviour.basicSpinning;
 

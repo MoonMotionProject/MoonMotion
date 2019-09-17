@@ -1,4 +1,4 @@
-'Steam Virtuality' is the 'SteamVR' plugin as modified for Moon Motion. The following are the changes made, with most being with respect to the 'Interaction System' part of 'SteamVR':
+'Steam Virtuality' is the 'SteamVR' plugin as modified for Moon Motion, which is located in the 'SteamVR' folder here. The following are the changes made (with most being with respect to the 'Interaction System' part of 'SteamVR'):
 
 
 • to teleportation functionality:

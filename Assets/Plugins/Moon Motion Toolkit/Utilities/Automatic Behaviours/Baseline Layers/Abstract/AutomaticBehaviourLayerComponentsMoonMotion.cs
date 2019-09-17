@@ -36,7 +36,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 
 	public Kinematizer kinematizer => cache<Kinematizer>();
 	public Slower slower => cache<Slower>();
-	public FacePlayerCamera facePlayerCamera => cache<FacePlayerCamera>();
+	public FaceMainCamera faceMainCamera => cache<FaceMainCamera>();
 	public Hovering hovering => cache<Hovering>();
 	public BasicSpinning basicSpinning => cache<BasicSpinning>();
 

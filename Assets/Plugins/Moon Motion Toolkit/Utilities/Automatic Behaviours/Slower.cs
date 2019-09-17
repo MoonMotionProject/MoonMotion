@@ -20,9 +20,11 @@ public class Slower : AutomaticBehaviour<Slower>
 	[Tooltip("the speed by which to reduce the attached rigidbody's velocity")]
 	public float speedReduction = 666666f;
 
+	#if MOON_MOTION_TOOLKIT
 	[Tooltip("the dependencies by which to determine whether to slow the attached rigidbody")]
 	[ReorderableList]
 	public Dependency[] slowingDependencies;
+	#endif
 
 
 
@@ -33,5 +35,14 @@ public class Slower : AutomaticBehaviour<Slower>
 	// at each physics update: //
 	protected virtual void FixedUpdate()
 		// slow the attached rigidbody if slowing is currently enabled //
-		=> slowSpeedBy(speedReduction, (slowingDependencies.areMet() && slowingEnabled));
+		=>	slowSpeedBy
+			(
+				speedReduction,
+				(
+					#if MOON_MOTION_TOOLKIT
+					slowingDependencies.areMet() &&
+					#endif
+					slowingEnabled
+				)
+			);
 }

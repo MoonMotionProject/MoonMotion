@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if STEAM_VIRTUALITY
 using Valve.VR.InteractionSystem;
+#endif
 
 // Singleton Behaviour Layer Components Moon Motion:
 // #auto #tracking
@@ -11,6 +13,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 					SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
+	#if MOON_MOTION_TOOLKIT
 	public static new Locomotion locomotion => automaticBehaviour.locomotion;
 	public static new TerrainResponse terrainResponse => automaticBehaviour.terrainResponse;
 	public static new Powerup powerup => automaticBehaviour.powerup;
@@ -18,6 +21,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new PowerupObjectsToggler powerupObjectsToggler => automaticBehaviour.powerupObjectsToggler;
 	public static new PowerupInstanceMethodsCaller powerupInstanceMethodsCaller => automaticBehaviour.powerupInstanceMethodsCaller;
 	public static new StretchScalable stretchScalable => automaticBehaviour.stretchScalable;
+	#endif
 
 
 
@@ -93,6 +97,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 
 
 
+	#if STEAM_VIRTUALITY
 	#region Steam Virtuality
 
 
@@ -109,5 +114,6 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new Longbow longbow => automaticBehaviour.longbow;
 	public static new ItemPackage itemPackage => automaticBehaviour.itemPackage;
 	#endregion Steam Virtuality
+	#endif
 	#endregion Plugins
 }

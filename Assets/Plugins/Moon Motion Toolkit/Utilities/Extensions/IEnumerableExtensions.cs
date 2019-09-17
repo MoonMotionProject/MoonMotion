@@ -182,7 +182,7 @@ public static class IEnumerableExtensions
 				function.negated(),
 				boolean);
 	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns false //
-	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
+	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
 		=> enumerable.except(function, boolean).manifest();
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are yull //
@@ -209,14 +209,14 @@ public static class IEnumerableExtensions
 			item_ => otherEnumerable.hasAny(otherItem => item_.baselineEquals(otherItem)),
 			boolean);
 	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
-	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
 		=> enumerable.except(otherEnumerable, boolean).manifest();
 	// method: instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the given items //
 	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
 		=> enumerable.except(
 			item_ => items.hasAny(otherItem => item_.baselineEquals(otherItem)));
 	// method: instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the given items //
-	public static IEnumerable<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
+	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
 		=> enumerable.except(items).manifest();
 	#endregion removing
 

@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if STEAM_VIRTUALITY
 using Valve.VR.InteractionSystem;
+#endif
 
 // Automatic Behaviour Layer Components Moon Motion:
 // #auto #tracking
@@ -11,6 +13,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 					AutomaticBehaviourLayerComponentsUnity<AutomaticBehaviourT>
 						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
 {
+	#if MOON_MOTION_TOOLKIT
 	public Locomotion locomotion => cache<Locomotion>();
 	public TerrainResponse terrainResponse => cache<TerrainResponse>();
 	public Powerup powerup => cache<Powerup>();
@@ -18,6 +21,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 	public PowerupObjectsToggler powerupObjectsToggler => cache<PowerupObjectsToggler>();
 	public PowerupInstanceMethodsCaller powerupInstanceMethodsCaller => cache<PowerupInstanceMethodsCaller>();
 	public StretchScalable stretchScalable => cache<StretchScalable>();
+	#endif
 
 
 
@@ -94,6 +98,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 
 
 
+	#if STEAM_VIRTUALITY
 	#region Steam Virtuality
 
 
@@ -110,5 +115,6 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 	public Longbow longbow => cache<Longbow>();
 	public ItemPackage itemPackage => cache<ItemPackage>();
 	#endregion Steam Virtuality
+	#endif
 	#endregion Plugins
 }

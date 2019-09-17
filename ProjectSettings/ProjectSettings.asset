@@ -606,7 +606,8 @@ PlayerSettings:
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
   webGLLinkerTarget: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: MOON_MOTION_TOOLKIT;STEAM_VIRTUALITY
   platformArchitecture: {}
   scriptingBackend:
     Standalone: 0

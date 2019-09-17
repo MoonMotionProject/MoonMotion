@@ -250,6 +250,38 @@ public static class StringExtensions
 	#endregion surrounding
 
 
+	#region splitting
+
+	// method: return a list of the strings resulting from splitting this given string by the given delimiter template character //
+	public static List<string> splitBy(this string string_, char delimiterTemplate)
+		=> string_.Split(delimiterTemplate).manifest();
+
+	// method: return a list of the strings resulting from splitting this given string by each semicolon //
+	public static List<string> splitByEachSemicolon(this string string_)
+		=> string_.splitBy(';');
+	#endregion splitting
+
+
+	#region joining
+	// methods: return the string that is the joining of the given strings by this given delimiter string //
+
+	private static string join_(this string delimiter, IEnumerable<string> strings)
+		=> string.Join(delimiter, strings);
+	
+	public static string join(this string delimiter, IEnumerable<string> strings)
+		=> delimiter.join_(strings);
+
+	public static string join(this string delimiter, params string[] strings)
+		=> delimiter.join_(strings);
+
+	public static string joinBy(this IEnumerable<string> strings, string delimiter)
+		=> delimiter.join(strings);
+
+	public static string joinBySemicolons(this IEnumerable<string> strings)
+		=> strings.joinBy(";");
+	#endregion joining
+
+
 	#region file writing
 
 	// method: write this given string to the given path, then return this given string //

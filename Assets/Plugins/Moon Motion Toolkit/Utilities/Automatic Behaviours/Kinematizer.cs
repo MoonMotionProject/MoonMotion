@@ -17,9 +17,11 @@ public class Kinematizer : AutomaticBehaviour<Kinematizer>
 	[Tooltip("whether kinematizing is currently enabled")]
 	public bool kinematizingEnabled = true;
 
+	#if MOON_MOTION_TOOLKIT
 	[Tooltip("the dependencies by which to determine whether the attached rigidbody is kinematic")]
 	[ReorderableList]
 	public Dependency[] kinematizingDependencies;
+	#endif
 
 
 
@@ -30,5 +32,11 @@ public class Kinematizer : AutomaticBehaviour<Kinematizer>
 	// at each update: //
 	private void Update()
 		// kinematize the attached rigidbody according to the dependencies – if kinematizing is currently enabled //
-		=> setKinematicityTo(kinematizingDependencies.areMet(), kinematizingEnabled);
+		=>	setKinematicityTo
+			(
+				#if MOON_MOTION_TOOLKIT
+				kinematizingDependencies.areMet(),
+				#endif
+				kinematizingEnabled
+			);
 }

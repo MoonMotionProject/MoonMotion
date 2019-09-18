@@ -253,6 +253,13 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetWidth)
 		=> automaticBehaviour.setLineRendererStartingAndEndingWidthsTo(targetWidth);
 	#endregion setting starting and ending widths
+
+	#region setting number of points
+	public static new AutomaticBehaviour<SingletonBehaviourT> setNumberOfPointsTo(int numberOfPoints)
+		=> automaticBehaviour.setNumberOfPointsTo(numberOfPoints);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPointAtIndex(int index, Vector2 point)
+		=> automaticBehaviour.setPointAtIndex(index, point);
+	#endregion setting number of points
 	#endregion LineRenderer
 
 
@@ -312,4 +319,15 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> automaticBehaviour.actUponChildLights(action);
 	#endregion acting upon child lights
 	#endregion Light
+
+
+	#region EdgeCollider2D
+
+	#region setting points
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPointsTo(params Vector2[] points)
+		=> automaticBehaviour.setPointsTo(points);
+	public static new AutomaticBehaviour<SingletonBehaviourT> setPointsTo(IEnumerable<Vector2> points)
+		=> automaticBehaviour.setPointsTo(points);
+	#endregion setting points
+	#endregion EdgeCollider2D
 }

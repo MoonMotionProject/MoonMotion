@@ -253,6 +253,13 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	public AutomaticBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetWidth)
 		=> selfAfter(()=> lineRenderer.setStartingAndEndingWidthsTo(targetWidth));
 	#endregion setting starting and ending widths
+
+	#region setting number of points
+	public AutomaticBehaviourT setNumberOfPointsTo(int numberOfPoints)
+		=> selfAfter(()=> lineRenderer.setNumberOfPointsTo(numberOfPoints));
+	public AutomaticBehaviourT setPointAtIndex(int index, Vector2 point)
+		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, point));
+	#endregion setting number of points
 	#endregion LineRenderer
 
 
@@ -312,4 +319,15 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 		=> selfAfter(()=> gameObject.actUponChildLights(action));
 	#endregion acting upon child lights
 	#endregion Light
+
+
+	#region EdgeCollider2D
+
+	#region setting points
+	public AutomaticBehaviourT setPointsTo(params Vector2[] points)
+		=> selfAfter(()=> edgeCollider.setPointsTo(points));
+	public AutomaticBehaviourT setPointsTo(IEnumerable<Vector2> points)
+		=> selfAfter(()=> edgeCollider.setPointsTo(points));
+	#endregion setting points
+	#endregion EdgeCollider2D
 }

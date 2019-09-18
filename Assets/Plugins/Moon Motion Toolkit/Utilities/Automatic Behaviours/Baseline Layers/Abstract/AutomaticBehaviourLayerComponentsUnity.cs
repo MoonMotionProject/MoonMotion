@@ -42,4 +42,5 @@ public abstract class	AutomaticBehaviourLayerComponentsUnity<AutomaticBehaviourT
 	public     FlareLayer flareLayer => cache<FlareLayer>();
 	public     OcclusionArea occlusionArea => cache<OcclusionArea>();
 	public     OcclusionPortal occlusionPortal => cache<OcclusionPortal>();
+	public     EdgeCollider2D edgeCollider => cache<EdgeCollider2D>();
 }

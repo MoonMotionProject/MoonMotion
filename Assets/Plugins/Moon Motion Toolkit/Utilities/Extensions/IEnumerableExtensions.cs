@@ -30,6 +30,10 @@ public static class IEnumerableExtensions
 	public static int count<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.Count();
 
+	// method: return the last index in this given enumerable //
+	public static int lastIndex<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.hasAny() ? (enumerable.count() - 1) : 0;
+
 	// method: return the number of items in this given enumerable for which the given function returns true //
 	public static int count<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
 		=> enumerable.Count(function);
@@ -134,6 +138,22 @@ public static class IEnumerableExtensions
 	public static TItem firstOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.FirstOrDefault();
 	#endregion accessing first items
+
+
+	#region accessing last items
+
+	// method: return the last item in this given enumerable (assuming an item is there) //
+	public static TItem last<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.Last();
+
+	// method: return the last item in this given enumerable, otherwise (if an item is not there) returning the given fallback item //
+	public static TItem lastOtherwise<TItem>(this IEnumerable<TItem> enumerable, TItem fallbackItem)
+		=> enumerable.hasAny() ? enumerable.last() : fallbackItem;
+
+	// method: return the last item in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
+	public static TItem lastOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.LastOrDefault();
+	#endregion accessing last items
 
 
 	#region retrieval

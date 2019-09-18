@@ -25,4 +25,18 @@ public static class LineRendererExtensions
 	public static LineRenderer setStartingAndEndingWidthsTo(this LineRenderer lineRenderer, float targetWidth)
 		=> lineRenderer.setStartingAndEndingWidthsTo(targetWidth, targetWidth);
 	#endregion setting starting and ending widths
+
+
+	#region setting number of points
+
+	// method: set this given line renderer's number of points to the given number of points, then return this given line renderer //
+	public static LineRenderer setNumberOfPointsTo(this LineRenderer lineRenderer, int numberOfPoints)
+		=> lineRenderer.after(()=>
+			lineRenderer.positionCount = numberOfPoints);
+
+	// method: set this given line renderer's point at the given index to the given point, then return this given line renderer //
+	public static LineRenderer setPointAtIndex(this LineRenderer lineRenderer, int index, Vector2 point)
+		=> lineRenderer.after(()=>
+			lineRenderer.SetPosition(index, point));
+	#endregion setting number of points
 }

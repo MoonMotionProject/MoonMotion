@@ -42,4 +42,5 @@ public abstract class	SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT
 	public static new FlareLayer flareLayer => automaticBehaviour.flareLayer;
 	public static new OcclusionArea occlusionArea => automaticBehaviour.occlusionArea;
 	public static new OcclusionPortal occlusionPortal => automaticBehaviour.occlusionPortal;
+	public static new EdgeCollider2D edgeCollider => automaticBehaviour.edgeCollider;
 }

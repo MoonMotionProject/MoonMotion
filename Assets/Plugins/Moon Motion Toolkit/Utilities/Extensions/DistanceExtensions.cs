@@ -5,6 +5,10 @@ using UnityEngine;
 // Distance Extensions: provides extension methods for handling distances (magnitudes of displacement) //
 public static class DistanceExtensions
 {
+	// method: return the distance with this given pair and the other given pair //
+	public static float distanceWith(this Vector2 pair, Vector2 otherPair)
+		=> Vector2.Distance(pair, otherPair);
+
 	// method: return the distance with this given vector and the other given vector //
 	public static float distanceWith(this Vector3 vector, Vector3 otherVector)
 		=> Vector3.Distance(vector, otherVector);

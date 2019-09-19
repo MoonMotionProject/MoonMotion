@@ -13,7 +13,26 @@ public abstract class	AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehavio
 	#region casted instances
 
 	// this instance as an instance of the particular derived class specializing AutomaticBehaviour //
-	public AutomaticBehaviourT automaticBehaviour => this.castTo<AutomaticBehaviourT>();
+	public AutomaticBehaviourT automaticBehaviour
+	{
+		get
+		{
+			try
+			{
+				return this.castTo<AutomaticBehaviourT>();
+			}
+			catch (InvalidCastException)
+			{
+				#if UNITY_EDITOR
+				if (UnityIs.inEditor)
+				{
+					return assetPath.thenNewlineAnd("is being extended like AutomaticBehaviour<"+simpleClassName+"> in a class that should actually be generically passing itself").printAsErrorAndReturnDefault<AutomaticBehaviourT>();
+				}
+				#endif
+				return default(AutomaticBehaviourT);		// should be unreachable
+			}
+		}
+	}
 
 	// this instance as a component //
 	public Component component => this.castTo<Component>();

@@ -74,9 +74,9 @@ public static class TransformExtensions
 	public static Transform callAllLocal(this Transform transform, string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver)
 		=> transform.gameObject.callAllLocal(methodName, sendMessageOptions).transform;
 
-	// method: have all mono behaviours on this transform's game object validate (if they have OnValidate defined), then return this given transform //
-	public static Transform validate(this Transform transform)
-		=> transform.gameObject.validate().transform;
+	// method: (if in the editor:) have all mono behaviours on this transform's game object validate (if they have OnValidate defined), then return this given transform //
+	public static Transform validate_IfInEditor(this Transform transform)
+		=>	transform.gameObject.validate_IfInEditor().transform;
 	#endregion calling local methods
 
 

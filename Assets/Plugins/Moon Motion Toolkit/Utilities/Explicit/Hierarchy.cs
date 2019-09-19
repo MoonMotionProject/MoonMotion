@@ -20,6 +20,11 @@ public static class Hierarchy
 	public static int primogenitorCount => selectPrimogenitorObjects.count();
 
 	public static int lastPrimogenitorIndex => primogenitorCount - 1;
+
+	#if UNITY_EDITOR
+	// the currently selected game object //
+	public static GameObject selectedGameObject => Selection.activeGameObject;
+	#endif
 	#endregion state
 
 
@@ -34,6 +39,14 @@ public static class Hierarchy
 			.makeTemporary();
 
 	#if UNITY_EDITOR
+	// method: ping the game object currently selected in the hierarchy, then return it //
+	public static GameObject pingSelectedGameObject()
+		=> selectedGameObject.pingInHierarchy_IfInEditor();
+
+	// method: ping the game object currently selected in the hierarchy, then return it after having it print namely the given string //
+	public static GameObject pingSelectedGameObjectAndPrintNamely(string string_)
+		=> pingSelectedGameObject().printNamely(string_);
+
 	// method: deselect all current hierarchy selections //
 	public static void deselect()
 		=> Selection.objects = new Object[0];

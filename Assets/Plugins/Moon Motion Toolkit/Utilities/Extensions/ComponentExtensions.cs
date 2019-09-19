@@ -59,10 +59,10 @@ public static class ComponentExtensions
 		=> component.after(()=>
 			component.gameObject.callAllLocal(methodName, sendMessageOptions, boolean));
 
-	// method: have all mono behaviours on this component's game object validate (if they have OnValidate defined), then return this given component //
-	public static ComponentT validate<ComponentT>(this ComponentT component) where ComponentT : Component
+	// method: (if in the editor:) have all mono behaviours on this component's game object validate (if they have OnValidate defined), then return this given component //
+	public static ComponentT validate_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.after(()=>
-			component.gameObject.validate());
+			component.gameObject.validate_IfInEditor());
 	#endregion calling local methods
 
 

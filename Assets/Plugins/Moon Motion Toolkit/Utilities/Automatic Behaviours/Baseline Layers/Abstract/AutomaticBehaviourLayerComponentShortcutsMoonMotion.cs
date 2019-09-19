@@ -25,6 +25,7 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsMoonMotion<Automa
 	public float timeAwake => trackTimeOfAwake.timeAwake;
 	public float lightIntensityAwake => trackLightIntensityAtAwake.lightIntensityAwake;
 	public bool awake => trackAwake.awake;
+	public Color colorAwake => trackColorAtAwake.colorAwake;
 	#endregion miscellaneous
 
 	#region Transformations

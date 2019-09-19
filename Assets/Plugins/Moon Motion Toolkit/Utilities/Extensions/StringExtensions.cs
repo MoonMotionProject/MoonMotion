@@ -218,6 +218,14 @@ public static class StringExtensions
 	public static string withPotentialSuffixRepeated(this string string_, string repeatedSuffix, int suffixRepetitionCount)
 		=> string_.withPotentialSuffix(repeatedSuffix.repeated(suffixRepetitionCount));
 
+	// method: return this given string with a newline suffixed //
+	public static string thenNewline(this string string_)
+		=> string_.withSuffix("\n");
+
+	// method: return this given string with a newline – suffixed with the given suffix – suffixed //
+	public static string thenNewlineAnd(this string string_, string suffix)
+		=> string_.thenNewline().withSuffix(suffix);
+
 	// method: return this given string with a space suffixed //
 	public static string withTrailingSpace(this string string_)
 		=> string_.withSuffix(" ");
@@ -265,14 +273,11 @@ public static class StringExtensions
 	#region joining
 	// methods: return the string that is the joining of the given strings by this given delimiter string //
 
-	private static string join_(this string delimiter, IEnumerable<string> strings)
-		=> string.Join(delimiter, strings);
-	
 	public static string join(this string delimiter, IEnumerable<string> strings)
-		=> delimiter.join_(strings);
+		=> string.Join(delimiter, strings);
 
 	public static string join(this string delimiter, params string[] strings)
-		=> delimiter.join_(strings);
+		=> delimiter.join(strings.asEnumerable());
 
 	public static string joinBy(this IEnumerable<string> strings, string delimiter)
 		=> delimiter.join(strings);

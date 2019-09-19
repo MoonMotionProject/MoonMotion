@@ -49,20 +49,20 @@ public static class Provide
 	private static Rigidbody rigidbodyVia_(GameObject gameObject)
 		=> gameObject.rigidbody();
 
-	public static IEnumerable<Rigidbody> rigidbodiesVia(dynamic dynamo)
+	public static List<Rigidbody> rigidbodiesVia(dynamic dynamo)
 		=> rigidbodiesVia_(dynamo);
 
-	private static IEnumerable<Rigidbody> rigidbodiesVia_(Rigidbody rigidbody)
-		=> rigidbody.startEnumerable();
-	private static IEnumerable<Rigidbody> rigidbodiesVia_(Component component)
-		=> component.rigidbody().startEnumerable();
-	private static IEnumerable<Rigidbody> rigidbodiesVia_(GameObject gameObject)
-		=> gameObject.rigidbody().startEnumerable();
-	private static IEnumerable<Rigidbody> rigidbodiesVia_(IEnumerable<Rigidbody> rigidbodies)
-		=> rigidbodies;
-	private static IEnumerable<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)
+	private static List<Rigidbody> rigidbodiesVia_(Rigidbody rigidbody)
+		=> rigidbody.startList();
+	private static List<Rigidbody> rigidbodiesVia_(Component component)
+		=> rigidbodiesVia_(component.rigidbody());
+	private static List<Rigidbody> rigidbodiesVia_(GameObject gameObject)
+		=> rigidbodiesVia_(gameObject.rigidbody());
+	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Rigidbody> rigidbodies)
+		=> rigidbodies.manifest();
+	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)
 		=> components.rigidbodies();
-	private static IEnumerable<Rigidbody> rigidbodiesVia_(IEnumerable<GameObject> gameObjects)
+	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<GameObject> gameObjects)
 		=> gameObjects.rigidbodies();
 	#endregion Rigidbody
 }

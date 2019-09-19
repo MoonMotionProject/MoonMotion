@@ -51,6 +51,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 	public TrackTimeOfAwake trackTimeOfAwake => cache<TrackTimeOfAwake>();
 	public TrackLightIntensityAtAwake trackLightIntensityAtAwake => cache<TrackLightIntensityAtAwake>();
 	public TrackAwake trackAwake => cache<TrackAwake>();
+	public TrackColorAtAwake trackColorAtAwake => cache<TrackColorAtAwake>();
 	#endregion miscellaneous
 
 	#region Transformations

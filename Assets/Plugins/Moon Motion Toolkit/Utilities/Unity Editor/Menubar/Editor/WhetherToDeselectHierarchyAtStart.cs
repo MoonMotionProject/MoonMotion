@@ -13,6 +13,6 @@ public static class WhetherToDeselectHierarchyAtStart
 	public static bool state => Menu.GetChecked(menuItem);
 
 	[MenuItem(menuItem)]
-	public static void doDeselectHierarchyAtStart()
+	public static void toggleWhetherToDeselectHierarchyAtStart()
 		=> Menu.SetChecked(menuItem, !state);
 }

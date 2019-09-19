@@ -51,8 +51,9 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new TrackTimeOfAwake trackTimeOfAwake => automaticBehaviour.trackTimeOfAwake;
 	public static new TrackLightIntensityAtAwake trackLightIntensityAtAwake => automaticBehaviour.trackLightIntensityAtAwake;
 	public static new TrackAwake trackAwake => automaticBehaviour.trackAwake;
+	public static new TrackColorAtAwake trackColorAtAwake => automaticBehaviour.trackColorAtAwake;
 	#endregion miscellaneous
-	
+
 	#region Transformations
 	public static new TrackLocalScaleAtAwake trackLocalScaleAtAwake => automaticBehaviour.trackLocalScaleAtAwake;
 	public static new TrackLocalScaleXAtAwake trackLocalScaleXAtAwake => automaticBehaviour.trackLocalScaleXAtAwake;

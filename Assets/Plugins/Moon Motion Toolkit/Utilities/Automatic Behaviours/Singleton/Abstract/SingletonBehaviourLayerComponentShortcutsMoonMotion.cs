@@ -25,6 +25,7 @@ public abstract class SingletonBehaviourLayerComponentShortcutsMoonMotion<Single
 	public static new float timeAwake => automaticBehaviour.timeAwake;
 	public static new float lightIntensityAwake => automaticBehaviour.lightIntensityAwake;
 	public static new bool awake => singleton && automaticBehaviour.awake;
+	public static new Color colorAwake => automaticBehaviour.colorAwake;
 	#endregion miscellaneous
 
 	#region Transformations

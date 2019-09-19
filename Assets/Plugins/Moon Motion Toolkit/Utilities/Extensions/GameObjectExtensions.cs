@@ -37,15 +37,6 @@ public static class GameObjectExtensions
 	#endregion existence
 
 
-	#region hierarchy
-
-	// method: make this given game object temporary, then return it //
-	public static GameObject makeTemporary(this GameObject gameObject)
-		=> gameObject.after(()=>
-			gameObject.hideFlags = HideFlags.HideAndDontSave);
-	#endregion hierarchy
-
-
 	#region creating fresh game objects
 
 	// method: create a fresh game object with this given name (and no parent), then return the created game object //
@@ -243,8 +234,12 @@ public static class GameObjectExtensions
 			boolean);
 
 	// method: (if in the editor:) have all mono behaviours on this game object validate (if they have OnValidate defined), then return this given game object //
-	public static GameObject validate(this GameObject gameObject)
-		=>	gameObject.callAllLocal("OnValidate", SendMessageOptions.DontRequireReceiver, UnityIs.inEditor);
+	public static GameObject validate_IfInEditor(this GameObject gameObject)
+		=>	gameObject.callAllLocal
+			(
+				"OnValidate", SendMessageOptions.DontRequireReceiver,
+				UnityIs.inEditor
+			);
 	#endregion calling local methods
 
 

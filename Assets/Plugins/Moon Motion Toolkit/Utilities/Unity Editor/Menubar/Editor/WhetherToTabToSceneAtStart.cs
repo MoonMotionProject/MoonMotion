@@ -12,6 +12,6 @@ public static class WhetherToTabToSceneAtStart
 	public static bool state => Menu.GetChecked(menuItem);
 
 	[MenuItem(menuItem)]
-	public static void doTabToSceneAtStart()
+	public static void toggleWhetherToTabToSceneAtStart()
 		=> Menu.SetChecked(menuItem, !state);
 }

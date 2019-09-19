@@ -26,13 +26,13 @@ public static class ListExtensions
 	public static TItem addGet<TItem>(this List<TItem> list, TItem item)
 		=> item.after(()=>
 			list.add(item));
-	// method: add the given items to this given list, then return these given items //
-	public static IEnumerableT addGet<TItem, IEnumerableT>(this List<TItem> list, IEnumerableT items) where IEnumerableT : IEnumerable<TItem>
-		=> items.after(()=>
+	// method: add the given items to this given list, then return a list of these given items //
+	public static List<TItem> addGet<TItem>(this List<TItem> list, IEnumerable<TItem> items)
+		=> items.manifest().after(()=>
 			list.add(items));
-	// method: add the given items to this given list, then return these given items //
-	public static TItem[] addGet<TItem>(this List<TItem> list, params TItem[] items)
-		=> list.addGet<TItem, TItem[]>(items);
+	// method: add the given items to this given list, then return a list of these given items //
+	public static List<TItem> addGet<TItem>(this List<TItem> list, params TItem[] items)
+		=> list.addGet(items.asEnumerable());
 
 	// method: add this given item to the given list, then return the given list //
 	public static List<TItem> addToGet<TItem>(this TItem item, List<TItem> list, bool boolean = true)
@@ -44,8 +44,8 @@ public static class ListExtensions
 	// method: add this given item to the given list, then return this given item //
 	public static TItem addTo<TItem>(this TItem item, List<TItem> list)
 		=> list.addGet<TItem>(item);
-	// method: add these given items to the given list, then return these given items //
-	public static IEnumerable<TItem> addTo<TItem>(this IEnumerable<TItem> items, List<TItem> list)
+	// method: add these given items to the given list, then return a list of these given items //
+	public static List<TItem> addTo<TItem>(this IEnumerable<TItem> items, List<TItem> list)
 		=> list.addGet(items);
 	#endregion adding
 
@@ -73,12 +73,12 @@ public static class ListExtensions
 		=> item.after(()=>
 			list.remove(item));
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
-	public static IEnumerableT extract<TItem, IEnumerableT>(this List<TItem> list, IEnumerableT items) where IEnumerableT : IEnumerable<TItem>
-		=> items.after(()=>
+	public static List<TItem> extract<TItem>(this List<TItem> list, IEnumerable<TItem> items)
+		=> items.manifest().after(()=>
 			list.remove(items));
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
-	public static TItem[] extract<TItem>(this List<TItem> list, params TItem[] items)
-		=> list.extract<TItem, TItem[]>(items);
+	public static List<TItem> extract<TItem>(this List<TItem> list, params TItem[] items)
+		=> list.extract(items.asEnumerable());
 	#endregion removing
 
 
@@ -88,4 +88,12 @@ public static class ListExtensions
 	public static List<TItem> forEach<TItem>(this List<TItem> list, Action<TItem> action, bool boolean = true)
 		=> list.forEach_EnumerableSpecializedViaCasting(action, boolean);
 	#endregion acting upon all items
+
+
+	#region conversion
+	
+	// method: return a new list containing only this given item //
+	public static List<TItem> startList<TItem>(this TItem item)
+		=> new List<TItem>() {item};
+	#endregion conversion
 }

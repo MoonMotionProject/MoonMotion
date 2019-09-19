@@ -112,19 +112,19 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 	public AutomaticBehaviourT callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
 		=> selfAfter(()=> gameObject.callAllLocal(methodName, sendMessageOptions, boolean));
 
-	public AutomaticBehaviourT validate()
-		=> selfAfter(()=> gameObject.validate());
+	public AutomaticBehaviourT validate_IfInEditor()
+		=> selfAfter(()=> gameObject.validate_IfInEditor());
 	#endregion calling local methods
 
 
 	#region validation pending
 	#if UNITY_EDITOR
 
-	public AutomaticBehaviourT unpendValidation()
-		=> selfAfter(()=> gameObject.unpendValidation());
+	public AutomaticBehaviourT unpendValidation_IfInEditor()
+		=> selfAfter(()=> gameObject.unpendValidation_IfInEditor());
 
-	public AutomaticBehaviourT pendValidation()
-		=> selfAfter(()=> gameObject.pendValidation());
+	public AutomaticBehaviourT pendValidation_IfInEditor()
+		=> selfAfter(()=> gameObject.pendValidation_IfInEditor());
 	#endif
 	#endregion validation pending
 }

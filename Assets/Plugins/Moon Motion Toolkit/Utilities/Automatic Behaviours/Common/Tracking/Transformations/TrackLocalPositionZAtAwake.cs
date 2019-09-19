@@ -20,7 +20,7 @@ public class TrackLocalPositionZAtAwake : TrackingBehaviour<TrackLocalPositionZA
 	// updating //
 
 
-	// upon validation (defined here so that the OnValidate derived from RequiredOnlyAndHiddenBehaviour can be found using reflection): //
+	// upon validation (defined here so that the OnValidate derived from CommonBehaviour can be found using reflection): //
 	public override void OnValidate()
 		=> base.OnValidate();
 

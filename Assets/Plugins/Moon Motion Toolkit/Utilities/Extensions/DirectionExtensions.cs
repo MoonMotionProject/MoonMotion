@@ -207,4 +207,28 @@ public static class DirectionExtensions
 	public static Vector3 directionForTugUponCamera(this Component component, Tug tug)
 		=> component.position().directionForTugUponCamera(tug);
 	#endregion for tug upon other
+
+
+	#region distinctivity conversion
+
+	// method: return the local direction relative to the given transform for this given global direction //
+	public static Vector3 asGlobalDirectionToLocalDirectionRelativeTo(this Vector3 globalDirection, Transform transform)
+		=> transform.InverseTransformDirection(globalDirection);
+	// method: return the local direction relative to the given component for this given global direction //
+	public static Vector3 asGlobalDirectionToLocalDirectionRelativeTo(this Vector3 globalDirection, Component component)
+		=> globalDirection.asGlobalDirectionToLocalDirectionRelativeTo(component.transform);
+	// method: return the local direction relative to the given game object for this given global direction //
+	public static Vector3 asGlobalDirectionToLocalDirectionRelativeTo(this Vector3 globalDirection, GameObject gameObject)
+		=> globalDirection.asGlobalDirectionToLocalDirectionRelativeTo(gameObject.transform);
+
+	// method: return the global direction for this given local direction relative to the given transform //
+	public static Vector3 asLocalDirectionToGlobalDirectionFromRelativityOf(this Vector3 localDirection, Transform transform)
+		=> transform.TransformDirection(localDirection);
+	// method: return the global direction for this given local direction relative to the given component //
+	public static Vector3 asLocalDirectionToGlobalDirectionFromRelativityOf(this Vector3 localDirection, Component component)
+		=> localDirection.asLocalDirectionToGlobalDirectionFromRelativityOf(component.transform);
+	// method: return the global direction for this given local direction relative to the given game object //
+	public static Vector3 asLocalDirectionToGlobalDirectionFromRelativityOf(this Vector3 localDirection, GameObject gameObject)
+		=> localDirection.asLocalDirectionToGlobalDirectionFromRelativityOf(gameObject.transform);
+	#endregion distinctivity conversion
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 public static class DirectionalForceExtensions
 {
 	#region calculating directional force
-	// methods: return the directional force with the given or respective tug upon this given declared provider of a force position, tugged by the given provided forcing position and for the given magnitude, reach, boolean for whether to return zero force outside the reach, and clamping boolean, diminishing magnitude from the given tugging position (until the reach) to zero using the given curve //
+	// methods: return the directional force with the given or respective tug upon this given declared provider of a force position, tugged by the given provided forcing position and for the given magnitude, reach, boolean for whether to return zero force outside the reach, and clamping boolean, diminishing magnitude from the given forcing position (until the reach) to zero using the given curve //
 
 
 	#region calculating directional force with the given tug

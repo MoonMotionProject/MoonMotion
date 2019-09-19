@@ -42,6 +42,11 @@ public static class HashSetExtensions
 	// method: (according to the given boolean:) add this given item to the given hash set, then return the given hash set //
 	public static HashSet<TItem> addToGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
 		=> set.add(item, boolean);
+	// method: (according to the given boolean:) add these given item to the given hash set, then return the given hash set //
+	public static HashSet<TItem> addToGet<TItem>(this IEnumerable<TItem> items, HashSet<TItem> set, bool boolean = true)
+		=> set.after(()=>
+			items.forEach(item => set.add(item)),
+			boolean);
 
 	// method: (according to the given boolean:) add this given item to the given hash set, then return this given item //
 	public static TItem addTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
@@ -88,10 +93,14 @@ public static class HashSetExtensions
 	#endregion acting upon all items
 
 
-	#region casting
+	#region conversion
 
 	// method: return this given hash set cast to the corresponding (interface) set //
 	public static ISet<TItem> castToISet<TItem>(this HashSet<TItem> set)
 		=> set;
-	#endregion casting
+
+	// method: return a new set containing only this given item //
+	public static HashSet<TItem> startSet<TItem>(this TItem item)
+		=> new HashSet<TItem>() {item};
+	#endregion conversion
 }

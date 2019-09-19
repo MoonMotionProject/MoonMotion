@@ -120,19 +120,19 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	public static new AutomaticBehaviour<SingletonBehaviourT> callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
 		=> automaticBehaviour.callAllLocal(methodName, sendMessageOptions, boolean);
 
-	public static new AutomaticBehaviour<SingletonBehaviourT> validate()
-		=> automaticBehaviour.validate();
+	public static new AutomaticBehaviour<SingletonBehaviourT> validate_IfInEditor()
+		=> automaticBehaviour.validate_IfInEditor();
 	#endregion calling local methods
 
 
 	#region validation pending
 	#if UNITY_EDITOR
 
-	public static new AutomaticBehaviour<SingletonBehaviourT> unpendValidation()
-		=> automaticBehaviour.unpendValidation();
+	public static new AutomaticBehaviour<SingletonBehaviourT> unpendValidation_IfInEditor()
+		=> automaticBehaviour.unpendValidation_IfInEditor();
 
-	public static new AutomaticBehaviour<SingletonBehaviourT> pendValidation()
-		=> automaticBehaviour.pendValidation();
+	public static new AutomaticBehaviour<SingletonBehaviourT> pendValidation_IfInEditor()
+		=> automaticBehaviour.pendValidation_IfInEditor();
 	#endif
 	#endregion validation pending
 }

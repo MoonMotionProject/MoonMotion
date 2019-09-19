@@ -20,12 +20,12 @@ public static class ValidationPendingExtensions
 	// methods //
 
 	
-	// method: unpend validation for this given game object, then return this given game object //
-	public static GameObject unpendValidation(this GameObject gameObject)
+	// method: (if in the editor:) unpend validation for this given game object, then return this given game object //
+	public static GameObject unpendValidation_IfInEditor(this GameObject gameObject)
 		=> gameObjectsPendingValidation.removeGet(gameObject);
 	
-	// method: (if this given game object exists and the given boolean is true:) pend validation for this given game object, then return this given game object //
-	public static GameObject pendValidation(this GameObject gameObject, bool boolean = true)
+	// method: (if in the editor:) (if this given game object exists and the given boolean is true:) pend validation for this given game object, then return this given game object //
+	public static GameObject pendValidation_IfInEditor(this GameObject gameObject, bool boolean = true)
 		=>	gameObject.ifExists(()=>
 			{
 				if (gameObjectsPendingValidation.doesNotContain(gameObject))
@@ -33,7 +33,7 @@ public static class ValidationPendingExtensions
 					gameObjectsPendingValidation.add(gameObject);
 					EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(()=>
 					{
-						gameObject.ifExists(()=> gameObject.validate()).unpendValidation();
+						gameObject.ifExists(()=> gameObject.validate_IfInEditor()).unpendValidation_IfInEditor();
 					});
 				}
 			},

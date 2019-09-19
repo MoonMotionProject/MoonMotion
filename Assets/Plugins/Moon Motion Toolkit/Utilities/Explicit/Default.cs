@@ -11,6 +11,7 @@ public static class Default
 	public const string loggingSeparator = ": ";
 	public static readonly LayerMask layerMask = -1;        // "everything" (recognize all layers)
 	public const Tug tug = Tug.attraction;
+	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
 	#endregion miscellaneous
 
 	#region time
@@ -20,6 +21,13 @@ public static class Default
 	#region direction
 	public static readonly BasicDirection basicDirection = BasicDirection.forward;
 	#endregion direction
+
+	#region raycasting
+	public const float raycastingDistance = 15f;
+	public const bool raycastingEnsuranceOfInclusionOfPositionalColliders = true;
+	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
+	public const bool raycastingForcingFirstHitOnly = false;
+	#endregion raycasting
 
 	#region force
 	public const float forceMagnitude = 10f;

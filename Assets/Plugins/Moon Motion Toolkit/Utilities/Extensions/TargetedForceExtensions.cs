@@ -8,28 +8,44 @@ using UnityEngine;
 public static class TargetedForceExtensions
 {
 	#region targetedly forcing
-	// methods: from this given declared provider of a forcing position, apply force upon the given provided target rigidbodies (without ensuring unique targets, if targets are plural; that methods variant is unimplemented yet), using the given or respective tug and the given magnitude, reach, reach magnitude zeroing curve, boolean for whether to apply zero force outside the reach, and clamping boolean, then return this given declared provider of a forcing position //
+	// methods: from this given declared provider of a forcing position, apply force upon the given provided target rigidbodies (without ensuring unique targets, if targets are plural; that methods variant is unimplemented yet), using the given or respective tug and the given magnitude, reach, boolean for whether to apply zero force outside the reach, and clamping boolean, diminishing magnitude from the given forcing position (until the reach) to zero using the given curve, then return this given declared provider of a forcing position //
 
 
 	#region targetedly forcing with the given tug
-	
+
+	public static Vector3 forceTarget(this Vector3 forcingPosition, Rigidbody targetRigidbody, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=>	forcingPosition.after(()=>
+				targetRigidbody.applyForceOf
+				(
+					targetRigidbody.directionalForceBy
+					(
+						forcingPosition,
+						tug,
+						magnitude,
+						reach,
+						reachMagnitudeZeroingCurve,
+						zeroForceOutsideReach,
+						clamp
+					)
+				));
 	public static Vector3 forceTarget(this Vector3 forcingPosition, dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
-		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, Vector3>(targetRigidbodies =>
-				forcingPosition.after(()=>
-					targetRigidbodies.forEach(targetRigidbody =>
-						targetRigidbody.applyForceOf
+	{
+		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+
+		return	forcingPosition.after(()=>
+					targetRigidbodies.forEach(rigidbody =>
+						forcingPosition.forceTarget
 						(
-							targetRigidbody.directionalForceBy
-							(
-								forcingPosition,
-								tug,
-								magnitude,
-								reach,
-								reachMagnitudeZeroingCurve,
-								zeroForceOutsideReach,
-								clamp
-							)
-						)))));
+							rigidbody,
+							tug,
+							magnitude,
+							reach,
+							reachMagnitudeZeroingCurve,
+							zeroForceOutsideReach,
+							clamp
+						)));
+	}
+				
 
 	public static GameObject forceTarget(this GameObject forcingObject, dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
 		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, GameObject>(targetRigidbodies =>

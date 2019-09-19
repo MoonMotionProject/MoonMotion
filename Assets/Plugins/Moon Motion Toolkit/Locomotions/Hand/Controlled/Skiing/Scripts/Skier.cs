@@ -18,12 +18,12 @@ public class Skier : HandLocomotionControlled
 
 	
 	// variables for: instancing //
-	public static Skier left, right;		// connections - automatic: left and right Skier instances
-	private Skier other;		// connection - automatic: the other skier (for the other hand that this skier doesn't belong to)
+	public static Skier left, right;		// connections - auto: left and right Skier instances
+	private Skier other;		// connection - auto: the other skier (for the other hand that this skier doesn't belong to)
 	
 	// variables for: skiing //
-	private static Collider targetBodyCollider;		// connection - automatic: the body collider targeted for having skiing friction toggled by this skier
-	private static SkiingSettings skiingSettings;		// connection - automatic: the Skiing Settings on the player body with the setting for the friction to use for skiing
+	private static Collider targetBodyCollider;		// connection - auto: the body collider targeted for having skiing friction toggled by this skier
+	private static SkiingSettings skiingSettings;		// connection - auto: the Skiing Settings on the player body with the setting for the friction to use for skiing
 	private static PhysicMaterial frictionNonskiing;        // tracking: the friction to use for nonskiing
 	public static bool skiing = false;		// tracking: whether the player is currently skiing
 	

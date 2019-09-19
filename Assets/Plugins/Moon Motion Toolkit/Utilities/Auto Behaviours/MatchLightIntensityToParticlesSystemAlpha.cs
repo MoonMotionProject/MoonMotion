@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Match Light Intensity To Particles System Alpha:
 // • updates the intensity of the attached light to be the alpha value of the current color of the first particle of the attached particle system, multiplied by the specified factor
-public class MatchLightIntensityToParticlesSystemAlpha : AutomaticBehaviour<MatchLightIntensityToParticlesSystemAlpha>
+public class MatchLightIntensityToParticlesSystemAlpha : AutoBehaviour<MatchLightIntensityToParticlesSystemAlpha>
 {
 	// variables //
 

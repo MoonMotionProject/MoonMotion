@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 
 // Randomize Color At Awake
-public class RandomizeColorAtAwake : AutomaticBehaviour<RandomizeColorAtAwake>
+public class RandomizeColorAtAwake : AutoBehaviour<RandomizeColorAtAwake>
 {
 	// updating //
 

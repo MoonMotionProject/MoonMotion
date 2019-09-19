@@ -9,11 +9,11 @@ public class SkiingTogglingAudio : MonoBehaviour
 	
 	
 	// variables for: instancing //
-	private static SkiingTogglingAudio singleton;		// connection - automatic: the singleton instance of this class
+	private static SkiingTogglingAudio singleton;		// connection - auto: the singleton instance of this class
 	
 	// variables for: skiing toggling audio //
-	private AudioSource audioSource;		// connection - automatic: the attached audio source for playing its skiing toggling audio
-	private AudioClip audioClip;		// connection - automatic: the skiing toggling audio on the attached audio source
+	private AudioSource audioSource;		// connection - auto: the attached audio source for playing its skiing toggling audio
+	private AudioClip audioClip;		// connection - auto: the skiing toggling audio on the attached audio source
 
 
 

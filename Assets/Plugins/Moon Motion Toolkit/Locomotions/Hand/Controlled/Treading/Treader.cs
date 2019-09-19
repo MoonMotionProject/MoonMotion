@@ -31,15 +31,15 @@ public class Treader : HandLocomotionControlled
 
 	
 	// variables for: instancing //
-	public static Treader left, right;		// connections - automatic: left and right treader instances
-	private Treader other;		// connection - automatic: the other treader (for the other hand that this treader doesn't belong to)
+	public static Treader left, right;		// connections - auto: left and right treader instances
+	private Treader other;		// connection - auto: the other treader (for the other hand that this treader doesn't belong to)
 	
 	// variables for: treading //
 	[Header("Stuck Failsafe")]
 	[Tooltip("the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed")]
 	[ReorderableList]
 	public Dependency[] dependenciesStuckFailsafe;		// setting: the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed
-	private Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody (to tread)
+	private Rigidbody playerRigidbody;		// connection - auto: the player rigidbody (to tread)
 	[Header("Treading Speed Gauges")]
 	[Tooltip("the max speed that this locomotion can set the player to")]
 	public float speedMax = 5f;		// setting: the max speed that this locomotion can set the player to
@@ -67,8 +67,8 @@ public class Treader : HandLocomotionControlled
 	public bool heldVersusToggled = true;		// setting: whether to have the normal gauge be controlled via holding the input versus input toggling it
 	private bool regularTreadingToggle = false;		// tracking: whether regular gauge treading is currently toggled on
 	[Header("Treading Direction")]
-	private Transform handTransform;		// connection - automatic: the transform of this treader's hand, which is the main (default, by default) transform to reference for determining the treading direction
-	private Transform headTransform;		// connection - automatic: the transform of the player's head, which is the alternate transform to reference for determining the treading direction
+	private Transform handTransform;		// connection - auto: the transform of this treader's hand, which is the main (default, by default) transform to reference for determining the treading direction
+	private Transform headTransform;		// connection - auto: the transform of the player's head, which is the alternate transform to reference for determining the treading direction
 	[Tooltip("the transform to use for determining the treading direction")]
 	public Transform directionReferenceTransform;		// connection - manual: the transform to use for determining the treading direction
 	

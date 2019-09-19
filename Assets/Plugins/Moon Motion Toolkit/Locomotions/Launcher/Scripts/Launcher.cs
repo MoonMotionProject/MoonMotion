@@ -22,8 +22,8 @@ public class Launcher : Locomotion
 	public float launchingForce = 30f;		// setting: the force amount by which to launch objects
 
 	// variables for: playing launching audio //
-	private AudioSource audioSource;		// connection - automatic: the attached launching audio source
-	private new AudioClip audio;        // connection - automatic: the attached launching audio
+	private AudioSource audioSource;		// connection - auto: the attached launching audio source
+	private new AudioClip audio;        // connection - auto: the attached launching audio
 
 	// variables for: player launching time determination //
 	public static float lastTimePlayerLaunched = -1f;       // tracking: the last time that the player was launched – initialized to -1 as a flag that the player has never been launched

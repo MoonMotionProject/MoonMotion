@@ -3,7 +3,7 @@ using System.Collections;
 
 // Basic Spinning: spins this object in a basic direction according to the specified settings //
 [CacheTransform]
-public class BasicSpinning : AutomaticBehaviour<BasicSpinning>
+public class BasicSpinning : AutoBehaviour<BasicSpinning>
 {
 	// variables //
 

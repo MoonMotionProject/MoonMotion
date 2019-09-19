@@ -12,7 +12,7 @@ public abstract class LocomotionMovementAudioSingle : LocomotionMovementAudio
 	
 	
 	// variables for: adjusting volume //
-	protected AudioSource audioSource;		// connection - automatic: the locomotion audio source (of which to adjust the volume)
+	protected AudioSource audioSource;		// connection - auto: the locomotion audio source (of which to adjust the volume)
 
 	
 

@@ -72,11 +72,11 @@ public class Controller : MonoBehaviour
 
 
 	// variables for: connection with this hand and the other controller //
-	[HideInInspector] public Hand hand;		// connection - automatic: this controller's hand
-    [HideInInspector] public Controller otherController;		// connection - automatic: the other controller
+	[HideInInspector] public Hand hand;		// connection - auto: this controller's hand
+    [HideInInspector] public Controller otherController;		// connection - auto: the other controller
 	
 	// variables for: instancing //
-	public static Controller left, right;		// connections - automatic: the left and right controller instances, respectively
+	public static Controller left, right;		// connections - auto: the left and right controller instances, respectively
 	[HideInInspector] public bool leftInstance = true;		// tracking: this controller's handedness
 
 	// variables for: touchpad input handling //

@@ -14,8 +14,8 @@ public abstract class BoosterModuleControllableToggleable : BoosterModuleControl
 	
 	
 	// variables for: playing toggling audio //
-	private AudioSource togglingAudioSource;		// connection - automatic: the audio source for playing its audio for toggling this module
-	private AudioClip togglingAudio;		// connection - automatic: the audio for toggling this module, set in the audio source
+	private AudioSource togglingAudioSource;		// connection - auto: the audio source for playing its audio for toggling this module
+	private AudioClip togglingAudio;		// connection - auto: the audio for toggling this module, set in the audio source
 
 	// variables for: toggling via input //
 	public bool inputtingPlaysTogglingAudio = true;		// setting: whether to play the attached toggling audio when toggling via input (this is just used by extending classes)

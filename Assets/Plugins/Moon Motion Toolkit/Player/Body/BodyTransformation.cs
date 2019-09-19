@@ -10,7 +10,7 @@ using Valve.VR.InteractionSystem;
 // • corrects (inverts) the body's y positioning according to the flipping locomotion (for the player being rotated 180° around the z axis, according to whether the flipping locomotion (via Flipper) has the player flipped currently)
 [RequireComponent(typeof(TrackLocalRotationAtAwake))]
 [RequireComponent(typeof(TrackCapsuleCollidersAtAwake))]
-public class BodyTransformation : AutomaticBehaviour<BodyTransformation>
+public class BodyTransformation : AutoBehaviour<BodyTransformation>
 {
 	// variables //
 	

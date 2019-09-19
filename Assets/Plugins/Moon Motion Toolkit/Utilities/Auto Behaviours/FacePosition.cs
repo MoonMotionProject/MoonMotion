@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Face Object: has this object face the target position, only on the set axes //
-public class FacePosition : AutomaticBehaviour<FacePosition>
+public class FacePosition : AutoBehaviour<FacePosition>
 {
 	// variables //
 

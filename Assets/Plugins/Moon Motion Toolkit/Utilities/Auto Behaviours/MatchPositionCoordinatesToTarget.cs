@@ -5,7 +5,7 @@ using UnityEngine;
 // Match Position Coordinates to Target:
 // • updates this object's position to match a set target transform's position, for only those coordinate axes toggled as needing to be matched
 [CacheTransform]
-public class MatchPositionCoordinatesToTarget : AutomaticBehaviour<MatchPositionCoordinatesToTarget>
+public class MatchPositionCoordinatesToTarget : AutoBehaviour<MatchPositionCoordinatesToTarget>
 {
 	// variables //
 

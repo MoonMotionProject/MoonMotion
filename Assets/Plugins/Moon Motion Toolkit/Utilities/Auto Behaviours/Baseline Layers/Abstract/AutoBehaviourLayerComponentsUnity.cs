@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Automatic Behaviour Layer Components Unity:
+// Auto Behaviour Layer Components Unity:
 // #auto
 // • provides this behaviour with automatically-connected properties to its game object's Unity components and typical state of (and so on) those components
-public abstract class	AutomaticBehaviourLayerComponentsUnity<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerCachedComponents<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerComponentsUnity<AutoBehaviourT> :
+					AutoBehaviourLayerCachedComponents<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	public new Renderer renderer => cache<Renderer>();
 	public new Rigidbody rigidbody => cache<Rigidbody>();

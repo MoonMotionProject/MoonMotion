@@ -19,15 +19,15 @@ public class Jumper : HandLocomotionControlled
 
 	
 	// variables for: instancing //
-	public static Jumper left, right;		// connections - automatic: left and right jumper instances
-	private Jumper other;		// connection - automatic: the other jumper (for the other hand that this jumper doesn't belong to)
+	public static Jumper left, right;		// connections - auto: left and right jumper instances
+	private Jumper other;		// connection - auto: the other jumper (for the other hand that this jumper doesn't belong to)
 
 	// variables for: playing jumping audio //
-	private AudioSource audioSource;		// connection - automatic: the attached jumping audio source
-	private new AudioClip audio;		// connection - automatic: the attached jumping audio
+	private AudioSource audioSource;		// connection - auto: the attached jumping audio source
+	private new AudioClip audio;		// connection - auto: the attached jumping audio
 	
 	// variables for: jumping in general //
-	private Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody
+	private Rigidbody playerRigidbody;		// connection - auto: the player rigidbody
 	[Header("Jumping")]
 	public float forceAmount = 5f;		// setting: the amount of force to apply
 	public static bool jumpedWithinLastSecond = false;		// tracking: whether the player has jumped within the last second

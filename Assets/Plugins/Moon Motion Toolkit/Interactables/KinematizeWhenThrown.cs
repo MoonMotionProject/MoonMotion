@@ -7,7 +7,7 @@ namespace Valve.VR.InteractionSystem
 {
 	[RequireComponent(typeof(Interactable))]
 	[RequireComponent(typeof(Rigidbody))]
-	public class KinematizeWhenThrown : AutomaticBehaviour<KinematizeWhenThrown>
+	public class KinematizeWhenThrown : AutoBehaviour<KinematizeWhenThrown>
 	{
 		// updating //
 

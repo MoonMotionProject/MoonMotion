@@ -15,7 +15,7 @@ public class JumpingTerrainingAudios : LocomotionMovementAudioSingle
 
 	
 	// variables for: instancing //
-	[HideInInspector] public JumpingTerrainingAudios singleton;     // connection - automatic: the singleton instance of this class
+	[HideInInspector] public JumpingTerrainingAudios singleton;     // connection - auto: the singleton instance of this class
 	
 	// variables for: playing jumping unterraining and terraining audios //
 	[Header("Audios")]

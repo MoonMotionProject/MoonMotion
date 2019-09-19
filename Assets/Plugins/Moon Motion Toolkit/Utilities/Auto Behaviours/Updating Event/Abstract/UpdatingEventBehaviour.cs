@@ -4,10 +4,10 @@ using UnityEngine;
 using NaughtyAttributes;
 using UnityEngine.Events;
 
-// Updating Event Behaviour: an abstract automatic behaviour providing a set Unity event and a method to invoke it, which is to be called by a particular updating event that the derived class is for  //
+// Updating Event Behaviour: an abstract auto behaviour providing a set Unity event and a method to invoke it, which is to be called by a particular updating event that the derived class is for  //
 public abstract class	UpdatingEventBehaviour<UpdatingEventBehaviourT> :
-					AutomaticBehaviour<UpdatingEventBehaviourT>
-						where UpdatingEventBehaviourT : AutomaticBehaviour<UpdatingEventBehaviourT>
+					AutoBehaviour<UpdatingEventBehaviourT>
+						where UpdatingEventBehaviourT : AutoBehaviour<UpdatingEventBehaviourT>
 {
 	// variables //
 

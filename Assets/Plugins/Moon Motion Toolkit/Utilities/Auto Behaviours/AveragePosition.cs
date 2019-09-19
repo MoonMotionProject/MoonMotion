@@ -3,7 +3,7 @@ using System.Collections;
 
 // Average Position: at each update, sets this transform's position to be the determined average position of the connected transforms //
 [CacheTransform]
-public class AveragePosition : AutomaticBehaviour<AveragePosition>
+public class AveragePosition : AutoBehaviour<AveragePosition>
 {
 	// variables //
 

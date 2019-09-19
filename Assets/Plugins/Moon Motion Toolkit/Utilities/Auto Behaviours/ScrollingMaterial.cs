@@ -6,7 +6,7 @@ using UnityEngine;
 // • updates this material according to a changing offset (using a set speed) in order to appear scrolling
 //   · speed is set per x and y axes; as such, offsets are determined per x and y axes, allowing for scrolling to be directionally adjusted
 //   · a toggle is provided for whether the scrolling shall currently be active
-public class ScrollingMaterial : AutomaticBehaviour<ScrollingMaterial>
+public class ScrollingMaterial : AutoBehaviour<ScrollingMaterial>
 {
 	// variables //
 

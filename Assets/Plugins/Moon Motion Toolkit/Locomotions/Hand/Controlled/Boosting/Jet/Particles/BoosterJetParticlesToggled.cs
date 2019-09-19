@@ -10,10 +10,10 @@ public class BoosterJetParticlesToggled : BoosterJetParticles
 	
 	
 	// variables for: the booster that is providing the jet that is providing these particles //
-	protected Booster booster;		// connection - automatic: the booster
+	protected Booster booster;		// connection - auto: the booster
 	
 	// variables for: controlling particle emission //
-	protected ParticleSystem emitter;	  // connection - automatic: the emitter
+	protected ParticleSystem emitter;	  // connection - auto: the emitter
 
 
 

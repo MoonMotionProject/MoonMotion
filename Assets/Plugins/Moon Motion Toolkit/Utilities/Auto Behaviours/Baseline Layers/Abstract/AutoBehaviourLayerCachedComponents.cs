@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Automatic Behaviour Layer Cached Components:
+// Auto Behaviour Layer Cached Components:
 // #auto
 // • provides this behaviour with caching of its components via a dictionary and a method
-public abstract class	AutomaticBehaviourLayerCachedComponents<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerAttributeDetection<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerCachedComponents<AutoBehaviourT> :
+					AutoBehaviourLayerAttributeDetection<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	// methods //
 

@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Automatic Behaviour Layer Component:
+// Auto Behaviour Layer Component:
 // #auto #component
 // • provides this behaviour with direct access to its extension methods for being a component
-public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerTransform<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
+					AutoBehaviourLayerTransform<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region destruction
 
-	public void destroy(Func<AutomaticBehaviourT, bool> function)
-		=> component.destroy(function(automaticBehaviour));
+	public void destroy(Func<AutoBehaviourT, bool> function)
+		=> component.destroy(function(autoBehaviour));
 
 	public void destroy(bool boolean = true)
 		=> component.destroy(boolean);
@@ -23,21 +23,21 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	#region accessing piblings
 
 	// a selection of the same components on this component's piblings //
-	public IEnumerable<AutomaticBehaviourT> selectEachFirstPibling => automaticBehaviour.selectEachFirstPibling();
+	public IEnumerable<AutoBehaviourT> selectEachFirstPibling => autoBehaviour.selectEachFirstPibling();
 
 	// a list of the same components on this component's piblings //
-	public List<AutomaticBehaviourT> eachFirstPibling => automaticBehaviour.eachFirstPibling();
+	public List<AutoBehaviourT> eachFirstPibling => autoBehaviour.eachFirstPibling();
 	#endregion accessing piblings
 
 
 	#region inspector
 
 	// method: hide this component in the inspector, then return this behaviour //
-	public AutomaticBehaviourT hideInInspector()
+	public AutoBehaviourT hideInInspector()
 		=> selfAfter(()=> component.hideInInspector());
 
 	// method: hide this component in the inspector, then return this behaviour //
-	public AutomaticBehaviourT unhideInInspector()
+	public AutoBehaviourT unhideInInspector()
 		=> selfAfter(()=> component.unhideInInspector());
 	#endregion inspector
 
@@ -48,7 +48,7 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 		=> component.requires_ViaReflection<ComponentTPotentiallyRequired>(considerInheritedRequireComponents);
 	
 	public bool required_ViaReflection(bool considerInheritedRequireComponents = true)
-		=> automaticBehaviour.required_ViaReflection<AutomaticBehaviourT>(considerInheritedRequireComponents);
+		=> autoBehaviour.required_ViaReflection<AutoBehaviourT>(considerInheritedRequireComponents);
 	#endregion requirement via RequireComponent
 
 
@@ -91,11 +91,11 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	public bool anyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = true)
 		=> component.anyOtherComponent(function, includeInactiveComponents);
 
-	public bool anyAutomaticBehaviours(bool includeInactiveComponents = true)
-		=> gameObject.anyAutomaticBehaviours(includeInactiveComponents);
+	public bool anyAutoBehaviours(bool includeInactiveComponents = true)
+		=> gameObject.anyAutoBehaviours(includeInactiveComponents);
 
-	public bool anyOtherAutomaticBehaviours(bool includeInactiveComponents = true)
-		=> automaticBehaviour.anyOtherAutomaticBehaviours<AutomaticBehaviourT>(includeInactiveComponents);
+	public bool anyOtherAutoBehaviours(bool includeInactiveComponents = true)
+		=> autoBehaviour.anyOtherAutoBehaviours<AutoBehaviourT>(includeInactiveComponents);
 	#endregion determining local components
 
 
@@ -113,15 +113,15 @@ public abstract class	AutomaticBehaviourLayerComponent<AutomaticBehaviourT> :
 	public List<Component> components(bool includeInactiveComponents = true)
 		=> gameObject.components(includeInactiveComponents);
 
-	// method: return a list of all automatic behaviours on this component's game object, optionally including inactive components according to the given boolean //
-	public List<IAutomaticBehaviour> automaticBehaviours(bool includeInactiveComponents = true)
-		=> component.automaticBehaviours(includeInactiveComponents);
+	// method: return a list of all auto behaviours on this component's game object, optionally including inactive components according to the given boolean //
+	public List<IAutoBehaviour> autoBehaviours(bool includeInactiveComponents = true)
+		=> component.autoBehaviours(includeInactiveComponents);
 	#endregion accessing local components
 
 
 	#region iterating local components
 
-	public AutomaticBehaviourT forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
+	public AutoBehaviourT forEach<ComponentT>(Action<ComponentT> action, bool includeInactiveComponents = true) where ComponentT : Component
 		=> selfAfter(()=> gameObject.forEach(action, includeInactiveComponents));
 	#endregion iterating local components
 

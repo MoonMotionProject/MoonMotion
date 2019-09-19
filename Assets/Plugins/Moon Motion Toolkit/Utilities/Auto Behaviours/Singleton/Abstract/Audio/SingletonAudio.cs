@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Singleton Audio:
 // • abstract singleton behaviour that specifically provides audio functionality
-//   · other than providing singleton variants of automatic behaviour audio functionality, also:
+//   · other than providing singleton variants of auto behaviour audio functionality, also:
 //     - maintains a calculation of smoothed audio time (that updates every frame instead of only whenever the audio time (in general, 'AudioSettings.dspTime', and also in particular this behaviour's 'audioTime') updates)
 public abstract class SingletonAudio<SingletonAudioT> :
 					SingletonBehaviour<SingletonAudioT>
@@ -15,11 +15,11 @@ public abstract class SingletonAudio<SingletonAudioT> :
 	#region audio shortcuts
 	public static float duration => audioDuration;
 	public static float volume => audioVolume;
-	public static AutomaticBehaviour<SingletonAudioT> setVolumeTo(float targetVolume, bool boolean = true)
+	public static AutoBehaviour<SingletonAudioT> setVolumeTo(float targetVolume, bool boolean = true)
 		=> setAudioVolumeTo(targetVolume, boolean);
-	public static bool playing => automaticBehaviour.audioPlaying;
-	public static AutomaticBehaviour<SingletonAudioT> setTimeTo(float targetTime, bool boolean = true)
-		=> automaticBehaviour.setAudioTimeTo(targetTime, boolean);
+	public static bool playing => autoBehaviour.audioPlaying;
+	public static AutoBehaviour<SingletonAudioT> setTimeTo(float targetTime, bool boolean = true)
+		=> autoBehaviour.setAudioTimeTo(targetTime, boolean);
 	#endregion audio shortcuts
 
 	#region smoothing audio time
@@ -44,10 +44,10 @@ public abstract class SingletonAudio<SingletonAudioT> :
 
 	#region playing
 
-	public static AutomaticBehaviour<SingletonAudioT> play()
+	public static AutoBehaviour<SingletonAudioT> play()
 		=> playAudio();
 
-	public static AutomaticBehaviour<SingletonAudioT> stop()
+	public static AutoBehaviour<SingletonAudioT> stop()
 		=> stopAudio();
 	#endregion playing
 	#endregion methods

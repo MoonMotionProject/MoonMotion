@@ -15,7 +15,7 @@ public abstract class BoosterModuleControllable : BoosterModule
 
 	
 	// variables for: controller connection and inputs setting //
-	protected Controller controller;		// connection - automatic: the controller of this module's booster
+	protected Controller controller;		// connection - auto: the controller of this module's booster
 	[BoxGroup("Input")]
 	[ReorderableList]
 	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use for controlling this module

@@ -7,7 +7,7 @@ using UnityEngine;
 //   · only sets the value at the start (instead of at each update, so as to avoid being unnecessarily taxing)
 //   · for at least Vive camera viewing, it would seem the inspector limit has good reason, as going below the limit can cause flickering black lines in the distance, seemingly only at a certain distance far enough away, especially noticeable in scenes where you can see a large enough distance away
 [RequireComponent(typeof(Camera))]
-public class CameraNearClippingPlaneOverride : AutomaticBehaviour<CameraNearClippingPlaneOverride>
+public class CameraNearClippingPlaneOverride : AutoBehaviour<CameraNearClippingPlaneOverride>
 {
 	// variables //
 

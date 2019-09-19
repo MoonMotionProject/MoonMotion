@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Moon Motion:
 // #auto #shortcuts #tracking
-// • provides this singleton behaviour with static access to its automatic behaviour's Moon Motion component shortcuts layer
+// • provides this singleton behaviour with static access to its auto behaviour's Moon Motion component shortcuts layer
 public abstract class SingletonBehaviourLayerComponentShortcutsMoonMotion<SingletonBehaviourT> :
 					SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
@@ -16,47 +16,47 @@ public abstract class SingletonBehaviourLayerComponentShortcutsMoonMotion<Single
 
 
 
-	#region Automatic Behaviours
+	#region Auto Behaviours
 
 
 	#region Tracking
 
 	#region miscellaneous
-	public static new float timeAwake => automaticBehaviour.timeAwake;
-	public static new float lightIntensityAwake => automaticBehaviour.lightIntensityAwake;
-	public static new bool awake => singleton && automaticBehaviour.awake;
-	public static new Color colorAwake => automaticBehaviour.colorAwake;
+	public static new float timeAwake => autoBehaviour.timeAwake;
+	public static new float lightIntensityAwake => autoBehaviour.lightIntensityAwake;
+	public static new bool awake => singleton && autoBehaviour.awake;
+	public static new Color colorAwake => autoBehaviour.colorAwake;
 	#endregion miscellaneous
 
 	#region Transformations
-	public static new Vector3 localScaleAwake => automaticBehaviour.localScaleAwake;
-	public static new float localScaleXAwake => automaticBehaviour.localScaleXAwake;
-	public static new float localScaleYAwake => automaticBehaviour.localScaleYAwake;
-	public static new float localScaleZAwake => automaticBehaviour.localScaleZAwake;
-	public static new Vector3 positionAwake => automaticBehaviour.positionAwake;
-	public static new float positionXAwake => automaticBehaviour.positionXAwake;
-	public static new float positionYAwake => automaticBehaviour.positionYAwake;
-	public static new float positionZAwake => automaticBehaviour.positionZAwake;
-	public static new Quaternion rotationAwake => automaticBehaviour.rotationAwake;
-	public static new float localPositionZAwake => automaticBehaviour.localPositionZAwake;
-	public static new float localPositionYAwake => automaticBehaviour.localPositionYAwake;
-	public static new float eulerAngleYAwake => automaticBehaviour.eulerAngleYAwake;
-	public static new float localPositionXAwake => automaticBehaviour.localPositionXAwake;
-	public static new Vector3 localPositionAwake => automaticBehaviour.localPositionAwake;
-	public static new float localEulerAngleZAwake => automaticBehaviour.localEulerAngleZAwake;
-	public static new float localEulerAngleYAwake => automaticBehaviour.localEulerAngleYAwake;
-	public static new float localEulerAngleXAwake => automaticBehaviour.localEulerAngleXAwake;
-	public static new Vector3 localEulerAnglesAwake => automaticBehaviour.localEulerAnglesAwake;
-	public static new float eulerAngleZAwake => automaticBehaviour.eulerAngleZAwake;
-	public static new float eulerAngleXAwake => automaticBehaviour.eulerAngleXAwake;
-	public static new Vector3 eulerAnglesAwake => automaticBehaviour.eulerAnglesAwake;
-	public static new Quaternion localRotationAwake => automaticBehaviour.localRotationAwake;
+	public static new Vector3 localScaleAwake => autoBehaviour.localScaleAwake;
+	public static new float localScaleXAwake => autoBehaviour.localScaleXAwake;
+	public static new float localScaleYAwake => autoBehaviour.localScaleYAwake;
+	public static new float localScaleZAwake => autoBehaviour.localScaleZAwake;
+	public static new Vector3 positionAwake => autoBehaviour.positionAwake;
+	public static new float positionXAwake => autoBehaviour.positionXAwake;
+	public static new float positionYAwake => autoBehaviour.positionYAwake;
+	public static new float positionZAwake => autoBehaviour.positionZAwake;
+	public static new Quaternion rotationAwake => autoBehaviour.rotationAwake;
+	public static new float localPositionZAwake => autoBehaviour.localPositionZAwake;
+	public static new float localPositionYAwake => autoBehaviour.localPositionYAwake;
+	public static new float eulerAngleYAwake => autoBehaviour.eulerAngleYAwake;
+	public static new float localPositionXAwake => autoBehaviour.localPositionXAwake;
+	public static new Vector3 localPositionAwake => autoBehaviour.localPositionAwake;
+	public static new float localEulerAngleZAwake => autoBehaviour.localEulerAngleZAwake;
+	public static new float localEulerAngleYAwake => autoBehaviour.localEulerAngleYAwake;
+	public static new float localEulerAngleXAwake => autoBehaviour.localEulerAngleXAwake;
+	public static new Vector3 localEulerAnglesAwake => autoBehaviour.localEulerAnglesAwake;
+	public static new float eulerAngleZAwake => autoBehaviour.eulerAngleZAwake;
+	public static new float eulerAngleXAwake => autoBehaviour.eulerAngleXAwake;
+	public static new Vector3 eulerAnglesAwake => autoBehaviour.eulerAnglesAwake;
+	public static new Quaternion localRotationAwake => autoBehaviour.localRotationAwake;
 	#endregion Transformations
 
 	#region Components
-	public static new List<CapsuleCollider> capsuleCollidersAwake => automaticBehaviour.capsuleCollidersAwake;
+	public static new List<CapsuleCollider> capsuleCollidersAwake => autoBehaviour.capsuleCollidersAwake;
 	#endregion Components
 	#endregion Tracking
-	#endregion Automatic Behaviours
+	#endregion Auto Behaviours
 	#endregion Utilities
 }

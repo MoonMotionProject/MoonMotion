@@ -6,12 +6,12 @@ using UnityEngine;
 using static UnityEditor.EditorApplication;
 #endif
 
-// Automatic Behaviour Layer Static Shortcuts:
+// Auto Behaviour Layer Static Shortcuts:
 // #auto
 // • provides this behaviour with easier access to typical static state and methods
-public abstract class	AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerAutomaticBehaviour<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
+					AutoBehaviourLayerAutoBehaviour<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region not: Moon Motion - Moon Motion Toolkit - Utilities - Explicit
 

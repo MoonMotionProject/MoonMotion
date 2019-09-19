@@ -14,7 +14,7 @@ public class BoosterJetSmokerings : BoosterJetParticles
 	public Booster booster;		// connection - manual: the booster
 	
 	// variables for: controlling particle emission //
-	private ParticleSystem emitter;	  // connection - automatic: the emitter
+	private ParticleSystem emitter;	  // connection - auto: the emitter
 	public bool smokeRingWhenNongrounded = false;		// setting: whether to allow the smokerings to play while terrained instead of just grounded
 	public static bool appropriatelyTerrainedAtLastUpdate = false;      // tracking: whether the player was terrained with the appropriate terrain at the last update
 

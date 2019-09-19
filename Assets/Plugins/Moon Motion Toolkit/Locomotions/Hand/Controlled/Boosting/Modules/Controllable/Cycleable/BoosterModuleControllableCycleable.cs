@@ -47,8 +47,8 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 	
 
 	// variables for: playing cycling audio //
-	private AudioSource cyclingAudioSource;		// connection - automatic: the attached audio source (for playing its cycling audio)
-	private AudioClip cyclingAudio;		// connection - automatic: the attached cycling audio
+	private AudioSource cyclingAudioSource;		// connection - auto: the attached audio source (for playing its cycling audio)
+	private AudioClip cyclingAudio;		// connection - auto: the attached cycling audio
 
 
 	// variables for: dependencies meeting changing cycling //

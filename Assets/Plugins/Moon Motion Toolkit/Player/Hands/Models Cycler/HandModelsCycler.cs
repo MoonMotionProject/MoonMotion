@@ -52,12 +52,12 @@ public class HandModelsCycler : MonoBehaviour
 	
 	
 	// variables for: hand connection and instancing //
-	private Hand hand;		// connection - automatic: this cycler's hand
+	private Hand hand;		// connection - auto: this cycler's hand
 	private bool leftInstance;		// tracking: this hand models cycler's handedness (whether its hand is the left hand (versus the right))
 	public static HandModelsCycler left, right;		// trackings: left and right instances of this class, respectively
 	
 	// variables for: input //
-	private Controller controller;		// connection - automatic: this cycler's hand's controller
+	private Controller controller;		// connection - auto: this cycler's hand's controller
 	[Header("Input")]
 	[ReorderableList]
 	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use for controlling this cycler
@@ -75,8 +75,8 @@ public class HandModelsCycler : MonoBehaviour
 	private int cycleIndex = 0;      // tracking: the current cycling index (by which to cycle through the set to cycle through)
 	
 	// variables for: playing cycling audio //
-	private AudioSource cyclingAudioSource;		// connection - automatic: the attached audio source (for playing its cycling audio)
-	private AudioClip cyclingAudio;		// connection - automatic: the attached cycling audio
+	private AudioSource cyclingAudioSource;		// connection - auto: the attached audio source (for playing its cycling audio)
+	private AudioClip cyclingAudio;		// connection - auto: the attached cycling audio
 	
 	// variables for: set of hand models changing //
 	[Header("Set of Sets of Hand Models")]

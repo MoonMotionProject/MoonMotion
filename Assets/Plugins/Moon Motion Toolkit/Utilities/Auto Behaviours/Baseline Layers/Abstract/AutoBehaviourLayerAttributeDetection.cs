@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Automatic Behaviour Layer Attribute Detection:
+// Auto Behaviour Layer Attribute Detection:
 // #auto
 // • provides the inheritor with detection of its class attributes (which are properly inherited, by the way)
-public abstract class	AutomaticBehaviourLayerAttributeDetection<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerStaticShortcuts<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerAttributeDetection<AutoBehaviourT> :
+					AutoBehaviourLayerStaticShortcuts<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	// method: return whether the inheritor's class has the specified attribute, including inherited attributes according to the given boolean //
 	public bool inheritorHasAttribute<AttributeT>(bool includeInheritedAttributes = true) where AttributeT : Attribute
-		=> automaticBehaviour.attributed<AutomaticBehaviourT, AttributeT>(includeInheritedAttributes);
+		=> autoBehaviour.attributed<AutoBehaviourT, AttributeT>(includeInheritedAttributes);
 }

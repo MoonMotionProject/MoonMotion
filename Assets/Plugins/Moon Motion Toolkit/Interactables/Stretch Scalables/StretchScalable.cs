@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Valve.VR.InteractionSystem
 {
 	[RequireComponent(typeof(Throwable))]
-	public class StretchScalable : AutomaticBehaviour<StretchScalable>
+	public class StretchScalable : AutoBehaviour<StretchScalable>
 	{
 		// variables //
 

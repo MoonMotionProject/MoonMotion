@@ -11,7 +11,7 @@ public static class Hands
 	// variables //
 
 	
-	// automatic connections //
+	// auto connections //
 	private static Hand left_, right_;     // the left and right hand instances
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 // Enableds Behaviour Layer Component:
 // #auto
-// • provides this enableds behaviour with static access for each of its enableds to its automatic behaviour's component layer
+// • provides this enableds behaviour with static access for each of its enableds to its auto behaviour's component layer
 public abstract class	EnabledsBehaviourLayerComponent<EnabledsBehaviourT> :
 					EnabledsBehaviourLayerEnableds<EnabledsBehaviourT>
 						where EnabledsBehaviourT : EnabledsBehaviour<EnabledsBehaviourT>

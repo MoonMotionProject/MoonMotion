@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Disable Behaviours If Editor At Start:
 // • at the start, if running in the editor, disables the set behaviours
-public class DisableBehavioursIfEditorAtStart : AutomaticBehaviour<DisableBehavioursIfEditorAtStart>
+public class DisableBehavioursIfEditorAtStart : AutoBehaviour<DisableBehavioursIfEditorAtStart>
 {
 	// variables //
 

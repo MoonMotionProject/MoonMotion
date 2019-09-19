@@ -18,11 +18,11 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 
 	
 	// variables for: instancing //
-	public static TreadingAudio singleton;     // connection - automatic: the singleton instance of this class
+	public static TreadingAudio singleton;     // connection - auto: the singleton instance of this class
 	
 	// variables for: playing footsteps (audio and vibration) //
-	private AudioSource[] footstepAudioSources;		// connections - automatic: the children treading footstep audio sources to randomize playing of
-	private AudioClip[] footstepAudios;		// connections - automatic: the children treading footstep audios to randomize playing of by the corresponding source
+	private AudioSource[] footstepAudioSources;		// connections - auto: the children treading footstep audio sources to randomize playing of
+	private AudioClip[] footstepAudios;		// connections - auto: the children treading footstep audios to randomize playing of by the corresponding source
 	private int previousFootstepAudioIndex = -1;		// tracking: the previously played footstep audio's index (to prevent adjacent repeats in the consecutive randomization)
 	[Header("Footstep Timing (min and max speed references reused from above)")]
 	public float intervalMin = .25f;		// setting: the min footstep audio interval duration to interpolate to
@@ -30,7 +30,7 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 	public float intervalMax = .65f;		// setting: the max footstep audio interval duration to interpolate to
 	public float speedMid = 2.5f;		// setting: the mid speed by which to interpolate an interval duration (where the min and max are reused from the settings for volume adjustment)
 	public InterpolationCurve speedIntervalCurve = InterpolationCurve.smoother;		// setting: the curve by which to interpolate an interval duration
-	private AudioSource treadingAudioSource;		// connection - automatic: the attached treading audio source (by which to determine the volume ratio by which to interpolate the footstep vibration intensity)
+	private AudioSource treadingAudioSource;		// connection - auto: the attached treading audio source (by which to determine the volume ratio by which to interpolate the footstep vibration intensity)
 	[Header("Footstep Vibration")]
 	public bool vibrationEnabled = false;		// setting: whether footsteps should vibrate the controllers
 	[Tooltip("the duration to wait at the start of playing each footstep audio, before vibrating for that footstep")]

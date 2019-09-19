@@ -7,7 +7,7 @@ using UnityEngine;
 // • controls the kinematicity of the attached rigidbody according to the dependencies setting
 //   · a toggle setting controls whether this kinematizing is enabled
 [RequireComponent(typeof(Rigidbody))]
-public class Kinematizer : AutomaticBehaviour<Kinematizer>
+public class Kinematizer : AutoBehaviour<Kinematizer>
 {
 	// variables //
 

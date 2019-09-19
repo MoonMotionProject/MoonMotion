@@ -40,13 +40,13 @@ public class LocomotionsCycler : MonoBehaviour
 
 	
 	// variables for: tracking instances //
-	protected Hand hand;		// connection - automatic: the parent hand
+	protected Hand hand;		// connection - auto: the parent hand
 	[HideInInspector] public bool leftInstance;     // tracking: this Locomotions Cycler's handedness (whether this Locomotions Cycler is for the left hand (versus the right))
 	private static LocomotionsCycler left, right;		// tracking: Locomotions Cycler instances
 	private LocomotionsCycler other;		// tracking: the other Locomotions Cycler instance
 
 	// variables for: input //
-	private Controller controller;		// connection - automatic: the hand's controller
+	private Controller controller;		// connection - auto: the hand's controller
 	[Header("Input")]
 	[ReorderableList]
 	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use
@@ -66,7 +66,7 @@ public class LocomotionsCycler : MonoBehaviour
 	public static bool cyclingAllowed = true;		// tracking: whether locomotion cycling is currently allowed
 	private int indexAtPreviousCyclingUpdate;		// tracking: the value of the index at the previous update when cycling was allowed (to be compared to the current index to determine if the locomotions need to be refreshed)
 	private static HashSet<GameObject> managedLocomotions = new HashSet<GameObject>();     // tracking: array of locomotions that are managed by this Locomotions Cycler (tracked as those locomotions which are children of either Locomotions Cycler or the player)
-	private AudioSource audioComponent;		// connection - automatic: the attached locomotion cycling audio
+	private AudioSource audioComponent;		// connection - auto: the attached locomotion cycling audio
 
 
 

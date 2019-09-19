@@ -6,7 +6,7 @@ using UnityEngine;
 // • defines this object as a powerup audio (in general, as there are certain kinds) of a powerup, and expects to initially be an immediate child of a parent Powerup
 // • provides a method to play the attached audio
 // • provides a method to destroy this object (after a delay equal to the duration of the attached audio), which is called by the parent Powerup's permanent destruction method
-public abstract class PowerupAudio : AutomaticBehaviour<PowerupAudio>
+public abstract class PowerupAudio : AutoBehaviour<PowerupAudio>
 {
 	// methods //
 

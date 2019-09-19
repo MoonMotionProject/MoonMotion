@@ -56,7 +56,7 @@ public abstract class GravityZone : Locomotion
 
 	// variables for: gravitizing particles //
 	protected static ParticleSystem[] allParticlesSystems = new ParticleSystem[] {};		// tracking: all particles systems (tracked by just one gravity zone at a time, the first one – if any – that is set to gravitize particles, out of all the tracked Gravity Zone instances)
-	[HideInInspector] public new Collider collider;		// connection - automatic: the collider of this gravity zone
+	[HideInInspector] public new Collider collider;		// connection - auto: the collider of this gravity zone
 	[Header("Gravitizing Particles")]
 	[Tooltip("whether or not to gravitize particles in this gravity zone /* performance of this feature is currently very poor for more than one gravity zone */ /* gravitizing particles does not adjust to rotation of the gravity zone for box gravity zones */")]
 	public bool gravitizeParticles = true;		// setting: whether or not to gravitize particles in this gravity zone /* performance of this feature is currently very poor for more than one gravity zone */ /* gravitizing particles does not adjust to rotation of the gravity zone for box gravity zones */

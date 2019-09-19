@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • provides this enableds behaviour with enableds features
 public abstract class	EnabledsBehaviourLayerEnableds<EnabledsBehaviourT> :
-					AutomaticBehaviour<EnabledsBehaviourT>
+					AutoBehaviour<EnabledsBehaviourT>
 						where EnabledsBehaviourT : EnabledsBehaviour<EnabledsBehaviourT>
 {
 	// variables //

@@ -5,7 +5,7 @@ using UnityEngine;
 // Locked Local Scale
 // • constantly updates this object's local scale to be the local scale it had at awake 
 [CacheTransform] [RequireComponent(typeof(TrackLocalScaleAtAwake))]
-public class LockedLocalScale : AutomaticBehaviour<LockedLocalScale>
+public class LockedLocalScale : AutoBehaviour<LockedLocalScale>
 {
 	// updating //
 

@@ -6,12 +6,12 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 #endif
 
-// Automatic Behaviour Layer Components Moon Motion:
+// Auto Behaviour Layer Components Moon Motion:
 // #auto #tracking
 // • provides this behaviour with automatically-connected properties to its game object's Moon Motion components and typical state of (and so on) those components
-public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerComponentsUnity<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
+					AutoBehaviourLayerComponentsUnity<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#if MOON_MOTION_TOOLKIT
 	public Locomotion locomotion => cache<Locomotion>();
@@ -35,7 +35,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 
 
 
-	#region Automatic Behaviours
+	#region Auto Behaviours
 
 
 	public Kinematizer kinematizer => cache<Kinematizer>();
@@ -83,7 +83,7 @@ public abstract class	AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehav
 	public TrackCapsuleCollidersAtAwake trackCapsuleCollidersAtAwake => cache<TrackCapsuleCollidersAtAwake>();
 	#endregion Components
 	#endregion Trackings
-	#endregion Automatic Behaviours
+	#endregion Auto Behaviours
 	#endregion Utilities
 
 

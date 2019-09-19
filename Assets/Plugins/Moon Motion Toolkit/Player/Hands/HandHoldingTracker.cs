@@ -11,16 +11,16 @@ using Valve.VR.InteractionSystem;
 // • provides hand hovering tracking\determination:
 //   · provides methods to determine whether any interactables are being hovered by a particular hand
 //   · this is only for interactables not already being held – the same interactables that have caused a vibration of the hand hovering over them
-public class HandHoldingTracker : AutomaticBehaviour<HandHoldingTracker>
+public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 {
 	// variables //
 
 	
 	// variables for: instancing, hand holding tracking\determination //
-	private Transform parentHandTransform;		// connection - automatic: the transform of this hand holding tracker's parent hand
-	private Hand parentHand;		// connection - automatic: this hand holding tracker's hand
+	private Transform parentHandTransform;		// connection - auto: the transform of this hand holding tracker's parent hand
+	private Hand parentHand;		// connection - auto: this hand holding tracker's hand
 	[HideInInspector] public bool leftInstance = true;		// tracking: this hand holding tracker's handedness (whether this hand holding tracker is for the left hand (versus the right))
-	public static HandHoldingTracker left, right;		// connections - automatic: the left and right instances of this class, respectively
+	public static HandHoldingTracker left, right;		// connections - auto: the left and right instances of this class, respectively
 	[HideInInspector] public float timeOfLastHoldingAnyInteractables = -Mathf.Infinity;		// tracking: the time this hand holding tracker's hand was last holding any interactables – defaulted to negative infinity by default as a flag that this hand holding tracker's hand has never held any interactables
 	private bool handHoveringWithNonheldInteractable = false;		// tracking: whether the parent hand is currently hovering with a nonheld interactable
 

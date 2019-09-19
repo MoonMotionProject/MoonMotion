@@ -195,21 +195,21 @@ public static class ComponentExtensions
 	public static bool anyOtherComponent(this Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
 		=> component.gameObject.anyComponentExcept(component, function, includeInactiveComponents);
 
-	// method: return whether this given game object has any automatic behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyAutomaticBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
-		=> Any.itemsIn(gameObject.automaticBehaviours(includeInactiveComponents));
+	// method: return whether this given game object has any auto behaviours, optionally including inactive components according to the given boolean //
+	public static bool anyAutoBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
+		=> Any.itemsIn(gameObject.autoBehaviours(includeInactiveComponents));
 
-	// method: return whether this given transform has any automatic behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyAutomaticBehaviours(this Transform transform, bool includeInactiveComponents = true)
-		=> transform.gameObject.anyAutomaticBehaviours(includeInactiveComponents);
+	// method: return whether this given transform has any auto behaviours, optionally including inactive components according to the given boolean //
+	public static bool anyAutoBehaviours(this Transform transform, bool includeInactiveComponents = true)
+		=> transform.gameObject.anyAutoBehaviours(includeInactiveComponents);
 
-	// method: return whether this given component's game object has any automatic behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyAutomaticBehaviours(this Component component, bool includeInactiveComponents = true)
-		=> component.gameObject.anyAutomaticBehaviours(includeInactiveComponents);
+	// method: return whether this given component's game object has any auto behaviours, optionally including inactive components according to the given boolean //
+	public static bool anyAutoBehaviours(this Component component, bool includeInactiveComponents = true)
+		=> component.gameObject.anyAutoBehaviours(includeInactiveComponents);
 
-	// method: return whether this given automatic behaviour's game object has any other automatic behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyOtherAutomaticBehaviours<AutomaticBehaviourT>(this AutomaticBehaviourT automaticBehaviour, bool includeInactiveComponents = true) where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
-		=> automaticBehaviour.automaticBehaviours().containsOtherThan(automaticBehaviour);
+	// method: return whether this given auto behaviour's game object has any other auto behaviours, optionally including inactive components according to the given boolean //
+	public static bool anyOtherAutoBehaviours<AutoBehaviourT>(this AutoBehaviourT autoBehaviour, bool includeInactiveComponents = true) where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
+		=> autoBehaviour.autoBehaviours().containsOtherThan(autoBehaviour);
 	#endregion determining local components
 
 
@@ -264,15 +264,15 @@ public static class ComponentExtensions
 	public static List<Component> components(this Component component, bool includeInactiveComponents = true)
 		=> component.gameObject.components();
 
-	// method: return a list of all automatic behaviours on this given game object, optionally including inactive components according to the given boolean //
-	public static List<IAutomaticBehaviour> automaticBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
-		=> gameObject.pickI<IAutomaticBehaviour>(includeInactiveComponents);
-	// method: return a list of all automatic behaviours on this given transform's game object, optionally including inactive components according to the given boolean //
-	public static List<IAutomaticBehaviour> automaticBehaviours(this Transform transform, bool includeInactiveComponents = true)
-		=> transform.gameObject.automaticBehaviours();
-	// method: return a list of all automatic behaviours on this given component's game object, optionally including inactive components according to the given boolean //
-	public static List<IAutomaticBehaviour> automaticBehaviours(this Component component, bool includeInactiveComponents = true)
-		=> component.gameObject.automaticBehaviours();
+	// method: return a list of all auto behaviours on this given game object, optionally including inactive components according to the given boolean //
+	public static List<IAutoBehaviour> autoBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
+		=> gameObject.pickI<IAutoBehaviour>(includeInactiveComponents);
+	// method: return a list of all auto behaviours on this given transform's game object, optionally including inactive components according to the given boolean //
+	public static List<IAutoBehaviour> autoBehaviours(this Transform transform, bool includeInactiveComponents = true)
+		=> transform.gameObject.autoBehaviours();
+	// method: return a list of all auto behaviours on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<IAutoBehaviour> autoBehaviours(this Component component, bool includeInactiveComponents = true)
+		=> component.gameObject.autoBehaviours();
 	#endregion accessing local components
 
 

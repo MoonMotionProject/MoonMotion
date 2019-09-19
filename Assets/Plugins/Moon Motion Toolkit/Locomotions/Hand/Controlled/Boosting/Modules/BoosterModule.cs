@@ -16,8 +16,8 @@ public abstract class BoosterModule : MonoBehaviour
 
 	
 	// variables for: booster connections and handedness tracking //
-	protected Transform boosterTransform;		// connection - automatic: the booster's transform
-	protected Booster booster;		// connection - automatic: the booster this module is for
+	protected Transform boosterTransform;		// connection - auto: the booster's transform
+	protected Booster booster;		// connection - auto: the booster this module is for
 	protected bool leftInstance;		// tracking: the booster's handedness
 
 	// variables for: dependencies //

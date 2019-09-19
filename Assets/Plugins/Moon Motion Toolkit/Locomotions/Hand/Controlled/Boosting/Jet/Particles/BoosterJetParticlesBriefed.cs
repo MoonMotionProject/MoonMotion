@@ -11,11 +11,11 @@ public class BoosterJetParticlesBriefed : BoosterJetParticles
 	
 
 	// variables for: the booster that is providing the jet that is providing these particles //
-	private Booster booster;		// connection - automatic: the booster
-	private Controller controller;		// connection - automatic: the controller of the booster
+	private Booster booster;		// connection - auto: the booster
+	private Controller controller;		// connection - auto: the controller of the booster
 	
 	// variables for: controlling particle emission //
-	private ParticleSystem emitter;	  // connection - automatic: the emitter
+	private ParticleSystem emitter;	  // connection - auto: the emitter
 	public bool requiresDeepBoosting = true;		// setting: whether to allow the particles to play only when boosting deeply
 	public float duration = .2f;		// setting: the brief duration to play the particles (the amount of time until playing their emission should be stopped)
 	private float remainder = 0f;		// tracking: the remaining time to play the particles (set to the duration whenever playing is started)

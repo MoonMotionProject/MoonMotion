@@ -16,11 +16,11 @@ public class BoosterFuelSputterer : BoosterModule
 	private static BoosterFuelSputterer left, right;		// tracking: fuel sputterer instances
 	
 	// variables for: particles //
-	private ParticleSystem[] particlesSystems;		// connections - automatic: the particles systems for this fuel sputterer (determined by the children particles systems active before the start)
+	private ParticleSystem[] particlesSystems;		// connections - auto: the particles systems for this fuel sputterer (determined by the children particles systems active before the start)
 
 	// variables for: audio //
-	private AudioSource audioSource;		// connection - automatic: the audio source on this fuel sputterer for playing fuel sputtering audio
-	private AudioClip audioClip;        // connection - automatic: the fuel sputtering audio on this booster's audio source
+	private AudioSource audioSource;		// connection - auto: the audio source on this fuel sputterer for playing fuel sputtering audio
+	private AudioClip audioClip;        // connection - auto: the fuel sputtering audio on this booster's audio source
 
 	// variables for: dependencies //
 	[BoxGroup("Dependencies")]

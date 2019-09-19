@@ -21,7 +21,7 @@ using NaughtyAttributes;
 //     – (this is the one used internally when pickuping)
 //   - cast this pickup (do what it does upon pickup, besides play pickup audio first and get destroyed after)
 //   - pickup this powerup
-public class Powerup : AutomaticBehaviour<Powerup>
+public class Powerup : AutoBehaviour<Powerup>
 {
 	// variables //
 
@@ -29,11 +29,11 @@ public class Powerup : AutomaticBehaviour<Powerup>
 	// variables for: pickuping and respawning //
 	[BoxGroup("Audio")]
 	[ReadOnly]
-	public PowerupBumpAudio bumpAudio;		// connection - automatic: the child Powerup Bump Audio
+	public PowerupBumpAudio bumpAudio;		// connection - auto: the child Powerup Bump Audio
 	protected string originalBumpAudioName;     // tracking: the original name of the Powerup Bump Audio's object
 	[BoxGroup("Audio")]
 	[ReadOnly]
-	public PowerupPickupAudio pickupAudio;		// connection - automatic: the child Powerup Pickup Audio
+	public PowerupPickupAudio pickupAudio;		// connection - auto: the child Powerup Pickup Audio
 	protected string originalPickupAudioName;		// tracking: the original name of the Powerup Pickup Audio's object
 	[BoxGroup("Respawning")]
 	[Tooltip("the number of times to respawn this powerup, where any negative value is treated as infinity")]

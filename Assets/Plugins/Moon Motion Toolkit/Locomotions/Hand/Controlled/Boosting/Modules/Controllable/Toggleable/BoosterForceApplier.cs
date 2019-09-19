@@ -32,7 +32,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	public BasicDirection forceDirection = BasicDirection.up;	   // setting: the direction of force applied for boosting (aimed for by rotating the booster) (opposite of the boosting direction (which is the direction that the jet goes out in))
 	
 	// variables for: applying force //
-	private Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody (to apply boosting force to)
+	private Rigidbody playerRigidbody;		// connection - auto: the player rigidbody (to apply boosting force to)
 	[Header("Applying Force")]
 	[Tooltip("whether the parent booster should apply its main boosting force (disregarding any boosting forces from other modules)")]
 	public bool applyingForce = true;		// setting: whether this force applier is applying force (whether the parent booster should apply its main boosting force (disregarding any boosting forces from other modules))

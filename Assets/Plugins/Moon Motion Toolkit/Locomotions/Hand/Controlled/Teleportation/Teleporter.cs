@@ -16,7 +16,7 @@ public class Teleporter : HandLocomotion
 
 	
 	// variables for: instancing //
-	public static Teleporter left, right;		// connections - automatic: the left and right instances of this class
+	public static Teleporter left, right;		// connections - auto: the left and right instances of this class
 
 
 

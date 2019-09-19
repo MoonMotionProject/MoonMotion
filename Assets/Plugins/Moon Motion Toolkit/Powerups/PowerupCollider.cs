@@ -14,8 +14,8 @@ public class PowerupCollider : MonoBehaviour
 
 	
 	// variables for: handling collisions //
-	private Powerup powerup;        // connection - automatic: the parent Powerup
-	private PowerupBumpAudio bumpAudio;		// connection - automatic: the sibling Powerup Bump Audio
+	private Powerup powerup;        // connection - auto: the parent Powerup
+	private PowerupBumpAudio bumpAudio;		// connection - auto: the sibling Powerup Bump Audio
 	
 	
 	

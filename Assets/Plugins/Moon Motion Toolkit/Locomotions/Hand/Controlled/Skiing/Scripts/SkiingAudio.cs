@@ -11,7 +11,7 @@ public class SkiingAudio : LocomotionMovementAudioSingle
 
 	
 	// variables for: instancing //
-	[HideInInspector] public SkiingAudio singleton;     // connection - automatic: the singleton instance of this class
+	[HideInInspector] public SkiingAudio singleton;     // connection - auto: the singleton instance of this class
 
 
 

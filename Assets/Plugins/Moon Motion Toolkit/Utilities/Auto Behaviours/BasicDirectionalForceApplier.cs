@@ -7,7 +7,7 @@ using NaughtyAttributes;
 // • at each physics update, applies basic directional force
 // #force
 [RequireComponent(typeof(Rigidbody))]
-public class BasicDirectionalForceApplier : AutomaticBehaviour<BasicDirectionalForceApplier>
+public class BasicDirectionalForceApplier : AutoBehaviour<BasicDirectionalForceApplier>
 {
 	// variables //
 

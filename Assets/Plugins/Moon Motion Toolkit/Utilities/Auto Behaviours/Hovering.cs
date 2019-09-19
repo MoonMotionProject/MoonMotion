@@ -11,7 +11,7 @@ using UnityEngine;
 //     - the frequency factor
 //     - an amount by which to offset the current time used in the oscillation calculation (so as to allow for multiple instances of Hovering not necessarily being in sync)
 [CacheTransform] [RequireComponent(typeof(TrackLocalPositionYAtAwake))]
-public class Hovering : AutomaticBehaviour<Hovering>
+public class Hovering : AutoBehaviour<Hovering>
 {
 	// variables //
 

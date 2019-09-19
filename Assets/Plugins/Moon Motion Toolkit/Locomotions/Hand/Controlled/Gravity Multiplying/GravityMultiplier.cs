@@ -20,15 +20,15 @@ public class GravityMultiplier : HandLocomotionControlled
 	
 	
 	// variables for: instancing //
-	public static GravityMultiplier left, right;		// connections - automatic: left and right Gravity Multiplier instances
+	public static GravityMultiplier left, right;		// connections - auto: left and right Gravity Multiplier instances
 	
 	// variables for: input //
 	[Tooltip("whether this Gravity Multiplier's input toggles alternation globally (for both hands' Gravity Multipliers) instead of just this one")]
 	public bool inputAlternatesGlobally = true;		// setting: whether this Gravity Multiplier's input toggles alternation globally (for both hands' Gravity Multipliers) instead of just this one
 	
 	// variables for: playing the attached gravity multiplier alternating audio (upon input alternation changing only) //
-	private AudioSource alternatingAudioSource;		// connection - automatic: the attached gravity multiplier alternating audio source (for input alternation changing only)
-	private AudioClip alternatingAudio;		// connection - automatic: the attached gravity multiplier alternating audio (for input alternation changing only)
+	private AudioSource alternatingAudioSource;		// connection - auto: the attached gravity multiplier alternating audio source (for input alternation changing only)
+	private AudioClip alternatingAudio;		// connection - auto: the attached gravity multiplier alternating audio (for input alternation changing only)
 	
 	// variables for: gravity modifiers //
 	[Header("Modifiers")]

@@ -32,10 +32,10 @@ public class Turner : HandLocomotionControlled
 
 	
 	// variables for: instancing //
-	public static Turner left, right;		// connections - automatic: left and right Turner instances, respectively
+	public static Turner left, right;		// connections - auto: left and right Turner instances, respectively
 	
 	// variables for: turning //
-	private Transform playerTransform;		// connection - automatic: the player transform (to turn)
+	private Transform playerTransform;		// connection - auto: the player transform (to turn)
 	[Header("Transform to Rotate Around")]
 	[Tooltip("the transform of the object to rotate the player around (in most cases, the player's headset/camera)")]
 	public Transform objectOfRotationTransform;		// connection - manual: the transform of the object to rotate the player around (in most cases, the player's headset/camera)

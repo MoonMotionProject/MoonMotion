@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Face Main Camera: updates this object to always face the main camera //
 [CacheTransform]
-public class FaceMainCamera : AutomaticBehaviour<FaceMainCamera>
+public class FaceMainCamera : AutoBehaviour<FaceMainCamera>
 {
 	// variables //
 

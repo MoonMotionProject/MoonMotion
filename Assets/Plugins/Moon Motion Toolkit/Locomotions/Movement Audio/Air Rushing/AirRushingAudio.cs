@@ -15,7 +15,7 @@ public class AirRushingAudio : LocomotionMovementAudioSingle
 
 	// variables for: instancing //
 
-	public static AirRushingAudio singleton;        // connection - automatic: the singleton instance of this class
+	public static AirRushingAudio singleton;        // connection - auto: the singleton instance of this class
 
 
 	// settings for: air nonrushing distance //

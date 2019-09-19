@@ -4,89 +4,89 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-// Automatic Behaviour Layer Component Shortcuts Unity:
+// Auto Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #force
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' Unity components
-public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerMonoBehaviour<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> :
+					AutoBehaviourLayerMonoBehaviour<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region Renderer
 
 	#region enablement
 	public bool rendererEnablement => renderer.enablement();
-	public AutomaticBehaviourT setRendererEnablementTo(bool boolean)
+	public AutoBehaviourT setRendererEnablementTo(bool boolean)
 		=> selfAfter(()=> renderer.setEnablementTo(boolean));
-	public AutomaticBehaviourT enableRenderer()
+	public AutoBehaviourT enableRenderer()
 		=> selfAfter(()=> renderer.enable());
-	public AutomaticBehaviourT disableRenderer()
+	public AutoBehaviourT disableRenderer()
 		=> selfAfter(()=> renderer.disable());
-	public AutomaticBehaviourT toggleRendererEnablementBy(Toggling toggling)
+	public AutoBehaviourT toggleRendererEnablementBy(Toggling toggling)
 		=> selfAfter(()=> renderer.toggleEnablementBy(toggling));
 	#endregion enablement
 
 	#region material
 	public Material material => renderer.material;
-	public AutomaticBehaviourT setMaterialTo(Material material)
+	public AutoBehaviourT setMaterialTo(Material material)
 		=> selfAfter(()=> renderer.setMaterialTo(material));
 	public Material sharedMaterial => renderer.sharedMaterial;
-	public AutomaticBehaviourT setSharedMaterialTo(Material sharedMaterial)
+	public AutoBehaviourT setSharedMaterialTo(Material sharedMaterial)
 		=> selfAfter(()=> renderer.setSharedMaterialTo(material));
 	#endregion material
 
 	#region color
 	public Color color => material.color;
-	public AutomaticBehaviourT setColorTo(Color targetColor)
+	public AutoBehaviourT setColorTo(Color targetColor)
 		=> selfAfter(()=> material.setColorTo(targetColor));
-	public AutomaticBehaviourT setChildrenColorTo(Color targetColor)
+	public AutoBehaviourT setChildrenColorTo(Color targetColor)
 		=> selfAfter(()=> gameObject.setChildrenColorTo(targetColor));
-	public AutomaticBehaviourT randomizeColor()
+	public AutoBehaviourT randomizeColor()
 		=> selfAfter(()=> material.randomizeColor());
-	public AutomaticBehaviourT setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
+	public AutoBehaviourT setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
 		=> selfAfter(()=> gameObject.setChildrenEmissionColorTo(targetColor, boolean));
 	#endregion color
 
 	#region shadowcasting
-	public AutomaticBehaviourT setShadowcastingTo(ShadowCastingMode shadowcasting)
+	public AutoBehaviourT setShadowcastingTo(ShadowCastingMode shadowcasting)
 		=> selfAfter(()=> renderer.setShadowcastingTo(shadowcasting));
-	public AutomaticBehaviourT shadowcast()
+	public AutoBehaviourT shadowcast()
 		=> selfAfter(()=> renderer.shadowcast());
-	public AutomaticBehaviourT nonshadowcast()
+	public AutoBehaviourT nonshadowcast()
 		=> selfAfter(()=> renderer.nonshadowcast());
 	#endregion shadowcasting
 
 	#region shadowability
-	public AutomaticBehaviourT setShadowabilityTo(bool shadowability)
+	public AutoBehaviourT setShadowabilityTo(bool shadowability)
 		=> selfAfter(()=> renderer.setShadowabilityTo(shadowability));
-	public AutomaticBehaviourT shadowable()
+	public AutoBehaviourT shadowable()
 		=> selfAfter(()=> renderer.shadowable());
-	public AutomaticBehaviourT nonshadowable()
+	public AutoBehaviourT nonshadowable()
 		=> selfAfter(()=> renderer.nonshadowable());
 	#endregion shadowability
 
 	#region reflection source
-	public AutomaticBehaviourT setReflectionSourceTo(ReflectionSource reflectionSource)
+	public AutoBehaviourT setReflectionSourceTo(ReflectionSource reflectionSource)
 		=> selfAfter(()=> renderer.setReflectionSourceTo(reflectionSource));
-	public AutomaticBehaviourT setReflectionSourceToSkybox()
+	public AutoBehaviourT setReflectionSourceToSkybox()
 		=> selfAfter(()=> renderer.setReflectionSourceToSkybox());
-	public AutomaticBehaviourT setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox()
+	public AutoBehaviourT setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox()
 		=> selfAfter(()=> renderer.setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox());
-	public AutomaticBehaviourT setReflectionSourceToBlendedReflectionProbesAndSkybox()
+	public AutoBehaviourT setReflectionSourceToBlendedReflectionProbesAndSkybox()
 		=> selfAfter(()=> renderer.setReflectionSourceToBlendedReflectionProbesAndSkybox());
-	public AutomaticBehaviourT setReflectionSourceToSingleMostRelevantProbeOrSkybox()
+	public AutoBehaviourT setReflectionSourceToSingleMostRelevantProbeOrSkybox()
 		=> selfAfter(()=> renderer.setReflectionSourceToSingleMostRelevantProbeOrSkybox());
 	#endregion reflection source
 
 	#region light probe usage
-	public AutomaticBehaviourT setLightProbeUsageTo(LightProbeUsage lightProbeUsage)
+	public AutoBehaviourT setLightProbeUsageTo(LightProbeUsage lightProbeUsage)
 		=> selfAfter(()=> renderer.setLightProbeUsageTo(lightProbeUsage));
-	public AutomaticBehaviourT setLightProbeUsageToOff()
+	public AutoBehaviourT setLightProbeUsageToOff()
 		=> selfAfter(()=> renderer.setLightProbeUsageToOff());
-	public AutomaticBehaviourT setLightProbeUsageToBlendProbes()
+	public AutoBehaviourT setLightProbeUsageToBlendProbes()
 		=> selfAfter(()=> renderer.setLightProbeUsageToBlendProbes());
-	public AutomaticBehaviourT setRLightProbeUsageToUseProxyVolume()
+	public AutoBehaviourT setRLightProbeUsageToUseProxyVolume()
 		=> selfAfter(()=> renderer.setRLightProbeUsageToUseProxyVolume());
-	public AutomaticBehaviourT setReflectionSourceToCustomProvided()
+	public AutoBehaviourT setReflectionSourceToCustomProvided()
 		=> selfAfter(()=> renderer.setReflectionSourceToCustomProvided());
 	#endregion light probe usage
 	#endregion Renderer
@@ -96,106 +96,106 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 
 	#region kinematicity
 	public bool kinematicity => rigidbody.kinematicity();
-	public AutomaticBehaviourT setKinematicityTo(bool kinematicity, bool boolean = true)
+	public AutoBehaviourT setKinematicityTo(bool kinematicity, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setKinematicityTo(kinematicity, boolean));
-	public AutomaticBehaviourT kinematize(bool boolean = true)
+	public AutoBehaviourT kinematize(bool boolean = true)
 		=> selfAfter(()=> rigidbody.kinematize(boolean));
-	public AutomaticBehaviourT nonkinematize(bool boolean = true)
+	public AutoBehaviourT nonkinematize(bool boolean = true)
 		=> selfAfter(()=> rigidbody.nonkinematize(boolean));
 	#endregion kinematicity
 
 	#region gravitization
 	public bool gravitization => rigidbody.gravitization();
-	public AutomaticBehaviourT setGravitizationTo(bool gravitization, bool boolean = true)
+	public AutoBehaviourT setGravitizationTo(bool gravitization, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setGravitizationTo(gravitization, boolean));
-	public AutomaticBehaviourT gravitize(bool boolean = true)
+	public AutoBehaviourT gravitize(bool boolean = true)
 		=> selfAfter(()=> rigidbody.gravitize(boolean));
-	public AutomaticBehaviourT nongravitize(bool boolean = true)
+	public AutoBehaviourT nongravitize(bool boolean = true)
 		=> selfAfter(()=> rigidbody.nongravitize(boolean));
 	#endregion gravitization
 
 	#region velocity vectrals
 	public Vector3 velocityDirection => rigidbody.velocityDirection();
-	public AutomaticBehaviourT setVelocityDirectionTo(Vector3 direction, bool boolean = true)
+	public AutoBehaviourT setVelocityDirectionTo(Vector3 direction, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setVelocityDirectionTo(direction, boolean));
 	public Vector3 angularVelocityAngling => rigidbody.angularVelocityAngling();
-	public AutomaticBehaviourT setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
+	public AutoBehaviourT setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setAngularVelocityAnglingTo(angling, boolean));
 	#endregion velocity vectrals
 
 	#region speeds
 	public float speed => rigidbody.speed();
-	public AutomaticBehaviourT setSpeedTo(float speed, bool boolean = true)
+	public AutoBehaviourT setSpeedTo(float speed, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setSpeedTo(speed, boolean));
-	public AutomaticBehaviourT honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
+	public AutoBehaviourT honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
 		=> selfAfter(()=> rigidbody.honeSpeed(honingTarget, honingAmount, boolean));
-	public AutomaticBehaviourT slowSpeedBy(float speedReduction, bool boolean = true)
+	public AutoBehaviourT slowSpeedBy(float speedReduction, bool boolean = true)
 		=> selfAfter(()=> rigidbody.slowSpeedBy(speedReduction, boolean));
 	public float angularSpeed => rigidbody.angularSpeed();
-	public AutomaticBehaviourT setAngularSpeedTo(float angularSpeed, bool boolean = true)
+	public AutoBehaviourT setAngularSpeedTo(float angularSpeed, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setAngularSpeedTo(angularSpeed, boolean));
 	#endregion speed
 
 	#region velocities
 	public Vector3 velocity => rigidbody.velocity;
 	public Vector3 angularVelocity => rigidbody.angularVelocity;
-	public AutomaticBehaviourT setVelocityTo(Vector3 velocity, bool boolean = true)
+	public AutoBehaviourT setVelocityTo(Vector3 velocity, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setVelocityTo(velocity, boolean));
-	public AutomaticBehaviourT setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
+	public AutoBehaviourT setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setAngularVelocityTo(angularVelocity, boolean));
-	public AutomaticBehaviourT setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
+	public AutoBehaviourT setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setVelocitiesTo(directionalVelocity, angularVelocity, boolean));
-	public AutomaticBehaviourT setVelocitiesTo(Vector3 velocity, bool boolean = true)
+	public AutoBehaviourT setVelocitiesTo(Vector3 velocity, bool boolean = true)
 		=> selfAfter(()=> rigidbody.setVelocitiesTo(velocity, boolean));
-	public AutomaticBehaviourT zeroVelocity(bool boolean = true)
+	public AutoBehaviourT zeroVelocity(bool boolean = true)
 		=> selfAfter(()=> rigidbody.zeroVelocity(boolean));
-	public AutomaticBehaviourT zeroAngularVelocity(bool boolean = true)
+	public AutoBehaviourT zeroAngularVelocity(bool boolean = true)
 		=> selfAfter(()=> rigidbody.zeroAngularVelocity(boolean));
-	public AutomaticBehaviourT zeroVelocities(bool boolean = true)
+	public AutoBehaviourT zeroVelocities(bool boolean = true)
 		=> selfAfter(()=> rigidbody.zeroVelocities(boolean));
 	#endregion velocities
 
 	#region accelerating
-	public AutomaticBehaviourT accelerateBy(Vector3 acceleration, bool boolean = true)
+	public AutoBehaviourT accelerateBy(Vector3 acceleration, bool boolean = true)
 		=> selfAfter(()=> rigidbody.accelerateBy(acceleration, boolean));
 	#endregion accelerating
 
 	#region applying force
-	public AutomaticBehaviourT applyForceOf(Vector3 force, bool boolean = true)
+	public AutoBehaviourT applyForceOf(Vector3 force, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceOf(force, boolean));
-	public AutomaticBehaviourT applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
+	public AutoBehaviourT applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceOf(forceX, forceY, forceZ, boolean));
-	public AutomaticBehaviourT applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlong(direction, magnitude, boolean));
-	public AutomaticBehaviourT applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlongLocal(basicDirection, magnitude, boolean));
-	public AutomaticBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
-	public AutomaticBehaviourT applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlong(basicDirection, distinctivity, magnitude, boolean));
-	public AutomaticBehaviourT applyForwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyBackwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyBackwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyBackwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyRightwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyRightwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyRightwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyLeftwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyLeftwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyLeftwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyUpwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyUpwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyUpwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyDownwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyDownwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyDownwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyGlobalForwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyGlobalForwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalForwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalBackwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalRightwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalLeftwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalUpwardForceOf(magnitude, boolean));
-	public AutomaticBehaviourT applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
+	public AutoBehaviourT applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalDownwardForceOf(magnitude, boolean));
 	#endregion applying force
 	#endregion Rigidbody
@@ -205,7 +205,7 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 
 	#region audio
 	public new AudioClip audio => audioSource.audio();
-	public AutomaticBehaviourT setAudioTo(AudioClip targetAudio, bool boolean = true)
+	public AutoBehaviourT setAudioTo(AudioClip targetAudio, bool boolean = true)
 		=> selfAfter(()=> audioSource.setAudioTo(targetAudio, boolean));
 	public float audioDuration => audioSource.duration();
 	#endregion audio
@@ -213,29 +213,29 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	#region volume
 	public float audioVolume => audioSource.volume;
 	public List<float> childAudioVolumes => gameObject.childAudioVolumes();
-	public AutomaticBehaviourT setAudioVolumeTo(float targetVolume, bool boolean = true)
+	public AutoBehaviourT setAudioVolumeTo(float targetVolume, bool boolean = true)
 		=> selfAfter(()=> audioSource.setVolumeTo(targetVolume, boolean));
-	public AutomaticBehaviourT setChildAudioVolumesTo(IList<float> targetVolumes)
+	public AutoBehaviourT setChildAudioVolumesTo(IList<float> targetVolumes)
 		=> selfAfter(()=> gameObject.setChildAudioVolumesTo(targetVolumes));
 	#endregion volume
 
 	#region playing
 	public bool audioPlaying => audioSource.playing();
-	public AutomaticBehaviourT playAudio()
+	public AutoBehaviourT playAudio()
 		=> selfAfter(()=> audioSource.play());
-	public AutomaticBehaviourT playChildAudios()
+	public AutoBehaviourT playChildAudios()
 		=> selfAfter(()=> gameObject.playChildAudios());
-	public AutomaticBehaviourT stopAudio()
+	public AutoBehaviourT stopAudio()
 		=> selfAfter(()=> audioSource.stop());
-	public AutomaticBehaviourT stopChildAudios()
+	public AutoBehaviourT stopChildAudios()
 		=> selfAfter(()=> gameObject.stopChildAudios());
 	public float audioTime => audioSource.time;
-	public AutomaticBehaviourT setAudioTimeTo(float targetTime, bool boolean = true)
+	public AutoBehaviourT setAudioTimeTo(float targetTime, bool boolean = true)
 		=> selfAfter(()=> audioSource.setTimeTo(targetTime, boolean));
 	#endregion playing
 
 	#region acting upon child audio
-	public AutomaticBehaviourT actUponChildAudioSources(Action<List<AudioSource>> action)
+	public AutoBehaviourT actUponChildAudioSources(Action<List<AudioSource>> action)
 		=> selfAfter(()=> gameObject.actUponChildAudioSources(action));
 	#endregion acting upon child audio
 	#endregion AudioSource
@@ -244,20 +244,20 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	#region LineRenderer
 
 	#region setting starting and ending widths
-	public AutomaticBehaviourT setLineRendererStartingWidthTo(float targetStartingWidth)
+	public AutoBehaviourT setLineRendererStartingWidthTo(float targetStartingWidth)
 		=> selfAfter(()=> lineRenderer.setStartingWidthTo(targetStartingWidth));
-	public AutomaticBehaviourT setLineRendererEndingWidthTo(float targetEndingWidth)
+	public AutoBehaviourT setLineRendererEndingWidthTo(float targetEndingWidth)
 		=> selfAfter(()=> lineRenderer.setEndingWidthTo(targetEndingWidth));
-	public AutomaticBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetStartingWidth, float targetEndingWidth)
+	public AutoBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetStartingWidth, float targetEndingWidth)
 		=> selfAfter(()=> lineRenderer.setStartingAndEndingWidthsTo(targetStartingWidth, targetEndingWidth));
-	public AutomaticBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetWidth)
+	public AutoBehaviourT setLineRendererStartingAndEndingWidthsTo(float targetWidth)
 		=> selfAfter(()=> lineRenderer.setStartingAndEndingWidthsTo(targetWidth));
 	#endregion setting starting and ending widths
 
 	#region setting number of points
-	public AutomaticBehaviourT setNumberOfPointsTo(int numberOfPoints)
+	public AutoBehaviourT setNumberOfPointsTo(int numberOfPoints)
 		=> selfAfter(()=> lineRenderer.setNumberOfPointsTo(numberOfPoints));
-	public AutomaticBehaviourT setPointAtIndex(int index, Vector2 point)
+	public AutoBehaviourT setPointAtIndex(int index, Vector2 point)
 		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, point));
 	#endregion setting number of points
 	#endregion LineRenderer
@@ -266,16 +266,16 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	#region ParticleSystem
 
 	#region playing
-	public AutomaticBehaviourT togglePlayingChildParticlesSystems(bool boolean)
+	public AutoBehaviourT togglePlayingChildParticlesSystems(bool boolean)
 		=> selfAfter(()=> gameObject.togglePlayingChildParticlesSystems(boolean));
-	public AutomaticBehaviourT playChildParticlesSystems(bool boolean = true)
+	public AutoBehaviourT playChildParticlesSystems(bool boolean = true)
 		=> selfAfter(()=> gameObject.playChildParticlesSystems(boolean));
-	public AutomaticBehaviourT stopChildParticlesSystems(bool boolean = true)
+	public AutoBehaviourT stopChildParticlesSystems(bool boolean = true)
 		=> selfAfter(()=> gameObject.stopChildParticlesSystems(boolean));
 	#endregion playing
 
 	#region acting upon child particles systems
-	public AutomaticBehaviourT actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
+	public AutoBehaviourT actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
 		=> selfAfter(()=> gameObject.actUponChildParticlesSystems(action));
 	#endregion acting upon child particles systems
 	#endregion ParticleSystem
@@ -283,10 +283,10 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 
 	#region MeshFilter
 	public Mesh mesh => meshFilter.mesh;
-	public AutomaticBehaviourT setMeshTo(Mesh mesh, bool boolean = true)
+	public AutoBehaviourT setMeshTo(Mesh mesh, bool boolean = true)
 		=> selfAfter(()=> meshFilter.setMeshTo(mesh, boolean));
 	public Mesh sharedMesh => meshFilter.sharedMesh;
-	public AutomaticBehaviourT setSharedMeshTo(Mesh mesh, bool boolean = true)
+	public AutoBehaviourT setSharedMeshTo(Mesh mesh, bool boolean = true)
 		=> selfAfter(()=> meshFilter.setSharedMeshTo(mesh, boolean));
 	public Mesh sharedMeshOtherwiseMesh => sharedMesh ?? mesh;
 	#endregion MeshFilter
@@ -297,25 +297,25 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	#region intensities
 	public float lightIntensity => light.intensity;
 	public List<float> childLightIntensities => gameObject.childLightIntensities();
-	public AutomaticBehaviourT setLightIntensityTo(float targetIntensity)
+	public AutoBehaviourT setLightIntensityTo(float targetIntensity)
 		=> selfAfter(()=> light.setIntensityTo(targetIntensity));
-	public AutomaticBehaviourT setChildLightIntensitiesTo(float targetIntensity)
+	public AutoBehaviourT setChildLightIntensitiesTo(float targetIntensity)
 		=> selfAfter(()=> gameObject.setChildLightIntensitiesTo(targetIntensity));
-	public AutomaticBehaviourT setChildLightIntensitiesTo(IList<float> targetIntensities)
+	public AutoBehaviourT setChildLightIntensitiesTo(IList<float> targetIntensities)
 		=> selfAfter(()=> gameObject.setChildLightIntensitiesTo(targetIntensities));
 	#endregion intensities
 
 	#region setting render mode
-	public AutomaticBehaviourT renderChildLightsBy(LightRenderMode lightRenderMode)
+	public AutoBehaviourT renderChildLightsBy(LightRenderMode lightRenderMode)
 		=> selfAfter(()=> gameObject.renderChildLightsBy(lightRenderMode));
-	public AutomaticBehaviourT renderChildLightsByPixel()
+	public AutoBehaviourT renderChildLightsByPixel()
 		=> selfAfter(()=> gameObject.renderChildLightsByPixel());
-	public AutomaticBehaviourT renderChildLightsByVertex()
+	public AutoBehaviourT renderChildLightsByVertex()
 		=> selfAfter(()=> gameObject.renderChildLightsByVertex());
 	#endregion setting render mode
 
 	#region acting upon child lights
-	public AutomaticBehaviourT actUponChildLights(Action<List<Light>> action)
+	public AutoBehaviourT actUponChildLights(Action<List<Light>> action)
 		=> selfAfter(()=> gameObject.actUponChildLights(action));
 	#endregion acting upon child lights
 	#endregion Light
@@ -324,9 +324,9 @@ public abstract class	AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBe
 	#region EdgeCollider2D
 
 	#region setting points
-	public AutomaticBehaviourT setPointsTo(params Vector2[] points)
+	public AutoBehaviourT setPointsTo(params Vector2[] points)
 		=> selfAfter(()=> edgeCollider.setPointsTo(points));
-	public AutomaticBehaviourT setPointsTo(IEnumerable<Vector2> points)
+	public AutoBehaviourT setPointsTo(IEnumerable<Vector2> points)
 		=> selfAfter(()=> edgeCollider.setPointsTo(points));
 	#endregion setting points
 	#endregion EdgeCollider2D

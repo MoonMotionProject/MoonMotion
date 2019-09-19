@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #force
-// • provides this singleton behaviour with static access to its automatic behaviour's Unity component shortcuts layer
+// • provides this singleton behaviour with static access to its auto behaviour's Unity component shortcuts layer
 public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
@@ -14,80 +14,80 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region Renderer
 
 	#region enablement
-	public static new bool rendererEnablement => automaticBehaviour.rendererEnablement;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setRendererEnablementTo(bool boolean)
-		=> automaticBehaviour.setRendererEnablementTo(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> enableRenderer()
-		=> automaticBehaviour.enableRenderer();
-	public static new AutomaticBehaviour<SingletonBehaviourT> disableRenderer()
-		=> automaticBehaviour.disableRenderer();
-	public static new AutomaticBehaviour<SingletonBehaviourT> toggleRendererEnablementBy(Toggling toggling)
-		=> automaticBehaviour.toggleRendererEnablementBy(toggling);
+	public static new bool rendererEnablement => autoBehaviour.rendererEnablement;
+	public static new AutoBehaviour<SingletonBehaviourT> setRendererEnablementTo(bool boolean)
+		=> autoBehaviour.setRendererEnablementTo(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> enableRenderer()
+		=> autoBehaviour.enableRenderer();
+	public static new AutoBehaviour<SingletonBehaviourT> disableRenderer()
+		=> autoBehaviour.disableRenderer();
+	public static new AutoBehaviour<SingletonBehaviourT> toggleRendererEnablementBy(Toggling toggling)
+		=> autoBehaviour.toggleRendererEnablementBy(toggling);
 	#endregion enablement
 
 	#region material
-	public static new Material material => automaticBehaviour.material;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setMaterialTo(Material material)
-		=> automaticBehaviour.setMaterialTo(material);
-	public static new Material sharedMaterial => automaticBehaviour.sharedMaterial;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setSharedMaterialTo(Material sharedMaterial)
-		=> automaticBehaviour.setSharedMaterialTo(material);
+	public static new Material material => autoBehaviour.material;
+	public static new AutoBehaviour<SingletonBehaviourT> setMaterialTo(Material material)
+		=> autoBehaviour.setMaterialTo(material);
+	public static new Material sharedMaterial => autoBehaviour.sharedMaterial;
+	public static new AutoBehaviour<SingletonBehaviourT> setSharedMaterialTo(Material sharedMaterial)
+		=> autoBehaviour.setSharedMaterialTo(material);
 	#endregion material
 
 	#region color
 	public static new Color color => material.color;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setColorTo(Color targetColor)
-		=> automaticBehaviour.setColorTo(targetColor);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setChildrenColorTo(Color targetColor)
-		=> automaticBehaviour.setChildrenColorTo(targetColor);
-	public static new AutomaticBehaviour<SingletonBehaviourT> randomizeColor()
-		=> automaticBehaviour.randomizeColor();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
-		=> automaticBehaviour.setChildrenEmissionColorTo(targetColor, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setColorTo(Color targetColor)
+		=> autoBehaviour.setColorTo(targetColor);
+	public static new AutoBehaviour<SingletonBehaviourT> setChildrenColorTo(Color targetColor)
+		=> autoBehaviour.setChildrenColorTo(targetColor);
+	public static new AutoBehaviour<SingletonBehaviourT> randomizeColor()
+		=> autoBehaviour.randomizeColor();
+	public static new AutoBehaviour<SingletonBehaviourT> setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
+		=> autoBehaviour.setChildrenEmissionColorTo(targetColor, boolean);
 	#endregion color
 
 	#region shadowcasting
-	public static new AutomaticBehaviour<SingletonBehaviourT> setShadowcastingTo(ShadowCastingMode shadowcasting)
-		=> automaticBehaviour.setShadowcastingTo(shadowcasting);
-	public static new AutomaticBehaviour<SingletonBehaviourT> shadowcast()
-		=> automaticBehaviour.shadowcast();
-	public static new AutomaticBehaviour<SingletonBehaviourT> nonshadowcast()
-		=> automaticBehaviour.nonshadowcast();
+	public static new AutoBehaviour<SingletonBehaviourT> setShadowcastingTo(ShadowCastingMode shadowcasting)
+		=> autoBehaviour.setShadowcastingTo(shadowcasting);
+	public static new AutoBehaviour<SingletonBehaviourT> shadowcast()
+		=> autoBehaviour.shadowcast();
+	public static new AutoBehaviour<SingletonBehaviourT> nonshadowcast()
+		=> autoBehaviour.nonshadowcast();
 	#endregion shadowcasting
 
 	#region shadowability
-	public static new AutomaticBehaviour<SingletonBehaviourT> setShadowabilityTo(bool shadowability)
-		=> automaticBehaviour.setShadowabilityTo(shadowability);
-	public static new AutomaticBehaviour<SingletonBehaviourT> shadowable()
-		=> automaticBehaviour.shadowable();
-	public static new AutomaticBehaviour<SingletonBehaviourT> nonshadowable()
-		=> automaticBehaviour.nonshadowable();
+	public static new AutoBehaviour<SingletonBehaviourT> setShadowabilityTo(bool shadowability)
+		=> autoBehaviour.setShadowabilityTo(shadowability);
+	public static new AutoBehaviour<SingletonBehaviourT> shadowable()
+		=> autoBehaviour.shadowable();
+	public static new AutoBehaviour<SingletonBehaviourT> nonshadowable()
+		=> autoBehaviour.nonshadowable();
 	#endregion shadowability
 
 	#region reflection source
-	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceTo(ReflectionSource reflectionSource)
-		=> automaticBehaviour.setReflectionSourceTo(reflectionSource);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToSkybox()
-		=> automaticBehaviour.setReflectionSourceToSkybox();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox()
-		=> automaticBehaviour.setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToBlendedReflectionProbesAndSkybox()
-		=> automaticBehaviour.setReflectionSourceToBlendedReflectionProbesAndSkybox();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToSingleMostRelevantProbeOrSkybox()
-		=> automaticBehaviour.setReflectionSourceToSingleMostRelevantProbeOrSkybox();
+	public static new AutoBehaviour<SingletonBehaviourT> setReflectionSourceTo(ReflectionSource reflectionSource)
+		=> autoBehaviour.setReflectionSourceTo(reflectionSource);
+	public static new AutoBehaviour<SingletonBehaviourT> setReflectionSourceToSkybox()
+		=> autoBehaviour.setReflectionSourceToSkybox();
+	public static new AutoBehaviour<SingletonBehaviourT> setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox()
+		=> autoBehaviour.setReflectionSourceToBlendedReflectionProbesOtherwiseSkybox();
+	public static new AutoBehaviour<SingletonBehaviourT> setReflectionSourceToBlendedReflectionProbesAndSkybox()
+		=> autoBehaviour.setReflectionSourceToBlendedReflectionProbesAndSkybox();
+	public static new AutoBehaviour<SingletonBehaviourT> setReflectionSourceToSingleMostRelevantProbeOrSkybox()
+		=> autoBehaviour.setReflectionSourceToSingleMostRelevantProbeOrSkybox();
 	#endregion reflection source
 
 	#region light probe usage
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLightProbeUsageTo(LightProbeUsage lightProbeUsage)
-		=> automaticBehaviour.setLightProbeUsageTo(lightProbeUsage);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLightProbeUsageToOff()
-		=> automaticBehaviour.setLightProbeUsageToOff();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLightProbeUsageToBlendProbes()
-		=> automaticBehaviour.setLightProbeUsageToBlendProbes();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setRLightProbeUsageToUseProxyVolume()
-		=> automaticBehaviour.setRLightProbeUsageToUseProxyVolume();
-	public static new AutomaticBehaviour<SingletonBehaviourT> setReflectionSourceToCustomProvided()
-		=> automaticBehaviour.setReflectionSourceToCustomProvided();
+	public static new AutoBehaviour<SingletonBehaviourT> setLightProbeUsageTo(LightProbeUsage lightProbeUsage)
+		=> autoBehaviour.setLightProbeUsageTo(lightProbeUsage);
+	public static new AutoBehaviour<SingletonBehaviourT> setLightProbeUsageToOff()
+		=> autoBehaviour.setLightProbeUsageToOff();
+	public static new AutoBehaviour<SingletonBehaviourT> setLightProbeUsageToBlendProbes()
+		=> autoBehaviour.setLightProbeUsageToBlendProbes();
+	public static new AutoBehaviour<SingletonBehaviourT> setRLightProbeUsageToUseProxyVolume()
+		=> autoBehaviour.setRLightProbeUsageToUseProxyVolume();
+	public static new AutoBehaviour<SingletonBehaviourT> setReflectionSourceToCustomProvided()
+		=> autoBehaviour.setReflectionSourceToCustomProvided();
 	#endregion light probe usage
 	#endregion Renderer
 
@@ -95,108 +95,108 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region Rigidbody
 
 	#region kinematicity
-	public static new bool kinematicity => automaticBehaviour.kinematicity;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setKinematicityTo(bool kinematicity, bool boolean = true)
-		=> automaticBehaviour.setKinematicityTo(kinematicity, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> kinematize(bool boolean = true)
-		=> automaticBehaviour.kinematize(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> nonkinematize(bool boolean = true)
-		=> automaticBehaviour.nonkinematize(boolean);
+	public static new bool kinematicity => autoBehaviour.kinematicity;
+	public static new AutoBehaviour<SingletonBehaviourT> setKinematicityTo(bool kinematicity, bool boolean = true)
+		=> autoBehaviour.setKinematicityTo(kinematicity, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> kinematize(bool boolean = true)
+		=> autoBehaviour.kinematize(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> nonkinematize(bool boolean = true)
+		=> autoBehaviour.nonkinematize(boolean);
 	#endregion kinematicity
 
 	#region gravitization
-	public static new bool gravitization => automaticBehaviour.gravitization;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setGravitizationTo(bool gravitization, bool boolean = true)
-		=> automaticBehaviour.setGravitizationTo(gravitization, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> gravitize(bool boolean = true)
-		=> automaticBehaviour.gravitize(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> nongravitize(bool boolean = true)
-		=> automaticBehaviour.nongravitize(boolean);
+	public static new bool gravitization => autoBehaviour.gravitization;
+	public static new AutoBehaviour<SingletonBehaviourT> setGravitizationTo(bool gravitization, bool boolean = true)
+		=> autoBehaviour.setGravitizationTo(gravitization, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> gravitize(bool boolean = true)
+		=> autoBehaviour.gravitize(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> nongravitize(bool boolean = true)
+		=> autoBehaviour.nongravitize(boolean);
 	#endregion gravitization
 
 	#region velocity vectrals
-	public static new Vector3 velocityDirection => automaticBehaviour.velocityDirection;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setVelocityDirectionTo(Vector3 direction, bool boolean = true)
-		=> automaticBehaviour.setVelocityDirectionTo(direction, boolean);
-	public static new Vector3 angularVelocityAngling => automaticBehaviour.angularVelocityAngling;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
-		=> automaticBehaviour.setAngularVelocityAnglingTo(angling, boolean);
+	public static new Vector3 velocityDirection => autoBehaviour.velocityDirection;
+	public static new AutoBehaviour<SingletonBehaviourT> setVelocityDirectionTo(Vector3 direction, bool boolean = true)
+		=> autoBehaviour.setVelocityDirectionTo(direction, boolean);
+	public static new Vector3 angularVelocityAngling => autoBehaviour.angularVelocityAngling;
+	public static new AutoBehaviour<SingletonBehaviourT> setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
+		=> autoBehaviour.setAngularVelocityAnglingTo(angling, boolean);
 	#endregion velocity vectrals
 
 	#region speeds
-	public static new float speed => automaticBehaviour.speed;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setSpeedTo(float speed, bool boolean = true)
-		=> automaticBehaviour.setSpeedTo(speed, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
-		=> automaticBehaviour.honeSpeed(honingTarget, honingAmount, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> slowSpeedBy(float speedReduction, bool boolean = true)
-		=> automaticBehaviour.slowSpeedBy(speedReduction, boolean);
-	public static new float angularSpeed => automaticBehaviour.angularSpeed;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setAngularSpeedTo(float angularSpeed, bool boolean = true)
-		=> automaticBehaviour.setAngularSpeedTo(angularSpeed, boolean);
+	public static new float speed => autoBehaviour.speed;
+	public static new AutoBehaviour<SingletonBehaviourT> setSpeedTo(float speed, bool boolean = true)
+		=> autoBehaviour.setSpeedTo(speed, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
+		=> autoBehaviour.honeSpeed(honingTarget, honingAmount, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> slowSpeedBy(float speedReduction, bool boolean = true)
+		=> autoBehaviour.slowSpeedBy(speedReduction, boolean);
+	public static new float angularSpeed => autoBehaviour.angularSpeed;
+	public static new AutoBehaviour<SingletonBehaviourT> setAngularSpeedTo(float angularSpeed, bool boolean = true)
+		=> autoBehaviour.setAngularSpeedTo(angularSpeed, boolean);
 	#endregion speed
 
 	#region velocities
-	public static new Vector3 velocity => automaticBehaviour.velocity;
-	public static new Vector3 angularVelocity => automaticBehaviour.angularVelocity;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setVelocityTo(Vector3 velocity, bool boolean = true)
-		=> automaticBehaviour.setVelocityTo(velocity, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
-		=> automaticBehaviour.setAngularVelocityTo(angularVelocity, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
-		=> automaticBehaviour.setVelocitiesTo(directionalVelocity, angularVelocity, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setVelocitiesTo(Vector3 velocity, bool boolean = true)
-		=> automaticBehaviour.setVelocitiesTo(velocity, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> zeroVelocity(bool boolean = true)
-		=> automaticBehaviour.zeroVelocity(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> zeroAngularVelocity(bool boolean = true)
-		=> automaticBehaviour.zeroAngularVelocity(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> zeroVelocities(bool boolean = true)
-		=> automaticBehaviour.zeroVelocities(boolean);
+	public static new Vector3 velocity => autoBehaviour.velocity;
+	public static new Vector3 angularVelocity => autoBehaviour.angularVelocity;
+	public static new AutoBehaviour<SingletonBehaviourT> setVelocityTo(Vector3 velocity, bool boolean = true)
+		=> autoBehaviour.setVelocityTo(velocity, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
+		=> autoBehaviour.setAngularVelocityTo(angularVelocity, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
+		=> autoBehaviour.setVelocitiesTo(directionalVelocity, angularVelocity, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setVelocitiesTo(Vector3 velocity, bool boolean = true)
+		=> autoBehaviour.setVelocitiesTo(velocity, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> zeroVelocity(bool boolean = true)
+		=> autoBehaviour.zeroVelocity(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> zeroAngularVelocity(bool boolean = true)
+		=> autoBehaviour.zeroAngularVelocity(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> zeroVelocities(bool boolean = true)
+		=> autoBehaviour.zeroVelocities(boolean);
 	#endregion velocities
 
 	#region accelerating
-	public static new AutomaticBehaviour<SingletonBehaviourT> accelerateBy(Vector3 acceleration, bool boolean = true)
-		=> automaticBehaviour.accelerateBy(acceleration, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> accelerateBy(Vector3 acceleration, bool boolean = true)
+		=> autoBehaviour.accelerateBy(acceleration, boolean);
 	#endregion accelerating
 
 	#region applying force
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceOf(Vector3 force, bool boolean = true)
-		=> automaticBehaviour.applyForceOf(force, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
-		=> automaticBehaviour.applyForceOf(forceX, forceY, forceZ, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyForceAlong(direction, magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyForceAlongLocal(basicDirection, magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyForceAlongGlobal(basicDirection, magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyForceAlong(basicDirection, distinctivity, magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyForwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyForwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyBackwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyBackwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyRightwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyRightwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyLeftwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyLeftwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyUpwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyUpwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyDownwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyDownwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalForwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyGlobalForwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyGlobalBackwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyGlobalRightwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyGlobalLeftwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyGlobalUpwardForceOf(magnitude, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
-		=> automaticBehaviour.applyGlobalDownwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceOf(Vector3 force, bool boolean = true)
+		=> autoBehaviour.applyForceOf(force, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
+		=> autoBehaviour.applyForceOf(forceX, forceY, forceZ, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForceAlong(direction, magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForceAlongLocal(basicDirection, magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForceAlongGlobal(basicDirection, magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForceAlong(basicDirection, distinctivity, magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyBackwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyBackwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyRightwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyRightwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyLeftwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyLeftwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyUpwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyUpwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyDownwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyDownwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalForwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyGlobalForwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyGlobalBackwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyGlobalRightwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyGlobalLeftwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyGlobalUpwardForceOf(magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
+		=> autoBehaviour.applyGlobalDownwardForceOf(magnitude, boolean);
 	#endregion applying force
 	#endregion Rigidbody
 
@@ -204,39 +204,39 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region AudioSource
 
 	#region audio
-	public static new AudioClip audio => automaticBehaviour.audio;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setAudioTo(AudioClip targetAudio, bool boolean = true)
-		=> automaticBehaviour.setAudioTo(targetAudio, boolean);
-	public static new float audioDuration => automaticBehaviour.audioDuration;
+	public static new AudioClip audio => autoBehaviour.audio;
+	public static new AutoBehaviour<SingletonBehaviourT> setAudioTo(AudioClip targetAudio, bool boolean = true)
+		=> autoBehaviour.setAudioTo(targetAudio, boolean);
+	public static new float audioDuration => autoBehaviour.audioDuration;
 	#endregion audio
 
 	#region volume
-	public static new float audioVolume => automaticBehaviour.audioVolume;
-	public static new List<float> childAudioVolumes => automaticBehaviour.childAudioVolumes;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setAudioVolumeTo(float targetVolume, bool boolean = true)
-		=> automaticBehaviour.setAudioVolumeTo(targetVolume, boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setChildAudioVolumesTo(IList<float> targetVolumes)
-		=> automaticBehaviour.setChildAudioVolumesTo(targetVolumes);
+	public static new float audioVolume => autoBehaviour.audioVolume;
+	public static new List<float> childAudioVolumes => autoBehaviour.childAudioVolumes;
+	public static new AutoBehaviour<SingletonBehaviourT> setAudioVolumeTo(float targetVolume, bool boolean = true)
+		=> autoBehaviour.setAudioVolumeTo(targetVolume, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setChildAudioVolumesTo(IList<float> targetVolumes)
+		=> autoBehaviour.setChildAudioVolumesTo(targetVolumes);
 	#endregion volume
 
 	#region playing
-	public static new bool audioPlaying => automaticBehaviour.audioPlaying;
-	public static new AutomaticBehaviour<SingletonBehaviourT> playAudio()
-		=> automaticBehaviour.playAudio();
-	public static new AutomaticBehaviour<SingletonBehaviourT> playChildAudios()
-		=> automaticBehaviour.playChildAudios();
-	public static new AutomaticBehaviour<SingletonBehaviourT> stopAudio()
-		=> automaticBehaviour.stopAudio();
-	public static new AutomaticBehaviour<SingletonBehaviourT> stopChildAudios()
-		=> automaticBehaviour.stopChildAudios();
-	public static new float audioTime => automaticBehaviour.audioTime;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setAudioTimeTo(float targetTime, bool boolean = true)
-		=> automaticBehaviour.setAudioTimeTo(targetTime, boolean);
+	public static new bool audioPlaying => autoBehaviour.audioPlaying;
+	public static new AutoBehaviour<SingletonBehaviourT> playAudio()
+		=> autoBehaviour.playAudio();
+	public static new AutoBehaviour<SingletonBehaviourT> playChildAudios()
+		=> autoBehaviour.playChildAudios();
+	public static new AutoBehaviour<SingletonBehaviourT> stopAudio()
+		=> autoBehaviour.stopAudio();
+	public static new AutoBehaviour<SingletonBehaviourT> stopChildAudios()
+		=> autoBehaviour.stopChildAudios();
+	public static new float audioTime => autoBehaviour.audioTime;
+	public static new AutoBehaviour<SingletonBehaviourT> setAudioTimeTo(float targetTime, bool boolean = true)
+		=> autoBehaviour.setAudioTimeTo(targetTime, boolean);
 	#endregion playing
 
 	#region acting upon child audio
-	public static new AutomaticBehaviour<SingletonBehaviourT> actUponChildAudioSources(Action<List<AudioSource>> action)
-		=> automaticBehaviour.actUponChildAudioSources(action);
+	public static new AutoBehaviour<SingletonBehaviourT> actUponChildAudioSources(Action<List<AudioSource>> action)
+		=> autoBehaviour.actUponChildAudioSources(action);
 	#endregion acting upon child audio
 	#endregion AudioSource
 
@@ -244,21 +244,21 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region LineRenderer
 
 	#region setting starting and ending widths
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingWidthTo(float targetStartingWidth)
-		=> automaticBehaviour.setLineRendererStartingWidthTo(targetStartingWidth);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererEndingWidthTo(float targetEndingWidth)
-		=> automaticBehaviour.setLineRendererEndingWidthTo(targetEndingWidth);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetStartingWidth, float targetEndingWidth)
-		=> automaticBehaviour.setLineRendererStartingAndEndingWidthsTo(targetStartingWidth, targetEndingWidth);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetWidth)
-		=> automaticBehaviour.setLineRendererStartingAndEndingWidthsTo(targetWidth);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererStartingWidthTo(float targetStartingWidth)
+		=> autoBehaviour.setLineRendererStartingWidthTo(targetStartingWidth);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererEndingWidthTo(float targetEndingWidth)
+		=> autoBehaviour.setLineRendererEndingWidthTo(targetEndingWidth);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetStartingWidth, float targetEndingWidth)
+		=> autoBehaviour.setLineRendererStartingAndEndingWidthsTo(targetStartingWidth, targetEndingWidth);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingWidthsTo(float targetWidth)
+		=> autoBehaviour.setLineRendererStartingAndEndingWidthsTo(targetWidth);
 	#endregion setting starting and ending widths
 
 	#region setting number of points
-	public static new AutomaticBehaviour<SingletonBehaviourT> setNumberOfPointsTo(int numberOfPoints)
-		=> automaticBehaviour.setNumberOfPointsTo(numberOfPoints);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setPointAtIndex(int index, Vector2 point)
-		=> automaticBehaviour.setPointAtIndex(index, point);
+	public static new AutoBehaviour<SingletonBehaviourT> setNumberOfPointsTo(int numberOfPoints)
+		=> autoBehaviour.setNumberOfPointsTo(numberOfPoints);
+	public static new AutoBehaviour<SingletonBehaviourT> setPointAtIndex(int index, Vector2 point)
+		=> autoBehaviour.setPointAtIndex(index, point);
 	#endregion setting number of points
 	#endregion LineRenderer
 
@@ -266,28 +266,28 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region ParticleSystem
 
 	#region playing
-	public static new AutomaticBehaviour<SingletonBehaviourT> togglePlayingChildParticlesSystems(bool boolean)
-		=> automaticBehaviour.togglePlayingChildParticlesSystems(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> playChildParticlesSystems(bool boolean = true)
-		=> automaticBehaviour.playChildParticlesSystems(boolean);
-	public static new AutomaticBehaviour<SingletonBehaviourT> stopChildParticlesSystems(bool boolean = true)
-		=> automaticBehaviour.stopChildParticlesSystems(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> togglePlayingChildParticlesSystems(bool boolean)
+		=> autoBehaviour.togglePlayingChildParticlesSystems(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> playChildParticlesSystems(bool boolean = true)
+		=> autoBehaviour.playChildParticlesSystems(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> stopChildParticlesSystems(bool boolean = true)
+		=> autoBehaviour.stopChildParticlesSystems(boolean);
 	#endregion playing
 
 	#region acting upon child particles systems
-	public static new AutomaticBehaviour<SingletonBehaviourT> actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
-		=> automaticBehaviour.actUponChildParticlesSystems(action);
+	public static new AutoBehaviour<SingletonBehaviourT> actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
+		=> autoBehaviour.actUponChildParticlesSystems(action);
 	#endregion acting upon child particles systems
 	#endregion ParticleSystem
 
 
 	#region MeshFilter
-	public static new Mesh mesh => automaticBehaviour.mesh;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setMeshTo(Mesh mesh, bool boolean = true)
-		=> automaticBehaviour.setMeshTo(mesh, boolean);
-	public static new Mesh sharedMesh => automaticBehaviour.sharedMesh;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setSharedMeshTo(Mesh mesh, bool boolean = true)
-		=> automaticBehaviour.setSharedMeshTo(mesh, boolean);
+	public static new Mesh mesh => autoBehaviour.mesh;
+	public static new AutoBehaviour<SingletonBehaviourT> setMeshTo(Mesh mesh, bool boolean = true)
+		=> autoBehaviour.setMeshTo(mesh, boolean);
+	public static new Mesh sharedMesh => autoBehaviour.sharedMesh;
+	public static new AutoBehaviour<SingletonBehaviourT> setSharedMeshTo(Mesh mesh, bool boolean = true)
+		=> autoBehaviour.setSharedMeshTo(mesh, boolean);
 	public static new Mesh sharedMeshOtherwiseMesh => sharedMesh ?? mesh;
 	#endregion MeshFilter
 
@@ -295,28 +295,28 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region Light
 
 	#region intensities
-	public static new float lightIntensity => automaticBehaviour.lightIntensity;
-	public static new List<float> childLightIntensities => automaticBehaviour.childLightIntensities;
-	public static new AutomaticBehaviour<SingletonBehaviourT> setLightIntensityTo(float targetIntensity)
-		=> automaticBehaviour.setLightIntensityTo(targetIntensity);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setChildLightIntensitiesTo(float targetIntensity)
-		=> automaticBehaviour.setChildLightIntensitiesTo(targetIntensity);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setChildLightIntensitiesTo(IList<float> targetIntensities)
-		=> automaticBehaviour.setChildLightIntensitiesTo(targetIntensities);
+	public static new float lightIntensity => autoBehaviour.lightIntensity;
+	public static new List<float> childLightIntensities => autoBehaviour.childLightIntensities;
+	public static new AutoBehaviour<SingletonBehaviourT> setLightIntensityTo(float targetIntensity)
+		=> autoBehaviour.setLightIntensityTo(targetIntensity);
+	public static new AutoBehaviour<SingletonBehaviourT> setChildLightIntensitiesTo(float targetIntensity)
+		=> autoBehaviour.setChildLightIntensitiesTo(targetIntensity);
+	public static new AutoBehaviour<SingletonBehaviourT> setChildLightIntensitiesTo(IList<float> targetIntensities)
+		=> autoBehaviour.setChildLightIntensitiesTo(targetIntensities);
 	#endregion intensities
 
 	#region setting render mode
-	public static new AutomaticBehaviour<SingletonBehaviourT> renderChildLightsBy(LightRenderMode lightRenderMode)
-		=> automaticBehaviour.renderChildLightsBy(lightRenderMode);
-	public static new AutomaticBehaviour<SingletonBehaviourT> renderChildLightsByPixel()
-		=> automaticBehaviour.renderChildLightsByPixel();
-	public static new AutomaticBehaviour<SingletonBehaviourT> renderChildLightsByVertex()
-		=> automaticBehaviour.renderChildLightsByVertex();
+	public static new AutoBehaviour<SingletonBehaviourT> renderChildLightsBy(LightRenderMode lightRenderMode)
+		=> autoBehaviour.renderChildLightsBy(lightRenderMode);
+	public static new AutoBehaviour<SingletonBehaviourT> renderChildLightsByPixel()
+		=> autoBehaviour.renderChildLightsByPixel();
+	public static new AutoBehaviour<SingletonBehaviourT> renderChildLightsByVertex()
+		=> autoBehaviour.renderChildLightsByVertex();
 	#endregion setting render mode
 
 	#region acting upon child lights
-	public static new AutomaticBehaviour<SingletonBehaviourT> actUponChildLights(Action<List<Light>> action)
-		=> automaticBehaviour.actUponChildLights(action);
+	public static new AutoBehaviour<SingletonBehaviourT> actUponChildLights(Action<List<Light>> action)
+		=> autoBehaviour.actUponChildLights(action);
 	#endregion acting upon child lights
 	#endregion Light
 
@@ -324,10 +324,10 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region EdgeCollider2D
 
 	#region setting points
-	public static new AutomaticBehaviour<SingletonBehaviourT> setPointsTo(params Vector2[] points)
-		=> automaticBehaviour.setPointsTo(points);
-	public static new AutomaticBehaviour<SingletonBehaviourT> setPointsTo(IEnumerable<Vector2> points)
-		=> automaticBehaviour.setPointsTo(points);
+	public static new AutoBehaviour<SingletonBehaviourT> setPointsTo(params Vector2[] points)
+		=> autoBehaviour.setPointsTo(points);
+	public static new AutoBehaviour<SingletonBehaviourT> setPointsTo(IEnumerable<Vector2> points)
+		=> autoBehaviour.setPointsTo(points);
 	#endregion setting points
 	#endregion EdgeCollider2D
 }

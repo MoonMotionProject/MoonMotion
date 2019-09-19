@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 
 // Randomize Scale At Awake
-public class RandomizeScaleAtAwake : AutomaticBehaviour<RandomizeScaleAtAwake>
+public class RandomizeScaleAtAwake : AutoBehaviour<RandomizeScaleAtAwake>
 {
 	// variables //
 

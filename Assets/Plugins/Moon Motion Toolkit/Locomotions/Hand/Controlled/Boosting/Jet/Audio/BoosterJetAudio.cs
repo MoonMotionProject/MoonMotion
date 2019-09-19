@@ -13,10 +13,10 @@ public class BoosterJetAudio : MonoBehaviour
 	
 	
 	// variables for: the booster that is providing the jet that is providing this audio //
-	private Booster booster;		// connection - automatic: the booster
+	private Booster booster;		// connection - auto: the booster
 	
 	// variables for: this booster jet audio //
-	private AudioSource audioComponent;		// connection - automatic: the audio
+	private AudioSource audioComponent;		// connection - auto: the audio
 	private static bool offsetYet = false;		// setting: whether the audio has been offset for one of the booster jets yet
 	[Header("Pitch")]
 	public float pitchShallow = 1f;		// setting: the pitch - for shallow force

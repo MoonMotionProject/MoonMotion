@@ -26,16 +26,16 @@ public class Flipper : HandLocomotionControlled
 
 	
 	// variables for: instancing //
-	public static Flipper left, right;		// connections - automatic: the left and right instances of this class
+	public static Flipper left, right;		// connections - auto: the left and right instances of this class
 
 	// variables for: flipping //
 	public static bool flipped = false;		// tracking: whether the player is currently flipped
 	[Header("Flipping")]
 	[Tooltip("whether to, upon flipping the player, flip the y axis of the gravitizing force of each gravity zone in the scene")]
 	public bool flipGravityZoneForces = true;		// setting: whether to, upon flipping the player, flip the y axis of the gravitizing force of each gravity zone in the scene
-	private BodyTransformation bodyTransformation;		// connection - automatic: the body transformation of this flipper's player's body
-	private Transform bodyTransform;		// connection - automatic: the transform of this flipper's player's body
-	private Transform playerTransform;		// connection - automatic: the transform of this flipper's player
+	private BodyTransformation bodyTransformation;		// connection - auto: the body transformation of this flipper's player's body
+	private Transform bodyTransform;		// connection - auto: the transform of this flipper's player's body
+	private Transform playerTransform;		// connection - auto: the transform of this flipper's player
 	private static float timeOfLastFlip = -Mathf.Infinity;		// tracking: the last time that a flip (by any flipper / either hand) occurred – initialized to negative infinity as a flag that a flip has never occurred
 
 

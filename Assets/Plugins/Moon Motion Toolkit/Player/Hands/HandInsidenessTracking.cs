@@ -13,7 +13,7 @@ public class HandInsidenessTracking : MonoBehaviour
 
 	
 	// variables for: instancing //
-	private static HashSet<HandInsidenessTracking> insidenessTrackingsLeft = new HashSet<HandInsidenessTracking>(), insidenessTrackingsRight = new HashSet<HandInsidenessTracking>();		// connections - automatic: all insideness trackings for either hand (left or right), respectively
+	private static HashSet<HandInsidenessTracking> insidenessTrackingsLeft = new HashSet<HandInsidenessTracking>(), insidenessTrackingsRight = new HashSet<HandInsidenessTracking>();		// connections - auto: all insideness trackings for either hand (left or right), respectively
 	
 	// variables for: insideness tracking //
 	public bool leftInstance = true;		// setting: this hand insideness tracking's handedness (whether this insideness tracking is for the left hand (versus the right))

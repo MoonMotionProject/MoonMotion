@@ -16,11 +16,11 @@ public class Booster : HandLocomotionControlled
 	
 	
 	// variables for: instancing //
-	public static Booster left, right;		// connections - automatic: left and right Booster instances, respectively
+	public static Booster left, right;		// connections - auto: left and right Booster instances, respectively
 	
 	// variables for: handling the player's physics //
-	[HideInInspector] public Rigidbody playerRigidbody;		// connection - automatic: the player rigidbody (to be boosted)
-	private Transform playerTransform;		// connection - automatic: the player transform
+	[HideInInspector] public Rigidbody playerRigidbody;		// connection - auto: the player rigidbody (to be boosted)
+	private Transform playerTransform;		// connection - auto: the player transform
 	
 	// tracking for: whether the booster is boosting, whether the booster is boosting deeply //
 	[HideInInspector] public bool boosting = false, boostingDeeply = false;
@@ -113,7 +113,7 @@ public class Booster : HandLocomotionControlled
 	// updating //
 
 	
-	// before the start: connection of automatic connections //
+	// before the start: connection of auto connections //
 	protected override void Awake()
 	{
 		base.Awake();

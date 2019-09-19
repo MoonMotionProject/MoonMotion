@@ -11,7 +11,7 @@ public class BoosterJetParticlesToggledSped : BoosterJetParticlesToggled
 
 	
 	// variables for: adjusting speed //
-	private ParticleSystem.MainModule emitterSpeedModule;		// connection - automatic: the emitter's module that handles speed
+	private ParticleSystem.MainModule emitterSpeedModule;		// connection - auto: the emitter's module that handles speed
 	[Header("Speeds")]
 	public float speedShallow = .6f;		// setting: the speed - for shallow force
 	public float speedDeep = 1.1f;		// setting: the speed - for deep force

@@ -19,7 +19,7 @@ public class BoosterLaserer : BoosterModuleControllableToggleable
 	public bool lasering = false;		// tracking: whether this laserer is lasering (enabled to render its laser) currently
 
 	// variables for: rendering //
-	private Renderer[] renderers;		// connections - automatic: this laserer's renderers
+	private Renderer[] renderers;		// connections - auto: this laserer's renderers
 
 
 

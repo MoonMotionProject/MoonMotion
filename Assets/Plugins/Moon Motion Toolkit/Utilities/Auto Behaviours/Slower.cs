@@ -7,7 +7,7 @@ using UnityEngine;
 // • slows the velocity of the attached rigidbody by the set speed, so long as the dependencies setting is met
 //   · a toggle setting controls whether this slowing is enabled
 [RequireComponent(typeof(Rigidbody))]
-public class Slower : AutomaticBehaviour<Slower>
+public class Slower : AutoBehaviour<Slower>
 {
 	// variables //
 

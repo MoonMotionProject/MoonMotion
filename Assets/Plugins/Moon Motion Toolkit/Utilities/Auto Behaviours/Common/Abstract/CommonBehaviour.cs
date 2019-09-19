@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Common Behaviour
-// • intended to provide functionality that is "common" to this game object / this game object's automatic behaviours; functionality that is both:
+// • intended to provide functionality that is "common" to this game object / this game object's auto behaviours; functionality that is both:
 //   · general to this game object
-//   · shared among other automatic behaviours on this game object, such that they don't each have to duplicate this functionality
+//   · shared among other auto behaviours on this game object, such that they don't each have to duplicate this functionality
 // • in the editor:
 //   · removes itself if not required
 //   · is hidden in the inspector
@@ -14,7 +14,7 @@ using UnityEngine;
 /* nonabstract derived classes must override OnValidate if it is to be found using reflection */
 [HideComponentInInspector]
 public abstract class	CommonBehaviour<CommonBehaviourT> :
-					AutomaticBehaviour<CommonBehaviourT>
+					AutoBehaviour<CommonBehaviourT>
 						where CommonBehaviourT : CommonBehaviour<CommonBehaviourT>
 {
 	// variables //

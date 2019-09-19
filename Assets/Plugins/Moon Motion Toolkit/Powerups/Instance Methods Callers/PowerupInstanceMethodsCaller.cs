@@ -14,7 +14,7 @@ public class PowerupInstanceMethodsCaller : Powerup
 
 	
 	// variables for: calling methods //
-	protected Button button;		// connection - automatic: the button attached to this powerup
+	protected Button button;		// connection - auto: the button attached to this powerup
 
 
 

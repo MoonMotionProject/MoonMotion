@@ -26,8 +26,8 @@ public class SceneFader : HandLocomotionControlled
 
 	
 	// variables for: instancing //
-	public static SceneFader left, right;		// connections - automatic: the left and right instances of this class
-	private SceneFader other;		// connection - automatic: the other instance of this class
+	public static SceneFader left, right;		// connections - auto: the left and right instances of this class
+	private SceneFader other;		// connection - auto: the other instance of this class
 	
 	// variables for: scene loading //
 	[Header("Scene to Load")]

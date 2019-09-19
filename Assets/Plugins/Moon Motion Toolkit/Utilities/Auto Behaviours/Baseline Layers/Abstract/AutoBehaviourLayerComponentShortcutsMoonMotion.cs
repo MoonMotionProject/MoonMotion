@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-// Automatic Behaviour Layer Component Shortcuts Moon Motion:
+// Auto Behaviour Layer Component Shortcuts Moon Motion:
 // #auto #shortcuts #tracking
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' Moon Motion components
-public abstract class AutomaticBehaviourLayerComponentShortcutsMoonMotion<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerComponentShortcutsUnity<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class AutoBehaviourLayerComponentShortcutsMoonMotion<AutoBehaviourT> :
+					AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region Utilities
 
 
 
 
-	#region Automatic Behaviours
+	#region Auto Behaviours
 
 
 	#region Trackings
@@ -57,6 +57,6 @@ public abstract class AutomaticBehaviourLayerComponentShortcutsMoonMotion<Automa
 	public List<CapsuleCollider> capsuleCollidersAwake => trackCapsuleCollidersAtAwake.capsuleCollidersAwake;
 	#endregion Components
 	#endregion Trackings
-	#endregion Automatic Behaviours
+	#endregion Auto Behaviours
 	#endregion Utilities
 }

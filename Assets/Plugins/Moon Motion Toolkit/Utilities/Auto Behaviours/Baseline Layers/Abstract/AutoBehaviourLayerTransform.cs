@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Automatic Behaviour Layer Transform:
+// Auto Behaviour Layer Transform:
 // #auto #transform
 // • provides this behaviour with methods and automatically-connected properties for its transform
-public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerTransformations<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
+					AutoBehaviourLayerTransformations<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region transform
 
@@ -141,40 +141,40 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 	#region destroying children
 
-	public AutomaticBehaviourT destroyChild(int childIndex)
+	public AutoBehaviourT destroyChild(int childIndex)
 		=> selfAfter(()=> transform.destroyChild(childIndex));
 	
-	public AutomaticBehaviourT destroyChildIfItExists(int childIndex)
+	public AutoBehaviourT destroyChildIfItExists(int childIndex)
 		=> selfAfter(()=> transform.destroyChildIfItExists(childIndex));
 	
-	public AutomaticBehaviourT destroyFirstChild()
+	public AutoBehaviourT destroyFirstChild()
 		=> selfAfter(()=> transform.destroyFirstChild());
 	
-	public AutomaticBehaviourT destroyFirstChildIfItExists()
+	public AutoBehaviourT destroyFirstChildIfItExists()
 		=> selfAfter(()=> transform.destroyFirstChildIfItExists());
 	
-	public AutomaticBehaviourT destroyLastChild()
+	public AutoBehaviourT destroyLastChild()
 		=> selfAfter(()=> transform.destroyLastChild());
 	
-	public AutomaticBehaviourT destroyLastChildIfItExists()
+	public AutoBehaviourT destroyLastChildIfItExists()
 		=> selfAfter(()=> transform.destroyLastChildIfItExists());
 	
-	public AutomaticBehaviourT destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
+	public AutoBehaviourT destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
 		=> selfAfter(()=> transform.destroyLastChildIfItExists<ComponentT>());
 
-	public AutomaticBehaviourT destroyChildren()
+	public AutoBehaviourT destroyChildren()
 		=> selfAfter(()=> transform.destroyChildren());
 	#endregion destroying children
 
 
 	#region child iteration
-	public AutomaticBehaviourT forEachChildTransform(Action<Transform> action)
+	public AutoBehaviourT forEachChildTransform(Action<Transform> action)
 		=> selfAfter(()=> transform.forEachChildTransform(action));
-	public AutomaticBehaviourT setActivityOfChildrenTo(bool boolean)
+	public AutoBehaviourT setActivityOfChildrenTo(bool boolean)
 		=> selfAfter(()=> transform.setActivityOfChildrenTo(boolean));
-	public AutomaticBehaviourT activateChildren()
+	public AutoBehaviourT activateChildren()
 		=> selfAfter(()=> transform.activateChildren());
-	public AutomaticBehaviourT deactivateChildren()
+	public AutoBehaviourT deactivateChildren()
 		=> selfAfter(()=> transform.deactivateChildren());
 	#endregion child iteration
 
@@ -182,23 +182,23 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#region euler rotation
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given (x, y, and z) rotation angles, then return this behaviour's transform //
-	public AutomaticBehaviourT rotate(Vector3 rotationAngles, bool boolean = true)
+	public AutoBehaviourT rotate(Vector3 rotationAngles, bool boolean = true)
 		=> selfAfter(()=> transform.rotate(rotationAngles, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x, y, and z rotation angles, then return this behaviour's transform //
-	public AutomaticBehaviourT rotate(float x, float y, float z, bool boolean = true)
+	public AutoBehaviourT rotate(float x, float y, float z, bool boolean = true)
 		=> selfAfter(()=> transform.rotate(x, y, z, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given x rotation angle, then return this behaviour's transform //
-	public AutomaticBehaviourT rotateX(float x, bool boolean = true)
+	public AutoBehaviourT rotateX(float x, bool boolean = true)
 		=> selfAfter(()=> transform.rotateZ(x, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given y rotation angle, then return this behaviour's transform //
-	public AutomaticBehaviourT rotateY(float y, bool boolean = true)
+	public AutoBehaviourT rotateY(float y, bool boolean = true)
 		=> selfAfter(()=> transform.rotateZ(y, boolean));
 
 	// method: (according to the given boolean:) have this behaviour's transform rotate by the given z rotation angle, then return this behaviour's transform //
-	public AutomaticBehaviourT rotateZ(float z, bool boolean = true)
+	public AutoBehaviourT rotateZ(float z, bool boolean = true)
 		=> selfAfter(()=> transform.rotateZ(z, boolean));
 	#endregion euler rotation
 
@@ -206,32 +206,32 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 	#region flipping
 	// methods: (according to the given boolean:) have this behaviour's transform rotate by 180° on the respective axis, then return this behaviour's transform //
 
-	public AutomaticBehaviourT flipX(bool boolean = true)
+	public AutoBehaviourT flipX(bool boolean = true)
 		=> selfAfter(()=> transform.flipX(boolean));
 	
-	public AutomaticBehaviourT flipY(bool boolean = true)
+	public AutoBehaviourT flipY(bool boolean = true)
 		=> selfAfter(()=> transform.flipY(boolean));
 	
-	public AutomaticBehaviourT flipZ(bool boolean = true)
+	public AutoBehaviourT flipZ(bool boolean = true)
 		=> selfAfter(()=> transform.flipZ(boolean));
 	#endregion flipping
 
 
 	#region facing
 	
-	public AutomaticBehaviourT face(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+	public AutoBehaviourT face(Vector3 targetPosition, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> selfAfter(()=> transform.face(targetPosition, withX, withY, withZ, boolean, upDirection_MaxOf1));
 	
-	public AutomaticBehaviourT face(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+	public AutoBehaviourT face(Transform targetTransform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> selfAfter(()=> transform.face(targetTransform, withX, withY, withZ, boolean, upDirection_MaxOf1));
 	
-	public AutomaticBehaviourT face(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+	public AutoBehaviourT face(GameObject targetObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> selfAfter(()=> transform.face(targetObject.transform, withX, withY, withZ, boolean, upDirection_MaxOf1));
 	
-	public AutomaticBehaviourT face(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+	public AutoBehaviourT face(Component targetComponent, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> selfAfter(()=> transform.face(targetComponent, withX, withY, withZ, boolean, upDirection_MaxOf1));
 	
-	public AutomaticBehaviourT faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+	public AutoBehaviourT faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> selfAfter(()=> transform.faceCamera(withX, withY, withZ, boolean, upDirection_MaxOf1));
 	#endregion facing
 
@@ -400,17 +400,17 @@ public abstract class	AutomaticBehaviourLayerTransform<AutomaticBehaviourT> :
 
 	#region targetedly forcing
 
-	public AutomaticBehaviourT forceTarget(dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
-		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, AutomaticBehaviourT>(targetRigidbodies =>
+	public AutoBehaviourT forceTarget(dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, AutoBehaviourT>(targetRigidbodies =>
 				selfAfter(()=> position.forceTarget(targetRigidbodies, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp))));
 
-	public AutomaticBehaviourT attract(dynamic targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
-		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, AutomaticBehaviourT>(targetRigidbodies =>
+	public AutoBehaviourT attract(dynamic targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, AutoBehaviourT>(targetRigidbodies =>
 				selfAfter(()=>
 					position.attract(targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp))));
 
-	public AutomaticBehaviourT repel(dynamic targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
-		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, AutomaticBehaviourT>(targetRigidbodies =>
+	public AutoBehaviourT repel(dynamic targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach, bool clamp = Default.directionalForceClamping)
+		=>	Pass.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider, new Func<IEnumerable<Rigidbody>, AutoBehaviourT>(targetRigidbodies =>
 				selfAfter(()=>
 					position.repel(targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp))));
 	#endregion targetedly forcing

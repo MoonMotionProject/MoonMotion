@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Automatic Behaviour Layer Game Object:
+// Auto Behaviour Layer Game Object:
 // #auto #gameobject
 // • provides this behaviour with properties and methods for its game object
-public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
-					AutomaticBehaviourLayerComponentsMoonMotion<AutomaticBehaviourT>
-						where AutomaticBehaviourT : AutomaticBehaviour<AutomaticBehaviourT>
+public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
+					AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT>
+						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region creating fresh game objects
 
@@ -44,7 +44,7 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 	#region printing
 
 	// method: have this behaviour's game object print the given string, prefixed with this behaviour's game object's name, then return this behaviour //
-	public AutomaticBehaviourT printNamely(string string_)
+	public AutoBehaviourT printNamely(string string_)
 		=> selfAfter(()=> gameObject.printNamely(string_));
 	#endregion printing
 
@@ -58,23 +58,23 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 	public bool activeGlobally => gameObject.activeGlobally();
 
 	// method: set the activity of this behaviour's game object to the given boolean, then return this behaviour //
-	public AutomaticBehaviourT setActivityTo(bool enablement)
+	public AutoBehaviourT setActivityTo(bool enablement)
 		=> selfAfter(()=> gameObject.setActivityTo(enablement));
 
 	// method: activate this behaviour's game object, then return this behaviour //
-	public AutomaticBehaviourT activate()
+	public AutoBehaviourT activate()
 		=> selfAfter(()=> gameObject.activate());
 
 	// method: deactivate this behaviour's game object, then return this behaviour //
-	public AutomaticBehaviourT deactivate()
+	public AutoBehaviourT deactivate()
 		=> selfAfter(()=> gameObject.deactivate());
 
 	// method: toggle the activity of this behaviour's game object using the given toggling, then return this behaviour //
-	public AutomaticBehaviourT toggleActivityBy(Toggling toggling)
+	public AutoBehaviourT toggleActivityBy(Toggling toggling)
 		=> selfAfter(()=> gameObject.toggleActivityBy(toggling));
 
 	// method: toggle the activity of this behaviour's game object, then return this behaviour //
-	public AutomaticBehaviourT toggleActivity()
+	public AutoBehaviourT toggleActivity()
 		=> selfAfter(()=> gameObject.toggleActivity());
 	#endregion activity
 
@@ -93,26 +93,26 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 
 	#region layer setting
 
-	public AutomaticBehaviourT setLayerTo(string layerName, bool boolean = true)
+	public AutoBehaviourT setLayerTo(string layerName, bool boolean = true)
 		=> selfAfter(()=> gameObject.setLayerTo(layerName, boolean));
 	
-	public AutomaticBehaviourT setLayerTo(int layerIndex, bool boolean = true)
+	public AutoBehaviourT setLayerTo(int layerIndex, bool boolean = true)
 		=> selfAfter(()=> gameObject.setLayerTo(layerIndex, boolean));
 
-	public AutomaticBehaviourT setChildLayerTo(string layerName, bool boolean = true)
+	public AutoBehaviourT setChildLayerTo(string layerName, bool boolean = true)
 		=> selfAfter(()=> gameObject.setChildLayersTo(layerName, boolean));
 
-	public AutomaticBehaviourT setChildLayersTo(int layerIndex, bool boolean = true)
+	public AutoBehaviourT setChildLayersTo(int layerIndex, bool boolean = true)
 		=> selfAfter(()=> gameObject.setChildLayersTo(layerIndex, boolean));
 	#endregion layer setting
 
 
 	#region calling local methods
 
-	public AutomaticBehaviourT callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
+	public AutoBehaviourT callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
 		=> selfAfter(()=> gameObject.callAllLocal(methodName, sendMessageOptions, boolean));
 
-	public AutomaticBehaviourT validate_IfInEditor()
+	public AutoBehaviourT validate_IfInEditor()
 		=> selfAfter(()=> gameObject.validate_IfInEditor());
 	#endregion calling local methods
 
@@ -120,10 +120,10 @@ public abstract class	AutomaticBehaviourLayerGameObject<AutomaticBehaviourT> :
 	#region validation pending
 	#if UNITY_EDITOR
 
-	public AutomaticBehaviourT unpendValidation_IfInEditor()
+	public AutoBehaviourT unpendValidation_IfInEditor()
 		=> selfAfter(()=> gameObject.unpendValidation_IfInEditor());
 
-	public AutomaticBehaviourT pendValidation_IfInEditor()
+	public AutoBehaviourT pendValidation_IfInEditor()
 		=> selfAfter(()=> gameObject.pendValidation_IfInEditor());
 	#endif
 	#endregion validation pending

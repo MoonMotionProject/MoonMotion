@@ -27,7 +27,7 @@ public class GravityZoneSphere : GravityZone
 	
 	
 	// variables for: gravitizing particles //
-	private SphereCollider sphereCollider;		// connection - automatic: this gravity zone's sphere collider
+	private SphereCollider sphereCollider;		// connection - auto: this gravity zone's sphere collider
 
 	
 

@@ -11,7 +11,7 @@ public class BoosterLight : BoosterModule
 
 	
 	// variables for: light //
-	protected HashSet<Light> lights = new HashSet<Light>();	   // connections - automatic: children lights
+	protected HashSet<Light> lights = new HashSet<Light>();	   // connections - auto: children lights
 
 
 

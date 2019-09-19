@@ -12,7 +12,7 @@ public class TrackColorAtAwake : TrackingBehaviour<TrackColorAtAwake>
 	// trackings //
 
 	[ReadOnly]
-	public Color colorAwake;
+	public new Color colorAwake;
 
 
 

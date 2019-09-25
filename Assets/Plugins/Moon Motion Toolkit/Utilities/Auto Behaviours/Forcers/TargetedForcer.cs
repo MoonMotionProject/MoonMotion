@@ -42,11 +42,11 @@ public class TargetedForcer : Forcer<TargetedForcer>
 
 	[BoxGroup("Targetedly Forcing")]
 	[Tooltip("whether to use zero magnitude for the force when the target is outside the reach")]
-	public bool zeroForceOutsideReach = Default.directionalForceZeroingOutsideReach;
+	public bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach;
 
 	[BoxGroup("Targetedly Forcing")]
 	[Tooltip("whether to clamp the reach magnitude zeroing curve interpolation")]
-	public bool clamp = Default.directionalForceClamping;
+	public bool clamp = Default.directedForceClamping;
 
 
 

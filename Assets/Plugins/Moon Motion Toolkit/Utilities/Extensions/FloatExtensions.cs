@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Float Extensions: provides extension methods for handling floats //
+// Float Extensions: provides extension methods for handling floats
+// #numbers
 public static class FloatExtensions
 {
 	#region comparison
@@ -166,6 +167,9 @@ public static class FloatExtensions
 
 	public static float timesSign(this float float_, bool booleanForSign)
 		=> (float_ * booleanForSign.asSign());
+	
+	public static float signChanged(this float float_)
+		=> float_ * -1f;
 	#endregion sign manipulation
 
 

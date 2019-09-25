@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Force Extensions: provides extension methods for handling forces
+// Force Applying Extensions: provides extension methods for applying force
 // #force
-public static class ForceExtensions
+public static class ForceApplyingExtensions
 {
-	#region applying force
-	// methods: (should be called during FixedUpdate:) (according to the given boolean:) apply the given force (which should not be a product from multiplication with an update interval) to this given provided rigidbody (accelerate it with respect to (by dividing the acceleration by) its mass), then return this given provided rigidbody //
+	// methods: (should be called during FixedUpdate:) (according to the given boolean:) apply the force (which should not be a product from multiplication with an update interval) for the respective givens to this given provided rigidbody (accelerate it with respect to (by dividing the acceleration by) its mass), then return this given provided rigidbody //
 
-
-	#region given a vector
+	
+	#region given a (global direction) vector
 
 	public static Rigidbody applyForceOf(this Rigidbody rigidbody, Vector3 force, bool boolean = true)
 	{
@@ -28,12 +27,13 @@ public static class ForceExtensions
 				gameObject;
 
 	public static ComponentT applyForceOf<ComponentT>(this ComponentT component, Vector3 force, bool boolean = true) where ComponentT : Component
-		=> component.after(()=>
-			   component.rigidbody().applyForceOf(force, boolean));
-	#endregion given a vector
+		=>	component.after(()=>
+				component.rigidbody().applyForceOf(force),
+				boolean);
+	#endregion given a (global direction) vector
 
 
-	#region given vector axes
+	#region given (global direction) vector axes
 
 	public static Rigidbody applyForceOf(this Rigidbody rigidbody, float forceX, float forceY, float forceZ, bool boolean = true)
 		=> rigidbody.applyForceOf(new Vector3(forceX, forceY, forceZ), boolean);
@@ -43,10 +43,10 @@ public static class ForceExtensions
 
 	public static ComponentT applyForceOf<ComponentT>(this ComponentT component, float forceX, float forceY, float forceZ, bool boolean = true) where ComponentT : Component
 		=> component.applyForceOf(new Vector3(forceX, forceY, forceZ), boolean);
-	#endregion given vector axes
+	#endregion given (global direction) vector axes
 
 
-	#region given a direction and magnitude
+	#region given a (global) direction and magnitude
 
 	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, Vector3 direction, float magnitude, bool boolean = true)
 		=> rigidbody.applyForceOf(magnitude * direction, boolean);
@@ -56,20 +56,70 @@ public static class ForceExtensions
 
 	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, Vector3 direction, float magnitude, bool boolean = true) where ComponentT : Component
 		=> component.applyForceOf(magnitude * direction, boolean);
-	#endregion given a magnitude and direction
+	#endregion given a (global) direction and magnitude
 
 
-	#region given a local basic direction and magnitude
+	#region given a direction, distinctivity, potential transform provider, and magnitude
 
-	public static Rigidbody applyForceAlongLocal(this Rigidbody rigidbody, BasicDirection basicDirection, float magnitude, bool boolean = true)
+	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+
+		return rigidbody.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
+	}
+
+	public static GameObject applyForceAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+
+		return gameObject.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
+	}
+
+	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
+	{
+		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+
+		return component.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
+	}
+	#endregion given a direction, distinctivity, and magnitude
+
+
+	#region given a local direction and magnitude
+
+	public static Rigidbody applyForceAlongLocal(this Rigidbody rigidbody, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return rigidbody.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
+	}
+
+	public static GameObject applyForceAlongLocal(this GameObject gameObject, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return gameObject.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
+	}
+
+	public static ComponentT applyForceAlongLocal<ComponentT>(this ComponentT component, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return component.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
+	}
+	#endregion given a local direction and magnitude
+
+
+	#region given a (local) basic direction and magnitude
+
+	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> rigidbody.applyForceAlong(basicDirection.asDirectionRelativeTo(rigidbody), magnitude, boolean);
 
-	public static GameObject applyForceAlongLocal(this GameObject gameObject, BasicDirection basicDirection, float magnitude, bool boolean = true)
+	public static GameObject applyForceAlong(this GameObject gameObject, BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> gameObject.applyForceAlong(basicDirection.asDirectionRelativeTo(gameObject), magnitude, boolean);
 
-	public static ComponentT applyForceAlongLocal<ComponentT>(this ComponentT component, BasicDirection basicDirection, float magnitude, bool boolean = true) where ComponentT : Component
+	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, BasicDirection basicDirection, float magnitude, bool boolean = true) where ComponentT : Component
 		=> component.applyForceAlong(basicDirection.asDirectionRelativeTo(component), magnitude, boolean);
-	#endregion given a local basic direction and magnitude
+	#endregion given a (local) basic direction and magnitude
 
 
 	#region given a global basic direction and magnitude
@@ -212,6 +262,4 @@ public static class ForceExtensions
 		=> component.applyForceAlong(Direction.down, magnitude, boolean);
 	#endregion downward – globally – given a magnitude
 	#endregion in the respective basic direction – globally – given a magnitude
-
-	#endregion applying force
 }

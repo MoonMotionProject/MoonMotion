@@ -244,6 +244,9 @@ public static class InterpolationCurved
 					);
 		}
 	}
+	// method: interpolate a float using this given curve, clamping boolean, ratio, and start value, interpolating to zero //
+	public static float interpolateToZero(this float start, InterpolationCurve curve, bool clamp, float ratio)
+		=> curve.interpolation(clamp, start, 0f, ratio);
 
 	// method: interpolate a floats vector using this given curve and the given clamping boolean and start & end & ratio values //
 	public static Vector3 interpolation(this InterpolationCurve curve, bool clamp, Vector3 start, Vector3 end, float ratio)
@@ -253,7 +256,7 @@ public static class InterpolationCurved
 			curve.interpolation(clamp, start.y, end.y, ratio),
 			curve.interpolation(clamp, start.z, end.z, ratio)
 		);
-	// method: interpolate a floats vector using this given curve and the given clamping boolean and start value to the floats vector of zeroes //
+	// method: interpolate a floats vector using this given curve, clamping boolean, ratio, and start value, interpolating to the floats vector of zeroes //
 	public static Vector3 interpolateToZeroes(this Vector3 start, InterpolationCurve curve, bool clamp, float ratio)
 		=> curve.interpolation(clamp, start, FloatsVector.zeroes, ratio);
 

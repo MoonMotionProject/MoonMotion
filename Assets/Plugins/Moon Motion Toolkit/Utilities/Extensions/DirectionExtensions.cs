@@ -230,5 +230,29 @@ public static class DirectionExtensions
 	// method: return the global direction for this given local direction relative to the given game object //
 	public static Vector3 asLocalDirectionToGlobalDirectionFromRelativityOf(this Vector3 localDirection, GameObject gameObject)
 		=> localDirection.asLocalDirectionToGlobalDirectionFromRelativityOf(gameObject.transform);
+
+	// method: return the local direction for this given direction with the given distinctivity, relative to the given transform if local //
+	public static Vector3 toLocalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, Transform potentialTransform)
+		=> currentDirectionDistinctivity.isRelative() ?
+				direction :
+				direction.asGlobalDirectionToLocalDirectionRelativeTo(potentialTransform);
+	// method: return the local direction for this given direction with the given distinctivity, relative to the given transform if local //
+	public static Vector3 toLocalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, Component potentialComponent)
+		=> direction.toLocalDirectionFromDistinctivityOf(currentDirectionDistinctivity, potentialComponent.transform);
+	// method: return the local direction for this given direction with the given distinctivity, relative to the given transform if local //
+	public static Vector3 toLocalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, GameObject potentialObject)
+		=> direction.toLocalDirectionFromDistinctivityOf(currentDirectionDistinctivity, potentialObject.transform);
+
+	// method: return the global direction for this given direction with the given distinctivity, relative to the given transform if local //
+	public static Vector3 toGlobalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, Transform potentialTransform)
+		=>	currentDirectionDistinctivity.isAbsolute() ?
+				direction :
+				direction.asLocalDirectionToGlobalDirectionFromRelativityOf(potentialTransform);
+	// method: return the global direction for this given direction with the given distinctivity, relative to the given component if local //
+	public static Vector3 toGlobalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, Component potentialComponent)
+		=> direction.toGlobalDirectionFromDistinctivityOf(currentDirectionDistinctivity, potentialComponent.transform);
+	// method: return the global direction for this given direction with the given distinctivity, relative to the given game object if local //
+	public static Vector3 toGlobalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, GameObject potentialObject)
+		=> direction.toGlobalDirectionFromDistinctivityOf(currentDirectionDistinctivity, potentialObject.transform);
 	#endregion distinctivity conversion
 }

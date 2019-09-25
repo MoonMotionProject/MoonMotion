@@ -167,8 +167,20 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 		=> selfAfter(()=> rigidbody.applyForceOf(forceX, forceY, forceZ, boolean));
 	public AutoBehaviourT applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlong(direction, magnitude, boolean));
-	public AutoBehaviourT applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceAlongLocal(basicDirection, magnitude, boolean));
+	public AutoBehaviourT applyForceAlong(Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+
+		return selfAfter(()=> rigidbody.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean));
+	}
+	public AutoBehaviourT applyForceAlongLocal(Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return selfAfter(()=> rigidbody.applyForceAlongLocal(localDirection, transform, magnitude, boolean));
+	}
+	public AutoBehaviourT applyForceAlong(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceAlong(basicDirection, magnitude, boolean));
 	public AutoBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
 	public AutoBehaviourT applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
@@ -198,6 +210,40 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	public AutoBehaviourT applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyGlobalDownwardForceOf(magnitude, boolean));
 	#endregion applying force
+
+	#region applying directed force
+	public AutoBehaviourT applyDirectedForceFrom(dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+
+		return selfAfter(()=> rigidbody.applyDirectedForceFrom
+		(
+			forcingPosition,
+			direction,
+			magnitude,
+			reach,
+			reachMagnitudeZeroingCurve,
+			zeroForceOutsideReach,
+			clamp
+		));
+	}
+	public AutoBehaviourT applyDirectedForceFrom(dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
+
+		return selfAfter(()=> rigidbody.applyDirectedForceFrom
+		(
+			forcingTransform,
+			direction,
+			distinctivity,
+			magnitude,
+			reach,
+			reachMagnitudeZeroingCurve,
+			zeroForceOutsideReach,
+			clamp
+		));
+	}
+	#endregion applying directed force
 	#endregion Rigidbody
 
 

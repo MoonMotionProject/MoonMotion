@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Double Extensions: provides extension methods for handling doubles //
+// Double Extensions: provides extension methods for handling doubles
+// #numbers
 public static class DoubleExtensions
 {
 	#region comparison
@@ -167,6 +168,9 @@ public static class DoubleExtensions
 
 	public static double timesSign(this double double_, bool booleanForSign)
 		=> (double_ * booleanForSign.asSign());
+	
+	public static double signChanged(this double double_)
+		=> double_ * -1d;
 	#endregion sign manipulation
 
 

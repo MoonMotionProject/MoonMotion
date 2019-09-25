@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Radial Force Extensions: provides extension methods for handling radial force
+// Radial Force Extensions: provides extension methods for radially forcing
 // #force
 public static class RadialForceExtensions
 {
-	#region radially forcing
-	// methods: apply a radial force with the given or respective tug from this given center position or provider of a center position (respectively), with the given magnitude, affecting rigidbodies with colliders matching the given layer mask (if specified) and only within the given radius and using the given trigger collider query, diminishing magnitude from the center position (to radial distance) to zero using the given curve, then return the set of objects affected //
+	// methods: apply a radial force with the given or declared tug from this given center position or provider of a center position (respectively), with the given magnitude, affecting rigidbodies with colliders matching the given layer mask (if specified) and only within the given radius and using the given trigger collider query, diminishing magnitude from the center position (to radial distance) to zero using the given curve, then return the set of objects affected //
 
 	
 	#region radially forcing with the given tug
@@ -117,5 +116,4 @@ public static class RadialForceExtensions
 				layerMask_MaxOf1
 			);
 	#endregion repulsing (radially repelling)
-	#endregion radially forcing
 }

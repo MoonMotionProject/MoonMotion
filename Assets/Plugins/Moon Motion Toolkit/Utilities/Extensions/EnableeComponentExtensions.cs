@@ -10,19 +10,19 @@ public static class EnableeComponentExtensions
 
 	// method: set the enablement of these given enablee components to the given boolean, then return a list of these given enablee components //
 	public static List<ComponentT> setEnablementsTo<ComponentT>(this IEnumerable<ComponentT> enableeComponents, bool enablement) where ComponentT : Component
-		=> enableeComponents.forEach(enableeComponent => enableeComponent.setEnablementTo(enablement)).manifest();
+		=> enableeComponents.forEachManifested(enableeComponent => enableeComponent.setEnablementTo(enablement));
 
 	// method: enable these given enablee components, then return a list of these given enablee components //
 	public static List<ComponentT> enableEach<ComponentT>(this IEnumerable<ComponentT> enableeComponents) where ComponentT : Component
-		=> enableeComponents.forEach(enableeComponent => enableeComponent.enable()).manifest();
+		=> enableeComponents.forEachManifested(enableeComponent => enableeComponent.enable());
 
 	// method: disable these given enablee components, then return a list of these given enablee components //
 	public static List<ComponentT> disableEach<ComponentT>(this IEnumerable<ComponentT> enableeComponents) where ComponentT : Component
-		=> enableeComponents.forEach(enableeComponent => enableeComponent.disable()).manifest();
+		=> enableeComponents.forEachManifested(enableeComponent => enableeComponent.disable());
 
 	// method: toggle the enablement of these given enablee components using the given toggling, then return a list of these given enablee components //
 	public static List<ComponentT> toggleEnablementsBy<ComponentT>(this IEnumerable<ComponentT> enableeComponents, Toggling toggling) where ComponentT : Component
-		=> enableeComponents.forEach(enableeComponent => enableeComponent.toggleEnablementBy(toggling)).manifest();
+		=> enableeComponents.forEachManifested(enableeComponent => enableeComponent.toggleEnablementBy(toggling));
 	#endregion enablement of these given enablee components
 
 

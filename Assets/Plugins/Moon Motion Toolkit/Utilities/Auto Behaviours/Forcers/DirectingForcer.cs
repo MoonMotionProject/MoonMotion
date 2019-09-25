@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
 
-// Raycasting Forcer:
-// • at each physics update, raycastedly forces
-// #force
-public class RaycastingForcer : Forcer<RaycastingForcer>
+// Directing Forcer:
+// • at each physics update, directs
+// #force #raycasting
+public class DirectingForcer : Forcer<DirectingForcer>
 {
 	// variables //
 
@@ -16,39 +17,43 @@ public class RaycastingForcer : Forcer<RaycastingForcer>
 	public bool visualizeLine = true;
 
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the tug of the force")]
 	public Tug tug = Default.tug;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the direction of the raycast")]
-	public Vector3 raycastingDirection;
+	public Vector3 raycastingDirection = Default.raycastingDirection;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
+	[Tooltip("the distinctivity of the direction of the raycast")]
+	public Distinctivity raycastingDistinctivity = Default.raycastingDistinctivity;
+
+	[BoxGroup("Directing")]
 	[Tooltip("whether to only force the first object raycasted")]
 	public bool firstHitOnly = Default.raycastingForcingFirstHitOnly;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the distance of the raycast")]
 	public float raycastingDistance = Default.raycastingDistance;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the magnitude of the force")]
 	public float magnitude = Default.forceMagnitude;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the curve by which to diminish the force's magnitude to zero from the raycasting position to the raycast's distance")]
 	public InterpolationCurve raycastingDistanceMagnitudeZeroingCurve = Default.forceCurve;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("whether to ensure forcing of colliders at the raycasting position if not only forcing the first object raycasted")]
 	public bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the query to use for trigger colliders")]
 	public QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery;
 
-	[BoxGroup("Raycastedly Forcing")]
+	[BoxGroup("Directing")]
 	[Tooltip("the layer mask to use for colliders")]
 	public LayerMask layerMask = Default.layerMask;
 
@@ -57,19 +62,20 @@ public class RaycastingForcer : Forcer<RaycastingForcer>
 
 	// updating //
 
-	
+
 	// upon drawing gizmos: //
 	private void OnDrawGizmos()
-		=> Visualize.lineFrom(position, position.positionAlong(raycastingDirection, raycastingDistance),
+		=> Visualize.raycastLineFrom(transform, raycastingDirection, raycastingDistinctivity, raycastingDistance,
 			visualizeLine,
 			visualizationColor);
 
 	// at each physics update: //
 	private void FixedUpdate()
-		=>	forceRaycastedly
+		=>	direct
 			(
 				tug,
 				raycastingDirection,
+				raycastingDistinctivity,
 				firstHitOnly,
 				magnitude,
 				raycastingDistance,
@@ -77,5 +83,5 @@ public class RaycastingForcer : Forcer<RaycastingForcer>
 				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
 				triggerColliderQuery,
 				layerMask
-			).printListing();
+			);
 }

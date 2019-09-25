@@ -19,22 +19,27 @@ public static class Default
 	#endregion time
 
 	#region direction
+	public static readonly Vector3 direction = Direction.forward;
 	public static readonly BasicDirection basicDirection = BasicDirection.forward;
 	#endregion direction
 
 	#region raycasting
+	public static readonly Vector3 raycastingDirection = Direction.forward;
 	public const float raycastingDistance = 15f;
 	public const bool raycastingEnsuranceOfInclusionOfPositionalColliders = true;
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
 	public const bool raycastingForcingFirstHitOnly = false;
+	public const Distinctivity raycastingDistinctivity = Distinctivity.relative;
 	#endregion raycasting
 
 	#region force
 	public const float forceMagnitude = 10f;
 	public const float forceReach = float.MaxValue;
 	public const InterpolationCurve forceCurve = InterpolationCurve.quadratic;
-	public const bool directionalForceClamping = true;
-	public const bool directionalForceZeroingOutsideReach = true;
+	public const bool targetedForceClamping = true;
+	public const bool targetedForceZeroingOutsideReach = true;
+	public const bool directedForceClamping = true;
+	public const bool directedForceZeroingOutsideReach = true;
 	#endregion force
 
 	#region radial

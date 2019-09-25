@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Radial Collision Extensions: provides extension methods for handling radial collisions //
+// Radial Collision Extensions: provides extension methods for handling radial collisions
+// #collision
 public static class RadialCollisionExtensions
 {
 	// methods: return the set of colliders\objects\rigidbodies (respectively) within the given radius of this given center position provider, using the given layer mask and trigger collider query //

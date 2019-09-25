@@ -167,8 +167,20 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.applyForceOf(forceX, forceY, forceZ, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
 		=> autoBehaviour.applyForceAlong(direction, magnitude, boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongLocal(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> autoBehaviour.applyForceAlongLocal(basicDirection, magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+
+		return autoBehaviour.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean);
+	}
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongLocal(Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return autoBehaviour.applyForceAlongLocal(localDirection, transform, magnitude, boolean);
+	}
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForceAlong(basicDirection, magnitude, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> autoBehaviour.applyForceAlongGlobal(basicDirection, magnitude, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
@@ -198,6 +210,40 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new AutoBehaviour<SingletonBehaviourT> applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
 		=> autoBehaviour.applyGlobalDownwardForceOf(magnitude, boolean);
 	#endregion applying force
+
+	#region applying directed force
+	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+
+		return autoBehaviour.applyDirectedForceFrom
+		(
+			forcingPosition,
+			direction,
+			magnitude,
+			reach,
+			reachMagnitudeZeroingCurve,
+			zeroForceOutsideReach,
+			clamp
+		);
+	}
+	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
+
+		return autoBehaviour.applyDirectedForceFrom
+		(
+			forcingTransform,
+			direction,
+			distinctivity,
+			magnitude,
+			reach,
+			reachMagnitudeZeroingCurve,
+			zeroForceOutsideReach,
+			clamp
+		);
+	}
+	#endregion applying directed force
 	#endregion Rigidbody
 
 

@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Integer Extensions: provides extension methods for handling integers //
+// Integer Extensions: provides extension methods for handling integers
+// #numbers
 public static class IntegerExtensions
 {
 	#region comparison
@@ -117,6 +118,9 @@ public static class IntegerExtensions
 
 	public static int timesSign(this int integer, bool booleanForSign)
 		=> (integer * booleanForSign.asSign());
+	
+	public static int signChanged(this int integer)
+		=> integer * -1;
 	#endregion sign manipulation
 
 

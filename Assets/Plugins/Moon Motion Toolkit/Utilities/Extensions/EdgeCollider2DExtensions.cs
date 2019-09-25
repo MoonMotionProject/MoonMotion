@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Edge Collider 2D Extensions: provides extension methods for handling edge colliders //
+// Edge Collider 2D Extensions: provides extension methods for handling edge colliders
+// #collision
 public static class EdgeCollider2DExtensions
 {
 	#region setting points

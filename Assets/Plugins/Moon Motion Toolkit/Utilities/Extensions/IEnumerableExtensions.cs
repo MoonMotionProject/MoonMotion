@@ -269,6 +269,9 @@ public static class IEnumerableExtensions
 
 		return enumerable;
 	}
+	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return th manifestation of this given enumerable //
+	public static List<TItem> forEachManifested<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
+		=> enumerable.forEach(action, boolean).manifest();
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<TItem> action, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
 		=> enumerable.after(()=>

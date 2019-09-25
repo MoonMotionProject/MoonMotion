@@ -10,5 +10,9 @@ public static class TugExtensions
 	// method: return the sign for this given tug //
 	public static int asSign(this Tug tug)
 		=> tug.castTo<int>().asBoolean().asSign();
+
+	// method: return the opposite sign for this given tug //
+	public static int asOppositeSign(this Tug tug)
+		=> tug.asSign().signChanged();
 	#endregion conversion
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// CollisionExtensions: provides extension methods for handling collisions //
+// Collision Extensions: provides extension methods for handling collisions
+// #collision
 public static class CollisionExtensions
 {
 	// method: switch collision between the layer for this given string as a layer name and the layer for the given other layer name based on the given boolean, then return this given string //

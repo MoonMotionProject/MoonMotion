@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Positional Collision Extensions: provides extension methods for handling positional collisions //
+// Positional Collision Extensions: provides extension methods for handling positional collisions
+// #collision
 public static class PositionalCollisionExtensions
 {
 	// methods: return the set of colliders\objects\rigidbodies (respectively) at this given position provider, using the given layer mask and trigger collider query //

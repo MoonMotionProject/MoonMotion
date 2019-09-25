@@ -25,6 +25,15 @@ public static class PrintingExtensions
 	#endregion printing what is given
 
 
+	#region printing counts
+
+	// method: print the count of this given enumerable, then return this given enumerable //
+	public static IEnumerable<TItem> printCount<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.after(()=>
+			   enumerable.count().print());
+	#endregion printing counts
+
+
 	#region printing listings
 
 	// method: print the string listing of this given enumerable, using the given separator string (comma by default), then return this given enumerable //

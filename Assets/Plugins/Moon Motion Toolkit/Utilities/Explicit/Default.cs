@@ -24,11 +24,12 @@ public static class Default
 	#endregion direction
 
 	#region raycasting
+	public const bool raycastQueryingForFirstHitOnly = false;
+	public const bool raycastingPositionalCollidersQuerying = true;
 	public static readonly Vector3 raycastingDirection = Direction.forward;
 	public const float raycastingDistance = 15f;
-	public const bool raycastingEnsuranceOfInclusionOfPositionalColliders = true;
+	public const RaycastQuery raycastQuery = RaycastQuery.unlimitedHitsAndAllPositionalColliders;
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
-	public const bool raycastingForcingFirstHitOnly = false;
 	public const Distinctivity raycastingDistinctivity = Distinctivity.relative;
 	#endregion raycasting
 

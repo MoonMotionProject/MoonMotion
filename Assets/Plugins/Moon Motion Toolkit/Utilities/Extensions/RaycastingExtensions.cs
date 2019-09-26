@@ -8,9 +8,9 @@ using UnityEngine;
 public static class RaycastingExtensions
 {
 	#region raycasting for all results (not just the first hit)
-	// methods: return the set of raycast hits \colliders\objects\rigidbodies (respectively) within the given distance of the given raycasting position provider along this given direction with the given or appropriate distinctivity, using the given layer mask and trigger collider query, ensuring inclusion of positional colliders (where not returning raycast hits) according to the given boolean //
+	// methods: return the set of raycast hits \colliders\objects\rigidbodies (respectively) within the given distance of the given raycasting position provider along this given direction with the given or appropriate distinctivity, querying positional colliders (where not a method returning raycast hits) according to the given boolean, and using the given trigger collider query and layer mask //
 
-	
+
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
@@ -73,13 +73,13 @@ public static class RaycastingExtensions
 			);
 
 
-	public static HashSet<Collider> allRaycastedCollidersFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> allRaycastedCollidersFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		HashSet<Collider> collidersFound = new HashSet<Collider>();
 
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
-		if (ensureInclusionOfPositionalColliders)
+		if (queryPositionalColliders)
 		{
 			collidersFound = raycastingPosition.positionalColliders(triggerColliderQuery, layerMask_MaxOf1);
 		}
@@ -89,58 +89,58 @@ public static class RaycastingExtensions
 			.addToGet(collidersFound);
 	}
 
-	public static HashSet<Collider> allRaycastedCollidersAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> allRaycastedCollidersAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.allRaycastedCollidersFrom
 			(
 				position,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Collider> allRaycastedCollidersAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> allRaycastedCollidersAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().allRaycastedCollidersAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Collider> allRaycastedCollidersAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> allRaycastedCollidersAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.allRaycastedCollidersAlong
 			(
 				localDirection,
 				Distinctivity.relative,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Collider> allRaycastedCollidersAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> allRaycastedCollidersAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().allRaycastedCollidersAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Collider> allRaycastedCollidersAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> allRaycastedCollidersAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.allRaycastedCollidersAlong
 			(
 				localDirection,
 				Distinctivity.relative,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
 
-	public static HashSet<GameObject> allRaycastedObjectsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> allRaycastedObjectsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
@@ -148,64 +148,64 @@ public static class RaycastingExtensions
 				(
 					raycastingPosition,
 					raycastDistance,
-					ensureInclusionOfPositionalColliders,
+					queryPositionalColliders,
 					triggerColliderQuery,
 					layerMask_MaxOf1
 				).uniqueObjects();
 	}
 
-	public static HashSet<GameObject> allRaycastedObjectsAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> allRaycastedObjectsAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.allRaycastedObjectsFrom
 			(
 				position,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> allRaycastedObjectsAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> allRaycastedObjectsAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().allRaycastedObjectsAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> allRaycastedObjectsAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> allRaycastedObjectsAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.allRaycastedObjectsAlong
 			(
 				localDirection,
 				Distinctivity.relative,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> allRaycastedObjectsAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> allRaycastedObjectsAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().allRaycastedObjectsAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> allRaycastedObjectsAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> allRaycastedObjectsAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.allRaycastedObjectsAlong
 			(
 				localDirection,
 				Distinctivity.relative,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
 
-	public static HashSet<Rigidbody> allRaycastedRigidbodiesFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> allRaycastedRigidbodiesFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
@@ -213,58 +213,58 @@ public static class RaycastingExtensions
 				(
 					raycastingPosition,
 					raycastDistance,
-					ensureInclusionOfPositionalColliders,
+					queryPositionalColliders,
 					triggerColliderQuery,
 					layerMask_MaxOf1
 				).uniqueRigidbodies();
 	}
 
-	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.allRaycastedRigidbodiesFrom
 			(
 				position,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().allRaycastedRigidbodiesAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.allRaycastedRigidbodiesAlong
 			(
 				localDirection,
 				Distinctivity.relative,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().allRaycastedRigidbodiesAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalColliders = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> allRaycastedRigidbodiesAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.allRaycastedRigidbodiesAlong
 			(
 				localDirection,
 				Distinctivity.relative,
 				raycastDistance,
-				ensureInclusionOfPositionalColliders,
+				queryPositionalColliders,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -274,7 +274,7 @@ public static class RaycastingExtensions
 
 
 	#region raycasting for just the first result
-	// methods: return the first raycast hit \collider\object\rigidbody (respectively) within the given distance of the given raycasting position provider along this given direction, using the given layer mask and trigger collider query //
+	// methods: return the first raycast hit \collider\object\rigidbody (respectively) within the given distance of the given raycasting position provider along this given direction, using the given trigger collider query and layer mask //
 
 
 	public static RaycastHit firstNonpositionallyRaycastedHitFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
@@ -510,10 +510,10 @@ public static class RaycastingExtensions
 
 
 	#region raycasting for however many results
-	// methods: return the set of raycast hits \colliders\objects\rigidbodies (respectively) within the given distance of the given raycasting position provider along this given direction, using the given layer mask and trigger collider query, only forcing the first object raycasted according to the given 'firstHitOnly' boolean, ensuring inclusion of positional colliders (where not returning raycast hits) if not (per 'firstHitOnly') only forcing the first object raycasted according to the given 'ensureInclusionOfPositionalCollidersIfNotFirstHitOnly' boolean //
+	// methods: return the set of raycast hits \colliders\objects\rigidbodies (respectively) within the given distance of the given raycasting position provider along this given direction, using the given raycast query, trigger collider query, and layer mask //
 
 
-	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
@@ -535,63 +535,63 @@ public static class RaycastingExtensions
 				);
 	}
 
-	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlong(this Vector3 position, Vector3 direction, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.nonpositionallyRaycastedHitsFrom
 			(
 				position,
-				firstHitOnly,
 				raycastDistance,
+				firstHitOnly,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().nonpositionallyRaycastedHitsAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
-				firstHitOnly,
 				raycastDistance,
+				firstHitOnly,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlongLocal(this Component component, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.nonpositionallyRaycastedHitsAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
+				firstHitOnly,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().nonpositionallyRaycastedHitsAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
-				firstHitOnly,
 				raycastDistance,
+				firstHitOnly,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlongLocal(this GameObject gameObject, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.nonpositionallyRaycastedHitsAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
+				firstHitOnly,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
 
-	public static HashSet<Collider> raycastedCollidersFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> raycastedCollidersFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
 		return
-			firstHitOnly ?
+			raycastQuery.queriesOnlyFirstHit() ?
 				raycastingPosition.firstNonpositionallyRaycastedColliderAlong
 				(
 					direction,
@@ -603,205 +603,188 @@ public static class RaycastingExtensions
 				(
 					direction,
 					raycastDistance,
-					ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+					raycastQuery.queriesPositionalColliders(),
 					triggerColliderQuery,
 					layerMask_MaxOf1
 				);
 	}
 
-	public static HashSet<Collider> raycastedCollidersAlong(this Vector3 position, Vector3 direction, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> raycastedCollidersAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.raycastedCollidersFrom
 			(
 				position,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Collider> raycastedCollidersAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> raycastedCollidersAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().raycastedCollidersAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Collider> raycastedCollidersAlongLocal(this Component component, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> raycastedCollidersAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.raycastedCollidersAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Collider> raycastedCollidersAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> raycastedCollidersAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().raycastedCollidersAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Collider> raycastedCollidersAlongLocal(this GameObject gameObject, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Collider> raycastedCollidersAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.raycastedCollidersAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
 
-	public static HashSet<GameObject> raycastedObjectsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> raycastedObjectsFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
 		return	direction.raycastedCollidersFrom
 				(
 					raycastingPosition,
-					firstHitOnly,
 					raycastDistance,
-					ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+					raycastQuery,
 					triggerColliderQuery,
 					layerMask_MaxOf1
 				).uniqueObjects();
 	}
 
-	public static HashSet<GameObject> raycastedObjectsAlong(this Vector3 position, Vector3 direction, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> raycastedObjectsAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.raycastedObjectsFrom
 			(
 				position,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> raycastedObjectsAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> raycastedObjectsAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().raycastedObjectsAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> raycastedObjectsAlongLocal(this Component component, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> raycastedObjectsAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.raycastedObjectsAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> raycastedObjectsAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> raycastedObjectsAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().raycastedObjectsAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> raycastedObjectsAlongLocal(this GameObject gameObject, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> raycastedObjectsAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.raycastedObjectsAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
 
-	public static HashSet<Rigidbody> raycastedRigidbodiesFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> raycastedRigidbodiesFrom(this Vector3 direction, dynamic raycastingPosition_PositionProvider, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
 		return	direction.raycastedCollidersFrom
 				(
 					raycastingPosition,
-					firstHitOnly,
 					raycastDistance,
-					ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+					raycastQuery,
 					triggerColliderQuery,
 					layerMask_MaxOf1
 				).uniqueRigidbodies();
 	}
 
-	public static HashSet<Rigidbody> raycastedRigidbodiesAlong(this Vector3 position, Vector3 direction, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> raycastedRigidbodiesAlong(this Vector3 position, Vector3 direction, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	direction.raycastedRigidbodiesFrom
 			(
 				position,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Rigidbody> raycastedRigidbodiesAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> raycastedRigidbodiesAlong(this Component component, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.position().raycastedRigidbodiesAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, component),
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Rigidbody> raycastedRigidbodiesAlongLocal(this Component component, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> raycastedRigidbodiesAlongLocal(this Component component, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	component.raycastedRigidbodiesAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<Rigidbody> raycastedRigidbodiesAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> raycastedRigidbodiesAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.position().raycastedRigidbodiesAlong
 			(
 				direction.toGlobalDirectionFromDistinctivityOf(distinctivity, gameObject),
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<Rigidbody> raycastedRigidbodiesAlongLocal(this GameObject gameObject, Vector3 localDirection, bool firstHitOnly = Default.raycastingForcingFirstHitOnly, float raycastDistance = Default.raycastingDistance, bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<Rigidbody> raycastedRigidbodiesAlongLocal(this GameObject gameObject, Vector3 localDirection, float raycastDistance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	gameObject.raycastedRigidbodiesAlong
 			(
 				localDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);

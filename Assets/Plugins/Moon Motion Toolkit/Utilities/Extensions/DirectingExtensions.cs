@@ -6,7 +6,7 @@ using UnityEngine;
 // #force #raycasting
 public static class DirectingExtensions
 {
-	// methods: apply a directed force with the given or declared tug from this given raycasting position or provider of a raycasting position (respectively) along the given raycast direction with the given or appropriate distinctivity, with the given magnitude, affecting rigidbodies (ensuring unique rigidbodies; a methods variant to affect rigidbodies repeatedly for each collider hit is not implemented yet) with colliders matching the given layer mask (if specified) and only within the given raycasting distance and using the given trigger collider query, only forcing the first object raycasted according to the given 'firstHitOnly' boolean, ensuring inclusion of positional colliders if not only forcing the first object raycasted according to the given 'ensureInclusionOfPositionalCollidersIfNotFirstHitOnly' boolean, diminishing magnitude from the raycasting position (to raycasting distance) to zero using the given curve, then return the set of objects affected //
+	// methods: apply a directed force with the given or declared tug from this given raycasting position or provider of a raycasting position (respectively) along the given raycast direction with the given or appropriate distinctivity, with the given magnitude, affecting rigidbodies (ensuring unique rigidbodies; a methods variant to affect rigidbodies repeatedly for each collider hit is not implemented yet) with colliders matching the given layer mask (if specified) and only within the given raycasting distance and using the given raycast query and trigger collider query, diminishing magnitude from the raycasting position (to raycasting distance) to zero using the given curve, then return the set of objects affected //
 
 
 	#region directing with the given tug
@@ -16,20 +16,18 @@ public static class DirectingExtensions
 		this Vector3 raycastingPosition,
 		Tug tug,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
 		=>	raycastingPosition.raycastedRigidbodiesAlong
 			(
 				raycastDirection,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			).applyDirectedForceToEachFrom
@@ -47,11 +45,10 @@ public static class DirectingExtensions
 		Tug tug,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -59,9 +56,8 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				raycastDistinctivity,
-				firstHitOnly,
 				raycastDistance,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			).applyDirectedForceToEachFrom
@@ -78,11 +74,10 @@ public static class DirectingExtensions
 		this GameObject raycastingObject,
 		Tug tug,
 		Vector3 localRaycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -91,11 +86,10 @@ public static class DirectingExtensions
 				tug,
 				localRaycastDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -104,11 +98,10 @@ public static class DirectingExtensions
 		this GameObject raycastingObject,
 		Tug tug,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -117,11 +110,10 @@ public static class DirectingExtensions
 				tug,
 				raycastDirection,
 				Distinctivity.absolute,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -132,11 +124,10 @@ public static class DirectingExtensions
 		Tug tug,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -145,11 +136,10 @@ public static class DirectingExtensions
 				tug,
 				raycastDirection,
 				raycastDistinctivity,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -158,11 +148,10 @@ public static class DirectingExtensions
 		this Component raycastingComponent,
 		Tug tug,
 		Vector3 localRaycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -171,11 +160,10 @@ public static class DirectingExtensions
 				tug,
 				localRaycastDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -184,11 +172,10 @@ public static class DirectingExtensions
 		this Component raycastingComponent,
 		Tug tug,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -197,11 +184,10 @@ public static class DirectingExtensions
 				tug,
 				raycastDirection,
 				Distinctivity.absolute,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -214,11 +200,10 @@ public static class DirectingExtensions
 	(
 		this Vector3 raycastingPosition,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -226,11 +211,10 @@ public static class DirectingExtensions
 			(
 				Tug.attraction,
 				raycastDirection,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -240,11 +224,10 @@ public static class DirectingExtensions
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -253,11 +236,10 @@ public static class DirectingExtensions
 				Tug.attraction,
 				raycastDirection,
 				raycastDistinctivity,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -265,11 +247,10 @@ public static class DirectingExtensions
 	(
 		this GameObject raycastingObject,
 		Vector3 localRaycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -277,11 +258,10 @@ public static class DirectingExtensions
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -289,11 +269,10 @@ public static class DirectingExtensions
 	(
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -301,11 +280,10 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				Distinctivity.absolute,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -315,11 +293,10 @@ public static class DirectingExtensions
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -327,11 +304,10 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				raycastDistinctivity,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -339,11 +315,10 @@ public static class DirectingExtensions
 	(
 		this Component raycastingComponent,
 		Vector3 localRaycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -351,11 +326,10 @@ public static class DirectingExtensions
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -363,11 +337,10 @@ public static class DirectingExtensions
 	(
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -375,11 +348,10 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				Distinctivity.absolute,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -392,11 +364,10 @@ public static class DirectingExtensions
 	(
 		this Vector3 raycastingPosition,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -404,11 +375,10 @@ public static class DirectingExtensions
 			(
 				Tug.repulsion,
 				raycastDirection,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -418,11 +388,10 @@ public static class DirectingExtensions
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -431,11 +400,10 @@ public static class DirectingExtensions
 				Tug.repulsion,
 				raycastDirection,
 				raycastDistinctivity,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -443,11 +411,10 @@ public static class DirectingExtensions
 	(
 		this GameObject raycastingObject,
 		Vector3 localRaycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -455,11 +422,10 @@ public static class DirectingExtensions
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -467,11 +433,10 @@ public static class DirectingExtensions
 	(
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -479,11 +444,10 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				Distinctivity.absolute,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -493,11 +457,10 @@ public static class DirectingExtensions
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -505,11 +468,10 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				raycastDistinctivity,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -517,11 +479,10 @@ public static class DirectingExtensions
 	(
 		this Component raycastingComponent,
 		Vector3 localRaycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -529,11 +490,10 @@ public static class DirectingExtensions
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
@@ -541,11 +501,10 @@ public static class DirectingExtensions
 	(
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
-		bool firstHitOnly = Default.raycastingForcingFirstHitOnly,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
-		bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders,
+		RaycastQuery raycastQuery = Default.raycastQuery,
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
@@ -553,11 +512,10 @@ public static class DirectingExtensions
 			(
 				raycastDirection,
 				Distinctivity.absolute,
-				firstHitOnly,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);

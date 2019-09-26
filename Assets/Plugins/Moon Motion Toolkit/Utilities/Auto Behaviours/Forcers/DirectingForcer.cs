@@ -30,10 +30,6 @@ public class DirectingForcer : Forcer<DirectingForcer>
 	public Distinctivity raycastingDistinctivity = Default.raycastingDistinctivity;
 
 	[BoxGroup("Directing")]
-	[Tooltip("whether to only force the first object raycasted")]
-	public bool firstHitOnly = Default.raycastingForcingFirstHitOnly;
-
-	[BoxGroup("Directing")]
 	[Tooltip("the distance of the raycast")]
 	public float raycastingDistance = Default.raycastingDistance;
 
@@ -46,8 +42,8 @@ public class DirectingForcer : Forcer<DirectingForcer>
 	public InterpolationCurve raycastingDistanceMagnitudeZeroingCurve = Default.forceCurve;
 
 	[BoxGroup("Directing")]
-	[Tooltip("whether to ensure forcing of colliders at the raycasting position if not only forcing the first object raycasted")]
-	public bool ensureInclusionOfPositionalCollidersIfNotFirstHitOnly = Default.raycastingEnsuranceOfInclusionOfPositionalColliders;
+	[Tooltip("the raycast query to use for raycast collision")]
+	public RaycastQuery raycastQuery = Default.raycastQuery;
 
 	[BoxGroup("Directing")]
 	[Tooltip("the query to use for trigger colliders")]
@@ -76,11 +72,10 @@ public class DirectingForcer : Forcer<DirectingForcer>
 				tug,
 				raycastingDirection,
 				raycastingDistinctivity,
-				firstHitOnly,
 				magnitude,
 				raycastingDistance,
 				raycastingDistanceMagnitudeZeroingCurve,
-				ensureInclusionOfPositionalCollidersIfNotFirstHitOnly,
+				raycastQuery,
 				triggerColliderQuery,
 				layerMask
 			);

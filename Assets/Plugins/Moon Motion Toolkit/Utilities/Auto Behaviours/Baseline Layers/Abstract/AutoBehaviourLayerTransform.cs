@@ -109,7 +109,7 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	public bool childless => component.childless();
 
 	public bool anyChildren()
-		=> component.anyChildren();
+		=> component.hasAnyChildren();
 
 	public bool pluralChildren => component.pluralChildren();
 	#endregion counting children

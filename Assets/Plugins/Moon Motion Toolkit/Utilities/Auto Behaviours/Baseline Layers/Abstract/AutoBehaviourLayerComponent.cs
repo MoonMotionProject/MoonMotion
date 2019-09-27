@@ -71,31 +71,31 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	#region determining local components
 
 	public bool any<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.any<ComponentT>(includeInactiveComponents);
+		=> gameObject.hasAny<ComponentT>(includeInactiveComponents);
 
 	public bool any<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.any(function, includeInactiveComponents);
+		=> gameObject.hasAny(function, includeInactiveComponents);
 	
 	public bool hasNo<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.hasNo<ComponentT>(includeInactiveComponents);
 
 	public bool anyComponentOtherThan(Component component, bool includeInactiveComponents = true)
-		=> gameObject.anyComponentOtherThan(component, includeInactiveComponents);
+		=> gameObject.hasAnyComponentOtherThan(component, includeInactiveComponents);
 
 	public bool anyOtherComponent(bool includeInactiveComponents = true)
-		=> component.anyOtherComponent(includeInactiveComponents);
+		=> component.hasAnyOtherComponent(includeInactiveComponents);
 
 	public bool anyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> gameObject.anyComponentExcept(component, function, includeInactiveComponents);
+		=> gameObject.hasAnyComponentExcept(component, function, includeInactiveComponents);
 
 	public bool anyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> component.anyOtherComponent(function, includeInactiveComponents);
+		=> component.hasAnyOtherComponent(function, includeInactiveComponents);
 
 	public bool anyAutoBehaviours(bool includeInactiveComponents = true)
-		=> gameObject.anyAutoBehaviours(includeInactiveComponents);
+		=> gameObject.hasAnyAutoBehaviours(includeInactiveComponents);
 
 	public bool anyOtherAutoBehaviours(bool includeInactiveComponents = true)
-		=> autoBehaviour.anyOtherAutoBehaviours<AutoBehaviourT>(includeInactiveComponents);
+		=> autoBehaviour.hasAnyOtherAutoBehaviours<AutoBehaviourT>(includeInactiveComponents);
 	#endregion determining local components
 
 
@@ -130,7 +130,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 	// method: return whether this game object has any of the specified type of child component, optionally including inactive components according to the given boolean //
 	public bool anyChildren<ComponentT>(bool includeInactiveComponents = true) where ComponentT : Component
-		=> gameObject.anyChildren<ComponentT>(includeInactiveComponents);
+		=> gameObject.hasAnyChildren<ComponentT>(includeInactiveComponents);
 	#endregion determining child components
 
 

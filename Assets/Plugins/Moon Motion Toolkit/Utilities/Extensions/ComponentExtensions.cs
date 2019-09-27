@@ -136,32 +136,32 @@ public static class ComponentExtensions
 	#region determining local components
 
 	// method: return whether this given game object has any of the specified type of component, optionally including inactive components according to the given boolean //
-	public static bool any<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	public static bool hasAny<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> Any.itemsIn(gameObject.pick<ComponentT>(includeInactiveComponents));
 
 	// method: return whether this given transform has any of the specified type of component, optionally including inactive components according to the given boolean //
-	public static bool any<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.any<ComponentT>(includeInactiveComponents);
+	public static bool hasAny<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.hasAny<ComponentT>(includeInactiveComponents);
 
 	// method: return whether this given component's game object has any of the specified type of component, optionally including inactive components according to the given boolean //
-	public static bool any<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.any<ComponentT>(includeInactiveComponents);
+	public static bool hasAny<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.hasAny<ComponentT>(includeInactiveComponents);
 
 	// method: return whether this given game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool any<ComponentT>(this GameObject gameObject, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
+	public static bool hasAny<ComponentT>(this GameObject gameObject, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
 		=> gameObject.pick<ComponentT>(includeInactiveComponents).hasAny(function);
 
 	// method: return whether this given transform's game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool any<ComponentT>(this Transform transform, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
-		=> transform.gameObject.any(function, includeInactiveComponents);
+	public static bool hasAny<ComponentT>(this Transform transform, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
+		=> transform.gameObject.hasAny(function, includeInactiveComponents);
 
 	// method: return whether this given component's game object has any of the specified type of component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool any<ComponentT>(this Component component, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
-		=> component.gameObject.any(function, includeInactiveComponents);
+	public static bool hasAny<ComponentT>(this Component component, Func<ComponentT, bool> function, bool includeInactiveComponents = true) where ComponentT : Component
+		=> component.gameObject.hasAny(function, includeInactiveComponents);
 
 	// method: return whether this given game object has none of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool hasNo<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
-		=> !gameObject.any<ComponentT>(includeInactiveComponents);
+		=> !gameObject.hasAny<ComponentT>(includeInactiveComponents);
 
 	// method: return whether this given transform has none of the specified type of component, optionally including inactive components according to the given boolean //
 	public static bool hasNo<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
@@ -172,43 +172,43 @@ public static class ComponentExtensions
 		=> component.gameObject.hasNo<ComponentT>(includeInactiveComponents);
 
 	// method: return whether this given game object contains any components other than the specified component, optionally including inactive components according to the given boolean //
-	public static bool anyComponentOtherThan(this GameObject gameObject, Component component, bool includeInactiveComponents = true)
+	public static bool hasAnyComponentOtherThan(this GameObject gameObject, Component component, bool includeInactiveComponents = true)
 		=> gameObject.components(includeInactiveComponents).containsOtherThan(component);
 
 	// method: return whether this given transform contains any components other than the given component, optionally including inactive components according to the given boolean //
-	public static bool anyComponentOtherThan(this Transform transform, Component component, bool includeInactiveComponents = true)
-		=> transform.gameObject.anyComponentOtherThan(component, includeInactiveComponents);
+	public static bool hasAnyComponentOtherThan(this Transform transform, Component component, bool includeInactiveComponents = true)
+		=> transform.gameObject.hasAnyComponentOtherThan(component, includeInactiveComponents);
 
 	// method: return whether this given component's game object has any components other than this given component, optionally including inactive components according to the given boolean //
-	public static bool anyOtherComponent(this Component component, bool includeInactiveComponents = true)
-		=> component.gameObject.anyComponentOtherThan(component, includeInactiveComponents);
+	public static bool hasAnyOtherComponent(this Component component, bool includeInactiveComponents = true)
+		=> component.gameObject.hasAnyComponentOtherThan(component, includeInactiveComponents);
 
 	// method: return whether this given game object contains any components other than the given component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool anyComponentExcept(this GameObject gameObject, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+	public static bool hasAnyComponentExcept(this GameObject gameObject, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
 		=> gameObject.components(includeInactiveComponents).except(component).hasAny(function);
 
 	// method: return whether this given transform contains any components other than the given component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool anyComponentExcept(this Transform transform, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> transform.gameObject.anyComponentExcept(component, function, includeInactiveComponents);
+	public static bool hasAnyComponentExcept(this Transform transform, Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+		=> transform.gameObject.hasAnyComponentExcept(component, function, includeInactiveComponents);
 
 	// method: return whether this given component's game object has any components other than this given component for which the given function returns true, optionally including inactive components according to the given boolean //
-	public static bool anyOtherComponent(this Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
-		=> component.gameObject.anyComponentExcept(component, function, includeInactiveComponents);
+	public static bool hasAnyOtherComponent(this Component component, Func<Component, bool> function, bool includeInactiveComponents = true)
+		=> component.gameObject.hasAnyComponentExcept(component, function, includeInactiveComponents);
 
 	// method: return whether this given game object has any auto behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyAutoBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
+	public static bool hasAnyAutoBehaviours(this GameObject gameObject, bool includeInactiveComponents = true)
 		=> Any.itemsIn(gameObject.autoBehaviours(includeInactiveComponents));
 
 	// method: return whether this given transform has any auto behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyAutoBehaviours(this Transform transform, bool includeInactiveComponents = true)
-		=> transform.gameObject.anyAutoBehaviours(includeInactiveComponents);
+	public static bool hasAnyAutoBehaviours(this Transform transform, bool includeInactiveComponents = true)
+		=> transform.gameObject.hasAnyAutoBehaviours(includeInactiveComponents);
 
 	// method: return whether this given component's game object has any auto behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyAutoBehaviours(this Component component, bool includeInactiveComponents = true)
-		=> component.gameObject.anyAutoBehaviours(includeInactiveComponents);
+	public static bool hasAnyAutoBehaviours(this Component component, bool includeInactiveComponents = true)
+		=> component.gameObject.hasAnyAutoBehaviours(includeInactiveComponents);
 
 	// method: return whether this given auto behaviour's game object has any other auto behaviours, optionally including inactive components according to the given boolean //
-	public static bool anyOtherAutoBehaviours<AutoBehaviourT>(this AutoBehaviourT autoBehaviour, bool includeInactiveComponents = true) where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
+	public static bool hasAnyOtherAutoBehaviours<AutoBehaviourT>(this AutoBehaviourT autoBehaviour, bool includeInactiveComponents = true) where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 		=> autoBehaviour.autoBehaviours().containsOtherThan(autoBehaviour);
 	#endregion determining local components
 
@@ -295,15 +295,15 @@ public static class ComponentExtensions
 	#region determining child components
 
 	// method: return whether this given game object has any of the specified type of child component, optionally including inactive components according to the given boolean //
-	public static bool anyChildren<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
+	public static bool hasAnyChildren<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = true) where ComponentT : Component
 		=> Any.itemsIn(gameObject.children<ComponentT>(includeInactiveComponents));
 
 	// method: return whether this given transform has any of the specified type of child component, optionally including inactive components according to the given boolean //
-	public static bool anyChildren<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
+	public static bool hasAnyChildren<ComponentT>(this Transform transform, bool includeInactiveComponents = true) where ComponentT : Component
 		=> Any.itemsIn(transform.children<ComponentT>(includeInactiveComponents));
 
 	// method: return whether this given component has any of the specified type of child component, optionally including inactive components according to the given boolean //
-	public static bool anyChildren<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
+	public static bool hasAnyChildren<ComponentT>(this Component component, bool includeInactiveComponents = true) where ComponentT : Component
 		=> Any.itemsIn(component.children<ComponentT>(includeInactiveComponents));
 	#endregion determining child components
 

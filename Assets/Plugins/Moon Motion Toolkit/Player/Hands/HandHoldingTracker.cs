@@ -117,7 +117,7 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of this hand holding tracker's hand //
 	public bool longbowArrowHand()
-		=> parentHandTransform.anyChildren<ArrowHand>();
+		=> parentHandTransform.hasAnyChildren<ArrowHand>();
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of the left hand //
 	public static bool longbowArrowHandLeft()

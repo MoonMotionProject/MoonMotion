@@ -18,12 +18,12 @@ public static class RequireComponentExtensions
 		=> component.allAttributesOfType_ViaReflection<RequireComponent>(considerInheritedRequireComponents);
 
 	// method: (via reflection:) return whether the given function returns true for any of the RequireComponent attributes of this given component's class, considering inherited RequireComponent attributes according to the given boolean //
-	public static bool anyRequireComponentAttributes_ViaReflection(this Component component, Func<RequireComponent, bool> function, bool considerInheritedRequireComponents = true)
+	public static bool hasAnyRequireComponentAttributes_ViaReflection(this Component component, Func<RequireComponent, bool> function, bool considerInheritedRequireComponents = true)
 		=> component.allRequireComponentAttributes_ViaReflection(considerInheritedRequireComponents).hasAny(function);
 
 	// method: (via reflection:) return whether this given component requires (via the RequireComponent attribute) the specified component type to be on this given component's game object, considering inherited RequireComponent attributes according to the given boolean //
 	public static bool requires_ViaReflection(this Component component, Type potentiallyRequiredComponentType, bool considerInheritedRequireComponents = true)
-		=> component.anyRequireComponentAttributes_ViaReflection(requireComponentAttribute =>
+		=> component.hasAnyRequireComponentAttributes_ViaReflection(requireComponentAttribute =>
 		   (
 			   requireComponentAttribute.m_Type0.isAssignableFrom(potentiallyRequiredComponentType) ||
 			   requireComponentAttribute.m_Type1.isAssignableFrom(potentiallyRequiredComponentType) ||
@@ -39,7 +39,7 @@ public static class RequireComponentExtensions
 
 	// method: (via reflection:) return whether this given component is required by another component (on this given component's game object), considering inherited RequireComponent attributes according to the given boolean //
 	public static bool required_ViaReflection<ComponentTThis>(this ComponentTThis component, bool considerInheritedRequireComponents = true) where ComponentTThis : Component
-		=> component.anyOtherComponent(
+		=> component.hasAnyOtherComponent(
 			otherComponent_ => otherComponent_.requires_ViaReflection<ComponentTThis>(),
 			considerInheritedRequireComponents);
 }

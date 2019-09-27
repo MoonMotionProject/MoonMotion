@@ -89,12 +89,18 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	public HashSet<Collider> collidersWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.collidersWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
+	public bool hasAnyCollidersWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.hasAnyCollidersWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
 
 	public HashSet<GameObject> objectsWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.objectsWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
+	public bool hasAnyObjectsWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.hasAnyObjectsWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
 
 	public HashSet<Rigidbody> rigidbodiesWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
+	public bool hasAnyRigidbodiesWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.hasAnyRigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
 	#endregion radial collision
 
 
@@ -115,12 +121,18 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	public HashSet<Collider> positionalColliders(QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.positionalColliders(triggerColliderQuery, layerMask_MaxOf1);
+	public bool hasAnyPositionalColliders(QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.hasAnyPositionalColliders(triggerColliderQuery, layerMask_MaxOf1);
 
 	public HashSet<GameObject> positionalObjects(QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.positionalObjects(triggerColliderQuery, layerMask_MaxOf1);
+	public bool hasAnyPositionalObjects(QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.hasAnyPositionalObjects(triggerColliderQuery, layerMask_MaxOf1);
 
 	public HashSet<Rigidbody> positionalRigidbodies(QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.positionalRigidbodies(triggerColliderQuery, layerMask_MaxOf1);
+	public bool hasAnyPositionalRigidbodies(QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.hasAnyPositionalRigidbodies(triggerColliderQuery, layerMask_MaxOf1);
 	#endregion positional collision
 
 

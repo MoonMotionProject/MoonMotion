@@ -15,12 +15,12 @@ public static class ChildExtensions
 	public static bool childless(this Component component)
 		=> component.transform.childless();
 
-	public static bool anyChildren(this Transform transform)
+	public static bool hasAnyChildren(this Transform transform)
 		=> (transform.childCount > 0);
-	public static bool anyChildren(this GameObject gameObject)
-		=> gameObject.transform.anyChildren();
-	public static bool anyChildren(this Component component)
-		=> component.transform.anyChildren();
+	public static bool hasAnyChildren(this GameObject gameObject)
+		=> gameObject.transform.hasAnyChildren();
+	public static bool hasAnyChildren(this Component component)
+		=> component.transform.hasAnyChildren();
 
 	public static bool pluralChildren(this Transform transform)
 		=> (transform.childCount > 1);

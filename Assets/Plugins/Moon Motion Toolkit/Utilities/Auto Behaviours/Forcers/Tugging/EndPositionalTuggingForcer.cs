@@ -4,11 +4,11 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 
-// Basic Tugging Forcer:
+// End Positional Tugging Forcer:
 // • at each physics update, tugs
-//   · unlike a Tugging Forcer, uses a basic direction
+//   · uses an end position for raycasting
 // #force #raycasting
-public class BasicTuggingForcer : Forcer<BasicTuggingForcer>
+public class EndPositionalTuggingForcer : Forcer<EndPositionalTuggingForcer>
 {
 	// variables //
 
@@ -23,16 +23,8 @@ public class BasicTuggingForcer : Forcer<BasicTuggingForcer>
 	public Affinity affinity = Default.affinity;
 
 	[BoxGroup("Tugging")]
-	[Tooltip("the direction of the raycast")]
-	public BasicDirection raycastingBasicDirection = Default.raycastingBasicDirection;
-
-	[BoxGroup("Tugging")]
-	[Tooltip("the distinctivity of the direction of the raycast")]
-	public Distinctivity raycastingDistinctivity = Default.raycastingDistinctivity;
-
-	[BoxGroup("Tugging")]
-	[Tooltip("the distance of the raycast")]
-	public float raycastingDistance = Default.raycastingDistance;
+	[Tooltip("the end position of the raycast")]
+	public Vector3 raycastEndPosition;
 
 	[BoxGroup("Tugging")]
 	[Tooltip("the magnitude of the force")]
@@ -59,22 +51,20 @@ public class BasicTuggingForcer : Forcer<BasicTuggingForcer>
 
 	// updating //
 
-
+	
 	// upon drawing gizmos: //
 	private void OnDrawGizmos()
-		=> Visualize.raycastLineFrom(transform, raycastingBasicDirection, raycastingDistinctivity, raycastingDistance,
-			visualizeLine,
-			visualizationColor);
+		=>	Visualize.lineFrom(position, raycastEndPosition,
+				visualizeLine,
+				visualizationColor);
 
 	// at each physics update: //
 	private void FixedUpdate()
 		=>	tug
 			(
 				affinity,
-				raycastingBasicDirection,
-				raycastingDistinctivity,
+				raycastEndPosition,
 				magnitude,
-				raycastingDistance,
 				raycastingDistanceMagnitudeZeroingCurve,
 				raycastQuery,
 				triggerColliderQuery,

@@ -465,6 +465,30 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
+	public HashSet<GameObject> tug
+	(
+		Affinity affinity,
+		dynamic raycastEndPosition_PositionProvider,
+		float magnitude = Default.forceMagnitude,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+	{
+		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+
+		return	gameObject.tug
+				(
+					affinity,
+					raycastEndPosition,
+					magnitude,
+					raycastDistanceMagnitudeZeroingCurve,
+					raycastQuery,
+					triggerColliderQuery,
+					layerMask_MaxOf1
+				);
+	}
 
 	public HashSet<GameObject> pullAlong
 	(
@@ -636,6 +660,28 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
+	public HashSet<GameObject> pullWithin
+	(
+		dynamic raycastEndPosition_PositionProvider,
+		float magnitude = Default.forceMagnitude,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+	{
+		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+
+		return	gameObject.pullWithin
+				(
+					raycastEndPosition,
+					magnitude,
+					raycastDistanceMagnitudeZeroingCurve,
+					raycastQuery,
+					triggerColliderQuery,
+					layerMask_MaxOf1
+				);
+	}
 
 	public HashSet<GameObject> pushAlong
 	(
@@ -807,5 +853,27 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
+	public HashSet<GameObject> pushWithin
+	(
+		dynamic raycastEndPosition_PositionProvider,
+		float magnitude = Default.forceMagnitude,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+	{
+		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+
+		return	gameObject.pushWithin
+				(
+					raycastEndPosition,
+					magnitude,
+					raycastDistanceMagnitudeZeroingCurve,
+					raycastQuery,
+					triggerColliderQuery,
+					layerMask_MaxOf1
+				);
+	}
 	#endregion tugging
 }

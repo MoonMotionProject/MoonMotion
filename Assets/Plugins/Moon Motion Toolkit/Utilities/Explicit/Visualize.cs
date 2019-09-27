@@ -23,67 +23,85 @@ public static class Visualize
 	#region lines
 
 
-	#region nonraycasting
+	#region from start and end positions
 
-	public static void lineFrom(Vector3 startPosition, Vector3 endPosition, bool boolean = true, Color? color = null)
+	public static void lineFrom(Vector3 startPosition, dynamic endPosition_PositionProvider, bool boolean = true, Color? color = null)
 	{
+		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
+
 		if (boolean)
 		{
 			nextColorToBe(color);
 			Gizmos.DrawLine(startPosition, endPosition);
 		}
 	}
-	#endregion nonraycasting
+	public static void lineFrom(GameObject startObject, dynamic endPosition_PositionProvider, bool boolean = true, Color? color = null)
+	{
+		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
+
+		lineFrom(startObject.position(), endPosition,
+			boolean,
+			color);
+	}
+	public static void lineFrom(Component startComponent, dynamic endPosition_PositionProvider, bool boolean = true, Color? color = null)
+	{
+		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
+
+		lineFrom(startComponent.position(), endPosition,
+			boolean,
+			color);
+	}
+	#endregion from start and end positions
 
 
-	#region raycasting
+	#region from start position, direction, and distance
 
 	#region vector directions
-	public static void raycastLineFrom(Vector3 startPosition, Vector3 direction, float distance, bool boolean = true, Color? color = null)
+	public static void lineFrom(Vector3 startPosition, Vector3 direction, float distance, bool boolean = true, Color? color = null)
 		=> lineFrom(startPosition, startPosition.positionAlong(direction, distance),
 			boolean,
 			color);
-	public static void raycastLineFrom(GameObject startObject, Vector3 direction, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
-		=> raycastLineFrom(startObject.position(), direction.toGlobalDirectionFromDistinctivityOf(distinctivity, startObject), distance,
+	public static void lineFrom(GameObject startObject, Vector3 direction, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
+		=> lineFrom(startObject.position(), direction.toGlobalDirectionFromDistinctivityOf(distinctivity, startObject), distance,
 			boolean,
 			color);
-	public static void raycastLineFrom(Component startComponent, Vector3 direction, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
-		=> raycastLineFrom(startComponent.gameObject, direction, distinctivity, distance,
+	public static void lineFrom(Component startComponent, Vector3 direction, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
+		=> lineFrom(startComponent.gameObject, direction, distinctivity, distance,
 			boolean,
 			color);
-	public static void localRaycastLineFrom(GameObject startObject, Vector3 localDirection, float distance, bool boolean = true, Color? color = null)
-		=> raycastLineFrom(startObject, localDirection, Distinctivity.relative, distance,
+	public static void localLineFrom(GameObject startObject, Vector3 localDirection, float distance, bool boolean = true, Color? color = null)
+		=> lineFrom(startObject, localDirection, Distinctivity.relative, distance,
 			boolean,
 			color);
-	public static void localRaycastLineFrom(Component startComponent, Vector3 localDirection, float distance, bool boolean = true, Color? color = null)
-		=> localRaycastLineFrom(startComponent.gameObject, localDirection, distance,
+	public static void localLineFrom(Component startComponent, Vector3 localDirection, float distance, bool boolean = true, Color? color = null)
+		=> localLineFrom(startComponent.gameObject, localDirection, distance,
 			boolean,
 			color);
 	#endregion vector directions
 
 	#region basic directions
-	public static void raycastLineFrom(Vector3 startPosition, BasicDirection basicDirection, float distance, bool boolean = true, Color? color = null)
-		=> raycastLineFrom(startPosition, basicDirection.asGlobalDirection(), distance,
+	public static void lineFrom(Vector3 startPosition, BasicDirection basicDirection, float distance, bool boolean = true, Color? color = null)
+		=> lineFrom(startPosition, basicDirection.asGlobalDirection(), distance,
 			boolean,
 			color);
-	public static void raycastLineFrom(GameObject startObject, BasicDirection basicDirection, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
-		=> raycastLineFrom(startObject, basicDirection.asGlobalDirection(), distinctivity, distance,
+	public static void lineFrom(GameObject startObject, BasicDirection basicDirection, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
+		=> lineFrom(startObject, basicDirection.asGlobalDirection(), distinctivity, distance,
 			boolean,
 			color);
-	public static void raycastLineFrom(Component startComponent, BasicDirection basicDirection, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
-		=> raycastLineFrom(startComponent, basicDirection.asGlobalDirection(), distinctivity, distance,
+	public static void lineFrom(Component startComponent, BasicDirection basicDirection, Distinctivity distinctivity, float distance, bool boolean = true, Color? color = null)
+		=> lineFrom(startComponent, basicDirection.asGlobalDirection(), distinctivity, distance,
 			boolean,
 			color);
-	public static void localRaycastLineFrom(GameObject startObject, BasicDirection localBasicDirection, float distance, bool boolean = true, Color? color = null)
-		=> localRaycastLineFrom(startObject, localBasicDirection.asGlobalDirection(), distance,
+	public static void localLineFrom(GameObject startObject, BasicDirection localBasicDirection, float distance, bool boolean = true, Color? color = null)
+		=> localLineFrom(startObject, localBasicDirection.asGlobalDirection(), distance,
 			boolean,
 			color);
-	public static void localRaycastLineFrom(Component startComponent, BasicDirection localBasicDirection, float distance, bool boolean = true, Color? color = null)
-		=> localRaycastLineFrom(startComponent, localBasicDirection.asGlobalDirection(), distance,
+	public static void localLineFrom(Component startComponent, BasicDirection localBasicDirection, float distance, bool boolean = true, Color? color = null)
+		=> localLineFrom(startComponent, localBasicDirection.asGlobalDirection(), distance,
 			boolean,
 			color);
 	#endregion basic directions
-	#endregion raycasting
+	#endregion from start position, direction, and distance
 	#endregion lines
 
 

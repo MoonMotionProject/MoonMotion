@@ -20,13 +20,14 @@ public static class Default
 
 	#region direction
 	public static readonly Vector3 direction = Direction.forward;
-	public static readonly BasicDirection basicDirection = BasicDirection.forward;
+	public const BasicDirection basicDirection = BasicDirection.forward;
 	#endregion direction
 
 	#region raycasting
 	public const bool raycastQueryingForFirstHitOnly = false;
 	public const bool raycastingPositionalCollidersQuerying = true;
 	public static readonly Vector3 raycastingDirection = Direction.forward;
+	public const BasicDirection raycastingBasicDirection = BasicDirection.forward;
 	public const float raycastingDistance = 15f;
 	public const RaycastQuery raycastQuery = RaycastQuery.unlimitedHitsAndAllPositionalColliders;
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;

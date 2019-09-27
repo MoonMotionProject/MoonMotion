@@ -4,10 +4,11 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 
-// Directing Forcer:
+// Basic Directing Forcer:
 // • at each physics update, directs
+//   · unlike a Directing Forcer, uses a basic direction
 // #force #raycasting
-public class DirectingForcer : Forcer<DirectingForcer>
+public class BasicDirectingForcer : Forcer<BasicDirectingForcer>
 {
 	// variables //
 
@@ -23,7 +24,7 @@ public class DirectingForcer : Forcer<DirectingForcer>
 
 	[BoxGroup("Directing")]
 	[Tooltip("the direction of the raycast")]
-	public Vector3 raycastingDirection = Default.raycastingDirection;
+	public BasicDirection raycastingBasicDirection = Default.raycastingBasicDirection;
 
 	[BoxGroup("Directing")]
 	[Tooltip("the distinctivity of the direction of the raycast")]
@@ -61,7 +62,7 @@ public class DirectingForcer : Forcer<DirectingForcer>
 
 	// upon drawing gizmos: //
 	private void OnDrawGizmos()
-		=> Visualize.raycastLineFrom(transform, raycastingDirection, raycastingDistinctivity, raycastingDistance,
+		=> Visualize.raycastLineFrom(transform, raycastingBasicDirection, raycastingDistinctivity, raycastingDistance,
 			visualizeLine,
 			visualizationColor);
 
@@ -70,7 +71,7 @@ public class DirectingForcer : Forcer<DirectingForcer>
 		=>	direct
 			(
 				tug,
-				raycastingDirection,
+				raycastingBasicDirection,
 				raycastingDistinctivity,
 				magnitude,
 				raycastingDistance,

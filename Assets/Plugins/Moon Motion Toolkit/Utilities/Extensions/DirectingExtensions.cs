@@ -73,6 +73,31 @@ public static class DirectingExtensions
 	(
 		this GameObject raycastingObject,
 		Tug tug,
+		BasicDirection raycastBasicDirection,
+		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.direct
+			(
+				tug,
+				raycastBasicDirection.asGlobalDirection(),
+				raycastDistinctivity,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> direct
+	(
+		this GameObject raycastingObject,
+		Tug tug,
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -265,6 +290,126 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
+	public static HashSet<GameObject> forwardlyPull
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPullAlong
+			(
+				Direction.forward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> backwardlyPull
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPullAlong
+			(
+				Direction.backward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> rightwardlyPull
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPullAlong
+			(
+				Direction.right,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> leftwardlyPull
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPullAlong
+			(
+				Direction.left,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> upwardlyPull
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPullAlong
+			(
+				Direction.up,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> downwardlyPull
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPullAlong
+			(
+				Direction.down,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 	public static HashSet<GameObject> directlyPullAlongGlobal
 	(
 		this GameObject raycastingObject,
@@ -326,6 +471,126 @@ public static class DirectingExtensions
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> forwardlyPull
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPullAlong
+			(
+				Direction.forward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> backwardlyPull
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPullAlong
+			(
+				Direction.backward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> rightwardlyPull
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPullAlong
+			(
+				Direction.right,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> leftwardlyPull
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPullAlong
+			(
+				Direction.left,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> upwardlyPull
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPullAlong
+			(
+				Direction.up,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> downwardlyPull
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPullAlong
+			(
+				Direction.down,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,
@@ -429,6 +694,126 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
+	public static HashSet<GameObject> forwardlyPush
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPushAlong
+			(
+				Direction.forward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> backwardlyPush
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPushAlong
+			(
+				Direction.backward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> rightwardlyPush
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPushAlong
+			(
+				Direction.right,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> leftwardlyPush
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPushAlong
+			(
+				Direction.left,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> upwardlyPush
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPushAlong
+			(
+				Direction.up,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> downwardlyPush
+	(
+		this GameObject raycastingObject,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingObject.directlyPushAlong
+			(
+				Direction.down,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 	public static HashSet<GameObject> directlyPushAlongGlobal
 	(
 		this GameObject raycastingObject,
@@ -490,6 +875,126 @@ public static class DirectingExtensions
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> forwardlyPush
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPushAlong
+			(
+				Direction.forward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> backwardlyPush
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPushAlong
+			(
+				Direction.backward,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> rightwardlyPush
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPushAlong
+			(
+				Direction.right,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> leftwardlyPush
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPushAlong
+			(
+				Direction.left,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> upwardlyPush
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPushAlong
+			(
+				Direction.up,
+				magnitude,
+				raycastDistance,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static HashSet<GameObject> downwardlyPush
+	(
+		this Component raycastingComponent,
+		float magnitude = Default.forceMagnitude,
+		float raycastDistance = Default.raycastingDistance,
+		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
+		RaycastQuery raycastQuery = Default.raycastQuery,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	raycastingComponent.directlyPushAlong
+			(
+				Direction.down,
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve,

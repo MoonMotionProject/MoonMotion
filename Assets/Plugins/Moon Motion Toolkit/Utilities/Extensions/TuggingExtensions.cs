@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Directing Extensions: provides extension methods for directing (raycastedly directedly forcing (applying directed force to raycasted targets))
+// Tugging Extensions: provides extension methods for tugging (raycastedly directedly forcing (applying directed force to raycasted targets))
 // #force #raycasting
-public static class DirectingExtensions
+public static class TuggingExtensions
 {
 	// methods: apply a directed force with the given or declared affinity from this given raycasting position or provider of a raycasting position (respectively) along the given raycast direction with the given or appropriate distinctivity, with the given magnitude, affecting rigidbodies (ensuring unique rigidbodies; a methods variant to affect rigidbodies repeatedly for each collider hit is not implemented yet) with colliders matching the given layer mask (if specified) and only within the given raycasting distance and using the given raycast query and trigger collider query, diminishing magnitude from the raycasting position (to raycasting distance) to zero using the given curve, then return the set of objects affected //
 
 
-	#region directing with the given affinity
-
-	public static HashSet<GameObject> direct
+	#region tugging with the given affinity
+	
+	public static HashSet<GameObject> tug
 	(
 		this Vector3 raycastingPosition,
 		Affinity affinity,
@@ -39,7 +39,7 @@ public static class DirectingExtensions
 				raycastDistanceMagnitudeZeroingCurve
 			).uniqueObjects();
 
-	public static HashSet<GameObject> direct
+	public static HashSet<GameObject> tug
 	(
 		this GameObject raycastingObject,
 		Affinity affinity,
@@ -69,7 +69,7 @@ public static class DirectingExtensions
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve
 			).uniqueObjects();
-	public static HashSet<GameObject> direct
+	public static HashSet<GameObject> tug
 	(
 		this GameObject raycastingObject,
 		Affinity affinity,
@@ -82,7 +82,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.direct
+		=>	raycastingObject.tug
 			(
 				affinity,
 				raycastBasicDirection.asGlobalDirection(),
@@ -94,7 +94,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> direct
+	public static HashSet<GameObject> tug
 	(
 		this GameObject raycastingObject,
 		Affinity affinity,
@@ -106,7 +106,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.direct
+		=>	raycastingObject.tug
 			(
 				affinity,
 				localRaycastDirection,
@@ -118,7 +118,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directGlobally
+	public static HashSet<GameObject> tugGlobally
 	(
 		this GameObject raycastingObject,
 		Affinity affinity,
@@ -130,7 +130,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.direct
+		=>	raycastingObject.tug
 			(
 				affinity,
 				raycastDirection,
@@ -143,7 +143,7 @@ public static class DirectingExtensions
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> direct
+	public static HashSet<GameObject> tug
 	(
 		this Component raycastingComponent,
 		Affinity affinity,
@@ -156,7 +156,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.gameObject.direct
+		=>	raycastingComponent.gameObject.tug
 			(
 				affinity,
 				raycastDirection,
@@ -168,7 +168,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> direct
+	public static HashSet<GameObject> tug
 	(
 		this Component raycastingComponent,
 		Affinity affinity,
@@ -180,7 +180,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.direct
+		=>	raycastingComponent.tug
 			(
 				affinity,
 				localRaycastDirection,
@@ -192,7 +192,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directGlobally
+	public static HashSet<GameObject> tugGlobally
 	(
 		this Component raycastingComponent,
 		Affinity affinity,
@@ -204,7 +204,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.direct
+		=>	raycastingComponent.tug
 			(
 				affinity,
 				raycastDirection,
@@ -216,12 +216,12 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion directing with the given affinity
+	#endregion tugging with the given affinity
 
 
-	#region directly pulling (directing with attraction)
+	#region pulling (tugging attractively)
 
-	public static HashSet<GameObject> directlyPullAlong
+	public static HashSet<GameObject> pullAlong
 	(
 		this Vector3 raycastingPosition,
 		Vector3 raycastDirection,
@@ -232,7 +232,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingPosition.direct
+		=>	raycastingPosition.tug
 			(
 				Affinity.attraction,
 				raycastDirection,
@@ -244,7 +244,7 @@ public static class DirectingExtensions
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> directlyPullAlong
+	public static HashSet<GameObject> pullAlong
 	(
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
@@ -256,7 +256,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.direct
+		=>	raycastingObject.tug
 			(
 				Affinity.attraction,
 				raycastDirection,
@@ -268,7 +268,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPullAlong
+	public static HashSet<GameObject> pullAlong
 	(
 		this GameObject raycastingObject,
 		Vector3 localRaycastDirection,
@@ -279,7 +279,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
@@ -300,7 +300,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				Direction.forward,
 				magnitude,
@@ -320,7 +320,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				Direction.backward,
 				magnitude,
@@ -340,7 +340,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				Direction.right,
 				magnitude,
@@ -360,7 +360,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				Direction.left,
 				magnitude,
@@ -380,7 +380,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				Direction.up,
 				magnitude,
@@ -400,7 +400,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				Direction.down,
 				magnitude,
@@ -410,7 +410,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPullAlongGlobal
+	public static HashSet<GameObject> pullAlongGlobal
 	(
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
@@ -421,7 +421,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPullAlong
+		=>	raycastingObject.pullAlong
 			(
 				raycastDirection,
 				Distinctivity.absolute,
@@ -433,7 +433,7 @@ public static class DirectingExtensions
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> directlyPullAlong
+	public static HashSet<GameObject> pullAlong
 	(
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
@@ -445,7 +445,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.gameObject.directlyPullAlong
+		=>	raycastingComponent.gameObject.pullAlong
 			(
 				raycastDirection,
 				raycastDistinctivity,
@@ -456,7 +456,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPullAlong
+	public static HashSet<GameObject> pullAlong
 	(
 		this Component raycastingComponent,
 		Vector3 localRaycastDirection,
@@ -467,7 +467,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
@@ -488,7 +488,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				Direction.forward,
 				magnitude,
@@ -508,7 +508,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				Direction.backward,
 				magnitude,
@@ -528,7 +528,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				Direction.right,
 				magnitude,
@@ -548,7 +548,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				Direction.left,
 				magnitude,
@@ -568,7 +568,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				Direction.up,
 				magnitude,
@@ -588,7 +588,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				Direction.down,
 				magnitude,
@@ -598,7 +598,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPullAlongGlobal
+	public static HashSet<GameObject> pullAlongGlobal
 	(
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
@@ -609,7 +609,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPullAlong
+		=>	raycastingComponent.pullAlong
 			(
 				raycastDirection,
 				Distinctivity.absolute,
@@ -620,12 +620,12 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion directly pulling (directing with attraction)
+	#endregion pulling (tugging attractively)
 
 
-	#region directly pushing (directing with repulsion)
+	#region pushing (tugging repulsively)
 
-	public static HashSet<GameObject> directlyPushAlong
+	public static HashSet<GameObject> pushAlong
 	(
 		this Vector3 raycastingPosition,
 		Vector3 raycastDirection,
@@ -636,7 +636,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingPosition.direct
+		=>	raycastingPosition.tug
 			(
 				Affinity.repulsion,
 				raycastDirection,
@@ -648,7 +648,7 @@ public static class DirectingExtensions
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> directlyPushAlong
+	public static HashSet<GameObject> pushAlong
 	(
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
@@ -660,7 +660,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.direct
+		=>	raycastingObject.tug
 			(
 				Affinity.repulsion,
 				raycastDirection,
@@ -672,7 +672,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPushAlong
+	public static HashSet<GameObject> pushAlong
 	(
 		this GameObject raycastingObject,
 		Vector3 localRaycastDirection,
@@ -683,7 +683,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
@@ -704,7 +704,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				Direction.forward,
 				magnitude,
@@ -724,7 +724,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				Direction.backward,
 				magnitude,
@@ -744,7 +744,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				Direction.right,
 				magnitude,
@@ -764,7 +764,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				Direction.left,
 				magnitude,
@@ -784,7 +784,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				Direction.up,
 				magnitude,
@@ -804,7 +804,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				Direction.down,
 				magnitude,
@@ -814,7 +814,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPushAlongGlobal
+	public static HashSet<GameObject> pushAlongGlobal
 	(
 		this GameObject raycastingObject,
 		Vector3 raycastDirection,
@@ -825,7 +825,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingObject.directlyPushAlong
+		=>	raycastingObject.pushAlong
 			(
 				raycastDirection,
 				Distinctivity.absolute,
@@ -837,7 +837,7 @@ public static class DirectingExtensions
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> directlyPushAlong
+	public static HashSet<GameObject> pushAlong
 	(
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
@@ -849,7 +849,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.gameObject.directlyPushAlong
+		=>	raycastingComponent.gameObject.pushAlong
 			(
 				raycastDirection,
 				raycastDistinctivity,
@@ -860,7 +860,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPushAlong
+	public static HashSet<GameObject> pushAlong
 	(
 		this Component raycastingComponent,
 		Vector3 localRaycastDirection,
@@ -871,7 +871,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				localRaycastDirection,
 				Distinctivity.relative,
@@ -892,7 +892,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				Direction.forward,
 				magnitude,
@@ -912,7 +912,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				Direction.backward,
 				magnitude,
@@ -932,7 +932,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				Direction.right,
 				magnitude,
@@ -952,7 +952,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				Direction.left,
 				magnitude,
@@ -972,7 +972,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				Direction.up,
 				magnitude,
@@ -992,7 +992,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				Direction.down,
 				magnitude,
@@ -1002,7 +1002,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static HashSet<GameObject> directlyPushAlongGlobal
+	public static HashSet<GameObject> pushAlongGlobal
 	(
 		this Component raycastingComponent,
 		Vector3 raycastDirection,
@@ -1013,7 +1013,7 @@ public static class DirectingExtensions
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	raycastingComponent.directlyPushAlong
+		=>	raycastingComponent.pushAlong
 			(
 				raycastDirection,
 				Distinctivity.absolute,
@@ -1024,5 +1024,5 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion directly pushing (directing with repulsion)
+	#endregion pushing (tugging repulsively)
 }

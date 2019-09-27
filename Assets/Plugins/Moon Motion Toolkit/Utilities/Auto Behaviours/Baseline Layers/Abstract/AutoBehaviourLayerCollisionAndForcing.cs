@@ -371,9 +371,9 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	#endregion raycasting for however many results
 
 
-	#region directing
+	#region tugging
 
-	public HashSet<GameObject> direct
+	public HashSet<GameObject> tug
 	(
 		Affinity affinity,
 		Vector3 raycastDirection,
@@ -385,7 +385,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.direct
+		=>	gameObject.tug
 			(
 				affinity,
 				raycastDirection,
@@ -397,7 +397,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> direct
+	public HashSet<GameObject> tug
 	(
 		Affinity affinity,
 		BasicDirection raycastBasicDirection,
@@ -409,7 +409,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.direct
+		=>	gameObject.tug
 			(
 				affinity,
 				raycastBasicDirection,
@@ -421,7 +421,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> direct
+	public HashSet<GameObject> tug
 	(
 		Affinity affinity,
 		Vector3 localRaycastDirection,
@@ -432,7 +432,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.direct
+		=>	gameObject.tug
 			(
 				affinity,
 				localRaycastDirection,
@@ -443,7 +443,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> directGlobally
+	public HashSet<GameObject> tugGlobally
 	(
 		Affinity affinity,
 		Vector3 raycastDirection,
@@ -454,7 +454,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directGlobally
+		=>	gameObject.tugGlobally
 			(
 				affinity,
 				raycastDirection,
@@ -466,7 +466,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				layerMask_MaxOf1
 			);
 
-	public HashSet<GameObject> directlyPullAlong
+	public HashSet<GameObject> pullAlong
 	(
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
@@ -477,7 +477,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directlyPullAlong
+		=>	gameObject.pullAlong
 			(
 				raycastDirection,
 				raycastDistinctivity,
@@ -488,7 +488,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> directlyPullAlong
+	public HashSet<GameObject> pullAlong
 	(
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -498,7 +498,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directlyPullAlong
+		=>	gameObject.pullAlong
 			(
 				localRaycastDirection,
 				magnitude,
@@ -616,7 +616,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> directlyPullAlongGlobal
+	public HashSet<GameObject> pullAlongGlobal
 	(
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -626,7 +626,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directlyPullAlongGlobal
+		=>	gameObject.pullAlongGlobal
 			(
 				raycastDirection,
 				magnitude,
@@ -637,7 +637,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				layerMask_MaxOf1
 			);
 
-	public HashSet<GameObject> directlyPushAlong
+	public HashSet<GameObject> pushAlong
 	(
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
@@ -648,7 +648,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directlyPushAlong
+		=>	gameObject.pushAlong
 			(
 				raycastDirection,
 				raycastDistinctivity,
@@ -659,7 +659,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> directlyPushAlong
+	public HashSet<GameObject> pushAlong
 	(
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -669,7 +669,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directlyPushAlong
+		=>	gameObject.pushAlong
 			(
 				localRaycastDirection,
 				magnitude,
@@ -787,7 +787,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public HashSet<GameObject> directlyPushAlongGlobal
+	public HashSet<GameObject> pushAlongGlobal
 	(
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -797,7 +797,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	gameObject.directlyPushAlongGlobal
+		=>	gameObject.pushAlongGlobal
 			(
 				raycastDirection,
 				magnitude,
@@ -807,5 +807,5 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion directing
+	#endregion tugging
 }

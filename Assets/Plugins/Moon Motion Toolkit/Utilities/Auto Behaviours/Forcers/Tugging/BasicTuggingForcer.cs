@@ -4,11 +4,11 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 
-// Directing Forcer:
-// • at each physics update, directs
-//   · unlike a Basic Directing Forcer, uses a direction vector
+// Basic Tugging Forcer:
+// • at each physics update, tugs
+//   · unlike a Tugging Forcer, uses a basic direction
 // #force #raycasting
-public class DirectingForcer : Forcer<DirectingForcer>
+public class BasicTuggingForcer : Forcer<BasicTuggingForcer>
 {
 	// variables //
 
@@ -18,39 +18,39 @@ public class DirectingForcer : Forcer<DirectingForcer>
 	public bool visualizeLine = true;
 
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the affinity of the force")]
 	public Affinity affinity = Default.affinity;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the direction of the raycast")]
-	public Vector3 raycastingDirection = Default.raycastingDirection;
+	public BasicDirection raycastingBasicDirection = Default.raycastingBasicDirection;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the distinctivity of the direction of the raycast")]
 	public Distinctivity raycastingDistinctivity = Default.raycastingDistinctivity;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the distance of the raycast")]
 	public float raycastingDistance = Default.raycastingDistance;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the magnitude of the force")]
 	public float magnitude = Default.forceMagnitude;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the curve by which to diminish the force's magnitude to zero from the raycasting position to the raycast's distance")]
 	public InterpolationCurve raycastingDistanceMagnitudeZeroingCurve = Default.forceCurve;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the raycast query to use for raycast collision")]
 	public RaycastQuery raycastQuery = Default.raycastQuery;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the query to use for trigger colliders")]
 	public QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery;
 
-	[BoxGroup("Directing")]
+	[BoxGroup("Tugging")]
 	[Tooltip("the layer mask to use for colliders")]
 	public LayerMask layerMask = Default.layerMask;
 
@@ -62,16 +62,16 @@ public class DirectingForcer : Forcer<DirectingForcer>
 
 	// upon drawing gizmos: //
 	private void OnDrawGizmos()
-		=> Visualize.raycastLineFrom(transform, raycastingDirection, raycastingDistinctivity, raycastingDistance,
+		=> Visualize.raycastLineFrom(transform, raycastingBasicDirection, raycastingDistinctivity, raycastingDistance,
 			visualizeLine,
 			visualizationColor);
 
 	// at each physics update: //
 	private void FixedUpdate()
-		=>	direct
+		=>	tug
 			(
 				affinity,
-				raycastingDirection,
+				raycastingBasicDirection,
 				raycastingDistinctivity,
 				magnitude,
 				raycastingDistance,

@@ -371,9 +371,9 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	#endregion raycasting for however many results
 
 
-	#region directing
+	#region tugging
 
-	public static new HashSet<GameObject> direct
+	public static new HashSet<GameObject> tug
 	(
 		Affinity affinity,
 		Vector3 raycastDirection,
@@ -385,7 +385,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.direct
+		=>	autoBehaviour.tug
 			(
 				affinity,
 				raycastDirection,
@@ -397,7 +397,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> direct
+	public static new HashSet<GameObject> tug
 	(
 		Affinity affinity,
 		BasicDirection raycastBasicDirection,
@@ -409,7 +409,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.direct
+		=>	autoBehaviour.tug
 			(
 				affinity,
 				raycastBasicDirection,
@@ -421,7 +421,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> direct
+	public static new HashSet<GameObject> tug
 	(
 		Affinity affinity,
 		Vector3 localRaycastDirection,
@@ -432,7 +432,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.direct
+		=>	autoBehaviour.tug
 			(
 				affinity,
 				localRaycastDirection,
@@ -443,7 +443,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> directGlobally
+	public static new HashSet<GameObject> tugGlobally
 	(
 		Affinity affinity,
 		Vector3 raycastDirection,
@@ -454,7 +454,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directGlobally
+		=>	autoBehaviour.tugGlobally
 			(
 				affinity,
 				raycastDirection,
@@ -466,7 +466,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				layerMask_MaxOf1
 			);
 
-	public static new HashSet<GameObject> directlyPullAlong
+	public static new HashSet<GameObject> pullAlong
 	(
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
@@ -477,7 +477,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directlyPullAlong
+		=>	autoBehaviour.pullAlong
 			(
 				raycastDirection,
 				raycastDistinctivity,
@@ -488,7 +488,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> directlyPullAlong
+	public static new HashSet<GameObject> pullAlong
 	(
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -498,7 +498,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directlyPullAlong
+		=>	autoBehaviour.pullAlong
 			(
 				localRaycastDirection,
 				magnitude,
@@ -616,7 +616,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> directlyPullAlongGlobal
+	public static new HashSet<GameObject> pullAlongGlobal
 	(
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -626,7 +626,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directlyPullAlongGlobal
+		=>	autoBehaviour.pullAlongGlobal
 			(
 				raycastDirection,
 				magnitude,
@@ -637,7 +637,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				layerMask_MaxOf1
 			);
 
-	public static new HashSet<GameObject> directlyPushAlong
+	public static new HashSet<GameObject> pushAlong
 	(
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
@@ -648,7 +648,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directlyPushAlong
+		=>	autoBehaviour.pushAlong
 			(
 				raycastDirection,
 				raycastDistinctivity,
@@ -659,7 +659,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> directlyPushAlong
+	public static new HashSet<GameObject> pushAlong
 	(
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -669,7 +669,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directlyPushAlong
+		=>	autoBehaviour.pushAlong
 			(
 				localRaycastDirection,
 				magnitude,
@@ -787,7 +787,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	public static new HashSet<GameObject> directlyPushAlongGlobal
+	public static new HashSet<GameObject> pushAlongGlobal
 	(
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
@@ -797,7 +797,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-		=>	autoBehaviour.directlyPushAlongGlobal
+		=>	autoBehaviour.pushAlongGlobal
 			(
 				raycastDirection,
 				magnitude,
@@ -807,5 +807,5 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion directing
+	#endregion tugging
 }

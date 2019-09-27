@@ -10,7 +10,7 @@ public static class Default
 	public const string listingSeparator = ", ";
 	public const string loggingSeparator = ": ";
 	public static readonly LayerMask layerMask = -1;        // "everything" (recognize all layers)
-	public const Tug tug = Tug.attraction;
+	public const Affinity affinity = Affinity.attraction;
 	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
 	#endregion miscellaneous
 

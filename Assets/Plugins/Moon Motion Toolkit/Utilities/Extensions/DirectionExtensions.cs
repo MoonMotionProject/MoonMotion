@@ -141,72 +141,72 @@ public static class DirectionExtensions
 	#endregion to other
 
 
-	#region for tug upon other
+	#region for affinity about other
 
-	// method: return the direction for the given tug upon the other given vector from this given vector //
-	public static Vector3 directionForTugUpon(this Vector3 vector, Vector3 otherVector, Tug tug)
-		=> vector.directionFrom(otherVector) * tug.asSign();
-	// method: return the direction for the given tug upon the given transform from this given position //
-	public static Vector3 directionForTugUpon(this Vector3 position, Transform transform, Tug tug)
-		=> position.directionForTugUpon(transform.position, tug);
-	// method: return the direction for the given tug upon the given game object from this given position //
-	public static Vector3 directionForTugUpon(this Vector3 position, GameObject gameObject, Tug tug)
-		=> position.directionForTugUpon(gameObject.position(), tug);
-	// method: return the direction for the given tug upon the given component from this given position //
-	public static Vector3 directionForTugUpon(this Vector3 position, Component component, Tug tug)
-		=> position.directionForTugUpon(component.position(), tug);
-	// method: return the direction for the given tug upon the main camera from this given position //
-	public static Vector3 directionForTugUponCamera(this Vector3 position, Tug tug)
-		=> position.directionForTugUpon(Camera.main, tug);
+	// method: return the direction for the given affinity upon the other given vector from this given vector //
+	public static Vector3 directionForAffinityAbout(this Vector3 vector, Vector3 otherVector, Affinity affinity)
+		=> vector.directionFrom(otherVector) * affinity.asSign();
+	// method: return the direction for the given affinity upon the given transform from this given position //
+	public static Vector3 directionForAffinityAbout(this Vector3 position, Transform transform, Affinity affinity)
+		=> position.directionForAffinityAbout(transform.position, affinity);
+	// method: return the direction for the given affinity upon the given game object from this given position //
+	public static Vector3 directionForAffinityAbout(this Vector3 position, GameObject gameObject, Affinity affinity)
+		=> position.directionForAffinityAbout(gameObject.position(), affinity);
+	// method: return the direction for the given affinity upon the given component from this given position //
+	public static Vector3 directionForAffinityAbout(this Vector3 position, Component component, Affinity affinity)
+		=> position.directionForAffinityAbout(component.position(), affinity);
+	// method: return the direction for the given affinity upon the main camera from this given position //
+	public static Vector3 directionForAffinityAboutCamera(this Vector3 position, Affinity affinity)
+		=> position.directionForAffinityAbout(Camera.main, affinity);
 
-	// method: return the direction for the given tug upon the given position from this given game object //
-	public static Vector3 directionForTugUpon(this GameObject gameObject, Vector3 position, Tug tug)
-		=> gameObject.position().directionForTugUpon(position, tug);
-	// method: return the direction for the given tug upon the given transform from this given game object //
-	public static Vector3 directionForTugUpon(this GameObject gameObject, Transform transform, Tug tug)
-		=> gameObject.position().directionForTugUpon(transform.position, tug);
-	// method: return the direction for the given tug upon the other given game object from this given game object //
-	public static Vector3 directionForTugUpon(this GameObject gameObject, GameObject otherGameObject, Tug tug)
-		=> gameObject.position().directionForTugUpon(otherGameObject.position(), tug);
-	// method: return the direction for the given tug upon the given component from this given game object //
-	public static Vector3 directionForTugUpon(this GameObject gameObject, Component component, Tug tug)
-		=> gameObject.position().directionForTugUpon(component.position(), tug);
-	// method: return the direction for the given tug upon the main camera from this given game object //
-	public static Vector3 directionForTugUponCamera(this GameObject gameObject, Tug tug)
-		=> gameObject.position().directionForTugUponCamera(tug);
+	// method: return the direction for the given affinity upon the given position from this given game object //
+	public static Vector3 directionForAffinityAbout(this GameObject gameObject, Vector3 position, Affinity affinity)
+		=> gameObject.position().directionForAffinityAbout(position, affinity);
+	// method: return the direction for the given affinity upon the given transform from this given game object //
+	public static Vector3 directionForAffinityAbout(this GameObject gameObject, Transform transform, Affinity affinity)
+		=> gameObject.position().directionForAffinityAbout(transform.position, affinity);
+	// method: return the direction for the given affinity upon the other given game object from this given game object //
+	public static Vector3 directionForAffinityAbout(this GameObject gameObject, GameObject otherGameObject, Affinity affinity)
+		=> gameObject.position().directionForAffinityAbout(otherGameObject.position(), affinity);
+	// method: return the direction for the given affinity upon the given component from this given game object //
+	public static Vector3 directionForAffinityAbout(this GameObject gameObject, Component component, Affinity affinity)
+		=> gameObject.position().directionForAffinityAbout(component.position(), affinity);
+	// method: return the direction for the given affinity upon the main camera from this given game object //
+	public static Vector3 directionForAffinityAboutCamera(this GameObject gameObject, Affinity affinity)
+		=> gameObject.position().directionForAffinityAboutCamera(affinity);
 
-	// method: return the direction for the given tug upon the given position from this given transform //
-	public static Vector3 directionForTugUpon(this Transform transform, Vector3 position, Tug tug)
-		=> transform.position.directionForTugUpon(position, tug);
-	// method: return the direction for the given tug upon the other given transform from this given transform //
-	public static Vector3 directionForTugUpon(this Transform transform, Transform otherTransform, Tug tug)
-		=> transform.position.directionForTugUpon(otherTransform.position, tug);
-	// method: return the direction for the given tug upon the given game object from this given transform //
-	public static Vector3 directionForTugUpon(this Transform transform, GameObject gameObject, Tug tug)
-		=> transform.position.directionForTugUpon(gameObject.position(), tug);
-	// method: return the direction for the given tug upon the given component from this given transform //
-	public static Vector3 directionForTugUpon(this Transform transform, Component component, Tug tug)
-		=> transform.position.directionForTugUpon(component.position(), tug);
-	// method: return the direction for the given tug upon the main camera from this given transform //
-	public static Vector3 directionForTugUponCamera(this Transform transform, Tug tug)
-		=> transform.position.directionForTugUponCamera(tug);
+	// method: return the direction for the given affinity upon the given position from this given transform //
+	public static Vector3 directionForAffinityAbout(this Transform transform, Vector3 position, Affinity affinity)
+		=> transform.position.directionForAffinityAbout(position, affinity);
+	// method: return the direction for the given affinity upon the other given transform from this given transform //
+	public static Vector3 directionForAffinityAbout(this Transform transform, Transform otherTransform, Affinity affinity)
+		=> transform.position.directionForAffinityAbout(otherTransform.position, affinity);
+	// method: return the direction for the given affinity upon the given game object from this given transform //
+	public static Vector3 directionForAffinityAbout(this Transform transform, GameObject gameObject, Affinity affinity)
+		=> transform.position.directionForAffinityAbout(gameObject.position(), affinity);
+	// method: return the direction for the given affinity upon the given component from this given transform //
+	public static Vector3 directionForAffinityAbout(this Transform transform, Component component, Affinity affinity)
+		=> transform.position.directionForAffinityAbout(component.position(), affinity);
+	// method: return the direction for the given affinity upon the main camera from this given transform //
+	public static Vector3 directionForAffinityAboutCamera(this Transform transform, Affinity affinity)
+		=> transform.position.directionForAffinityAboutCamera(affinity);
 
-	// method: return the direction for the given tug upon the given position from this given component //
-	public static Vector3 directionForTugUpon(this Component component, Vector3 position, Tug tug)
-		=> component.position().directionForTugUpon(position, tug);
-	// method: return the direction for the given tug upon the given transform from this given transform //
-	public static Vector3 directionForTugUpon(this Component component, Transform transform, Tug tug)
-		=> component.position().directionForTugUpon(transform.position, tug);
-	// method: return the direction for the given tug upon the given game object from this given component //
-	public static Vector3 directionForTugUpon(this Component component, GameObject gameObject, Tug tug)
-		=> component.position().directionForTugUpon(gameObject.position(), tug);
-	// method: return the direction for the given tug upon the other given component from this given transform //
-	public static Vector3 directionForTugUpon(this Component component, Component otherComponent, Tug tug)
-		=> component.position().directionForTugUpon(otherComponent.position(), tug);
-	// method: return the direction for the given tug upon the main camera from this given component //
-	public static Vector3 directionForTugUponCamera(this Component component, Tug tug)
-		=> component.position().directionForTugUponCamera(tug);
-	#endregion for tug upon other
+	// method: return the direction for the given affinity upon the given position from this given component //
+	public static Vector3 directionForAffinityAbout(this Component component, Vector3 position, Affinity affinity)
+		=> component.position().directionForAffinityAbout(position, affinity);
+	// method: return the direction for the given affinity upon the given transform from this given transform //
+	public static Vector3 directionForAffinityAbout(this Component component, Transform transform, Affinity affinity)
+		=> component.position().directionForAffinityAbout(transform.position, affinity);
+	// method: return the direction for the given affinity upon the given game object from this given component //
+	public static Vector3 directionForAffinityAbout(this Component component, GameObject gameObject, Affinity affinity)
+		=> component.position().directionForAffinityAbout(gameObject.position(), affinity);
+	// method: return the direction for the given affinity upon the other given component from this given transform //
+	public static Vector3 directionForAffinityAbout(this Component component, Component otherComponent, Affinity affinity)
+		=> component.position().directionForAffinityAbout(otherComponent.position(), affinity);
+	// method: return the direction for the given affinity upon the main camera from this given component //
+	public static Vector3 directionForAffinityAboutCamera(this Component component, Affinity affinity)
+		=> component.position().directionForAffinityAboutCamera(affinity);
+	#endregion for affinity about other
 
 
 	#region distinctivity conversion

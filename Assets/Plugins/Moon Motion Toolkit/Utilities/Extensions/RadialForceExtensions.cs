@@ -6,28 +6,28 @@ using UnityEngine;
 // #force
 public static class RadialForceExtensions
 {
-	// methods: apply a radial force with the given or declared tug from this given center position or provider of a center position (respectively), with the given magnitude, affecting rigidbodies with colliders matching the given layer mask (if specified) and only within the given radius and using the given trigger collider query, diminishing magnitude from the center position (to radial distance) to zero using the given curve, then return the set of objects affected //
+	// methods: apply a radial force with the given or declared affinity from this given center position or provider of a center position (respectively), with the given magnitude, affecting rigidbodies with colliders matching the given layer mask (if specified) and only within the given radius and using the given trigger collider query, diminishing magnitude from the center position (to radial distance) to zero using the given curve, then return the set of objects affected //
 
 	
-	#region radially forcing with the given tug
+	#region radially forcing with the given affinity
 	
-	public static HashSet<GameObject> forceRadially(this Vector3 centerPosition, Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> forceRadially(this Vector3 centerPosition, Affinity affinity, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> centerPosition.rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1)
 				.after(rigidbodies =>
 					centerPosition.forceTarget
 					(
 						rigidbodies,
-						tug,
+						affinity,
 						magnitude,
 						radius,
 						radiusDistanceMagnitudeZeroingCurve
 					))
 				.uniqueObjects();
 
-	public static HashSet<GameObject> forceRadially(this Component centerComponent, Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> forceRadially(this Component centerComponent, Affinity affinity, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	centerComponent.position().forceRadially
 			(
-				tug,
+				affinity,
 				magnitude,
 				radius,
 				radiusDistanceMagnitudeZeroingCurve,
@@ -35,17 +35,17 @@ public static class RadialForceExtensions
 				layerMask_MaxOf1
 			);
 
-	public static HashSet<GameObject> forceRadially(this GameObject centerObject, Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static HashSet<GameObject> forceRadially(this GameObject centerObject, Affinity affinity, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	centerObject.position().forceRadially
 			(
-				tug,
+				affinity,
 				magnitude,
 				radius,
 				radiusDistanceMagnitudeZeroingCurve,
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion radially forcing with the given tug
+	#endregion radially forcing with the given affinity
 
 
 	#region sucking (radially attracting)
@@ -53,7 +53,7 @@ public static class RadialForceExtensions
 	public static HashSet<GameObject> suck(this Vector3 centerPosition, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	centerPosition.forceRadially
 			(
-				Tug.attraction,
+				Affinity.attraction,
 				magnitude,
 				radius,
 				radiusDistanceMagnitudeZeroingCurve,
@@ -88,7 +88,7 @@ public static class RadialForceExtensions
 	public static HashSet<GameObject> repulse(this Vector3 centerPosition, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	centerPosition.forceRadially
 			(
-				Tug.repulsion,
+				Affinity.repulsion,
 				magnitude,
 				radius,
 				radiusDistanceMagnitudeZeroingCurve,

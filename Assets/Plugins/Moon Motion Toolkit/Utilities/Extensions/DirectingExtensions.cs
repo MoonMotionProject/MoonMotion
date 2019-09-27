@@ -6,15 +6,15 @@ using UnityEngine;
 // #force #raycasting
 public static class DirectingExtensions
 {
-	// methods: apply a directed force with the given or declared tug from this given raycasting position or provider of a raycasting position (respectively) along the given raycast direction with the given or appropriate distinctivity, with the given magnitude, affecting rigidbodies (ensuring unique rigidbodies; a methods variant to affect rigidbodies repeatedly for each collider hit is not implemented yet) with colliders matching the given layer mask (if specified) and only within the given raycasting distance and using the given raycast query and trigger collider query, diminishing magnitude from the raycasting position (to raycasting distance) to zero using the given curve, then return the set of objects affected //
+	// methods: apply a directed force with the given or declared affinity from this given raycasting position or provider of a raycasting position (respectively) along the given raycast direction with the given or appropriate distinctivity, with the given magnitude, affecting rigidbodies (ensuring unique rigidbodies; a methods variant to affect rigidbodies repeatedly for each collider hit is not implemented yet) with colliders matching the given layer mask (if specified) and only within the given raycasting distance and using the given raycast query and trigger collider query, diminishing magnitude from the raycasting position (to raycasting distance) to zero using the given curve, then return the set of objects affected //
 
 
-	#region directing with the given tug
+	#region directing with the given affinity
 
 	public static HashSet<GameObject> direct
 	(
 		this Vector3 raycastingPosition,
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -33,7 +33,7 @@ public static class DirectingExtensions
 			).applyDirectedForceToEachFrom
 			(
 				raycastingPosition,
-				raycastDirection * tug.asOppositeSign(),
+				raycastDirection * affinity.asOppositeSign(),
 				magnitude,
 				raycastDistance,
 				raycastDistanceMagnitudeZeroingCurve
@@ -42,7 +42,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> direct
 	(
 		this GameObject raycastingObject,
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -63,7 +63,7 @@ public static class DirectingExtensions
 			).applyDirectedForceToEachFrom
 			(
 				raycastingObject,
-				raycastDirection * tug.asOppositeSign(),
+				raycastDirection * affinity.asOppositeSign(),
 				raycastDistinctivity,
 				magnitude,
 				raycastDistance,
@@ -72,7 +72,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> direct
 	(
 		this GameObject raycastingObject,
-		Tug tug,
+		Affinity affinity,
 		BasicDirection raycastBasicDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -84,7 +84,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingObject.direct
 			(
-				tug,
+				affinity,
 				raycastBasicDirection.asGlobalDirection(),
 				raycastDistinctivity,
 				magnitude,
@@ -97,7 +97,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> direct
 	(
 		this GameObject raycastingObject,
-		Tug tug,
+		Affinity affinity,
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -108,7 +108,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingObject.direct
 			(
-				tug,
+				affinity,
 				localRaycastDirection,
 				Distinctivity.relative,
 				magnitude,
@@ -121,7 +121,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> directGlobally
 	(
 		this GameObject raycastingObject,
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -132,7 +132,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingObject.direct
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				Distinctivity.absolute,
 				magnitude,
@@ -146,7 +146,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> direct
 	(
 		this Component raycastingComponent,
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -158,7 +158,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingComponent.gameObject.direct
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				raycastDistinctivity,
 				magnitude,
@@ -171,7 +171,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> direct
 	(
 		this Component raycastingComponent,
-		Tug tug,
+		Affinity affinity,
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -182,7 +182,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingComponent.direct
 			(
-				tug,
+				affinity,
 				localRaycastDirection,
 				Distinctivity.relative,
 				magnitude,
@@ -195,7 +195,7 @@ public static class DirectingExtensions
 	public static HashSet<GameObject> directGlobally
 	(
 		this Component raycastingComponent,
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -206,7 +206,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingComponent.direct
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				Distinctivity.absolute,
 				magnitude,
@@ -216,7 +216,7 @@ public static class DirectingExtensions
 				triggerColliderQuery,
 				layerMask_MaxOf1
 			);
-	#endregion directing with the given tug
+	#endregion directing with the given affinity
 
 
 	#region directly pulling (directing with attraction)
@@ -234,7 +234,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingPosition.direct
 			(
-				Tug.attraction,
+				Affinity.attraction,
 				raycastDirection,
 				magnitude,
 				raycastDistance,
@@ -258,7 +258,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingObject.direct
 			(
-				Tug.attraction,
+				Affinity.attraction,
 				raycastDirection,
 				raycastDistinctivity,
 				magnitude,
@@ -638,7 +638,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingPosition.direct
 			(
-				Tug.repulsion,
+				Affinity.repulsion,
 				raycastDirection,
 				magnitude,
 				raycastDistance,
@@ -662,7 +662,7 @@ public static class DirectingExtensions
 	)
 		=>	raycastingObject.direct
 			(
-				Tug.repulsion,
+				Affinity.repulsion,
 				raycastDirection,
 				raycastDistinctivity,
 				magnitude,

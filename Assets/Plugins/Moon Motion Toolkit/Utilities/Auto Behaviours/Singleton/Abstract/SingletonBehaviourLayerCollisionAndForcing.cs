@@ -12,14 +12,14 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 {
 	#region calculating targeted force
 
-	public static new Vector3 targetedForceBy(dynamic forcingPosition_PositionProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static new Vector3 targetedForceBy(dynamic forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
 		return autoBehaviour.targetedForceBy
 		(
 			forcingPosition,
-			tug,
+			affinity,
 			magnitude,
 			reach,
 			reachMagnitudeZeroingCurve,
@@ -62,11 +62,11 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	#region targetedly forcing
 
-	public static new AutoBehaviour<SingletonBehaviourT> forceTarget(dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static new AutoBehaviour<SingletonBehaviourT> forceTarget(dynamic targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
 
-		return autoBehaviour.forceTarget(targetRigidbodies, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
+		return autoBehaviour.forceTarget(targetRigidbodies, affinity, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
 	}
 
 	public static new AutoBehaviour<SingletonBehaviourT> attract(dynamic targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
@@ -100,8 +100,8 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	#region radially forcing
 
-	public static new HashSet<GameObject> forceRadially(Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
-		=> autoBehaviour.forceRadially(tug, magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+	public static new HashSet<GameObject> forceRadially(Affinity affinity, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> autoBehaviour.forceRadially(affinity, magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
 
 	public static new HashSet<GameObject> suck(float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> autoBehaviour.suck(magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
@@ -375,7 +375,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	public static new HashSet<GameObject> direct
 	(
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -387,7 +387,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	)
 		=>	autoBehaviour.direct
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				raycastDistinctivity,
 				magnitude,
@@ -399,7 +399,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 			);
 	public static new HashSet<GameObject> direct
 	(
-		Tug tug,
+		Affinity affinity,
 		BasicDirection raycastBasicDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -411,7 +411,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	)
 		=>	autoBehaviour.direct
 			(
-				tug,
+				affinity,
 				raycastBasicDirection,
 				raycastDistinctivity,
 				magnitude,
@@ -423,7 +423,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 			);
 	public static new HashSet<GameObject> direct
 	(
-		Tug tug,
+		Affinity affinity,
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -434,7 +434,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	)
 		=>	autoBehaviour.direct
 			(
-				tug,
+				affinity,
 				localRaycastDirection,
 				magnitude,
 				raycastDistance,
@@ -445,7 +445,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 			);
 	public static new HashSet<GameObject> directGlobally
 	(
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -456,7 +456,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	)
 		=>	autoBehaviour.directGlobally
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				magnitude,
 				raycastDistance,

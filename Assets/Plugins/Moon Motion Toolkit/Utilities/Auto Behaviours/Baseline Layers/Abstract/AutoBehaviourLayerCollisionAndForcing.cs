@@ -12,14 +12,14 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 {
 	#region calculating targeted force
 
-	public Vector3 targetedForceBy(dynamic forcingPosition_PositionProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public Vector3 targetedForceBy(dynamic forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
 		return position.targetedForceBy
 		(
 			forcingPosition,
-			tug,
+			affinity,
 			magnitude,
 			reach,
 			reachMagnitudeZeroingCurve,
@@ -62,11 +62,11 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	#region targetedly forcing
 
-	public AutoBehaviourT forceTarget(dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public AutoBehaviourT forceTarget(dynamic targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
 
-		return selfAfter(()=> position.forceTarget(targetRigidbodies, tug, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp));
+		return selfAfter(()=> position.forceTarget(targetRigidbodies, affinity, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp));
 	}
 
 	public AutoBehaviourT attract(dynamic targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
@@ -100,8 +100,8 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	#region radially forcing
 
-	public HashSet<GameObject> forceRadially(Tug tug, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
-		=> position.forceRadially(tug, magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
+	public HashSet<GameObject> forceRadially(Affinity affinity, float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+		=> position.forceRadially(affinity, magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
 
 	public HashSet<GameObject> suck(float magnitude = Default.forceMagnitude, float radius = Default.forceRadius, InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.suck(magnitude, radius, radiusDistanceMagnitudeZeroingCurve, triggerColliderQuery, layerMask_MaxOf1);
@@ -375,7 +375,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	public HashSet<GameObject> direct
 	(
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -387,7 +387,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	)
 		=>	gameObject.direct
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				raycastDistinctivity,
 				magnitude,
@@ -399,7 +399,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 			);
 	public HashSet<GameObject> direct
 	(
-		Tug tug,
+		Affinity affinity,
 		BasicDirection raycastBasicDirection,
 		Distinctivity raycastDistinctivity = Default.raycastingDistinctivity,
 		float magnitude = Default.forceMagnitude,
@@ -411,7 +411,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	)
 		=>	gameObject.direct
 			(
-				tug,
+				affinity,
 				raycastBasicDirection,
 				raycastDistinctivity,
 				magnitude,
@@ -423,7 +423,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 			);
 	public HashSet<GameObject> direct
 	(
-		Tug tug,
+		Affinity affinity,
 		Vector3 localRaycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -434,7 +434,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	)
 		=>	gameObject.direct
 			(
-				tug,
+				affinity,
 				localRaycastDirection,
 				magnitude,
 				raycastDistance,
@@ -445,7 +445,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 			);
 	public HashSet<GameObject> directGlobally
 	(
-		Tug tug,
+		Affinity affinity,
 		Vector3 raycastDirection,
 		float magnitude = Default.forceMagnitude,
 		float raycastDistance = Default.raycastingDistance,
@@ -456,7 +456,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	)
 		=>	gameObject.directGlobally
 			(
-				tug,
+				affinity,
 				raycastDirection,
 				magnitude,
 				raycastDistance,

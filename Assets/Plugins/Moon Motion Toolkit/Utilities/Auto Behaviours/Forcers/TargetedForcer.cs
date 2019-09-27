@@ -25,8 +25,8 @@ public class TargetedForcer : Forcer<TargetedForcer>
 	public GameObject targetObject;
 
 	[BoxGroup("Targetedly Forcing")]
-	[Tooltip("the tug of the force")]
-	public Tug tug = Default.tug;
+	[Tooltip("the affinity of the force")]
+	public Affinity affinity = Default.affinity;
 
 	[BoxGroup("Targetedly Forcing")]
 	[Tooltip("the reach of the force")]
@@ -69,7 +69,7 @@ public class TargetedForcer : Forcer<TargetedForcer>
 		=>	forceTarget
 			(
 				targetObject,
-				tug,
+				affinity,
 				magnitude,
 				reach,
 				reachMagnitudeZeroingCurve,

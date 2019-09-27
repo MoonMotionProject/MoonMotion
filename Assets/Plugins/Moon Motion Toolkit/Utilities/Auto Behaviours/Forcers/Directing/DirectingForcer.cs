@@ -19,8 +19,8 @@ public class DirectingForcer : Forcer<DirectingForcer>
 
 
 	[BoxGroup("Directing")]
-	[Tooltip("the tug of the force")]
-	public Tug tug = Default.tug;
+	[Tooltip("the affinity of the force")]
+	public Affinity affinity = Default.affinity;
 
 	[BoxGroup("Directing")]
 	[Tooltip("the direction of the raycast")]
@@ -70,7 +70,7 @@ public class DirectingForcer : Forcer<DirectingForcer>
 	private void FixedUpdate()
 		=>	direct
 			(
-				tug,
+				affinity,
 				raycastingDirection,
 				raycastingDistinctivity,
 				magnitude,

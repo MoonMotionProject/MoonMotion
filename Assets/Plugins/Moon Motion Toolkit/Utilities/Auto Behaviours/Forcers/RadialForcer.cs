@@ -25,8 +25,8 @@ public class RadialForcer : Forcer<RadialForcer>
 
 
 	[BoxGroup("Radially Forcing")]
-	[Tooltip("the tug of the force")]
-	public Tug tug = Default.tug;
+	[Tooltip("the affinity of the force")]
+	public Affinity affinity = Default.affinity;
 
 	[BoxGroup("Radially Forcing")]
 	[Tooltip("the radius of the force")]
@@ -80,7 +80,7 @@ public class RadialForcer : Forcer<RadialForcer>
 	private void FixedUpdate()
 		=>	forcedObjects = forceRadially
 			(
-				tug,
+				affinity,
 				magnitude,
 				radius,
 				radiusDistanceMagnitudeZeroingCurve,

@@ -8,12 +8,12 @@ using UnityEngine;
 public static class TargetedForceExtensions
 {
 	#region calculating targeted force
-	// methods: return the targeted force with the given or declared tug upon this given declared provider of a force position, targeted by the given provided forcing position and for the given magnitude, reach, boolean for whether to return zero force outside the reach, and clamping boolean, diminishing magnitude from the given forcing position (until the reach) to zero using the given curve //
+	// methods: return the targeted force with the given or declared affinity upon this given declared provider of a force position, targeted by the given provided forcing position and for the given magnitude, reach, boolean for whether to return zero force outside the reach, and clamping boolean, diminishing magnitude from the given forcing position (until the reach) to zero using the given curve //
 
 	
-	#region calculating targeted force with the given tug
+	#region calculating targeted force with the given affinity
 	
-	public static Vector3 targetedForceBy(this Vector3 forcePosition, dynamic forcingPosition_PositionProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 targetedForceBy(this Vector3 forcePosition, dynamic forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -21,7 +21,7 @@ public static class TargetedForceExtensions
 
 		return ((reachProgression > 1f) && zeroForceOutsideReach) ?
 					FloatsVector.zeroes :
-					(magnitude * forcingPosition.directionForTugUpon(forcePosition, tug))
+					(magnitude * forcingPosition.directionForAffinityAbout(forcePosition, affinity))
 						.interpolateToZeroes
 						(
 							reachMagnitudeZeroingCurve,
@@ -30,14 +30,14 @@ public static class TargetedForceExtensions
 						);
 	}
 
-	public static Vector3 targetedForceBy(this GameObject targetObject, dynamic forcingPosition_PositionProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 targetedForceBy(this GameObject targetObject, dynamic forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
 		return	targetObject.position().targetedForceBy
 				(
 					forcingPosition,
-					tug,
+					affinity,
 					magnitude,
 					reach,
 					reachMagnitudeZeroingCurve,
@@ -46,14 +46,14 @@ public static class TargetedForceExtensions
 				);
 	}
 
-	public static Vector3 targetedForceBy(this Component targetComponent, dynamic forcingPosition_PositionProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 targetedForceBy(this Component targetComponent, dynamic forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
 		return	targetComponent.position().targetedForceBy
 				(
 					forcingPosition,
-					tug,
+					affinity,
 					magnitude,
 					reach,
 					reachMagnitudeZeroingCurve,
@@ -61,7 +61,7 @@ public static class TargetedForceExtensions
 					clamp
 				);
 	}
-	#endregion calculating targeted force with the given tug
+	#endregion calculating targeted force with the given affinity
 
 
 	#region calculating targeted attraction
@@ -73,7 +73,7 @@ public static class TargetedForceExtensions
 		return forcePosition.targetedForceBy
 		(
 			forcingPosition,
-			Tug.attraction,
+			Affinity.attraction,
 			magnitude,
 			reach,
 			reachMagnitudeZeroingCurve,
@@ -123,7 +123,7 @@ public static class TargetedForceExtensions
 		return	forcePosition.targetedForceBy
 				(
 					forcingPosition,
-					Tug.repulsion,
+					Affinity.repulsion,
 					magnitude,
 					reach,
 					reachMagnitudeZeroingCurve,
@@ -168,19 +168,19 @@ public static class TargetedForceExtensions
 
 
 	#region targetedly forcing
-	// methods: from this given declared provider of a forcing position, apply force upon the given provided target rigidbodies (without ensuring unique targets, if targets are plural; that methods variant is unimplemented yet), using the given or declared tug and the given magnitude, reach, boolean for whether to apply zero force outside the reach, and clamping boolean, diminishing magnitude from the given forcing position (until the reach) to zero using the given curve, then return this given declared provider of a forcing position //
+	// methods: from this given declared provider of a forcing position, apply force upon the given provided target rigidbodies (without ensuring unique targets, if targets are plural; that methods variant is unimplemented yet), using the given or declared affinity and the given magnitude, reach, boolean for whether to apply zero force outside the reach, and clamping boolean, diminishing magnitude from the given forcing position (until the reach) to zero using the given curve, then return this given declared provider of a forcing position //
 
 	
-	#region targetedly forcing with the given tug
+	#region targetedly forcing with the given affinity
 
-	public static Vector3 forceTarget(this Vector3 forcingPosition, Rigidbody targetRigidbody, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 forceTarget(this Vector3 forcingPosition, Rigidbody targetRigidbody, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 		=>	forcingPosition.after(()=>
 				targetRigidbody.applyForceOf
 				(
 					targetRigidbody.targetedForceBy
 					(
 						forcingPosition,
-						tug,
+						affinity,
 						magnitude,
 						reach,
 						reachMagnitudeZeroingCurve,
@@ -188,7 +188,7 @@ public static class TargetedForceExtensions
 						clamp
 					)
 				));
-	public static Vector3 forceTarget(this Vector3 forcingPosition, dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 forceTarget(this Vector3 forcingPosition, dynamic targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
 
@@ -197,7 +197,7 @@ public static class TargetedForceExtensions
 						forcingPosition.forceTarget
 						(
 							rigidbody,
-							tug,
+							affinity,
 							magnitude,
 							reach,
 							reachMagnitudeZeroingCurve,
@@ -207,7 +207,7 @@ public static class TargetedForceExtensions
 	}
 				
 
-	public static GameObject forceTarget(this GameObject forcingObject, dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static GameObject forceTarget(this GameObject forcingObject, dynamic targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
 
@@ -215,7 +215,7 @@ public static class TargetedForceExtensions
 					forcingObject.position().forceTarget
 					(
 						targetRigidbodies,
-						tug,
+						affinity,
 						magnitude,
 						reach,
 						reachMagnitudeZeroingCurve,
@@ -224,7 +224,7 @@ public static class TargetedForceExtensions
 					));
 	}
 
-	public static ComponentT forceTarget<ComponentT>(this ComponentT forcingComponent, dynamic targetRigidbodies_RigidbodiesProvider, Tug tug, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
+	public static ComponentT forceTarget<ComponentT>(this ComponentT forcingComponent, dynamic targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
 		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
 
@@ -232,7 +232,7 @@ public static class TargetedForceExtensions
 					forcingComponent.position().forceTarget
 					(
 						targetRigidbodies,
-						tug,
+						affinity,
 						magnitude,
 						reach,
 						reachMagnitudeZeroingCurve,
@@ -240,7 +240,7 @@ public static class TargetedForceExtensions
 						clamp
 					));
 	}
-	#endregion targetedly forcing with the given tug
+	#endregion targetedly forcing with the given affinity
 
 
 	#region attracting (targetedly forcing with attraction)
@@ -252,7 +252,7 @@ public static class TargetedForceExtensions
 		return	forcingPosition.forceTarget
 				(
 					targetRigidbodies,
-					Tug.attraction,
+					Affinity.attraction,
 					magnitude,
 					reach,
 					reachMagnitudeZeroingCurve,
@@ -304,7 +304,7 @@ public static class TargetedForceExtensions
 		return	forcingPosition.forceTarget
 				(
 					targetRigidbodies,
-					Tug.repulsion,
+					Affinity.repulsion,
 					magnitude,
 					reach,
 					reachMagnitudeZeroingCurve,

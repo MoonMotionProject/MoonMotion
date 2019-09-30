@@ -15,46 +15,46 @@ public static class HashSetExtensions
 	#endregion copying
 
 
-	#region adding
+	#region including
 
-	// method: (according to the given boolean:) add the given item to this given hash set, then return this given hash set //
-	public static HashSet<TItem> add<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+	// method: (according to the given boolean:) include the given item in this given hash set, then return this given hash set //
+	public static HashSet<TItem> include<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
 		=> set.after(()=>
 			set.Add(item),
 			boolean);
-	// method: (according to the given boolean:) add the given items to this given hash set, then return this given hash set //
-	public static HashSet<TItem> add<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
+	// method: (according to the given boolean:) include the given items in this given hash set, then return this given hash set //
+	public static HashSet<TItem> include<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
 		=> set.after(()=>
 			set.UnionWith(items),
 			boolean);
 
-	// method: (according to the given boolean:) add the given item to this given hash set, then return the given item //
-	public static TItem addGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
+	// method: (according to the given boolean:) include the given item in this given hash set, then return the given item //
+	public static TItem includeGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
 		=> item.after(()=>
-			set.add(item),
+			set.include(item),
 			boolean);
-	// method: (according to the given boolean:) add the given items to this given hash set, then return the given items //
-	public static IEnumerable<TItem> addGet<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
+	// method: (according to the given boolean:) include the given items in this given hash set, then return the given items //
+	public static IEnumerable<TItem> includeGet<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
 		=> items.after(()=>
-			set.add(items),
+			set.include(items),
 			boolean);
 
-	// method: (according to the given boolean:) add this given item to the given hash set, then return the given hash set //
-	public static HashSet<TItem> addToGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
-		=> set.add(item, boolean);
-	// method: (according to the given boolean:) add these given item to the given hash set, then return the given hash set //
-	public static HashSet<TItem> addToGet<TItem>(this IEnumerable<TItem> items, HashSet<TItem> set, bool boolean = true)
+	// method: (according to the given boolean:) include this given item in the given hash set, then return the given hash set //
+	public static HashSet<TItem> includeInGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
+		=> set.include(item, boolean);
+	// method: (according to the given boolean:) include these given item in the given hash set, then return the given hash set //
+	public static HashSet<TItem> includeInGet<TItem>(this IEnumerable<TItem> items, HashSet<TItem> set, bool boolean = true)
 		=> set.after(()=>
-			items.forEach(item => set.add(item)),
+			items.forEach(item => set.include(item)),
 			boolean);
 
-	// method: (according to the given boolean:) add this given item to the given hash set, then return this given item //
-	public static TItem addTo<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
-		=> set.addGet(item, boolean);
-	// method: (according to the given boolean:) add these given items to the given hash set, then return these given items //
-	public static IEnumerable<TItem> addTo<TItem>(this IEnumerable<TItem> items, HashSet<TItem> set, bool boolean = true)
-		=> set.addGet(items, boolean);
-	#endregion adding
+	// method: (according to the given boolean:) include this given item in the given hash set, then return this given item //
+	public static TItem includeIn<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
+		=> set.includeGet(item, boolean);
+	// method: (according to the given boolean:) include these given items in the given hash set, then return these given items //
+	public static IEnumerable<TItem> includeIn<TItem>(this IEnumerable<TItem> items, HashSet<TItem> set, bool boolean = true)
+		=> set.includeGet(items, boolean);
+	#endregion including
 
 
 	#region removing

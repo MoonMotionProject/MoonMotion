@@ -54,6 +54,14 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 	public TrackColorAtAwake trackColorAtAwake => cache<TrackColorAtAwake>();
 	#endregion miscellaneous
 
+	#region Collideds
+	public TrackCollideds trackCollideds => cache<TrackCollideds>();
+	#endregion Collideds
+
+	#region Components
+	public TrackCapsuleCollidersAtAwake trackCapsuleCollidersAtAwake => cache<TrackCapsuleCollidersAtAwake>();
+	#endregion Components
+
 	#region Transformations
 	public TrackLocalScaleAtAwake trackLocalScaleAtAwake => cache<TrackLocalScaleAtAwake>();
 	public TrackLocalScaleXAtAwake trackLocalScaleXAtAwake => cache<TrackLocalScaleXAtAwake>();
@@ -78,10 +86,6 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 	public TrackEulerAnglesAtAwake trackEulerAnglesAtAwake => cache<TrackEulerAnglesAtAwake>();
 	public TrackLocalRotationAtAwake trackLocalRotationAtAwake => cache<TrackLocalRotationAtAwake>();
 	#endregion Transformations
-
-	#region Components
-	public TrackCapsuleCollidersAtAwake trackCapsuleCollidersAtAwake => cache<TrackCapsuleCollidersAtAwake>();
-	#endregion Components
 	#endregion Trackings
 	#endregion Auto Behaviours
 	#endregion Utilities

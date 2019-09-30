@@ -133,7 +133,7 @@ public static class RaycastingExtensions
 
 		return direction.allNonpositionallyRaycastedHitsFrom(raycastingPosition, raycastDistance, triggerColliderQuery, layerMask_MaxOf1)
 			.colliders()
-			.addToGet(collidersFound);
+			.includeInGet(collidersFound);
 	}
 
 	public static HashSet<Collider> allRaycastedCollidersAlong(this Vector3 raycastingPosition, Vector3 direction, float raycastDistance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)

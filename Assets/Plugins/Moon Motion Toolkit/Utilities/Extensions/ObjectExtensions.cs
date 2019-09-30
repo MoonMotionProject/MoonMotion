@@ -20,8 +20,7 @@ public static class ObjectExtensions
 		=> !object_.isNull();
 	#endregion yullness (whether an object is not null)
 
-
-
+	
 	#region class
 
 	// method: return the type of this given object //
@@ -127,26 +126,6 @@ public static class ObjectExtensions
 			action,
 			object_.isNull().and(boolean));
 	#endregion acting
-
-
-	#region retrieval
-
-	// method: execute the given function upon this given object and return the function's result //
-	public static TResult pick<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
-		=> function(object_);
-
-	// method: if this given object is yull, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
-	public static TResult pickIfYull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
-		=> object_.isYull() ?
-			function(object_) :
-			default(TResult);
-
-	// method: if this given object is null, execute the given function upon it and return the function's result, otherwise returning the default value of the function's result type //
-	public static TResult pickIfNull<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function)
-		=> object_.isNull() ?
-			function(object_) :
-			default(TResult);
-	#endregion retrieval
 
 
 	#region conversion

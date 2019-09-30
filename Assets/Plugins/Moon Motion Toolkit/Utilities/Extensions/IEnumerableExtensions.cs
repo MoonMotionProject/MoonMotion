@@ -162,6 +162,9 @@ public static class IEnumerableExtensions
 		=> enumerable.Select(function);
 	public static List<TResult> pick<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.select(function).manifest();
+	
+	public static HashSet<TResult> pickUnique<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.select(function).toSet();
 
 	public static IEnumerable<TResult> selectByLooping<TItemThis, TItemLooped, TResult>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Func<TItemThis, TItemLooped, TResult> function)
 		 =>	Select.forCount(enumerable.count(), index =>

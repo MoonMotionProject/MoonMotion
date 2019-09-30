@@ -23,6 +23,11 @@ public static class Default
 	public const BasicDirection basicDirection = BasicDirection.forward;
 	#endregion direction
 
+	#region distinctivity
+	public const Distinctivity directionDistinctivity = Distinctivity.absolute;
+	public const Distinctivity basicDirectionDistinctivity = Distinctivity.relative;
+	#endregion distinctivity
+
 	#region raycasting
 	public const bool raycastQueryingForFirstHitOnly = false;
 	public const bool raycastingPositionalCollidersQuerying = true;

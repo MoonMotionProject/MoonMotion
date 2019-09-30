@@ -437,11 +437,11 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		}
 	}
 
-	// upon collision entry: //
+	// upon colliding: //
 	private void OnCollisionEnter(Collision collision)
 	{
 		GameObject collidedObject = collision.gameObject;		// connect to the collided object
-		// landing event triggering (based on collision entry with a recognized terrain) //
+		// landing event triggering (based on colliding with a recognized terrain) //
 		if (recognizedTerrainLayerIndex(collidedObject.layer))
 		{
 			// determine whether the collided terrain is ground or not //
@@ -482,7 +482,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		}
 	}
 
-	// upon collision exit: //
+	// upon uncolliding: //
 	private void OnCollisionExit(Collision collision)
 	{
 		GameObject collidedObject = collision.gameObject;		// connect to the collided object

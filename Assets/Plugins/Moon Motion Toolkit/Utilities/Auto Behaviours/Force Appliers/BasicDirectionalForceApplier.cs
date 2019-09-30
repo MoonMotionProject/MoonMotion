@@ -14,8 +14,8 @@ public class BasicDirectionalForceApplier : AutoBehaviour<BasicDirectionalForceA
 
 	// settings //
 	
-	public BasicDirection basicDirection;
-	public Distinctivity distinctivity;
+	public BasicDirection basicDirection = Default.basicDirection;
+	public Distinctivity distinctivity = Default.basicDirectionDistinctivity;
 	public float magnitude = Default.forceMagnitude;
 
 

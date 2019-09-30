@@ -43,33 +43,33 @@ public static class AttachmentExtensions
 	public static Rigidbody rigidbody(this Component component, bool includeInactiveRigidbodies = true)
 		=> component.first<Rigidbody>(includeInactiveRigidbodies);
 
-	// method: return a selection of each of the first rigidbodies that each of the respective yull game objects of these given game objects is attached to //
+	// method: return a selection of each of the yull first rigidbodies that each of the respective yull game objects of these given game objects is attached to //
 	public static IEnumerable<Rigidbody> selectRigidbodies(this IEnumerable<GameObject> gameObjects)
 		=> gameObjects.onlyYull().select(gameObject => gameObject.rigidbody()).onlyYull();
-	// method: return a selection of each of the first rigidbodies that each of the respective yull components of these given components is attached to //
+	// method: return a selection of each of the yull first rigidbodies that each of the respective yull components of these given components is attached to //
 	public static IEnumerable<Rigidbody> selectRigidbodies(this IEnumerable<Component> components)
 		=> components.onlyYull().select(component => component.rigidbody()).onlyYull();
 	// method: return a selection of each of the rigidbodies that are attached to each of these respective given raycast hits //
 	public static IEnumerable<Rigidbody> selectRigidbodies(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.select(raycastHit => raycastHit.rigidbody);
 
-	// method: return a list of each of the first rigidbodies that each of the respective yull game objects of these given game objects is attached to //
+	// method: return a list of each of the yull first rigidbodies that each of the respective yull game objects of these given game objects is attached to //
 	public static List<Rigidbody> rigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.onlyYull().selectRigidbodies().manifest();
-	// method: return a list of each of the first rigidbodies that each of the respective yull components of these given components is attached to //
+		=> gameObjects.selectRigidbodies().manifest();
+	// method: return a list of each of the yull first rigidbodies that each of the respective yull components of these given components is attached to //
 	public static List<Rigidbody> rigidbodies(this IEnumerable<Component> components)
-		=> components.onlyYull().selectRigidbodies().manifest();
+		=> components.selectRigidbodies().manifest();
 	// method: return a list of each of the rigidbodies that are attached to each of these respective given raycast hits //
 	public static List<Rigidbody> rigidbodies(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.selectRigidbodies().manifest();
 
-	// method: return the set of all (unique) first rigidbodies that the yull game objects of these given game objects are attached to //
+	// method: return the set of all unique, yull, first rigidbodies that the yull game objects of these given game objects are attached to //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.onlyYull().selectRigidbodies().toSet();
-	// method: return the set of all (unique) first rigidbodies that the yull components of these given components are attached to //
+		=> gameObjects.selectRigidbodies().toSet();
+	// method: return the set of all unique, yull, first rigidbodies that the yull components of these given components are attached to //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<Component> components)
-		=> components.onlyYull().selectRigidbodies().toSet();
-	// method: return the set of all (unique) rigidbodies attached to these given raycast hits //
+		=> components.selectRigidbodies().toSet();
+	// method: return the set of all unique, yull rigidbodies attached to these given raycast hits //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.selectRigidbodies().toSet();
 	#endregion Rigidbody

@@ -54,6 +54,14 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new TrackColorAtAwake trackColorAtAwake => autoBehaviour.trackColorAtAwake;
 	#endregion miscellaneous
 
+	#region Collideds
+	public static new TrackCollideds trackCollideds => autoBehaviour.trackCollideds;
+	#endregion Collideds
+
+	#region Components
+	public static new TrackCapsuleCollidersAtAwake trackCapsuleCollidersAtAwake => autoBehaviour.trackCapsuleCollidersAtAwake;
+	#endregion Components
+
 	#region Transformations
 	public static new TrackLocalScaleAtAwake trackLocalScaleAtAwake => autoBehaviour.trackLocalScaleAtAwake;
 	public static new TrackLocalScaleXAtAwake trackLocalScaleXAtAwake => autoBehaviour.trackLocalScaleXAtAwake;
@@ -78,10 +86,6 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new TrackEulerAnglesAtAwake trackEulerAnglesAtAwake => autoBehaviour.trackEulerAnglesAtAwake;
 	public static new TrackLocalRotationAtAwake trackLocalRotationAtAwake => autoBehaviour.trackLocalRotationAtAwake;
 	#endregion Transformations
-
-	#region Components
-	public static new TrackCapsuleCollidersAtAwake trackCapsuleCollidersAtAwake => autoBehaviour.trackCapsuleCollidersAtAwake;
-	#endregion Components
 	#endregion Tracking
 	#endregion Auto Behaviours
 	#endregion Utilities

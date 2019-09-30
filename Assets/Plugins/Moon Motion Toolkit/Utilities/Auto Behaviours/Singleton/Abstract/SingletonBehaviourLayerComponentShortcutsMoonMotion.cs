@@ -28,6 +28,16 @@ public abstract class SingletonBehaviourLayerComponentShortcutsMoonMotion<Single
 	public static new Color colorAwake => autoBehaviour.colorAwake;
 	#endregion miscellaneous
 
+	#region Collideds
+	public static new HashSet<Collider> collidedColliders => autoBehaviour.collidedColliders;
+	public static new HashSet<GameObject> collidedObjects => autoBehaviour.collidedObjects;
+	public static new HashSet<Rigidbody> collidedRigidbodies => autoBehaviour.collidedRigidbodies;
+	#endregion Collideds
+
+	#region Components
+	public static new List<CapsuleCollider> capsuleCollidersAwake => autoBehaviour.capsuleCollidersAwake;
+	#endregion Components
+
 	#region Transformations
 	public static new Vector3 localScaleAwake => autoBehaviour.localScaleAwake;
 	public static new float localScaleXAwake => autoBehaviour.localScaleXAwake;
@@ -52,10 +62,6 @@ public abstract class SingletonBehaviourLayerComponentShortcutsMoonMotion<Single
 	public static new Vector3 eulerAnglesAwake => autoBehaviour.eulerAnglesAwake;
 	public static new Quaternion localRotationAwake => autoBehaviour.localRotationAwake;
 	#endregion Transformations
-
-	#region Components
-	public static new List<CapsuleCollider> capsuleCollidersAwake => autoBehaviour.capsuleCollidersAwake;
-	#endregion Components
 	#endregion Tracking
 	#endregion Auto Behaviours
 	#endregion Utilities

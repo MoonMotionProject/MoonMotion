@@ -28,6 +28,16 @@ public abstract class AutoBehaviourLayerComponentShortcutsMoonMotion<AutoBehavio
 	public Color colorAwake => trackColorAtAwake.colorAwake;
 	#endregion miscellaneous
 
+	#region Collideds
+	public HashSet<Collider> collidedColliders => trackCollideds.collidedColliders;
+	public HashSet<GameObject> collidedObjects => collidedColliders.uniqueObjects();
+	public HashSet<Rigidbody> collidedRigidbodies => collidedColliders.uniqueCorrespondingRigidbodies();
+	#endregion Collideds
+
+	#region Components
+	public List<CapsuleCollider> capsuleCollidersAwake => trackCapsuleCollidersAtAwake.capsuleCollidersAwake;
+	#endregion Components
+
 	#region Transformations
 	public Vector3 localScaleAwake => trackLocalScaleAtAwake.localScaleAwake;
 	public float localScaleXAwake => trackLocalScaleXAtAwake.localScaleXAwake;
@@ -52,10 +62,6 @@ public abstract class AutoBehaviourLayerComponentShortcutsMoonMotion<AutoBehavio
 	public Vector3 eulerAnglesAwake => trackEulerAnglesAtAwake.eulerAnglesAwake;
 	public Quaternion localRotationAwake => trackLocalRotationAtAwake.localRotationAwake;
 	#endregion Transformations
-
-	#region Components
-	public List<CapsuleCollider> capsuleCollidersAwake => trackCapsuleCollidersAtAwake.capsuleCollidersAwake;
-	#endregion Components
 	#endregion Trackings
 	#endregion Auto Behaviours
 	#endregion Utilities

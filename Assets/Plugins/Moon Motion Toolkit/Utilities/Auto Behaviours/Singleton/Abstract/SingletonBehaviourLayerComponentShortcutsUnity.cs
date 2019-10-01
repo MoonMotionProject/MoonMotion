@@ -179,8 +179,8 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 		return autoBehaviour.applyForceAlongLocal(localDirection, transform, magnitude, boolean);
 	}
-	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> autoBehaviour.applyForceAlong(basicDirection, magnitude, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection localBasicDirection, float magnitude, bool boolean = true)
+		=> autoBehaviour.applyForceAlong(localBasicDirection, magnitude, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> autoBehaviour.applyForceAlongGlobal(basicDirection, magnitude, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)

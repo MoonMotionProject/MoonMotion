@@ -179,8 +179,8 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 		return selfAfter(()=> rigidbody.applyForceAlongLocal(localDirection, transform, magnitude, boolean));
 	}
-	public AutoBehaviourT applyForceAlong(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceAlong(basicDirection, magnitude, boolean));
+	public AutoBehaviourT applyForceAlong(BasicDirection localBasicDirection, float magnitude, bool boolean = true)
+		=> selfAfter(()=> rigidbody.applyForceAlong(localBasicDirection, magnitude, boolean));
 	public AutoBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
 	public AutoBehaviourT applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)

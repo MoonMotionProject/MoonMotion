@@ -67,7 +67,7 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 	public static SingletonBehaviourT singleton {get; private set;} = null;
 
 	// the singleton instance of this class as an auto behaviour //
-	public static new AutoBehaviour<SingletonBehaviourT> autoBehaviour => singleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
+	public static AutoBehaviour<SingletonBehaviourT> autoBehaviour => singleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => autoBehaviour.gameObject;

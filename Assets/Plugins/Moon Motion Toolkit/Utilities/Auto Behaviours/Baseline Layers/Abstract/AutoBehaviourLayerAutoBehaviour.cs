@@ -13,7 +13,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	#region casted instances
 
 	// this instance as an instance of the particular derived class specializing AutoBehaviour //
-	public AutoBehaviourT autoBehaviour
+	public AutoBehaviourT self
 	{
 		get
 		{
@@ -47,7 +47,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	#region self returning after acting
 
 	public AutoBehaviourT selfAfter(Action action)
-		=> autoBehaviour.after(action);
+		=> self.after(action);
 	#endregion self returning after acting
 
 
@@ -93,9 +93,9 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 
 	#region printing this auto behaviour
 	public AutoBehaviourT print()
-		=> print(autoBehaviour);
+		=> print(self);
 	public AutoBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> autoBehaviour.logAs<AutoBehaviourT>(prefix, loggingSeparator);
+		=> self.logAs<AutoBehaviourT>(prefix, loggingSeparator);
 	#endregion printing this auto behaviour
 
 	#if UNITY_EDITOR

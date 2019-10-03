@@ -14,7 +14,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 	#region of this component
 	public void destroyThisBehaviour(Func<AutoBehaviourT, bool> function)
-		=> autoBehaviour.destroy(function);
+		=> self.destroy(function);
 	public void destroyThisBehaviour(bool boolean = true)
 		=> component.destroy(boolean);
 	#endregion of this component
@@ -31,10 +31,10 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	#region accessing piblings
 
 	// a selection of the same components on this component's piblings //
-	public IEnumerable<AutoBehaviourT> selectEachFirstPibling => autoBehaviour.selectEachFirstPibling();
+	public IEnumerable<AutoBehaviourT> selectEachFirstPibling => self.selectEachFirstPibling();
 
 	// a list of the same components on this component's piblings //
-	public List<AutoBehaviourT> eachFirstPibling => autoBehaviour.eachFirstPibling();
+	public List<AutoBehaviourT> eachFirstPibling => self.eachFirstPibling();
 	#endregion accessing piblings
 
 
@@ -56,7 +56,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 		=> component.requires_ViaReflection<ComponentTPotentiallyRequired>(considerInheritedRequireComponents);
 	
 	public bool required_ViaReflection(bool considerInheritedRequireComponents = true)
-		=> autoBehaviour.required_ViaReflection<AutoBehaviourT>(considerInheritedRequireComponents);
+		=> self.required_ViaReflection<AutoBehaviourT>(considerInheritedRequireComponents);
 	#endregion requirement via RequireComponent
 
 
@@ -102,7 +102,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 		=> gameObject.hasAnyAutoBehaviours(includeInactiveComponents);
 
 	public bool anyOtherAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.hasAnyOtherAutoBehaviours<AutoBehaviourT>(includeInactiveComponents);
+		=> self.hasAnyOtherAutoBehaviours<AutoBehaviourT>(includeInactiveComponents);
 	#endregion determining local components
 
 

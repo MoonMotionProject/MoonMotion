@@ -14,15 +14,15 @@ public abstract class	AutoBehaviourLayerBehaviour<AutoBehaviourT> :
 
 	// method: set the enablement of this behaviour to the given boolean, then return this behaviour //
 	public AutoBehaviourT setEnablementTo(bool enablement)
-		=> autoBehaviour.setEnablementTo<AutoBehaviourT>(enablement);
+		=> self.setEnablementTo<AutoBehaviourT>(enablement);
 
 	// method: enable this behaviour, then return it //
 	public AutoBehaviourT enable()
-		=> autoBehaviour.enable<AutoBehaviourT>();
+		=> self.enable<AutoBehaviourT>();
 
 	// method: disable this behaviour, then return it //
 	public AutoBehaviourT disable()
-		=> autoBehaviour.disable<AutoBehaviourT>();
+		=> self.disable<AutoBehaviourT>();
 	#endregion enablement of this behaviour
 
 

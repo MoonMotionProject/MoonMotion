@@ -12,5 +12,5 @@ public abstract class	AutoBehaviourLayerAttributeDetection<AutoBehaviourT> :
 {
 	// method: return whether the inheritor's class has the specified attribute, including inherited attributes according to the given boolean //
 	public bool inheritorHasAttribute<AttributeT>(bool includeInheritedAttributes = true) where AttributeT : Attribute
-		=> autoBehaviour.attributed<AutoBehaviourT, AttributeT>(includeInheritedAttributes);
+		=> self.attributed<AutoBehaviourT, AttributeT>(includeInheritedAttributes);
 }

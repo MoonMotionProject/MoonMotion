@@ -31,10 +31,10 @@ public static class Provide
 
 	private static Vector3 positionVia_(Vector3 vector)
 		=> vector;
-	private static Vector3 positionVia_(Component component)
-		=> component.position();
 	private static Vector3 positionVia_(GameObject gameObject)
 		=> gameObject.position();
+	private static Vector3 positionVia_(Component component)
+		=> component.position();
 	#endregion position
 
 
@@ -45,25 +45,53 @@ public static class Provide
 
 	private static Rigidbody rigidbodyVia_(Rigidbody rigidbody)
 		=> rigidbody;
-	private static Rigidbody rigidbodyVia_(Component component)
-		=> component.rigidbody();
 	private static Rigidbody rigidbodyVia_(GameObject gameObject)
 		=> gameObject.rigidbody();
+	private static Rigidbody rigidbodyVia_(Component component)
+		=> component.rigidbody();
 
 	public static List<Rigidbody> rigidbodiesVia(dynamic dynamo)
 		=> rigidbodiesVia_(dynamo);
 
 	private static List<Rigidbody> rigidbodiesVia_(Rigidbody rigidbody)
 		=> rigidbody.startList();
-	private static List<Rigidbody> rigidbodiesVia_(Component component)
-		=> rigidbodiesVia_(component.rigidbody());
 	private static List<Rigidbody> rigidbodiesVia_(GameObject gameObject)
 		=> rigidbodiesVia_(gameObject.rigidbody());
+	private static List<Rigidbody> rigidbodiesVia_(Component component)
+		=> rigidbodiesVia_(component.rigidbody());
 	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Rigidbody> rigidbodies)
 		=> rigidbodies.manifest();
-	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)
-		=> components.rigidbodies();
 	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<GameObject> gameObjects)
 		=> gameObjects.rigidbodies();
+	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)
+		=> components.rigidbodies();
 	#endregion Rigidbody
+
+
+	#region mesh
+
+	public static Mesh meshVia(dynamic dynamo)
+		=> meshVia_(dynamo);
+	
+	private static Mesh meshVia_(Mesh mesh)
+		=> mesh;
+	private static Mesh meshVia_(GameObject gameObject)
+		=> gameObject.mesh();
+	private static Mesh meshVia_(Component component)
+		=> component.mesh();
+	#endregion mesh
+
+
+	#region shared mesh
+
+	public static Mesh sharedMeshVia(dynamic dynamo)
+		=> sharedMeshVia_(dynamo);
+	
+	private static Mesh sharedMeshVia_(Mesh sharedMesh)
+		=> sharedMesh;
+	private static Mesh sharedMeshVia_(GameObject gameObject)
+		=> gameObject.sharedMesh();
+	private static Mesh sharedMeshVia_(Component component)
+		=> component.sharedMesh();
+	#endregion shared mesh
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Array Extensions: provides extension methods for handling arrays //
-// #enumerable-e
+// #enumerables
 public static class ArrayExtensions
 {
 	#region reversing

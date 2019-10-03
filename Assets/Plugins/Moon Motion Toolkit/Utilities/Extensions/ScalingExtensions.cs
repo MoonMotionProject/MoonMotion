@@ -7,9 +7,9 @@ public static class ScalingExtensions
 {
 	// method: return whether this given scale is a valid scale //
 	public static bool validScale(this Vector3 scale)
-		=> (scale.valid() && scale.nonnegative());
+		=> scale.isFinite() && scale.isNonnegative();
 
 	// method: return this given vector clamped to be a valid scale //
 	public static Vector3 clampedToBeValidScale(this Vector3 scale)
-		=> scale.clampedValidAndNonnegative();
+		=> scale.clampedFiniteAndNonnegative();
 }

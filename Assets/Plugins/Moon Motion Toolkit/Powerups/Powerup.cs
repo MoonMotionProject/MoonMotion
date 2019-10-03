@@ -99,7 +99,7 @@ public class Powerup : AutoBehaviour<Powerup>
 		destroyAudios();
 
 		// destroy this powerup object //
-		destroyObject();
+		destroyThisObject();
 	}
 
 	// method: respawn this powerup (by default, just by reenabling it and returning its Powerup Bump Audio object back to how it was) //

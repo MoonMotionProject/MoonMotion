@@ -26,9 +26,19 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 
 	#region destruction
 
-	// method: (according to the given boolean:) destroy this behaviour's game object //
-	public void destroyObject(bool boolean = true)
+	#region of this object
+	public void destroyThisObject(Func<GameObject, bool> function)
+		=> gameObject.destroy(function);
+	public void destroyThisObject(bool boolean = true)
 		=> gameObject.destroy(boolean);
+	#endregion of this object
+	
+	#region of the other given object
+	public void destroy(GameObject otherGameObject, Func<GameObject, bool> function)
+		=> otherGameObject.destroy(function);
+	public void destroy(GameObject otherGameObject, bool boolean = true)
+		=> otherGameObject.destroy(boolean);
+	#endregion of the other given object
 	#endregion destruction
 
 

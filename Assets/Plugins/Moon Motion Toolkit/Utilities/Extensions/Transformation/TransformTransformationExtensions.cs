@@ -349,7 +349,9 @@ public static class TransformTransformationExtensions
 	public static Transform setLocalsParentlyForRelativeTo(this Transform transform, Transform otherTransform, bool boolean = true)
 	{
 		Transform extervalParent = transform.parent;
-		return transform.actUponWithParentTemporarilySwappedTo(otherTransform, transform_ => transform_.setLocalsTo(extervalParent), boolean);
+		return transform.actUponWithParentTemporarilySwappedTo(otherTransform,
+			transform_ => transform_.setLocalsTo(extervalParent),
+		boolean);
 	}
 	// method: (according to the given boolean:) set this given transform's local transformations to its parent's while temporarily childed to the given game object, then return this given transform //
 	public static Transform setLocalsParentlyForRelativeTo(this Transform transform, GameObject gameObject, bool boolean = true)
@@ -600,18 +602,29 @@ public static class TransformTransformationExtensions
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the other given transform's (global) z euler angle, then return this given transform //
 	public static Transform setEulerAngleZTo(this Transform transform, Transform otherTransform, bool boolean = true)
 		=> transform.setEulerAngleZTo(otherTransform.eulerAngleZ(), boolean);
-	// method: (according to the given boolean:) reset this given transform's (global) z euler angle to zero, then return this given transform //
-	public static Transform resetEulerAngleZ(this Transform transform, bool boolean = true)
-		=> transform.setEulerAngleZTo(0f, boolean);
-
-
-
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the given game object's (global) z euler angle, then return this given transform //
 	public static Transform setEulerAngleZTo(this Transform transform, GameObject gameObject, bool boolean = true)
 		=> transform.setEulerAngleZTo(gameObject.eulerAngleZ(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z euler angle to the given component's (global) z euler angles, then return this given transform //
 	public static Transform setEulerAngleZTo(this Transform transform, Component component, bool boolean = true)
 		=> transform.setEulerAngleZTo(component.eulerAngleZ(), boolean);
+	// method: (according to the given boolean:) reset this given transform's (global) z euler angle to zero, then return this given transform //
+	public static Transform resetEulerAngleZ(this Transform transform, bool boolean = true)
+		=> transform.setEulerAngleZTo(0f, boolean);
+
+
+
+	// method: (according to the given boolean:) set this given transform's (global) scale to the other given transform's (global) scale, then return this given transform //
+	public static Transform setScaleTo(this Transform transform, Transform otherTransform, bool boolean = true)
+		=>	transform.actUponWithParentTemporarilySwappedTo(otherTransform,
+				transform_ => transform_.resetLocalScale(),
+			boolean);
+	// method: (according to the given boolean:) set this given transform's (global) scale to the given game object's (global) scale, then return this given transform //
+	public static Transform setScaleTo(this Transform transform, GameObject gameObject, bool boolean = true)
+		=> transform.setScaleTo(gameObject.transform, boolean);
+	// method: (according to the given boolean:) set this given transform's (global) scale to the given component's (global) scale, then return this given transform //
+	public static Transform setScaleTo(this Transform transform, Component component, bool boolean = true)
+		=> transform.setScaleTo(component.transform, boolean);
 
 
 
@@ -662,4 +675,34 @@ public static class TransformTransformationExtensions
 	// method: (according to the given boolean:) reset this given transform's global transformations (global position, global rotation) and local scale respectively to zeroes, no rotation, and ones //
 	public static Transform resetGlobalsAndLocalScale(this Transform transform, bool boolean = true)
 		=> transform.setGlobalsAndLocalScaleTo(Vector3.zero, Quaternion.identity, Vector3.one, boolean);
+
+
+
+	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to the given (global) position and (global) rotation, and set this given transform's (global) scale to the (global) scale of the given provided other transform, then return this given transform //
+	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Quaternion rotation, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return transform
+				.setGlobalsTo(position, rotation, boolean)
+				.setScaleTo(otherTransform, boolean);
+	}
+	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given transform's (global) scale to the (global) scale of the given provided other transform, then return this given transform //
+	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Vector3 eulerAngles, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return transform
+				.setGlobalsTo(position, eulerAngles, boolean)
+				.setScaleTo(otherTransform, boolean);
+	}
+	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to (global) transformations of the given provided other transform, then return this given transform //
+	public static Transform setTransformationsTo(this Transform transform, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return transform
+				.setGlobalsTo(otherTransform, boolean)
+				.setScaleTo(otherTransform, boolean);
+	}
 }

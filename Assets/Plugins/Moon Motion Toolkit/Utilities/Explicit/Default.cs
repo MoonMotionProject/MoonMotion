@@ -2,17 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Default: provides various default constants //
+// Default:
+// • provides various default state:
+//   · constants ("const" variables, and "readonly" variables where "const" variables are not possible)
+//   · properties (which should be constant in result) serving as constants (where constants are not possible)
 // #default #auto
 public static class Default
 {
 	#region miscellaneous
 	public const string listingSeparator = ", ";
 	public const string loggingSeparator = ": ";
-	public static readonly LayerMask layerMask = -1;        // "everything" (recognize all layers)
+	public static readonly LayerMask layerMask = LayerMasks.everything;
 	public const Affinity affinity = Affinity.attraction;
 	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
+	public const float delay = 1f;
+	public const float temporaryObjectDestructionDelay = 1f;
 	#endregion miscellaneous
+
+	#region components
+	public const bool inclusionOfInactiveComponents = true;
+	#endregion components
+
+	#region shaders
+	public static Shader shader_IfInAwakeOrStart => Shaders.standard_IfInAwakeOrStart;
+	public static Shader outlineShader_IfInAwakeOrStart => Shaders.penetratingStroke_IfInAwakeOrStart;
+	#endregion shaders
+
+	#region materials
+	public static Material material_IfInAwakeOrStart => Materials.standard_IfInAwakeOrStart;
+	public static Material outlineMaterial_IfInAwakeOrStart => Materials.penetratingStroke_IfInAwakeOrStart;
+	#endregion materials
 
 	#region time
 	public const float interval = 1f;
@@ -34,6 +53,7 @@ public static class Default
 	public static readonly Vector3 raycastingDirection = Direction.forward;
 	public const BasicDirection raycastingBasicDirection = BasicDirection.forward;
 	public const float raycastingDistance = 15f;
+	public const float outlineRaycastingDistance = Infinity.asAFloat;
 	public const RaycastQuery raycastQuery = RaycastQuery.unlimitedHitsAndAllPositionalColliders;
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
 	public const Distinctivity raycastingDistinctivity = Distinctivity.relative;
@@ -41,7 +61,7 @@ public static class Default
 
 	#region force
 	public const float forceMagnitude = 10f;
-	public const float forceReach = float.MaxValue;
+	public const float forceReach = Infinity.asAFloat;
 	public const InterpolationCurve forceCurve = InterpolationCurve.quadratic;
 	public const bool targetedForceClamping = true;
 	public const bool targetedForceZeroingOutsideReach = true;

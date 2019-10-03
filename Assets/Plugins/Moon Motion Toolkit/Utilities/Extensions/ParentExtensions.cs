@@ -99,14 +99,21 @@ public static class ParentExtensions
 	// method: (according to the given boolean:) temporarily change this given transform's parent to the given other transform, during so invoking the given action on this given transform, then return this given transform //
 	public static Transform actUponWithParentTemporarilySwappedTo(this Transform transform, Transform otherTransform, Action<Transform> action, bool boolean = true)
 	{
-		if (otherTransform)
+		if (boolean)
 		{
-			Transform extervalParent = transform.parent;
-			return action.asFunction()(transform.setParentTo(otherTransform)).setParentTo(extervalParent);
+			if (otherTransform)
+			{
+				Transform extervalParent = transform.parent;
+				return action.asFunction()(transform.setParentTo(otherTransform)).setParentTo(extervalParent);
+			}
+			else
+			{
+				return transform.returnWithError();
+			}
 		}
 		else
 		{
-			return transform.returnWithError();
+			return transform;
 		}
 	}
 }

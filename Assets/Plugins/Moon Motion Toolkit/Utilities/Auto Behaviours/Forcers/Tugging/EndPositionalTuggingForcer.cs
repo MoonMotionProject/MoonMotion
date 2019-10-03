@@ -8,7 +8,7 @@ using System;
 // • at each physics update, tugs
 //   · uses an end position for raycasting
 // #force #raycasting
-public class EndPositionalTuggingForcer : Forcer<EndPositionalTuggingForcer>
+public class EndPositionalTuggingForcer : EnabledsEditorVisualized<EndPositionalTuggingForcer>
 {
 	// variables //
 
@@ -52,7 +52,7 @@ public class EndPositionalTuggingForcer : Forcer<EndPositionalTuggingForcer>
 	// updating //
 
 	
-	// upon drawing gizmos: //
+	// upon editor visualization: //
 	private void OnDrawGizmos()
 		=>	Visualize.lineFrom(position, raycastEndPosition,
 				visualizeLine,

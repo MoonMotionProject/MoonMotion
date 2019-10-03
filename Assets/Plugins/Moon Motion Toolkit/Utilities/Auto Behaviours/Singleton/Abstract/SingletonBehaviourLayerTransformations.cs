@@ -361,9 +361,27 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setGlobalsAndLocalScaleTo(otherGameObject, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> setGlobalsAndLocalScaleTo(Component otherComponent, bool boolean = true)
 		=> autoBehaviour.setGlobalsAndLocalScaleTo(otherComponent, boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> resetGlobalsAndLocalScale(bool boolean = true)
-		=> autoBehaviour.resetGlobalsAndLocalScale(boolean);
-
 	public static new AutoBehaviour<SingletonBehaviourT> setGlobalsAndLocalScaleTo(Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
 		=> autoBehaviour.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> resetGlobalsAndLocalScale(bool boolean = true)
+		=> autoBehaviour.resetGlobalsAndLocalScale(boolean);
+	
+	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Quaternion rotation, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return autoBehaviour.setTransformationsTo(position, rotation, otherTransform, boolean);
+	}
+	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Vector3 eulerAngles, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return autoBehaviour.setTransformationsTo(position, eulerAngles, otherTransform, boolean);
+	}
+	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return autoBehaviour.setTransformationsTo(otherTransform, boolean);
+	}
 }

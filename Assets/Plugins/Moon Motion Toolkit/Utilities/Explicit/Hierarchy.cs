@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -33,10 +34,19 @@ public static class Hierarchy
 	#region methods
 
 
-	// method: create a fresh game object with the default name, make it hidden, then return the created game object //
+	// method: create and return a temporary game object (create a fresh game object with the default name, make it hidden, then return the created game object) //
 	public static GameObject createTemporaryObject()
 		=> new GameObject()
 			.makeTemporary();
+
+	// method: create a temporary game object, plan to destroy it after the given delay, then return the result of the given function on the temporary game object //
+	public static TResult createTemporaryObjectAndDestroyAfterPicking<TResult>(Func<GameObject, TResult> function, float temporaryObjectDestructionDelay = Default.temporaryObjectDestructionDelay)
+	{
+		GameObject temporaryObject = createTemporaryObject();
+		TResult result = function(temporaryObject);
+		temporaryObject.destroy();
+		return result;
+	}
 
 	#if UNITY_EDITOR
 	// method: ping the game object currently selected in the hierarchy, then return it //
@@ -49,7 +59,7 @@ public static class Hierarchy
 
 	// method: deselect all current hierarchy selections //
 	public static void deselect()
-		=> Selection.objects = new Object[0];
+		=> Selection.objects = new UnityEngine.Object[0];
 	#endif
 	#endregion methods
 }

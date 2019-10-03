@@ -15,15 +15,22 @@ public static class RendererExtensions
 	#endregion game object's renderer enablement
 
 
-	#region material
+	#region setting materials
 
 	public static RendererT setMaterialTo<RendererT>(this RendererT renderer, Material material) where RendererT : Renderer
 		=> renderer.after(()=>
 			renderer.material = material);
+	public static GameObject setMaterialTo(this GameObject gameObject, Material material)
+		=> gameObject.after(()=>
+			gameObject.ensuredRenderer().setMaterialTo(material));
+
 	public static RendererT setSharedMaterialTo<RendererT>(this RendererT renderer, Material sharedMaterial) where RendererT : Renderer
 		=> renderer.after(()=>
 			renderer.sharedMaterial = sharedMaterial);
-	#endregion material
+	public static GameObject setSharedMaterialTo(this GameObject gameObject, Material sharedMaterial)
+		=> gameObject.after(()=>
+			gameObject.ensuredRenderer().setSharedMaterialTo(sharedMaterial));
+	#endregion setting materials
 
 
 	#region shadowcasting

@@ -50,7 +50,14 @@ public static class FacingExtensions
 		=> gameObject.transform.face(targetComponent.transform, withX, withY, withZ, boolean, upDirection_MaxOf1).gameObject;
 	
 	public static Transform faceCamera(this Transform transform, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
-		=> transform.face(Camera.main, withX, withY, withZ, boolean, upDirection_MaxOf1);
+	{
+		if (Camera.main)
+		{
+			transform.face(Camera.main, withX, withY, withZ, boolean, upDirection_MaxOf1);
+		}
+
+		return transform;
+	}
 	public static GameObject faceCamera(this GameObject gameObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> gameObject.transform.faceCamera(withX, withY, withZ, boolean, upDirection_MaxOf1).gameObject;
 }

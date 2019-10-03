@@ -47,7 +47,7 @@ public abstract class	CommonBehaviour<CommonBehaviourT> :
 		{
 			if (!behaviourRequired)
 			{
-				destroy();
+				destroyThisBehaviour();
 			}
 		}
 		else

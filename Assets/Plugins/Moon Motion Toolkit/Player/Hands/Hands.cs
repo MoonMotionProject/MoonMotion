@@ -23,12 +23,12 @@ public static class Hands
 	// the left hand instance //
 	public static Hand left
 	{
-		get {return left_ ?? (left_ = Controller.left.hand);}
+		get {return left_ ? left_ : (left_ = Controller.left.hand);}
 	}
 	// the right hand instance //
 	public static Hand right
 	{
-		get {return right_ ?? (right_ = Controller.right.hand);}
+		get {return right_ ? right_ : (right_ = Controller.right.hand);}
 	}
 
 

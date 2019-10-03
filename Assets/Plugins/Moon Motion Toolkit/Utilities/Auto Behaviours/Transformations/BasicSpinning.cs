@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// Basic Spinning: spins this object in a basic direction according to the specified settings //
+// Basic Spinning:
+// • spins this object in a basic direction according to the specified settings
+// #transform #transformations
 [CacheTransform]
 public class BasicSpinning : AutoBehaviour<BasicSpinning>
 {

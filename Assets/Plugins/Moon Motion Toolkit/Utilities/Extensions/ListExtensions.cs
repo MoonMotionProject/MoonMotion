@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // List Extensions: provides extension methods for handling lists //
-// #enumerable-e
+// #enumerables
 public static class ListExtensions
 {
 	#region adding

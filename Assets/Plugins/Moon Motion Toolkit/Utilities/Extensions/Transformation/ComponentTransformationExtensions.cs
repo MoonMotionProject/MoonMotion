@@ -729,6 +729,24 @@ public static class ComponentTransformationExtensions
 
 
 
+	// method: (according to the given boolean:) set this given transform's (global) scale to the given transform's (global) scale, then return this given transform //
+	public static ComponentT setScaleTo<ComponentT>(this ComponentT component, Transform transform, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.transform.setScaleTo(transform),
+			boolean);
+	// method: (according to the given boolean:) set this given transform's (global) scale to the given game object's (global) scale, then return this given transform //
+	public static ComponentT setScaleTo<ComponentT>(this ComponentT component, GameObject gameObject, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.transform.setScaleTo(gameObject),
+			boolean);
+	// method: (according to the given boolean:) set this given transform's (global) scale to the other given component's (global) scale, then return this given transform //
+	public static ComponentT setScaleTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
+		=> component.after(()=>
+			component.transform.setScaleTo(otherComponent),
+			boolean);
+
+
+
 	// method: (according to the given boolean:) set the global transformations (global position, global rotation) for the transform of this given component respectively to the given (global) position and (global) rotation //
 	public static ComponentT setGlobalsTo<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, bool boolean = true) where ComponentT : Component
 	{
@@ -785,5 +803,32 @@ public static class ComponentTransformationExtensions
 		component.transform.resetGlobalsAndLocalScale(boolean);
 
 		return component;
+	}
+
+
+
+	// method: (according to the given boolean:) set this given component's (global) transformations respectively to the given (global) position and (global) rotation, and set this given component's (global) scale to the (global) scale of the given provided transform, then return this given component //
+	public static ComponentT setTransformationsTo<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, dynamic transform_TransformProvider, bool boolean = true) where ComponentT : Component
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return component.after(()=>
+			component.transform.setTransformationsTo(position, rotation, transform, boolean));
+	}
+	// method: (according to the given boolean:) set this given component's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given component's (global) scale to the (global) scale of the given provided transform, then return this given component //
+	public static ComponentT setTransformationsTo<ComponentT>(this ComponentT component, Vector3 position, Vector3 eulerAngles, dynamic transform_TransformProvider, bool boolean = true) where ComponentT : Component
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return component.after(()=>
+			component.transform.setTransformationsTo(position, eulerAngles, transform, boolean));
+	}
+	// method: (according to the given boolean:) set this given component's (global) transformations respectively to (global) transformations of the given provided transform, then return this given component //
+	public static ComponentT setTransformationsTo<ComponentT>(this ComponentT component, dynamic transform_TransformProvider, bool boolean = true) where ComponentT : Component
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return component.after(()=>
+			component.transform.setTransformationsTo(transform, boolean));
 	}
 }

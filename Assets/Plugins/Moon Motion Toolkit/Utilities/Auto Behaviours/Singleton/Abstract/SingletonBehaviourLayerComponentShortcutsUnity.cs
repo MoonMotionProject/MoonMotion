@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
-// #auto #shortcuts #force
+// #auto #shortcuts #component #force
 // • provides this singleton behaviour with static access to its auto behaviour's Unity component shortcuts layer
 public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
@@ -329,12 +329,20 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region MeshFilter
 	public static new Mesh mesh => autoBehaviour.mesh;
-	public static new AutoBehaviour<SingletonBehaviourT> setMeshTo(Mesh mesh, bool boolean = true)
-		=> autoBehaviour.setMeshTo(mesh, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setMeshTo(dynamic mesh_MeshProvider, bool boolean = true)
+	{
+		Mesh providedMesh = Provide.meshVia(mesh_MeshProvider);
+
+		return autoBehaviour.setMeshTo(providedMesh, boolean);
+	}
 	public static new Mesh sharedMesh => autoBehaviour.sharedMesh;
-	public static new AutoBehaviour<SingletonBehaviourT> setSharedMeshTo(Mesh mesh, bool boolean = true)
-		=> autoBehaviour.setSharedMeshTo(mesh, boolean);
-	public static new Mesh sharedMeshOtherwiseMesh => sharedMesh ?? mesh;
+	public static new AutoBehaviour<SingletonBehaviourT> setSharedMeshTo(dynamic sharedMesh_SharedMeshProvider, bool boolean = true)
+	{
+		Mesh providedSharedMesh = Provide.meshVia(sharedMesh_SharedMeshProvider);
+
+		return autoBehaviour.setSharedMeshTo(providedSharedMesh, boolean);
+	}
+	public static new Mesh sharedMeshOtherwiseMesh => sharedMesh ? sharedMesh : mesh;
 	#endregion MeshFilter
 
 

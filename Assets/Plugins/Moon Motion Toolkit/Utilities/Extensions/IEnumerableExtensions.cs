@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // IEnumerable Extensions: provides extension methods for handling enumerables //
-// #enumerable-e
+// #enumerables
 public static class IEnumerableExtensions
 {
 	/*#region copying
@@ -14,8 +14,8 @@ public static class IEnumerableExtensions
 	public static IEnumerableCustomT copy<IEnumerableCustomT, TItem>(this IEnumerableCustomT enumerable) where IEnumerableCustomT : IEnumerableCustom<TItem>, new()
 		=> new IEnumerableT(enumerable);
 	#endregion copying*/
-
-
+	
+	
 	#region listing
 
 	// method: return the string listing of this given enumerable, using the given separator string (comma by default) //

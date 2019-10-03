@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// Average Position: at each update, sets this transform's position to be the determined average position of the connected transforms //
+// Average Position:
+// • at each update, sets this transform's position to be the determined average position of the connected transforms
+// #transform #transformations
 [CacheTransform]
 public class AveragePosition : AutoBehaviour<AveragePosition>
 {

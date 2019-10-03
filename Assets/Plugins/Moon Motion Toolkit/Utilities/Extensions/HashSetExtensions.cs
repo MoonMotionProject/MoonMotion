@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Hash Set Extensions: provides extension methods for handling hash sets //
-// #enumerable-e
+// #enumerables
 public static class HashSetExtensions
 {
 	#region copying

@@ -5,7 +5,7 @@ using UnityEngine;
 
 // ICollection Extensions: provides extension methods for handling collections //
 // note: where the 'class' extension constraint is specified, the method is not provided for arrays
-// #enumerable-e
+// #enumerables
 public static class ICollectionExtensions
 {
 	#region removing

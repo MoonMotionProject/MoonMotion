@@ -12,16 +12,50 @@ public static class ObjectExtensions
 	public static bool isNull(this object object_)
 		=>	(object_ == null) ||
 			(
-				typeof(UnityEngine.Object).IsInstanceOfType(object_) &&
-				((object_.castTo<UnityEngine.Object>()) == null)
+				object_.isOfTheType<UnityEngine.Object>() &&
+				object_.castTo<UnityEngine.Object>() == null
 			);
 	
 	public static bool isYull(this object object_)
 		=> !object_.isNull();
 	#endregion yullness (whether an object is not null)
 
-	
+
+	#region logic
+
+	// method: return null if the given boolean is true, otherwise returning this given object //
+	public static ObjectT nullIfNullOr<ObjectT>(this ObjectT object_, bool boolean) where ObjectT : class
+	{
+		if (object_.isNull())
+		{
+			return null;
+		}
+
+		return boolean ? null : object_;
+	}
+
+	// method: return null if the given function on this object returns true, otherwise returning this given object //
+	public static ObjectT nullIfNullOr<ObjectT>(this ObjectT object_, Func<ObjectT, bool> function) where ObjectT : class
+	{
+		if (object_.isNull())
+		{
+			return null;
+		}
+
+		return object_.nullIfNullOr(function(object_));
+	}
+
+	// method: return this given object if it is yull, otherwise returning the result of the given function //
+	public static ObjectT ifYullOtherwise<ObjectT>(this ObjectT object_, Func<ObjectT> function)
+		=> object_.isYull() ? object_ : function();
+	#endregion logic
+
+
 	#region class
+
+	// method: return whether this given object is of the specified type //
+	public static bool isOfTheType<TPotentialType>(this object object_)
+		=> typeof(TPotentialType).IsInstanceOfType(object_);
 
 	// method: return the type of this given object //
 	public static Type type<ObjectT>(this ObjectT object_)

@@ -6,7 +6,7 @@ using NaughtyAttributes;
 // Radial Forcer:
 // • at each physics update, radially forces
 // #force
-public class RadialForcer : Forcer<RadialForcer>
+public class RadialForcer : EnabledsEditorVisualized<RadialForcer>
 {
 	// variables //
 
@@ -54,7 +54,7 @@ public class RadialForcer : Forcer<RadialForcer>
 	// updating //
 
 	
-	// upon drawing gizmos: //
+	// upon editor visualization: //
 	private void OnDrawGizmos()
 	{
 		Visualize.nextColorToBe(visualizationColor);

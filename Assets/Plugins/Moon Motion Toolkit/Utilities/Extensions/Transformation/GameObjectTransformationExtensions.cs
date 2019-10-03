@@ -571,6 +571,18 @@ public static class GameObjectTransformationExtensions
 
 
 
+	// method: (according to the given boolean:) set this given transform's (global) scale to the given transform's (global) scale, then return this given transform //
+	public static GameObject setScaleTo(this GameObject gameObject, Transform transform, bool boolean = true)
+		=> gameObject.transform.setScaleTo(transform, boolean).gameObject;
+	// method: (according to the given boolean:) set this given transform's (global) scale to the other given game object's (global) scale, then return this given transform //
+	public static GameObject setScaleTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
+		=> gameObject.transform.setScaleTo(otherGameObject, boolean).gameObject;
+	// method: (according to the given boolean:) set this given transform's (global) scale to the given component's (global) scale, then return this given transform //
+	public static GameObject setScaleTo(this GameObject gameObject, Component component, bool boolean = true)
+		=> gameObject.transform.setScaleTo(component, boolean).gameObject;
+
+
+
 	// method: (according to the given boolean:) set this given game object's global transformations (global position, global rotation) respectively to the given (global) position and (global) rotation //
 	public static GameObject setGlobalsTo(this GameObject gameObject, Vector3 position, Quaternion rotation, bool boolean = true)
 		=> gameObject.transform.setGlobalsTo(position, rotation, boolean).gameObject;
@@ -610,4 +622,28 @@ public static class GameObjectTransformationExtensions
 	// method: (according to the given boolean:) reset this given game object's global transformations (global position, global rotation) and local scale respectively to zeroes, no rotation, and ones //
 	public static GameObject resetGlobalsAndLocalScale(this GameObject gameObject, bool boolean = true)
 		=> gameObject.transform.resetGlobalsAndLocalScale(boolean).gameObject;
+
+
+
+	// method: (according to the given boolean:) set this given game object's (global) transformations respectively to the given (global) position and (global) rotation, and set this given game object's (global) scale to the (global) scale of the given provided transform, then return this given game object //
+	public static GameObject setTransformationsTo(this GameObject gameObject, Vector3 position, Quaternion rotation, dynamic transform_TransformProvider, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return gameObject.transform.setTransformationsTo(position, rotation, transform, boolean).gameObject;
+	}
+	// method: (according to the given boolean:) set this given game object's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given game object's (global) scale to the (global) scale of the given provided transform, then return this given game object //
+	public static GameObject setTransformationsTo(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, dynamic transform_TransformProvider, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return gameObject.transform.setTransformationsTo(position, eulerAngles, transform, boolean).gameObject;
+	}
+	// method: (according to the given boolean:) set this given game object's (global) transformations respectively to (global) transformations of the given provided transform, then return this given game object //
+	public static GameObject setTransformationsTo(this GameObject gameObject, dynamic transform_TransformProvider, bool boolean = true)
+	{
+		Transform transform = Provide.transformVia(transform_TransformProvider);
+
+		return gameObject.transform.setTransformationsTo(transform, boolean).gameObject;
+	}
 }

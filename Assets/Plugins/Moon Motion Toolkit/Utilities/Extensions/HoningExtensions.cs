@@ -8,7 +8,7 @@ public static class HoningExtensions
 	// method: return this given original float honed to the given target value by the given honing amount //
 	public static float honed(this float float_, float target, float honingAmount)
 	{
-		if (honingAmount.unsigned())
+		if (honingAmount.isZero())
 		{
 			return float_;
 		}
@@ -20,7 +20,7 @@ public static class HoningExtensions
 				honingAmount *= (targetDistance / honingAmount.magnitude());
 			}
 
-			if (honingAmount.unsigned())
+			if (honingAmount.isZero())
 			{
 				return float_;
 			}

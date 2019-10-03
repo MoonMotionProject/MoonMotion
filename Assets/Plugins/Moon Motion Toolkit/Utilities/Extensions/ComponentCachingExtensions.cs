@@ -29,7 +29,8 @@ public static class ComponentCachingExtensions
 			.cache
 			(
 				typeof(ComponentT),
-				()=> gameObject.first<ComponentT>() ?? (addComponentIfNoneFound ? gameObject.addGet<ComponentT>() : null)
+				()=> gameObject.first<ComponentT>().ifYullOtherwise(()=>
+					addComponentIfNoneFound ? gameObject.addGet<ComponentT>() : null)
 			)
 			.castTo<ComponentT>();
 

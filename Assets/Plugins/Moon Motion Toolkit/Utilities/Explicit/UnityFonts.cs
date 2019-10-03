@@ -7,5 +7,5 @@ using UnityEditor;
 // Unity Fonts: provides properties for Unity fonts //
 public static class UnityFonts
 {
-	public static Font newTextComponent => Hierarchy.createTemporaryObject().addGet<Text>().font;
+	public static Font newTextComponent => Hierarchy.createTemporaryObjectAndDestroyAfterPicking(temporaryObject => temporaryObject.addGet<Text>().font);
 }

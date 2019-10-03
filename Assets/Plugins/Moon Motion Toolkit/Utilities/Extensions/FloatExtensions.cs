@@ -74,34 +74,49 @@ public static class FloatExtensions
 	#endregion range determination
 
 
-	#region validity determination
-
-	// method: return whether this given float is valid //
-	public static bool valid(this float float_)
+	#region finitude determination
+	
+	public static bool isFinite(this float float_)
 		=> float_.within(float.MinValue, float.MaxValue);
+	
+	public static bool isInfinity(this float float_)
+		=> float_ == Infinity.asAFloat;
+	
+	public static bool isNegativeInfinity(this float float_)
+		=> float_ == NegativeInfinity.asAFloat;
+	
+	public static bool isInfinite(this float float_)
+		=> float_.isInfinity() || float_.isNegativeInfinity();
+	#endregion finitude determination
+
+
+	#region validity determination
+	
+	public static bool isValid(this float float_)
+		=> float_.isFinite() || float_.isInfinite();
 	#endregion validity determination
 
 
 	#region sign determination
 
-	// method: return whether this given float is unsigned //
-	public static bool unsigned(this float float_)
+	// method: return whether this given float is zero (unsigned) //
+	public static bool isZero(this float float_)
 		=> (float_ == 0f);
 
 	// method: return whether this given float is signed //
-	public static bool signed(this float float_)
+	public static bool isSigned(this float float_)
 		=> (float_ != 0f);
 
 	// method: return whether this given float is positive //
-	public static bool positive(this float float_)
+	public static bool isPositive(this float float_)
 		=> (float_ > 0f);
 
 	// method: return whether this given float is nonpositive //
-	public static bool nonnegative(this float float_)
+	public static bool isNonnegative(this float float_)
 		=> (float_ >= 0f);
 
 	// method: return whether this given float is positive //
-	public static bool negative(this float float_)
+	public static bool isNegative(this float float_)
 		=> (float_ < 0f);
 
 	// method: return whether this given float is nonpositive //
@@ -136,11 +151,18 @@ public static class FloatExtensions
 	public static float clampedToRatio(this float float_, bool boolean = true)
 		=> float_.atLeast(0f, boolean).atMost(1f, boolean);
 
-	public static float clampedValid(this float float_)
+	public static float clampedFinite(this float float_)
 		=> float_.atLeast(float.MinValue).atMost(float.MaxValue);
 
-	public static float clampedValidAndNonnegative(this float float_)
+	public static float clampedFiniteAndNonnegative(this float float_)
 		=> float_.atLeast(0f).atMost(float.MaxValue);
+
+	public static float clampedValidAndNonnegative(this float float_)
+		=>	float_.isValid() && float_.isNonnegative() ?
+				float_ : 
+				float_.isInfinity() ?
+					float_ :
+					float_.clampedFiniteAndNonnegative();
 
 	public static float clampedNonnegative(this float float_)
 		=> float_.atLeast(0f);

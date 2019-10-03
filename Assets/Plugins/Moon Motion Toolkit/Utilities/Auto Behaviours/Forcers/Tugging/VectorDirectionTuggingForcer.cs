@@ -8,7 +8,7 @@ using System;
 // • at each physics update, tugs
 //   · uses a direction vector for raycasting
 // #force #raycasting
-public class VectorDirectionTuggingForcer : Forcer<VectorDirectionTuggingForcer>
+public class VectorDirectionTuggingForcer : EnabledsEditorVisualized<VectorDirectionTuggingForcer>
 {
 	// variables //
 
@@ -59,8 +59,8 @@ public class VectorDirectionTuggingForcer : Forcer<VectorDirectionTuggingForcer>
 
 	// updating //
 
-
-	// upon drawing gizmos: //
+	
+	// upon editor visualization: //
 	private void OnDrawGizmos()
 		=>	Visualize.lineFrom(transform, raycastDirection, raycastDistinctivity, raycastDistance,
 				visualizeLine,

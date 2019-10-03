@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Face Main Camera: updates this object to always face the main camera //
+// Face Main Camera: updates this object to always face the main camera
+// #transform #transformations
 [CacheTransform]
 public class FaceMainCamera : AutoBehaviour<FaceMainCamera>
 {

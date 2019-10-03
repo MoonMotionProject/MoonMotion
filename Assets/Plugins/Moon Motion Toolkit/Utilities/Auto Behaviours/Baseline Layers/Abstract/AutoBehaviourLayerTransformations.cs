@@ -361,9 +361,27 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(otherGameObject, boolean));
 	public AutoBehaviourT setGlobalsAndLocalScaleTo(Component otherComponent, bool boolean = true)
 		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(otherComponent, boolean));
-	public AutoBehaviourT resetGlobalsAndLocalScale(bool boolean = true)
-		=> selfAfter(()=> transform.resetGlobalsAndLocalScale(boolean));
-
 	public AutoBehaviourT setGlobalsAndLocalScaleTo(Vector3 position, Vector3 eulerAngles, Vector3 localScale, bool boolean = true)
 		=> selfAfter(()=> transform.setGlobalsAndLocalScaleTo(position, eulerAngles, localScale, boolean));
+	public AutoBehaviourT resetGlobalsAndLocalScale(bool boolean = true)
+		=> selfAfter(()=> transform.resetGlobalsAndLocalScale(boolean));
+	
+	public AutoBehaviourT setTransformationsTo(Vector3 position, Quaternion rotation, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return selfAfter(()=> transform.setTransformationsTo(position, rotation, otherTransform, boolean));
+	}
+	public AutoBehaviourT setTransformationsTo(Vector3 position, Vector3 eulerAngles, dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return selfAfter(()=> transform.setTransformationsTo(position, eulerAngles, otherTransform, boolean));
+	}
+	public AutoBehaviourT setTransformationsTo(dynamic otherTransform_TransformProvider, bool boolean = true)
+	{
+		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+
+		return selfAfter(()=> transform.setTransformationsTo(otherTransform, boolean));
+	}
 }

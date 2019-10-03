@@ -6,11 +6,11 @@ using NaughtyAttributes;
 // Radial Forcer:
 // • at each physics update, targetedly forces
 // #force
-public class TargetedForcer : Forcer<TargetedForcer>
+public class TargetedForcer : EnabledsEditorVisualized<TargetedForcer>
 {
 	// variables //
 
-
+	
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize a line to the forced object")]
 	public bool visualizeLine = true;
@@ -22,6 +22,7 @@ public class TargetedForcer : Forcer<TargetedForcer>
 
 	[BoxGroup("Targetedly Forcing")]
 	[Tooltip("the object to force")]
+	[ShowAssetPreview]
 	public GameObject targetObject;
 
 	[BoxGroup("Targetedly Forcing")]
@@ -54,7 +55,7 @@ public class TargetedForcer : Forcer<TargetedForcer>
 	// updating //
 
 
-	// upon drawing gizmos: //
+	// upon editor visualization: //
 	private void OnDrawGizmos()
 	{
 		Visualize.nextColorToBe(visualizationColor);

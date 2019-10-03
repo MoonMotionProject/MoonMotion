@@ -50,38 +50,37 @@ public static class IntegerExtensions
 	#endregion range determination
 
 
-	#region validity determination
-
-	// method: return whether this given integer is valid //
-	public static bool valid(this int integer)
+	#region finitude determination
+	
+	public static bool isFinite(this int integer)
 		=> integer.within(int.MinValue, int.MaxValue);
-	#endregion validity determination
+	#endregion finitude determination
 
 
 	#region sign determination
 
-	// method: return whether this given integer is unsigned //
-	public static bool unsigned(this int integer)
+	// method: return whether this given integer is zero (unsigned) //
+	public static bool isZero(this int integer)
 		=> (integer == 0);
 
 	// method: return whether this given integer is signed //
-	public static bool signed(this int integer)
+	public static bool isSigned(this int integer)
 		=> (integer != 0);
 
 	// method: return whether this given integer is positive //
-	public static bool positive(this int integer)
+	public static bool isPositive(this int integer)
 		=> (integer > 0);
 
 	// method: return whether this given integer is nonpositive //
-	public static bool nonnegative(this int integer)
+	public static bool isNonnegative(this int integer)
 		=> (integer >= 0);
 
 	// method: return whether this given integer is positive //
-	public static bool negative(this int integer)
+	public static bool isNegative(this int integer)
 		=> (integer < 0);
 
 	// method: return whether this given integer is nonpositive //
-	public static bool nonpositive(this int integer)
+	public static bool isNonpositive(this int integer)
 		=> (integer <= 0);
 	#endregion sign determination
 
@@ -94,10 +93,10 @@ public static class IntegerExtensions
 	public static int most(this int integer, int otherInteger)
 		=> Mathf.Min(integer, otherInteger);
 
-	public static int clampedValid(this int integer)
+	public static int clampedFinite(this int integer)
 		=> integer.least(int.MinValue).most(int.MaxValue);
 
-	public static int clampedValidAndNonnegative(this int integer)
+	public static int clampedFiniteAndNonnegative(this int integer)
 		=> integer.least(0).most(int.MaxValue);
 
 	public static int clampedNonnegative(this int integer)
@@ -137,7 +136,9 @@ public static class IntegerExtensions
 	#region math operations
 
 	public static int ifNonnegativeThenPlus(this int integer, int addendInteger)
-		=> integer.nonnegative() ? (integer + addendInteger) : integer;
+		=>	integer.isNonnegative() ?
+				(integer + addendInteger) :
+				integer;
 
 	public static float halved(this int integer)
 		=> (integer / 2f);
@@ -165,7 +166,11 @@ public static class IntegerExtensions
 
 	// method: return the sign integer of this given integer //
 	public static int sign(this int integer)
-		=> (integer.positive() ? 1 : integer.negative() ? -1 : 0);
+		=>	integer.isPositive() ?
+				1 :
+				integer.isNegative() ?
+					-1 :
+					0;
 
 	// method: return the float for this given integer //
 	public static float asFloat(this int integer)

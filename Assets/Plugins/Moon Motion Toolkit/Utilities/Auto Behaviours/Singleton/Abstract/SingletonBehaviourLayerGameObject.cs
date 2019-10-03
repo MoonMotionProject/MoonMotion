@@ -34,9 +34,19 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 
 	#region destruction
 
-	// method: (according to the given boolean:) destroy this behaviour's game object //
-	public static new void destroyObject(bool boolean = true)
-		=> autoBehaviour.destroyObject(boolean);
+	#region of this object
+	public static new void destroyThisObject(Func<GameObject, bool> function)
+		=> autoBehaviour.destroyThisObject(function);
+	public static new void destroyThisObject(bool boolean = true)
+		=> autoBehaviour.destroyThisObject(boolean);
+	#endregion of this object
+	
+	#region of the other given object
+	public static new void destroy(GameObject otherGameObject, Func<GameObject, bool> function)
+		=> autoBehaviour.destroy(otherGameObject, function);
+	public static new void destroy(GameObject otherGameObject, bool boolean = true)
+		=> autoBehaviour.destroy(otherGameObject, boolean);
+	#endregion of the other given object
 	#endregion destruction
 
 

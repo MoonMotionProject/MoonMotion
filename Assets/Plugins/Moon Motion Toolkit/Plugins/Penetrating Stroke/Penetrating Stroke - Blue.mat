@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Penetrating Stroke - Red
+  m_Name: Penetrating Stroke - Blue
   m_Shader: {fileID: 4800000, guid: cdb9a6426fa883d409766e09c235fae1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -81,4 +81,4 @@ Material:
     - _node_2507: {r: 0.6421389, g: 0.7807802, b: 0.78676474, a: 0}
     - _node_8174: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _node_8282: {r: 1, g: 1, b: 1, a: 1}
-    - g_vOutlineColor: {r: 1, g: 0, b: 0, a: 1}
+    - g_vOutlineColor: {r: 0, g: 0, b: 1, a: 1}

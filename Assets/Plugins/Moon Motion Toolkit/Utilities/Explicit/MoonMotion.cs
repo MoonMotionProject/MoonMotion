@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Moon Motion: provides properties about Moon Motion //
+// Moon Motion: provides Moon Motion constants //
 public static class MoonMotion
 {
 	#region names
-	public static readonly string name = "Moon Motion";
+	public const string name = "Moon Motion";
 	public static readonly string nameWithoutSpaces = name.withoutSpaces();
 
-	public static readonly string toolkitName = name+" Toolkit";
+	public const string toolkitName = name+" Toolkit";
 	public static readonly string toolkitNameWithoutSpaces = toolkitName.withoutSpaces();
 
-	public static readonly string newProjectName = "New Moon Motion Project";
+	public const string newProjectName = "New Moon Motion Project";
 
-	public static readonly string playerName = "Player";
+	public const string playerName = "Player";
 	#endregion names
 }

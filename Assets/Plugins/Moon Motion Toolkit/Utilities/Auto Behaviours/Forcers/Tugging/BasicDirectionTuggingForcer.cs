@@ -8,7 +8,7 @@ using System;
 // • at each physics update, tugs
 //   · uses a basic direction for raycasting
 // #force #raycasting
-public class BasicDirectionTuggingForcer : Forcer<BasicDirectionTuggingForcer>
+public class BasicDirectionTuggingForcer : EnabledsEditorVisualized<BasicDirectionTuggingForcer>
 {
 	// variables //
 
@@ -60,7 +60,7 @@ public class BasicDirectionTuggingForcer : Forcer<BasicDirectionTuggingForcer>
 	// updating //
 
 
-	// upon drawing gizmos: //
+	// upon editor visualization: //
 	private void OnDrawGizmos()
 		=>	Visualize.lineFrom(transform, raycastBasicDirection, raycastDistinctivity, raycastDistance,
 				visualizeLine,

@@ -642,7 +642,7 @@ public static class RaycastingExtensions
 		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
 
 		RaycastHit raycastHit = direction.firstNonpositionallyRaycastedHitFrom(raycastingPosition, raycastDistance, triggerColliderQuery, layerMask_MaxOf1);
-
+		
 		return raycastHit.gameObject();
 	}
 

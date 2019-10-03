@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Face Object: has this object face the target position, only on the set axes //
+// Face Object:
+// • has this object face the target position, only on the set axes
+// #transform #transformations
 public class FacePosition : AutoBehaviour<FacePosition>
 {
 	// variables //

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // ISet Extensions: provides extension methods for handling ISets //
-// #enumerable-e
+// #enumerables
 public static class ISetExtensions
 {
 	#region adding

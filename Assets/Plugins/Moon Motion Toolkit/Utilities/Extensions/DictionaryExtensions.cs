@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Dictionary Extensions: provides extension methods for handling dictionaries //
-// #enumerable-e
+// #enumerables
 public static class DictionaryExtensions
 {
 	#region copying

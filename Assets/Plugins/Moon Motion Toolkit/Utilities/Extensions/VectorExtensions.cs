@@ -59,24 +59,23 @@ public static class VectorExtensions
 		return vector;
 	}
 
-	public static Vector3 clampedValidAndNonnegative(this Vector3 vector)
-		=> new Vector3(vector.x.clampedValidAndNonnegative(), vector.y.clampedValidAndNonnegative(), vector.z.clampedValidAndNonnegative());
+	public static Vector3 clampedFiniteAndNonnegative(this Vector3 vector)
+		=> new Vector3(vector.x.clampedFiniteAndNonnegative(), vector.y.clampedFiniteAndNonnegative(), vector.z.clampedFiniteAndNonnegative());
 	#endregion clamping
 
 
 	#region validity determination
-
-	// method: return whether this given vector is valid //
-	public static bool valid(this Vector3 vector)
-		=> (vector.x.valid() && vector.y.valid() && vector.z.valid());
+	
+	public static bool isFinite(this Vector3 vector)
+		=> vector.x.isFinite() && vector.y.isFinite() && vector.z.isFinite();
 	#endregion validity determination
 
 
 	#region sign determination
 
 	// method: return whether this given vector is nonnegative //
-	public static bool nonnegative(this Vector3 vector)
-		=> (vector.x.nonnegative() && vector.y.nonnegative() && vector.z.nonnegative());
+	public static bool isNonnegative(this Vector3 vector)
+		=> (vector.x.isNonnegative() && vector.y.isNonnegative() && vector.z.isNonnegative());
 	#endregion sign determination
 
 

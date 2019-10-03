@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Face Object: has this object face the target object, only on the set axes //
+// Face Object:
+// • has this object face the target object, only on the set axes
+// #transform #transformations
 public class FaceObject : AutoBehaviour<FaceObject>
 {
 	// variables //

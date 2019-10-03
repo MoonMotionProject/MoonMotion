@@ -8,7 +8,7 @@ using System;
 // • at each physics update, tugs
 //   · uses an end object for raycasting
 // #force #raycasting
-public class EndObjectTuggingForcer : Forcer<EndObjectTuggingForcer>
+public class EndObjectTuggingForcer : EnabledsEditorVisualized<EndObjectTuggingForcer>
 {
 	// variables //
 
@@ -24,6 +24,7 @@ public class EndObjectTuggingForcer : Forcer<EndObjectTuggingForcer>
 
 	[BoxGroup("Tugging")]
 	[Tooltip("the end object of the raycast (providing the raycast end position)")]
+	[ShowAssetPreview]
 	public GameObject raycastEndObject;
 
 	[BoxGroup("Tugging")]
@@ -52,7 +53,7 @@ public class EndObjectTuggingForcer : Forcer<EndObjectTuggingForcer>
 	// updating //
 
 	
-	// upon drawing gizmos: //
+	// upon editor visualization: //
 	private void OnDrawGizmos()
 	{
 		if (raycastEndObject)

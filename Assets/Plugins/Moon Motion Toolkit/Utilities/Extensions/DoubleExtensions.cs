@@ -75,38 +75,37 @@ public static class DoubleExtensions
 	#endregion range determination
 
 
-	#region validity determination
-
-	// method: return whether this given double is valid //
-	public static bool valid(this double double_)
+	#region finitude determination
+	
+	public static bool isFinite(this double double_)
 		=> double_.within(double.MinValue, double.MaxValue);
-	#endregion validity determination
+	#endregion finitude determination
 
 
 	#region sign determination
 
-	// method: return whether this given double is unsigned //
-	public static bool unsigned(this double double_)
+	// method: return whether this given double is zero (unsigned) //
+	public static bool isZero(this double double_)
 		=> (double_ == 0d);
 
 	// method: return whether this given double is signed //
-	public static bool signed(this double double_)
+	public static bool isSigned(this double double_)
 		=> (double_ != 0d);
 
 	// method: return whether this given double is positive //
-	public static bool positive(this double double_)
+	public static bool isPositive(this double double_)
 		=> (double_ > 0d);
 
 	// method: return whether this given double is nonpositive //
-	public static bool nonnegative(this double double_)
+	public static bool isNonnegative(this double double_)
 		=> (double_ >= 0d);
 
 	// method: return whether this given double is positive //
-	public static bool negative(this double double_)
+	public static bool isNegative(this double double_)
 		=> (double_ < 0d);
 
 	// method: return whether this given double is nonpositive //
-	public static bool nonpositive(this double double_)
+	public static bool isNonpositive(this double double_)
 		=> (double_ <= 0d);
 	#endregion sign determination
 
@@ -137,10 +136,10 @@ public static class DoubleExtensions
 	public static double clampedToRatio(this double double_, bool boolean = true)
 		=> double_.atLeast(0d, boolean).atMost(1d, boolean);
 
-	public static double clampedValid(this double double_)
+	public static double clampedFinite(this double double_)
 		=> double_.atLeast(double.MinValue).atMost(double.MaxValue);
 
-	public static double clampedValidAndNonnegative(this double double_)
+	public static double clampedFiniteAndNonnegative(this double double_)
 		=> double_.atLeast(0d).atMost(double.MaxValue);
 
 	public static double clampedNonnegative(this double double_)

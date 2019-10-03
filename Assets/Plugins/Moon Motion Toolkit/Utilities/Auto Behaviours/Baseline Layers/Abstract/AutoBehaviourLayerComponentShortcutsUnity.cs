@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // Auto Behaviour Layer Component Shortcuts Unity:
-// #auto #shortcuts #force
+// #auto #shortcuts #component #force
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' Unity components
 public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> :
 					AutoBehaviourLayerMonoBehaviour<AutoBehaviourT>
@@ -329,12 +329,20 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region MeshFilter
 	public Mesh mesh => meshFilter.mesh;
-	public AutoBehaviourT setMeshTo(Mesh mesh, bool boolean = true)
-		=> selfAfter(()=> meshFilter.setMeshTo(mesh, boolean));
+	public AutoBehaviourT setMeshTo(dynamic mesh_MeshProvider, bool boolean = true)
+	{
+		Mesh providedMesh = Provide.meshVia(mesh_MeshProvider);
+
+		return selfAfter(()=> meshFilter.setMeshTo(providedMesh, boolean));
+	}
 	public Mesh sharedMesh => meshFilter.sharedMesh;
-	public AutoBehaviourT setSharedMeshTo(Mesh mesh, bool boolean = true)
-		=> selfAfter(()=> meshFilter.setSharedMeshTo(mesh, boolean));
-	public Mesh sharedMeshOtherwiseMesh => sharedMesh ?? mesh;
+	public AutoBehaviourT setSharedMeshTo(dynamic sharedMesh_SharedMeshProvider, bool boolean = true)
+	{
+		Mesh providedSharedMesh = Provide.meshVia(sharedMesh_SharedMeshProvider);
+
+		return selfAfter(()=> meshFilter.setSharedMeshTo(providedSharedMesh, boolean));
+	}
+	public Mesh sharedMeshOtherwiseMesh => sharedMesh ? sharedMesh : mesh;
 	#endregion MeshFilter
 
 

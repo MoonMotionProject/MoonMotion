@@ -10,6 +10,7 @@ using UnityEngine;
 //     - the oscillation radius
 //     - the frequency factor
 //     - an amount by which to offset the current time used in the oscillation calculation (so as to allow for multiple instances of Hovering not necessarily being in sync)
+// #transform #transformations
 [CacheTransform] [RequireComponent(typeof(TrackLocalPositionYAtAwake))]
 public class Hovering : AutoBehaviour<Hovering>
 {

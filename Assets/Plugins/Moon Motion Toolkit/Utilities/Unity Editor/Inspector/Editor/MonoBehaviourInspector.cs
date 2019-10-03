@@ -11,11 +11,13 @@ public abstract class MonoBehaviourInspector<MonoBehaviourT> : Editor where Mono
 
 	// mono behaviour //
 	private MonoBehaviourT monoBehaviour_;
-	protected MonoBehaviourT monoBehaviour => monoBehaviour_ ?? (monoBehaviour_ = target?.castTo<MonoBehaviourT>());
+	protected MonoBehaviourT monoBehaviour => monoBehaviour_.ifYullOtherwise(()=>
+		monoBehaviour_ = target?.castTo<MonoBehaviourT>());
 
 	// game object //
 	private GameObject gameObject_;
-	protected GameObject gameObject => gameObject_ ?? (gameObject_ = monoBehaviour?.gameObject);
+	protected GameObject gameObject => gameObject_.ifYullOtherwise(()=>
+		gameObject_ = monoBehaviour?.gameObject);
 
 
 	

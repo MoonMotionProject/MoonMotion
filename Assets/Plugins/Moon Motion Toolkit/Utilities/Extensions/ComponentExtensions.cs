@@ -261,7 +261,7 @@ public static class ComponentExtensions
 	{
 		if (!typeof(ComponentI).IsInterface)
 		{
-			return default(IEnumerable<ComponentI>).manifest().returnWithError(typeof(ComponentI).Name+" is not an interface");
+			return default(IEnumerable<ComponentI>).manifested().returnWithError(typeof(ComponentI).Name+" is not an interface");
 		}
 
 		return gameObject.GetComponents<ComponentI>().where(

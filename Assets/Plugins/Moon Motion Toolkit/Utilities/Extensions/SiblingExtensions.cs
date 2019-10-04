@@ -70,7 +70,7 @@ public static class SiblingExtensions
 		=> component.transform.selectSiblingTransforms();
 	// method: return a list of the transforms of this given transform's siblings (not including itself) //
 	public static List<Transform> siblingTransforms(this Transform transform)
-		=> transform.selectSiblingTransforms().manifest();
+		=> transform.selectSiblingTransforms().manifested();
 	// method: return a list of the transforms of this given game object's siblings (not including itself) //
 	public static List<Transform> siblingTransforms(this GameObject gameObject)
 		=> gameObject.transform.siblingTransforms();
@@ -89,7 +89,7 @@ public static class SiblingExtensions
 		=> component.transform.selectSiblingObjects();
 	// method: return a list of the game objects of this given transform's siblings (not including itself) //
 	public static List<GameObject> siblingObjects(this Transform transform)
-		=> transform.selectSiblingObjects().manifest();
+		=> transform.selectSiblingObjects().manifested();
 	// method: return a list of the game objects of this given game object's siblings (not including itself) //
 	public static List<GameObject> siblingObjects(this GameObject gameObject)
 		=> gameObject.transform.siblingObjects();

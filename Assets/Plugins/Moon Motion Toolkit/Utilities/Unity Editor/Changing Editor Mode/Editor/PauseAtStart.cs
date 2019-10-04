@@ -16,7 +16,7 @@ public static class PauseAtStart
 
 	private static void pause(PlayModeStateChange playModeStateChange)
 	{
-		if ((WhetherToPauseAtStart.state) && (playModeStateChange == PlayModeStateChange.EnteredPlayMode))
+		if (WhetherToPauseAtStart.state && (playModeStateChange == PlayModeStateChange.EnteredPlayMode))
 		{
 			Pause.editor();
 		}

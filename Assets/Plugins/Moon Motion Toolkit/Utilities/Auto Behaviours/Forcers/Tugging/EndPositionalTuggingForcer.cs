@@ -15,7 +15,7 @@ public class EndPositionalTuggingForcer : EnabledsEditorVisualized<EndPositional
 	
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize the line of the raycast")]
-	public bool visualizeLine = true;
+	public bool visualizeLine = Default.choiceToVisualizeInEditor;
 
 
 	[BoxGroup("Tugging")]

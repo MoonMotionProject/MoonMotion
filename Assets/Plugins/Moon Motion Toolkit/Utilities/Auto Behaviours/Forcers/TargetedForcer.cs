@@ -13,11 +13,11 @@ public class TargetedForcer : EnabledsEditorVisualized<TargetedForcer>
 	
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize a line to the forced object")]
-	public bool visualizeLine = true;
+	public bool visualizeLine = Default.choiceToVisualizeInEditor;
 
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize a sphere for the reach")]
-	public bool visualizeSphere = true;
+	public bool visualizeSphere = Default.choiceToVisualizeInEditor;
 
 
 	[BoxGroup("Targetedly Forcing")]

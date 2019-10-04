@@ -16,9 +16,10 @@ using UnityEngine;
 public class ControllerOperation : ScriptableObject
 {
 	// variables //
-
-
-	public Controller.Handedness handedness;		// setting: the controller handedness (determining which controllers to check operation of)
+	
+	
+	[InfoBox("To have this controller operation always be operated, choose infinite handedness.\nNeither handedness is the simplest way to have this controller operation never be operated.")]
+	public Controller.Handedness handedness = Default.controllerHandedness;		// setting: the controller handedness (determining which controllers to check operation of)
 	[ReorderableList]
 	public Controller.Input[] inputs;      // setting: the controller inputs (to check operation upon)
 	[ReorderableList]

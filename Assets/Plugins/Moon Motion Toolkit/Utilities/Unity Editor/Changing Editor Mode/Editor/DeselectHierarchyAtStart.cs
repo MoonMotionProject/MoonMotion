@@ -5,7 +5,7 @@ using UnityEditor;
 
 // Deselect Hierarchy At Start:
 // • at the start, deselects the current hierarchy selection
-//   · this happens optionally based on Whether To Deselect Hierarchy At Start
+//   · this happens optionally based on (the opposite state of) Whether To Not Deselect Hierarchy At Start
 [InitializeOnLoad]
 public static class DeselectHierarchyAtStart
 {
@@ -16,7 +16,7 @@ public static class DeselectHierarchyAtStart
 
 	private static void deselectHierarchy(PlayModeStateChange playModeStateChange)
 	{
-		if ((WhetherToDeselectHierarchyAtStart.state) && (playModeStateChange == PlayModeStateChange.EnteredPlayMode))
+		if (!WhetherToNotDeselectHierarchyAtStart.state && (playModeStateChange == PlayModeStateChange.EnteredPlayMode))
 		{
 			Hierarchy.deselect();
 		}

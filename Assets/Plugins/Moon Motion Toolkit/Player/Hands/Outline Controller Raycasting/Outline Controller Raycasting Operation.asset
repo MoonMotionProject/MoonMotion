@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901e12d04729f5440ab0c78ba8b82cae, type: 3}
   m_Name: Outline Controller Raycasting Operation
   m_EditorClassIdentifier: 
-  handedness: 3
-  inputs: 03000000
-  inputtednesses: 03000000
-  beingnesses: 01000000
+  handedness: 7
+  inputs: 
+  inputtednesses: 
+  beingnesses: 
   dependenciesThorough: []
   dependenciesPartial: []

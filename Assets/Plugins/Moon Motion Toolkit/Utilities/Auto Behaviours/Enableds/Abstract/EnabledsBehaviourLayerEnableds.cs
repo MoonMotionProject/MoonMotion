@@ -12,10 +12,20 @@ public abstract class	EnabledsBehaviourLayerEnableds<EnabledsBehaviourT> :
 {
 	// variables //
 
-
+	
 	// trackings //
 
-	public static HashSet<EnabledsBehaviourT> enableds = new HashSet<EnabledsBehaviourT>();       // the set of all enabled instances (of this particular specialization of EnabledsBehaviour)
+	// the set of all enabled instances (of this particular specialization of EnabledsBehaviour) //
+	private static HashSet<EnabledsBehaviourT> enableds_ = new HashSet<EnabledsBehaviourT>();
+	public static HashSet<EnabledsBehaviourT> enableds
+	{
+		get
+		{
+			return	UnityIs.inEditorEditMode ?
+						Hierarchy.allYullAndEnabledAndUnique<EnabledsBehaviourT>() :
+						enableds_.uniqueYulls();
+		}
+	}
 
 
 
@@ -48,12 +58,12 @@ public abstract class	EnabledsBehaviourLayerEnableds<EnabledsBehaviourT> :
 
 	// updating //
 
-
+	
 	// upon being enabled: //
 	public virtual void OnEnable()
-		=> enableds.Add(enabledsBehaviour);
+		=> enableds_.include(enabledsBehaviour);
 
 	// upon being disabled: //
 	public virtual void OnDisable()
-		=> enableds.Remove(enabledsBehaviour);
+		=> enableds_.remove(enabledsBehaviour);
 }

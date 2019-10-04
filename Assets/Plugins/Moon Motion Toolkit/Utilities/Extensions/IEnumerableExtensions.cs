@@ -107,7 +107,7 @@ public static class IEnumerableExtensions
 	#region manifestation
 
 	// method: return a list for this given enumerable with its yieldings manifested //
-	public static List<TItem> manifest<TItem>(this IEnumerable<TItem> enumerable)
+	public static List<TItem> manifested<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.ToList();
 	#endregion manifestation
 
@@ -161,7 +161,7 @@ public static class IEnumerableExtensions
 	public static IEnumerable<TResult> select<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.Select(function);
 	public static List<TResult> pick<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
-		=> enumerable.select(function).manifest();
+		=> enumerable.select(function).manifested();
 	
 	public static HashSet<TResult> pickUnique<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.select(function).toSet();
@@ -170,7 +170,7 @@ public static class IEnumerableExtensions
 		 =>	Select.forCount(enumerable.count(), index =>
 				function(enumerable.item(index), enumerableToLoop.item(index % enumerableToLoop.count())));
 	public static List<TResult> pickByLooping<TItemThis, TItemLooped, TResult>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Func<TItemThis, TItemLooped, TResult> function)
-		 => enumerable.selectByLooping(enumerableToLoop, function).manifest();
+		 => enumerable.selectByLooping(enumerableToLoop, function).manifested();
 
 	public static IEnumerable<TResult> selectFromOnly<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, bool> functionOnly, Func<TItem, TResult> functionSelect)
 		=> enumerable.only(functionOnly).select(functionSelect);
@@ -197,7 +197,7 @@ public static class IEnumerableExtensions
 		=> boolean ? enumerable.Where(function) : enumerable;
 	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns true //
 	public static List<TItem> where<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=> enumerable.only(function, boolean).manifest();
+		=> enumerable.only(function, boolean).manifested();
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns false //
 	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
@@ -206,13 +206,21 @@ public static class IEnumerableExtensions
 				boolean);
 	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns false //
 	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=> enumerable.except(function, boolean).manifest();
+		=> enumerable.except(function, boolean).manifested();
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are yull //
 	public static IEnumerable<TItem> onlyYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
 		=> enumerable.only(
 			item => item.isYull(),
 			boolean);
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a list of the items in this given enumerable which are yull //
+	public static List<TItem> whereYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
+		=> enumerable.onlyYull().manifested();
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return the set of the items in this given enumerable which are yull //
+	public static HashSet<TItem> uniqueYulls<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
+		=> enumerable.onlyYull().manifested().toSet();
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are equal to the given item //
 	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
@@ -233,14 +241,14 @@ public static class IEnumerableExtensions
 			boolean);
 	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
 	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
-		=> enumerable.except(otherEnumerable, boolean).manifest();
+		=> enumerable.except(otherEnumerable, boolean).manifested();
 	// method: instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the given items //
 	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
 		=> enumerable.except(
 			item_ => items.hasAny(otherItem => item_.baselineEquals(otherItem)));
 	// method: instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the given items //
 	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
-		=> enumerable.except(items).manifest();
+		=> enumerable.except(items).manifested();
 	#endregion removing
 
 
@@ -274,7 +282,7 @@ public static class IEnumerableExtensions
 	}
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return th manifestation of this given enumerable //
 	public static List<TItem> forEachManifested<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
-		=> enumerable.forEach(action, boolean).manifest();
+		=> enumerable.forEach(action, boolean).manifested();
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<TItem> action, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
 		=> enumerable.after(()=>
@@ -395,22 +403,22 @@ public static class IEnumerableExtensions
 	public static IEnumerable<TItem> implyAscendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.OrderBy(function);
 	public static List<TItem> ascendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.implyAscendingBy(function).manifest();
+		=> enumerable.implyAscendingBy(function).manifested();
 
 	public static IEnumerable<TItem> implyAscending<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
 		=> enumerable.implyAscendingBy(item => item);
 	public static List<TItem> ascending<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
-		=> enumerable.implyAscending().manifest();
+		=> enumerable.implyAscending().manifested();
 
 	public static IEnumerable<TItem> implyDescendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.OrderByDescending(function);
 	public static List<TItem> descendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.implyDescendingBy(function).manifest();
+		=> enumerable.implyDescendingBy(function).manifested();
 
 	public static IEnumerable<TItem> implyDescending<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
 		=> enumerable.implyDescendingBy(item => item);
 	public static List<TItem> descending<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
-		=> enumerable.implyDescending().manifest();
+		=> enumerable.implyDescending().manifested();
 	#endregion ordering
 
 

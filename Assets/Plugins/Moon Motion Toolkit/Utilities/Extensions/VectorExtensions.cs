@@ -13,21 +13,21 @@ public static class VectorExtensions
 		=> vectors.select(vector => vector.x);
 	// method: return the list of x values of these given vectors //
 	public static List<float> xValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectXValues().manifest();
+		=> vectors.selectXValues().manifested();
 
 	// method: return the selection of y values of these given vectors //
 	public static IEnumerable<float> selectYValues(this IEnumerable<Vector3> vectors)
 		=> vectors.select(vector => vector.y);
 	// method: return the list of y values of these given vectors //
 	public static List<float> yValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectYValues().manifest();
+		=> vectors.selectYValues().manifested();
 
 	// method: return the selection of z values of these given vectors //
 	public static IEnumerable<float> selectZValues(this IEnumerable<Vector3> vectors)
 		=> vectors.select(vector => vector.z);
 	// method: return the list of z values of these given vectors //
 	public static List<float> zValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectZValues().manifest();
+		=> vectors.selectZValues().manifested();
 	#endregion accessing
 
 
@@ -142,7 +142,7 @@ public static class VectorExtensions
 		=> vectors.select(vector => vector.average());
 	// method: return a list of averages (average values) corresponding to these given vectors //
 	public static List<float> averages(this IEnumerable<Vector3> vectors)
-		=> vectors.selectAverages().manifest();
+		=> vectors.selectAverages().manifested();
 
 	// method: determine the average value of these given vectors //
 	public static float averageValue(this IEnumerable<Vector3> vectors)

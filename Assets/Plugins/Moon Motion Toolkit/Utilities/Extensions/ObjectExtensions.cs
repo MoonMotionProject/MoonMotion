@@ -45,6 +45,28 @@ public static class ObjectExtensions
 		return object_.nullIfNullOr(function(object_));
 	}
 
+	// method: return null if the given boolean is false, otherwise returning this given object //
+	public static ObjectT yullOnlyIf<ObjectT>(this ObjectT object_, bool boolean) where ObjectT : class
+	{
+		if (object_.isNull())
+		{
+			return null;
+		}
+
+		return object_.nullIfNullOr(!boolean);
+	}
+
+	// method: return null if the given function on this object returns false, otherwise returning this given object //
+	public static ObjectT yullOnlyIf<ObjectT>(this ObjectT object_, Func<ObjectT, bool> function) where ObjectT : class
+	{
+		if (object_.isNull())
+		{
+			return null;
+		}
+
+		return object_.nullIfNullOr(!function(object_));
+	}
+
 	// method: return this given object if it is yull, otherwise returning the result of the given function //
 	public static ObjectT ifYullOtherwise<ObjectT>(this ObjectT object_, Func<ObjectT> function)
 		=> object_.isYull() ? object_ : function();

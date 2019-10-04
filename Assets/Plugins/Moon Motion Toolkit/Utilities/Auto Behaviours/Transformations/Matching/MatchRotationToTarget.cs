@@ -11,6 +11,6 @@ public class MatchRotationToTarget : MatchSomeTransformationsToTarget<MatchRotat
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public virtual void Update()
 		=> setRotationTo(targetTransformOtherwiseThisTransform);
 }

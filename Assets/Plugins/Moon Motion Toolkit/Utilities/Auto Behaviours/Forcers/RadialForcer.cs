@@ -13,11 +13,11 @@ public class RadialForcer : EnabledsEditorVisualized<RadialForcer>
 
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize a sphere for the radius")]
-	public bool visualizeSphere = true;
+	public bool visualizeSphere = Default.choiceToVisualizeInEditor;
 
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize lines to each object to be forced")]
-	public bool visualizeLines = true;
+	public bool visualizeLines = Default.choiceToVisualizeInEditor;
 
 	[Tooltip("the objects being forced")]
 	[ReadOnly]

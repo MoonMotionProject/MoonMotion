@@ -21,10 +21,10 @@ public static class RigidbodyCorrespondenceExtensions
 	
 	// method: return a list of each of the yull rigidbodies that each of the respective yull game objects of these given game objects corresponds to //
 	public static List<Rigidbody> correspondingRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.selectCorrespondingRigidbodies().manifest();
+		=> gameObjects.selectCorrespondingRigidbodies().manifested();
 	// method: return a list of each of the yull rigidbodies that each of the respective yull components of these given components corresponds to //
 	public static List<Rigidbody> correspondingRigidbodies(this IEnumerable<Component> components)
-		=> components.selectCorrespondingRigidbodies().manifest();
+		=> components.selectCorrespondingRigidbodies().manifested();
 
 	// method: return the set of all unique, yull rigidbodies that the yull game objects of these given game objects correspond to //
 	public static HashSet<Rigidbody> uniqueCorrespondingRigidbodies(this IEnumerable<GameObject> gameObjects)

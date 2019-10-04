@@ -11,6 +11,6 @@ public class MatchPositionToTarget : MatchSomeTransformationsToTarget<MatchPosit
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public virtual void Update()
 		=> setPositionTo(targetTransformOtherwiseThisTransform);
 }

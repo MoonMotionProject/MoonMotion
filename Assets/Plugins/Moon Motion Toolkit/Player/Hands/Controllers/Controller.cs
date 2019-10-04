@@ -16,7 +16,7 @@ using Valve.VR.InteractionSystem;
 // • provides methods for determining whether given operations are currently operated and those controllers operated
 // ∗: example usage of touchpad travelling input to flip pages of a book
 [RequireComponent(typeof(Hand))]
-public class Controller : MonoBehaviour
+public class Controller : EnabledsBehaviour<Controller>
 {
 	// enumerations //
 	
@@ -72,12 +72,20 @@ public class Controller : MonoBehaviour
 
 
 	// variables for: connection with this hand and the other controller //
-	[HideInInspector] public Hand hand;		// connection - auto: this controller's hand
-    [HideInInspector] public Controller otherController;		// connection - auto: the other controller
+    [HideInInspector] public Controller otherController => hand.otherHand.first<Controller>();		// connection - auto: the other controller
 	
+
 	// variables for: instancing //
-	public static Controller left, right;		// connections - auto: the left and right controller instances, respectively
-	[HideInInspector] public bool leftInstance = true;		// tracking: this controller's handedness
+
+	// this controller's handedness //
+	public bool leftInstance => hand.startingHandType == Hand.HandType.Left;
+
+	// the left controller instance //
+	public static Controller left => enableds.firstWhere(enabled => enabled.leftInstance);
+
+	// the right controller instance //
+	public static Controller right => enableds.firstWhere(enabled => !enabled.leftInstance);
+
 
 	// variables for: touchpad input handling //
 	private float touchpadTouchdownTime = -1f;		// tracking: the time of last touchdown for the touchpad
@@ -1764,32 +1772,7 @@ public class Controller : MonoBehaviour
 
 	// updating //
 
-
-	// before the start: //
-	private void Awake()
-    {
-		// connect to: this controller's hand, the other controller //
-		hand = GetComponent<Hand>();
-		otherController = hand.otherHand.GetComponent<Controller>();
-		
-		// track whether this controller is for the left hand //
-		leftInstance = (hand.startingHandType == Hand.HandType.Left);
-    }
-
-	// upon being enabled: //
-	private void OnEnable()
-	{
-		// connect the corresponding instance of this class //
-		if (leftInstance)
-		{
-			left = this;
-		}
-		else
-		{
-			right = this;
-		}
-	}
-
+	
 	// at each update: //
 	private void Update()
 	{

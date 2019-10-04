@@ -301,11 +301,69 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#endregion setting starting and ending widths
 
 	#region setting number of points
-	public AutoBehaviourT setNumberOfPointsTo(int numberOfPoints)
+	public AutoBehaviourT setLineRendererNumberOfPointsTo(int numberOfPoints)
 		=> selfAfter(()=> lineRenderer.setNumberOfPointsTo(numberOfPoints));
-	public AutoBehaviourT setPointAtIndex(int index, Vector2 point)
-		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, point));
 	#endregion setting number of points
+
+	#region setting points
+	public AutoBehaviourT setLineRendererPointAtIndex(int index, Vector2 point)
+		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, point));
+	public AutoBehaviourT setLineRendererPointAtIndex(int index, Vector3 position)
+		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, position));
+	public AutoBehaviourT setLineRendererFirstPointTo(Vector3 position)
+		=> selfAfter(()=> lineRenderer.setFirstPointTo(position));
+	public AutoBehaviourT setLineRendererSecondPointTo(Vector3 position)
+		=> selfAfter(()=> lineRenderer.setSecondPointTo(position));
+	public AutoBehaviourT setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
+		=> selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
+	public AutoBehaviourT setLineRendererFirstTwoPointsTo(dynamic firstPosition_PositionProvider, dynamic secondPosition_PositionProvider)
+	{
+		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
+		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
+
+		return selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
+	}
+	public AutoBehaviourT setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance)
+	{
+		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
+
+		return selfAfter(()=> lineRenderer.setFirstTwoPointsForLineLocallyDirectedFrom
+		(
+			startingTransform,
+			localDirection,
+			distance
+		));
+	}
+	#endregion setting points
+	
+	#region setting distinctivity
+	public AutoBehaviourT setLineRendererDistinctivityTo(Distinctivity distinctivity)
+		=> selfAfter(()=> lineRenderer.setDistinctivityTo(distinctivity));
+	public AutoBehaviourT positionLineRendererGlobally()
+		=> selfAfter(()=> lineRenderer.positionGlobally());
+	public AutoBehaviourT positionLineRendererLocally()
+		=> selfAfter(()=> lineRenderer.positionLocally());
+	#endregion setting distinctivity
+	
+	#region setting starting and ending colors
+	public AutoBehaviourT setLineRendererStartingColorTo(Color color)
+		=> selfAfter(()=> lineRenderer.setStartingColorTo(color));
+	public AutoBehaviourT setLineRendererEndingColorTo(Color color)
+		=> selfAfter(()=> lineRenderer.setEndingColorTo(color));
+	public AutoBehaviourT setLineRendererColorTo(Color color)
+		=> selfAfter(()=> lineRenderer.setColorTo(color));
+	public AutoBehaviourT setLineRendererStartingAndEndingColorsToColorOfItsMaterial()
+		=> selfAfter(()=> lineRenderer.setStartingAndEndingColorsToColorOfMaterial());
+	#endregion setting starting and ending colors
+
+	#region line of light setup
+	public AutoBehaviourT setupLineRendererAsLineOfLightLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+	{
+		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
+
+		return selfAfter(()=> ensuredLineRenderer.setupAsLineOfLightLocallyDirectedFrom(startingTransform, localDirection, distance, material));
+	}
+	#endregion line of light setup
 	#endregion LineRenderer
 
 

@@ -8,13 +8,9 @@ public static class Play
 {
 	// method: play the editor //
 	public static void editor()
-	{
-		EditorApplication.ExecuteMenuItem("Edit/Play");
-	}
+		=> EditorApplication.ExecuteMenuItem("Edit/Play");
 
 	// method: play the system's beep sound //
 	public static void beep()
-	{
-		EditorApplication.Beep();
-	}
+		=> EditorApplication.Beep();
 }

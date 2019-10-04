@@ -16,7 +16,7 @@ public static class TabToSceneAtStart
 
 	private static void tabToScene(PlayModeStateChange playModeStateChange)
 	{
-		if ((WhetherToTabToSceneAtStart.state) && (playModeStateChange == PlayModeStateChange.EnteredPlayMode))
+		if (WhetherToTabToSceneAtStart.state && (playModeStateChange == PlayModeStateChange.EnteredPlayMode))
 		{
 			EditorWindow.FocusWindowIfItsOpen(typeof(SceneView));
 		}

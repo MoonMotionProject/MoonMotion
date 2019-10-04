@@ -301,11 +301,69 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#endregion setting starting and ending widths
 
 	#region setting number of points
-	public static new AutoBehaviour<SingletonBehaviourT> setNumberOfPointsTo(int numberOfPoints)
-		=> autoBehaviour.setNumberOfPointsTo(numberOfPoints);
-	public static new AutoBehaviour<SingletonBehaviourT> setPointAtIndex(int index, Vector2 point)
-		=> autoBehaviour.setPointAtIndex(index, point);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererNumberOfPointsTo(int numberOfPoints)
+		=> autoBehaviour.setLineRendererNumberOfPointsTo(numberOfPoints);
 	#endregion setting number of points
+
+	#region setting points
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererPointAtIndex(int index, Vector2 point)
+		=> autoBehaviour.setLineRendererPointAtIndex(index, point);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererPointAtIndex(int index, Vector3 position)
+		=> autoBehaviour.setLineRendererPointAtIndex(index, position);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstPointTo(Vector3 position)
+		=> autoBehaviour.setLineRendererFirstPointTo(position);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererSecondPointTo(Vector3 position)
+		=> autoBehaviour.setLineRendererSecondPointTo(position);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
+		=> autoBehaviour.setLineRendererFirstTwoPointsTo(firstPosition, secondPosition);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(dynamic firstPosition_PositionProvider, dynamic secondPosition_PositionProvider)
+	{
+		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
+		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
+
+		return autoBehaviour.setLineRendererFirstTwoPointsTo(firstPosition, secondPosition);
+	}
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance)
+	{
+		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
+
+		return autoBehaviour.setLineRendererFirstTwoPointsForLineLocallyDirectedFrom
+		(
+			startingTransform,
+			localDirection,
+			distance
+		);
+	}
+	#endregion setting points
+	
+	#region setting distinctivity
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererDistinctivityTo(Distinctivity distinctivity)
+		=> autoBehaviour.setLineRendererDistinctivityTo(distinctivity);
+	public static new AutoBehaviour<SingletonBehaviourT> positionLineRendererGlobally()
+		=> autoBehaviour.positionLineRendererGlobally();
+	public static new AutoBehaviour<SingletonBehaviourT> positionLineRendererLocally()
+		=> autoBehaviour.positionLineRendererLocally();
+	#endregion setting distinctivity
+	
+	#region setting starting and ending colors
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererStartingColorTo(Color color)
+		=> autoBehaviour.setLineRendererStartingColorTo(color);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererEndingColorTo(Color color)
+		=> autoBehaviour.setLineRendererEndingColorTo(color);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererColorTo(Color color)
+		=> autoBehaviour.setLineRendererColorTo(color);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererStartingAndEndingColorsToColorOfItsMaterial()
+		=> autoBehaviour.setLineRendererStartingAndEndingColorsToColorOfItsMaterial();
+	#endregion setting starting and ending colors
+
+	#region line of light setup
+	public static new AutoBehaviour<SingletonBehaviourT> setupLineRendererAsLineOfLightLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+	{
+		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
+
+		return autoBehaviour.setupLineRendererAsLineOfLightLocallyDirectedFrom(startingTransform, localDirection, distance, material);
+	}
+	#endregion line of light setup
 	#endregion LineRenderer
 
 

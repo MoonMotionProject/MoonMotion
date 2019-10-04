@@ -32,7 +32,7 @@ public class MatchPositionCoordinatesToTarget : MatchSomeTransformationsToTarget
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public virtual void Update()
 	{
 		setPositionTo	(transform.position
 							.withX(targetTransformOtherwiseThisTransform.positionX(), matchX)

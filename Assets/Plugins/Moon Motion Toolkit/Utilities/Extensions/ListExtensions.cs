@@ -28,7 +28,7 @@ public static class ListExtensions
 			list.add(item));
 	// method: add the given items to this given list, then return a list of these given items //
 	public static List<TItem> addGet<TItem>(this List<TItem> list, IEnumerable<TItem> items)
-		=> items.manifest().after(()=>
+		=> items.manifested().after(()=>
 			list.add(items));
 	// method: add the given items to this given list, then return a list of these given items //
 	public static List<TItem> addGet<TItem>(this List<TItem> list, params TItem[] items)
@@ -74,7 +74,7 @@ public static class ListExtensions
 			list.remove(item));
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
 	public static List<TItem> extract<TItem>(this List<TItem> list, IEnumerable<TItem> items)
-		=> items.manifest().after(()=>
+		=> items.manifested().after(()=>
 			list.remove(items));
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
 	public static List<TItem> extract<TItem>(this List<TItem> list, params TItem[] items)

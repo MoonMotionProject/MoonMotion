@@ -100,7 +100,7 @@ public static class PiblingExtensions
 	public static IEnumerable<ComponentT> selectEachFirstPibling<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.selectEachFirstPibling<ComponentT>();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this Transform transform) where ComponentT : Component
-		=> transform.selectEachFirstPibling<ComponentT>().manifest();
+		=> transform.selectEachFirstPibling<ComponentT>().manifested();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this GameObject gameObject) where ComponentT : Component
 		=> gameObject.transform.eachFirstPibling<ComponentT>();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this ComponentT component) where ComponentT : Component

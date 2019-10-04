@@ -14,7 +14,7 @@ public static class ControllerOperationExtensions
 	public static HashSet<Controller> operatedControllers(this ControllerOperation[] controllerOperations)
 		=> Controller.operatedControllers(controllerOperations);
 
-	// method: return the first controller for which any of the given operations are currently operated //
-	public static Controller firstOperatedController(this ControllerOperation[] controllerOperations)
-		=> controllerOperations.operatedControllers().first();
+	// method: return the first controller for which any of the given operations are currently operated, otherwise returning the left controller //
+	public static Controller firstOperatedControllerOtherwiseLeft(this ControllerOperation[] controllerOperations)
+		=> controllerOperations.operatedControllers().firstOtherwise(Controller.left);
 }

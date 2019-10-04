@@ -60,7 +60,7 @@ public static class Provide
 	private static List<Rigidbody> rigidbodiesVia_(Component component)
 		=> rigidbodiesVia_(component.rigidbody());
 	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Rigidbody> rigidbodies)
-		=> rigidbodies.manifest();
+		=> rigidbodies.manifested();
 	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<GameObject> gameObjects)
 		=> gameObjects.rigidbodies();
 	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)

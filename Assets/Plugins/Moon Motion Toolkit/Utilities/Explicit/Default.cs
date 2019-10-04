@@ -10,14 +10,21 @@ using UnityEngine;
 public static class Default
 {
 	#region miscellaneous
-	public const string listingSeparator = ", ";
-	public const string loggingSeparator = ": ";
-	public static readonly LayerMask layerMask = LayerMasks.everything;
-	public const Affinity affinity = Affinity.attraction;
-	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
 	public const float delay = 1f;
 	public const float temporaryObjectDestructionDelay = 1f;
+	public static readonly LayerMask layerMask = LayerMasks.everything;
+	public const Affinity affinity = Affinity.attraction;
 	#endregion miscellaneous
+
+	#region printing
+	public const string listingSeparator = ", ";
+	public const string loggingSeparator = ": ";
+	#endregion printing
+
+	#region editor visualization
+	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
+	public const bool choiceToVisualizeInEditor = true;
+	#endregion editor visualization
 
 	#region components
 	public const bool inclusionOfInactiveComponents = true;
@@ -47,6 +54,10 @@ public static class Default
 	public const Distinctivity basicDirectionDistinctivity = Distinctivity.relative;
 	#endregion distinctivity
 
+	#region LineRenderer
+	public const float lineRendererWidth = .01f;
+	#endregion LineRenderer
+
 	#region raycasting
 	public const bool raycastQueryingForFirstHitOnly = false;
 	public const bool raycastingPositionalCollidersQuerying = true;
@@ -57,6 +68,7 @@ public static class Default
 	public const RaycastQuery raycastQuery = RaycastQuery.unlimitedHitsAndAllPositionalColliders;
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
 	public const Distinctivity raycastingDistinctivity = Distinctivity.relative;
+	public const bool choiceToRenderRaycastLine = true;
 	#endregion raycasting
 
 	#region force
@@ -80,4 +92,11 @@ public static class Default
 	public const float waveDuration = Wave.durationSine;
 	public const float waveDurationalOffset = Wave.durationalOffsetSine;
 	#endregion waves
+
+	#if MOON_MOTION_TOOLKIT
+	#region Controller
+	public const Controller.Handedness controllerHandedness = Controller.Handedness.infinite;
+	public const ushort vibrationIntensity = 500;
+	#endregion Controller
+	#endif
 }

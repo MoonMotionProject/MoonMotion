@@ -262,7 +262,7 @@ public static class StringExtensions
 
 	// method: return a list of the strings resulting from splitting this given string by the given delimiter template character //
 	public static List<string> splitBy(this string string_, char delimiterTemplate)
-		=> string_.Split(delimiterTemplate).manifest();
+		=> string_.Split(delimiterTemplate).manifested();
 
 	// method: return a list of the strings resulting from splitting this given string by each semicolon //
 	public static List<string> splitByEachSemicolon(this string string_)

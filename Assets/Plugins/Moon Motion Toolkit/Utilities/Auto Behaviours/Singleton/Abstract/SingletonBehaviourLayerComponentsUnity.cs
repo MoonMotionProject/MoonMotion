@@ -11,20 +11,35 @@ public abstract class	SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	public static new Renderer renderer => autoBehaviour.renderer;
+	public static new Renderer ensuredRenderer => autoBehaviour.ensuredRenderer;
 	public static new Rigidbody rigidbody => autoBehaviour.rigidbody;
+	public static new Rigidbody ensuredRigidbody => autoBehaviour.ensuredRigidbody;
 	public static new Collider collider => autoBehaviour.collider;
+	public static new Collider ensuredCollider => autoBehaviour.ensuredCollider;
 	public static new MeshCollider meshCollider => autoBehaviour.meshCollider;
+	public static new MeshCollider ensuredMeshCollider => autoBehaviour.ensuredMeshCollider;
 	public static new BoxCollider boxCollider => autoBehaviour.boxCollider;
+	public static new BoxCollider ensuredBoxCollider => autoBehaviour.ensuredBoxCollider;
 	public static new SphereCollider sphereCollider => autoBehaviour.sphereCollider;
+	public static new SphereCollider ensuredSphereCollider => autoBehaviour.ensuredSphereCollider;
 	public static new CapsuleCollider capsuleCollider => autoBehaviour.capsuleCollider;
+	public static new CapsuleCollider ensuredCapsuleCollider => autoBehaviour.ensuredCapsuleCollider;
 	public static new TerrainCollider terrainCollider => autoBehaviour.terrainCollider;
+	public static new TerrainCollider ensuredTerrainCollider => autoBehaviour.ensuredTerrainCollider;
 	public static new WheelCollider wheelCollider => autoBehaviour.wheelCollider;
+	public static new WheelCollider ensuredWheelCollider => autoBehaviour.ensuredWheelCollider;
 	public static new AudioSource audioSource => autoBehaviour.audioSource;
+	public static new AudioSource ensuredAudioSource => autoBehaviour.ensuredAudioSource;
 	public static new LineRenderer lineRenderer => autoBehaviour.lineRenderer;
+	public static new LineRenderer ensuredLineRenderer => autoBehaviour.ensuredLineRenderer;
 	public static new TrailRenderer trailRenderer => autoBehaviour.trailRenderer;
+	public static new TrailRenderer ensuredTrailRenderer => autoBehaviour.ensuredTrailRenderer;
 	public static new ParticleSystem particlesSystem => autoBehaviour.particlesSystem;
+	public static new ParticleSystem ensuredParticlesSystem => autoBehaviour.ensuredParticlesSystem;
 	public static new MeshFilter meshFilter => autoBehaviour.meshFilter;
+	public static new MeshFilter ensuredMeshFilter => autoBehaviour.ensuredMeshFilter;
 	public static new MeshRenderer meshRenderer => autoBehaviour.meshRenderer;
+	public static new MeshRenderer ensuredMeshRenderer => autoBehaviour.ensuredMeshRenderer;
 	public static new SkinnedMeshRenderer skinnedMeshRenderer => autoBehaviour.skinnedMeshRenderer;
 	public static new TextMesh textMesh => autoBehaviour.textMesh;
 	public static new Animation animation => autoBehaviour.animation;

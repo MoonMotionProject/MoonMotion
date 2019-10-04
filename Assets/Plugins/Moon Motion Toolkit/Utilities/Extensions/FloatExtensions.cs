@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -88,6 +89,13 @@ public static class FloatExtensions
 	public static bool isInfinite(this float float_)
 		=> float_.isInfinity() || float_.isNegativeInfinity();
 	#endregion finitude determination
+
+
+	#region finitude logic
+	
+	public static float ifFiniteOtherwise(this float float_, Func<float> function)
+		=> float_.isFinite() ? float_ : function();
+	#endregion finitude logic
 
 
 	#region validity determination

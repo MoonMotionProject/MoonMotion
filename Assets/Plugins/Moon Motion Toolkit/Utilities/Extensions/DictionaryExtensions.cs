@@ -27,28 +27,28 @@ public static class DictionaryExtensions
 		=> dictionary.select(keyValuePair => keyValuePair.Key);
 	// method: return a list for the keys in this given dictionary //
 	public static List<TKey> keys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.selectKeys().manifest();
+		=> dictionary.selectKeys().manifested();
 
 	// method: return a selection of the values in this given dictionary //
 	public static IEnumerable<TValue> selectValues<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
 		=> dictionary.select(keyValuePair => keyValuePair.Value);
 	// method: return a list for the values in this given dictionary //
 	public static List<TValue> values<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.selectValues().manifest();
+		=> dictionary.selectValues().manifested();
 
 	// method: return a selection of the keys in this given dictionary for which the given function returns true //
 	public static IEnumerable<TKey> selectKeysWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)
 		=> dictionary.selectKeys().only(function);
 	// method: return a list for the keys in this given dictionary for which the given function returns true //
 	public static List<TKey> keysWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)
-		=> dictionary.selectKeysWhere(function).manifest();
+		=> dictionary.selectKeysWhere(function).manifested();
 
 	// method: return a selection of the values in this given dictionary for which the given function returns true //
 	public static IEnumerable<TValue> selectValuesWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TValue, bool> function)
 		=> dictionary.selectValues().only(function);
 	// method: return a list for the values in this given dictionary for which the given function returns true //
 	public static List<TValue> valuesWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TValue, bool> function)
-		=> dictionary.selectValuesWhere(function).manifest();
+		=> dictionary.selectValuesWhere(function).manifested();
 	#endregion accessing
 
 

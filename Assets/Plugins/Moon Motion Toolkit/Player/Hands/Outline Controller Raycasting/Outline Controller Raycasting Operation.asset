@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: Outline Controller Raycasting Operation
   m_EditorClassIdentifier: 
   handedness: 7
+  fallbackToLeftVersusRight: 1
   inputs: 
   inputtednesses: 
   beingnesses: 

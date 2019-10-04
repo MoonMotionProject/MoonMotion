@@ -14,6 +14,7 @@ public static class Default
 	public const float temporaryObjectDestructionDelay = 1f;
 	public static readonly LayerMask layerMask = LayerMasks.everything;
 	public const Affinity affinity = Affinity.attraction;
+	public const bool leftnessVersusRightness = true;
 	#endregion miscellaneous
 
 	#region printing

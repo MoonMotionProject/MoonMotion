@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 using UnityEditor;
 
 // Outlining Controller Raycasting:
-// • while any of the controller operations is operated, outlines the first nonpositionally (not at this position) raycasted object from the first (otherwise left) operating controller that has a mesh filter and is not static
+// • while any of the controller operations is operated, outlines the first nonpositionally (not at this position) raycasted object from the first operating controller (otherwise the fallback controller for the first operated operation) that has a mesh filter and is not static
 //   · does this by maintaining a child object with the set outline material that matches the raycasted object's transformations
 public class OutliningControllerRaycasting : EnabledsEditorVisualized<OutliningControllerRaycasting>
 {
@@ -24,7 +24,7 @@ public class OutliningControllerRaycasting : EnabledsEditorVisualized<OutliningC
 	public ControllerOperation[] operations;
 
 	
-	[InfoBox("Raycasting is nonpositional (does not include colliders overlapping this position) and is from the first (otherwise left) operating controller. It will detect the first raycasted object that has a mesh filter and is not static. (Objects without mesh filters or that are static will not obscure raycasting.)")]
+	[InfoBox("Raycasting is nonpositional (does not include colliders overlapping this position) and is from the first operating controller (otherwise the fallback controller for the first operated operation). It will detect the first raycasted object that has a mesh filter and is not static. (Objects without mesh filters or that are static will not obscure raycasting.)")]
 
 	[BoxGroup("Raycasting")]
 	public Vector3 localDirection = Default.raycastingDirection;
@@ -133,7 +133,7 @@ public class OutliningControllerRaycasting : EnabledsEditorVisualized<OutliningC
 	private void Update()
 	{
 		GameObject newlyOutlinedObject = operations.operated() ?
-										potentialObjectRaycastingBy(raycastingController = operations.firstOperatedControllerOtherwiseLeft()) :
+										potentialObjectRaycastingBy(raycastingController = operations.firstOperatedControllerOtherwiseFallback()) :
 										null;
 		
 		if (newlyOutlinedObject != outlinedObject)

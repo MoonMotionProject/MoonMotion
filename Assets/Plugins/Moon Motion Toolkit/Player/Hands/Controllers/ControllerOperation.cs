@@ -15,26 +15,44 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Controller Operation", menuName = "Moon Motion/Controller Operation")]
 public class ControllerOperation : ScriptableObject
 {
-	// variables //
-	
-	
-	[InfoBox("To have this controller operation always be operated, choose infinite handedness.\nNeither handedness is the simplest way to have this controller operation never be operated.")]
-	public Controller.Handedness handedness = Default.controllerHandedness;		// setting: the controller handedness (determining which controllers to check operation of)
+	#region variables
+
+
+	[InfoBox("the controller handedness (determining which controllers to check operation of) – infinite handedness results in always being operated; neither handedness is the simplest way to have this controller operation never be operated")]
+	public Controller.Handedness handedness = Default.controllerHandedness;
+	[InfoBox("whether to return the left versus the right controller as the first operated controller when operating without any controllers operating (only relevant when handedness is infinite)")]
+	public bool fallbackToLeftVersusRight = Default.leftnessVersusRightness;
+	[InfoBox("the controller inputs (to check operation upon)")]
 	[ReorderableList]
-	public Controller.Input[] inputs;      // setting: the controller inputs (to check operation upon)
+	public Controller.Input[] inputs;
+	[InfoBox("the controller inputtednesses (to check operation by)")]
 	[ReorderableList]
-	public Controller.Inputtedness[] inputtednesses;        // setting: the controller inputtednesses (to check operation by)
+	public Controller.Inputtedness[] inputtednesses;
+	[InfoBox("the states of being (to check operation at)")]
 	[ReorderableList]
-	public Beingness[] beingnesses;       // setting: the states of being (to check operation at)
+	public Beingness[] beingnesses;
+	[InfoBox("the dependencies to check thoroughly (by which to condition this operation where each dependency is necessary)")]
 	[ReorderableList]
-	public Dependency[] dependenciesThorough;     // setting: the dependencies to check thoroughly (by which to condition this operation where each dependency is necessary)
+	public Dependency[] dependenciesThorough;
+	[InfoBox("the dependencies to check partially (by which to condition this operation where any of the dependencies is necessary)")]
 	[ReorderableList]
-	public Dependency[] dependenciesPartial;     // setting: the dependencies to check partially (by which to condition this operation where any of the dependencies is necessary)
+	public Dependency[] dependenciesPartial;
+	#endregion variables
 
 
 
 
-	// methods //
+	#region properties
+
+
+	// the controller to fallback to as the first operated controller when operating without any controllers operating (when handedness is infinite) //
+	public Controller fallbackController => fallbackToLeftVersusRight ? Controller.left : Controller.right;
+	#endregion properties
+
+
+
+
+	#region methods
 
 
 	// method: determine whether this operation's dependencies are met //
@@ -72,4 +90,5 @@ public class ControllerOperation : ScriptableObject
 	// method: determine the set of controllers for which this operation is currently operated at the unbecoming state of being (first requires this operation to accept either the unbecoming state of being, or no state of being) //
 	public HashSet<Controller> operatedUnbecominglyControllers()
 		=> operatedControllers(Beingness.unbecoming);
+	#endregion methods
 }

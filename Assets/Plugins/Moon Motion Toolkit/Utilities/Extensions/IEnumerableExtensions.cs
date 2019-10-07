@@ -137,6 +137,10 @@ public static class IEnumerableExtensions
 	// method: return the first item in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem firstOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.FirstOrDefault();
+
+	// method: return the first struct in this given enumerable as a nullable struct, otherwise (if a struct is not there) returning null //
+	public static StructT? firstAsNullableOtherwiseNull<StructT>(this IEnumerable<StructT> enumerable) where StructT : struct
+		=> enumerable.hasAny() ? enumerable.first() : default(StructT?);
 	#endregion accessing first items
 
 
@@ -458,6 +462,16 @@ public static class IEnumerableExtensions
 	// method: return this given enumerable converted to a set (maintaining only unique items) //
 	public static HashSet<TItem> toSet<TItem>(this IEnumerable<TItem> enumerable)
 		=> new HashSet<TItem>(enumerable);
+
+	// method: return a selection of those structs in this given enumerable as nullable structs //
+	public static IEnumerable<TItem?> implyEachAsNullable<TItem>(this IEnumerable<TItem> enumerable) where TItem : struct
+		=> enumerable.select(item => item.toNullable());
+	// method: return a list of those structs in this given enumerable as nullable structs //
+	public static List<TItem?> eachAsNullable<TItem>(this IEnumerable<TItem> enumerable) where TItem : struct
+		=> enumerable.implyEachAsNullable().manifested();
+	// method: return the set of those structs in this given enumerable as nullable structs //
+	public static HashSet<TItem?> toSetOfNullables<TItem>(this IEnumerable<TItem> enumerable) where TItem : struct
+		=> enumerable.eachAsNullable().toSet();
 
 	// method: return this given enumerable converted to an array //
 	public static TItem[] toArray<TItem>(this IEnumerable<TItem> enumerable)

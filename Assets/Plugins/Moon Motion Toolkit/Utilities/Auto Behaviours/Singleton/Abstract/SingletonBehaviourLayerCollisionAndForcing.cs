@@ -209,11 +209,27 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	#region raycasting for just the first result
 
-	public static new RaycastHit firstNonpositionallyRaycastedHitAlong(Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static new RaycastHit? firstNonpositionallyRaycastedHitAlong(Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> autoBehaviour.firstNonpositionallyRaycastedHitAlong(direction, distinctivity, distance, triggerColliderQuery, layerMask_MaxOf1);
-	public static new RaycastHit firstNonpositionallyRaycastedHitAlongLocal(Vector3 localDirection, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static new RaycastHit? firstNonpositionallyRaycastedHitAlongLocal(Vector3 localDirection, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> autoBehaviour.firstNonpositionallyRaycastedHitAlongLocal(localDirection, distance, triggerColliderQuery, layerMask_MaxOf1);
-	public static new RaycastHit firstNonpositionallyRaycastedHitTo(dynamic raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public static new RaycastHit? firstNonpositionallyRaycastedHitLocallyWhere
+	(
+		Func<RaycastHit, bool> function,
+		Vector3 localDirection,
+		float distance = Default.raycastingDistance,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	autoBehaviour.firstNonpositionallyRaycastedHitLocallyWhere
+			(
+				function,
+				localDirection,
+				distance,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static new RaycastHit? firstNonpositionallyRaycastedHitTo(dynamic raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
 

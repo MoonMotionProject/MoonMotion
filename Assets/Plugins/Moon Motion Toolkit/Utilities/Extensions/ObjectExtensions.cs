@@ -114,7 +114,7 @@ public static class ObjectExtensions
 
 	#region comparison
 
-	// method: return whether this given object is "baseline equal" to the other given object (whether it is equal as a value type or as a reference, respective to it's type) //
+	// method: return whether this given object is "baseline equal" to the other given object (whether it is equal as a value type or as a reference, respective to its type) //
 	public static bool baselineEquals<ObjectT>(this ObjectT object_, ObjectT objectOther)
 		=> EqualityComparer<ObjectT>.Default.Equals(object_, objectOther);
 

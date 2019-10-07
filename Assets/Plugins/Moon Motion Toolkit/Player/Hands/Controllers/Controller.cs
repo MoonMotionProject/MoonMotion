@@ -12,6 +12,7 @@ using Valve.VR.InteractionSystem;
 //   · determine status for given inputs andor inputtednesses andor beingnesses (altogether, an "operation" as defined by Controller Operation)
 //   · track touchpad touch positions and motion, including methods for determining touchpad touch motions and controlling their tracking
 //   · determine whether a given array of inputs has any actual (non-none) inputs set
+// • input detection is only accurate while playing (since controller input isn't processed in editor edit mode)
 // • provides methods for vibrating this controller
 // • provides methods for determining whether given operations are currently operated and those controllers operated
 // ∗: example usage of touchpad travelling input to flip pages of a book

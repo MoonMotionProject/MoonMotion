@@ -13,12 +13,15 @@ public static class AttachmentExtensions
 	// method: return the game object attached to this given raycast hit //
 	public static GameObject gameObject(this RaycastHit raycastHit)
 	{
-		if (raycastHit.isYull() && raycastHit.transform)
+		if (raycastHit.transform)
 		{
 			return raycastHit.transform.gameObject;
 		}
 		return null;
 	}
+	// method: return the game object attached to this given (nullable) raycast hit (null, if the nullable raycast hit is null) //
+	public static GameObject gameObjectIfYull(this RaycastHit? raycastHit)
+		=> raycastHit?.gameObject();
 
 	// method: return a selection of each of the game objects that each of the respective yull components of these given components is attached to //
 	public static IEnumerable<GameObject> selectObjects(this IEnumerable<Component> components)
@@ -91,6 +94,10 @@ public static class AttachmentExtensions
 
 	#region Collider
 
+	// method: return the collider attached to this given (nullable) raycast hit (null, if the nullable raycast hit is null) //
+	public static Collider colliderIfYull(this RaycastHit? raycastHit)
+		=> raycastHit?.collider;
+
 	// method: return a selection of each of the colliders that are attached to each of these respective given raycast hits //
 	public static IEnumerable<Collider> selectColliders(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.select(raycastHit => raycastHit.collider);
@@ -109,6 +116,9 @@ public static class AttachmentExtensions
 	// method: return the rigidbody attached to this given component (null if none found) //
 	public static Rigidbody rigidbody(this Component component)
 		=> component.first<Rigidbody>();
+	// method: return the rigidbody attached to this given (nullable) raycast hit (null if the nullable raycast hit is null) //
+	public static Rigidbody rigidbodyIfYull(this RaycastHit? raycastHit)
+		=> raycastHit?.rigidbody;
 
 	// method: return a selection of each of the yull first rigidbodies that each of the respective yull game objects of these given game objects is attached to //
 	public static IEnumerable<Rigidbody> selectRigidbodies(this IEnumerable<GameObject> gameObjects)

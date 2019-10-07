@@ -139,7 +139,14 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	#region raycasting for all results (not just the first hit)
 
 	public HashSet<RaycastHit> allNonpositionallyRaycastedHitsAlong(Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
-		=> transform.allNonpositionallyRaycastedHitsAlong(direction, distinctivity, distance, triggerColliderQuery, layerMask_MaxOf1);
+		=>	transform.allNonpositionallyRaycastedHitsAlong
+			(
+				direction,
+				distinctivity,
+				distance,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 	public HashSet<RaycastHit> allNonpositionallyRaycastedHitsAlongLocal(Vector3 localDirection, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> transform.allNonpositionallyRaycastedHitsAlongLocal(localDirection, distance, triggerColliderQuery, layerMask_MaxOf1);
 	public HashSet<RaycastHit> allNonpositionallyRaycastedHitsTo(dynamic raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
@@ -209,11 +216,27 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	#region raycasting for just the first result
 
-	public RaycastHit firstNonpositionallyRaycastedHitAlong(Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public RaycastHit? firstNonpositionallyRaycastedHitAlong(Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> transform.firstNonpositionallyRaycastedHitAlong(direction, distinctivity, distance, triggerColliderQuery, layerMask_MaxOf1);
-	public RaycastHit firstNonpositionallyRaycastedHitAlongLocal(Vector3 localDirection, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public RaycastHit? firstNonpositionallyRaycastedHitAlongLocal(Vector3 localDirection, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> transform.firstNonpositionallyRaycastedHitAlongLocal(localDirection, distance, triggerColliderQuery, layerMask_MaxOf1);
-	public RaycastHit firstNonpositionallyRaycastedHitTo(dynamic raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
+	public RaycastHit? firstNonpositionallyRaycastedHitLocallyWhere
+	(
+		Func<RaycastHit, bool> function,
+		Vector3 localDirection,
+		float distance = Default.raycastingDistance,
+		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	transform.firstNonpositionallyRaycastedHitLocallyWhere
+			(
+				function,
+				localDirection,
+				distance,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public RaycastHit? firstNonpositionallyRaycastedHitTo(dynamic raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
 		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
 

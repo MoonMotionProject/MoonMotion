@@ -70,6 +70,7 @@ public static class Default
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
 	public const Distinctivity raycastingDistinctivity = Distinctivity.relative;
 	public const bool choiceToRenderRaycastLine = true;
+	public const bool choiceToRenderRaycastLineOnlyToHit = true;
 	#endregion raycasting
 
 	#region force

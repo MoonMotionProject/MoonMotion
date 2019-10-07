@@ -102,5 +102,8 @@ public static class HashSetExtensions
 	// method: return a new set containing only this given item //
 	public static HashSet<TItem> startSet<TItem>(this TItem item)
 		=> new HashSet<TItem>() {item};
+	// method: return a new set containing only the struct for this given nullable struct – only if this given nullable struct is yull //
+	public static HashSet<TItem> startedOtherwiseEmptyNonnullableSet<TItem>(this TItem? item) where TItem : struct
+		=> item.isYull() ? item.GetValueOrDefault().startSet() : new HashSet<TItem>();
 	#endregion conversion
 }

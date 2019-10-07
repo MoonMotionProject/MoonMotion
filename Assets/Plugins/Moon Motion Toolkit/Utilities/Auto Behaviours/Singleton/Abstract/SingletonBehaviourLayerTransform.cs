@@ -261,6 +261,19 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 
 	#region distance
+	
+	public static new float distanceWith(Vector3 otherPosition)
+		=> autoBehaviour.distanceWith(otherPosition);
+	public static new float distanceWith(Transform otherTransform)
+		=> autoBehaviour.distanceWith(otherTransform);
+	public static new float distanceWith(GameObject otherGameObject)
+		=> autoBehaviour.distanceWith(otherGameObject);
+	public static new float distanceWith(Component otherComponent)
+		=> autoBehaviour.distanceWith(otherComponent);
+	public static new float distanceWith(RaycastHit raycastHit)
+		=> autoBehaviour.distanceWith(raycastHit);
+	public static new float distanceWithCamera()
+		=> autoBehaviour.distanceWithCamera();
 
 	// method: return the closest of the given positions to this behaviour's transform's position //
 	public static new Vector3 closestOf(IEnumerable<Vector3> positions)

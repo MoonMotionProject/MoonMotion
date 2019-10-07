@@ -268,6 +268,19 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 
 
 	#region distance
+	
+	public float distanceWith(Vector3 otherPosition)
+		=> position.distanceWith(otherPosition);
+	public float distanceWith(Transform otherTransform)
+		=> position.distanceWith(otherTransform);
+	public float distanceWith(GameObject otherGameObject)
+		=> position.distanceWith(otherGameObject);
+	public float distanceWith(Component otherComponent)
+		=> position.distanceWith(otherComponent);
+	public float distanceWith(RaycastHit raycastHit)
+		=> position.distanceWith(raycastHit);
+	public float distanceWithCamera()
+		=> position.distanceWithCamera();
 
 	// method: return the closest of the given positions to this behaviour's transform's position //
 	public Vector3 closestOf(IEnumerable<Vector3> positions)

@@ -26,6 +26,7 @@ Now's the perfect time to get started. VR is a blue ocean, and by using this too
 * [Documentation](http://moonmotionproject.com/Documentation.html)
 * [Join the Discord](https://discord.gg/4FW7hfr)
 * [Licensing](Licensing.md)
+* [Patreon](https://www.patreon.com/moonmotionproject)
 
 ## Compatibility
 

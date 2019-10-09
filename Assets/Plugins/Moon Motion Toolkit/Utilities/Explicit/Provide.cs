@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,85 +14,177 @@ public static class Provide
 	#region Transform
 
 	public static Transform transformVia(dynamic dynamo)
-		=> transformVia_(dynamo);
-
-	private static Transform transformVia_(Transform transform)
-		=> transform;
-	private static Transform transformVia_(GameObject gameObject)
-		=> gameObject.transform;
-	private static Transform transformVia_(Component component)
-		=> component.transform;
+	{
+		if (dynamo is Transform)
+		{
+			return dynamo;
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = dynamo as GameObject;
+			return gameObject.transform;
+		}
+		else if (dynamo is Component)
+		{
+			Component component = dynamo as Component;
+			return component.transform;
+		}
+		else
+		{
+			Type dynamoType = dynamo.type();
+			return default(Transform).returnWithError("Provide.transformVia given unrecognized dynamo of type "+dynamoType);
+		}
+	}
 	#endregion Transform
 
 
 	#region position
 
 	public static Vector3 positionVia(dynamic dynamo)
-		=> positionVia_(dynamo);
-
-	private static Vector3 positionVia_(Vector3 vector)
-		=> vector;
-	private static Vector3 positionVia_(GameObject gameObject)
-		=> gameObject.position();
-	private static Vector3 positionVia_(Component component)
-		=> component.position();
+	{
+		if (dynamo is Vector3)
+		{
+			return dynamo;
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = dynamo as GameObject;
+			return gameObject.position();
+		}
+		else if (dynamo is Component)
+		{
+			Component component = dynamo as Component;
+			return component.position();
+		}
+		else
+		{
+			Type dynamoType = dynamo.type();
+			return default(Vector3).returnWithError("Provide.positionVia given unrecognized dynamo of type "+dynamoType);
+		}
+	}
 	#endregion position
 
 
 	#region Rigidbody
 	
 	public static Rigidbody rigidbodyVia(dynamic dynamo)
-		=> rigidbodyVia_(dynamo);
-
-	private static Rigidbody rigidbodyVia_(Rigidbody rigidbody)
-		=> rigidbody;
-	private static Rigidbody rigidbodyVia_(GameObject gameObject)
-		=> gameObject.rigidbody();
-	private static Rigidbody rigidbodyVia_(Component component)
-		=> component.rigidbody();
-
-	public static List<Rigidbody> rigidbodiesVia(dynamic dynamo)
-		=> rigidbodiesVia_(dynamo);
-
-	private static List<Rigidbody> rigidbodiesVia_(Rigidbody rigidbody)
-		=> rigidbody.startList();
-	private static List<Rigidbody> rigidbodiesVia_(GameObject gameObject)
-		=> rigidbodiesVia_(gameObject.rigidbody());
-	private static List<Rigidbody> rigidbodiesVia_(Component component)
-		=> rigidbodiesVia_(component.rigidbody());
-	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Rigidbody> rigidbodies)
-		=> rigidbodies.manifested();
-	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<GameObject> gameObjects)
-		=> gameObjects.rigidbodies();
-	private static List<Rigidbody> rigidbodiesVia_(IEnumerable<Component> components)
-		=> components.rigidbodies();
+	{
+		if (dynamo is Rigidbody)
+		{
+			return dynamo;
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = dynamo as GameObject;
+			return gameObject.rigidbody();
+		}
+		else if (dynamo is Component)
+		{
+			Component component = dynamo as Component;
+			return component.rigidbody();
+		}
+		else
+		{
+			Type dynamoType = dynamo.type();
+			return default(Rigidbody).returnWithError("Provide.rigidbodyVia given unrecognized dynamo of type "+dynamoType);
+		}
+	}
 	#endregion Rigidbody
+
+
+	#region List<Rigidbody>
+	
+	public static List<Rigidbody> rigidbodiesVia(dynamic dynamo)
+	{
+		if (dynamo is Rigidbody)
+		{
+			Rigidbody rigidbody = dynamo as Rigidbody;
+			return rigidbody.startList();
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = dynamo as GameObject;
+			return rigidbodiesVia(gameObject.rigidbody());
+		}
+		else if (dynamo is Component)
+		{
+			Component component = dynamo as Component;
+			return rigidbodiesVia(component.rigidbody());
+		}
+		else if (dynamo is IEnumerable<Rigidbody>)
+		{
+			IEnumerable<Rigidbody> rigidbodiesEnumerable = dynamo as IEnumerable<Rigidbody>;
+			return rigidbodiesEnumerable.manifested();
+		}
+		else if (dynamo is IEnumerable<GameObject>)
+		{
+			IEnumerable<GameObject> gameObjectsEnumerable = dynamo as IEnumerable<GameObject>;
+			return gameObjectsEnumerable.rigidbodies();
+		}
+		else if (dynamo is IEnumerable<Component>)
+		{
+			IEnumerable<Component> componentsEnumerable = dynamo as IEnumerable<Component>;
+			return componentsEnumerable.rigidbodies();
+		}
+		else
+		{
+			Type dynamoType = dynamo.type();
+			return default(List<Rigidbody>).returnWithError("Provide.rigidbodiesVia given unrecognized dynamo of type "+dynamoType);
+		}
+	}
+	#endregion List<Rigidbody>
 
 
 	#region mesh
 
 	public static Mesh meshVia(dynamic dynamo)
-		=> meshVia_(dynamo);
-	
-	private static Mesh meshVia_(Mesh mesh)
-		=> mesh;
-	private static Mesh meshVia_(GameObject gameObject)
-		=> gameObject.mesh();
-	private static Mesh meshVia_(Component component)
-		=> component.mesh();
+	{
+		if (dynamo is Mesh)
+		{
+			return dynamo;
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = dynamo as GameObject;
+			return gameObject.mesh();
+		}
+		else if (dynamo is Component)
+		{
+			Component component = dynamo as Component;
+			return component.mesh();
+		}
+		else
+		{
+			Type dynamoType = dynamo.type();
+			return default(Mesh).returnWithError("Provide.meshVia given unrecognized dynamo of type "+dynamoType);
+		}
+	}
 	#endregion mesh
 
 
 	#region shared mesh
 
 	public static Mesh sharedMeshVia(dynamic dynamo)
-		=> sharedMeshVia_(dynamo);
-	
-	private static Mesh sharedMeshVia_(Mesh sharedMesh)
-		=> sharedMesh;
-	private static Mesh sharedMeshVia_(GameObject gameObject)
-		=> gameObject.sharedMesh();
-	private static Mesh sharedMeshVia_(Component component)
-		=> component.sharedMesh();
+	{
+		if (dynamo is Mesh)
+		{
+			return dynamo;
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = dynamo as GameObject;
+			return gameObject.sharedMesh();
+		}
+		else if (dynamo is Component)
+		{
+			Component component = dynamo as Component;
+			return component.sharedMesh();
+		}
+		else
+		{
+			Type dynamoType = dynamo.type();
+			return default(Mesh).returnWithError("Provide.sharedMeshVia given unrecognized dynamo of type "+dynamoType);
+		}
+	}
 	#endregion shared mesh
 }

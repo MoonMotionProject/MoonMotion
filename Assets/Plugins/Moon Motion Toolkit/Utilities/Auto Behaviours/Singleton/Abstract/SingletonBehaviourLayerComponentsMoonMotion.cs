@@ -14,7 +14,6 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	#if MOON_MOTION_TOOLKIT
-	public static new Locomotion locomotion => autoBehaviour.locomotion;
 	public static new TerrainResponse terrainResponse => autoBehaviour.terrainResponse;
 	public static new Powerup powerup => autoBehaviour.powerup;
 	public static new PowerupCollider powerupCollider => autoBehaviour.powerupCollider;

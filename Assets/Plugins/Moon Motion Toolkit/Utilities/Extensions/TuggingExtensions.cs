@@ -42,7 +42,7 @@ public static class TuggingExtensions
 	(
 		this Vector3 raycastingPosition,
 		Affinity affinity,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -172,7 +172,7 @@ public static class TuggingExtensions
 	(
 		this GameObject raycastingObject,
 		Affinity affinity,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -271,7 +271,7 @@ public static class TuggingExtensions
 	(
 		this Component raycastingComponent,
 		Affinity affinity,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -322,7 +322,7 @@ public static class TuggingExtensions
 	public static HashSet<GameObject> pullWithin
 	(
 		this Vector3 raycastingPosition,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -535,7 +535,7 @@ public static class TuggingExtensions
 	public static HashSet<GameObject> pullWithin
 	(
 		this GameObject raycastingObject,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -746,7 +746,7 @@ public static class TuggingExtensions
 	public static HashSet<GameObject> pullWithin
 	(
 		this Component raycastingComponent,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -796,7 +796,7 @@ public static class TuggingExtensions
 	public static HashSet<GameObject> pushWithin
 	(
 		this Vector3 raycastingPosition,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -1009,7 +1009,7 @@ public static class TuggingExtensions
 	public static HashSet<GameObject> pushWithin
 	(
 		this GameObject raycastingObject,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,
@@ -1220,7 +1220,7 @@ public static class TuggingExtensions
 	public static HashSet<GameObject> pushWithin
 	(
 		this Component raycastingComponent,
-		dynamic raycastEndPosition_PositionProvider,
+		object raycastEndPosition_PositionProvider,
 		float magnitude = Default.forceMagnitude,
 		InterpolationCurve raycastDistanceMagnitudeZeroingCurve = Default.forceCurve,
 		RaycastQuery raycastQuery = Default.raycastQuery,

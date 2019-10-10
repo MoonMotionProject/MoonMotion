@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 // Playing When Headset Is Worn:
-// • according to a menubar toggle, does not \does play when the headset is worn
+// • according to a menubar toggle, plays when the headset is worn
 [InitializeOnLoad]
 public static class PlayingWhenHeadsetIsWorn
 {
@@ -19,7 +19,7 @@ public static class PlayingWhenHeadsetIsWorn
 	{
 		if (UnityIs.inEditorEditMode)
 		{
-			if (!state)
+			if (state)
 			{
 				if (Headset.isApparentlyBeingWorn)
 				{
@@ -33,12 +33,12 @@ public static class PlayingWhenHeadsetIsWorn
 
 	#region menubar toggle
 
-	private const string menuItem = "Play/-Not- When Headset Is Worn";
+	private const string menuItem = "Play/When Headset Is Worn";
 
 	public static bool state => Menu.GetChecked(menuItem);
 
 	[MenuItem(menuItem)]
-	public static void toggleWhetherToNotPlayWhenHeadsetIsWorn()
+	public static void toggleWhetherToPlayWhenHeadsetIsWorn()
 		=> Menu.SetChecked(menuItem, !state);
 	#endregion menubar toggle
 }

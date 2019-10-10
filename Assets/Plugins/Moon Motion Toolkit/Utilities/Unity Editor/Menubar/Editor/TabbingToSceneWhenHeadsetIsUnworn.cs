@@ -34,7 +34,7 @@ public static class TabbingToSceneWhenHeadsetIsUnworn
 
 	#region menubar toggle
 
-	private const string menuItem = "Headset Tabbing/-Not- To Scene When Headset Is Unworn";
+	private const string menuItem = "Headset Tabbing/Do Not Tab To Scene When Headset Is Unworn";
 
 	public static bool state => Menu.GetChecked(menuItem);
 

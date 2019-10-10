@@ -9,7 +9,7 @@ using Valve.VR.InteractionSystem;
 //   · a hand locomotion is a particular kind of locomotive tool controlled by a hand (a child object of the hand that provides some method of locomotion to that hand's controller)
 // • handles general functionality (such as auto connections and tracking for either hand) for any kind of locomotive tool, be it a booster, skier, etc.
 // • provides a dependencies setting by which to condition whether this hand locomotion is currently allowed
-public abstract class HandLocomotion : Locomotion
+public abstract class HandLocomotion : MonoBehaviour, ILocomotion
 {
 	// variables //
 	

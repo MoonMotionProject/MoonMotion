@@ -8,7 +8,7 @@ public static class PositionExtensions
 	#region localizing
 
 	// method: returns the global position for this given vector as a position local to the given provided local transform //
-	public static Vector3 toGlobalPositionFrom(this Vector3 vector, dynamic localTransform_TransformProvider)
+	public static Vector3 toGlobalPositionFrom(this Vector3 vector, object localTransform_TransformProvider)
 	{
 		Transform localTransform = Provide.transformVia(localTransform_TransformProvider);
 

@@ -41,18 +41,17 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	[BoxGroup("Raycasting")]
 	public LayerMask layerMask = Default.layerMask;
 	
-	[BoxGroup("Raycasting")]
-	[Tooltip("the controller that last did the raycasting")]
-	private Controller raycastingController;
+	//[BoxGroup("Raycasting")]
+	//[Tooltip("the controller that last did the raycasting")]
+	public static Controller raycastingController {get; private set;}
 	
-	[BoxGroup("Raycasting")]
-	[Tooltip("the current raycast hit")]
-	[ReadOnly]
-	public RaycastHit? outliningRaycastHit;
+	//[BoxGroup("Raycasting")]
+	//[Tooltip("the current raycast hit")]
+	public static RaycastHit? outliningRaycastHit {get; private set;}
 	
-	[BoxGroup("Raycasting")]
-	[Tooltip("the currently raycasted object to outline")]
-	private GameObject outlinedObject;
+	//[BoxGroup("Raycasting")]
+	//[Tooltip("the currently raycasted object to outline")]
+	public static GameObject outlinedObject {get; private set;}
 	
 
 	[InfoBox("While any of the controller operations is operated, the first raycasted object will be outlined.")]
@@ -61,9 +60,9 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	[Tooltip("the outline material to use for the outline shading object; will be set to the default outline material at the start if null")]
 	public Material outlineMaterial = null;
 	
-	[BoxGroup("Outlining")]
-	[Tooltip("the outline object (reused between raycasted objects) for shading an outline of the outlined object")]
-	private GameObject outlineShadingObject;
+	//[BoxGroup("Outlining")]
+	//[Tooltip("the outline object (reused between raycasted objects) for shading an outline of the outlined object")]
+	public static GameObject outlineShadingObject {get; private set;}
 
 
 	[BoxGroup("Line Rendering")]

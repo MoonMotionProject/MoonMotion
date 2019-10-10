@@ -21,7 +21,7 @@ public static class MeshFilterExtensions
 
 	#region setting meshes
 
-	public static MeshFilter setMeshTo(this MeshFilter meshFilter, dynamic mesh_MeshProvider, bool boolean = true)
+	public static MeshFilter setMeshTo(this MeshFilter meshFilter, object mesh_MeshProvider, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -30,7 +30,7 @@ public static class MeshFilterExtensions
 
 		return meshFilter;
 	}
-	public static GameObject setMeshTo(this GameObject gameObject, dynamic mesh_MeshProvider, bool boolean = true)
+	public static GameObject setMeshTo(this GameObject gameObject, object mesh_MeshProvider, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -40,7 +40,7 @@ public static class MeshFilterExtensions
 
 		return gameObject;
 	}
-	public static ComponentT setMeshTo<ComponentT>(this ComponentT component, dynamic mesh_MeshProvider, bool boolean = true) where ComponentT : Component
+	public static ComponentT setMeshTo<ComponentT>(this ComponentT component, object mesh_MeshProvider, bool boolean = true) where ComponentT : Component
 	{
 		if (boolean)
 		{
@@ -51,7 +51,7 @@ public static class MeshFilterExtensions
 		return component;
 	}
 
-	public static MeshFilter setSharedMeshTo(this MeshFilter meshFilter, dynamic sharedMesh_SharedMeshProvider, bool boolean = true)
+	public static MeshFilter setSharedMeshTo(this MeshFilter meshFilter, object sharedMesh_SharedMeshProvider, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -60,7 +60,7 @@ public static class MeshFilterExtensions
 
 		return meshFilter;
 	}
-	public static GameObject setSharedMeshTo(this GameObject gameObject, dynamic sharedMesh_SharedMeshProvider, bool boolean = true)
+	public static GameObject setSharedMeshTo(this GameObject gameObject, object sharedMesh_SharedMeshProvider, bool boolean = true)
 	{
 		if (boolean)
 		{
@@ -70,7 +70,7 @@ public static class MeshFilterExtensions
 
 		return gameObject;
 	}
-	public static ComponentT setSharedMeshTo<ComponentT>(this ComponentT component, dynamic sharedMesh_SharedMeshProvider, bool boolean = true) where ComponentT : Component
+	public static ComponentT setSharedMeshTo<ComponentT>(this ComponentT component, object sharedMesh_SharedMeshProvider, bool boolean = true) where ComponentT : Component
 	{
 		if (boolean)
 		{

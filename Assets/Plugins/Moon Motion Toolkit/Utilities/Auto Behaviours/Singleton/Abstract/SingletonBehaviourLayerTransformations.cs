@@ -207,6 +207,12 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.movePositionTo(gameObject, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> movePositionTo(Component component, bool boolean = true)
 		=> autoBehaviour.movePositionTo(component, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> movePositionTo(RaycastHit raycastHit, bool boolean = true)
+		=> autoBehaviour.movePositionTo(raycastHit, boolean);
+	public static new Vector3 positionForMovingPositionTo(Vector3 targetPosition)
+		=> autoBehaviour.positionForMovingPositionTo(targetPosition);
+	public static new Vector3 displacementForMovingPositionTo(Vector3 targetPosition)
+		=> autoBehaviour.displacementForMovingPositionTo(targetPosition);
 	public static new AutoBehaviour<SingletonBehaviourT> setPositionTo(Vector3 position, bool boolean = true)
 		=> autoBehaviour.setPositionTo(position, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> setPositionTo(Transform otherTransform, bool boolean = true)
@@ -215,8 +221,12 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setPositionTo(otherGameObject, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> setPositionTo(Component otherComponent, bool boolean = true)
 		=> autoBehaviour.setPositionTo(otherComponent, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setPositionTo(RaycastHit raycastHit, bool boolean = true)
+		=> autoBehaviour.setPositionTo(raycastHit, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetPosition(bool boolean = true)
 		=> autoBehaviour.resetPosition(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> displacePositionBy(Vector3 displacement, bool boolean = true)
+		=> autoBehaviour.displacePositionBy(displacement, boolean);
 
 	public static new float positionX => autoBehaviour.position.x;
 	public static new AutoBehaviour<SingletonBehaviourT> movePositionXTo(float x, bool boolean = true)
@@ -366,19 +376,19 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 	public static new AutoBehaviour<SingletonBehaviourT> resetGlobalsAndLocalScale(bool boolean = true)
 		=> autoBehaviour.resetGlobalsAndLocalScale(boolean);
 	
-	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Quaternion rotation, dynamic otherTransform_TransformProvider, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Quaternion rotation, object otherTransform_TransformProvider, bool boolean = true)
 	{
 		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
 
 		return autoBehaviour.setTransformationsTo(position, rotation, otherTransform, boolean);
 	}
-	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Vector3 eulerAngles, dynamic otherTransform_TransformProvider, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Vector3 eulerAngles, object otherTransform_TransformProvider, bool boolean = true)
 	{
 		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
 
 		return autoBehaviour.setTransformationsTo(position, eulerAngles, otherTransform, boolean);
 	}
-	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(dynamic otherTransform_TransformProvider, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(object otherTransform_TransformProvider, bool boolean = true)
 	{
 		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
 

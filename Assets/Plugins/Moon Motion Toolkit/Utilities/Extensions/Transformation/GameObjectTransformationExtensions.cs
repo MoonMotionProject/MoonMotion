@@ -342,13 +342,17 @@ public static class GameObjectTransformationExtensions
 		=> gameObjects.select(gameObject => gameObject.position());
 	// method: (assumes this game object has a rigidbody attached:) (according to the given boolean:) move this given game object's (global) position to the given position provider (try to set, but respect collisions in the way), then return this given game object //
 	public static GameObject movePositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
-		=> gameObject.rigidbody().movePositionTo(position, boolean).gameObject;
+		=> gameObject.correspondingRigidbody().movePositionTo(position, boolean).gameObject;
 	public static GameObject movePositionTo(this GameObject gameObject, Transform transform, bool boolean = true)
 		=> gameObject.movePositionTo(transform.position, boolean);
 	public static GameObject movePositionTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
 		=> gameObject.movePositionTo(otherGameObject.position(), boolean);
 	public static GameObject movePositionTo(this GameObject gameObject, Component component, bool boolean = true)
 		=> gameObject.movePositionTo(component.position(), boolean);
+	public static Vector3 positionForMovingPositionTo(this GameObject gameObject, Vector3 targetPosition)
+		=> gameObject.correspondingRigidbody().positionForMovingPositionTo(targetPosition);
+	public static Vector3 displacementForMovingPositionTo(this GameObject gameObject, Vector3 targetPosition)
+		=> gameObject.correspondingRigidbody().displacementForMovingPositionTo(targetPosition);
 	// method: (according to the given boolean:) set this given game object's (global) position to the given (global) position, then return this given game object //
 	public static GameObject setPositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
 		=> gameObject.transform.setPositionTo(position, boolean).gameObject;
@@ -358,15 +362,20 @@ public static class GameObjectTransformationExtensions
 	// method: (according to the given boolean:) set this given game object's position to the given transform's position, then return this given game object //
 	public static GameObject setPositionTo(this GameObject gameObject, Transform transform, bool boolean = true)
 		=> gameObject.setPositionTo(transform.position, boolean);
-	// method: (according to the given boolean:) set this given transform's position to the other given game object's position, then return this given game object //
+	// method: (according to the given boolean:) set this given game object's position to the other given game object's position, then return this given game object //
 	public static GameObject setPositionTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
 		=> gameObject.setPositionTo(otherGameObject.position(), boolean);
-	// method: (according to the given boolean:) set this given transform's position to the given component's position, then return this given game object //
+	// method: (according to the given boolean:) set this given game object's position to the given component's position, then return this given game object //
 	public static GameObject setPositionTo(this GameObject gameObject, Component component, bool boolean = true)
 		=> gameObject.setPositionTo(component.position(), boolean);
+	// method: (according to the given boolean:) set this given game object's position to the given raycast hit's position, then return this given game object //
+	public static GameObject setPositionTo(this GameObject gameObject, RaycastHit raycastHit, bool boolean = true)
+		=> gameObject.setPositionTo(raycastHit.position(), boolean);
 	// method: (according to the given boolean:) reset this given game object's (global) position to zeroes, then return this given game object //
 	public static GameObject resetPosition(this GameObject gameObject, bool boolean = true)
 		=> gameObject.transform.resetPosition(boolean).gameObject;
+	public static GameObject displacePositionBy(this GameObject gameObject, Vector3 displacement, bool boolean = true)
+		=> gameObject.transform.displacePositionBy(displacement).gameObject;
 
 
 
@@ -375,7 +384,7 @@ public static class GameObjectTransformationExtensions
 		=> gameObject.transform.positionX();
 	// methods: (assumes this game object has a rigidbody attached:) (according to the given boolean:) move this given game object's (global) x position to the given x position provider (try to set, but respect collisions in the way), then return this given game object //
 	public static GameObject movePositionXTo(this GameObject gameObject, float x, bool boolean = true)
-		=> gameObject.rigidbody().movePositionXTo(x, boolean).gameObject;
+		=> gameObject.correspondingRigidbody().movePositionXTo(x, boolean).gameObject;
 	public static GameObject movePositionXTo(this GameObject gameObject, Transform transform, bool boolean = true)
 		=> gameObject.movePositionXTo(transform.position.x, boolean);
 	public static GameObject movePositionXTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
@@ -405,7 +414,7 @@ public static class GameObjectTransformationExtensions
 		=> gameObject.transform.positionY();
 	// methods: (assumes this game object has a rigidbody attached:) (according to the given boolean:) move this given game object's (global) y position to the given y position provider (try to set, but respect collisions in the way), then return this given game object //
 	public static GameObject movePositionYTo(this GameObject gameObject, float y, bool boolean = true)
-		=> gameObject.rigidbody().movePositionYTo(y, boolean).gameObject;
+		=> gameObject.correspondingRigidbody().movePositionYTo(y, boolean).gameObject;
 	public static GameObject movePositionYTo(this GameObject gameObject, Transform transform, bool boolean = true)
 		=> gameObject.movePositionYTo(transform.position.y, boolean);
 	public static GameObject movePositionYTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
@@ -438,7 +447,7 @@ public static class GameObjectTransformationExtensions
 		=> gameObject.transform.positionZ();
 	// methods: (assumes this game object has a rigidbody attached:) (according to the given boolean:) move this given game object's (global) z position to the given z position provider (try to set, but respect collisions in the way), then return this given game object //
 	public static GameObject movePositionZTo(this GameObject gameObject, float z, bool boolean = true)
-		=> gameObject.rigidbody().movePositionZTo(z, boolean).gameObject;
+		=> gameObject.correspondingRigidbody().movePositionZTo(z, boolean).gameObject;
 	public static GameObject movePositionZTo(this GameObject gameObject, Transform transform, bool boolean = true)
 		=> gameObject.movePositionZTo(transform.position.z, boolean);
 	public static GameObject movePositionZTo(this GameObject gameObject, GameObject otherGameObject, bool boolean = true)
@@ -626,21 +635,21 @@ public static class GameObjectTransformationExtensions
 
 
 	// method: (according to the given boolean:) set this given game object's (global) transformations respectively to the given (global) position and (global) rotation, and set this given game object's (global) scale to the (global) scale of the given provided transform, then return this given game object //
-	public static GameObject setTransformationsTo(this GameObject gameObject, Vector3 position, Quaternion rotation, dynamic transform_TransformProvider, bool boolean = true)
+	public static GameObject setTransformationsTo(this GameObject gameObject, Vector3 position, Quaternion rotation, object transform_TransformProvider, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
 		return gameObject.transform.setTransformationsTo(position, rotation, transform, boolean).gameObject;
 	}
 	// method: (according to the given boolean:) set this given game object's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given game object's (global) scale to the (global) scale of the given provided transform, then return this given game object //
-	public static GameObject setTransformationsTo(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, dynamic transform_TransformProvider, bool boolean = true)
+	public static GameObject setTransformationsTo(this GameObject gameObject, Vector3 position, Vector3 eulerAngles, object transform_TransformProvider, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
 		return gameObject.transform.setTransformationsTo(position, eulerAngles, transform, boolean).gameObject;
 	}
 	// method: (according to the given boolean:) set this given game object's (global) transformations respectively to (global) transformations of the given provided transform, then return this given game object //
-	public static GameObject setTransformationsTo(this GameObject gameObject, dynamic transform_TransformProvider, bool boolean = true)
+	public static GameObject setTransformationsTo(this GameObject gameObject, object transform_TransformProvider, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 

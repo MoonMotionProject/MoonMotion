@@ -156,6 +156,12 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	// method: return an array of this component's local and child components of the specified class, optionally including inactive components according to the given boolean //
 	public static new ComponentT[] localAndChildren<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> autoBehaviour.localAndChildren<ComponentT>(includeInactiveComponents);
+	
+	public static new ComponentI[] localAndChildrenI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> autoBehaviour.localAndChildrenI<ComponentI>(includeInactiveComponents);
+
+	public static new HashSet<GameObject> localAndChildrenObjectsWithI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> autoBehaviour.localAndChildrenObjectsWithI<ComponentI>(includeInactiveComponents);
 	#endregion accessing child or self components
 
 

@@ -79,7 +79,7 @@ public static class Visualize
 
 	#region from start and end positions
 
-	public static void lineFrom(Vector3 startPosition, dynamic endPosition_PositionProvider, bool boolean = true, Color? color = null)
+	public static void lineFrom(Vector3 startPosition, object endPosition_PositionProvider, bool boolean = true, Color? color = null)
 	{
 		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
 
@@ -89,7 +89,7 @@ public static class Visualize
 			Gizmos.DrawLine(startPosition, endPosition);
 		}
 	}
-	public static void lineFrom(GameObject startGameObject, dynamic endPosition_PositionProvider, bool boolean = true, Color? color = null)
+	public static void lineFrom(GameObject startGameObject, object endPosition_PositionProvider, bool boolean = true, Color? color = null)
 	{
 		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
 
@@ -97,7 +97,7 @@ public static class Visualize
 			boolean,
 			color);
 	}
-	public static void lineFrom(Component startComponent, dynamic endPosition_PositionProvider, bool boolean = true, Color? color = null)
+	public static void lineFrom(Component startComponent, object endPosition_PositionProvider, bool boolean = true, Color? color = null)
 	{
 		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
 

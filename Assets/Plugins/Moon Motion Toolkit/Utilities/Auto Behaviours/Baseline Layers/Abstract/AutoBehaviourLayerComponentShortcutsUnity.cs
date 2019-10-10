@@ -167,13 +167,13 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 		=> selfAfter(()=> rigidbody.applyForceOf(forceX, forceY, forceZ, boolean));
 	public AutoBehaviourT applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
 		=> selfAfter(()=> rigidbody.applyForceAlong(direction, magnitude, boolean));
-	public AutoBehaviourT applyForceAlong(Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForceAlong(Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
 		return selfAfter(()=> rigidbody.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean));
 	}
-	public AutoBehaviourT applyForceAlongLocal(Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	public AutoBehaviourT applyForceAlongLocal(Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
@@ -212,7 +212,7 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#endregion applying force
 
 	#region applying directed force
-	public AutoBehaviourT applyDirectedForceFrom(dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public AutoBehaviourT applyDirectedForceFrom(object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -227,7 +227,7 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 			clamp
 		));
 	}
-	public AutoBehaviourT applyDirectedForceFrom(dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public AutoBehaviourT applyDirectedForceFrom(object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -316,14 +316,14 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 		=> selfAfter(()=> lineRenderer.setSecondPointTo(position));
 	public AutoBehaviourT setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
 		=> selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
-	public AutoBehaviourT setLineRendererFirstTwoPointsTo(dynamic firstPosition_PositionProvider, dynamic secondPosition_PositionProvider)
+	public AutoBehaviourT setLineRendererFirstTwoPointsTo(object firstPosition_PositionProvider, object secondPosition_PositionProvider)
 	{
 		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
 		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
 
 		return selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
 	}
-	public AutoBehaviourT setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance)
+	public AutoBehaviourT setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 	{
 		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
 
@@ -357,7 +357,7 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#endregion setting starting and ending colors
 
 	#region line of light setup
-	public AutoBehaviourT setupLineRendererAsLineOfLightLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+	public AutoBehaviourT setupLineRendererAsLineOfLightLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
 	{
 		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
 
@@ -387,14 +387,14 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region MeshFilter
 	public Mesh mesh => meshFilter.mesh;
-	public AutoBehaviourT setMeshTo(dynamic mesh_MeshProvider, bool boolean = true)
+	public AutoBehaviourT setMeshTo(object mesh_MeshProvider, bool boolean = true)
 	{
 		Mesh providedMesh = Provide.meshVia(mesh_MeshProvider);
 
 		return selfAfter(()=> meshFilter.setMeshTo(providedMesh, boolean));
 	}
 	public Mesh sharedMesh => meshFilter.sharedMesh;
-	public AutoBehaviourT setSharedMeshTo(dynamic sharedMesh_SharedMeshProvider, bool boolean = true)
+	public AutoBehaviourT setSharedMeshTo(object sharedMesh_SharedMeshProvider, bool boolean = true)
 	{
 		Mesh providedSharedMesh = Provide.meshVia(sharedMesh_SharedMeshProvider);
 

@@ -248,41 +248,37 @@ public static class ComponentExtensions
 	// method: return this given game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT first<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> includeInactiveComponents ? gameObject.GetComponent<ComponentT>() : gameObject.pick<ComponentT>(false).FirstOrDefault();
+	// method: return this given transform's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT first<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.first<ComponentT>(includeInactiveComponents);
+	// method: return this given component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT first<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.first<ComponentT>(includeInactiveComponents);
 
 	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given game object //
 	public static List<ComponentT> pick<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.GetComponents<ComponentT>().where(
-			component => component.gameObject.activeInHierarchy,
-			!includeInactiveComponents);
+		=>	gameObject.GetComponents<ComponentT>().where(component =>
+				component.activeGlobally(),
+				!includeInactiveComponents);
+	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given transform //
+	public static List<ComponentT> pick<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.pick<ComponentT>(includeInactiveComponents);
+	// method: return a list of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> pick<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.pick<ComponentT>(includeInactiveComponents);
 
 	// method: return a list of the specified interface of components, optionally including inactive components according to the given boolean, on this given game object //
 	public static List<ComponentI> pickI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
 		if (!typeof(ComponentI).IsInterface)
 		{
-			return default(IEnumerable<ComponentI>).manifested().returnWithError(typeof(ComponentI).Name+" is not an interface");
+			return default(List<ComponentI>).returnWithError(typeof(ComponentI).simpleClassName()+" is not an interface");
 		}
 
-		return gameObject.GetComponents<ComponentI>().where(
-				component => (component.castTo<Component>().gameObject.activeInHierarchy),
-				!includeInactiveComponents);
+		return	gameObject.GetComponents<ComponentI>().where(component =>
+					component.castTo<Component>().activeGlobally(),
+					!includeInactiveComponents);
 	}
-
-	// method: return this given transform's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public static ComponentT first<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> transform.gameObject.first<ComponentT>(includeInactiveComponents);
-
-	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given transform //
-	public static List<ComponentT> pick<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> transform.gameObject.pick<ComponentT>(includeInactiveComponents);
-
-	// method: return this given component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public static ComponentT first<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> component.gameObject.first<ComponentT>(includeInactiveComponents);
-
-	// method: return a list of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean //
-	public static List<ComponentT> pick<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> component.gameObject.pick<ComponentT>(includeInactiveComponents);
 
 	// method: return a list of all components on this given component's game object, optionally including inactive components according to the given boolean //
 	public static List<Component> components(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
@@ -383,11 +379,9 @@ public static class ComponentExtensions
 	// method: return this given game object's first local or child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstLocalOrChild<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.GetComponentInChildren<ComponentT>(includeInactiveComponents);
-
 	// method: return this given transform's first local or child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstLocalOrChild<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> transform.GetComponentInChildren<ComponentT>(includeInactiveComponents);
-
 	// method: return this given component's first local or child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstLocalOrChild<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.GetComponentInChildren<ComponentT>(includeInactiveComponents);
@@ -395,14 +389,35 @@ public static class ComponentExtensions
 	// method: return an array of this given game object's local and child components of the specified class, optionally including inactive components according to the given boolean //
 	public static ComponentT[] localAndChildren<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.GetComponentsInChildren<ComponentT>(includeInactiveComponents);
-
 	// method: return an array of this given transform's local and child components of the specified class, optionally including inactive components according to the given boolean //
 	public static ComponentT[] localAndChildren<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> transform.GetComponentsInChildren<ComponentT>(includeInactiveComponents);
-
 	// method: return an array of this given component's local and child components of the specified class, optionally including inactive components according to the given boolean //
 	public static ComponentT[] localAndChildren<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.GetComponentsInChildren<ComponentT>(includeInactiveComponents);
+	
+	// method: return an array of the specified interface of components, optionally including inactive components according to the given boolean, which are local or child to this given game object //
+	public static ComponentI[] localAndChildrenI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+	{
+		if (!typeof(ComponentI).IsInterface)
+		{
+			return default(ComponentI[]).returnWithError(typeof(ComponentI).simpleClassName()+" is not an interface");
+		}
+
+		return gameObject.GetComponentsInChildren<ComponentI>(includeInactiveComponents);
+	}
+
+	// method: return the set of game objects with the specified interface of components, optionally including inactive components according to the given boolean, which are local or child to this given game object //
+	public static HashSet<GameObject> localAndChildrenObjectsWithI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+	{
+		if (!typeof(ComponentI).IsInterface)
+		{
+			return default(HashSet<GameObject>).returnWithError(typeof(ComponentI).simpleClassName()+" is not an interface");
+		}
+
+		return gameObject.localAndChildren<Component>(includeInactiveComponents).where(monoBehaviour =>
+			monoBehaviour is ComponentI).uniqueObjects();
+	}
 	#endregion accessing child or self components
 
 

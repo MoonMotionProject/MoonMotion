@@ -5,7 +5,7 @@ using UnityEngine;
 // Sliding
 // • classifies this locomotion as the "sliding" locomotion
 // • continuously moves this object's position by the set velocity, scaled by the multiplier setting
-public class Sliding : Locomotion
+public class Sliding : MonoBehaviour, ILocomotion
 {
 	// variables //
 

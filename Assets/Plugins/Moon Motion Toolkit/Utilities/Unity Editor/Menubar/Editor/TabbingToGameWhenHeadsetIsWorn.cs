@@ -30,7 +30,7 @@ public static class TabbingToGameWhenHeadsetIsWorn
 
 	#region menubar toggle
 
-	private const string menuItem = "Headset Tabbing/-Not- To Game When Headset Is Worn";
+	private const string menuItem = "Headset Tabbing/Do Not Tab To Game When Headset Is Worn";
 
 	public static bool state => Menu.GetChecked(menuItem);
 

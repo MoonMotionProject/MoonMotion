@@ -368,15 +368,6 @@ public static class TransformTransformationExtensions
 	// method: return a selection of (global) positions corresponding to these given transforms //
 	public static IEnumerable<Vector3> selectPositions(this IList<Transform> transforms)
 		=> transforms.select(transform => transform.position);
-	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) position to the given position provider (try to set, but respect collisions in the way), then return this given transform //
-	public static Transform movePositionTo(this Transform transform, Vector3 position, bool boolean = true)
-		=> transform.rigidbody().movePositionTo(position, boolean).transform;
-	public static Transform movePositionTo(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.movePositionTo(otherTransform.position, boolean);
-	public static Transform movePositionTo(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.movePositionTo(gameObject.position(), boolean);
-	public static Transform movePositionTo(this Transform transform, Component component, bool boolean = true)
-		=> transform.movePositionTo(component.position(), boolean);
 	// method: (according to the given boolean:) set this given transform's (global) position to the given (global) position, then return this given transform //
 	public static Transform setPositionTo(this Transform transform, Vector3 position, bool boolean = true)
 	{
@@ -399,9 +390,15 @@ public static class TransformTransformationExtensions
 	// method: (according to the given boolean:) set this given transform's position to the given component's position, then return this given transform //
 	public static Transform setPositionTo(this Transform transform, Component component, bool boolean = true)
 		=> transform.setPositionTo(component.position(), boolean);
+	// method: (according to the given boolean:) set this given transform's position to the given raycast hit's position, then return this given transform //
+	public static Transform setPositionTo(this Transform transform, RaycastHit raycastHit, bool boolean = true)
+		=> transform.setPositionTo(raycastHit.position(), boolean);
 	// method: (according to the given boolean:) reset this given transform's (global) position to zeroes, then return this given transform //
 	public static Transform resetPosition(this Transform transform, bool boolean = true)
 		=> transform.setPositionTo(Vector3.zero, boolean);
+	// method: (according to the given boolean:) displace this given transform's (global) position by the given displacement, then return this given transform //
+	public static Transform displacePositionBy(this Transform transform, Vector3 displacement, bool boolean = true)
+		=> transform.setPositionTo(transform.position + displacement, boolean);
 
 
 
@@ -410,7 +407,7 @@ public static class TransformTransformationExtensions
 		=> transform.position.x;
 	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) x position to the given x position provider (try to set, but respect collisions in the way), then return this given transform //
 	public static Transform movePositionXTo(this Transform transform, float x, bool boolean = true)
-		=> transform.rigidbody().movePositionXTo(x, boolean).transform;
+		=> transform.correspondingRigidbody().movePositionXTo(x, boolean).transform;
 	public static Transform movePositionXTo(this Transform transform, Transform otherTransform, bool boolean = true)
 		=> transform.movePositionXTo(otherTransform.position.x, boolean);
 	public static Transform movePositionXTo(this Transform transform, GameObject gameObject, bool boolean = true)
@@ -440,7 +437,7 @@ public static class TransformTransformationExtensions
 		=> transform.position.y;
 	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) y position to the given y position provider (try to set, but respect collisions in the way), then return this given transform //
 	public static Transform movePositionYTo(this Transform transform, float y, bool boolean = true)
-		=> transform.rigidbody().movePositionYTo(y, boolean).transform;
+		=> transform.correspondingRigidbody().movePositionYTo(y, boolean).transform;
 	public static Transform movePositionYTo(this Transform transform, Transform otherTransform, bool boolean = true)
 		=> transform.movePositionYTo(otherTransform.position.y, boolean);
 	public static Transform movePositionYTo(this Transform transform, GameObject gameObject, bool boolean = true)
@@ -473,7 +470,7 @@ public static class TransformTransformationExtensions
 		=> transform.position.z;
 	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) z position to the given z position provider (try to set, but respect collisions in the way), then return this given transform //
 	public static Transform movePositionZTo(this Transform transform, float z, bool boolean = true)
-		=> transform.rigidbody().movePositionZTo(z, boolean).transform;
+		=> transform.correspondingRigidbody().movePositionZTo(z, boolean).transform;
 	public static Transform movePositionZTo(this Transform transform, Transform otherTransform, bool boolean = true)
 		=> transform.movePositionZTo(otherTransform.position.z, boolean);
 	public static Transform movePositionZTo(this Transform transform, GameObject gameObject, bool boolean = true)
@@ -679,7 +676,7 @@ public static class TransformTransformationExtensions
 
 
 	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to the given (global) position and (global) rotation, and set this given transform's (global) scale to the (global) scale of the given provided other transform, then return this given transform //
-	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Quaternion rotation, dynamic otherTransform_TransformProvider, bool boolean = true)
+	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Quaternion rotation, object otherTransform_TransformProvider, bool boolean = true)
 	{
 		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
 
@@ -688,7 +685,7 @@ public static class TransformTransformationExtensions
 				.setScaleTo(otherTransform, boolean);
 	}
 	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given transform's (global) scale to the (global) scale of the given provided other transform, then return this given transform //
-	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Vector3 eulerAngles, dynamic otherTransform_TransformProvider, bool boolean = true)
+	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Vector3 eulerAngles, object otherTransform_TransformProvider, bool boolean = true)
 	{
 		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
 
@@ -697,7 +694,7 @@ public static class TransformTransformationExtensions
 				.setScaleTo(otherTransform, boolean);
 	}
 	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to (global) transformations of the given provided other transform, then return this given transform //
-	public static Transform setTransformationsTo(this Transform transform, dynamic otherTransform_TransformProvider, bool boolean = true)
+	public static Transform setTransformationsTo(this Transform transform, object otherTransform_TransformProvider, bool boolean = true)
 	{
 		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
 

@@ -82,34 +82,22 @@ public class Treader : HandLocomotionControlled
 	
 	// method: determine whether this hand locomotion's input is currently enabled and currently allowed //
 	public override bool locomotionInputEnabledAndAllowed()
-	{
-		return (locomotionInputEnabled && (locomotionDependencies.areMet() || dependenciesStuckFailsafe.areMet()));
-	}
+		=> (locomotionInputEnabled && (locomotionDependencies.areMet() || dependenciesStuckFailsafe.areMet()));
 	// method: determine whether this treader's input experiencing valid input (whether its input is touched or pressed – versus neither touched nor pressed) //
 	private bool experiencingValidInput()
-	{
-		return (((locomotionInputEnabledAndAllowed() && controller.inputPressed(inputsLocomotion)) || regularTreadingToggle) || (slowerSpeedEnabled && (locomotionInputEnabledAndAllowed() && controller.inputTouched(inputsLocomotion))));
-	}
+		=> (((locomotionInputEnabledAndAllowed() && controller.inputPressed(inputsLocomotion)) || regularTreadingToggle) || (slowerSpeedEnabled && (locomotionInputEnabledAndAllowed() && controller.inputTouched(inputsLocomotion))));
 	// method: determine whether the given treader is active //
 	public static bool isActive(Treader treader)
-	{
-		return (treader && treader.gameObject && treader.gameObject.activeSelf);
-	}
+		=> (treader && treader.gameObject && treader.gameObject.activeSelf);
 	// method: determine whether the left treader is active //
 	public static bool leftTreaderActive()
-	{
-		return isActive(left);
-	}
+		=> isActive(left);
 	// method: determine whether the right treader is active //
 	public static bool rightTreaderActive()
-	{
-		return isActive(right);
-	}
+		=> isActive(right);
 	// method: determine whether the other treader is active //
 	public bool otherTreaderActive()
-	{
-		return isActive(other);
-	}
+		=> isActive(other);
 	// method: determine whether this treader is experiencing significant input – assumes the treader is active //
 	private bool experiencingSignificantInput()
 	{
@@ -121,14 +109,10 @@ public class Treader : HandLocomotionControlled
 	}
 	// method: determine whether the player is currently treading (regardless of whether they are actually significantly moving as a result) //
 	public static bool treading()
-	{
-		return ((isActive(left) && left.experiencingSignificantInput()) || (isActive(right) && right.experiencingSignificantInput()));
-	}
+		=> ((isActive(left) && left.experiencingSignificantInput()) || (isActive(right) && right.experiencingSignificantInput()));
 	// method: toggle the input style of this treader //
 	public void toggleInputStyle()
-	{
-		heldVersusToggled = !heldVersusToggled;
-	}
+		=> heldVersusToggled = !heldVersusToggled;
 	// method: toggle the input style for both treaders //
 	public static void toggleInputStyleForBoth()
 	{
@@ -137,48 +121,32 @@ public class Treader : HandLocomotionControlled
 	}
 	// method: toggle the input style for both treaders //
 	public void toggleInputStyleForBoth_()
-	{
-		toggleInputStyleForBoth();
-	}
+		=> toggleInputStyleForBoth();
 
 
 	// methods for: changing the direction reference transform //
 	
 	// method: change the direction reference transform to the corresponding hand's transform for this treader //
 	public void changeDirectionReferenceTransformToHand()
-	{
-		directionReferenceTransform = handTransform;
-	}
+		=> directionReferenceTransform = handTransform;
 	// method: change the direction reference transform to the corresponding hand's transform for the given treader //
 	public static void changeDirectionReferenceTransformToHandForTreader(Treader treader)
-	{
-		treader.changeDirectionReferenceTransformToHand();
-	}
+		=> treader.changeDirectionReferenceTransformToHand();
 	// method: change the direction reference transform to the corresponding hand's transform for the given treader //
 	public void changeDirectionReferenceTransformToHandForTreader_(Treader treader)
-	{
-		changeDirectionReferenceTransformToHandForTreader(treader);
-	}
+		=> changeDirectionReferenceTransformToHandForTreader(treader);
 	// method: change the direction reference transform to the corresponding hand's transform for the left treader //
 	public static void changeDirectionReferenceTransformToHandForLeft()
-	{
-		left.changeDirectionReferenceTransformToHand();
-	}
+		=> left.changeDirectionReferenceTransformToHand();
 	// method: change the direction reference transform to the corresponding hand's transform for the left treader //
 	public void changeDirectionReferenceTransformToHandForLeft_()
-	{
-		changeDirectionReferenceTransformToHandForLeft();
-	}
+		=> changeDirectionReferenceTransformToHandForLeft();
 	// method: change the direction reference transform to the corresponding hand's transform for the right treader //
 	public static void changeDirectionReferenceTransformToHandForRight()
-	{
-		right.changeDirectionReferenceTransformToHand();
-	}
+		=> right.changeDirectionReferenceTransformToHand();
 	// method: change the direction reference transform to the corresponding hand's transform for the right treader //
 	public void changeDirectionReferenceTransformToHandForRight_()
-	{
-		changeDirectionReferenceTransformToHandForRight();
-	}
+		=> changeDirectionReferenceTransformToHandForRight();
 	// method: change the direction reference transform to the corresponding hand's transform for both treaders //
 	public static void changeDirectionReferenceTransformToHandForBoth()
 	{
@@ -187,44 +155,28 @@ public class Treader : HandLocomotionControlled
 	}
 	// method: change the direction reference transform to the corresponding hand's transform for both treaders //
 	public void changeDirectionReferenceTransformToHandForBoth_()
-	{
-		changeDirectionReferenceTransformToHandForBoth();
-	}
+		=> changeDirectionReferenceTransformToHandForBoth();
 	// method: change the direction reference transform to the player head transform for this treader //
 	public void changeDirectionReferenceTransformToHead()
-	{
-		directionReferenceTransform = headTransform;
-	}
+		=> directionReferenceTransform = headTransform;
 	// method: change the direction reference transform to the player head transform for the given treader //
 	public static void changeDirectionReferenceTransformToHeadForTreader(Treader treader)
-	{
-		treader.changeDirectionReferenceTransformToHead();
-	}
+		=> treader.changeDirectionReferenceTransformToHead();
 	// method: change the direction reference transform to the player head transform for the given treader //
 	public void changeDirectionReferenceTransformToHeadForTreader_(Treader treader)
-	{
-		changeDirectionReferenceTransformToHeadForTreader(treader);
-	}
+		=> changeDirectionReferenceTransformToHeadForTreader(treader);
 	// method: change the direction reference transform to the player head transform for the left treader //
 	public static void changeDirectionReferenceTransformToHeadForLeft()
-	{
-		left.changeDirectionReferenceTransformToHead();
-	}
+		=> left.changeDirectionReferenceTransformToHead();
 	// method: change the direction reference transform to the player head transform for the left treader //
 	public void changeDirectionReferenceTransformToHeadForLeft_()
-	{
-		changeDirectionReferenceTransformToHeadForLeft();
-	}
+		=> changeDirectionReferenceTransformToHeadForLeft();
 	// method: change the direction reference transform to the player head transform for the right treader //
 	public static void changeDirectionReferenceTransformToHeadForRight()
-	{
-		right.changeDirectionReferenceTransformToHead();
-	}
+		=> right.changeDirectionReferenceTransformToHead();
 	// method: change the direction reference transform to the player head transform for the right treader //
 	public void changeDirectionReferenceTransformToHeadForRight_()
-	{
-		changeDirectionReferenceTransformToHeadForRight();
-	}
+		=> changeDirectionReferenceTransformToHeadForRight();
 	// method: change the direction reference transform to the player head transform for both treaders //
 	public static void changeDirectionReferenceTransformToHeadForBoth()
 	{
@@ -233,9 +185,7 @@ public class Treader : HandLocomotionControlled
 	}
 	// method: change the direction reference transform to the player head transform for both treaders //
 	public void changeDirectionReferenceTransformToHeadForBoth_()
-	{
-		changeDirectionReferenceTransformToHeadForBoth();
-	}
+		=> changeDirectionReferenceTransformToHeadForBoth();
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for this treader //
 	public void toggleDirectionReferenceTransform()
 	{
@@ -250,34 +200,22 @@ public class Treader : HandLocomotionControlled
 	}
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for the given treader //
 	public static void toggleDirectionReferenceTransformForTreader(Treader treader)
-	{
-		treader.toggleDirectionReferenceTransform();
-	}
+		=> treader.toggleDirectionReferenceTransform();
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for the given treader //
 	public void toggleDirectionReferenceTransformForTreader_(Treader treader)
-	{
-		toggleDirectionReferenceTransformForTreader(treader);
-	}
+		=> toggleDirectionReferenceTransformForTreader(treader);
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for the left treader //
 	public static void toggleDirectionReferenceTransformForLeft()
-	{
-		left.toggleDirectionReferenceTransform();
-	}
+		=> left.toggleDirectionReferenceTransform();
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for the left treader //
 	public void toggleDirectionReferenceTransformForLeft_()
-	{
-		toggleDirectionReferenceTransformForLeft();
-	}
+		=> toggleDirectionReferenceTransformForLeft();
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for the right treader //
 	public static void toggleDirectionReferenceTransformForRight()
-	{
-		right.toggleDirectionReferenceTransform();
-	}
+		=> right.toggleDirectionReferenceTransform();
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for the right treader //
 	public void toggleDirectionReferenceTransformForRight_()
-	{
-		toggleDirectionReferenceTransformForRight();
-	}
+		=> toggleDirectionReferenceTransformForRight();
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for both treaders //
 	public static void toggleDirectionReferenceTransformForBoth()
 	{
@@ -286,9 +224,7 @@ public class Treader : HandLocomotionControlled
 	}
 	// method: toggle the direction reference transform between the corresponding hand transform and the player head transform for both treaders //
 	public void toggleDirectionReferenceTransformForBoth_()
-	{
-		toggleDirectionReferenceTransformForBoth();
-	}
+		=> toggleDirectionReferenceTransformForBoth();
 	
 	
 	
@@ -403,7 +339,7 @@ public class Treader : HandLocomotionControlled
 				Vector3 treadingVelocity = treadingVelocityProportionalityForwardPart + treadingVelocityProportionalityRightwardPart;		// initialize the treading velocity as the sum of both the forward and rightward parts
 
 				// trim out the y axis of the treading velocity //
-				treadingVelocity = new Vector3(treadingVelocity.x, 0f, treadingVelocity.z);
+				treadingVelocity = treadingVelocity.withYZero();
 
 				// calculate the treading speed //
 				float speed = 0f;		// initialize the treading speed to 0

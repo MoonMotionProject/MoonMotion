@@ -166,6 +166,12 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	// method: return an array of this component's local and child components of the specified class, optionally including inactive components according to the given boolean //
 	public ComponentT[] localAndChildren<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.localAndChildren<ComponentT>(includeInactiveComponents);
+	
+	public ComponentI[] localAndChildrenI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> gameObject.localAndChildrenI<ComponentI>(includeInactiveComponents);
+
+	public HashSet<GameObject> localAndChildrenObjectsWithI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> gameObject.localAndChildrenObjectsWithI<ComponentI>(includeInactiveComponents);
 	#endregion accessing child or self components
 
 

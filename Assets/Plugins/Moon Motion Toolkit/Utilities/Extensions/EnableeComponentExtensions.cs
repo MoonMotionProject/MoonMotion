@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Enablee Component Extensions: provides extension methods for handling enablee components (components which have enablement state)
-// #dynamics
+// #objects
 public static class EnableeComponentExtensions
 {
 	#region enablement of these given enablee components
@@ -28,15 +28,41 @@ public static class EnableeComponentExtensions
 
 	#region enablement of this given enablee component
 
-	private static bool enablementOf(dynamic dynamo)
-		=> dynamo.enabled;
+	private static bool enablementOf(Component enableeComponent)
+	{
+		if (enableeComponent is Behaviour)
+		{
+			return (enableeComponent as Behaviour).enabled;
+		}
+		else if (enableeComponent is Renderer)
+		{
+			return (enableeComponent as Renderer).enabled;
+		}
+		else
+		{
+			return default(bool).returnWithError("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.type());
+		}
+	}
 
 	// method: return the enablement of this given enablee component //
 	public static bool enablement(this Component enableeComponent)
 		=> enablementOf(enableeComponent);
 
-	private static void setEnablementOf(dynamic dynamo, bool enablement)
-		=> dynamo.enabled = enablement;
+	private static void setEnablementOf(Component enableeComponent, bool enablement)
+	{
+		if (enableeComponent is Behaviour)
+		{
+			(enableeComponent as Behaviour).enabled = enablement;
+		}
+		else if (enableeComponent is Renderer)
+		{
+			(enableeComponent as Renderer).enabled = enablement;
+		}
+		else
+		{
+			("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.type()).printAsError();
+		}
+	}
 
 	// method: set the enablement of this given enablee component to the given boolean, then return this given enablee component //
 	public static ComponentT setEnablementTo<ComponentT>(this ComponentT enableeComponent, bool enablement) where ComponentT : Component

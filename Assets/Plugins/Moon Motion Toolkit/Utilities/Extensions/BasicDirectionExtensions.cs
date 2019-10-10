@@ -83,7 +83,7 @@ public static class BasicDirectionExtensions
 	}
 
 	// method: return the local direction for this given basic direction, as relative to the given transform provider //
-	public static Vector3 asDirectionRelativeTo(this BasicDirection basicDirection, dynamic transform_TransformProvider)
+	public static Vector3 asDirectionRelativeTo(this BasicDirection basicDirection, object transform_TransformProvider)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
@@ -106,7 +106,7 @@ public static class BasicDirectionExtensions
 	}
 
 	// method: return the direction for this given basic direction and the given distinctivity and given potential transform provider (used only if the distinctivity is relative) //
-	public static Vector3 asDirection(this BasicDirection basicDirection, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider)
+	public static Vector3 asDirection(this BasicDirection basicDirection, Distinctivity distinctivity, object potentialTransform_TransformProvider)
 	{
 		if (distinctivity.isAbsolute())
 		{

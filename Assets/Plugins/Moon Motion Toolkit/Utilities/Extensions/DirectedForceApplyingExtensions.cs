@@ -15,7 +15,7 @@ public static class DirectedForceApplyingExtensions
 	#region applying directed force to this given provided rigidbody
 	
 	
-	public static Rigidbody applyDirectedForceFrom(this Rigidbody rigidbody, dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static Rigidbody applyDirectedForceFrom(this Rigidbody rigidbody, object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -35,7 +35,7 @@ public static class DirectedForceApplyingExtensions
 		);
 	}
 
-	public static GameObject applyDirectedForceFrom(this GameObject gameObject, dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static GameObject applyDirectedForceFrom(this GameObject gameObject, object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -51,7 +51,7 @@ public static class DirectedForceApplyingExtensions
 		).gameObject;
 	}
 
-	public static ComponentT applyDirectedForceFrom<ComponentT>(this ComponentT component, dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
+	public static ComponentT applyDirectedForceFrom<ComponentT>(this ComponentT component, object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -69,7 +69,7 @@ public static class DirectedForceApplyingExtensions
 	}
 
 
-	public static Rigidbody applyDirectedForceFrom(this Rigidbody rigidbody, dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static Rigidbody applyDirectedForceFrom(this Rigidbody rigidbody, object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -85,7 +85,7 @@ public static class DirectedForceApplyingExtensions
 		);
 	}
 
-	public static GameObject applyDirectedForceFrom(this GameObject gameObject, dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static GameObject applyDirectedForceFrom(this GameObject gameObject, object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -102,7 +102,7 @@ public static class DirectedForceApplyingExtensions
 		).gameObject;
 	}
 
-	public static ComponentT applyDirectedForceFrom<ComponentT>(this ComponentT component, dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
+	public static ComponentT applyDirectedForceFrom<ComponentT>(this ComponentT component, object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -127,7 +127,7 @@ public static class DirectedForceApplyingExtensions
 	#region applying directed force to each of these given provided rigidbodies
 
 
-	public static List<Rigidbody> applyDirectedForceToEachFrom(this IEnumerable<Rigidbody> rigidbodies, dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static List<Rigidbody> applyDirectedForceToEachFrom(this IEnumerable<Rigidbody> rigidbodies, object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -144,7 +144,7 @@ public static class DirectedForceApplyingExtensions
 			));
 	}
 
-	public static List<GameObject> applyDirectedForceToEachFrom(this IEnumerable<GameObject> objects, dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static List<GameObject> applyDirectedForceToEachFrom(this IEnumerable<GameObject> objects, object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -161,7 +161,7 @@ public static class DirectedForceApplyingExtensions
 			));
 	}
 
-	public static List<ComponentT> applyDirectedForceToEachFrom<ComponentT>(this IEnumerable<ComponentT> components, dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
+	public static List<ComponentT> applyDirectedForceToEachFrom<ComponentT>(this IEnumerable<ComponentT> components, object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -179,7 +179,7 @@ public static class DirectedForceApplyingExtensions
 	}
 
 
-	public static List<Rigidbody> applyDirectedForceToEachFrom(this IEnumerable<Rigidbody> rigidbodies, dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static List<Rigidbody> applyDirectedForceToEachFrom(this IEnumerable<Rigidbody> rigidbodies, object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -197,7 +197,7 @@ public static class DirectedForceApplyingExtensions
 			));
 	}
 
-	public static List<GameObject> applyDirectedForceToEachFrom(this IEnumerable<GameObject> objects, dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static List<GameObject> applyDirectedForceToEachFrom(this IEnumerable<GameObject> objects, object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -215,7 +215,7 @@ public static class DirectedForceApplyingExtensions
 			));
 	}
 
-	public static List<ComponentT> applyDirectedForceToEachFrom<ComponentT>(this IEnumerable<ComponentT> components, dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
+	public static List<ComponentT> applyDirectedForceToEachFrom<ComponentT>(this IEnumerable<ComponentT> components, object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping) where ComponentT : Component
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 

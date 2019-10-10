@@ -12,7 +12,7 @@ using UnityEngine;
 // • player launching time determination:
 //   · tracks and provides the last time the player was launched
 //   · provides a method for determining whether the player was launched within a given amount of time ago
-public class Launcher : Locomotion
+public class Launcher : MonoBehaviour, ILocomotion
 {
 	// variables //
 

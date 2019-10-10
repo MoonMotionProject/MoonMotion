@@ -38,7 +38,7 @@ public static class PausingWhenHeadsetIsUnworn
 
 	#region menubar toggle
 
-	private const string menuItem = "Pause/-Not- When Headset Is Unwearing";
+	private const string menuItem = "Pause/Do Not Pause When Headset Is Unwearing";
 
 	public static bool state => Menu.GetChecked(menuItem);
 

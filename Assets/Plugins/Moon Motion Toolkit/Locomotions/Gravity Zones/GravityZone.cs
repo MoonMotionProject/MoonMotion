@@ -35,7 +35,7 @@ using Valve.VR.InteractionSystem;
 //   · toggle gravitizing for a particular gravity zone \ all gravity zones
 //   · change a particular gravity zone's \ all gravity zones' gravitation force
 //   · flip (invert the sign of on the y axis) a particular gravity zone's \ all gravity zones' gravitation force
-public abstract class GravityZone : Locomotion
+public abstract class GravityZone : MonoBehaviour, ILocomotion
 {
 	// variables //
 

@@ -124,14 +124,14 @@ public static class ForceApplyingExtensions
 	#region given a direction, distinctivity, potential transform provider, and magnitude
 
 
-	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
 		return rigidbody.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
 	}
 
-	public static List<Rigidbody> applyForceAlong(this IEnumerable<Rigidbody> rigidbodies, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	public static List<Rigidbody> applyForceAlong(this IEnumerable<Rigidbody> rigidbodies, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
@@ -141,14 +141,14 @@ public static class ForceApplyingExtensions
 	}
 
 
-	public static GameObject applyForceAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	public static GameObject applyForceAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
 		return gameObject.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
 	}
 
-	public static List<GameObject> applyForceAlong(this IEnumerable<GameObject> objects, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	public static List<GameObject> applyForceAlong(this IEnumerable<GameObject> objects, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
@@ -158,14 +158,14 @@ public static class ForceApplyingExtensions
 	}
 
 
-	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
+	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
 		return component.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
 	}
 
-	public static List<ComponentT> applyForceAlong<ComponentT>(this IEnumerable<ComponentT> components, Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
+	public static List<ComponentT> applyForceAlong<ComponentT>(this IEnumerable<ComponentT> components, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
@@ -181,14 +181,14 @@ public static class ForceApplyingExtensions
 	#region given a local direction and magnitude
 
 
-	public static Rigidbody applyForceAlongLocal(this Rigidbody rigidbody, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	public static Rigidbody applyForceAlongLocal(this Rigidbody rigidbody, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
 		return rigidbody.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
 	}
 
-	public static List<Rigidbody> applyForceAlongLocal(this IEnumerable<Rigidbody> rigidbodies, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	public static List<Rigidbody> applyForceAlongLocal(this IEnumerable<Rigidbody> rigidbodies, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
@@ -198,14 +198,14 @@ public static class ForceApplyingExtensions
 	}
 
 
-	public static GameObject applyForceAlongLocal(this GameObject gameObject, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	public static GameObject applyForceAlongLocal(this GameObject gameObject, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
 		return gameObject.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
 	}
 
-	public static List<GameObject> applyForceAlongLocal(this IEnumerable<GameObject> objects, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	public static List<GameObject> applyForceAlongLocal(this IEnumerable<GameObject> objects, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
@@ -215,14 +215,14 @@ public static class ForceApplyingExtensions
 	}
 
 
-	public static ComponentT applyForceAlongLocal<ComponentT>(this ComponentT component, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
+	public static ComponentT applyForceAlongLocal<ComponentT>(this ComponentT component, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
 		return component.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
 	}
 
-	public static List<ComponentT> applyForceAlongLocal<ComponentT>(this IEnumerable<ComponentT> components, Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
+	public static List<ComponentT> applyForceAlongLocal<ComponentT>(this IEnumerable<ComponentT> components, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 

@@ -58,7 +58,7 @@ public static class LineRendererExtensions
 				.setFirstPointTo(firstPosition)
 				.setSecondPointTo(secondPosition);
 	// method: set this given line renderer's first and second points to the given provided first and second positions (respectively), then return this given line renderer //
-	public static LineRenderer setFirstTwoPointsTo(this LineRenderer lineRenderer, dynamic firstPosition_PositionProvider, dynamic secondPosition_PositionProvider)
+	public static LineRenderer setFirstTwoPointsTo(this LineRenderer lineRenderer, object firstPosition_PositionProvider, object secondPosition_PositionProvider)
 	{
 		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
 		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
@@ -66,7 +66,7 @@ public static class LineRendererExtensions
 		return lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition);
 	}
 	// method: set this given line renderer's first and second points according to the line from the given provided starting transform along the given local direction relative to the given provided starting transform, for the given distance, then return this given line renderer //
-	public static LineRenderer setFirstTwoPointsForLineLocallyDirectedFrom(this LineRenderer lineRenderer, dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance)
+	public static LineRenderer setFirstTwoPointsForLineLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 	{
 		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
 
@@ -120,7 +120,7 @@ public static class LineRendererExtensions
 
 	#region line of light setup
 	
-	public static LineRenderer setupAsLineOfLightLocallyDirectedFrom(this LineRenderer lineRenderer, dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+	public static LineRenderer setupAsLineOfLightLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
 	{
 		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
 

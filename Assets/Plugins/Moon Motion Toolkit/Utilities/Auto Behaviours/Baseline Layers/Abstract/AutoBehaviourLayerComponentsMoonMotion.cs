@@ -14,7 +14,6 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#if MOON_MOTION_TOOLKIT
-	public Locomotion locomotion => cache<Locomotion>();
 	public TerrainResponse terrainResponse => cache<TerrainResponse>();
 	public Powerup powerup => cache<Powerup>();
 	public PowerupCollider powerupCollider => cache<PowerupCollider>();

@@ -23,6 +23,18 @@ public static class RigidbodyTransformationExtensions
 		=> rigidbody.movePositionTo(gameObject.position());
 	public static Rigidbody movePositionTo(this Rigidbody rigidbody, Component component, bool boolean = true)
 		=> rigidbody.movePositionTo(component.position());
+	public static Rigidbody movePositionTo(this Rigidbody rigidbody, RaycastHit raycastHit, bool boolean = true)
+		=> rigidbody.movePositionTo(raycastHit.position());
+	public static Vector3 positionForMovingPositionTo(this Rigidbody rigidbody, Vector3 targetPosition)
+	{
+		Vector3 originalPosition = rigidbody.position();
+		rigidbody.movePositionTo(targetPosition);
+		Vector3 movedPosition = rigidbody.position();
+		rigidbody.setPositionTo(originalPosition);
+		return movedPosition;
+	}
+	public static Vector3 displacementForMovingPositionTo(this Rigidbody rigidbody, Vector3 targetPosition)
+		=> rigidbody.displacementTo(rigidbody.positionForMovingPositionTo(targetPosition));
 
 
 	// methods: (according to the given boolean:) move this given rigidbody's x position to the given x position provider (try to set, but respect collisions in the way), then return this given rigidbody //

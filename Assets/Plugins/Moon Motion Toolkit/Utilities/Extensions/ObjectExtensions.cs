@@ -189,6 +189,10 @@ public static class ObjectExtensions
 	// method: return this given object cast to the specified type (however, there is no guarantee that the given object can be cast to the specified type) //
 	public static TCast castTo<TCast>(this object object_)
 		=> (TCast) object_;
+	
+	// method: return this given object cast as the specified type (as long as it is a class, it will be cast to that class or null) //
+	public static ObjectT castAs<ObjectT>(object object_) where ObjectT : class
+		=> object_ as ObjectT;
 
 	// method: return this given object converted to a string with null represented //
 	public static string asStringWithNullRepresented(this object object_)

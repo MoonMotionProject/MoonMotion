@@ -167,13 +167,13 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.applyForceOf(forceX, forceY, forceZ, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
 		=> autoBehaviour.applyForceAlong(direction, magnitude, boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, Distinctivity distinctivity, dynamic potentialTransform_TransformProvider, float magnitude, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
 		return autoBehaviour.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean);
 	}
-	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongLocal(Vector3 localDirection, dynamic transform_TransformProvider, float magnitude, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongLocal(Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
@@ -212,7 +212,7 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#endregion applying force
 
 	#region applying directed force
-	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(dynamic forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
@@ -227,7 +227,7 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 			clamp
 		);
 	}
-	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(dynamic forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
@@ -316,14 +316,14 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.setLineRendererSecondPointTo(position);
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
 		=> autoBehaviour.setLineRendererFirstTwoPointsTo(firstPosition, secondPosition);
-	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(dynamic firstPosition_PositionProvider, dynamic secondPosition_PositionProvider)
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(object firstPosition_PositionProvider, object secondPosition_PositionProvider)
 	{
 		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
 		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
 
 		return autoBehaviour.setLineRendererFirstTwoPointsTo(firstPosition, secondPosition);
 	}
-	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance)
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 	{
 		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
 
@@ -357,7 +357,7 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#endregion setting starting and ending colors
 
 	#region line of light setup
-	public static new AutoBehaviour<SingletonBehaviourT> setupLineRendererAsLineOfLightLocallyDirectedFrom(dynamic startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+	public static new AutoBehaviour<SingletonBehaviourT> setupLineRendererAsLineOfLightLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
 	{
 		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
 
@@ -387,14 +387,14 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region MeshFilter
 	public static new Mesh mesh => autoBehaviour.mesh;
-	public static new AutoBehaviour<SingletonBehaviourT> setMeshTo(dynamic mesh_MeshProvider, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> setMeshTo(object mesh_MeshProvider, bool boolean = true)
 	{
 		Mesh providedMesh = Provide.meshVia(mesh_MeshProvider);
 
 		return autoBehaviour.setMeshTo(providedMesh, boolean);
 	}
 	public static new Mesh sharedMesh => autoBehaviour.sharedMesh;
-	public static new AutoBehaviour<SingletonBehaviourT> setSharedMeshTo(dynamic sharedMesh_SharedMeshProvider, bool boolean = true)
+	public static new AutoBehaviour<SingletonBehaviourT> setSharedMeshTo(object sharedMesh_SharedMeshProvider, bool boolean = true)
 	{
 		Mesh providedSharedMesh = Provide.meshVia(sharedMesh_SharedMeshProvider);
 

@@ -18,7 +18,7 @@ public class MatchTransformationsToTarget : MatchSomeTransformationsToTarget<Mat
 public static class MatchTransformationsToTargetExtensions
 {
 	// method: ensure a Match Transformations To Target behaviour on this given game object, set the target transform of the Match Transformations To Target behaviour to the given provided target transform, have the behaviour update, then return this given game object //
-	public static GameObject ensuredlyMatchTransformationsTo(this GameObject gameObject, dynamic targetTransform_TransformProvider)
+	public static GameObject ensuredlyMatchTransformationsTo(this GameObject gameObject, object targetTransform_TransformProvider)
 	{
 		Transform targetTransform = Provide.transformVia(targetTransform_TransformProvider);
 

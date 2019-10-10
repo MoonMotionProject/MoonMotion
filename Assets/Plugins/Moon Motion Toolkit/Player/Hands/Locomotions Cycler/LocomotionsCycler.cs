@@ -11,7 +11,7 @@ using NaughtyAttributes;
 //   · a toggle setting restricts whether this input is currently enabled
 //   · an input dependencies setting further restricts whether this input is allowed
 //   · based on an option, this will or will not play the attached cycling audio
-//   · here a locomotion is a child object of this cycler's hand that provides a locomotive method for the hand, as determined by whether it has a script component that extends Locomotion
+//   · here a locomotion is a child object of this cycler's hand that provides a locomotive method for the hand, as determined by whether it has a script component that implements ILocomotion
 //   · here a locomotion combination is defined as an array of multiple locomotions to enable simultaneously – this could contain just one locomotion, two, more... or none
 //     - for example, the locomotion combinations could be setup to cycle between using, say: Booster, Teleporter, both Booster and Teleporter, no locomotions
 //     - note that this does not imply full support for or a need to provide more than one hand locomotion object of the same kind for the same hand
@@ -251,19 +251,19 @@ public class LocomotionsCycler : MonoBehaviour
 			}
 		}
 		// track the locomotions that are children of the hand as being managed by both Locomotions Cyclers //
-		foreach (Locomotion handChildLocomotion in GetComponentsInChildren<Locomotion>())
+		foreach (GameObject handChildLocomotion in gameObject.localAndChildrenObjectsWithI<ILocomotion>())
 		{
-			if (!managedLocomotions.Contains(handChildLocomotion.gameObject))
+			if (managedLocomotions.doesNotContain(handChildLocomotion))
 			{
-				managedLocomotions.Add(handChildLocomotion.gameObject);
+				managedLocomotions.include(handChildLocomotion);
 			}
 		}
-		// if the controller is that of the left hand (so that this only happens once between both controllers): track the locomotions that are children of the player as being managed by both Locomotions Cyclers //
-		foreach (Locomotion playerChildLocomotion in Player.instance.GetComponentsInChildren<Locomotion>())
+		// track the locomotions that are children of the player as being managed by both Locomotions Cyclers //
+		foreach (GameObject playerChildLocomotion in MoonMotionPlayer.localAndChildrenObjectsWithI<ILocomotion>())
 		{
-			if (!managedLocomotions.Contains(playerChildLocomotion.gameObject))
+			if (managedLocomotions.doesNotContain(playerChildLocomotion))
 			{
-				managedLocomotions.Add(playerChildLocomotion.gameObject);
+				managedLocomotions.include(playerChildLocomotion);
 			}
 		}
 

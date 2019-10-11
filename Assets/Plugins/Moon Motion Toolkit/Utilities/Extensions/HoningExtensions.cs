@@ -6,7 +6,7 @@ using UnityEngine;
 public static class HoningExtensions
 {
 	// method: return this given original float honed to the given target value by the given honing amount //
-	public static float honed(this float float_, float target, float honingAmount)
+	public static float honedTo(this float float_, float target, float honingAmount)
 	{
 		if (honingAmount.isZero())
 		{
@@ -14,11 +14,7 @@ public static class HoningExtensions
 		}
 		else
 		{
-			float targetDistance = target.distanceWith(float_);
-			if (targetDistance < honingAmount)
-			{
-				honingAmount *= (targetDistance / honingAmount.magnitude());
-			}
+			honingAmount = honingAmount.atMost(target.distanceWith(float_));
 
 			if (honingAmount.isZero())
 			{
@@ -27,19 +23,22 @@ public static class HoningExtensions
 
 			honingAmount = honingAmount.timesSign(target > float_);
 
-			return (float_ + honingAmount);
+			return float_ + honingAmount;
 		}
 	}
 	
-	// method: return this given vector honed to the given target vector by the respective given honing amounts //
-	public static Vector3 honed(this Vector3 vector, Vector3 targetVector, Vector3 honingAmounts)
+	// method: return this given vector honed to the given target vector by the given honing vector //
+	public static Vector3 honedTo(this Vector3 vector, Vector3 targetVector, Vector3 honingVector)
 		=> new Vector3
 		(
-			vector.x.honed(targetVector.x, honingAmounts.x),
-			vector.y.honed(targetVector.y, honingAmounts.y),
-			vector.z.honed(targetVector.z, honingAmounts.z)
+			vector.x.honedTo(targetVector.x, honingVector.x),
+			vector.y.honedTo(targetVector.y, honingVector.y),
+			vector.z.honedTo(targetVector.z, honingVector.z)
 		);
-	// method: return this given vector honed to the given target vector by the given honing amount //
-	public static Vector3 honed(this Vector3 vector, Vector3 targetVector, float honingAmount)
-		=> vector.honed(targetVector, honingAmount.asVector());
+	// method: return this given vector honed to the given target vector by the given honing vectral and honing magnitude //
+	public static Vector3 honedTo(this Vector3 vector, Vector3 targetVector, Vector3 honingVectral, float honingMagnitude)
+		=> vector.honedTo(targetVector, honingVectral * honingMagnitude);
+	// method: return this given vector honed to the given target vector by the given honing magnitude //
+	public static Vector3 honedTo(this Vector3 vector, Vector3 targetVector, float honingMagnitude)
+		=> vector.honedTo(targetVector, vector.directudeWith(targetVector), honingMagnitude);
 }

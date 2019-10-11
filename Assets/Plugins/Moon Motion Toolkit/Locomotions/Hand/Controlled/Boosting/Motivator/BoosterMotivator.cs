@@ -134,7 +134,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 					setAudioTimeTo(0f);
 				}
 
-				audioSource.volume = Mathf.Max(volumeMin, audioSource.volume.honed(maxVolumeToUse, volumeIncrement));
+				audioSource.volume = Mathf.Max(volumeMin, audioSource.volume.honedTo(maxVolumeToUse, volumeIncrement));
 
 				if (aestheticsCycling)
 				{
@@ -171,7 +171,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 		// for not being enabled: adjusting volume, vision coloring //
 		else
 		{
-			audioSource.volume = Mathf.Min(volumeMax, audioSource.volume.honed(volumeMin, volumeIncrement));
+			audioSource.volume = Mathf.Min(volumeMax, audioSource.volume.honedTo(volumeMin, volumeIncrement));
 			
 			SteamVR_Fade.Start(new Color(0f, 0f, 0f, 0f), fadingDuration);
 		}

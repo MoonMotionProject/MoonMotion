@@ -107,7 +107,6 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 
 	public static new Player player => autoBehaviour.player;
 	public static new Hand hand => autoBehaviour.hand;
-	public static new Controller controller => autoBehaviour.controller;
 	public static new Interactable interactable => autoBehaviour.interactable;
 	public static new Throwable throwable => autoBehaviour.throwable;
 	public static new VelocityEstimator velocityEstimator => autoBehaviour.velocityEstimator;

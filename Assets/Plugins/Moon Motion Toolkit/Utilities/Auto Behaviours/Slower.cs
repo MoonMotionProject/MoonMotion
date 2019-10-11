@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Slower:
-// • slows the velocity of the attached rigidbody by the set speed, so long as the dependencies setting is met
+// • slows the velocity of the ensured corresponding rigidbody by the set speed, so long as the dependencies setting is met
 //   · a toggle setting controls whether this slowing is enabled
 [RequireComponent(typeof(Rigidbody))]
 public class Slower : AutoBehaviour<Slower>

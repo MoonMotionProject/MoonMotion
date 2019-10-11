@@ -35,6 +35,50 @@ public static class Provide
 	#endregion Transform
 
 
+	#region Collider
+
+	public static Collider colliderVia(object dynamo)
+	{
+		if (dynamo is Collider)
+		{
+			return (dynamo as Collider);
+		}
+		else if (dynamo is RaycastHit?)
+		{
+			return (dynamo as RaycastHit?).GetValueOrDefault().collider;
+		}
+		else if (dynamo is RaycastHit)
+		{
+			return dynamo.castTo<RaycastHit>().collider;
+		}
+		else
+		{
+			return default(Collider).returnWithError("Provide.colliderVia given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion Collider
+
+
+	#region RaycastHit
+
+	public static RaycastHit raycastHitVia(object dynamo)
+	{
+		if (dynamo is RaycastHit?)
+		{
+			return (dynamo as RaycastHit?).GetValueOrDefault();
+		}
+		else if (dynamo is RaycastHit)
+		{
+			return dynamo.castTo<RaycastHit>();
+		}
+		else
+		{
+			return default(RaycastHit).returnWithError("Provide.raycastHitVia given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion RaycastHit
+
+
 	#region position
 
 	public static Vector3 positionVia(object dynamo)
@@ -99,19 +143,7 @@ public static class Provide
 	
 	public static List<Rigidbody> rigidbodiesVia(object dynamo)
 	{
-		if (dynamo is Rigidbody)
-		{
-			return (dynamo as Rigidbody).startList();
-		}
-		else if (dynamo is GameObject)
-		{
-			return rigidbodiesVia((dynamo as GameObject).rigidbody());
-		}
-		else if (dynamo is Component)
-		{
-			return rigidbodiesVia((dynamo as Component).rigidbody());
-		}
-		else if (dynamo is IEnumerable<Rigidbody>)
+		if (dynamo is IEnumerable<Rigidbody>)
 		{
 			return (dynamo as IEnumerable<Rigidbody>).manifested();
 		}
@@ -122,6 +154,18 @@ public static class Provide
 		else if (dynamo is IEnumerable<Component>)
 		{
 			return (dynamo as IEnumerable<Component>).rigidbodies();
+		}
+		else if (dynamo is Rigidbody)
+		{
+			return (dynamo as Rigidbody).startList();
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).rigidbodies();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).rigidbodies();
 		}
 		else
 		{
@@ -177,4 +221,72 @@ public static class Provide
 		}
 	}
 	#endregion shared mesh
+
+
+	#region layer index
+
+	public static int layerIndexVia(object dynamo)
+	{
+		if (dynamo is int)
+		{
+			return dynamo.castTo<int>();
+		}
+		else if (dynamo is string)
+		{
+			return (dynamo as string).asLayerIndex();
+		}
+		else
+		{
+			return default(int).returnWithError("Provide.layerIndexVia given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion layer index
+
+
+	#region layer name
+
+	public static string layerNameVia(object dynamo)
+	{
+		if (dynamo is string)
+		{
+			return dynamo as string;
+		}
+		else if (dynamo is int)
+		{
+			return dynamo.castTo<int>().asLayerName();
+		}
+		else
+		{
+			return default(string).returnWithError("Provide.layerNameVia given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion layer name
+
+
+	#region HashSet<GameObject>
+	
+	public static HashSet<GameObject> uniqueGameObjectsVia(object dynamo)
+	{
+		if (dynamo is IEnumerable<GameObject>)
+		{
+			return (dynamo as IEnumerable<GameObject>).toSet();
+		}
+		else if (dynamo is IEnumerable<Component>)
+		{
+			return (dynamo as IEnumerable<Component>).uniqueObjects();
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).startSet();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).uniqueObjects();
+		}
+		else
+		{
+			return default(HashSet<GameObject>).returnWithError("Provide.uniqueGameObjectsVia given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion HashSet<GameObject>
 }

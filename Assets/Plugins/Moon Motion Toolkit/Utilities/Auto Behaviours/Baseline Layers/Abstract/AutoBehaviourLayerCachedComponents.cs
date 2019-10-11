@@ -12,12 +12,16 @@ public abstract class	AutoBehaviourLayerCachedComponents<AutoBehaviourT> :
 {
 	// methods //
 
-
+	
 	// method: cachingly return the component of the specified class in the cached components for this game object, optionally adding the specified type of component if none is found //
 	public ComponentT cache<ComponentT>(bool addComponentIfNoneFound = false) where ComponentT : Component
 		=> gameObject.cache<ComponentT>(addComponentIfNoneFound);
 
-	// method: untrack the cached components for this game object, then return the cached component dictionary for this game object //
+	// method: cachingly return the corresponding rigidbody for this game object, optionally adding a rigidbody to this game object if none is found //
+	public Rigidbody cacheCorrespondingRigidbody(bool addRigidbodyIfNoneFound = false)
+		=> gameObject.cacheCorrespondingRigidbody(addRigidbodyIfNoneFound);
+
+	// method: untrack the cached components for this game object, then return whether this game object actually had cached components //
 	public bool tryToUncache()
 		=> gameObject.tryToUncache();
 }

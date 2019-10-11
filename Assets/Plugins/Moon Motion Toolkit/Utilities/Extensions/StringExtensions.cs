@@ -6,7 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-// String Extensions: provides extension methods for handling strings //
+// String Extensions: provides extension methods for handling strings
+// #fundamentals
 public static class StringExtensions
 {
 	#region equality

@@ -108,7 +108,6 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 
 	public Player player => cache<Player>();
 	public Hand hand => cache<Hand>();
-	public Controller controller => cache<Controller>();
 	public Interactable interactable => cache<Interactable>();
 	public Throwable throwable => cache<Throwable>();
 	public VelocityEstimator velocityEstimator => cache<VelocityEstimator>();

@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • validates this behaviour according to its auto behaviour inspector attributes
 public abstract class	AutoBehaviourLayerInspectorAttributes<AutoBehaviourT> :
-					AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT>
+					AutoBehaviourLayerProcesses<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	// upon validation: //

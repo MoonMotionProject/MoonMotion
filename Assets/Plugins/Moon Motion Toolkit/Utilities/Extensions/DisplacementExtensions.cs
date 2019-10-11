@@ -78,15 +78,9 @@ public static class DisplacementExtensions
 	// method: return the displacement to the other given vector from this given vector //
 	public static Vector3 displacementTo(this Vector3 vector, Vector3 otherVector)
 		=> otherVector - vector;
-	// method: return the displacement to the given transform from this given position //
-	public static Vector3 displacementTo(this Vector3 position, Transform transform)
-		=> position.displacementTo(transform.position);
-	// method: return the displacement to the given game object from this given position //
-	public static Vector3 displacementTo(this Vector3 position, GameObject gameObject)
-		=> position.displacementTo(gameObject.position());
-	// method: return the displacement to the given component from this given position //
-	public static Vector3 displacementTo(this Vector3 position, Component component)
-		=> position.displacementTo(component.position());
+	// method: return the displacement to the given provided other position from this given position //
+	public static Vector3 displacementTo(this Vector3 position, object otherPosition_PositionProvider)
+		=> position.displacementTo(Provide.positionVia(otherPosition_PositionProvider));
 	// method: return the displacement to the main camera from this given position //
 	public static Vector3 displacementToCamera(this Vector3 position)
 		=> position.displacementTo(Camera.main);

@@ -32,6 +32,14 @@ public abstract class SingletonBehaviourLayerComponentShortcutsMoonMotion<Single
 	public static new HashSet<Collider> collidedColliders => autoBehaviour.collidedColliders;
 	public static new HashSet<GameObject> collidedObjects => autoBehaviour.collidedObjects;
 	public static new HashSet<Rigidbody> collidedRigidbodies => autoBehaviour.collidedRigidbodies;
+	public static new bool isCollidedWith(Collider collider)
+		=> autoBehaviour.isCollidedWith(collider);
+	public static new bool isNotCollidedWith(Collider collider)
+		=> autoBehaviour.isNotCollidedWith(collider);
+	public static new bool isCollidedWith(LayerMask layerMask)
+		=> autoBehaviour.isCollidedWith(layerMask);
+	public static new bool isNotCollidedWith(LayerMask layerMask)
+		=> autoBehaviour.isNotCollidedWith(layerMask);
 	#endregion Collideds
 
 	#region Components

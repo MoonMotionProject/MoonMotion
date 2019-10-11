@@ -260,8 +260,33 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion direction distinctivity conversion
 
 
-	#region distance
+	#region displacement
 	
+	public static new Vector3 displacementTo(object otherPosition_PositionProvider)
+		=> autoBehaviour.displacementTo(otherPosition_PositionProvider);
+	public static new Vector3 displacementToCamera()
+		=> autoBehaviour.displacementToCamera();
+	#endregion displacement
+	
+
+	#region directionality
+
+	#region directionality same toward both
+	public static new bool directionalitySameTowardBoth(object firstOtherPosition_PositionProvider, object secondOtherPosition_PositionProvider)
+		=>	autoBehaviour.directionalitySameTowardBoth
+			(
+				firstOtherPosition_PositionProvider,
+				secondOtherPosition_PositionProvider
+			);
+	public static new bool directionalitySameTowardBoth<OtherSingletonBehaviourT>(object secondOtherPosition_PositionProvider) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=>	autoBehaviour.directionalitySameTowardBoth<OtherSingletonBehaviourT>(secondOtherPosition_PositionProvider);
+	#endregion directionality same toward both
+	#endregion directionality
+
+
+	#region distance
+
+	#region distance with
 	public static new float distanceWith(Vector3 otherPosition)
 		=> autoBehaviour.distanceWith(otherPosition);
 	public static new float distanceWith(Transform otherTransform)
@@ -274,32 +299,58 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> autoBehaviour.distanceWith(raycastHit);
 	public static new float distanceWithCamera()
 		=> autoBehaviour.distanceWithCamera();
+	#endregion distance with
 
-	// method: return the closest of the given positions to this behaviour's transform's position //
-	public static new Vector3 closestOf(IEnumerable<Vector3> positions)
-		=> autoBehaviour.closestOf(positions);
-	// method: return the closest (by position) of the given transforms to this behaviour's transform //
-	public static new Transform closestOf(IEnumerable<Transform> transforms)
-		=> autoBehaviour.closestOf(transforms);
-	// method: return the closest (by position) of the given game objects to this behaviour's transform //
-	public static new GameObject closestOf(IEnumerable<GameObject> gameObjects)
-		=> autoBehaviour.closestOf(gameObjects);
+	#region nearest of
+	public static new Vector3 nearestOf(IEnumerable<Vector3> positions)
+		=> autoBehaviour.nearestOf(positions);
+	public static new Transform nearestOf(IEnumerable<Transform> transforms)
+		=> autoBehaviour.nearestOf(transforms);
+	public static new GameObject nearestOf(IEnumerable<GameObject> gameObjects)
+		=> autoBehaviour.nearestOf(gameObjects);
+	#endregion nearest of
 
-	// method: return the farthest of the given positions to this behaviour's transform's position //
+	#region farthest of
 	public static new Vector3 farthestOf(IEnumerable<Vector3> positions)
 		=> autoBehaviour.farthestOf(positions);
-	// method: return the farthest (by position) of the given transforms to this behaviour's transform //
 	public static new Transform farthestOf(IEnumerable<Transform> transforms)
 		=> autoBehaviour.farthestOf(transforms);
-	// method: return the farthest (by position) of the given game objects to this behaviour's transform //
 	public static new GameObject farthestOf(IEnumerable<GameObject> gameObjects)
 		=> autoBehaviour.farthestOf(gameObjects);
+	#endregion farthest of
+
+	#region is within distance of
+	public static new bool isWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
+		=> autoBehaviour.isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	#endregion is within distance of
+	
+	#region is more distant than
+	public static new bool isMoreDistantThan(object otherPosition_PositionProvider, object distancePosition_PositionProvider)
+		=> autoBehaviour.isMoreDistantThan(otherPosition_PositionProvider, distancePosition_PositionProvider);
+	#endregion is more distant than
+	
+	#region is more distant in same directionality as
+	public static new bool isMoreDistantInSameDirectionalityAs(object otherPosition_PositionProvider, object referencePosition_PositionProvider)
+		=> autoBehaviour.isMoreDistantInSameDirectionalityAs(otherPosition_PositionProvider, referencePosition_PositionProvider);
+	#endregion is more distant in same directionality as
 	#endregion distance
 
 
-	#region determining another position along the given direction
+	#region position
 
+	#region determining another position along the given direction
 	public static new Vector3 positionAlong(Vector3 direction, float distance)
 		=> autoBehaviour.positionAlong(direction, distance);
 	#endregion determining another position along the given direction
+	
+	#region determining another position ahead of the provided transform
+	public static new Vector3 positionAheadBy(float distance)
+		=> autoBehaviour.positionAheadBy(distance);
+	#endregion determining another position ahead of the provided transform
+	
+	#region determining another position relative to the provided position, along the forward direction of the provided transform
+	public static new Vector3 positionAlongForwardOf(object transform_TransformProvider, float distance)
+		=> autoBehaviour.positionAlongForwardOf(transform_TransformProvider, distance);
+	#endregion determining another position relative to the provided position, along the forward direction of the provided transform
+	#endregion position
 }

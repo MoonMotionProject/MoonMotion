@@ -4,9 +4,8 @@ using UnityEngine;
 using NaughtyAttributes;
 
 // Basic Directional Force Applier:
-// • at each physics update, applies basic directional force
+// • at each physics update, applies basic directional force to the ensured corresponding rigidbody
 // #force
-[RequireComponent(typeof(Rigidbody))]
 public class BasicDirectionalForceApplier : AutoBehaviour<BasicDirectionalForceApplier>
 {
 	// variables //

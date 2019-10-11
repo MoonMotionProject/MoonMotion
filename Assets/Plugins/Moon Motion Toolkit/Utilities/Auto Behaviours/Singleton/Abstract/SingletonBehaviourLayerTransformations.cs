@@ -209,10 +209,8 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.movePositionTo(component, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> movePositionTo(RaycastHit raycastHit, bool boolean = true)
 		=> autoBehaviour.movePositionTo(raycastHit, boolean);
-	public static new Vector3 positionForMovingPositionTo(Vector3 targetPosition)
-		=> autoBehaviour.positionForMovingPositionTo(targetPosition);
-	public static new Vector3 displacementForMovingPositionTo(Vector3 targetPosition)
-		=> autoBehaviour.displacementForMovingPositionTo(targetPosition);
+	public static new AutoBehaviour<SingletonBehaviourT> movePositionToward(object targetPosition_PositionProvider, float honingDistance, bool boolean = true)
+		=> autoBehaviour.movePositionToward(targetPosition_PositionProvider, honingDistance, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> setPositionTo(Vector3 position, bool boolean = true)
 		=> autoBehaviour.setPositionTo(position, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> setPositionTo(Transform otherTransform, bool boolean = true)

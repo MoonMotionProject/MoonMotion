@@ -22,9 +22,6 @@ public class Skier : HandLocomotionControlled
 	private Skier other;		// connection - auto: the other skier (for the other hand that this skier doesn't belong to)
 	
 	// variables for: skiing //
-	private static Collider targetBodyCollider;		// connection - auto: the body collider targeted for having skiing friction toggled by this skier
-	private static SkiingSettings skiingSettings;		// connection - auto: the Skiing Settings on the player body with the setting for the friction to use for skiing
-	private static PhysicMaterial frictionNonskiing;        // tracking: the friction to use for nonskiing
 	public static bool skiing = false;		// tracking: whether the player is currently skiing
 	
 	
@@ -35,16 +32,9 @@ public class Skier : HandLocomotionControlled
 	
 	// method: update the player body collider's friction based on whether it is skiing //
 	public static void updateBodyFriction()
-	{
-		if (skiing)
-		{
-			targetBodyCollider.material = skiingSettings.skiingFrictionToUse();
-		}
-		else
-		{
-			targetBodyCollider.material = frictionNonskiing;
-		}
-	}
+		=>	MoonMotionBody.capsuleCollider.material = skiing ?
+				SkiingSettings.skiingFrictionToUse() :
+				SkiingSettings.frictionNonskiing;
 
 	// method: change skiing: set the tracking for whether the player is skiing to the given boolean, update the player body collider's friction accordingly //
 	public static void changeSkiing(bool boolean)
@@ -86,20 +76,6 @@ public class Skier : HandLocomotionControlled
 	// updating //
 
 
-	// before the start: //
-	protected override void Awake()
-	{
-		base.Awake();
-		
-		if (!leftInstance)
-		{
-			// have just the right hand set the following static variables since they need be set only once //
-			targetBodyCollider = Player.instance.GetComponentInChildren<CapsuleCollider>();
-			skiingSettings = targetBodyCollider.GetComponent<SkiingSettings>();
-			frictionNonskiing = targetBodyCollider.material;
-		}
-	}
-	
 	// upon being enabled: //
 	private void OnEnable()
 	{
@@ -129,10 +105,10 @@ public class Skier : HandLocomotionControlled
 		// determine whether both skiers are enabled (versus just this one being enabled) //
 		bool bothSkiersEnabled = other && other.gameObject && other.gameObject.activeSelf;
 
-		if (skiingSettings)     // if the Skiing Settings even exists
+		if (SkiingSettings.singleton)     // if the Skiing Settings even exists
 		{
 			// if skiing input must be held: //
-			if (skiingSettings.heldVersusToggled)
+			if (SkiingSettings.singleton.heldVersusToggled)
 			{
 				// (since the following block of code doesn't need to be run twice each update:) if either: this is the only skier that is enabled, this is the left skier: //
 				if (!bothSkiersEnabled || leftInstance)

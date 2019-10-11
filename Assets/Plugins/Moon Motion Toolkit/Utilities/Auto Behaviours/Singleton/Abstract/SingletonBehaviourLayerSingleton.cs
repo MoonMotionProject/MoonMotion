@@ -64,7 +64,21 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 
 	// the singleton instance of this class //
-	public static SingletonBehaviourT singleton {get; private set;} = null;
+	private static SingletonBehaviourT singleton_ = null;
+	public static SingletonBehaviourT singleton
+	{
+		get
+		{
+			return	UnityIs.inEditorEditMode ?
+						Hierarchy.firstYullAndEnabledAndUnique<SingletonBehaviourT>() :
+						singleton_;
+		}
+
+		private set
+		{
+			singleton_ = value;
+		}
+	}
 
 	// the singleton instance of this class as an auto behaviour //
 	public static AutoBehaviour<SingletonBehaviourT> autoBehaviour => singleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
@@ -84,7 +98,7 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	// before the start: connect to the singleton instance of this inheritor  //
 	public virtual void Awake()
-		=> singleton = this.castTo<SingletonBehaviourT>();
+		=> singleton_ = this.castTo<SingletonBehaviourT>();
 	/*(print("Singleton found for: "+className);*/
 	#endregion updating
 	#endregion singleton

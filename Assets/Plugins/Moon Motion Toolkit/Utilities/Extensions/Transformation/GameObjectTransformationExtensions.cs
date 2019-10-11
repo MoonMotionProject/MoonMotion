@@ -349,10 +349,13 @@ public static class GameObjectTransformationExtensions
 		=> gameObject.movePositionTo(otherGameObject.position(), boolean);
 	public static GameObject movePositionTo(this GameObject gameObject, Component component, bool boolean = true)
 		=> gameObject.movePositionTo(component.position(), boolean);
-	public static Vector3 positionForMovingPositionTo(this GameObject gameObject, Vector3 targetPosition)
-		=> gameObject.correspondingRigidbody().positionForMovingPositionTo(targetPosition);
-	public static Vector3 displacementForMovingPositionTo(this GameObject gameObject, Vector3 targetPosition)
-		=> gameObject.correspondingRigidbody().displacementForMovingPositionTo(targetPosition);
+	public static GameObject movePositionToward(this GameObject gameObject, object targetPosition_PositionProvider, float honingDistance, bool boolean = true)
+		=>	gameObject.correspondingRigidbody().movePositionToward
+			(
+				targetPosition_PositionProvider,
+				honingDistance,
+				boolean
+			).gameObject;
 	// method: (according to the given boolean:) set this given game object's (global) position to the given (global) position, then return this given game object //
 	public static GameObject setPositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
 		=> gameObject.transform.setPositionTo(position, boolean).gameObject;

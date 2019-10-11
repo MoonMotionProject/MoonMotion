@@ -15,6 +15,6 @@ MonoBehaviour:
   fallbackToLeftVersusRight: 1
   inputs: 03000000
   inputtednesses: 03000000
-  beingnesses: 01000000
+  beingnesses: 00000000
   dependenciesThorough: []
   dependenciesPartial: []

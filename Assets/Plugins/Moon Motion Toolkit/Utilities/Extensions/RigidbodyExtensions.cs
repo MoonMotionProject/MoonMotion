@@ -91,7 +91,7 @@ public static class RigidbodyExtensions
 
 	// method: (according to the given boolean:) hone the (directional velocity) speed of this given rigidbody by the given honing amount toward the given honing target amount, then return this given rigidbody //
 	public static Rigidbody honeSpeed(this Rigidbody rigidbody, float honingTarget, float honingAmount, bool boolean = true)
-		=> rigidbody.setSpeedTo(rigidbody.speed().honed(honingTarget, honingAmount), boolean);
+		=> rigidbody.setSpeedTo(rigidbody.speed().honedTo(honingTarget, honingAmount), boolean);
 
 	// method: (according to the given boolean:) reduce the (directional velocity) speed of this given rigidbody by the given speed, then return this given rigidbody // //
 	public static Rigidbody slowSpeedBy(this Rigidbody rigidbody, float speedReduction, bool boolean = true)

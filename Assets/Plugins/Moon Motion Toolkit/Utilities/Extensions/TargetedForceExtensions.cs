@@ -260,6 +260,16 @@ public static class TargetedForceExtensions
 					clamp
 				);
 	}
+	public static Vector3 attract<SingletonBehaviourT>(this Vector3 forcingPosition, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=>	forcingPosition.attract
+			(
+				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 
 	public static GameObject attract(this GameObject forcingObject, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
@@ -276,6 +286,16 @@ public static class TargetedForceExtensions
 						clamp
 					));
 	}
+	public static GameObject attract<SingletonBehaviourT>(this GameObject forcingObject, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=>	forcingObject.attract
+			(
+				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 
 	public static ComponentT attract<ComponentT>(this ComponentT forcingComponent, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
@@ -292,6 +312,32 @@ public static class TargetedForceExtensions
 						clamp
 					));
 	}
+
+	public static RaycastHit attract(this RaycastHit forcingRaycastHit, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	{
+		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+
+		return	forcingRaycastHit.after(()=>
+					forcingRaycastHit.position().attract
+					(
+						targetRigidbodies,
+						magnitude,
+						reach,
+						reachMagnitudeZeroingCurve,
+						zeroForceOutsideReach,
+						clamp
+					));
+	}
+	public static RaycastHit attract<SingletonBehaviourT>(this RaycastHit forcingRaycastHit, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=>	forcingRaycastHit.attract
+			(
+				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 	#endregion attracting (targetedly forcing with attraction)
 
 

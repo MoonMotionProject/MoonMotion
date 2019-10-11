@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Integer Extensions: provides extension methods for handling integers
-// #numbers
+// #fundamentals #numbers
 public static class IntegerExtensions
 {
 	#region comparison

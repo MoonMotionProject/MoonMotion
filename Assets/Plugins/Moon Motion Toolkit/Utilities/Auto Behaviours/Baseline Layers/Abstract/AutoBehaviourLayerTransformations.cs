@@ -200,19 +200,17 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 
 	public Vector3 position => transform.position;
 	public AutoBehaviourT movePositionTo(Vector3 position, bool boolean = true)
-		=> selfAfter(()=> rigidbody.movePositionTo(position, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(position, boolean));
 	public AutoBehaviourT movePositionTo(Transform otherTransform, bool boolean = true)
-		=> selfAfter(()=> rigidbody.movePositionTo(otherTransform, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherTransform, boolean));
 	public AutoBehaviourT movePositionTo(GameObject otherGameObject, bool boolean = true)
-		=> selfAfter(()=> rigidbody.movePositionTo(otherGameObject, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherGameObject, boolean));
 	public AutoBehaviourT movePositionTo(Component otherComponent, bool boolean = true)
-		=> selfAfter(()=> rigidbody.movePositionTo(otherComponent, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherComponent, boolean));
 	public AutoBehaviourT movePositionTo(RaycastHit raycastHit, bool boolean = true)
-		=> selfAfter(()=> rigidbody.movePositionTo(raycastHit, boolean));
-	public Vector3 positionForMovingPositionTo(Vector3 targetPosition)
-		=> transform.positionForMovingPositionTo(targetPosition);
-	public Vector3 displacementForMovingPositionTo(Vector3 targetPosition)
-		=> transform.displacementForMovingPositionTo(targetPosition);
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(raycastHit, boolean));
+	public AutoBehaviourT movePositionToward(object targetPosition_PositionProvider, float honingDistance, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionToward(targetPosition_PositionProvider, honingDistance, boolean));
 	public AutoBehaviourT setPositionTo(Vector3 position, bool boolean = true)
 		=> selfAfter(()=> transform.setPositionTo(position, boolean));
 	public AutoBehaviourT setPositionTo(Transform otherTransform, bool boolean = true)

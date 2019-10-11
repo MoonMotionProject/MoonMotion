@@ -64,7 +64,7 @@ public static class DirectionExtensions
 	// method: return the direction from the given game object to this given component //
 	public static Vector3 directionFrom(this Component component, GameObject gameObject)
 		=> component.position().directionFrom(gameObject.position());
-	// method: return the direction from the other given component to this given transform //
+	// method: return the direction from the other given component to this given component //
 	public static Vector3 directionFrom(this Component component, Component otherComponent)
 		=> component.position().directionFrom(otherComponent.position());
 	// method: return the direction from the main camera to this given component //
@@ -87,6 +87,9 @@ public static class DirectionExtensions
 	// method: return the direction to the given component from this given position //
 	public static Vector3 directionTo(this Vector3 position, Component component)
 		=> position.directionTo(component.position());
+	// method: return the direction to the specified singleton behaviour from this given position //
+	public static Vector3 directionTo<SingletonBehaviourT>(this Vector3 position) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.directionTo(SingletonBehaviour<SingletonBehaviourT>.position);
 	// method: return the direction to the main camera from this given position //
 	public static Vector3 directionToCamera(this Vector3 position)
 		=> position.directionTo(Camera.main);
@@ -132,7 +135,7 @@ public static class DirectionExtensions
 	// method: return the direction to the given game object from this given component //
 	public static Vector3 directionTo(this Component component, GameObject gameObject)
 		=> component.position().directionTo(gameObject.position());
-	// method: return the direction to the other given component from this given transform //
+	// method: return the direction to the other given component from this given component //
 	public static Vector3 directionTo(this Component component, Component otherComponent)
 		=> component.position().directionTo(otherComponent.position());
 	// method: return the direction to the main camera from this given component //
@@ -230,6 +233,9 @@ public static class DirectionExtensions
 	// method: return the global direction for this given local direction relative to the given game object //
 	public static Vector3 asLocalDirectionToGlobalDirectionFromRelativityOf(this Vector3 localDirection, GameObject gameObject)
 		=> localDirection.asLocalDirectionToGlobalDirectionFromRelativityOf(gameObject.transform);
+	// method: return the global direction for this given local direction relative to the specified singleton behaviour //
+	public static Vector3 asLocalDirectionToGlobalDirectionFromRelativityOf<SingletonBehaviourT>(this Vector3 localDirection) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> localDirection.asLocalDirectionToGlobalDirectionFromRelativityOf(SingletonBehaviour<SingletonBehaviourT>.transform);
 
 	// method: return the local direction for this given direction with the given distinctivity, relative to the given transform if local //
 	public static Vector3 toLocalDirectionFromDistinctivityOf(this Vector3 direction, Distinctivity currentDirectionDistinctivity, Transform potentialTransform)

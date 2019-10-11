@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Kinematizer:
-// • controls the kinematicity of the attached rigidbody according to the dependencies setting
+// • controls the kinematicity of the ensured corresponding rigidbody according to the dependencies setting
 //   · a toggle setting controls whether this kinematizing is enabled
 [RequireComponent(typeof(Rigidbody))]
 public class Kinematizer : AutoBehaviour<Kinematizer>

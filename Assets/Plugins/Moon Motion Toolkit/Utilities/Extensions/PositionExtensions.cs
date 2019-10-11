@@ -26,12 +26,12 @@ public static class PositionExtensions
 	// method: return the (global) position at the given distance away from this given (global) position, in the given direction //
 	public static Vector3 positionAlong(this Vector3 position, Vector3 direction, float distance)
 		=> new Ray(position, direction).GetPoint(distance.ifFiniteOtherwise(()=> Positions.maxSafeCoordinateDistance));
-	// method: return the (global) position at the given distance away from this given component, in the given direction //
-	public static Vector3 positionAlong(this Component component, Vector3 direction, float distance)
-		=> component.position().positionAlong(direction, distance);
 	// method: return the (global) position at the given distance away from this given game object, in the given direction //
 	public static Vector3 positionAlong(this GameObject gameObject, Vector3 direction, float distance)
 		=> gameObject.position().positionAlong(direction, distance);
+	// method: return the (global) position at the given distance away from this given component, in the given direction //
+	public static Vector3 positionAlong(this Component component, Vector3 direction, float distance)
+		=> component.position().positionAlong(direction, distance);
 
 	// methods: return the (global) position at the given distance away from this given provided transform, in the given local direction relative to this given provided transform //
 	public static Vector3 positionAlongLocal(this GameObject gameObject, Vector3 localDirection, float distance)
@@ -39,4 +39,24 @@ public static class PositionExtensions
 	public static Vector3 positionAlongLocal(this Component component, Vector3 localDirection, float distance)
 		=> component.gameObject.positionAlongLocal(localDirection, distance);
 	#endregion determining another position along the given direction
+
+
+	#region determining another position ahead of the provided transform
+	
+	public static Vector3 positionAheadBy(this GameObject gameObject, float distance)
+		=> gameObject.positionAlong(gameObject.forward(), distance);
+	public static Vector3 positionAheadBy(this Component component, float distance)
+		=> component.positionAlong(component.forward(), distance);
+	#endregion determining another position ahead of the provided transform
+
+
+	#region determining another position relative to the provided position, along the forward direction of the provided transform
+	
+	public static Vector3 positionAlongForwardOf(this Vector3 position, object transform_TransformProvider, float distance)
+		=> position.positionAlong(Provide.transformVia(transform_TransformProvider).forward(), distance);
+	public static Vector3 positionAlongForwardOf(this GameObject gameObject, object transform_TransformProvider, float distance)
+		=> gameObject.position().positionAlongForwardOf(transform_TransformProvider, distance);
+	public static Vector3 positionAlongForwardOf(this Component component, object transform_TransformProvider, float distance)
+		=> component.position().positionAlongForwardOf(transform_TransformProvider, distance);
+	#endregion determining another position relative to the provided position, along the forward direction of the provided transform
 }

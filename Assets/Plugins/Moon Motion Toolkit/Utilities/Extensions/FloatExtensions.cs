@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Float Extensions: provides extension methods for handling floats
-// #numbers
+// #fundamentals #numbers
 public static class FloatExtensions
 {
 	#region comparison

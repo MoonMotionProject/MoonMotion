@@ -95,120 +95,120 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#region Rigidbody
 
 	#region kinematicity
-	public bool kinematicity => rigidbody.kinematicity();
+	public bool kinematicity => ensuredCorrespondingRigidbody.kinematicity();
 	public AutoBehaviourT setKinematicityTo(bool kinematicity, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setKinematicityTo(kinematicity, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setKinematicityTo(kinematicity, boolean));
 	public AutoBehaviourT kinematize(bool boolean = true)
-		=> selfAfter(()=> rigidbody.kinematize(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.kinematize(boolean));
 	public AutoBehaviourT nonkinematize(bool boolean = true)
-		=> selfAfter(()=> rigidbody.nonkinematize(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.nonkinematize(boolean));
 	#endregion kinematicity
 
 	#region gravitization
-	public bool gravitization => rigidbody.gravitization();
+	public bool gravitization => ensuredCorrespondingRigidbody.gravitization();
 	public AutoBehaviourT setGravitizationTo(bool gravitization, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setGravitizationTo(gravitization, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setGravitizationTo(gravitization, boolean));
 	public AutoBehaviourT gravitize(bool boolean = true)
-		=> selfAfter(()=> rigidbody.gravitize(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.gravitize(boolean));
 	public AutoBehaviourT nongravitize(bool boolean = true)
-		=> selfAfter(()=> rigidbody.nongravitize(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.nongravitize(boolean));
 	#endregion gravitization
 
 	#region velocity vectrals
-	public Vector3 velocityDirection => rigidbody.velocityDirection();
+	public Vector3 velocityDirection => ensuredCorrespondingRigidbody.velocityDirection();
 	public AutoBehaviourT setVelocityDirectionTo(Vector3 direction, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setVelocityDirectionTo(direction, boolean));
-	public Vector3 angularVelocityAngling => rigidbody.angularVelocityAngling();
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setVelocityDirectionTo(direction, boolean));
+	public Vector3 angularVelocityAngling => ensuredCorrespondingRigidbody.angularVelocityAngling();
 	public AutoBehaviourT setAngularVelocityAnglingTo(Vector3 angling, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setAngularVelocityAnglingTo(angling, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setAngularVelocityAnglingTo(angling, boolean));
 	#endregion velocity vectrals
 
 	#region speeds
-	public float speed => rigidbody.speed();
+	public float speed => ensuredCorrespondingRigidbody.speed();
 	public AutoBehaviourT setSpeedTo(float speed, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setSpeedTo(speed, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setSpeedTo(speed, boolean));
 	public AutoBehaviourT honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
-		=> selfAfter(()=> rigidbody.honeSpeed(honingTarget, honingAmount, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.honeSpeed(honingTarget, honingAmount, boolean));
 	public AutoBehaviourT slowSpeedBy(float speedReduction, bool boolean = true)
-		=> selfAfter(()=> rigidbody.slowSpeedBy(speedReduction, boolean));
-	public float angularSpeed => rigidbody.angularSpeed();
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.slowSpeedBy(speedReduction, boolean));
+	public float angularSpeed => ensuredCorrespondingRigidbody.angularSpeed();
 	public AutoBehaviourT setAngularSpeedTo(float angularSpeed, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setAngularSpeedTo(angularSpeed, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setAngularSpeedTo(angularSpeed, boolean));
 	#endregion speed
 
 	#region velocities
-	public Vector3 velocity => rigidbody.velocity;
-	public Vector3 angularVelocity => rigidbody.angularVelocity;
+	public Vector3 velocity => ensuredCorrespondingRigidbody.velocity;
+	public Vector3 angularVelocity => ensuredCorrespondingRigidbody.angularVelocity;
 	public AutoBehaviourT setVelocityTo(Vector3 velocity, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setVelocityTo(velocity, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setVelocityTo(velocity, boolean));
 	public AutoBehaviourT setAngularVelocityTo(Vector3 angularVelocity, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setAngularVelocityTo(angularVelocity, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setAngularVelocityTo(angularVelocity, boolean));
 	public AutoBehaviourT setVelocitiesTo(Vector3 directionalVelocity, Vector3 angularVelocity, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setVelocitiesTo(directionalVelocity, angularVelocity, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setVelocitiesTo(directionalVelocity, angularVelocity, boolean));
 	public AutoBehaviourT setVelocitiesTo(Vector3 velocity, bool boolean = true)
-		=> selfAfter(()=> rigidbody.setVelocitiesTo(velocity, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.setVelocitiesTo(velocity, boolean));
 	public AutoBehaviourT zeroVelocity(bool boolean = true)
-		=> selfAfter(()=> rigidbody.zeroVelocity(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.zeroVelocity(boolean));
 	public AutoBehaviourT zeroAngularVelocity(bool boolean = true)
-		=> selfAfter(()=> rigidbody.zeroAngularVelocity(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.zeroAngularVelocity(boolean));
 	public AutoBehaviourT zeroVelocities(bool boolean = true)
-		=> selfAfter(()=> rigidbody.zeroVelocities(boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.zeroVelocities(boolean));
 	#endregion velocities
 
 	#region accelerating
 	public AutoBehaviourT accelerateBy(Vector3 acceleration, bool boolean = true)
-		=> selfAfter(()=> rigidbody.accelerateBy(acceleration, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.accelerateBy(acceleration, boolean));
 	#endregion accelerating
 
 	#region applying force
 	public AutoBehaviourT applyForceOf(Vector3 force, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceOf(force, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceOf(force, boolean));
 	public AutoBehaviourT applyForceOf(float forceX, float forceY, float forceZ, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceOf(forceX, forceY, forceZ, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceOf(forceX, forceY, forceZ, boolean));
 	public AutoBehaviourT applyForceAlong(Vector3 direction, float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceAlong(direction, magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlong(direction, magnitude, boolean));
 	public AutoBehaviourT applyForceAlong(Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
 
-		return selfAfter(()=> rigidbody.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean));
+		return selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean));
 	}
 	public AutoBehaviourT applyForceAlongLocal(Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
 		Transform transform = Provide.transformVia(transform_TransformProvider);
 
-		return selfAfter(()=> rigidbody.applyForceAlongLocal(localDirection, transform, magnitude, boolean));
+		return selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlongLocal(localDirection, transform, magnitude, boolean));
 	}
 	public AutoBehaviourT applyForceAlong(BasicDirection localBasicDirection, float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceAlong(localBasicDirection, magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlong(localBasicDirection, magnitude, boolean));
 	public AutoBehaviourT applyForceAlongGlobal(BasicDirection basicDirection, float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlongGlobal(basicDirection, magnitude, boolean));
 	public AutoBehaviourT applyForceAlong(BasicDirection basicDirection, Distinctivity distinctivity, float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForceAlong(basicDirection, distinctivity, magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlong(basicDirection, distinctivity, magnitude, boolean));
 	public AutoBehaviourT applyForwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyForwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyBackwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyBackwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyBackwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyRightwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyRightwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyRightwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyLeftwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyLeftwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyLeftwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyUpwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyUpwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyUpwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyDownwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyDownwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyDownwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyGlobalForwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyGlobalForwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyGlobalForwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyGlobalBackwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyGlobalBackwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyGlobalBackwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyGlobalRightwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyGlobalRightwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyGlobalRightwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyGlobalLeftwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyGlobalLeftwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyGlobalLeftwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyGlobalUpwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyGlobalUpwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyGlobalUpwardForceOf(magnitude, boolean));
 	public AutoBehaviourT applyGlobalDownwardForceOf(float magnitude, bool boolean = true)
-		=> selfAfter(()=> rigidbody.applyGlobalDownwardForceOf(magnitude, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyGlobalDownwardForceOf(magnitude, boolean));
 	#endregion applying force
 
 	#region applying directed force
@@ -216,7 +216,7 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	{
 		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
 
-		return selfAfter(()=> rigidbody.applyDirectedForceFrom
+		return selfAfter(()=> ensuredCorrespondingRigidbody.applyDirectedForceFrom
 		(
 			forcingPosition,
 			direction,
@@ -231,7 +231,7 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	{
 		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
 
-		return selfAfter(()=> rigidbody.applyDirectedForceFrom
+		return selfAfter(()=> ensuredCorrespondingRigidbody.applyDirectedForceFrom
 		(
 			forcingTransform,
 			direction,

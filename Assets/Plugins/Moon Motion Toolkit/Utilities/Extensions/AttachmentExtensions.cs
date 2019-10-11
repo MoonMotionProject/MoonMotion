@@ -43,6 +43,10 @@ public static class AttachmentExtensions
 	// method: return the set of all (unique) game objects attached to these given raycast hits //
 	public static HashSet<GameObject> uniqueObjects(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.selectObjects().toSet();
+	
+	// method: return the set of all unique game objects that the yull components of this given component are attached to //
+	public static HashSet<GameObject> uniqueObjects(this Component component)
+		=> component.startEnumerable().uniqueObjects();
 	#endregion GameObject
 
 
@@ -139,6 +143,13 @@ public static class AttachmentExtensions
 	// method: return a list of each of the rigidbodies that are attached to each of these respective given raycast hits //
 	public static List<Rigidbody> rigidbodies(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.selectRigidbodies().manifested();
+	
+	// method: return a list of the yull first rigidbodies attached to this given game object //
+	public static List<Rigidbody> rigidbodies(this GameObject gameObject)
+		=> gameObject.startEnumerable().rigidbodies();
+	// method: return a list of the yull first rigidbodies attached to this given component //
+	public static List<Rigidbody> rigidbodies(this Component component)
+		=> component.startEnumerable().rigidbodies();
 
 	// method: return the set of all unique, yull, first rigidbodies that the yull game objects of these given game objects are attached to //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<GameObject> gameObjects)
@@ -149,6 +160,13 @@ public static class AttachmentExtensions
 	// method: return the set of all unique, yull rigidbodies attached to these given raycast hits //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<RaycastHit> raycastHits)
 		=> raycastHits.selectRigidbodies().toSet();
+	
+	// method: return the set of all unique, yull, first rigidbodies that the yull game objects of this given game object is attached to //
+	public static HashSet<Rigidbody> uniqueRigidbodies(this GameObject gameObject)
+		=> gameObject.startEnumerable().uniqueRigidbodies();
+	// method: return the set of all unique, yull, first rigidbodies that the yull components of this given game component is attached to //
+	public static HashSet<Rigidbody> uniqueRigidbodies(this Component component)
+		=> component.startEnumerable().uniqueRigidbodies();
 	#endregion Rigidbody
 
 

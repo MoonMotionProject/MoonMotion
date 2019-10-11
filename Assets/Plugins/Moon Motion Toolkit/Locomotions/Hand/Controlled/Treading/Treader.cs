@@ -382,8 +382,8 @@ public class Treader : HandLocomotionControlled
 					}
 
 					// hone the player's velocity x and z axes to the treading velocity x and z axes by the determined treading velocity x and z axes' magnitudes in proportion to the current frame's duration times the appropriate responsivness factor //
-					Vector3 honingVector = ((new Vector3(Mathf.Abs(treadingVelocity.x), 0f, Mathf.Abs(treadingVelocity.z))) * (Time.deltaTime) * appropriateResponsivnessFactor);
-					playerRigidbody.velocity = playerVelocity.honed(treadingVelocity, honingVector);
+					Vector3 honingVector = treadingVelocity.magnitudes().withYZero() * Time.deltaTime * appropriateResponsivnessFactor;
+					playerRigidbody.velocity = playerVelocity.honedTo(treadingVelocity, honingVector);
 				}
 			}
 			// otherwise (if this treader is not currently experiencing significant input): if the player is not currently skiing: //

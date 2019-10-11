@@ -405,15 +405,6 @@ public static class TransformTransformationExtensions
 	// method: return this given transform's (global) x position //
 	public static float positionX(this Transform transform)
 		=> transform.position.x;
-	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) x position to the given x position provider (try to set, but respect collisions in the way), then return this given transform //
-	public static Transform movePositionXTo(this Transform transform, float x, bool boolean = true)
-		=> transform.correspondingRigidbody().movePositionXTo(x, boolean).transform;
-	public static Transform movePositionXTo(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.movePositionXTo(otherTransform.position.x, boolean);
-	public static Transform movePositionXTo(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.movePositionXTo(gameObject.position().x, boolean);
-	public static Transform movePositionXTo(this Transform transform, Component component, bool boolean = true)
-		=> transform.movePositionXTo(component.position().x, boolean);
 	// method: (according to the given boolean:) set this given transform's (global) x position to the given x value, then return this given transform //
 	public static Transform setPositionXTo(this Transform transform, float x, bool boolean = true)
 		=> transform.setPositionTo(transform.position.withX(x), boolean);
@@ -435,15 +426,6 @@ public static class TransformTransformationExtensions
 	// method: return this given transform's (global) y position //
 	public static float positionY(this Transform transform)
 		=> transform.position.y;
-	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) y position to the given y position provider (try to set, but respect collisions in the way), then return this given transform //
-	public static Transform movePositionYTo(this Transform transform, float y, bool boolean = true)
-		=> transform.correspondingRigidbody().movePositionYTo(y, boolean).transform;
-	public static Transform movePositionYTo(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.movePositionYTo(otherTransform.position.y, boolean);
-	public static Transform movePositionYTo(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.movePositionYTo(gameObject.position().y, boolean);
-	public static Transform movePositionYTo(this Transform transform, Component component, bool boolean = true)
-		=> transform.movePositionYTo(component.position().y, boolean);
 	// method: (according to the given boolean:) set this given transform's (global) y position to the given y value, then return this given transform //
 	public static Transform setPositionYTo(this Transform transform, float y, bool boolean = true)
 		=> transform.setPositionTo(transform.position.withY(y), boolean);
@@ -468,15 +450,6 @@ public static class TransformTransformationExtensions
 	// method: return this given transform's (global) z position //
 	public static float positionZ(this Transform transform)
 		=> transform.position.z;
-	// methods: (assumes this transform has a rigidbody attached:) (according to the given boolean:) move this given transform's (global) z position to the given z position provider (try to set, but respect collisions in the way), then return this given transform //
-	public static Transform movePositionZTo(this Transform transform, float z, bool boolean = true)
-		=> transform.correspondingRigidbody().movePositionZTo(z, boolean).transform;
-	public static Transform movePositionZTo(this Transform transform, Transform otherTransform, bool boolean = true)
-		=> transform.movePositionZTo(otherTransform.position.z, boolean);
-	public static Transform movePositionZTo(this Transform transform, GameObject gameObject, bool boolean = true)
-		=> transform.movePositionZTo(gameObject.position().z, boolean);
-	public static Transform movePositionZTo(this Transform transform, Component component, bool boolean = true)
-		=> transform.movePositionZTo(component.position().z, boolean);
 	// method: (according to the given boolean:) set this given transform's (global) z position to the given z value, then return this given transform //
 	public static Transform setPositionZTo(this Transform transform, float z, bool boolean = true)
 		=> transform.setPositionTo(transform.position.withZ(z), boolean);

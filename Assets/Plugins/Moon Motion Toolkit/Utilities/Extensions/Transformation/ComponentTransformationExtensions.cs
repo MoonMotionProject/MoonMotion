@@ -450,10 +450,14 @@ public static class ComponentTransformationExtensions
 		=> component.movePositionTo(gameObject.position(), boolean);
 	public static ComponentT movePositionTo<ComponentT>(this ComponentT component, Component otherComponent, bool boolean = true) where ComponentT : Component
 		=> component.movePositionTo(otherComponent.position(), boolean);
-	public static Vector3 positionForMovingPositionTo<ComponentT>(this ComponentT component, Vector3 targetPosition) where ComponentT : Component
-		=> component.correspondingRigidbody().positionForMovingPositionTo(targetPosition);
-	public static Vector3 displacementForMovingPositionTo<ComponentT>(this ComponentT component, Vector3 targetPosition) where ComponentT : Component
-		=> component.correspondingRigidbody().displacementForMovingPositionTo(targetPosition);
+	public static ComponentT movePositionToward<ComponentT>(this ComponentT component, object targetPosition_PositionProvider, float honingDistance, bool boolean = true) where ComponentT : Component
+		=>	component.after(()=>
+				component.correspondingRigidbody().movePositionToward
+				(
+					targetPosition_PositionProvider,
+					honingDistance,
+					boolean
+				));
 	// method: (according to the given boolean:) set the (global) position for the transform of this given component to the given (global) position, then return this given component //
 	public static ComponentT setPositionTo<ComponentT>(this ComponentT component, Vector3 position, bool boolean = true) where ComponentT : Component
 	{

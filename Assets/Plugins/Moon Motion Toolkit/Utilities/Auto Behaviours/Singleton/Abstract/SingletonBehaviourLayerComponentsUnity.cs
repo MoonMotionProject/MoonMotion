@@ -14,6 +14,9 @@ public abstract class	SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT
 	public static new Renderer ensuredRenderer => autoBehaviour.ensuredRenderer;
 	public static new Rigidbody rigidbody => autoBehaviour.rigidbody;
 	public static new Rigidbody ensuredRigidbody => autoBehaviour.ensuredRigidbody;
+	public static new Rigidbody correspondingRigidbody => autoBehaviour.correspondingRigidbody;
+	public static new Rigidbody ensuredCorrespondingRigidbody => autoBehaviour.ensuredCorrespondingRigidbody;
+	public static new HashSet<Rigidbody> ensuredCorrespondingRigidbodyAsSet => autoBehaviour.ensuredCorrespondingRigidbodyAsSet;
 	public static new Collider collider => autoBehaviour.collider;
 	public static new Collider ensuredCollider => autoBehaviour.ensuredCollider;
 	public static new MeshCollider meshCollider => autoBehaviour.meshCollider;

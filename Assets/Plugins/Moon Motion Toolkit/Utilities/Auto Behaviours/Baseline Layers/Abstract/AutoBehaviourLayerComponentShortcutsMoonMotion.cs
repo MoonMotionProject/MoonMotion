@@ -32,6 +32,14 @@ public abstract class AutoBehaviourLayerComponentShortcutsMoonMotion<AutoBehavio
 	public HashSet<Collider> collidedColliders => trackCollideds.collidedColliders;
 	public HashSet<GameObject> collidedObjects => collidedColliders.uniqueObjects();
 	public HashSet<Rigidbody> collidedRigidbodies => collidedColliders.uniqueCorrespondingRigidbodies();
+	public bool isCollidedWith(Collider collider)
+		=> collidedColliders.contains(collider);
+	public bool isNotCollidedWith(Collider collider)
+		=> !isCollidedWith(collider);
+	public bool isCollidedWith(LayerMask layerMask)
+		=> layerMask.includesAnyLayersOf(collidedObjects);
+	public bool isNotCollidedWith(LayerMask layerMask)
+		=> !isCollidedWith(layerMask);
 	#endregion Collideds
 
 	#region Components

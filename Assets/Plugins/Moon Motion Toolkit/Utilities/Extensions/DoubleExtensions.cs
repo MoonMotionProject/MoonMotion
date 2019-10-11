@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Double Extensions: provides extension methods for handling doubles
-// #numbers
+// #fundamentals #numbers
 public static class DoubleExtensions
 {
 	#region comparison

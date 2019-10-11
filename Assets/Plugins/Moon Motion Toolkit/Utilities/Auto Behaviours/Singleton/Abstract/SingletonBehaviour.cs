@@ -5,7 +5,7 @@ using UnityEngine;
 // Singleton: an abstract singleton behaviour providing singleton features for all derived behaviours //
 // #auto
 public abstract class	SingletonBehaviour<SingletonBehaviourT> :
-					SingletonBehaviourLayerCollisionAndForcing<SingletonBehaviourT>
+					SingletonBehaviourLayerProcesses<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	

@@ -15,6 +15,7 @@ public static class Hierarchy
 																	SceneManager.GetSceneAt(sceneIndex));
 
 	public static IEnumerable<GameObject> selectPrimogenitorObjects => selectScenes.selectNested(scene => scene.GetRootGameObjects());
+	public static List<GameObject> primogenitorObjects => selectPrimogenitorObjects.manifested();
 
 	public static IEnumerable<Transform> selectPrimogenitorTransforms => selectPrimogenitorObjects.selectTransforms();
 
@@ -37,6 +38,10 @@ public static class Hierarchy
 	// method: return an array of all yull, enabled, and unique behaviours of the specified type that are currently in the hierarchy //
 	public static HashSet<BehaviourT> allYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
 		=> Resources.FindObjectsOfTypeAll<BehaviourT>().onlyYull().onlyEnabled().toSet();
+
+	// method: return the first yull, enabled, and unique behaviour of the specified type that is currently in the hierarchy //
+	public static BehaviourT firstYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
+		=> allYullAndEnabledAndUnique<BehaviourT>().first();
 
 	// method: create and return a temporary game object (create a fresh game object with the default name, make it hidden, then return the created game object) //
 	public static GameObject createTemporaryObject()

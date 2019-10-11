@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33044621134367428}
   - component: {fileID: 65371389338774150}
   - component: {fileID: 23969612072274664}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Trussed Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

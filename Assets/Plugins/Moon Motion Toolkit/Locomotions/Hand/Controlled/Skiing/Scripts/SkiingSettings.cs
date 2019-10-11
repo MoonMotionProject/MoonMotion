@@ -28,6 +28,8 @@ public class SkiingSettings : SingletonBehaviour<SkiingSettings>
 
 	// variables for: skiing friction //
 
+	public static PhysicMaterial frictionNonskiing;
+
 	[BoxGroup("Skiing Friction")]
 	[Tooltip("the (main, not alternate) friction for the player's body collider to use when skiing")]
 	public PhysicMaterial frictionSkiing;
@@ -98,15 +100,15 @@ public class SkiingSettings : SingletonBehaviour<SkiingSettings>
 	}
 
 	// method: determine the skiing friction to use (based on whether the skiing friction to use is alternated currently) //
-	public PhysicMaterial skiingFrictionToUse()
+	public static PhysicMaterial skiingFrictionToUse()
 	{
-		if (skiingFrictionAlternated)
+		if (singleton.skiingFrictionAlternated)
 		{
-			return frictionSkiingAlternate;
+			return singleton.frictionSkiingAlternate;
 		}
 		else
 		{
-			return frictionSkiing;
+			return singleton.frictionSkiing;
 		}
 	}
 	
@@ -135,6 +137,8 @@ public class SkiingSettings : SingletonBehaviour<SkiingSettings>
 	// at the start: //
 	private void Start()
 	{
+		frictionNonskiing = capsuleCollider.material;
+
 		if (enableSkiingAtStart)
 		{
 			Skier.enableSkiing();

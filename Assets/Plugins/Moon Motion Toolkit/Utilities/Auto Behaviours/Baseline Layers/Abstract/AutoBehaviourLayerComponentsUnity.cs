@@ -14,6 +14,9 @@ public abstract class	AutoBehaviourLayerComponentsUnity<AutoBehaviourT> :
 	public     Renderer ensuredRenderer => cache<Renderer>(true);
 	public new Rigidbody rigidbody => cache<Rigidbody>();
 	public     Rigidbody ensuredRigidbody => cache<Rigidbody>(true);
+	public     Rigidbody correspondingRigidbody => cacheCorrespondingRigidbody();
+	public     Rigidbody ensuredCorrespondingRigidbody => cacheCorrespondingRigidbody(true);
+	public     HashSet<Rigidbody> ensuredCorrespondingRigidbodyAsSet => ensuredCorrespondingRigidbody.startSet();
 	public new Collider collider => cache<Collider>();
 	public     Collider ensuredCollider => cache<Collider>(true);
 	public     MeshCollider meshCollider => cache<MeshCollider>();

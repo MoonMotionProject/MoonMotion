@@ -24,8 +24,11 @@ public static class Build
 
 	public static List<string> defines => PlayerSettings.GetScriptingDefineSymbolsForGroup(targetGroup).splitByEachSemicolon();
 
-	public static List<string> setDefinesTo(List<string> defines)
-		=> defines.after(()=>
+	public static bool includesDefine(string define)
+		=> defines.contains(define);
+	
+	public static HashSet<string> setDefinesTo(IEnumerable<string> defines)
+		=> defines.toSet().after(()=>
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, defines.joinBySemicolons()));
 
 	// method: ensure that the build defines include the given define string, then return whether it was included before //

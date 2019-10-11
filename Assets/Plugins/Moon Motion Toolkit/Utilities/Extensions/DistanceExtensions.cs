@@ -5,6 +5,8 @@ using UnityEngine;
 // Distance Extensions: provides extension methods for handling distances (magnitudes of displacement) //
 public static class DistanceExtensions
 {
+	#region distance with
+
 	// method: return the distance with this given pair and the other given pair //
 	public static float distanceWith(this Vector2 pair, Vector2 otherPair)
 		=> Vector2.Distance(pair, otherPair);
@@ -84,32 +86,38 @@ public static class DistanceExtensions
 	// method: return the distance with this given component and the main camera //
 	public static float distanceWithCamera(this Component component)
 		=> component.position().distanceWithCamera();
+	#endregion distance with
 
 
-	// method: return the closest vector of the given vectors to this given vector //
-	public static Vector3 closestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
+	#region nearest of
+
+	// method: return the nearest vector of the given vectors to this given vector //
+	public static Vector3 nearestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
 		=> vectors.minBy(otherVector => vector.distanceWith(otherVector));
 
-	// method: return the closest of the given positions to this given game object's position //
-	public static Vector3 closestOf(this GameObject gameObject, IEnumerable<Vector3> positions)
+	// method: return the nearest of the given positions to this given game object's position //
+	public static Vector3 nearestOf(this GameObject gameObject, IEnumerable<Vector3> positions)
 		=> positions.minBy(position => gameObject.distanceWith(position));
-	// method: return the closest (by position) of the given transforms to this given game object //
-	public static Transform closestOf(this GameObject gameObject, IEnumerable<Transform> transforms)
+	// method: return the nearest (by position) of the given transforms to this given game object //
+	public static Transform nearestOf(this GameObject gameObject, IEnumerable<Transform> transforms)
 		=> transforms.minBy(transform => gameObject.distanceWith(transform));
-	// method: return the closest (by position) of the given game objects to this given game object //
-	public static GameObject closestOf(this GameObject gameObject, IEnumerable<GameObject> gameObjects)
+	// method: return the nearest (by position) of the given game objects to this given game object //
+	public static GameObject nearestOf(this GameObject gameObject, IEnumerable<GameObject> gameObjects)
 		=> gameObjects.minBy(otherGameObject => gameObject.distanceWith(otherGameObject));
 
-	// method: return the closest of the given positions to this given transform's position //
-	public static Vector3 closestOf(this Transform transform, IEnumerable<Vector3> positions)
+	// method: return the nearest of the given positions to this given transform's position //
+	public static Vector3 nearestOf(this Transform transform, IEnumerable<Vector3> positions)
 		=> positions.minBy(position => transform.distanceWith(position));
-	// method: return the closest (by position) of the given transforms to this given transform //
-	public static Transform closestOf(this Transform transform, IEnumerable<Transform> transforms)
+	// method: return the nearest (by position) of the given transforms to this given transform //
+	public static Transform nearestOf(this Transform transform, IEnumerable<Transform> transforms)
 		=> transforms.minBy(otherTransform => transform.distanceWith(otherTransform));
-	// method: return the closest (by position) of the given game objects to this given transform //
-	public static GameObject closestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
+	// method: return the nearest (by position) of the given game objects to this given transform //
+	public static GameObject nearestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
 		=> gameObjects.minBy(gameObject => transform.distanceWith(gameObject));
+	#endregion nearest of
 
+
+	#region farthest of
 
 	// method: return the farthest vector of the given vectors to this given vector //
 	public static Vector3 farthestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
@@ -134,4 +142,48 @@ public static class DistanceExtensions
 	// method: return the farthest (by position) of the given game objects to this given transform //
 	public static GameObject farthestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
 		=> gameObjects.maxBy(gameObject => transform.distanceWith(gameObject));
+	#endregion farthest of
+
+
+	#region is within distance of
+
+	// method: return whether this given position is within the given threshold distance of the given provided position //
+	public static bool isWithinDistanceOf(this Vector3 position, object position_PositionProvider, float thresholdDistance)
+		=> position.distanceWith(Provide.positionVia(position_PositionProvider)) <= thresholdDistance;
+	// method: return whether this given game object is within the given threshold distance of the given provided position //
+	public static bool isWithinDistanceOf(this GameObject gameObject, object position_PositionProvider, float thresholdDistance)
+		=> gameObject.position().isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	// method: return whether this given component is within the given threshold distance of the given provided position //
+	public static bool isWithinDistanceOf(this Component component, object position_PositionProvider, float thresholdDistance)
+		=> component.position().isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	#endregion is within distance of
+
+
+	#region is more distant than
+	// methods: return whether this given provided position is more distant from the given provided distance position than the other given provided position //
+
+	public static bool isMoreDistantThan(this Vector3 position, object otherPosition_PositionProvider, object distancePosition_PositionProvider)
+	{
+		Vector3 distancePosition = Provide.positionVia(distancePosition_PositionProvider);
+
+		return position.distanceWith(distancePosition) > Provide.positionVia(otherPosition_PositionProvider).distanceWith(distancePosition);
+	}
+	public static bool isMoreDistantThan(this GameObject gameObject, object distancePosition_PositionProvider, object otherPosition_PositionProvider)
+		=> gameObject.position().isMoreDistantThan(otherPosition_PositionProvider, distancePosition_PositionProvider);
+	public static bool isMoreDistantThan(this Component component, object distancePosition_PositionProvider, object otherPosition_PositionProvider)
+		=> component.position().isMoreDistantThan(otherPosition_PositionProvider, distancePosition_PositionProvider);
+	#endregion is more distant than
+
+
+	#region is more distant in same directionality as
+	// methods: return whether this given provided position is more distant from the given provided reference position than the other given provided position //
+
+	public static bool isMoreDistantInSameDirectionalityAs(this Vector3 position, object otherPosition_PositionProvider, object referencePosition_PositionProvider)
+		=>	position.isMoreDistantThan(otherPosition_PositionProvider, referencePosition_PositionProvider) &&
+				Provide.positionVia(referencePosition_PositionProvider).directionalitySameTowardBoth(position, otherPosition_PositionProvider);
+	public static bool isMoreDistantInSameDirectionalityAs(this GameObject gameObject, object otherPosition_PositionProvider, object referencePosition_PositionProvider)
+		=> gameObject.position().isMoreDistantInSameDirectionalityAs(otherPosition_PositionProvider, referencePosition_PositionProvider);
+	public static bool isMoreDistantInSameDirectionalityAs(this Component component, object otherPosition_PositionProvider, object referencePosition_PositionProvider)
+		=> component.position().isMoreDistantInSameDirectionalityAs(otherPosition_PositionProvider, referencePosition_PositionProvider);
+	#endregion is more distant in same directionality as
 }

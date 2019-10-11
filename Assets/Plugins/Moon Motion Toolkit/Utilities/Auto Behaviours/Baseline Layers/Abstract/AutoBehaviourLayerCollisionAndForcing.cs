@@ -85,6 +85,31 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 	#endregion targetedly forcing
 
 
+	#region mistargetedly forcing
+
+	public AutoBehaviourT forceTargetAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+
+		return selfAfter(()=> position.forceTargetAsThoughMistargeting(mistargetPosition_PositionProvider, targetRigidbodies, affinity, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp));
+	}
+
+	public AutoBehaviourT attractAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+
+		return selfAfter(()=> position.attractAsThoughMistargeting(mistargetPosition_PositionProvider, targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp));
+	}
+
+	public AutoBehaviourT repelAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	{
+		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+
+		return selfAfter(()=> position.repelAsThoughMistargeting(mistargetPosition_PositionProvider, targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp));
+	}
+	#endregion mistargetedly forcing
+
+
 	#region radial collision
 
 	public HashSet<Collider> collidersWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)

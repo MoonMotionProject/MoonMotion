@@ -376,19 +376,19 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 	
 	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Quaternion rotation, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return autoBehaviour.setTransformationsTo(position, rotation, otherTransform, boolean);
 	}
 	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(Vector3 position, Vector3 eulerAngles, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return autoBehaviour.setTransformationsTo(position, eulerAngles, otherTransform, boolean);
 	}
 	public static new AutoBehaviour<SingletonBehaviourT> setTransformationsTo(object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return autoBehaviour.setTransformationsTo(otherTransform, boolean);
 	}

@@ -14,7 +14,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	public static new Vector3 targetedForceBy(object forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.targetedForceBy
 		(
@@ -30,7 +30,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	public static new Vector3 attractionTo(object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.attractionTo
 		(
@@ -45,7 +45,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	public static new Vector3 repulsionFrom(object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.repulsionFrom
 		(
@@ -64,21 +64,21 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	public static new AutoBehaviour<SingletonBehaviourT> forceTarget(object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return autoBehaviour.forceTarget(targetRigidbodies, affinity, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
 	}
 
 	public static new AutoBehaviour<SingletonBehaviourT> attract(object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return autoBehaviour.attract(targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
 	}
 
 	public static new AutoBehaviour<SingletonBehaviourT> repel(object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return autoBehaviour.repel(targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
 	}
@@ -88,25 +88,41 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	#region mistargetedly forcing
 
 	public static new AutoBehaviour<SingletonBehaviourT> forceTargetAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
-	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
-
-		return autoBehaviour.forceTargetAsThoughMistargeting(mistargetPosition_PositionProvider, targetRigidbodies, affinity, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
-	}
+		=>	autoBehaviour.forceTargetAsThoughMistargeting
+			(
+				mistargetPosition_PositionProvider,
+				targetRigidbodies_RigidbodiesProvider.provideRigidbodies(),
+				affinity,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 
 	public static new AutoBehaviour<SingletonBehaviourT> attractAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
-	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
-
-		return autoBehaviour.attractAsThoughMistargeting(mistargetPosition_PositionProvider, targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
-	}
+		=>	autoBehaviour.attractAsThoughMistargeting
+			(
+				mistargetPosition_PositionProvider,
+				targetRigidbodies_RigidbodiesProvider.provideRigidbodies(),
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 
 	public static new AutoBehaviour<SingletonBehaviourT> repelAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
-	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
-
-		return autoBehaviour.repelAsThoughMistargeting(mistargetPosition_PositionProvider, targetRigidbodies, magnitude, reach, reachMagnitudeZeroingCurve, zeroForceOutsideReach, clamp);
-	}
+		=>	autoBehaviour.repelAsThoughMistargeting
+			(
+				mistargetPosition_PositionProvider,
+				targetRigidbodies_RigidbodiesProvider.provideRigidbodies(),
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 	#endregion mistargetedly forcing
 
 
@@ -169,7 +185,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.allNonpositionallyRaycastedHitsAlongLocal(localDirection, distance, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<RaycastHit> allNonpositionallyRaycastedHitsTo(object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.allNonpositionallyRaycastedHitsTo
 		(
@@ -185,7 +201,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.allRaycastedCollidersAlongLocal(localDirection, distance, queryPositionalColliders, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<Collider> allRaycastedCollidersTo(object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.allRaycastedCollidersTo
 		(
@@ -202,7 +218,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.allRaycastedObjectsAlongLocal(localDirection, distance, queryPositionalColliders, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<GameObject> allRaycastedObjectsTo(object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.allRaycastedObjectsTo
 		(
@@ -219,7 +235,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.allRaycastedRigidbodiesAlongLocal(localDirection, distance, queryPositionalColliders, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<Rigidbody> allRaycastedRigidbodiesTo(object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.allRaycastedRigidbodiesTo
 		(
@@ -256,7 +272,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 			);
 	public static new RaycastHit? firstNonpositionallyRaycastedHitTo(object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.firstNonpositionallyRaycastedHitTo
 		(
@@ -272,7 +288,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.firstNonpositionallyRaycastedColliderAlongLocal(localDirection, distance, triggerColliderQuery, layerMask_MaxOf1);
 	public static new Collider firstNonpositionallyRaycastedColliderTo(object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.firstNonpositionallyRaycastedColliderTo
 		(
@@ -322,7 +338,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 			);
 	public static new GameObject firstNonpositionallyRaycastedObjectTo(object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.firstNonpositionallyRaycastedObjectTo
 		(
@@ -338,7 +354,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.firstNonpositionallyRaycastedRigidbodyAlongLocal(localDirection, distance, triggerColliderQuery, layerMask_MaxOf1);
 	public static new Rigidbody firstNonpositionallyRaycastedRigidbodyTo(object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.firstNonpositionallyRaycastedRigidbodyTo
 		(
@@ -358,7 +374,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.nonpositionallyRaycastedHitsAlongLocal(localDirection, distance, firstHitOnly, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<RaycastHit> nonpositionallyRaycastedHitsTo(object raycastEndPosition_PositionProvider, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.nonpositionallyRaycastedHitsTo
 		(
@@ -387,7 +403,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.downwardRaycastedCollidersTo(distance, raycastQuery, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<Collider> raycastedCollidersTo(object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.raycastedCollidersTo
 		(
@@ -415,17 +431,13 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 	public static new HashSet<GameObject> downwardRaycastedObjectsTo(float distance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> autoBehaviour.downwardRaycastedObjectsTo(distance, raycastQuery, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<GameObject> raycastedObjectsTo(object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
-	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
-
-		return autoBehaviour.raycastedObjectsTo
-		(
-			raycastEndPosition,
-			raycastQuery,
-			triggerColliderQuery,
-			layerMask_MaxOf1
-		);
-	}
+		=>	autoBehaviour.raycastedObjectsTo
+			(
+				raycastEndPosition_PositionProvider.providePosition(),
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 
 	public static new HashSet<Rigidbody> raycastedRigidbodiesAlong(Vector3 direction, Distinctivity distinctivity = Default.raycastingDistinctivity, float distance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> autoBehaviour.raycastedRigidbodiesAlong(direction, distinctivity, distance, raycastQuery, triggerColliderQuery, layerMask_MaxOf1);
@@ -445,7 +457,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.downwardRaycastedRigidbodiesTo(distance, raycastQuery, triggerColliderQuery, layerMask_MaxOf1);
 	public static new HashSet<Rigidbody> raycastedRigidbodiesTo(object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.raycastedRigidbodiesTo
 		(
@@ -562,20 +574,16 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
-
-		return	autoBehaviour.tug
-				(
-					affinity,
-					raycastEndPosition,
-					magnitude,
-					raycastDistanceMagnitudeZeroingCurve,
-					raycastQuery,
-					triggerColliderQuery,
-					layerMask_MaxOf1
-				);
-	}
+		=>	autoBehaviour.tug
+			(
+				affinity,
+				raycastEndPosition_PositionProvider.providePosition(),
+				magnitude,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 
 	public static new HashSet<GameObject> pullAlong
 	(
@@ -756,19 +764,15 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
-
-		return	autoBehaviour.pullWithin
-				(
-					raycastEndPosition,
-					magnitude,
-					raycastDistanceMagnitudeZeroingCurve,
-					raycastQuery,
-					triggerColliderQuery,
-					layerMask_MaxOf1
-				);
-	}
+		=>	autoBehaviour.pullWithin
+			(
+				raycastEndPosition_PositionProvider.providePosition(),
+				magnitude,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 
 	public static new HashSet<GameObject> pushAlong
 	(
@@ -949,18 +953,14 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery,
 		params LayerMask[] layerMask_MaxOf1
 	)
-	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
-
-		return	autoBehaviour.pushWithin
-				(
-					raycastEndPosition,
-					magnitude,
-					raycastDistanceMagnitudeZeroingCurve,
-					raycastQuery,
-					triggerColliderQuery,
-					layerMask_MaxOf1
-				);
-	}
+		=>	autoBehaviour.pushWithin
+			(
+				raycastEndPosition_PositionProvider.providePosition(),
+				magnitude,
+				raycastDistanceMagnitudeZeroingCurve,
+				raycastQuery,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 	#endregion tugging
 }

@@ -32,7 +32,7 @@ public static class RigidbodyTransformationExtensions
 			(
 				rigidbody.position().honedTo
 				(
-					Provide.positionVia(targetPosition_PositionProvider),
+					targetPosition_PositionProvider.providePosition(),
 					honingDistance
 				),
 				boolean

@@ -169,13 +169,13 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.applyForceAlong(direction, magnitude, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlong(Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return autoBehaviour.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean);
 	}
 	public static new AutoBehaviour<SingletonBehaviourT> applyForceAlongLocal(Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return autoBehaviour.applyForceAlongLocal(localDirection, transform, magnitude, boolean);
 	}
@@ -214,7 +214,7 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region applying directed force
 	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return autoBehaviour.applyDirectedForceFrom
 		(
@@ -229,7 +229,7 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	}
 	public static new AutoBehaviour<SingletonBehaviourT> applyDirectedForceFrom(object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 	{
-		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
+		Transform forcingTransform = forcingTransform_TransformProvider.provideTransform();
 
 		return autoBehaviour.applyDirectedForceFrom
 		(
@@ -315,25 +315,24 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererSecondPointTo(Vector3 position)
 		=> autoBehaviour.setLineRendererSecondPointTo(position);
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
-		=> autoBehaviour.setLineRendererFirstTwoPointsTo(firstPosition, secondPosition);
+		=>	autoBehaviour.setLineRendererFirstTwoPointsTo
+			(
+				firstPosition,
+				secondPosition
+			);
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(object firstPosition_PositionProvider, object secondPosition_PositionProvider)
-	{
-		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
-		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
-
-		return autoBehaviour.setLineRendererFirstTwoPointsTo(firstPosition, secondPosition);
-	}
+		=>	autoBehaviour.setLineRendererFirstTwoPointsTo
+			(
+				firstPosition_PositionProvider.providePosition(),
+				secondPosition_PositionProvider.providePosition()
+			);
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance)
-	{
-		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
-
-		return autoBehaviour.setLineRendererFirstTwoPointsForLineLocallyDirectedFrom
-		(
-			startingTransform,
-			localDirection,
-			distance
-		);
-	}
+		=>	autoBehaviour.setLineRendererFirstTwoPointsForLineLocallyDirectedFrom
+			(
+				startingTransform_TransformProvider.provideTransform(),
+				localDirection,
+				distance
+			);
 	#endregion setting points
 	
 	#region setting distinctivity
@@ -358,11 +357,13 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region line of light setup
 	public static new AutoBehaviour<SingletonBehaviourT> setupLineRendererAsLineOfLightLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
-	{
-		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
-
-		return autoBehaviour.setupLineRendererAsLineOfLightLocallyDirectedFrom(startingTransform, localDirection, distance, material);
-	}
+		=>	autoBehaviour.setupLineRendererAsLineOfLightLocallyDirectedFrom
+			(
+				startingTransform_TransformProvider.provideTransform(),
+				localDirection,
+				distance,
+				material
+			);
 	#endregion line of light setup
 	#endregion LineRenderer
 
@@ -388,18 +389,18 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region MeshFilter
 	public static new Mesh mesh => autoBehaviour.mesh;
 	public static new AutoBehaviour<SingletonBehaviourT> setMeshTo(object mesh_MeshProvider, bool boolean = true)
-	{
-		Mesh providedMesh = Provide.meshVia(mesh_MeshProvider);
-
-		return autoBehaviour.setMeshTo(providedMesh, boolean);
-	}
+		=>	autoBehaviour.setMeshTo
+			(
+				mesh_MeshProvider.provideMesh(),
+				boolean
+			);
 	public static new Mesh sharedMesh => autoBehaviour.sharedMesh;
 	public static new AutoBehaviour<SingletonBehaviourT> setSharedMeshTo(object sharedMesh_SharedMeshProvider, bool boolean = true)
-	{
-		Mesh providedSharedMesh = Provide.meshVia(sharedMesh_SharedMeshProvider);
-
-		return autoBehaviour.setSharedMeshTo(providedSharedMesh, boolean);
-	}
+		=>	autoBehaviour.setSharedMeshTo
+			(
+				sharedMesh_SharedMeshProvider.provideSharedMesh(),
+				boolean
+			);
 	public static new Mesh sharedMeshOtherwiseMesh => sharedMesh ? sharedMesh : mesh;
 	#endregion MeshFilter
 

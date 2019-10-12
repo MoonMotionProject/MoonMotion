@@ -823,7 +823,7 @@ public static class ComponentTransformationExtensions
 	// method: (according to the given boolean:) set this given component's (global) transformations respectively to the given (global) position and (global) rotation, and set this given component's (global) scale to the (global) scale of the given provided transform, then return this given component //
 	public static ComponentT setTransformationsTo<ComponentT>(this ComponentT component, Vector3 position, Quaternion rotation, object transform_TransformProvider, bool boolean = true) where ComponentT : Component
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return component.after(()=>
 			component.transform.setTransformationsTo(position, rotation, transform, boolean));
@@ -831,7 +831,7 @@ public static class ComponentTransformationExtensions
 	// method: (according to the given boolean:) set this given component's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given component's (global) scale to the (global) scale of the given provided transform, then return this given component //
 	public static ComponentT setTransformationsTo<ComponentT>(this ComponentT component, Vector3 position, Vector3 eulerAngles, object transform_TransformProvider, bool boolean = true) where ComponentT : Component
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return component.after(()=>
 			component.transform.setTransformationsTo(position, eulerAngles, transform, boolean));
@@ -839,7 +839,7 @@ public static class ComponentTransformationExtensions
 	// method: (according to the given boolean:) set this given component's (global) transformations respectively to (global) transformations of the given provided transform, then return this given component //
 	public static ComponentT setTransformationsTo<ComponentT>(this ComponentT component, object transform_TransformProvider, bool boolean = true) where ComponentT : Component
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return component.after(()=>
 			component.transform.setTransformationsTo(transform, boolean));

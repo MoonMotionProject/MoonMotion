@@ -17,8 +17,8 @@ public class MoonMotionPlayer : SingletonBehaviour<MoonMotionPlayer>
 		=> MoonMotionBody.displacementTo(targetPosition);
 
 	public static Vector3 positionForSettingBodyPositionTo(object targetPosition_PositionProvider)
-		=> position + displacementForSettingBodyPositionTo(Provide.positionVia(targetPosition_PositionProvider));
+		=> position + displacementForSettingBodyPositionTo(targetPosition_PositionProvider.providePosition());
 
 	public static void setPositionForSettingBodyPositionTo(object targetPosition_PositionProvider)
-		=> displacePositionBy(displacementForSettingBodyPositionTo(Provide.positionVia(targetPosition_PositionProvider)));
+		=> displacePositionBy(displacementForSettingBodyPositionTo(targetPosition_PositionProvider.providePosition()));
 }

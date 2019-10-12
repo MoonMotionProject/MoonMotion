@@ -59,16 +59,15 @@ public static class LineRendererExtensions
 				.setSecondPointTo(secondPosition);
 	// method: set this given line renderer's first and second points to the given provided first and second positions (respectively), then return this given line renderer //
 	public static LineRenderer setFirstTwoPointsTo(this LineRenderer lineRenderer, object firstPosition_PositionProvider, object secondPosition_PositionProvider)
-	{
-		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
-		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
-
-		return lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition);
-	}
+		=>	lineRenderer.setFirstTwoPointsTo
+			(
+				firstPosition_PositionProvider.providePosition(),
+				secondPosition_PositionProvider.providePosition()
+			);
 	// method: set this given line renderer's first and second points according to the line from the given provided starting transform along the given local direction relative to the given provided starting transform, for the given distance, then return this given line renderer //
 	public static LineRenderer setFirstTwoPointsForLineLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 	{
-		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
+		Transform startingTransform = startingTransform_TransformProvider.provideTransform();
 
 		return lineRenderer.positionGlobally().setFirstTwoPointsTo
 		(
@@ -121,16 +120,17 @@ public static class LineRendererExtensions
 	#region line of light setup
 	
 	public static LineRenderer setupAsLineOfLightLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
-	{
-		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
-
-		return lineRenderer
-			.nonshadowcast()
-			.nonshadowable()
-			.setMaterialTo(material)
-			.setFirstTwoPointsForLineLocallyDirectedFrom(startingTransform, localDirection, distance)
-			.setStartingAndEndingWidthsTo(Default.lineRendererWidth)
-			.setStartingAndEndingColorsToColorOfMaterial();
-	}
+		=>	lineRenderer
+				.nonshadowcast()
+				.nonshadowable()
+				.setMaterialTo(material)
+				.setFirstTwoPointsForLineLocallyDirectedFrom
+				(
+					startingTransform_TransformProvider.provideTransform(),
+					localDirection,
+					distance
+				)
+				.setStartingAndEndingWidthsTo(Default.lineRendererWidth)
+				.setStartingAndEndingColorsToColorOfMaterial();
 	#endregion line of light setup
 }

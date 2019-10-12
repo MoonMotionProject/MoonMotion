@@ -81,30 +81,20 @@ public static class Visualize
 
 	public static void lineFrom(Vector3 startPosition, object endPosition_PositionProvider, bool boolean = true, Color? color = null)
 	{
-		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
-
 		if (boolean)
 		{
 			nextColorToBe(color);
-			Gizmos.DrawLine(startPosition, endPosition);
+			Gizmos.DrawLine(startPosition, endPosition_PositionProvider.providePosition());
 		}
 	}
 	public static void lineFrom(GameObject startGameObject, object endPosition_PositionProvider, bool boolean = true, Color? color = null)
-	{
-		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
-
-		lineFrom(startGameObject.position(), endPosition,
-			boolean,
-			color);
-	}
+		=>	lineFrom(startGameObject.position(), endPosition_PositionProvider.providePosition(),
+				boolean,
+				color);
 	public static void lineFrom(Component startComponent, object endPosition_PositionProvider, bool boolean = true, Color? color = null)
-	{
-		Vector3 endPosition = Provide.positionVia(endPosition_PositionProvider);
-
-		lineFrom(startComponent.position(), endPosition,
-			boolean,
-			color);
-	}
+		=>	lineFrom(startComponent.position(), endPosition_PositionProvider.providePosition(),
+				boolean,
+				color);
 	#endregion from start and end positions
 
 

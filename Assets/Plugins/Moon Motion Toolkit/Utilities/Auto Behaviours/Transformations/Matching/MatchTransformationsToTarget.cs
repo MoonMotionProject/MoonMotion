@@ -19,14 +19,13 @@ public static class MatchTransformationsToTargetExtensions
 {
 	// method: ensure a Match Transformations To Target behaviour on this given game object, set the target transform of the Match Transformations To Target behaviour to the given provided target transform, have the behaviour update, then return this given game object //
 	public static GameObject ensuredlyMatchTransformationsTo(this GameObject gameObject, object targetTransform_TransformProvider)
-	{
-		Transform targetTransform = Provide.transformVia(targetTransform_TransformProvider);
-
-		return gameObject.ensureActUpon<MatchTransformationsToTarget>(matchTransformationsToTarget =>
-			matchTransformationsToTarget.setTargetTo(targetTransform).Update());
-	}
+		=>	gameObject.ensureActUpon<MatchTransformationsToTarget>(matchTransformationsToTarget =>
+				matchTransformationsToTarget.setTargetTo
+				(
+					targetTransform_TransformProvider.provideTransform()
+				).Update());
 	// method: ensure a Match Transformations To Target behaviour on this given game object, set the target transform of the Match Transformations To Target behaviour to null, then return this given game object //
 	public static GameObject ensuredlyMatchTransformationsToNull(this GameObject gameObject)
-		=> gameObject.ensureActUpon<MatchTransformationsToTarget>(matchTransformationsToTarget =>
-			matchTransformationsToTarget.setTargetToNull());
+		=>	gameObject.ensureActUpon<MatchTransformationsToTarget>(matchTransformationsToTarget =>
+				matchTransformationsToTarget.setTargetToNull());
 }

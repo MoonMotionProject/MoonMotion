@@ -9,11 +9,7 @@ public static class PositionExtensions
 
 	// method: returns the global position for this given vector as a position local to the given provided local transform //
 	public static Vector3 toGlobalPositionFrom(this Vector3 vector, object localTransform_TransformProvider)
-	{
-		Transform localTransform = Provide.transformVia(localTransform_TransformProvider);
-
-		return localTransform.TransformPoint(vector);
-	}
+		=> localTransform_TransformProvider.provideTransform().TransformPoint(vector);
 
 	// method: returns the global position for this given transform as the local transform for the given provided local position //
 	public static Vector3 globalPositionFor(this Transform transform, Vector3 localPosition)
@@ -53,7 +49,7 @@ public static class PositionExtensions
 	#region determining another position relative to the provided position, along the forward direction of the provided transform
 	
 	public static Vector3 positionAlongForwardOf(this Vector3 position, object transform_TransformProvider, float distance)
-		=> position.positionAlong(Provide.transformVia(transform_TransformProvider).forward(), distance);
+		=> position.positionAlong(transform_TransformProvider.provideTransform().forward(), distance);
 	public static Vector3 positionAlongForwardOf(this GameObject gameObject, object transform_TransformProvider, float distance)
 		=> gameObject.position().positionAlongForwardOf(transform_TransformProvider, distance);
 	public static Vector3 positionAlongForwardOf(this Component component, object transform_TransformProvider, float distance)

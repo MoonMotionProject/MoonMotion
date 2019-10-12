@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Provide:
-// • provides methods for having dynamos provide certain types
-//   · a 'dynamo' is a dynamic type, which can be specified as a parameter in a method using the keyword 'dynamic', or as an object
-//   · in the current implementation's version of C#, dynamics cannot be the 'this' parameter in extension methods unless the extension method is called upon the static class; thus, this class is used as a cleaner alternative... however, 'object' parameters can be used that way, but for the purpose this class provides, it still seems cleaner
-//   · occasionally when using a 'dynamic' Provide method within a Unity method the Unity method will not work as expected, so to be sure, always declare Provide results as variables before using them (for example, 'Vector3 position = Provide.positionVia(position_PositionProvider)')... this shouldn't be a problem with 'object' Provide methods
+// Providing Extensions:
+// • provides extension methods for having dynamos provide certain types
+//   · a 'dynamo' is a dynamic type, which can be specified as a parameter in a method using the keyword 'dynamic', or as an object – in the current implementation, these methods are intended for use with 'object' parameters
 // #auto #dynamics
-public static class Provide
+public static class ProvidingExtensions
 {
 	#region Transform
 
-	public static Transform transformVia(object dynamo)
+	public static Transform provideTransform(this object dynamo)
 	{
 		if (dynamo is Transform)
 		{
@@ -29,7 +26,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(Transform).returnWithError("Provide.transformVia given unrecognized dynamo of type "+dynamo.type());
+			return default(Transform).returnWithError("ProvidingExtensions.provideTransform given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion Transform
@@ -37,7 +34,7 @@ public static class Provide
 
 	#region Collider
 
-	public static Collider colliderVia(object dynamo)
+	public static Collider provideCollider(this object dynamo)
 	{
 		if (dynamo is Collider)
 		{
@@ -53,7 +50,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(Collider).returnWithError("Provide.colliderVia given unrecognized dynamo of type "+dynamo.type());
+			return default(Collider).returnWithError("ProvidingExtensions.provideCollider given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion Collider
@@ -61,7 +58,7 @@ public static class Provide
 
 	#region RaycastHit
 
-	public static RaycastHit raycastHitVia(object dynamo)
+	public static RaycastHit provideRaycastHit(this object dynamo)
 	{
 		if (dynamo is RaycastHit?)
 		{
@@ -73,7 +70,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(RaycastHit).returnWithError("Provide.raycastHitVia given unrecognized dynamo of type "+dynamo.type());
+			return default(RaycastHit).returnWithError("ProvidingExtensions.provideRaycastHit given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion RaycastHit
@@ -81,7 +78,7 @@ public static class Provide
 
 	#region position
 
-	public static Vector3 positionVia(object dynamo)
+	public static Vector3 providePosition(this object dynamo)
 	{
 		if (dynamo is Vector3?)
 		{
@@ -109,7 +106,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(Vector3).returnWithError("Provide.positionVia given unrecognized dynamo of type "+dynamo.type());
+			return default(Vector3).returnWithError("ProvidingExtensions.providePosition given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion position
@@ -117,7 +114,7 @@ public static class Provide
 
 	#region Rigidbody
 	
-	public static Rigidbody rigidbodyVia(object dynamo)
+	public static Rigidbody provideRigidbody(this object dynamo)
 	{
 		if (dynamo is Rigidbody)
 		{
@@ -133,7 +130,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(Rigidbody).returnWithError("Provide.rigidbodyVia given unrecognized dynamo of type "+dynamo.type());
+			return default(Rigidbody).returnWithError("ProvidingExtensions.provideRigidbody given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion Rigidbody
@@ -141,7 +138,7 @@ public static class Provide
 
 	#region List<Rigidbody>
 	
-	public static List<Rigidbody> rigidbodiesVia(object dynamo)
+	public static List<Rigidbody> provideRigidbodies(this object dynamo)
 	{
 		if (dynamo is IEnumerable<Rigidbody>)
 		{
@@ -169,7 +166,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(List<Rigidbody>).returnWithError("Provide.rigidbodiesVia given unrecognized dynamo of type "+dynamo.type());
+			return default(List<Rigidbody>).returnWithError("ProvidingExtensions.provideRigidbodies given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion List<Rigidbody>
@@ -177,7 +174,7 @@ public static class Provide
 
 	#region mesh
 
-	public static Mesh meshVia(object dynamo)
+	public static Mesh provideMesh(this object dynamo)
 	{
 		if (dynamo is Mesh)
 		{
@@ -193,7 +190,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(Mesh).returnWithError("Provide.meshVia given unrecognized dynamo of type "+dynamo.type());
+			return default(Mesh).returnWithError("ProvidingExtensions.provideMesh given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion mesh
@@ -201,7 +198,7 @@ public static class Provide
 
 	#region shared mesh
 
-	public static Mesh sharedMeshVia(object dynamo)
+	public static Mesh provideSharedMesh(this object dynamo)
 	{
 		if (dynamo is Mesh)
 		{
@@ -217,7 +214,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(Mesh).returnWithError("Provide.sharedMeshVia given unrecognized dynamo of type "+dynamo.type());
+			return default(Mesh).returnWithError("ProvidingExtensions.provideSharedMesh given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion shared mesh
@@ -225,7 +222,7 @@ public static class Provide
 
 	#region layer index
 
-	public static int layerIndexVia(object dynamo)
+	public static int provideLayerIndex(this object dynamo)
 	{
 		if (dynamo is int)
 		{
@@ -235,9 +232,17 @@ public static class Provide
 		{
 			return (dynamo as string).asLayerIndex();
 		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).layerIndex();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).layerIndex();
+		}
 		else
 		{
-			return default(int).returnWithError("Provide.layerIndexVia given unrecognized dynamo of type "+dynamo.type());
+			return default(int).returnWithError("ProvidingExtensions.provideLayerIndex given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion layer index
@@ -245,7 +250,7 @@ public static class Provide
 
 	#region layer name
 
-	public static string layerNameVia(object dynamo)
+	public static string provideLayerName(this object dynamo)
 	{
 		if (dynamo is string)
 		{
@@ -255,9 +260,17 @@ public static class Provide
 		{
 			return dynamo.castTo<int>().asLayerName();
 		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).layerName();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).layerName();
+		}
 		else
 		{
-			return default(string).returnWithError("Provide.layerNameVia given unrecognized dynamo of type "+dynamo.type());
+			return default(string).returnWithError("ProvidingExtensions.provideLayerName given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion layer name
@@ -265,7 +278,7 @@ public static class Provide
 
 	#region HashSet<GameObject>
 	
-	public static HashSet<GameObject> uniqueGameObjectsVia(object dynamo)
+	public static HashSet<GameObject> provideUniqueGameObjects(this object dynamo)
 	{
 		if (dynamo is IEnumerable<GameObject>)
 		{
@@ -285,7 +298,7 @@ public static class Provide
 		}
 		else
 		{
-			return default(HashSet<GameObject>).returnWithError("Provide.uniqueGameObjectsVia given unrecognized dynamo of type "+dynamo.type());
+			return default(HashSet<GameObject>).returnWithError("ProvidingExtensions.provideUniqueGameObjects given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
 	#endregion HashSet<GameObject>

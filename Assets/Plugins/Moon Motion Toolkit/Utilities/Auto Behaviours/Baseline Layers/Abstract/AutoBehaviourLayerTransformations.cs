@@ -376,19 +376,19 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 	
 	public AutoBehaviourT setTransformationsTo(Vector3 position, Quaternion rotation, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return selfAfter(()=> transform.setTransformationsTo(position, rotation, otherTransform, boolean));
 	}
 	public AutoBehaviourT setTransformationsTo(Vector3 position, Vector3 eulerAngles, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return selfAfter(()=> transform.setTransformationsTo(position, eulerAngles, otherTransform, boolean));
 	}
 	public AutoBehaviourT setTransformationsTo(object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return selfAfter(()=> transform.setTransformationsTo(otherTransform, boolean));
 	}

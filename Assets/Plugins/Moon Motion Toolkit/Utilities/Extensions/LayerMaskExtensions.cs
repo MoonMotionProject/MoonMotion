@@ -7,7 +7,7 @@ public static class LayerMaskExtensions
 {
 	// method: return whether this given layer mask includes the layer for the given provided layer index //
 	public static bool includes(this LayerMask layerMask, object layerIndex_LayerIndexProvider)
-		=> layerMask == (layerMask | (1 << Provide.layerIndexVia(layerIndex_LayerIndexProvider)));
+		=> layerMask == (layerMask | (1 << layerIndex_LayerIndexProvider.provideLayerIndex()));
 
 	// method: return whether this given layer mask does not include the layer for the given provided layer index //
 	public static bool doesNotInclude(this LayerMask layerMask, object layerIndex_LayerIndexProvider)
@@ -15,7 +15,7 @@ public static class LayerMaskExtensions
 
 	// method: return whether this given layer mask includes any of the the layers of the given provided set of game objects //
 	public static bool includesAnyLayersOf(this LayerMask layerMask, object uniqueGameObjects_UniqueGameObjectProvider)
-		=>	Provide.uniqueGameObjectsVia(uniqueGameObjects_UniqueGameObjectProvider)
+		=>	uniqueGameObjects_UniqueGameObjectProvider.provideUniqueGameObjects()
 				.hasAny(gameObject =>
 					layerMask.includes(gameObject.layerIndex()));
 

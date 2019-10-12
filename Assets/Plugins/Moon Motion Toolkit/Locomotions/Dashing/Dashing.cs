@@ -82,7 +82,7 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	{
 		stopDash();
 
-		RaycastHit raycastHit = Provide.raycastHitVia(raycastHit_RaycastHitProvider);
+		RaycastHit raycastHit = raycastHit_RaycastHitProvider.provideRaycastHit();
 
 		potentialDashStartingPosition = MoonMotionBody.position;
 		potentialCurrentTargetPosition = raycastHit.position();

@@ -25,7 +25,7 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			meshFilter.mesh = Provide.meshVia(mesh_MeshProvider);
+			meshFilter.mesh = mesh_MeshProvider.provideMesh();
 		}
 
 		return meshFilter;
@@ -34,8 +34,7 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			Mesh mesh = Provide.meshVia(mesh_MeshProvider);
-			gameObject.ensuredMeshFilter().setMeshTo(mesh);
+			gameObject.ensuredMeshFilter().setMeshTo(mesh_MeshProvider.provideMesh());
 		}
 
 		return gameObject;
@@ -44,8 +43,7 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			Mesh mesh = Provide.meshVia(mesh_MeshProvider);
-			component.ensuredMeshFilter().setMeshTo(mesh);
+			component.ensuredMeshFilter().setMeshTo(mesh_MeshProvider.provideMesh());
 		}
 
 		return component;
@@ -55,7 +53,7 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			meshFilter.sharedMesh = Provide.sharedMeshVia(sharedMesh_SharedMeshProvider);
+			meshFilter.sharedMesh = sharedMesh_SharedMeshProvider.provideSharedMesh();
 		}
 
 		return meshFilter;
@@ -64,8 +62,7 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			Mesh mesh = Provide.sharedMeshVia(sharedMesh_SharedMeshProvider);
-			gameObject.meshFilter().setSharedMeshTo(mesh);
+			gameObject.meshFilter().setSharedMeshTo(sharedMesh_SharedMeshProvider.provideSharedMesh());
 		}
 
 		return gameObject;
@@ -74,8 +71,7 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			Mesh mesh = Provide.sharedMeshVia(sharedMesh_SharedMeshProvider);
-			component.meshFilter().setSharedMeshTo(mesh);
+			component.meshFilter().setSharedMeshTo(sharedMesh_SharedMeshProvider.provideSharedMesh());
 		}
 
 		return component;

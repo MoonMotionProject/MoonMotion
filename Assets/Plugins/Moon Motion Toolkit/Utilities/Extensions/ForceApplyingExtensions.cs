@@ -126,14 +126,14 @@ public static class ForceApplyingExtensions
 
 	public static Rigidbody applyForceAlong(this Rigidbody rigidbody, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return rigidbody.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
 	}
 
 	public static List<Rigidbody> applyForceAlong(this IEnumerable<Rigidbody> rigidbodies, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return	rigidbodies.forEachManifested(rigidbody =>
 					rigidbody.applyForceAlong(direction, distinctivity, potentialTransform, magnitude),
@@ -143,14 +143,14 @@ public static class ForceApplyingExtensions
 
 	public static GameObject applyForceAlong(this GameObject gameObject, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return gameObject.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
 	}
 
 	public static List<GameObject> applyForceAlong(this IEnumerable<GameObject> objects, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return	objects.forEachManifested(gameObject =>
 					gameObject.applyForceAlong(direction, distinctivity, potentialTransform, magnitude),
@@ -160,14 +160,14 @@ public static class ForceApplyingExtensions
 
 	public static ComponentT applyForceAlong<ComponentT>(this ComponentT component, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return component.applyForceAlong(direction.toGlobalDirectionFromDistinctivityOf(distinctivity, potentialTransform), magnitude, boolean);
 	}
 
 	public static List<ComponentT> applyForceAlong<ComponentT>(this IEnumerable<ComponentT> components, Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return	components.forEachManifested(component =>
 					component.applyForceAlong(direction, distinctivity, potentialTransform, magnitude),
@@ -183,14 +183,14 @@ public static class ForceApplyingExtensions
 
 	public static Rigidbody applyForceAlongLocal(this Rigidbody rigidbody, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return rigidbody.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
 	}
 
 	public static List<Rigidbody> applyForceAlongLocal(this IEnumerable<Rigidbody> rigidbodies, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return	rigidbodies.forEachManifested(rigidbody =>
 					rigidbody.applyForceAlongLocal(localDirection, transform, magnitude),
@@ -200,14 +200,14 @@ public static class ForceApplyingExtensions
 
 	public static GameObject applyForceAlongLocal(this GameObject gameObject, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return gameObject.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
 	}
 
 	public static List<GameObject> applyForceAlongLocal(this IEnumerable<GameObject> objects, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return	objects.forEachManifested(gameObject =>
 					gameObject.applyForceAlongLocal(localDirection, transform, magnitude),
@@ -217,14 +217,14 @@ public static class ForceApplyingExtensions
 
 	public static ComponentT applyForceAlongLocal<ComponentT>(this ComponentT component, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return component.applyForceAlong(localDirection, Distinctivity.relative, transform, magnitude, boolean);
 	}
 
 	public static List<ComponentT> applyForceAlongLocal<ComponentT>(this IEnumerable<ComponentT> components, Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true) where ComponentT : Component
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return	components.forEachManifested(component =>
 					component.applyForceAlongLocal(localDirection, transform, magnitude),

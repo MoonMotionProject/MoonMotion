@@ -15,7 +15,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return Physics.RaycastAll
 		(
@@ -45,7 +45,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.allNonpositionallyRaycastedHitsAlong
 		(
@@ -75,7 +75,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().allNonpositionallyRaycastedHitsTo
 		(
@@ -104,7 +104,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().allNonpositionallyRaycastedHitsTo
 		(
@@ -122,7 +122,7 @@ public static class RaycastingExtensions
 	{
 		HashSet<Collider> collidersFound = new HashSet<Collider>();
 
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		if (queryPositionalColliders)
 		{
@@ -145,7 +145,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Collider> allRaycastedCollidersTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.allRaycastedCollidersAlong
 		(
@@ -178,7 +178,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Collider> allRaycastedCollidersTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().allRaycastedCollidersTo
 		(
@@ -210,7 +210,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Collider> allRaycastedCollidersTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().allRaycastedCollidersTo
 		(
@@ -227,7 +227,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<GameObject> allRaycastedObjectsFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.allRaycastedCollidersFrom
 				(
@@ -250,7 +250,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<GameObject> allRaycastedObjectsTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.allRaycastedObjectsAlong
 		(
@@ -283,7 +283,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<GameObject> allRaycastedObjectsTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().allRaycastedObjectsTo
 		(
@@ -315,7 +315,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<GameObject> allRaycastedObjectsTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().allRaycastedObjectsTo
 		(
@@ -332,7 +332,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<Rigidbody> allRaycastedRigidbodiesFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.allRaycastedCollidersFrom
 				(
@@ -355,7 +355,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Rigidbody> allRaycastedRigidbodiesTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.allRaycastedRigidbodiesAlong
 		(
@@ -388,7 +388,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Rigidbody> allRaycastedRigidbodiesTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().allRaycastedRigidbodiesTo
 		(
@@ -420,7 +420,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Rigidbody> allRaycastedRigidbodiesTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().allRaycastedRigidbodiesTo
 		(
@@ -444,7 +444,7 @@ public static class RaycastingExtensions
 
 	public static RaycastHit? firstNonpositionallyRaycastedHitFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 		
 		RaycastHit raycastHit;
 		if (Physics.Raycast
@@ -475,7 +475,7 @@ public static class RaycastingExtensions
 			);
 	public static RaycastHit? firstNonpositionallyRaycastedHitTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.firstNonpositionallyRaycastedHitAlong
 		(
@@ -516,7 +516,7 @@ public static class RaycastingExtensions
 				.firstAsNullableOtherwiseNull();
 	public static RaycastHit? firstNonpositionallyRaycastedHitTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().firstNonpositionallyRaycastedHitTo
 		(
@@ -545,7 +545,7 @@ public static class RaycastingExtensions
 			);
 	public static RaycastHit? firstNonpositionallyRaycastedHitTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().firstNonpositionallyRaycastedHitTo
 		(
@@ -561,7 +561,7 @@ public static class RaycastingExtensions
 
 	public static Collider firstNonpositionallyRaycastedColliderFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.firstNonpositionallyRaycastedHitFrom
 				(
@@ -582,7 +582,7 @@ public static class RaycastingExtensions
 			);
 	public static Collider firstNonpositionallyRaycastedColliderTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.firstNonpositionallyRaycastedColliderAlong
 		(
@@ -612,7 +612,7 @@ public static class RaycastingExtensions
 			);
 	public static Collider firstNonpositionallyRaycastedColliderTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().firstNonpositionallyRaycastedColliderTo
 		(
@@ -641,7 +641,7 @@ public static class RaycastingExtensions
 			);
 	public static Collider firstNonpositionallyRaycastedColliderTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().firstNonpositionallyRaycastedColliderTo
 		(
@@ -657,7 +657,7 @@ public static class RaycastingExtensions
 
 	public static GameObject firstNonpositionallyRaycastedObjectFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.firstNonpositionallyRaycastedHitFrom
 				(
@@ -678,7 +678,7 @@ public static class RaycastingExtensions
 			);
 	public static GameObject firstNonpositionallyRaycastedObjectTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.firstNonpositionallyRaycastedObjectAlong
 		(
@@ -731,7 +731,7 @@ public static class RaycastingExtensions
 				.firstOtherwiseDefault();
 	public static GameObject firstNonpositionallyRaycastedObjectTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().firstNonpositionallyRaycastedObjectTo
 		(
@@ -760,7 +760,7 @@ public static class RaycastingExtensions
 			);
 	public static GameObject firstNonpositionallyRaycastedObjectTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().firstNonpositionallyRaycastedObjectTo
 		(
@@ -776,7 +776,7 @@ public static class RaycastingExtensions
 
 	public static Rigidbody firstNonpositionallyRaycastedRigidbodyFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.firstNonpositionallyRaycastedHitFrom
 				(
@@ -797,7 +797,7 @@ public static class RaycastingExtensions
 			);
 	public static Rigidbody firstNonpositionallyRaycastedRigidbodyTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.firstNonpositionallyRaycastedRigidbodyAlong
 		(
@@ -827,7 +827,7 @@ public static class RaycastingExtensions
 			);
 	public static Rigidbody firstNonpositionallyRaycastedRigidbodyTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().firstNonpositionallyRaycastedRigidbodyTo
 		(
@@ -856,7 +856,7 @@ public static class RaycastingExtensions
 			);
 	public static Rigidbody firstNonpositionallyRaycastedRigidbodyTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().firstNonpositionallyRaycastedRigidbodyTo
 		(
@@ -879,7 +879,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return
 			firstHitOnly ?
@@ -910,7 +910,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.nonpositionallyRaycastedHitsAlong
 		(
@@ -943,7 +943,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().nonpositionallyRaycastedHitsTo
 		(
@@ -975,7 +975,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<RaycastHit> nonpositionallyRaycastedHitsTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, bool firstHitOnly = Default.raycastQueryingForFirstHitOnly, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().nonpositionallyRaycastedHitsTo
 		(
@@ -992,7 +992,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<Collider> raycastedCollidersFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return
 			raycastQuery.queriesOnlyFirstHit() ?
@@ -1024,7 +1024,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Collider> raycastedCollidersTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.raycastedCollidersAlong
 		(
@@ -1111,7 +1111,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Collider> raycastedCollidersTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().raycastedCollidersTo
 		(
@@ -1197,7 +1197,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Collider> raycastedCollidersTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().raycastedCollidersTo
 		(
@@ -1214,7 +1214,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<GameObject> raycastedObjectsFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.raycastedCollidersFrom
 				(
@@ -1237,7 +1237,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<GameObject> raycastedObjectsTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.raycastedObjectsAlong
 		(
@@ -1324,7 +1324,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<GameObject> raycastedObjectsTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().raycastedObjectsTo
 		(
@@ -1410,7 +1410,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<GameObject> raycastedObjectsTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().raycastedObjectsTo
 		(
@@ -1427,7 +1427,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<Rigidbody> raycastedRigidbodiesFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastingPosition = Provide.positionVia(raycastingPosition_PositionProvider);
+		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 
 		return	direction.raycastedCollidersFrom
 				(
@@ -1450,7 +1450,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Rigidbody> raycastedRigidbodiesTo(this Vector3 raycastingPosition, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.raycastedRigidbodiesAlong
 		(
@@ -1537,7 +1537,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Rigidbody> raycastedRigidbodiesTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().raycastedRigidbodiesTo
 		(
@@ -1623,7 +1623,7 @@ public static class RaycastingExtensions
 			);
 	public static HashSet<Rigidbody> raycastedRigidbodiesTo(this GameObject raycastingObject, object raycastEndPosition_PositionProvider, RaycastQuery raycastQuery = Default.raycastQuery, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().raycastedRigidbodiesTo
 		(

@@ -80,7 +80,7 @@ public static class DisplacementExtensions
 		=> otherVector - vector;
 	// method: return the displacement to the given provided other position from this given position //
 	public static Vector3 displacementTo(this Vector3 position, object otherPosition_PositionProvider)
-		=> position.displacementTo(Provide.positionVia(otherPosition_PositionProvider));
+		=> position.displacementTo(otherPosition_PositionProvider.providePosition());
 	// method: return the displacement to the main camera from this given position //
 	public static Vector3 displacementToCamera(this Vector3 position)
 		=> position.displacementTo(Camera.main);

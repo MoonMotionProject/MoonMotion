@@ -50,7 +50,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.tug
 		(
@@ -180,7 +180,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().tug
 		(
@@ -279,7 +279,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().tug
 		(
@@ -330,7 +330,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.tug
 		(
@@ -543,7 +543,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().pullWithin
 		(
@@ -754,7 +754,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().pullWithin
 		(
@@ -804,7 +804,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingPosition.tug
 		(
@@ -1017,7 +1017,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingObject.position().pushWithin
 		(
@@ -1228,7 +1228,7 @@ public static class TuggingExtensions
 		params LayerMask[] layerMask_MaxOf1
 	)
 	{
-		Vector3 raycastEndPosition = Provide.positionVia(raycastEndPosition_PositionProvider);
+		Vector3 raycastEndPosition = raycastEndPosition_PositionProvider.providePosition();
 
 		return raycastingComponent.position().pushWithin
 		(

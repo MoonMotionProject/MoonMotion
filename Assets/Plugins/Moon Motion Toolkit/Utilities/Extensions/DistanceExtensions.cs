@@ -149,7 +149,7 @@ public static class DistanceExtensions
 
 	// method: return whether this given position is within the given threshold distance of the given provided position //
 	public static bool isWithinDistanceOf(this Vector3 position, object position_PositionProvider, float thresholdDistance)
-		=> position.distanceWith(Provide.positionVia(position_PositionProvider)) <= thresholdDistance;
+		=> position.distanceWith(position_PositionProvider.providePosition()) <= thresholdDistance;
 	// method: return whether this given game object is within the given threshold distance of the given provided position //
 	public static bool isWithinDistanceOf(this GameObject gameObject, object position_PositionProvider, float thresholdDistance)
 		=> gameObject.position().isWithinDistanceOf(position_PositionProvider, thresholdDistance);
@@ -164,9 +164,9 @@ public static class DistanceExtensions
 
 	public static bool isMoreDistantThan(this Vector3 position, object otherPosition_PositionProvider, object distancePosition_PositionProvider)
 	{
-		Vector3 distancePosition = Provide.positionVia(distancePosition_PositionProvider);
+		Vector3 distancePosition = distancePosition_PositionProvider.providePosition();
 
-		return position.distanceWith(distancePosition) > Provide.positionVia(otherPosition_PositionProvider).distanceWith(distancePosition);
+		return position.distanceWith(distancePosition) > otherPosition_PositionProvider.providePosition().distanceWith(distancePosition);
 	}
 	public static bool isMoreDistantThan(this GameObject gameObject, object distancePosition_PositionProvider, object otherPosition_PositionProvider)
 		=> gameObject.position().isMoreDistantThan(otherPosition_PositionProvider, distancePosition_PositionProvider);
@@ -180,7 +180,7 @@ public static class DistanceExtensions
 
 	public static bool isMoreDistantInSameDirectionalityAs(this Vector3 position, object otherPosition_PositionProvider, object referencePosition_PositionProvider)
 		=>	position.isMoreDistantThan(otherPosition_PositionProvider, referencePosition_PositionProvider) &&
-				Provide.positionVia(referencePosition_PositionProvider).directionalitySameTowardBoth(position, otherPosition_PositionProvider);
+				referencePosition_PositionProvider.providePosition().directionalitySameTowardBoth(position, otherPosition_PositionProvider);
 	public static bool isMoreDistantInSameDirectionalityAs(this GameObject gameObject, object otherPosition_PositionProvider, object referencePosition_PositionProvider)
 		=> gameObject.position().isMoreDistantInSameDirectionalityAs(otherPosition_PositionProvider, referencePosition_PositionProvider);
 	public static bool isMoreDistantInSameDirectionalityAs(this Component component, object otherPosition_PositionProvider, object referencePosition_PositionProvider)

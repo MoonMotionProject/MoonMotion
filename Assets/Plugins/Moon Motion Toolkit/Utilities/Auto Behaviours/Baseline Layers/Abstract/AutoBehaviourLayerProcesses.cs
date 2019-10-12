@@ -18,7 +18,7 @@ public abstract class	AutoBehaviourLayerProcesses<AutoBehaviourT> :
 	{
 		continueMovingPosition = true;
 
-		continueMovingPositionTo(Provide.positionVia(targetPosition_PositionProvider), honingDistance, endingLayerMask);
+		continueMovingPositionTo(targetPosition_PositionProvider.providePosition(), honingDistance, endingLayerMask);
 
 		return self;
 	}

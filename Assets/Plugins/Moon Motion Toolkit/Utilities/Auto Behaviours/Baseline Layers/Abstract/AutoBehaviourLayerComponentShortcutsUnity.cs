@@ -169,13 +169,13 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 		=> selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlong(direction, magnitude, boolean));
 	public AutoBehaviourT applyForceAlong(Vector3 direction, Distinctivity distinctivity, object potentialTransform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform potentialTransform = Provide.transformVia(potentialTransform_TransformProvider);
+		Transform potentialTransform = potentialTransform_TransformProvider.provideTransform();
 
 		return selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlong(direction, distinctivity, potentialTransform, magnitude, boolean));
 	}
 	public AutoBehaviourT applyForceAlongLocal(Vector3 localDirection, object transform_TransformProvider, float magnitude, bool boolean = true)
 	{
-		Transform transform = Provide.transformVia(transform_TransformProvider);
+		Transform transform = transform_TransformProvider.provideTransform();
 
 		return selfAfter(()=> ensuredCorrespondingRigidbody.applyForceAlongLocal(localDirection, transform, magnitude, boolean));
 	}
@@ -213,36 +213,28 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region applying directed force
 	public AutoBehaviourT applyDirectedForceFrom(object forcingPosition_PositionProvider, Vector3 direction, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
-	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
-
-		return selfAfter(()=> ensuredCorrespondingRigidbody.applyDirectedForceFrom
-		(
-			forcingPosition,
-			direction,
-			magnitude,
-			reach,
-			reachMagnitudeZeroingCurve,
-			zeroForceOutsideReach,
-			clamp
-		));
-	}
+		=>	selfAfter(()=> ensuredCorrespondingRigidbody.applyDirectedForceFrom
+			(
+				forcingPosition_PositionProvider.providePosition(),
+				direction,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			));
 	public AutoBehaviourT applyDirectedForceFrom(object forcingTransform_TransformProvider, Vector3 direction, Distinctivity distinctivity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
-	{
-		Transform forcingTransform = Provide.transformVia(forcingTransform_TransformProvider);
-
-		return selfAfter(()=> ensuredCorrespondingRigidbody.applyDirectedForceFrom
-		(
-			forcingTransform,
-			direction,
-			distinctivity,
-			magnitude,
-			reach,
-			reachMagnitudeZeroingCurve,
-			zeroForceOutsideReach,
-			clamp
-		));
-	}
+		=>	selfAfter(()=> ensuredCorrespondingRigidbody.applyDirectedForceFrom
+			(
+				forcingTransform_TransformProvider.providePosition(),
+				direction,
+				distinctivity,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			));
 	#endregion applying directed force
 	#endregion Rigidbody
 
@@ -317,23 +309,19 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	public AutoBehaviourT setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
 		=> selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
 	public AutoBehaviourT setLineRendererFirstTwoPointsTo(object firstPosition_PositionProvider, object secondPosition_PositionProvider)
-	{
-		Vector3 firstPosition = Provide.positionVia(firstPosition_PositionProvider);
-		Vector3 secondPosition = Provide.positionVia(secondPosition_PositionProvider);
-
-		return selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
-	}
+		=>	selfAfter(()=>
+				lineRenderer.setFirstTwoPointsTo
+				(
+					firstPosition_PositionProvider.providePosition(),
+					secondPosition_PositionProvider.providePosition()
+				));
 	public AutoBehaviourT setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance)
-	{
-		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
-
-		return selfAfter(()=> lineRenderer.setFirstTwoPointsForLineLocallyDirectedFrom
-		(
-			startingTransform,
-			localDirection,
-			distance
-		));
-	}
+		=>	selfAfter(()=> lineRenderer.setFirstTwoPointsForLineLocallyDirectedFrom
+			(
+				startingTransform_TransformProvider.provideTransform(),
+				localDirection,
+				distance
+			));
 	#endregion setting points
 	
 	#region setting distinctivity
@@ -358,11 +346,14 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region line of light setup
 	public AutoBehaviourT setupLineRendererAsLineOfLightLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
-	{
-		Transform startingTransform = Provide.transformVia(startingTransform_TransformProvider);
-
-		return selfAfter(()=> ensuredLineRenderer.setupAsLineOfLightLocallyDirectedFrom(startingTransform, localDirection, distance, material));
-	}
+		=>	selfAfter(()=>
+				ensuredLineRenderer.setupAsLineOfLightLocallyDirectedFrom
+				(
+					startingTransform_TransformProvider.provideTransform(),
+					localDirection,
+					distance,
+					material
+				));
 	#endregion line of light setup
 	#endregion LineRenderer
 
@@ -388,18 +379,10 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#region MeshFilter
 	public Mesh mesh => meshFilter.mesh;
 	public AutoBehaviourT setMeshTo(object mesh_MeshProvider, bool boolean = true)
-	{
-		Mesh providedMesh = Provide.meshVia(mesh_MeshProvider);
-
-		return selfAfter(()=> meshFilter.setMeshTo(providedMesh, boolean));
-	}
+		=> selfAfter(()=> meshFilter.setMeshTo(mesh_MeshProvider.provideMesh(), boolean));
 	public Mesh sharedMesh => meshFilter.sharedMesh;
 	public AutoBehaviourT setSharedMeshTo(object sharedMesh_SharedMeshProvider, bool boolean = true)
-	{
-		Mesh providedSharedMesh = Provide.meshVia(sharedMesh_SharedMeshProvider);
-
-		return selfAfter(()=> meshFilter.setSharedMeshTo(providedSharedMesh, boolean));
-	}
+		=> selfAfter(()=> meshFilter.setSharedMeshTo(sharedMesh_SharedMeshProvider.provideSharedMesh(), boolean));
 	public Mesh sharedMeshOtherwiseMesh => sharedMesh ? sharedMesh : mesh;
 	#endregion MeshFilter
 

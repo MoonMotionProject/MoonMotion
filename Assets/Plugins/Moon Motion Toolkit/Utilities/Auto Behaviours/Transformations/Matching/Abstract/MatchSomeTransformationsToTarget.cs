@@ -34,7 +34,7 @@ public abstract class	MatchSomeTransformationsToTarget<MatchSomeTransformationsT
 	
 	// method: set the target transform to the given provided transform, then return this (derived) behaviour //
 	public MatchSomeTransformationsToTargetT setTargetTo(object targetTransform_TransformProvider)
-		=> selfAfter(()=> targetTransform = Provide.transformVia(targetTransform_TransformProvider));
+		=> selfAfter(()=> targetTransform = targetTransform_TransformProvider.provideTransform());
 
 	// method: set the target transform to null (such that the self transform is used as a fallback, instead), then return this (derived) behaviour //
 	public MatchSomeTransformationsToTargetT setTargetToNull()

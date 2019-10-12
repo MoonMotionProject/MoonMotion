@@ -11,13 +11,13 @@ public static class DirectionalityExtensions
 	public static bool directionalitySameTowardBoth(this Vector3 position, object firstOtherPosition_PositionProvider, object secondOtherPosition_PositionProvider)
 		=>	position.directionTo
 			(
-				Provide.positionVia(firstOtherPosition_PositionProvider)
+				firstOtherPosition_PositionProvider.providePosition()
 			)
 			.directionalityBooleanWith
 			(
 				position.directionTo
 				(
-					Provide.positionVia(secondOtherPosition_PositionProvider)
+					secondOtherPosition_PositionProvider.providePosition()
 				)
 			);
 	public static bool directionalitySameTowardBoth<SingletonBehaviourT>(this Vector3 position, object secondOtherPosition_PositionProvider) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>

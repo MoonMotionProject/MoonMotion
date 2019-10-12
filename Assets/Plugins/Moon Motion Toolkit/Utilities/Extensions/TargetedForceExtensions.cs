@@ -15,7 +15,7 @@ public static class TargetedForceExtensions
 	
 	public static Vector3 targetedForceBy(this Vector3 forcePosition, object forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		float reachProgression = forcePosition.distalProgressionTo(reach, forcingPosition);
 
@@ -32,7 +32,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 targetedForceBy(this GameObject targetObject, object forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	targetObject.position().targetedForceBy
 				(
@@ -48,7 +48,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 targetedForceBy(this Component targetComponent, object forcingPosition_PositionProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	targetComponent.position().targetedForceBy
 				(
@@ -68,7 +68,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 attractionTo(this Vector3 forcePosition, object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return forcePosition.targetedForceBy
 		(
@@ -84,7 +84,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 attractionTo(this GameObject targetObject, object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	targetObject.position().attractionTo
 				(
@@ -99,7 +99,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 attractionTo(this Component targetComponent, object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	targetComponent.position().attractionTo
 				(
@@ -118,7 +118,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 repulsionFrom(this Vector3 forcePosition, object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	forcePosition.targetedForceBy
 				(
@@ -134,7 +134,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 repulsionFrom(this GameObject targetObject, object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	targetObject.position().repulsionFrom
 				(
@@ -149,7 +149,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 repulsionFrom(this Component targetComponent, object forcingPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		Vector3 forcingPosition = Provide.positionVia(forcingPosition_PositionProvider);
+		Vector3 forcingPosition = forcingPosition_PositionProvider.providePosition();
 
 		return	targetComponent.position().repulsionFrom
 				(
@@ -190,7 +190,7 @@ public static class TargetedForceExtensions
 				));
 	public static Vector3 forceTarget(this Vector3 forcingPosition, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingPosition.after(()=>
 					targetRigidbodies.forEach(rigidbody =>
@@ -209,7 +209,7 @@ public static class TargetedForceExtensions
 
 	public static GameObject forceTarget(this GameObject forcingObject, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingObject.after(()=>
 					forcingObject.position().forceTarget
@@ -226,7 +226,7 @@ public static class TargetedForceExtensions
 
 	public static ComponentT forceTarget<ComponentT>(this ComponentT forcingComponent, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingComponent.after(()=>
 					forcingComponent.position().forceTarget
@@ -247,7 +247,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 attract(this Vector3 forcingPosition, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingPosition.forceTarget
 				(
@@ -273,7 +273,7 @@ public static class TargetedForceExtensions
 
 	public static GameObject attract(this GameObject forcingObject, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingObject.after(()=>
 					forcingObject.position().attract
@@ -299,7 +299,7 @@ public static class TargetedForceExtensions
 
 	public static ComponentT attract<ComponentT>(this ComponentT forcingComponent, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingComponent.after(()=>
 					forcingComponent.position().attract
@@ -315,7 +315,7 @@ public static class TargetedForceExtensions
 
 	public static RaycastHit attract(this RaycastHit forcingRaycastHit, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingRaycastHit.after(()=>
 					forcingRaycastHit.position().attract
@@ -345,7 +345,7 @@ public static class TargetedForceExtensions
 
 	public static Vector3 repel(this Vector3 forcingPosition, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingPosition.forceTarget
 				(
@@ -361,7 +361,7 @@ public static class TargetedForceExtensions
 
 	public static GameObject repel(this GameObject forcingObject, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingObject.after(()=>
 					forcingObject.position().repel
@@ -377,7 +377,7 @@ public static class TargetedForceExtensions
 
 	public static ComponentT repel<ComponentT>(this ComponentT forcingComponent, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
-		List<Rigidbody> targetRigidbodies = Provide.rigidbodiesVia(targetRigidbodies_RigidbodiesProvider);
+		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
 		return	forcingComponent.after(()=>
 					forcingComponent.position().repel

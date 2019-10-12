@@ -651,7 +651,7 @@ public static class TransformTransformationExtensions
 	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to the given (global) position and (global) rotation, and set this given transform's (global) scale to the (global) scale of the given provided other transform, then return this given transform //
 	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Quaternion rotation, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return transform
 				.setGlobalsTo(position, rotation, boolean)
@@ -660,7 +660,7 @@ public static class TransformTransformationExtensions
 	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to the given (global) position and (global) euler angles, and set this given transform's (global) scale to the (global) scale of the given provided other transform, then return this given transform //
 	public static Transform setTransformationsTo(this Transform transform, Vector3 position, Vector3 eulerAngles, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return transform
 				.setGlobalsTo(position, eulerAngles, boolean)
@@ -669,7 +669,7 @@ public static class TransformTransformationExtensions
 	// method: (according to the given boolean:) set this given transform's (global) transformations respectively to (global) transformations of the given provided other transform, then return this given transform //
 	public static Transform setTransformationsTo(this Transform transform, object otherTransform_TransformProvider, bool boolean = true)
 	{
-		Transform otherTransform = Provide.transformVia(otherTransform_TransformProvider);
+		Transform otherTransform = otherTransform_TransformProvider.provideTransform();
 
 		return transform
 				.setGlobalsTo(otherTransform, boolean)

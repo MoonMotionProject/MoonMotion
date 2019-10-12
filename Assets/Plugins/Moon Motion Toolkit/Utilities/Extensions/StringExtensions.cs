@@ -103,6 +103,15 @@ public static class StringExtensions
 	#endregion email
 
 
+	#region links
+
+	// method: open this given link in the system's browser, then return this given link //
+	public static string openInBrowserAsLink(this string link)
+		=> link.after(()=>
+			Application.OpenURL(link));
+	#endregion links
+
+
 	#region reversing
 
 	// method: return this given string reversed //

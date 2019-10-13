@@ -5,12 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Collided With Ground", menuName = "Moon Motion/Dependency Requisites/Collided With Ground")]
 public class CcollidedWithGround : DependencyRequisite
 {
-	// methods //
-
-	
-	// method: determine the (boolean) state of this Dependency Requisite //
-	public override bool state()
-	{
-		return TerrainResponse.collidedWithGround();
-	}
+	public override bool state => TerrainResponse.collidedWithGround();
 }

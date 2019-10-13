@@ -24,7 +24,7 @@ public static class Dependencies
 	// method: determine whether the given Dependency is met //
 	public static bool isMet(this Dependency dependency)
 		=>	(dependency.requisite ?
-				(dependency.requisite.state() == dependency.requisition.asBoolean()) :
+				(dependency.requisite.state == dependency.requisition.asBoolean()) :
 				false.returnWithError("dependency requisite not given")
 			);
 

@@ -5,12 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Boosting Deeply Both Hands", menuName = "Moon Motion/Dependency Requisites/Boosting Deeply Both Hands")]
 public class BoostingDeeplyBothHands : DependencyRequisite
 {
-	// methods //
-
-	
-	// method: determine the (boolean) state of this Dependency Requisite //
-	public override bool state()
-	{
-		return Booster.bothHandsAreBoostingDeeply();
-	}
+	public override bool state => Booster.bothHandsAreBoostingDeeply();
 }

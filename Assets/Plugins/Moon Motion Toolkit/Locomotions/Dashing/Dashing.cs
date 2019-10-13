@@ -107,7 +107,7 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 		(
 			currentlyDashing &&
 			(
-				(operations.operated() && !DashingOutlining.outlinedObject && cancelable) ||
+				(cancelable && !DashingOutlining.outlinedObject && operations.operated()) ||
 
 				endUponTargetCollision.and(MoonMotionPlayer.isCollidedWith(potentialCurrentTargetCollider)) ||
 

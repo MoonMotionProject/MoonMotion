@@ -26,9 +26,14 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 	#region sweeping
 	
-	// the potential dashing position of the controller the player is currently sweeping via //
+	// the potential starting time of the last sweep //
+	public static float? potentialSweepStartingTime = null;
+	// the starting time of the last sweep (assuming the player has started any sweep yet) //
+	public static float sweepStartingTime => potentialSweepStartingTime.GetValueOrDefault();
+	
+	// the potential sweeping position of the controller the player is currently sweeping via //
 	public static Vector3? potentialControllerSweepingPosition = null;
-	// the dashing position of the controller the player is currently sweeping via (assuming the player is sweeping) //
+	// the sweeping position of the controller the player is currently sweeping via (assuming the player is sweeping) //
 	public static Vector3 controllerSweepingPosition => potentialControllerSweepingPosition.GetValueOrDefault();
 
 	// the (potential) sweep starting position //
@@ -47,6 +52,15 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	[BoxGroup("Sweeping")]
 	[Tooltip("the distance away from the player's body to sweep to")]
 	public float sweepDistance = 3.6f;
+
+	[BoxGroup("Sweeping")]
+	[Tooltip("whether to limit the duration of each sweep")]
+	public bool limitSweepDuration = true;
+
+	[BoxGroup("Sweeping")]
+	[Tooltip("the maximum duration for a sweep")]
+	[ShowIf("limitSweepDuration")]
+	public float sweepDurationLimit = 1f;
 
 	[BoxGroup("Sweeping")]
 	[Tooltip("the threshold distance for the player's body to be within the target position to end the sweep")]
@@ -96,6 +110,7 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 		stopSweep();
 		
+		potentialSweepStartingTime = time;
 		potentialControllerSweepingPosition = sweepingController.position();
 		potentialSweepStartingPosition = MoonMotionBody.position;
 		potentialCurrentTargetPosition = sweepingController.position.positionAlong(sweepingController.forward().withVectralYZeroed(), sweepDistance);
@@ -124,7 +139,9 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 		(
 			currentlySweeping &&
 			(
-				(operations.operated() && cancelable) ||
+				(cancelable && operations.operated()) ||
+
+				(limitSweepDuration && (timeSince(sweepStartingTime) > sweepDurationLimit)) ||
 
 				MoonMotionBody.isWithinDistanceOf(currentTargetPosition, endingThresholdDistance) ||
 

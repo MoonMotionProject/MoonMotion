@@ -106,6 +106,10 @@ public static class VectorExtensions
 
 	#region sign determination
 
+	// method: return whether this given vector is all zeroes //
+	public static bool isZeroes(this Vector3 vector)
+		=> (vector.x.isZero() && vector.y.isZero() && vector.z.isZero());
+
 	// method: return whether this given vector is nonnegative //
 	public static bool isNonnegative(this Vector3 vector)
 		=> (vector.x.isNonnegative() && vector.y.isNonnegative() && vector.z.isNonnegative());
@@ -193,6 +197,16 @@ public static class VectorExtensions
 	#endregion value replacement
 
 
+	#region handling zeroness
+
+	// method: if this given vector has only zeroes, return the other given vector; otherwise, return the result of the given function //
+	public static Vector3 ifOnlyZeroesThen(this Vector3 vector, Func<Vector3> function)
+		=>	vector.isZeroes() ?
+				function() :
+				vector;
+	#endregion handling zeroness
+
+
 	#region math operations
 
 	// method: return the average (value) of this given vector //
@@ -230,6 +244,10 @@ public static class VectorExtensions
 			vectors.averageY(),
 			vectors.averageZ()
 		);
+
+	// method: return this given vector multiplied by the other given vector (axis-respectively) //
+	public static Vector3 multiplyBy(this Vector3 vector, Vector3 otherVector)
+		=> new Vector3(vector.x * otherVector.x, vector.y * otherVector.y, vector.z * otherVector.z);
 	#endregion math operations
 
 

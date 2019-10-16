@@ -109,6 +109,17 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion printing
 
 
+	#region name
+
+	public static new AutoBehaviour<SingletonBehaviourT> setNameTo(string name, bool boolean = true)
+		=> autoBehaviour.setNameTo(name, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setNameToSimpleClassName(bool boolean = true)
+		=> autoBehaviour.setNameToSimpleClassName(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> toNameAppend(string suffix, bool boolean = true)
+		=> autoBehaviour.toNameAppend(suffix, boolean);
+	#endregion name
+
+
 	#region layer setting
 
 	public static new AutoBehaviour<SingletonBehaviourT> setLayerTo(string layerName, bool boolean = true)

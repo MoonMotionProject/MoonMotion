@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Singleton Behaviour Layer Mono Behaviour:
-// #auto
+// #auto #execution
 // • provides this singleton behaviour with static access to its auto behaviour's mono behaviour layer
 public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> :
 					SingletonBehaviourLayerBehaviour<SingletonBehaviourT>
@@ -32,11 +32,11 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 	#endregion planning to execute methods
 
 
-	#region planning to execute functions\actions next frame
+	#region planning to execute functions\actions at the end of the current frame
 
-	public static new AutoBehaviour<SingletonBehaviourT> nextFrameExecute(Delegate function, params object[] parameters)
-		=> autoBehaviour.nextFrameExecute(function, parameters);
-	public static new AutoBehaviour<SingletonBehaviourT> nextFrameExecute(Action action, params object[] parameters)
-		=> autoBehaviour.nextFrameExecute(action, parameters);
-	#endregion planning to execute functions\actions next frame
+	public static new AutoBehaviour<SingletonBehaviourT> atEndOfFrameExecute(Delegate function, params object[] parameters)
+		=> autoBehaviour.atEndOfFrameExecute(function, parameters);
+	public static new AutoBehaviour<SingletonBehaviourT> atEndOfFrameExecute(Action action, params object[] parameters)
+		=> autoBehaviour.atEndOfFrameExecute(action, parameters);
+	#endregion planning to execute functions\actions at the end of the current frame
 }

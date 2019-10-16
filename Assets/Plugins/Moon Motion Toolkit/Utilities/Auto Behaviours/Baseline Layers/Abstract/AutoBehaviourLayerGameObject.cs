@@ -59,6 +59,17 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion printing
 
 
+	#region name
+
+	public AutoBehaviourT setNameTo(string name, bool boolean = true)
+		=> selfAfter(()=> gameObject.setNameTo(name, boolean));
+	public AutoBehaviourT setNameToSimpleClassName(bool boolean = true)
+		=> selfAfter(()=> setNameTo(simpleClassName, boolean));
+	public AutoBehaviourT toNameAppend(string suffix, bool boolean = true)
+		=> selfAfter(()=> gameObject.toNameAppend(suffix, boolean));
+	#endregion name
+
+
 	#region activity
 
 	// method: return whether this behaviour's game object is active locally //

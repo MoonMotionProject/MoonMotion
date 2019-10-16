@@ -51,20 +51,20 @@ public static class HierarchySelectionOperations
 	#endregion operation methods for: velocities
 
 
-	#region operation methods for: child lights
+	#region operation methods for: descendant lights
 
-	[MenuItem("Selection/Render Child Lights By Pixel")]
-	public static void renderChildLightsByPixel()
-		=> Hierarchy.pingSelectedGameObjectAndPrintNamely("rendering child lights by pixel").renderChildLightsByPixel();
-	[MenuItem("Selection/Render Child Lights By Pixel", true)]
-	public static bool renderChildLightsByPixel_Validator()
+	[MenuItem("Selection/Render Descendant Lights By Pixel")]
+	public static void renderDescendantLightsByPixel()
+		=> Hierarchy.pingSelectedGameObjectAndPrintNamely("rendering descendant lights by pixel").renderDescendantLightsByPixel();
+	[MenuItem("Selection/Render Descendant Lights By Pixel", true)]
+	public static bool renderDescendantLightsByPixel_Validator()
 		=> Hierarchy.selectedGameObject;
 
-	[MenuItem("Selection/Render Child Lights By Vertex")]
-	public static void renderChildLightsByVertex()
-		=> Hierarchy.pingSelectedGameObjectAndPrintNamely("rendering child lights by vertex").renderChildLightsByVertex();
-	[MenuItem("Selection/Render Child Lights By Vertex", true)]
-	public static bool renderChildLightsByVertex_Validator()
+	[MenuItem("Selection/Render Descendant Lights By Vertex")]
+	public static void renderDescendantLightsByVertex()
+		=> Hierarchy.pingSelectedGameObjectAndPrintNamely("rendering descendant lights by vertex").renderDescendantLightsByVertex();
+	[MenuItem("Selection/Render Descendant Lights By Vertex", true)]
+	public static bool renderDescendantLightsByVertex_Validator()
 		=> Hierarchy.selectedGameObject;
-	#endregion operation methods for: child lights
+	#endregion operation methods for: descendant lights
 }

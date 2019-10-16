@@ -40,7 +40,7 @@ public class BoosterHalter : BoosterModuleControllable
 		{
 			right = this;
 		}
-		other = controller.otherController.GetComponentInChildren<BoosterHalter>();
+		other = controller.otherController.firstDescendant<BoosterHalter>();
 	}
 
 	private void Update()

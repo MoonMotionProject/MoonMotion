@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 using UnityEditor;
 
 // Outlining Controller Raycasting:
-// • while any of the controller operations is operated, outlines the first nonpositionally (not at this position) raycasted object from the first operating controller (otherwise the fallback controller for the first operated operation) that has a mesh filter and is not static
+// • while any of the controller operations is operated, outlines the raycasted object (∗) if any
 //   · does this by maintaining a child object with the set outline material that matches the raycasted object's transformations
 public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastingT> :
 					SingletonEditorVisualized<OutliningControllerRaycastingT>
@@ -16,18 +16,25 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	#region variables
 
 
+	#region editor visualization
+
 	[BoxGroup("Editor Visualization")]
 	[Tooltip("whether to visualize the line of the raycast")]
 	public bool visualizeLine = Default.choiceToVisualizeInEditor;
+	#endregion editor visualization
 
+
+	#region control
 
 	[BoxGroup("Control")]
 	[Tooltip("the controller operations by which to raycast and so outline")]
 	[ReorderableList]
 	public ControllerOperation[] operations;
+	#endregion control
 
-	
-	[InfoBox("Raycasting is nonpositional (does not include colliders overlapping this position) and is from the first operating controller (otherwise the fallback controller for the first operated operation). It will detect the first raycasted object that has a mesh filter and is not static. (Objects without mesh filters or that are static will not obscure raycasting.)")]
+
+	#region raycasting
+	[InfoBox("Raycasting is nonpositional (does not include colliders overlapping this position) and is from the first operating controller (otherwise the fallback controller for the first operated operation). It will detect the first raycasted object that has a local\\descendant mesh filter or otherwise capsule collider, and is not static. (Objects without mesh filters or that are static will not obscure raycasting.)")]		// ∗
 
 	[BoxGroup("Raycasting")]
 	public Vector3 localDirection = Default.raycastingDirection;
@@ -41,29 +48,39 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	[BoxGroup("Raycasting")]
 	public LayerMask layerMask = Default.layerMask;
 	
-	//[BoxGroup("Raycasting")]
-	//[Tooltip("the controller that last did the raycasting")]
+	// the controller that last did the raycasting //
 	public static Controller raycastingController {get; private set;}
 	
-	//[BoxGroup("Raycasting")]
-	//[Tooltip("the current raycast hit")]
+	// the current raycast hit //
 	public static RaycastHit? outliningRaycastHit {get; private set;}
 	
-	//[BoxGroup("Raycasting")]
-	//[Tooltip("the currently raycasted object to outline")]
+	// the currently raycasted object to outline //
 	public static GameObject outlinedObject {get; private set;}
-	
 
+	// whether the last outlined object had a mesh filter upon being raycasted (otherwise true by default) //
+	public static bool raycastFoundAMeshFilter = true;
+	
+	// the offset of the outlined object's primitive collider from the outlined object, by which to also offset the outline shading object – outlining via a found primitive collider instead of a found mesh – otherwise the zeroes floats vector //
+	public static Vector3 offsetNecessaryForPotentiallyUsedPrimitiveCollider
+		=>	raycastFoundAMeshFilter ?
+				FloatsVector.zeroes :
+				outlinedObject.providePrimitiveColliderLocalCenterPosition().multiplyBy(outlinedObject.localScale());
+	#endregion raycasting
+
+
+	#region outlining
 	[InfoBox("While any of the controller operations is operated, the first raycasted object will be outlined.")]
 
 	[BoxGroup("Outlining")]
 	[Tooltip("the outline material to use for the outline shading object; will be set to the default outline material at the start if null")]
 	public Material outlineMaterial = null;
 	
-	//[BoxGroup("Outlining")]
-	//[Tooltip("the outline object (reused between raycasted objects) for shading an outline of the outlined object")]
+	// the outline object (reused between raycasted objects) for shading an outline of the outlined object //
 	public static GameObject outlineShadingObject {get; private set;}
+	#endregion outlining
 
+
+	#region line rendering
 
 	[BoxGroup("Line Rendering")]
 	[Tooltip("whether to render a line representing the raycast")]
@@ -80,11 +97,15 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	[BoxGroup("Line Rendering")]
 	[Tooltip("whether to render the line only to the raycast hit versus for the set distance")]
 	public bool renderLineOnlyToHit = Default.choiceToRenderRaycastLineOnlyToHit;
+	#endregion line rendering
 
+
+	#region feedback
 
 	[BoxGroup("Feedback")]
 	[Tooltip("the intensity at which to vibrate the raycasting controller when outlining and unoutlining an object")]
 	public ushort vibrationIntensity = Default.vibrationIntensity;
+	#endregion feedback
 	#endregion variables
 
 
@@ -93,13 +114,17 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	#region methods
 
 
-	// method: return the first nonpositionally raycasted object from the given controller and for the raycasting settings – if it has a mesh filter and is not static (otherwise returning null); render a line to represent the raycast while doing so, if set to //
+	// method: return the potential raycast hit (∗), track some variables related to the raycast accordingly, and render a line to represent the raycast while doing so, if set to //
 	public RaycastHit? potentialHitRaycastingBy(Controller controller)
 	{
 		RaycastHit? potentialRaycastHit = controller.firstNonpositionallyRaycastedHitLocallyWhere
 		(
 			raycastHitToEvaluate =>
-				raycastHitToEvaluate.hasAny<MeshFilter>() && raycastHitToEvaluate.objectIsNotStatic(),
+				(
+					(raycastFoundAMeshFilter = raycastHitToEvaluate.hasAnyLocalOrDescendant<MeshFilter>()) ||
+					raycastHitToEvaluate.hasAnyLocalOrDescendant<CapsuleCollider>()
+				) &&
+				raycastHitToEvaluate.objectIsNotStatic(),
 			localDirection,
 			distance,
 			triggerColliderQuery,
@@ -163,12 +188,14 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	// at each late update: //
 	private void LateUpdate()		// Late Update instead of Update so that the line renderer isn't seen in two places for a frame when turning via the turning locomotion, and probably other situations too
 	{
-		outliningRaycastHit = operations.operated() ?
+		bool operationsOperated = operations.operated();
+		outliningRaycastHit = operationsOperated ?
 								potentialHitRaycastingBy
 								(
 									raycastingController = operations.firstOperatedControllerOtherwiseFallback()
 								) :
 								null;
+		lineRenderer.setEnablementTo(operationsOperated);
 		
 		GameObject objectRaycasted = outliningRaycastHit.gameObjectIfYull();
 
@@ -180,7 +207,11 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 			{
 				outlineShadingObject
 					.setMeshTo(outlinedObject)
-					.ensuredlyMatchTransformationsTo(outlinedObject)
+					.ensuredlyMatchTransformationsTo
+					(
+						outlinedObject,
+						offsetNecessaryForPotentiallyUsedPrimitiveCollider
+					)
 					.activate();
 			}
 			else
@@ -191,7 +222,7 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 					.removeMeshIfAny();
 			}
 
-			raycastingController.vibrate(500);
+			raycastingController.vibrate(vibrationIntensity);
 		}
 	}
 	#endregion updating

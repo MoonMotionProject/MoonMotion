@@ -173,11 +173,11 @@ public class Powerup : AutoBehaviour<Powerup>
 	protected virtual void Awake()
 	{
 		// connect to the child Powerup Bump Audio and track the original name of the Powerup Bump Audio's object //
-		bumpAudio = firstLocalOrChild<PowerupBumpAudio>();
+		bumpAudio = firstLocalOrDescendant<PowerupBumpAudio>();
 		originalBumpAudioName = bumpAudio.name;
 
 		// connect to the child Powerup Pickup Audio and track the original name of the Powerup Pickup Audio's object //
-		pickupAudio = firstLocalOrChild<PowerupPickupAudio>();
+		pickupAudio = firstLocalOrDescendant<PowerupPickupAudio>();
 		originalPickupAudioName = pickupAudio.name;
 	}
 }

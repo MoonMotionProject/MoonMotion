@@ -220,6 +220,11 @@ public static class AttachmentExtensions
 		=> gameObject.ensured<MeshFilter>();
 	public static MeshFilter ensuredMeshFilter(this Component component)
 		=> component.ensured<MeshFilter>();
+
+	public static MeshFilter firstLocalOrDescendantMeshFilter(this GameObject gameObject, bool includeInactiveMeshFilters = true)
+		=> gameObject.firstLocalOrDescendant<MeshFilter>(includeInactiveMeshFilters);
+	public static MeshFilter firstLocalOrDescendantMeshFilter(this Component component, bool includeInactiveMeshFilters = true)
+		=> component.firstLocalOrDescendant<MeshFilter>(includeInactiveMeshFilters);
 	#endregion MeshFilter
 	#endregion retrieval
 }

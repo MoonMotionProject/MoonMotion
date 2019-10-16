@@ -8,7 +8,7 @@ using UnityEngine;
 // • has this behaviour require the auto behaviour external layer component
 [RequireComponent(typeof(AutoBehaviourExternalLayer))]
 public abstract class	AutoBehaviourLayerExternalLayer<AutoBehaviourT> :
-					AutoBehaviourLayerInspectorAttributes<AutoBehaviourT>
+					AutoBehaviourLayerValidationAttributes<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	

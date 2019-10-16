@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+#if NAV_MESH_COMPONENTS
+using UnityEngine.AI;
+#endif
 
 // Auto Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #component #force
-// • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' Unity components
+// • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its descendant game objects' Unity components
 public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> :
 					AutoBehaviourLayerMonoBehaviour<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
@@ -38,12 +41,12 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	public Color color => material.color;
 	public AutoBehaviourT setColorTo(Color targetColor)
 		=> selfAfter(()=> material.setColorTo(targetColor));
-	public AutoBehaviourT setChildrenColorTo(Color targetColor)
-		=> selfAfter(()=> gameObject.setChildrenColorTo(targetColor));
+	public AutoBehaviourT setDescendantsColorTo(Color targetColor)
+		=> selfAfter(()=> gameObject.setDescendantsColorTo(targetColor));
 	public AutoBehaviourT randomizeColor()
 		=> selfAfter(()=> material.randomizeColor());
-	public AutoBehaviourT setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
-		=> selfAfter(()=> gameObject.setChildrenEmissionColorTo(targetColor, boolean));
+	public AutoBehaviourT setDescendantsEmissionColorTo(Color targetColor, bool boolean = true)
+		=> selfAfter(()=> gameObject.setDescendantsEmissionColorTo(targetColor, boolean));
 	#endregion color
 
 	#region shadowcasting
@@ -250,32 +253,32 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region volume
 	public float audioVolume => audioSource.volume;
-	public List<float> childAudioVolumes => gameObject.childAudioVolumes();
+	public List<float> descendantAudioVolumes => gameObject.descendantAudioVolumes();
 	public AutoBehaviourT setAudioVolumeTo(float targetVolume, bool boolean = true)
 		=> selfAfter(()=> audioSource.setVolumeTo(targetVolume, boolean));
-	public AutoBehaviourT setChildAudioVolumesTo(IList<float> targetVolumes)
-		=> selfAfter(()=> gameObject.setChildAudioVolumesTo(targetVolumes));
+	public AutoBehaviourT setDescendantsAudioVolumeTo(IList<float> targetVolumes)
+		=> selfAfter(()=> gameObject.setDescendantsAudioVolumeTo(targetVolumes));
 	#endregion volume
 
 	#region playing
 	public bool audioPlaying => audioSource.playing();
 	public AutoBehaviourT playAudio()
 		=> selfAfter(()=> audioSource.play());
-	public AutoBehaviourT playChildAudios()
-		=> selfAfter(()=> gameObject.playChildAudios());
+	public AutoBehaviourT playDescendantAudios()
+		=> selfAfter(()=> gameObject.playDescendantAudios());
 	public AutoBehaviourT stopAudio()
 		=> selfAfter(()=> audioSource.stop());
-	public AutoBehaviourT stopChildAudios()
-		=> selfAfter(()=> gameObject.stopChildAudios());
+	public AutoBehaviourT stopDescendantAudios()
+		=> selfAfter(()=> gameObject.stopDescendantAudios());
 	public float audioTime => audioSource.time;
 	public AutoBehaviourT setAudioTimeTo(float targetTime, bool boolean = true)
 		=> selfAfter(()=> audioSource.setTimeTo(targetTime, boolean));
 	#endregion playing
 
-	#region acting upon child audio
-	public AutoBehaviourT actUponChildAudioSources(Action<List<AudioSource>> action)
-		=> selfAfter(()=> gameObject.actUponChildAudioSources(action));
-	#endregion acting upon child audio
+	#region acting upon descendant audio
+	public AutoBehaviourT actUponDescendantAudioSources(Action<List<AudioSource>> action)
+		=> selfAfter(()=> gameObject.actUponDescendantAudioSources(action));
+	#endregion acting upon descendant audio
 	#endregion AudioSource
 
 
@@ -361,18 +364,18 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#region ParticleSystem
 
 	#region playing
-	public AutoBehaviourT togglePlayingChildParticlesSystems(bool boolean)
-		=> selfAfter(()=> gameObject.togglePlayingChildParticlesSystems(boolean));
-	public AutoBehaviourT playChildParticlesSystems(bool boolean = true)
-		=> selfAfter(()=> gameObject.playChildParticlesSystems(boolean));
-	public AutoBehaviourT stopChildParticlesSystems(bool boolean = true)
-		=> selfAfter(()=> gameObject.stopChildParticlesSystems(boolean));
+	public AutoBehaviourT togglePlayingDescendantParticlesSystems(bool boolean)
+		=> selfAfter(()=> gameObject.togglePlayingDescendantParticlesSystems(boolean));
+	public AutoBehaviourT playDescendantParticlesSystems(bool boolean = true)
+		=> selfAfter(()=> gameObject.playDescendantParticlesSystems(boolean));
+	public AutoBehaviourT stopDescendantParticlesSystems(bool boolean = true)
+		=> selfAfter(()=> gameObject.stopDescendantParticlesSystems(boolean));
 	#endregion playing
 
-	#region acting upon child particles systems
-	public AutoBehaviourT actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
-		=> selfAfter(()=> gameObject.actUponChildParticlesSystems(action));
-	#endregion acting upon child particles systems
+	#region acting upon descendant particles systems
+	public AutoBehaviourT actUponDescendantParticlesSystems(Action<List<ParticleSystem>> action)
+		=> selfAfter(()=> gameObject.actUponDescendantParticlesSystems(action));
+	#endregion acting upon descendant particles systems
 	#endregion ParticleSystem
 
 
@@ -391,28 +394,28 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region intensities
 	public float lightIntensity => light.intensity;
-	public List<float> childLightIntensities => gameObject.childLightIntensities();
+	public List<float> descendantLightIntensities => gameObject.descendantLightIntensities();
 	public AutoBehaviourT setLightIntensityTo(float targetIntensity)
 		=> selfAfter(()=> light.setIntensityTo(targetIntensity));
-	public AutoBehaviourT setChildLightIntensitiesTo(float targetIntensity)
-		=> selfAfter(()=> gameObject.setChildLightIntensitiesTo(targetIntensity));
-	public AutoBehaviourT setChildLightIntensitiesTo(IList<float> targetIntensities)
-		=> selfAfter(()=> gameObject.setChildLightIntensitiesTo(targetIntensities));
+	public AutoBehaviourT setDescendantLightIntensitiesTo(float targetIntensity)
+		=> selfAfter(()=> gameObject.setDescendantLightIntensitiesTo(targetIntensity));
+	public AutoBehaviourT setDescendantLightIntensitiesTo(IList<float> targetIntensities)
+		=> selfAfter(()=> gameObject.setDescendantLightIntensitiesTo(targetIntensities));
 	#endregion intensities
 
 	#region setting render mode
-	public AutoBehaviourT renderChildLightsBy(LightRenderMode lightRenderMode)
-		=> selfAfter(()=> gameObject.renderChildLightsBy(lightRenderMode));
-	public AutoBehaviourT renderChildLightsByPixel()
-		=> selfAfter(()=> gameObject.renderChildLightsByPixel());
-	public AutoBehaviourT renderChildLightsByVertex()
-		=> selfAfter(()=> gameObject.renderChildLightsByVertex());
+	public AutoBehaviourT renderDescendantLightsBy(LightRenderMode lightRenderMode)
+		=> selfAfter(()=> gameObject.renderDescendantLightsBy(lightRenderMode));
+	public AutoBehaviourT renderDescendantLightsByPixel()
+		=> selfAfter(()=> gameObject.renderDescendantLightsByPixel());
+	public AutoBehaviourT renderDescendantLightsByVertex()
+		=> selfAfter(()=> gameObject.renderDescendantLightsByVertex());
 	#endregion setting render mode
 
-	#region acting upon child lights
-	public AutoBehaviourT actUponChildLights(Action<List<Light>> action)
-		=> selfAfter(()=> gameObject.actUponChildLights(action));
-	#endregion acting upon child lights
+	#region acting upon descendant lights
+	public AutoBehaviourT actUponDescendantLights(Action<List<Light>> action)
+		=> selfAfter(()=> gameObject.actUponDescendantLights(action));
+	#endregion acting upon descendant lights
 	#endregion Light
 
 
@@ -425,4 +428,59 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 		=> selfAfter(()=> edgeCollider.setPointsTo(points));
 	#endregion setting points
 	#endregion EdgeCollider2D
+
+
+	#if NAV_MESH_COMPONENTS
+	#region NavMeshAgent
+
+	#region destinating
+	public bool destinateTo(object destinationPosition_PositionProvider)
+		=> navmeshAgent.destinateTo(destinationPosition_PositionProvider);
+	public bool destinateTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.destinateTo<SingletonBehaviourT>();
+	public bool destinateToCamera()
+		=> navmeshAgent.destinateToCamera();
+	#endregion destinating
+	
+	#region setting haltedness
+	public AutoBehaviourT setHaltednessTo(bool boolean)
+		=> selfAfter(()=> navmeshAgent.setHaltednessTo(boolean));
+	public AutoBehaviourT halt()
+		=> selfAfter(()=> navmeshAgent.halt());
+	public AutoBehaviourT unhalt()
+		=> selfAfter(()=> navmeshAgent.unhalt());
+	#endregion setting haltedness
+	
+	#region navigating
+	public bool beginNavigatingTo(object destinationPosition_PositionProvider)
+		=> navmeshAgent.beginNavigatingTo(destinationPosition_PositionProvider);
+	public bool beginNavigatingTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.beginNavigatingTo<SingletonBehaviourT>();
+	public bool beginNavigatingToCamera()
+		=> navmeshAgent.beginNavigatingToCamera();
+	#endregion navigating
+	
+	#region setting enablement of rotation via navigation
+	public NavMeshAgent setEnablementOfRotationViaNavigationTo(bool boolean)
+		=> navmeshAgent.setEnablementOfRotationViaNavigationTo(boolean);
+	public NavMeshAgent enableRotationViaNavigation()
+		=> navmeshAgent.enableRotationViaNavigation();
+	public NavMeshAgent disableRotationViaNavigation()
+		=> navmeshAgent.disableRotationViaNavigation();
+	#endregion setting enablement of rotation via navigation
+	#endregion NavMeshAgent
+
+
+	#region Bipedation
+
+	#region bipeding
+	/*public bool bipedeTo(object destinationPosition_PositionProvider)
+		=> bipedation.bipedeTo(destinationPosition_PositionProvider);
+	public bool bipedeTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> bipedation.bipedeTo<SingletonBehaviourT>();
+	public bool bipedeToCamera()
+		=> bipedation.bipedeToCamera();*/
+	#endregion bipeding
+	#endregion Bipedation
+	#endif
 }

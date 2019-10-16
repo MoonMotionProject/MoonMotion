@@ -10,13 +10,13 @@ public class AnyControllerOperationTracker : SingletonBehaviour<AnyControllerOpe
 {
 	public static bool state =>
 		
-		Controller.left.triggerTouched() ||
-		Controller.left.touchpadTouched() ||
-		Controller.left.menuButtonTouched() ||
-		Controller.left.gripTouched() ||
+		Controller.left.triggerTouched ||
+		Controller.left.touchpadTouched ||
+		Controller.left.menuButtonTouched ||
+		Controller.left.gripTouched ||
 
-		Controller.right.triggerTouched() ||
-		Controller.right.touchpadTouched() ||
-		Controller.right.menuButtonTouched() ||
-		Controller.right.gripTouched();
+		Controller.right.triggerTouched ||
+		Controller.right.touchpadTouched ||
+		Controller.right.menuButtonTouched ||
+		Controller.right.gripTouched;
 }

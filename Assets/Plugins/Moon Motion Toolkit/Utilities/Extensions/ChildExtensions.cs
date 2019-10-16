@@ -210,25 +210,6 @@ public static class ChildExtensions
 		=> component.after(()=>
 			component.transform.destroyLastChildIfItExists());
 
-	// method: destroy the last child of this given transform that has the specified component type if such exists, then return this given transform //
-	public static Transform destroyLastChildIfItExists<ComponentT>(this Transform transform) where ComponentT : Component
-	{
-		ComponentT component = transform.lastChild<ComponentT>();
-		if (component)
-		{
-			component.destroyObject();
-		}
-
-		return transform;
-	}
-	// method: destroy the last child of this given game object that has the specified component type if such exists, then return this given game object //
-	public static GameObject destroyLastChildIfItExists<ComponentT>(this GameObject gameObject) where ComponentT : Component
-		=> gameObject.destroyLastChildIfItExists<ComponentT>().gameObject;
-	// method: destroy the last child of this given component that has the specified component type if such exists, then return this given component //
-	public static ThisComponentT destroyLastChildIfItExists<ThisComponentT, TargetComponentT>(this ThisComponentT component) where ThisComponentT : Component where TargetComponentT : Component
-		=> component.after(()=>
-			component.gameObject.destroyLastChildIfItExists<TargetComponentT>());
-
 	// method: destroy all of the children of this given transform, then return this given transform //
 	public static Transform destroyChildren(this Transform transform)
 	{

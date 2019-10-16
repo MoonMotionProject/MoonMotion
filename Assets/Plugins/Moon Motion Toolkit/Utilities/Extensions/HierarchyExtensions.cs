@@ -41,7 +41,16 @@ public static class HierarchyExtensions
 		=> component.after(()=>
 			component.gameObject.selectAndPingInHierarchy_IfInEditor());
 
-	// method: make this given game object temporary, then return this given game object //
+	// method: make this given game object universal (not specific to any scene), then return this given game object //
+	public static GameObject makeUniversal(this GameObject gameObject)
+		=> gameObject.after(()=>
+			Object.DontDestroyOnLoad(gameObject));
+	// method: make this given component's game object universal, then return this given component //
+	public static ComponentT makeObjectUniversal<ComponentT>(this ComponentT component) where ComponentT : Component
+		=> component.after(()=>
+			component.gameObject.makeUniversal());
+
+	// method: make this given game object temporary (hidden in the hierarchy and not saved with any scene – although not necessarily making this object universal (not specific to any scene)), then return this given game object //
 	public static GameObject makeTemporary(this GameObject gameObject)
 		=> gameObject.after(()=>
 			gameObject.hideFlags = HideFlags.HideAndDontSave);
@@ -49,4 +58,12 @@ public static class HierarchyExtensions
 	public static ComponentT makeObjectTemporary<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.after(()=>
 			component.gameObject.makeTemporary());
+
+	// method: make this given game object universal and temporary, then return this given game object //
+	public static GameObject makeUniversalAndTemporary(this GameObject gameObject)
+		=> gameObject.makeUniversal().makeTemporary();
+	// method: make this given component's game object universal and temporary, then return this given component //
+	public static ComponentT makeUniversalAndTemporary<ComponentT>(this ComponentT component) where ComponentT : Component
+		=> component.after(()=>
+			component.gameObject.makeUniversalAndTemporary());
 }

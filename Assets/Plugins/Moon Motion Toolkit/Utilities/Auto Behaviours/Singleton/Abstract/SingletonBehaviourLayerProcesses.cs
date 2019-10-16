@@ -10,6 +10,7 @@ public abstract class	SingletonBehaviourLayerProcesses<SingletonBehaviourT> :
 					SingletonBehaviourLayerCollisionAndForcing<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
+	/* disabled since not yet tested in current implementation:
 	#region movePositionToward
 
 	public static new AutoBehaviour<SingletonBehaviourT> beginMovingPositionTo(object targetPosition_PositionProvider, float honingDistance, LayerMask endingLayerMask)
@@ -17,8 +18,5 @@ public abstract class	SingletonBehaviourLayerProcesses<SingletonBehaviourT> :
 
 	public static new AutoBehaviour<SingletonBehaviourT> stopMovingPosition()
 		=> autoBehaviour.stopMovingPosition();
-	#endregion movePositionToward
-
-
-
+	#endregion movePositionToward*/
 }

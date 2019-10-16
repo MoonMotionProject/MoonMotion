@@ -59,6 +59,14 @@ public static class IntegerExtensions
 
 	#region sign determination
 
+	// method: return the sign integer of this given integer //
+	public static int sign(this int integer)
+		=>	integer.isPositive() ?
+				1 :
+				integer.isNegative() ?
+					-1 :
+					0;
+
 	// method: return whether this given integer is zero (unsigned) //
 	public static bool isZero(this int integer)
 		=> (integer == 0);
@@ -163,14 +171,6 @@ public static class IntegerExtensions
 	// method: return the boolean for this given integer //
 	public static bool asBoolean(this int integer)
 		=> integer == 1;
-
-	// method: return the sign integer of this given integer //
-	public static int sign(this int integer)
-		=>	integer.isPositive() ?
-				1 :
-				integer.isNegative() ?
-					-1 :
-					0;
 
 	// method: return the float for this given integer //
 	public static float asFloat(this int integer)

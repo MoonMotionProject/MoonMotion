@@ -158,9 +158,6 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	
 	public AutoBehaviourT destroyLastChildIfItExists()
 		=> selfAfter(()=> transform.destroyLastChildIfItExists());
-	
-	public AutoBehaviourT destroyLastChildIfItExists<ComponentT>() where ComponentT : Component
-		=> selfAfter(()=> transform.destroyLastChildIfItExists<ComponentT>());
 
 	public AutoBehaviourT destroyChildren()
 		=> selfAfter(()=> transform.destroyChildren());
@@ -177,6 +174,13 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	public AutoBehaviourT deactivateChildren()
 		=> selfAfter(()=> transform.deactivateChildren());
 	#endregion child iteration
+
+
+	#region destroying descendants
+
+	public AutoBehaviourT destroyLastDescendantObjectWithComponentIfItExists<ComponentT>() where ComponentT : Component
+		=> selfAfter(()=> gameObject.destroyLastDescendantObjectWithComponentIfItExists<ComponentT>());
+	#endregion destroying descendants
 
 
 	#region euler rotation
@@ -236,7 +240,34 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	#endregion facing
 
 
-	#region directions
+	#region displacement
+
+	#region from other
+	public Vector3 displacementFrom(object otherPosition_PositionProvider)
+		=> position.displacementFrom(otherPosition_PositionProvider);
+	public Vector3 displacementFrom<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.displacementFrom<SingletonBehaviourT>();
+	public Vector3 displacementFromCamera()
+		=> position.displacementFromCamera();
+	#endregion from other
+
+	#region to other
+	public Vector3 displacementTo(object otherPosition_PositionProvider)
+		=> position.displacementTo(otherPosition_PositionProvider);
+	public Vector3 displacementTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.displacementTo<SingletonBehaviourT>();
+	public Vector3 displacementToCamera()
+		=> position.displacementToCamera();
+	#endregion to other
+
+	#region with displacement
+	public Vector3 positionWithDisplacement(Vector3 displacement)
+		=> position.withDisplacement(displacement);
+	#endregion with displacement
+	#endregion displacement
+
+
+	#region basic directions
 	
 	public Vector3 forwardLocal => transform.forward();
 	
@@ -252,28 +283,38 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	
 	public Vector3 relativeDirectionFor(BasicDirection basicDirection)
 		=> transform.relativeDirectionFor(basicDirection);
-	#endregion directions
+	#endregion basic directions
 
 
-	#region direction distinctivity conversion
+	#region direction
 
+	#region from other
+	public Vector3 directionFrom(object otherPosition_PositionProvider)
+		=> position.directionFrom(otherPosition_PositionProvider);
+	public Vector3 directionFrom<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.directionFrom<SingletonBehaviourT>();
+	public Vector3 directionFromCamera()
+		=> position.directionFromCamera();
+	#endregion from other
+
+	#region to other
+	public Vector3 directionTo(object otherPosition_PositionProvider)
+		=> position.directionTo(otherPosition_PositionProvider);
+	public Vector3 directionTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.directionTo<SingletonBehaviourT>();
+	public Vector3 directionToCamera()
+		=> position.directionToCamera();
+	#endregion to other
+
+	#region distinctivity conversion
 	// method: return the local direction relative to this behaviour's transform for this given global direction //
 	public Vector3 localDirectionForGlobalDirection(Vector3 globalDirection)
 		=> globalDirection.asGlobalDirectionToLocalDirectionRelativeTo(transform);
-
 	// method: return the global direction for this given local direction relative to this behaviour's transform //
 	public Vector3 globalDirectionForLocalDirection(Vector3 localDirection)
 		=> localDirection.asLocalDirectionToGlobalDirectionFromRelativityOf(transform);
-	#endregion direction distinctivity conversion
-
-
-	#region displacement
-	
-	public Vector3 displacementTo(object otherPosition_PositionProvider)
-		=> position.displacementTo(otherPosition_PositionProvider);
-	public Vector3 displacementToCamera()
-		=> position.displacementToCamera();
-	#endregion displacement
+	#endregion distinctivity conversion
+	#endregion direction
 
 
 	#region directionality
@@ -292,14 +333,10 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	#region distance with
 	public float distanceWith(Vector3 otherPosition)
 		=> position.distanceWith(otherPosition);
-	public float distanceWith(Transform otherTransform)
-		=> position.distanceWith(otherTransform);
-	public float distanceWith(GameObject otherGameObject)
-		=> position.distanceWith(otherGameObject);
-	public float distanceWith(Component otherComponent)
-		=> position.distanceWith(otherComponent);
-	public float distanceWith(RaycastHit raycastHit)
-		=> position.distanceWith(raycastHit);
+	public float distanceWith(object otherPosition_PositionProvider)
+		=> position.distanceWith(otherPosition_PositionProvider);
+	public float distanceWith<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.distanceWith<SingletonBehaviourT>();
 	public float distanceWithCamera()
 		=> position.distanceWithCamera();
 	#endregion distance with
@@ -325,6 +362,8 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	#region is within distance of
 	public bool isWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
 		=> position.isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	public bool isWithinDistanceOf<SingletonBehaviourT>(float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
 	#endregion is within distance of
 
 	#region is more distant than
@@ -336,6 +375,15 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	public bool isMoreDistantInSameDirectionalityAs(object otherPosition_PositionProvider, object referencePosition_PositionProvider)
 		=> position.isMoreDistantInSameDirectionalityAs(otherPosition_PositionProvider, referencePosition_PositionProvider);
 	#endregion is more distant in same directionality as
+
+	#region nearest position to be at distance from target
+	public Vector3 nearestPositionToBeAtDistanceFrom(object targetPosition_PositionProvider, float distanceFromTarget)
+		=> position.nearestPositionToBeAtDistanceFrom(targetPosition_PositionProvider, distanceFromTarget);
+	public Vector3 nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(float distanceFromTarget) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(distanceFromTarget);
+	public Vector3 nearestPositionToBeAtDistanceFromCameraOf(float distanceFromCamera)
+		=> position.nearestPositionToBeAtDistanceFromCameraOf(distanceFromCamera);
+	#endregion nearest position to be at distance from target
 	#endregion distance
 
 

@@ -28,20 +28,20 @@ public static class AudioSourceExtensions
 
 	public static List<float> volumes(this IEnumerable<AudioSource> audioSources)
 		=> audioSources.pick(audioSource => audioSource.volume);
-	public static List<float> childAudioVolumes(this GameObject gameObject)
-		=> gameObject.children<AudioSource>().pick(audioSource => audioSource.volume);
+	public static List<float> descendantAudioVolumes(this GameObject gameObject)
+		=> gameObject.descendants<AudioSource>().pick(audioSource => audioSource.volume);
 	
 	public static AudioSource setVolumeTo(this AudioSource audioSource, float targetVolume, bool boolean = true)
 		=> audioSource.after(()=>
 			audioSource.volume = targetVolume,
 			boolean);
-	public static IEnumerable<AudioSource> setVolumesTo(this IEnumerable<AudioSource> audioSources, IEnumerable<float> targetVolumes)
+	public static IEnumerable<AudioSource> setVolumeTo(this IEnumerable<AudioSource> audioSources, IEnumerable<float> targetVolumes)
 		=> audioSources.forEachByLooping(
 			targetVolumes,
 			(audioSource, targetVolume) => audioSource.setVolumeTo(targetVolume));
-	public static GameObject setChildAudioVolumesTo(this GameObject gameObject, IEnumerable<float> targetVolumes)
-		=> gameObject.actUponChildAudioSources(childAudioSources =>
-			   childAudioSources.setVolumesTo(targetVolumes));
+	public static GameObject setDescendantsAudioVolumeTo(this GameObject gameObject, IEnumerable<float> targetVolumes)
+		=> gameObject.actUponDescendantAudioSources(descendantAudioSources =>
+			   descendantAudioSources.setVolumeTo(targetVolumes));
 	#endregion volume
 
 
@@ -59,9 +59,9 @@ public static class AudioSourceExtensions
 	// method: (according to the given boolean:) have these given audio sources play, then return an enumerable of these given audio sources //
 	public static IEnumerable<AudioSource> play(this IEnumerable<AudioSource> audioSources, bool boolean = true)
 		=> audioSources.forEach(audioSource => audioSource.play());
-	public static GameObject playChildAudios(this GameObject gameObject)
-		=> gameObject.actUponChildAudioSources(childAudioSources =>
-				childAudioSources.play());
+	public static GameObject playDescendantAudios(this GameObject gameObject)
+		=> gameObject.actUponDescendantAudioSources(descendantAudioSources =>
+				descendantAudioSources.play());
 
 	// method: (according to the given boolean:) have this given audio source stop, then return this given audio source //
 	public static AudioSource stop(this AudioSource audioSource, bool boolean = true)
@@ -71,9 +71,9 @@ public static class AudioSourceExtensions
 	// method: (according to the given boolean:) have these given audio sources stop, then return an enumerable of these given audio sources //
 	public static IEnumerable<AudioSource> stop(this IEnumerable<AudioSource> audioSources, bool boolean = true)
 		=> audioSources.forEach(audioSource => audioSource.stop());
-	public static GameObject stopChildAudios(this GameObject gameObject)
-		=> gameObject.actUponChildAudioSources(childAudioSources =>
-				childAudioSources.stop());
+	public static GameObject stopDescendantAudios(this GameObject gameObject)
+		=> gameObject.actUponDescendantAudioSources(descendantAudioSources =>
+				descendantAudioSources.stop());
 
 	// method: (according to the given boolean:) set this given audio source's time to the given target time, then return this given audio source //
 	public static AudioSource setTimeTo(this AudioSource audioSource, float targetTime, bool boolean = true)
@@ -83,10 +83,10 @@ public static class AudioSourceExtensions
 	#endregion playing
 
 
-	#region acting upon child audio
+	#region acting upon descendant audio
 
-	public static GameObject actUponChildAudioSources(this GameObject gameObject, Action<List<AudioSource>> action)
+	public static GameObject actUponDescendantAudioSources(this GameObject gameObject, Action<List<AudioSource>> action)
 		=> gameObject.after(()=>
-			  action(gameObject.children<AudioSource>()));
-	#endregion acting upon child audio
+			  action(gameObject.descendants<AudioSource>()));
+	#endregion acting upon descendant audio
 }

@@ -84,6 +84,14 @@ public static class DoubleExtensions
 
 	#region sign determination
 
+	// method: return the sign integer of this given double //
+	public static int sign(this double double_)
+		=>	double_.isPositive() ?
+				1 :
+				double_.isNegative() ?
+					-1 :
+					0;
+
 	// method: return whether this given double is zero (unsigned) //
 	public static bool isZero(this double double_)
 		=> (double_ == 0d);
@@ -222,9 +230,6 @@ public static class DoubleExtensions
 	// method: return the nearest integer to this given double //
 	public static int toInteger(this double double_)
 		=> (int) double_;
-	// method: return the sign integer of this given double //
-	public static int sign(this double double_)
-		=> double_.toInteger().sign();
 
 	// method: return the nearest float to this given double //
 	public static float toFloat(this double double_)

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Auto Behaviour Layer Inspector Attributes:
+// Auto Behaviour Layer Validation Attributes:
 // #auto
-// • validates this behaviour according to its auto behaviour inspector attributes
-public abstract class	AutoBehaviourLayerInspectorAttributes<AutoBehaviourT> :
+// • validates this behaviour according to its auto behaviour validation attributes
+public abstract class	AutoBehaviourLayerValidationAttributes<AutoBehaviourT> :
 					AutoBehaviourLayerProcesses<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
@@ -20,6 +20,11 @@ public abstract class	AutoBehaviourLayerInspectorAttributes<AutoBehaviourT> :
 		else if (inheritorHasAttribute<HideComponentInInspectorAttribute>())
 		{
 			hideInInspector();
+		}
+		
+		if (inheritorHasAttribute<UseClassNameForObjectAttribute>())
+		{
+			setNameToSimpleClassName();
 		}
 	}
 }

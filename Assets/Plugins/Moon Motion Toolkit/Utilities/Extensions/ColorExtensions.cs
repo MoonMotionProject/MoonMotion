@@ -28,10 +28,10 @@ public static class ColorExtensions
 	public static IEnumerable<Renderer> setColorTo(this IEnumerable<Renderer> renderers, Color targetColor)
 		=> renderers.forEach(renderer => renderer.setColorTo(targetColor));
 
-	// method: set the color of this given game object's child renderers' to the given target color, then return this given game object //
-	public static GameObject setChildrenColorTo(this GameObject gameObject, Color targetColor)
+	// method: set the color of this given game object's descendant renderers' to the given target color, then return this given game object //
+	public static GameObject setDescendantsColorTo(this GameObject gameObject, Color targetColor)
 		=> gameObject.after(()=>
-			gameObject.children<Renderer>().setColorTo(targetColor));
+			gameObject.descendants<Renderer>().setColorTo(targetColor));
 	#endregion setting color
 	
 
@@ -85,10 +85,10 @@ public static class ColorExtensions
 	public static GameObject setEmissionColorTo(this GameObject gameObject, Color targetColor)
 		=> gameObject.after(()=>
 			gameObject.transform.setEmissionColorTo(targetColor));
-	// method: (according to the given boolean:) set the emission color of this given game object's child renderers' to the given target color, then return this given game object //
-	public static GameObject setChildrenEmissionColorTo(this GameObject gameObject, Color targetColor, bool boolean = true)
+	// method: (according to the given boolean:) set the emission color of this given game object's descendant renderers' to the given target color, then return this given game object //
+	public static GameObject setDescendantsEmissionColorTo(this GameObject gameObject, Color targetColor, bool boolean = true)
 		=> gameObject.after(()=>
-			gameObject.children<Renderer>().setEmissionColorTo(targetColor),
+			gameObject.descendants<Renderer>().setEmissionColorTo(targetColor),
 			boolean);
 	#endregion setting emission color
 

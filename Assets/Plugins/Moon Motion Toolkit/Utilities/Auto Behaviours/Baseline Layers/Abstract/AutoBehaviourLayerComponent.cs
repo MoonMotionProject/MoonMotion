@@ -133,46 +133,48 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	#endregion iterating local components
 
 
-	#region determining child components
+	#region determining descendant components
 
-	// method: return whether this game object has any of the specified type of child component, optionally including inactive components according to the given boolean //
-	public bool anyChildren<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.hasAnyChildren<ComponentT>(includeInactiveComponents);
-	#endregion determining child components
-
-
-	#region accessing child components
-
-	// method: return this component's game object's first child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public ComponentT firstChild<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.firstChild<ComponentT>(includeInactiveComponents);
-
-	// method: return this component's game object's last child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public ComponentT lastChild<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.lastChild<ComponentT>(includeInactiveComponents);
-
-	// method: return a list of this given component's child components of the specified class, optionally including inactive components according to the given boolean //
-	public List<ComponentT> children<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.children<ComponentT>(includeInactiveComponents);
-	#endregion accessing child components
+	// method: return whether this game object has any of the specified type of descendant component, optionally including inactive components according to the given boolean //
+	public bool anyDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.hasAnyDescendant<ComponentT>(includeInactiveComponents);
+	#endregion determining descendant components
 
 
-	#region accessing child or self components
-
-	// method: return this component's first local or child component of the specified class (null if none found), optionally including inactive components according to the given boolean //
-	public ComponentT firstLocalOrChild<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.firstLocalOrChild<ComponentT>(includeInactiveComponents);
-
-	// method: return an array of this component's local and child components of the specified class, optionally including inactive components according to the given boolean //
-	public ComponentT[] localAndChildren<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.localAndChildren<ComponentT>(includeInactiveComponents);
+	#region accessing descendant components
 	
-	public ComponentI[] localAndChildrenI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
-		=> gameObject.localAndChildrenI<ComponentI>(includeInactiveComponents);
+	public ComponentT firstDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.firstDescendant<ComponentT>(includeInactiveComponents);
+	
+	public ComponentT lastDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.lastDescendant<ComponentT>(includeInactiveComponents);
+	
+	public List<ComponentT> descendants<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.descendants<ComponentT>(includeInactiveComponents);
+	#endregion accessing descendant components
 
-	public HashSet<GameObject> localAndChildrenObjectsWithI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
-		=> gameObject.localAndChildrenObjectsWithI<ComponentI>(includeInactiveComponents);
-	#endregion accessing child or self components
+
+	#region determining local or descendant components
+	
+	public bool anyLocalOrDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.hasAnyLocalOrDescendant<ComponentT>(includeInactiveComponents);
+	#endregion determining local or descendant components
+
+
+	#region accessing local or descendant components
+	
+	public ComponentT firstLocalOrDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.firstLocalOrDescendant<ComponentT>(includeInactiveComponents);
+	
+	public ComponentT[] localAndDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.localAndDescendant<ComponentT>(includeInactiveComponents);
+	
+	public ComponentI[] localAndDescendantI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> gameObject.localAndDescendantI<ComponentI>(includeInactiveComponents);
+
+	public HashSet<GameObject> localAndDescendantObjectsWithI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> gameObject.localAndDescendantObjectsWithI<ComponentI>(includeInactiveComponents);
+	#endregion accessing local or descendant components
 
 
 	#region accessing parent components
@@ -195,7 +197,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	#endregion accessing parent components
 
 
-	#region accessing parent or self components
+	#region accessing local or ancestral components
 
 	// method: return this component's first local or parent component of the specified class, optionally including inactive components according to the given boolean (null if none found) //
 	public ComponentT firstLocalOrAncestor<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
@@ -204,10 +206,10 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	// method: return an array of this component's local and parent components of the specified class, optionally including inactive components according to the given boolean //
 	public ComponentT[] localAndAncestral<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.localAndAncestral<ComponentT>(includeInactiveComponents);
-	#endregion accessing parent or self components
+	#endregion accessing local or ancestral components
 
 
-	#region searching for self or parent based on comparison
+	#region searching for self or ancestor based on comparison
 
 	// method: return the first game object out of the game object for this component and its parent game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
 	public GameObject selfOrAncestorObjectWith<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
@@ -216,5 +218,5 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	// method: return the transform of the first game object out of this component and its parent game objects (searching upward) to have a component of the given type (null if none found), optionally including inactive components according to the given boolean //
 	public Transform selfOrAncestorTransformWith<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.selfOrAncestorTransformWith<ComponentT>(includeInactiveComponents);
-	#endregion searching for self or parent based on comparison
+	#endregion searching for self or ancestor based on comparison
 }

@@ -56,7 +56,7 @@ public class Turner : HandLocomotionControlled
 	{
 		if (turningDirection == TurningDirection.touchpad)
 		{
-			return ((controller.touchpadX() >= 0f) ? 1f : -1f);
+			return ((controller.touchpadX >= 0f) ? 1f : -1f);
 		}
 		else if (turningDirection == TurningDirection.left)
 		{

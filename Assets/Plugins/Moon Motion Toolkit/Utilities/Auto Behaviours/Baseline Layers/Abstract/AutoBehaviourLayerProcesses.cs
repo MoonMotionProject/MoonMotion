@@ -10,6 +10,7 @@ public abstract class	AutoBehaviourLayerProcesses<AutoBehaviourT> :
 					AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
+	/* disabled since not yet tested in current implementation:
 	#region movePositionToward
 
 	private bool continueMovingPosition = true;
@@ -34,11 +35,11 @@ public abstract class	AutoBehaviourLayerProcesses<AutoBehaviourT> :
 		{
 			movePositionToward(targetPosition, honingDistance);
 
-			nextFrameExecute(()=> continueMovingPositionTo(targetPosition, honingDistance, endingLayerMask));
+			nextFrameBeforeUpdateExecute(()=> continueMovingPositionTo(targetPosition, honingDistance, endingLayerMask));
 		}
 	}
 
 	public AutoBehaviourT stopMovingPosition()
 		=> selfAfter(()=> continueMovingPosition = false);
-	#endregion movePositionToward
+	#endregion movePositionToward*/
 }

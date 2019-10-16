@@ -10,8 +10,8 @@ public static class LightExtensions
 
 	public static List<float> intensities(this IEnumerable<Light> lights)
 		=> lights.pick(light => light.intensity);
-	public static List<float> childLightIntensities(this GameObject gameObject)
-		=> gameObject.children<Light>().intensities();
+	public static List<float> descendantLightIntensities(this GameObject gameObject)
+		=> gameObject.descendants<Light>().intensities();
 
 	public static Light setIntensityTo(this Light light, float targetIntensity)
 	{
@@ -22,16 +22,16 @@ public static class LightExtensions
 
 	public static IEnumerable<Light> setIntensitiesTo(this IEnumerable<Light> lights, float targetIntensity)
 		=> lights.forEach(light => light.setIntensityTo(targetIntensity));
-	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, float targetIntensity)
-		=> gameObject.setChildLightIntensitiesTo(new float[] {targetIntensity});
+	public static GameObject setDescendantLightIntensitiesTo(this GameObject gameObject, float targetIntensity)
+		=> gameObject.setDescendantLightIntensitiesTo(new float[] {targetIntensity});
 
 	public static IEnumerable<Light> setIntensitiesTo(this IEnumerable<Light> lights, IEnumerable<float> targetIntensities)
 	=> lights.forEachByLooping(
 			targetIntensities,
 			(light, targetIntensity) => light.setIntensityTo(targetIntensity));
-	public static GameObject setChildLightIntensitiesTo(this GameObject gameObject, IEnumerable<float> targetIntensities)
-		=> gameObject.actUponChildLights(childLights =>
-			childLights.setIntensitiesTo(targetIntensities));
+	public static GameObject setDescendantLightIntensitiesTo(this GameObject gameObject, IEnumerable<float> targetIntensities)
+		=> gameObject.actUponDescendantLights(descendantLights =>
+			descendantLights.setIntensitiesTo(targetIntensities));
 
 	#endregion intensities
 
@@ -43,30 +43,30 @@ public static class LightExtensions
 			light.renderMode = lightRenderMode);
 	public static IEnumerable<Light> renderBy(this IEnumerable<Light> lights, LightRenderMode lightRenderMode)
 		=> lights.forEach(light => light.renderBy(lightRenderMode));
-	public static GameObject renderChildLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
-		=> gameObject.actUponChildLights(childLights =>
-			childLights.renderBy(lightRenderMode));
+	public static GameObject renderDescendantLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
+		=> gameObject.actUponDescendantLights(descendantLights =>
+			descendantLights.renderBy(lightRenderMode));
 
 	public static Light renderByPixel(this Light light)
 		=> light.renderBy(LightRenderMode.ForcePixel);
 	public static IEnumerable<Light> renderByPixel(this IEnumerable<Light> lights)
 		=> lights.renderBy(LightRenderMode.ForcePixel);
-	public static GameObject renderChildLightsByPixel(this GameObject gameObject)
-		=> gameObject.renderChildLightsBy(LightRenderMode.ForcePixel);
+	public static GameObject renderDescendantLightsByPixel(this GameObject gameObject)
+		=> gameObject.renderDescendantLightsBy(LightRenderMode.ForcePixel);
 
 	public static Light renderByVertex(this Light light)
 		=> light.renderBy(LightRenderMode.ForceVertex);
 	public static IEnumerable<Light> renderByVertex(this IEnumerable<Light> lights)
 		=> lights.renderBy(LightRenderMode.ForceVertex);
-	public static GameObject renderChildLightsByVertex(this GameObject gameObject)
-		=> gameObject.renderChildLightsBy(LightRenderMode.ForceVertex);
+	public static GameObject renderDescendantLightsByVertex(this GameObject gameObject)
+		=> gameObject.renderDescendantLightsBy(LightRenderMode.ForceVertex);
 	#endregion setting render mode
 
 
-	#region acting upon child lights
+	#region acting upon descendant lights
 
-	public static GameObject actUponChildLights(this GameObject gameObject, Action<List<Light>> action)
+	public static GameObject actUponDescendantLights(this GameObject gameObject, Action<List<Light>> action)
 		=> gameObject.after(()=>
-			  action(gameObject.children<Light>()));
-	#endregion acting upon child lights
+			  action(gameObject.descendants<Light>()));
+	#endregion acting upon descendant lights
 }

@@ -37,11 +37,11 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 	{
 		List<GameObject> heldInteractablesList = new List<GameObject>();
 
-		foreach (Transform handChildTransform in parentHandTransform)
+		foreach (Transform handDescendantTransform in parentHandTransform)
 		{
-			if (handChildTransform.GetComponent<Interactable>() && !handChildTransform.GetComponent<SpawnRenderModel>())
+			if (handDescendantTransform.hasAny<Interactable>() && !handDescendantTransform.hasAny<SpawnRenderModel>())
 			{
-				heldInteractablesList.Add(handChildTransform.gameObject);
+				heldInteractablesList.add(handDescendantTransform.gameObject);
 			}
 		}
 
@@ -117,7 +117,7 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of this hand holding tracker's hand //
 	public bool longbowArrowHand()
-		=> parentHandTransform.hasAnyChildren<ArrowHand>();
+		=> parentHandTransform.hasAnyDescendant<ArrowHand>();
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of the left hand //
 	public static bool longbowArrowHandLeft()

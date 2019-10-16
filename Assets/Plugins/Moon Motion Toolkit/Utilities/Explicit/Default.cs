@@ -46,6 +46,10 @@ public static class Default
 	public const float interval = 1f;
 	#endregion time
 
+	#region displacement
+	public static readonly Vector3 displacement = FloatsVector.zeroes;
+	#endregion displacement
+
 	#region direction
 	public static readonly Vector3 direction = Direction.forward;
 	public const BasicDirection basicDirection = BasicDirection.forward;

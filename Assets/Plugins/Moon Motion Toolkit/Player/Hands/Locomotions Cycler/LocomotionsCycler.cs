@@ -11,7 +11,7 @@ using NaughtyAttributes;
 //   · a toggle setting restricts whether this input is currently enabled
 //   · an input dependencies setting further restricts whether this input is allowed
 //   · based on an option, this will or will not play the attached cycling audio
-//   · here a locomotion is a child object of this cycler's hand that provides a locomotive method for the hand, as determined by whether it has a script component that implements ILocomotion
+//   · here a locomotion is an object with a script component that implements ILocomotion
 //   · here a locomotion combination is defined as an array of multiple locomotions to enable simultaneously – this could contain just one locomotion, two, more... or none
 //     - for example, the locomotion combinations could be setup to cycle between using, say: Booster, Teleporter, both Booster and Teleporter, no locomotions
 //     - note that this does not imply full support for or a need to provide more than one hand locomotion object of the same kind for the same hand
@@ -65,7 +65,7 @@ public class LocomotionsCycler : MonoBehaviour
 	public int index = 0;		// setting: current locomotion combination index (at which those locomotions are currently loaded)
 	public static bool cyclingAllowed = true;		// tracking: whether locomotion cycling is currently allowed
 	private int indexAtPreviousCyclingUpdate;		// tracking: the value of the index at the previous update when cycling was allowed (to be compared to the current index to determine if the locomotions need to be refreshed)
-	private static HashSet<GameObject> managedLocomotions = new HashSet<GameObject>();     // tracking: array of locomotions that are managed by this Locomotions Cycler (tracked as those locomotions which are children of either Locomotions Cycler or the player)
+	private static HashSet<GameObject> managedLocomotions = new HashSet<GameObject>();     // tracking: array of locomotions that are managed by this Locomotions Cycler (tracked as those locomotions which are descendants of either Locomotions Cycler or the player)
 	private AudioSource audioComponent;		// connection - auto: the attached locomotion cycling audio
 
 
@@ -250,20 +250,20 @@ public class LocomotionsCycler : MonoBehaviour
 				}
 			}
 		}
-		// track the locomotions that are children of the hand as being managed by both Locomotions Cyclers //
-		foreach (GameObject handChildLocomotion in gameObject.localAndChildrenObjectsWithI<ILocomotion>())
+		// track the locomotions that are descendants of the hand as being managed by both Locomotions Cyclers //
+		foreach (GameObject handDescendantLocomotion in gameObject.localAndDescendantObjectsWithI<ILocomotion>())
 		{
-			if (managedLocomotions.doesNotContain(handChildLocomotion))
+			if (managedLocomotions.doesNotContain(handDescendantLocomotion))
 			{
-				managedLocomotions.include(handChildLocomotion);
+				managedLocomotions.include(handDescendantLocomotion);
 			}
 		}
-		// track the locomotions that are children of the player as being managed by both Locomotions Cyclers //
-		foreach (GameObject playerChildLocomotion in MoonMotionPlayer.localAndChildrenObjectsWithI<ILocomotion>())
+		// track the locomotions that are descendants of the player as being managed by both Locomotions Cyclers //
+		foreach (GameObject playerDescendantLocomotion in MoonMotionPlayer.localAndDescendantObjectsWithI<ILocomotion>())
 		{
-			if (managedLocomotions.doesNotContain(playerChildLocomotion))
+			if (managedLocomotions.doesNotContain(playerDescendantLocomotion))
 			{
-				managedLocomotions.include(playerChildLocomotion);
+				managedLocomotions.include(playerDescendantLocomotion);
 			}
 		}
 

@@ -46,8 +46,8 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 
 	#region self returning after acting
 
-	public AutoBehaviourT selfAfter(Action action)
-		=> self.after(action);
+	public AutoBehaviourT selfAfter(Action action, bool boolean = true)
+		=> self.after(action, boolean);
 	#endregion self returning after acting
 
 
@@ -80,22 +80,26 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	#region printing
 
 	#region printing what is given
-	public static ObjectT print<ObjectT>(ObjectT object_)
-		=> object_.print();
-	public static ObjectT log<ObjectT>(ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> object_.logAs(prefix, loggingSeparator);
+	public static ObjectT print<ObjectT>(ObjectT object_, GameObject contextGameObject = null)
+		=> object_.print(contextGameObject);
+	public static GameObject print(GameObject gameObject)
+		=> gameObject.print();
+	public static ObjectT log<ObjectT>(ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator, GameObject contextGameObject = null)
+		=> object_.logAs(prefix, loggingSeparator, contextGameObject);
+	public static GameObject log(GameObject gameObject, string prefix, string loggingSeparator = Default.loggingSeparator)
+		=> gameObject.logAs(prefix, loggingSeparator);
 	#endregion printing what is given
 
 	#region printing listings
-	public static IEnumerable<TItem> printListingOf<TItem>(IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
-		=> enumerable.printListing();
+	public static IEnumerable<TItem> printListingOf<TItem>(IEnumerable<TItem> enumerable, string separator = Default.listingSeparator, GameObject contextGameObject = null)
+		=> enumerable.printListing(separator, contextGameObject);
 	#endregion printing listings
 
 	#region printing this auto behaviour
 	public AutoBehaviourT print()
-		=> print(self);
+		=> print(self, gameObject);
 	public AutoBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> self.logAs<AutoBehaviourT>(prefix, loggingSeparator);
+		=> self.logAs(prefix, loggingSeparator, gameObject);
 	#endregion printing this auto behaviour
 
 	#if UNITY_EDITOR

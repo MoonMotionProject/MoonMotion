@@ -107,9 +107,24 @@ public static class FloatExtensions
 
 	#region sign determination
 
+	// method: return the sign integer of this given float //
+	public static int sign(this float float_)
+		=>	float_.isPositive() ?
+				1 :
+				float_.isNegative() ?
+					-1 :
+					0;
+
 	// method: return whether this given float is zero (unsigned) //
 	public static bool isZero(this float float_)
 		=> (float_ == 0f);
+
+	// method: return the sign integer of this given float, where zero is positive //
+	public static int signWhereZeroIsPositive(this float float_)
+	{
+		int sign = float_.sign();
+		return sign.isZero() ? 1 : sign;
+	}
 
 	// method: return whether this given float is signed //
 	public static bool isSigned(this float float_)
@@ -282,9 +297,6 @@ public static class FloatExtensions
 	// method: return the nearest integer to this given float //
 	public static int toInteger(this float float_)
 		=> (int) float_;
-	// method: return the sign integer of this given float //
-	public static int sign(this float float_)
-		=> float_.toInteger().sign();
 
 	// method: return the double for this given float //
 	public static double asDouble(this float float_)

@@ -8,11 +8,11 @@ public static class PositionExtensions
 	#region localizing
 
 	// method: returns the global position for this given vector as a position local to the given provided local transform //
-	public static Vector3 toGlobalPositionFrom(this Vector3 vector, object localTransform_TransformProvider)
+	public static Vector3 asLocalPositionToGlobalPositionFrom(this Vector3 vector, object localTransform_TransformProvider)
 		=> localTransform_TransformProvider.provideTransform().TransformPoint(vector);
 
 	// method: returns the global position for this given transform as the local transform for the given provided local position //
-	public static Vector3 globalPositionFor(this Transform transform, Vector3 localPosition)
+	public static Vector3 globalPositionForLocal(this Transform transform, Vector3 localPosition)
 		=> transform.TransformPoint(localPosition);
 	#endregion localizing
 

@@ -138,7 +138,7 @@ public static class LayerExtensions
 
 
 
-	#region searching for self or parent based on comparison
+	#region searching for self or ancestor based on comparison
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given layer name (null if none found) //
 	public static GameObject selfOrParentWithLayer(this GameObject gameObject, string layerName)
@@ -155,7 +155,7 @@ public static class LayerExtensions
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a layer name containing the given string (null if none found) //
 	public static GameObject selfOrParentWithLayerContaining(this Component component, string string_)
 		=> component.gameObject.selfOrParentWithLayerContaining(string_);
-	#endregion searching for self or parent based on comparison
+	#endregion searching for self or ancestor based on comparison
 
 
 

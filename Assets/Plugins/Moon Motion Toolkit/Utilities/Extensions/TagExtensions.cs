@@ -37,7 +37,7 @@ public static class TagExtensions
 	#endregion comparison
 
 
-	#region searching for self or parent based on comparison
+	#region searching for self or ancestor based on comparison
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given tag (null if none found) //
 	public static GameObject selfOrParentWithTag(this GameObject gameObject, string tag)
@@ -54,5 +54,5 @@ public static class TagExtensions
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a tag containing the given string (null if none found) //
 	public static GameObject selfOrParentWithTagContaining(this Component component, string string_)
 		=> component.gameObject.selfOrParentWithTagContaining(string_);
-	#endregion searching for self or parent based on comparison
+	#endregion searching for self or ancestor based on comparison
 }

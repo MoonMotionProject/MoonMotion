@@ -6,84 +6,30 @@ using UnityEngine;
 public static class DistanceExtensions
 {
 	#region distance with
-
-	// method: return the distance with this given pair and the other given pair //
+	// methods: return the distance with this given provided pair\vector/position and the other given pair\vector/position, specified singleton behaviour, or the main camera (respectively) //
+	
 	public static float distanceWith(this Vector2 pair, Vector2 otherPair)
 		=> Vector2.Distance(pair, otherPair);
-
-	// method: return the distance with this given vector and the other given vector //
 	public static float distanceWith(this Vector3 vector, Vector3 otherVector)
 		=> Vector3.Distance(vector, otherVector);
-	// method: return the distance with this given position and the given transform //
-	public static float distanceWith(this Vector3 position, Transform transform)
-		=> position.distanceWith(transform.position);
-	// method: return the distance with this given position and the given game object //
-	public static float distanceWith(this Vector3 position, GameObject gameObject)
-		=> position.distanceWith(gameObject.position());
-	// method: return the distance with this given position and the given component //
-	public static float distanceWith(this Vector3 position, Component component)
-		=> position.distanceWith(component.position());
-	// method: return the distance with this given position and the given raycast hit //
-	public static float distanceWith(this Vector3 position, RaycastHit raycastHit)
-		=> position.distanceWith(raycastHit.position());
-	// method: return the distance with this given position and the main camera //
+	public static float distanceWith(this Vector3 position, object otherPosition_PositionProvider)
+		=> position.distanceWith(otherPosition_PositionProvider.providePosition());
+	public static float distanceWith<SingletonBehaviourT>(this Vector3 position) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.distanceWith(SingletonBehaviour<SingletonBehaviourT>.position);
 	public static float distanceWithCamera(this Vector3 position)
 		=> position.distanceWith(Camera.main);
-
-	// method: return the distance with this given game object and the given position //
-	public static float distanceWith(this GameObject gameObject, Vector3 position)
-		=> gameObject.position().distanceWith(position);
-	// method: return the distance with this given game object and the given transform //
-	public static float distanceWith(this GameObject gameObject, Transform transform)
-		=> gameObject.position().distanceWith(transform.position);
-	// method: return the distance with this given game object and the other given game object //
-	public static float distanceWith(this GameObject gameObject, GameObject otherGameObject)
-		=> gameObject.position().distanceWith(otherGameObject.position());
-	// method: return the distance with this given game object and the given component //
-	public static float distanceWith(this GameObject gameObject, Component component)
-		=> gameObject.position().distanceWith(component.position());
-	// method: return the distance with this given game object and the given raycast hit //
-	public static float distanceWith(this GameObject gameObject, RaycastHit raycastHit)
-		=> gameObject.distanceWith(raycastHit.position());
-	// method: return the distance with this given game object and the main camera //
+	
+	public static float distanceWith(this GameObject gameObject, object otherPosition_PositionProvider)
+		=> gameObject.position().distanceWith(otherPosition_PositionProvider);
+	public static float distanceWith<SingletonBehaviourT>(this GameObject gameObject) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> gameObject.distanceWith(SingletonBehaviour<SingletonBehaviourT>.position);
 	public static float distanceWithCamera(this GameObject gameObject)
 		=> gameObject.position().distanceWithCamera();
-
-	// method: return the distance with this given transform and the given position //
-	public static float distanceWith(this Transform transform, Vector3 position)
-		=> transform.position.distanceWith(position);
-	// method: return the distance with this given transform and the other given transform //
-	public static float distanceWith(this Transform transform, Transform otherTransform)
-		=> transform.position.distanceWith(otherTransform.position);
-	// method: return the distance with this given transform and the given game object //
-	public static float distanceWith(this Transform transform, GameObject gameObject)
-		=> transform.position.distanceWith(gameObject.position());
-	// method: return the distance with this given transform and the given component //
-	public static float distanceWith(this Transform transform, Component component)
-		=> transform.position.distanceWith(component.position());
-	// method: return the distance with this given transform and the given raycast hit //
-	public static float distanceWith(this Transform transform, RaycastHit raycastHit)
-		=> transform.distanceWith(raycastHit.position());
-	// method: return the distance with this given transform and the main camera //
-	public static float distanceWithCamera(this Transform transform)
-		=> transform.position.distanceWithCamera();
-
-	// method: return the distance with this given component and the given position //
-	public static float distanceWith(this Component component, Vector3 position)
-		=> component.position().distanceWith(position);
-	// method: return the distance with this given transform and the given transform //
-	public static float distanceWith(this Component component, Transform transform)
-		=> component.position().distanceWith(transform.position);
-	// method: return the distance with this given component and the given game object //
-	public static float distanceWith(this Component component, GameObject gameObject)
-		=> component.position().distanceWith(gameObject.position());
-	// method: return the distance with this given component and the other given component //
-	public static float distanceWith(this Component component, Component otherComponent)
-		=> component.position().distanceWith(otherComponent.position());
-	// method: return the distance with this given component and the given raycast hit //
-	public static float distanceWith(this Component component, RaycastHit raycastHit)
-		=> component.distanceWith(raycastHit.position());
-	// method: return the distance with this given component and the main camera //
+	
+	public static float distanceWith(this Component component, object otherPosition_PositionProvider)
+		=> component.position().distanceWith(otherPosition_PositionProvider);
+	public static float distanceWith<SingletonBehaviourT>(this Component component) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> component.distanceWith(SingletonBehaviour<SingletonBehaviourT>.position);
 	public static float distanceWithCamera(this Component component)
 		=> component.position().distanceWithCamera();
 	#endregion distance with
@@ -146,16 +92,20 @@ public static class DistanceExtensions
 
 
 	#region is within distance of
+	// methods: return whether this given provided position is within the given threshold distance of the other given provided position, specified singleton behaviour, or the main camera (respectively) //
 
-	// method: return whether this given position is within the given threshold distance of the given provided position //
-	public static bool isWithinDistanceOf(this Vector3 position, object position_PositionProvider, float thresholdDistance)
-		=> position.distanceWith(position_PositionProvider.providePosition()) <= thresholdDistance;
-	// method: return whether this given game object is within the given threshold distance of the given provided position //
-	public static bool isWithinDistanceOf(this GameObject gameObject, object position_PositionProvider, float thresholdDistance)
-		=> gameObject.position().isWithinDistanceOf(position_PositionProvider, thresholdDistance);
-	// method: return whether this given component is within the given threshold distance of the given provided position //
-	public static bool isWithinDistanceOf(this Component component, object position_PositionProvider, float thresholdDistance)
-		=> component.position().isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	public static bool isWithinDistanceOf(this Vector3 position, object otherPosition_PositionProvider, float thresholdDistance)
+		=> position.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
+	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Vector3 position, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isWithinDistanceOf(this GameObject gameObject, object otherPosition_PositionProvider, float thresholdDistance)
+		=> gameObject.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
+	public static bool isWithinDistanceOf<SingletonBehaviourT>(this GameObject gameObject, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> gameObject.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isWithinDistanceOf(this Component component, object otherPosition_PositionProvider, float thresholdDistance)
+		=> component.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
+	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Component component, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> component.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
 	#endregion is within distance of
 
 
@@ -186,4 +136,34 @@ public static class DistanceExtensions
 	public static bool isMoreDistantInSameDirectionalityAs(this Component component, object otherPosition_PositionProvider, object referencePosition_PositionProvider)
 		=> component.position().isMoreDistantInSameDirectionalityAs(otherPosition_PositionProvider, referencePosition_PositionProvider);
 	#endregion is more distant in same directionality as
+
+
+	#region nearest position to be at distance from target
+	// methods: return the nearest position to this given provided position that there is to be at the given distance from the given provided target position, specified singleton behaviour, or the main camera (respectively) //
+
+	public static Vector3 nearestPositionToBeAtDistanceFrom(this Vector3 position, object targetPosition_PositionProvider, float distanceFromTarget)
+	{
+		Vector3 targetPosition = targetPosition_PositionProvider.providePosition();
+
+		return targetPosition.withDisplacement(targetPosition.directionTo(position) * distanceFromTarget);
+	}
+	public static Vector3 nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(this Vector3 position, float distanceFromTarget) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.nearestPositionToBeAtDistanceFrom(SingletonBehaviour<SingletonBehaviourT>.position, distanceFromTarget);
+	public static Vector3 nearestPositionToBeAtDistanceFromCameraOf(this Vector3 position, float distanceFromCamera)
+		=> position.nearestPositionToBeAtDistanceFrom(Camera.main, distanceFromCamera);
+	
+	public static Vector3 nearestPositionToBeAtDistanceFrom(this GameObject gameObject, object targetPosition_PositionProvider, float distanceFromTarget)
+		=> gameObject.position().nearestPositionToBeAtDistanceFrom(targetPosition_PositionProvider, distanceFromTarget);
+	public static Vector3 nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(this GameObject gameObject, float distanceFromTarget) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> gameObject.position().nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(distanceFromTarget);
+	public static Vector3 nearestPositionToBeAtDistanceFromCameraOf(this GameObject gameObject, float distanceFromCamera)
+		=> gameObject.position().nearestPositionToBeAtDistanceFromCameraOf(distanceFromCamera);
+	
+	public static Vector3 nearestPositionToBeAtDistanceFrom(this Component component, object targetPosition_PositionProvider, float distanceFromTarget)
+		=> component.position().nearestPositionToBeAtDistanceFrom(targetPosition_PositionProvider, distanceFromTarget);
+	public static Vector3 nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(this Component component, float distanceFromTarget) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> component.position().nearestPositionToBeAtDistanceFrom<SingletonBehaviourT>(distanceFromTarget);
+	public static Vector3 nearestPositionToBeAtDistanceFromCameraOf(this Component component, float distanceFromCamera)
+		=> component.position().nearestPositionToBeAtDistanceFromCameraOf(distanceFromCamera);
+	#endregion nearest position to be at distance from target
 }

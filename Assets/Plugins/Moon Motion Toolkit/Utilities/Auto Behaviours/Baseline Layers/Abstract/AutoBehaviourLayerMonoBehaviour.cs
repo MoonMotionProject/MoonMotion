@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Auto Behaviour Layer Mono Behaviour:
-// #auto
+// #auto #execution
 // • provides this behaviour with direct access to its extension methods for being a mono behaviour
 public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 					AutoBehaviourLayerBehaviour<AutoBehaviourT>
@@ -32,26 +32,26 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		yield return new WaitForSeconds(delay);      // wait the delay
 		function.execute(parameters);      // then (after the delay) execute the given function with the given parameters
 	}
-	public AutoBehaviourT planToExecuteAfter_(float delay, Delegate function, params object[] parameters)
+	private AutoBehaviourT planToExecuteAfter_(float delay, Delegate function, params object[] parameters)
 		=> planToExecuteAfter(delay, function, parameters);
 	public AutoBehaviourT planToExecuteAfter(float delay, Action action, params object[] parameters)
 		=> planToExecuteAfter_(delay, action, parameters);
 	#endregion planning to execute methods
 
 
-	#region planning to execute functions\actions next frame
+	#region planning to execute functions\actions at the end of the current frame
 
-	// methods: plan to execute the given function with the given parameters sometime next frame, then return this (derived auto) behaviour //
-	public AutoBehaviourT nextFrameExecute(Delegate function, params object[] parameters)
-		=> selfAfter(()=> startCoroutine(nextFrameExecute_Coroutine(function, parameters)));
-	private IEnumerator nextFrameExecute_Coroutine(Delegate function, params object[] parameters)
+	// methods: plan to execute the given function with the given parameters at the end of the current frame, then return this (derived auto) behaviour //
+	public AutoBehaviourT atEndOfFrameExecute(Delegate function, params object[] parameters)
+		=> selfAfter(()=> startCoroutine(atEndOfFrameExecute_Coroutine(function, parameters)));
+	private IEnumerator atEndOfFrameExecute_Coroutine(Delegate function, params object[] parameters)
 	{
-		yield return null;      // skip this frame
-		function.execute(parameters);      // then (by the next frame) execute the given function with the given parameters
+		yield return new WaitForEndOfFrame();      // wait until the end of the current frame
+		function.execute(parameters);      // then, execute the given function with the given parameters
 	}
-	public AutoBehaviourT nextFrameExecute_(Delegate function, params object[] parameters)
-		=> nextFrameExecute(function, parameters);
-	public AutoBehaviourT nextFrameExecute(Action action, params object[] parameters)
-		=> nextFrameExecute_(action, parameters);
-	#endregion planning to execute functions\actions next frame
+	private AutoBehaviourT atEndOfFrameExecute_(Delegate function, params object[] parameters)
+		=> atEndOfFrameExecute(function, parameters);
+	public AutoBehaviourT atEndOfFrameExecute(Action action, params object[] parameters)
+		=> atEndOfFrameExecute_(action, parameters);
+	#endregion planning to execute functions\actions at the end of the current frame
 }

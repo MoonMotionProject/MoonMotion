@@ -80,7 +80,7 @@ public static class NameExtensions
 	#endregion comparison
 
 
-	#region searching for self or parent based on comparison 
+	#region searching for self or ancestor based on comparison 
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given name (null if none found) //
 	public static GameObject selfOrParentWithName(this GameObject gameObject, string name)
@@ -95,5 +95,5 @@ public static class NameExtensions
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a name containing the given string (null if none found) //
 	public static GameObject selfOrParentWithNameContaining(this Component component, string string_)
 		=> component.gameObject.selfOrParentWithNameContaining(string_);
-	#endregion searching for self or parent based on comparison 
+	#endregion searching for self or ancestor based on comparison 
 }

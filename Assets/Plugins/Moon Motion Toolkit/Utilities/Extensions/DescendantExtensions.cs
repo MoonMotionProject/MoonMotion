@@ -5,6 +5,8 @@ using UnityEngine;
 // Descendant Extensions: provides extension methods for handling descendants //
 public static class DescendantExtensions
 {
+	#region determining locality or descendance
+
 	// method: return whether this given transform is local to or a descendant of the other given transform //
 	public static bool isLocalToOrDescendantOf(this Transform transform, Transform otherTransform)
 		=> transform.IsChildOf(otherTransform);
@@ -44,4 +46,25 @@ public static class DescendantExtensions
 	// method: return whether this given component is local to or a descendant of the specified singleton behaviour class //
 	public static bool isLocalToOrDescendantOf<SingletonBehaviourT>(this Component component) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> component.transform.isLocalToOrDescendantOf<SingletonBehaviourT>();
+	#endregion determining locality or descendance
+
+
+	#region destroying descendants
+
+	// method: destroy the last descendant of this given game object that has the specified component type if such exists, then return this given game object //
+	public static GameObject destroyLastDescendantObjectWithComponentIfItExists<ComponentT>(this GameObject gameObject) where ComponentT : Component
+	{
+		ComponentT lastDescendantComponent = gameObject.lastDescendant<ComponentT>();
+		if (lastDescendantComponent)
+		{
+			lastDescendantComponent.destroyObject();
+		}
+
+		return gameObject;
+	}
+	// method: destroy the last descendant of this given component that has the specified component type if such exists, then return this given component //
+	public static ThisComponentT destroyLastDescendantObjectWithComponentIfItExists<ThisComponentT, TargetComponentT>(this ThisComponentT component) where ThisComponentT : Component where TargetComponentT : Component
+		=> component.after(()=>
+			component.gameObject.destroyLastDescendantObjectWithComponentIfItExists<TargetComponentT>());
+	#endregion destroying descendants
 }

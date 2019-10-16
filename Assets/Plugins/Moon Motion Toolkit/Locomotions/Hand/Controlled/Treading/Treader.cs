@@ -314,7 +314,7 @@ public class Treader : HandLocomotionControlled
 				float maxSpeed = 0f;		// initialize the max treading speed to 0
 				if (controller.inputTouched(inputsLocomotion))		// if any touchpad input is being used: set the max treading speed to the corresponding max treading speed gauge:
 				{
-					maxSpeed = ((controller.touchpadPressed() || !slowerSpeedEnabled || regularTreadingToggle) ? speedMax : slowerSpeedMax);		// if the touchpad is being pressed or the slower guage speed is disabled or regular treading is currently toggled on: use the normal gauge; otherwise (if the touchpad is merely significantly being touched): use the slower gauge
+					maxSpeed = ((controller.touchpadPressed || !slowerSpeedEnabled || regularTreadingToggle) ? speedMax : slowerSpeedMax);		// if the touchpad is being pressed or the slower guage speed is disabled or regular treading is currently toggled on: use the normal gauge; otherwise (if the touchpad is merely significantly being touched): use the slower gauge
 				}
 				else		// otherwise (if no touchpad input is being used): simply set the max treading speed to the normal max treading speed setting
 				{
@@ -327,10 +327,10 @@ public class Treader : HandLocomotionControlled
 				if (controller.inputTouched(inputsLocomotion))       // if any touchpad input is being used: proportion the velocity parts based on the touchpad input position's coordinates' signage
 				{
 					// proportion the forward part of the velocity based on the touchpad's y (used for z) input position //
-					treadingVelocityProportionalityForwardPart = directionReferenceTransform.forward * controller.touchpadY();
+					treadingVelocityProportionalityForwardPart = directionReferenceTransform.forward * controller.touchpadY;
 
 					// proportion the rightward part of the velocity based on the touchpad's x input position //
-					treadingVelocityProportionalityRightwardPart = directionReferenceTransform.right * controller.touchpadX();
+					treadingVelocityProportionalityRightwardPart = directionReferenceTransform.right * controller.touchpadX;
 				}
 				else		// otherwise (if no touchpad input is being used): only proportion the treading velocity forward part – using the forward direction of this treader
 				{
@@ -346,7 +346,7 @@ public class Treader : HandLocomotionControlled
 				if (controller.inputTouched(inputsLocomotion))       // if any touchpad input is being used:
 				{
 					// set the speed to be the max treading speed, curved by the distance of the input position on the touchpad away from the center, using the curve setting //
-					speed = touchpadSpeedDistanceCurve.clamped(0f, maxSpeed, controller.touchpadDistance());
+					speed = touchpadSpeedDistanceCurve.clamped(0f, maxSpeed, controller.touchpadDistance);
 				}
 				else		// otherwise (if no touchpad input is being used): simply set the treading speed to the max treading speed
 				{

@@ -5,7 +5,8 @@ using DigitalRuby.Threading;
 using static DigitalRuby.Threading.EZThread;
 using System;
 
-// Threading Extensions: provides extension methods and related functionality for handling threading //
+// Threading Extensions: provides extension methods and related functionality for handling threading
+// #execution
 public static class ThreadingExtensions
 {
 	// on a background thread, execute this given action, then return this given action //

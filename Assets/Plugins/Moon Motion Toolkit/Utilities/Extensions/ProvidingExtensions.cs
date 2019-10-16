@@ -5,7 +5,7 @@ using UnityEngine;
 // Providing Extensions:
 // • provides extension methods for having dynamos provide certain types
 //   · a 'dynamo' is a dynamic type, which can be specified as a parameter in a method using the keyword 'dynamic', or as an object – in the current implementation, these methods are intended for use with 'object' parameters
-// #auto #dynamics
+// #auto #dynamics #primitives
 public static class ProvidingExtensions
 {
 	#region Transform
@@ -182,11 +182,29 @@ public static class ProvidingExtensions
 		}
 		else if (dynamo is GameObject)
 		{
-			return (dynamo as GameObject).mesh();
+			GameObject gameObject = (dynamo as GameObject);
+			Mesh mesh = gameObject.firstLocalOrDescendantMesh();
+			if (mesh.isNull())
+			{
+				if (gameObject.firstLocalOrDescendant<BoxCollider>().isYull())
+				{
+					return Meshes.cube;
+				}
+				else if (gameObject.firstLocalOrDescendant<SphereCollider>().isYull())
+				{
+					return Meshes.sphere;
+				}
+				else if (gameObject.firstLocalOrDescendant<CapsuleCollider>().isYull())
+				{
+					return Meshes.capsule;
+				}
+				return null;
+			}
+			return mesh;
 		}
 		else if (dynamo is Component)
 		{
-			return (dynamo as Component).mesh();
+			return (dynamo as Component).gameObject.provideMesh();
 		}
 		else
 		{
@@ -206,11 +224,11 @@ public static class ProvidingExtensions
 		}
 		else if (dynamo is GameObject)
 		{
-			return (dynamo as GameObject).sharedMesh();
+			return (dynamo as GameObject).firstLocalOrDescendantSharedMesh();
 		}
 		else if (dynamo is Component)
 		{
-			return (dynamo as Component).sharedMesh();
+			return (dynamo as Component).firstLocalOrDescendantSharedMesh();
 		}
 		else
 		{
@@ -218,6 +236,102 @@ public static class ProvidingExtensions
 		}
 	}
 	#endregion shared mesh
+
+
+	#region primitive collider center position
+	
+	public static Vector3 providePrimitiveColliderCenterPosition(this object dynamo)
+	{
+		if (dynamo is BoxCollider)
+		{
+			return (dynamo as BoxCollider).centerPosition();
+		}
+		else if (dynamo is SphereCollider)
+		{
+			return (dynamo as SphereCollider).centerPosition();
+		}
+		else if (dynamo is CapsuleCollider)
+		{
+			return (dynamo as CapsuleCollider).centerPosition();
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = (dynamo as GameObject);
+			BoxCollider firstLocalOrDescendantBoxCollider = gameObject.firstLocalOrDescendant<BoxCollider>();
+			if (firstLocalOrDescendantBoxCollider.isYull())
+			{
+				return firstLocalOrDescendantBoxCollider.centerPosition();
+			}
+			SphereCollider firstLocalOrDescendantSphereCollider = gameObject.firstLocalOrDescendant<SphereCollider>();
+			if (firstLocalOrDescendantSphereCollider.isYull())
+			{
+				return firstLocalOrDescendantSphereCollider.centerPosition();
+			}
+			CapsuleCollider firstLocalOrDescendantCapsuleCollider = gameObject.firstLocalOrDescendant<CapsuleCollider>();
+			if (firstLocalOrDescendantCapsuleCollider.isYull())
+			{
+				return firstLocalOrDescendantCapsuleCollider.centerPosition();
+			}
+			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderCenterPosition given game object (or component, earlier) without a primitive collider");
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).gameObject.providePrimitiveColliderCenterPosition();
+		}
+		else
+		{
+			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderCenterPosition given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion primitive collider center position
+
+
+	#region primitive collider local center position
+	
+	public static Vector3 providePrimitiveColliderLocalCenterPosition(this object dynamo)
+	{
+		if (dynamo is BoxCollider)
+		{
+			return (dynamo as BoxCollider).localCenterPosition();
+		}
+		else if (dynamo is SphereCollider)
+		{
+			return (dynamo as SphereCollider).localCenterPosition();
+		}
+		else if (dynamo is CapsuleCollider)
+		{
+			return (dynamo as CapsuleCollider).localCenterPosition();
+		}
+		else if (dynamo is GameObject)
+		{
+			GameObject gameObject = (dynamo as GameObject);
+			BoxCollider firstLocalOrDescendantBoxCollider = gameObject.firstLocalOrDescendant<BoxCollider>();
+			if (firstLocalOrDescendantBoxCollider.isYull())
+			{
+				return firstLocalOrDescendantBoxCollider.localCenterPosition();
+			}
+			SphereCollider firstLocalOrDescendantSphereCollider = gameObject.firstLocalOrDescendant<SphereCollider>();
+			if (firstLocalOrDescendantSphereCollider.isYull())
+			{
+				return firstLocalOrDescendantSphereCollider.localCenterPosition();
+			}
+			CapsuleCollider firstLocalOrDescendantCapsuleCollider = gameObject.firstLocalOrDescendant<CapsuleCollider>();
+			if (firstLocalOrDescendantCapsuleCollider.isYull())
+			{
+				return firstLocalOrDescendantCapsuleCollider.localCenterPosition();
+			}
+			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderLocalCenterPosition given game object (or component, earlier) without a primitive collider");
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).gameObject.providePrimitiveColliderLocalCenterPosition();
+		}
+		else
+		{
+			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderLocalCenterPosition given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endregion primitive collider local center position
 
 
 	#region layer index

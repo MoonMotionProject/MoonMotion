@@ -60,6 +60,18 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	[Tooltip("the magnitude of the dashing force")]
 	public float forceMagnitude = 50f;
+	
+	[BoxGroup("Dashing")]
+	[Tooltip("whether to enable skiing upon starting a dash and to disable skiing upon ending a dash")]
+	public bool togglesSkiing = true;
+	
+	[BoxGroup("Dashing")]
+	[Tooltip("whether to zero the player's velocities before each dash")]
+	public bool zeroVelocitiesBefore = true;
+	
+	[BoxGroup("Dashing")]
+	[Tooltip("whether to zero the player's velocities after each dash")]
+	public bool zeroVelocitiesAfter = true;
 	#endregion dashing
 	#endregion variables
 
@@ -72,7 +84,17 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	// method: stop the current dash, if any //
 	private void stopDash()
 	{
-		MoonMotionPlayer.zeroVelocities();
+		SkiingSettings.singleton.heldVersusToggled = false;
+		
+		if (togglesSkiing)
+		{
+			Skier.disableSkiing();
+		}
+		
+		if (zeroVelocitiesAfter)
+		{
+			MoonMotionPlayer.zeroVelocities();
+		}
 
 		potentialCurrentTargetPosition = null;
 	}
@@ -80,13 +102,23 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	// method: begin a dash to the given provided raycast hit //
 	private void beginDashTo(object raycastHit_RaycastHitProvider)
 	{
-		stopDash();
-
+		SkiingSettings.singleton.heldVersusToggled = false;
+		
+		if (zeroVelocitiesBefore)
+		{
+			MoonMotionPlayer.zeroVelocities();
+		}
+		
 		RaycastHit raycastHit = raycastHit_RaycastHitProvider.provideRaycastHit();
 
 		potentialDashStartingPosition = MoonMotionBody.position;
 		potentialCurrentTargetPosition = raycastHit.position();
 		potentialCurrentTargetCollider = raycastHit.collider;
+
+		if (togglesSkiing)
+		{
+			Skier.enableSkiing();
+		}
 	}
 	#endregion methods
 

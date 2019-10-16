@@ -43,10 +43,20 @@ public static class Hierarchy
 	public static BehaviourT firstYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
 		=> allYullAndEnabledAndUnique<BehaviourT>().first();
 
-	// method: create and return a temporary game object (create a fresh game object with the default name, make it hidden, then return the created game object) //
+	// method: create and return a universal game object (create a fresh game object with the default name, make it universal, then return the created game object) //
+	public static GameObject createUniversalObject()
+		=> new GameObject()
+			.makeUniversal();
+
+	// method: create and return a temporary game object (create a fresh game object with the default name, make it temporary, then return the created game object) //
 	public static GameObject createTemporaryObject()
 		=> new GameObject()
 			.makeTemporary();
+
+	// method: create and return a universal and temporary game object (create a fresh game object with the default name, make it universal and temporary, then return the created game object) //
+	public static GameObject createUniversalAndTemporaryObject()
+		=> new GameObject()
+			.makeUniversalAndTemporary();
 
 	// method: create a temporary game object, plan to destroy it after the given delay, then return the result of the given function on the temporary game object //
 	public static TResult createTemporaryObjectAndDestroyAfterPicking<TResult>(Func<GameObject, TResult> function, float temporaryObjectDestructionDelay = Default.temporaryObjectDestructionDelay)

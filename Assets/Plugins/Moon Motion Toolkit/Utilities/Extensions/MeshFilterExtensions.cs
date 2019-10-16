@@ -8,14 +8,52 @@ public static class MeshFilterExtensions
 	#region accessing meshes
 
 	public static Mesh mesh(this GameObject gameObject)
-		=> gameObject.meshFilter().mesh;
+	{
+		MeshFilter meshFilter = gameObject.meshFilter();
+		if (meshFilter.isYull())
+		{
+			return meshFilter.mesh;
+		}
+		return null;
+	}
 	public static Mesh mesh(this Component component)
-		=> component.meshFilter().mesh;
+		=> component.gameObject.mesh();
 
 	public static Mesh sharedMesh(this GameObject gameObject)
-		=> gameObject.meshFilter().sharedMesh;
+	{
+		MeshFilter meshFilter = gameObject.meshFilter();
+		if (meshFilter.isYull())
+		{
+			return meshFilter.sharedMesh;
+		}
+		return null;
+	}
 	public static Mesh sharedMesh(this Component component)
-		=> component.meshFilter().sharedMesh;
+		=> component.gameObject.sharedMesh();
+
+	public static Mesh firstLocalOrDescendantMesh(this GameObject gameObject)
+	{
+		MeshFilter firstLocalOrDescendantMeshFilter = gameObject.firstLocalOrDescendantMeshFilter();
+		if (firstLocalOrDescendantMeshFilter.isYull())
+		{
+			return firstLocalOrDescendantMeshFilter.mesh;
+		}
+		return null;
+	}
+	public static Mesh firstLocalOrDescendantMesh(this Component component)
+		=> component.gameObject.firstLocalOrDescendantMesh();
+
+	public static Mesh firstLocalOrDescendantSharedMesh(this GameObject gameObject)
+	{
+		MeshFilter firstLocalOrDescendantMeshFilter = gameObject.firstLocalOrDescendantMeshFilter();
+		if (firstLocalOrDescendantMeshFilter.isYull())
+		{
+			return firstLocalOrDescendantMeshFilter.sharedMesh;
+		}
+		return null;
+	}
+	public static Mesh firstLocalOrDescendantSharedMesh(this Component component)
+		=> component.gameObject.firstLocalOrDescendantSharedMesh();
 	#endregion accessing meshes
 
 

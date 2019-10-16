@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class UnhideComponentInInspectorAttribute : InspectorAttribute
+public class UseClassNameForObjectAttribute : ValidationAttribute
 {
 	
 }

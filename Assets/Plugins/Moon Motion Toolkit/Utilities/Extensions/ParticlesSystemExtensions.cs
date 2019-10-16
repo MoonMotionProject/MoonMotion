@@ -45,9 +45,9 @@ public static class ParticlesSystemExtensions
 	public static IEnumerable<ParticleSystem> togglePlaying(this IEnumerable<ParticleSystem> particlesSystems, bool boolean)
 		=> particlesSystems.forEach(particlesSystem =>
 			particlesSystem.togglePlaying(boolean));
-	public static GameObject togglePlayingChildParticlesSystems(this GameObject gameObject, bool boolean)
-		=> gameObject.actUponChildParticlesSystems(childParticlesSystems =>
-			childParticlesSystems.togglePlaying(boolean));
+	public static GameObject togglePlayingDescendantParticlesSystems(this GameObject gameObject, bool boolean)
+		=> gameObject.actUponDescendantParticlesSystems(descendantParticlesSystems =>
+			descendantParticlesSystems.togglePlaying(boolean));
 
 	// method: (according to the given boolean:) have this given particles system play, then return this given particles system //
 	public static ParticleSystem play(this ParticleSystem particlesSystem, bool boolean = true)
@@ -66,9 +66,9 @@ public static class ParticlesSystemExtensions
 	public static IEnumerable<ParticleSystem> play(this IEnumerable<ParticleSystem> particlesSystems, bool boolean = true)
 		=> particlesSystems.forEach(particlesSystem =>
 			particlesSystem.play());
-	public static GameObject playChildParticlesSystems(this GameObject gameObject, bool boolean = true)
-		=> gameObject.actUponChildParticlesSystems(childParticlesSystems =>
-			childParticlesSystems.play(boolean));
+	public static GameObject playDescendantParticlesSystems(this GameObject gameObject, bool boolean = true)
+		=> gameObject.actUponDescendantParticlesSystems(descendantParticlesSystems =>
+			descendantParticlesSystems.play(boolean));
 
 	// method: (according to the given boolean:) have this given particles system restart, then return this given particles system //
 	public static ParticleSystem restart(this ParticleSystem particlesSystem, bool boolean = true)
@@ -99,16 +99,16 @@ public static class ParticlesSystemExtensions
 	public static IEnumerable<ParticleSystem> stop(this IEnumerable<ParticleSystem> particlesSystems, bool boolean = true)
 		=> particlesSystems.forEach(particlesSystem =>
 			particlesSystem.stop());
-	public static GameObject stopChildParticlesSystems(this GameObject gameObject, bool boolean = true)
-		=> gameObject.actUponChildParticlesSystems(childParticlesSystems =>
-			childParticlesSystems.stop(boolean));
+	public static GameObject stopDescendantParticlesSystems(this GameObject gameObject, bool boolean = true)
+		=> gameObject.actUponDescendantParticlesSystems(descendantParticlesSystems =>
+			descendantParticlesSystems.stop(boolean));
 	#endregion playing
 
 
-	#region acting upon child particles systems
+	#region acting upon descendant particles systems
 
-	public static GameObject actUponChildParticlesSystems(this GameObject gameObject, Action<List<ParticleSystem>> action)
+	public static GameObject actUponDescendantParticlesSystems(this GameObject gameObject, Action<List<ParticleSystem>> action)
 		=> gameObject.after(()=>
-			  action(gameObject.children<ParticleSystem>()));
-	#endregion acting upon child particles systems
+			  action(gameObject.descendants<ParticleSystem>()));
+	#endregion acting upon descendant particles systems
 }

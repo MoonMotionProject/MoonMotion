@@ -81,6 +81,14 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	[BoxGroup("Sweeping")]
 	[Tooltip("whether to enable skiing upon starting a sweep and to disable skiing upon ending a sweep")]
 	public bool togglesSkiing = true;
+	
+	[BoxGroup("Sweeping")]
+	[Tooltip("whether to zero the player's velocities before each sweep")]
+	public bool zeroVelocitiesBefore = true;
+	
+	[BoxGroup("Sweeping")]
+	[Tooltip("whether to zero the player's velocities after each sweep")]
+	public bool zeroVelocitiesAfter = true;
 	#endregion sweeping
 	#endregion variables
 
@@ -93,12 +101,17 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	// method: stop the current sweep, if any //
 	private void stopSweep()
 	{
+		SkiingSettings.singleton.heldVersusToggled = false;
+		
 		if (togglesSkiing)
 		{
 			Skier.disableSkiing();
 		}
 		
-		MoonMotionPlayer.zeroVelocities();
+		if (zeroVelocitiesAfter)
+		{
+			MoonMotionPlayer.zeroVelocities();
+		}
 
 		potentialCurrentTargetPosition = null;
 	}
@@ -107,13 +120,24 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	private void beginSweepVia(Controller sweepingController)
 	{
 		SkiingSettings.singleton.heldVersusToggled = false;
-
-		stopSweep();
+		
+		if (zeroVelocitiesBefore)
+		{
+			MoonMotionPlayer.zeroVelocities();
+		}
 		
 		potentialSweepStartingTime = time;
 		potentialControllerSweepingPosition = sweepingController.position();
 		potentialSweepStartingPosition = MoonMotionBody.position;
-		potentialCurrentTargetPosition = sweepingController.position.positionAlong(sweepingController.forward().withVectralYZeroed(), sweepDistance);
+		potentialCurrentTargetPosition = sweepingController.position.positionAlong
+		(
+			(
+				operations.firstOperatedOperation().inputs.contains(Controller.Input.touchpad) ?
+					sweepingController.relativeTouchpadDirectionWhereZeroesIsForward :
+					sweepingController.forward()
+			).withVectralYZeroed(),
+			sweepDistance
+		);
 
 		if (togglesSkiing)
 		{

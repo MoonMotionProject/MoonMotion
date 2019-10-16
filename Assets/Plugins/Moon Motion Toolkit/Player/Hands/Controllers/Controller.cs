@@ -19,10 +19,10 @@ using Valve.VR.InteractionSystem;
 [RequireComponent(typeof(Hand))]
 public class Controller : EnabledsBehaviour<Controller>
 {
-	// enumerations //
-	
-	
-	// enumeration of: controller handedness //
+	#region enumerations
+
+
+	// controller handednesses //
 	public enum Handedness
 	{
 		neither,
@@ -35,7 +35,7 @@ public class Controller : EnabledsBehaviour<Controller>
 		infinite
 	}
 
-	// enumeration of: controller inputs //
+	// controller inputs //
 	public enum Input
 	{
 		none,
@@ -45,7 +45,7 @@ public class Controller : EnabledsBehaviour<Controller>
 		grip
 	}
 
-	// enumeration of: controller inputtedness //
+	// controller inputtednesses //
 	public enum Inputtedness
 	{
 		touch,
@@ -53,6 +53,7 @@ public class Controller : EnabledsBehaviour<Controller>
 		deep,
 		press
 	}
+	#endregion enumerations
 
 
 
@@ -60,23 +61,26 @@ public class Controller : EnabledsBehaviour<Controller>
 
 
 
-
-
-
-
-
-
-
-
-
-	// variables //
-
-
-	// variables for: connection with this hand and the other controller //
-    [HideInInspector] public Controller otherController => hand.otherHand.first<Controller>();		// connection - auto: the other controller
 	
+	#region variables and properties
 
-	// variables for: instancing //
+
+	#region button masks
+	
+	public static ulong triggerButtonMask => SteamVR_Controller.ButtonMask.Trigger;
+	public static ulong touchpadButtonMask => SteamVR_Controller.ButtonMask.Touchpad;
+	public static ulong menuButtonButtonMask => SteamVR_Controller.ButtonMask.ApplicationMenu;
+	public static ulong gripButtonMask => SteamVR_Controller.ButtonMask.Grip;
+	#endregion button masks
+
+
+	#region the other controller
+	
+	[HideInInspector] public Controller otherController => hand.otherHand.first<Controller>();
+	#endregion the other controller
+
+
+	#region instancing
 
 	// this controller's handedness //
 	public bool leftInstance => hand.startingHandType == Hand.HandType.Left;
@@ -86,32 +90,25 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	// the right controller instance //
 	public static Controller right => enableds.firstWhere(enabled => !enabled.leftInstance);
+	#endregion instancing
 
 
-	// variables for: touchpad input handling //
-	private float touchpadTouchdownTime = -1f;		// tracking: the time of last touchdown for the touchpad
-	private float touchpadTouchdownX = 0f, touchpadTouchdownY = 0f;		// tracking: the coordinates (x and y, respectively) of the last touchdown for the touchpad
-	private float previousTouchpadX = 0f, previousTouchpadY = 0f;       // tracking: the touchpad's previously touched x and y coordinates
-	private float touchpadXDerivative = 0f, touchpadYDerivative = 0f;		// tracking: the touchpad's change in touched coordinate (for x and y, respectively) from the last frame
-	private float previousTouchpadXDerivative = 0f, previousTouchpadYDerivative = 0f;		// tracking: the previous derivative for each coordinate (x or y, respectively) – used to determine the derivative derivative (which in turn implies a change in touchpad movement direction)
-	private bool touchpadXDerivativeDerivativeNonzero = false, touchpadYDerivativeDerivativeNonzero = false;        // tracking: whether the touchpad's change in change in touched coordinate (for x and y, respectively) from the last frame is nonzero (implying a change in touchpad touch movement direction) versus zero
+	#region touchpad input handling tracking
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// methods //
+	// the time of last touchdown for the touchpad //
+	private float touchpadTouchdownTime = -1f;
+	// the coordinates (x and y, respectively) of the last touchdown for the touchpad //
+	private float touchpadTouchdownX = 0f, touchpadTouchdownY = 0f;
+	// the touchpad's previously touched x and y coordinates //
+	private float previousTouchpadX = 0f, previousTouchpadY = 0f;
+	// the touchpad's change in touched coordinate (for x and y, respectively) from the last frame //
+	private float touchpadXDerivative = 0f, touchpadYDerivative = 0f;
+	// the previous derivative for each coordinate (x or y, respectively) – used to determine the derivative derivative (which in turn implies a change in touchpad movement direction) //
+	private float previousTouchpadXDerivative = 0f, previousTouchpadYDerivative = 0f;
+	// whether the touchpad's change in change in touched coordinate (for x and y, respectively) from the last frame is nonzero (implying a change in touchpad touch movement direction) versus zero //
+	private bool touchpadXDerivativeDerivativeNonzero = false, touchpadYDerivativeDerivativeNonzero = false;
+	#endregion touchpad input handling tracking
+	#endregion variables and properties
 
 
 
@@ -119,228 +116,98 @@ public class Controller : EnabledsBehaviour<Controller>
 
 
 
-
-	// detecting of particular inputs, inputtedness, and beingness //
-
-
-	// detection - trigger //
-
-	public bool triggerTouching()
-	{
-		return false;
-	}
-	public bool triggerTouched()
-	{
-		return false;
-	}
-	public bool triggerUntouching()
-	{
-		return false;
-	}
-
-	public bool triggerShallowing()
-	{
-		if (triggerPressed())
-		{
-			return (triggerPressing() || triggerUndeeping());
-		}
-		return false;
-	}
-	public bool triggerShallowed()
-	{
-		return (triggerPressed() && !triggerDeeped());
-	}
-	public bool triggerUnshallowing()
-	{
-		return (triggerUnpressing() || triggerDeeping());
-	}
-
-	public bool triggerDeeping()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger);
-	}
-	public bool triggerDeeped()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger);
-	}
-	public bool triggerUndeeping()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger);
-	}
-
-	public bool triggerPressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger);
-	}
-	public bool triggerPressed()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetTouch(SteamVR_Controller.ButtonMask.Trigger);
-	}
-	public bool triggerUnpressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger);
-	}
+	
+	#region properties and methods
 
 
-	// detection - touchpad //
 
-	public bool touchpadTouching()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetTouchDown(SteamVR_Controller.ButtonMask.Touchpad);
-	}
-	public bool touchpadTouched()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetTouch(SteamVR_Controller.ButtonMask.Touchpad);
-	}
-	public bool touchpadUntouching()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetTouchUp(SteamVR_Controller.ButtonMask.Touchpad);
-	}
+	
+	#region detecting of particular inputs, inputtedness, and beingness
 
-	public bool touchpadShallowing()
-	{
-		return touchpadPressing();
-	}
-	public bool touchpadShallowed()
-	{
-		return touchpadPressed();
-	}
-	public bool touchpadUnshallowing()
-	{
-		return touchpadUnpressing();
-	}
 
-	public bool touchpadDeeping()
-	{
-		return touchpadPressing();
-	}
-	public bool touchpadDeeped()
-	{
-		return touchpadPressed();
-	}
-	public bool touchpadUndeeping()
-	{
-		return touchpadUnpressing();
-	}
+	#region detection - trigger
 
-	public bool touchpadPressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad);
-	}
-	public bool touchpadPressed()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad);
-	}
-	public bool touchpadUnpressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad);
-	}
+	public bool triggerTouching => false;
+	public bool triggerTouched => false;
+	public bool triggerUntouching => false;
 
-	public float touchpadX()
-	{
-		if (hand.controller == null)
-		{
-			return 0f;
-		}
-		Vector2 coordinates = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
-		return coordinates.x;
-	}
-	public float touchpadY()
-	{
-		if (hand.controller == null)
-		{
-			return 0f;
-		}
-		Vector2 coordinates = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
-		return coordinates.y;
-	}
-	public float touchpadDistance()
-	{
-		if (hand.controller == null)
-		{
-			return -1f;
-		}
-		Vector2 coordinates = hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
-		return Vector2.Distance(coordinates, (new Vector2(0f, 0f)));
-	}
+	public bool triggerShallowing => triggerPressed && (triggerPressing || triggerUndeeping);
+	public bool triggerShallowed => triggerPressed && !triggerDeeped;
+	public bool triggerUnshallowing => triggerUnpressing || triggerDeeping;
+
+	public bool triggerDeeping => hand.controller.isYull() && hand.controller.GetPressDown(triggerButtonMask);
+	public bool triggerDeeped => hand.controller.isYull() && hand.controller.GetPress(triggerButtonMask);
+	public bool triggerUndeeping => hand.controller.isYull() && hand.controller.GetPressUp(triggerButtonMask);
+
+	public bool triggerPressing => hand.controller.isYull() && hand.controller.GetTouchDown(triggerButtonMask);
+	public bool triggerPressed => hand.controller.isYull() && hand.controller.GetTouch(triggerButtonMask);
+	public bool triggerUnpressing => hand.controller.isYull() && hand.controller.GetTouchUp(triggerButtonMask);
+	#endregion detection - trigger
+
+
+	#region detection - touchpad
+
+	public bool touchpadTouching => hand.controller.isYull() && hand.controller.GetTouchDown(touchpadButtonMask);
+	public bool touchpadTouched => hand.controller.isYull() && hand.controller.GetTouch(touchpadButtonMask);
+	public bool touchpadUntouching => hand.controller.isYull() && hand.controller.GetTouchUp(touchpadButtonMask);
+
+	public bool touchpadShallowing => touchpadPressing;
+	public bool touchpadShallowed => touchpadPressed;
+	public bool touchpadUnshallowing => touchpadUnpressing;
+
+	public bool touchpadDeeping => touchpadPressing;
+	public bool touchpadDeeped => touchpadPressed;
+	public bool touchpadUndeeping => touchpadUnpressing;
+
+	public bool touchpadPressing => hand.controller.isYull() && hand.controller.GetPressDown(touchpadButtonMask);
+	public bool touchpadPressed => hand.controller.isYull() && hand.controller.GetPress(touchpadButtonMask);
+	public bool touchpadUnpressing => hand.controller.isYull() && hand.controller.GetPressUp(touchpadButtonMask);
+
+	public float touchpadX => hand.controller.isNull() ? 0f : hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0).x;
+	public int touchpadXSign => touchpadX.sign();
+	public int touchpadXSignWhereZeroIsPositive => touchpadX.signWhereZeroIsPositive();
+	public float touchpadY => hand.controller.isNull() ? 0f : hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0).y;
+	public int touchpadYSign => touchpadY.sign();
+	public int touchpadYSignWhereZeroIsPositive => touchpadY.signWhereZeroIsPositive();
+	public Vector3 relativeTouchpadYDirectionAsZ => forwardLocal * touchpadY;
+	public Vector3 relativeTouchpadXDirection => rightLocal * touchpadX;
+	public Vector3 relativeTouchpadDirection => relativeTouchpadYDirectionAsZ + relativeTouchpadXDirection;
+	public Vector3 relativeTouchpadDirectionWhereZeroesIsForward => relativeTouchpadDirection.ifOnlyZeroesThen(()=> forwardLocal);
+	public float touchpadDistance
+		=>	hand.controller.isNull() ?
+				-1f :
+				hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0)
+					.distanceWith(FloatsPairs.zeroes);
 	public void resetTouchpadTouchdown()
 	{
-		if (touchpadTouched())
+		if (touchpadTouched)
 		{
 			touchpadTouchdownTime = Time.time;
-			touchpadTouchdownX = touchpadX();
-			touchpadTouchdownY = touchpadY();
+			touchpadTouchdownX = touchpadX;
+			touchpadTouchdownY = touchpadY;
 		}
 	}
 	public void trackTouchpadTouching()
 	{
-		if (touchpadTouching())
+		if (touchpadTouching)
 		{
 			resetTouchpadTouchdown();
 		}
-		else if (touchpadTouched())
+		else if (touchpadTouched)
 		{
 			previousTouchpadXDerivative = touchpadXDerivative;
 			previousTouchpadYDerivative = touchpadYDerivative;
 
-			touchpadXDerivative = (touchpadX() - previousTouchpadX);
-			touchpadYDerivative = (touchpadY() - previousTouchpadY);
+			touchpadXDerivative = touchpadX - previousTouchpadX;
+			touchpadYDerivative = touchpadY - previousTouchpadY;
 
-			touchpadXDerivativeDerivativeNonzero = ((touchpadXDerivative > 0f) != (previousTouchpadXDerivative > 0f));
-			touchpadYDerivativeDerivativeNonzero = ((touchpadYDerivative > 0f) != (previousTouchpadYDerivative > 0f));
+			touchpadXDerivativeDerivativeNonzero = (touchpadXDerivative > 0f) != (previousTouchpadXDerivative > 0f);
+			touchpadYDerivativeDerivativeNonzero = (touchpadYDerivative > 0f) != (previousTouchpadYDerivative > 0f);
 		}
 	}
 	private float touchpadXTravel(bool derivativeChangeResets)
 	{
-		if ((hand.controller == null) || (touchpadTouchdownTime == -1f) || !touchpadTouched())
+		if ((hand.controller == null) || (touchpadTouchdownTime == -1f) || !touchpadTouched)
 		{
 			return 0f;
 		}
@@ -350,20 +217,14 @@ public class Controller : EnabledsBehaviour<Controller>
 			{
 				resetTouchpadTouchdown();
 			}
-			return (touchpadX() - touchpadTouchdownX);
+			return (touchpadX - touchpadTouchdownX);
 		}
 	}
-	public float touchpadXTravelDirectional()
-	{
-		return touchpadXTravel(true);
-	}
-	public float touchpadXTravelDirectionless()
-	{
-		return touchpadXTravel(false);
-	}
+	public float touchpadXTravelDirectional => touchpadXTravel(true);
+	public float touchpadXTravelDirectionless => touchpadXTravel(false);
 	private float touchpadYTravel(bool derivativeChangeResets)
 	{
-		if ((hand.controller == null) || (touchpadTouchdownTime == -1f) || !touchpadTouched())
+		if ((hand.controller == null) || (touchpadTouchdownTime == -1f) || !touchpadTouched)
 		{
 			return 0f;
 		}
@@ -373,156 +234,58 @@ public class Controller : EnabledsBehaviour<Controller>
 			{
 				resetTouchpadTouchdown();
 			}
-			return (touchpadY() - touchpadTouchdownY);
+			return (touchpadY - touchpadTouchdownY);
 		}
 	}
-	public float touchpadYTravelDirectional()
-	{
-		return touchpadYTravel(true);
-	}
-	public float touchpadYTravelDirectionless()
-	{
-		return touchpadYTravel(false);
-	}
+	public float touchpadYTravelDirectional => touchpadYTravel(true);
+	public float touchpadYTravelDirectionless => touchpadYTravel(false);
+	#endregion detection - touchpad
 
 
-	// detection - menu button //
+	#region detection - menu button
 
-	public bool menuButtonTouching()
-	{
-		return false;
-	}
-	public bool menuButtonTouched()
-	{
-		return false;
-	}
-	public bool menuButtonUntouching()
-	{
-		return false;
-	}
+	public bool menuButtonTouching => false;
+	public bool menuButtonTouched => false;
+	public bool menuButtonUntouching => false;
 
-	public bool menuButtonShallowing()
-	{
-		return menuButtonPressing();
-	}
-	public bool menuButtonShallowed()
-	{
-		return menuButtonPressed();
-	}
-	public bool menuButtonUnshallowing()
-	{
-		return menuButtonUnpressing();
-	}
+	public bool menuButtonShallowing => menuButtonPressing;
+	public bool menuButtonShallowed => menuButtonPressed;
+	public bool menuButtonUnshallowing => menuButtonUnpressing;
 
-	public bool menuButtonDeeping()
-	{
-		return menuButtonPressing();
-	}
-	public bool menuButtonDeeped()
-	{
-		return menuButtonPressed();
-	}
-	public bool menuButtonUndeeping()
-	{
-		return menuButtonUnpressing();
-	}
+	public bool menuButtonDeeping => menuButtonPressing;
+	public bool menuButtonDeeped => menuButtonPressed;
+	public bool menuButtonUndeeping => menuButtonUnpressing;
 
-	public bool menuButtonPressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu);
-	}
-	public bool menuButtonPressed()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.ApplicationMenu);
-	}
-	public bool menuButtonUnpressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu);
-	}
+	public bool menuButtonPressing => hand.controller.isYull() && hand.controller.GetPressDown(menuButtonButtonMask);
+	public bool menuButtonPressed => hand.controller.isYull() && hand.controller.GetPress(menuButtonButtonMask);
+	public bool menuButtonUnpressing => hand.controller.isYull() && hand.controller.GetPressUp(menuButtonButtonMask);
+	#endregion detection - menu button
 
 
-	// detection - grip //
+	#region detection - grip
 
-	public bool gripTouching()
-	{
-		return false;
-	}
-	public bool gripTouched()
-	{
-		return false;
-	}
-	public bool gripUntouching()
-	{
-		return false;
-	}
+	public bool gripTouching => false;
+	public bool gripTouched => false;
+	public bool gripUntouching => false;
 
-	public bool gripShallowing()
-	{
-		return gripPressing();
-	}
-	public bool gripShallowed()
-	{
-		return gripPressed();
-	}
-	public bool gripUnshallowing()
-	{
-		return gripUnpressing();
-	}
+	public bool gripShallowing => gripPressing;
+	public bool gripShallowed => gripPressed;
+	public bool gripUnshallowing => gripUnpressing;
 
-	public bool gripDeeping()
-	{
-		return gripPressing();
-	}
-	public bool gripDeeped()
-	{
-		return gripPressed();
-	}
-	public bool gripUndeeping()
-	{
-		return gripUnpressing();
-	}
+	public bool gripDeeping => gripPressing;
+	public bool gripDeeped => gripPressed;
+	public bool gripUndeeping => gripUnpressing;
 
-	public bool gripPressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip);
-	}
-	public bool gripPressed()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPress(SteamVR_Controller.ButtonMask.Grip);
-	}
-	public bool gripUnpressing()
-	{
-		if (hand.controller == null)
-		{
-			return false;
-		}
-		return hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip);
-	}
-	
+	public bool gripPressing => hand.controller.isYull() && hand.controller.GetPressDown(gripButtonMask);
+	public bool gripPressed => hand.controller.isYull() && hand.controller.GetPress(gripButtonMask);
+	public bool gripUnpressing => hand.controller.isYull() && hand.controller.GetPressUp(gripButtonMask);
+	#endregion detection - grip
+	#endregion detecting of particular inputs, inputtedness, and beingness
 
 
-	
-	// generic handling of inputs with particular inputtedness and beingness //
+
+
+	#region generic handling of inputs with particular inputtedness and beingness
 
 
 	public bool inputTouching(Input input)
@@ -533,19 +296,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerTouching();
+			return triggerTouching;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadTouching();
+			return touchpadTouching;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonTouching();
+			return menuButtonTouching;
 		}
 		else if (input == Input.grip)
 		{
-			return gripTouching();
+			return gripTouching;
 		}
 		else        // (default case)
 		{
@@ -573,19 +336,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerTouched();
+			return triggerTouched;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadTouched();
+			return touchpadTouched;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonTouched();
+			return menuButtonTouched;
 		}
 		else if (input == Input.grip)
 		{
-			return gripTouched();
+			return gripTouched;
 		}
 		else        // (default case)
 		{
@@ -613,19 +376,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerUntouching();
+			return triggerUntouching;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadUntouching();
+			return touchpadUntouching;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonUntouching();
+			return menuButtonUntouching;
 		}
 		else if (input == Input.grip)
 		{
-			return gripUntouching();
+			return gripUntouching;
 		}
 		else        // (default case)
 		{
@@ -653,19 +416,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerShallowing();
+			return triggerShallowing;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadShallowing();
+			return touchpadShallowing;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonShallowing();
+			return menuButtonShallowing;
 		}
 		else if (input == Input.grip)
 		{
-			return gripShallowing();
+			return gripShallowing;
 		}
 		else        // (default case)
 		{
@@ -693,19 +456,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerShallowed();
+			return triggerShallowed;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadShallowed();
+			return touchpadShallowed;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonShallowed();
+			return menuButtonShallowed;
 		}
 		else if (input == Input.grip)
 		{
-			return gripShallowed();
+			return gripShallowed;
 		}
 		else        // (default case)
 		{
@@ -733,19 +496,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerUnshallowing();
+			return triggerUnshallowing;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadUnshallowing();
+			return touchpadUnshallowing;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonUnshallowing();
+			return menuButtonUnshallowing;
 		}
 		else if (input == Input.grip)
 		{
-			return gripUnshallowing();
+			return gripUnshallowing;
 		}
 		else        // (default case)
 		{
@@ -773,19 +536,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerDeeping();
+			return triggerDeeping;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadDeeping();
+			return touchpadDeeping;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonDeeping();
+			return menuButtonDeeping;
 		}
 		else if (input == Input.grip)
 		{
-			return gripDeeping();
+			return gripDeeping;
 		}
 		else        // (default case)
 		{
@@ -813,19 +576,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerDeeped();
+			return triggerDeeped;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadDeeped();
+			return touchpadDeeped;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonDeeped();
+			return menuButtonDeeped;
 		}
 		else if (input == Input.grip)
 		{
-			return gripDeeped();
+			return gripDeeped;
 		}
 		else        // (default case)
 		{
@@ -853,19 +616,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerUndeeping();
+			return triggerUndeeping;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadUndeeping();
+			return touchpadUndeeping;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonUndeeping();
+			return menuButtonUndeeping;
 		}
 		else if (input == Input.grip)
 		{
-			return gripUndeeping();
+			return gripUndeeping;
 		}
 		else        // (default case)
 		{
@@ -893,19 +656,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerPressing();
+			return triggerPressing;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadPressing();
+			return touchpadPressing;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonPressing();
+			return menuButtonPressing;
 		}
 		else if (input == Input.grip)
 		{
-			return gripPressing();
+			return gripPressing;
 		}
 		else        // (default case)
 		{
@@ -933,19 +696,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerPressed();
+			return triggerPressed;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadPressed();
+			return touchpadPressed;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonPressed();
+			return menuButtonPressed;
 		}
 		else if (input == Input.grip)
 		{
-			return gripPressed();
+			return gripPressed;
 		}
 		else        // (default case)
 		{
@@ -973,19 +736,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else if (input == Input.trigger)
 		{
-			return triggerUnpressing();
+			return triggerUnpressing;
 		}
 		else if (input == Input.touchpad)
 		{
-			return touchpadUnpressing();
+			return touchpadUnpressing;
 		}
 		else if (input == Input.menuButton)
 		{
-			return menuButtonUnpressing();
+			return menuButtonUnpressing;
 		}
 		else if (input == Input.grip)
 		{
-			return gripUnpressing();
+			return gripUnpressing;
 		}
 		else        // (default case)
 		{
@@ -1004,11 +767,12 @@ public class Controller : EnabledsBehaviour<Controller>
 
 		return false;
 	}
+	#endregion generic handling of inputs with particular inputtedness and beingness
 
 
 
 
-	// generic handling of inputs and inputtedness with particular beingness //
+	#region generic handling of inputs and inputtedness with particular beingness
 
 
 	public bool inputInputting(Input input, Inputtedness inputtedness)
@@ -1199,13 +963,14 @@ public class Controller : EnabledsBehaviour<Controller>
 
 		return false;
 	}
+	#endregion generic handling of inputs and inputtedness with particular beingness
 
 
 
 
-	// generic handling of inputs, inputtedness, and beingness //
+	#region generic handling of inputs, inputtedness, and beingness
 
-	
+
 	// method: determine whether this controller is being operated according to the given permuting of inputs and inputtednesses, the given state of being, and the given necessity for that state of being to be total (the case for each permutation in the permuting individually, versus the permuting as a whole) //
 	public bool inputInputtednessBeingnessOperation(Input[] inputs, Inputtedness[] inputtednesses, Beingness beingness, bool totalBeingness)
 	{
@@ -1316,10 +1081,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 		return false;
 	}
-
-
-
-
+	
 	// method: determine whether the given array of inputs has any actual (non-none) inputs //
 	public static bool anyActualInputs(Input[] inputs)
 	{
@@ -1332,13 +1094,14 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		return false;
 	}
-	
-	
-	
-	
-	// control for delayed prevention of any vibration at the start; method: vibrate during this frame with the given intensity value; control and methods for extended (multiple frame) vibrating toggling //
+	#endregion generic handling of inputs, inputtedness, and beingness
 
-	
+
+
+
+	#region control for delayed prevention of any vibration at the start; method: vibrate during this frame with the given intensity value; control and methods for extended (multiple frame) vibrating toggling
+
+
 	private float vibrationPreventionDelay = .01f, vibrationPreventionTimer = 0;
 	private bool vibrationAllowed = false;
 
@@ -1382,8 +1145,12 @@ public class Controller : EnabledsBehaviour<Controller>
 		toggledVibrationIntensity = intensity;
 		vibrateExtended();
 	}
+	#endregion control for delayed prevention of any vibration at the start; method: vibrate during this frame with the given intensity value; control and methods for extended (multiple frame) vibrating toggling
 
 
+
+
+	#region handling controller operations
 
 
 	// method: determine whether the given operation is currently operated by the left-handed controller at any of the given states of being, ignoring the operation's handedness, states of being, and dependencies //
@@ -1755,25 +1522,19 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		return setOfOperatedControllers;
 	}
+	#endregion handling controller operations
+	#endregion properties and methods
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-	// updating //
 
 	
+	#region updating
+
+
 	// at each update: //
 	private void Update()
 	{
@@ -1799,9 +1560,10 @@ public class Controller : EnabledsBehaviour<Controller>
 			vibrate(toggledVibrationIntensity);
 		}
 	}
+	#endregion updating
 }
 
-// ∗: example usage of touchpad travelling input to flip pages of a book
+#region ∗: example usage of touchpad travelling input to flip pages of a book
 /*
 private void Update()
 {
@@ -1823,3 +1585,4 @@ private void Update()
 	}
 }
 */
+#endregion ∗: example usage of touchpad travelling input to flip pages of a book

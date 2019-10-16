@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+#if NAV_MESH_COMPONENTS
+using UnityEngine.AI;
+#endif
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #component #force
@@ -38,12 +41,12 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	public static new Color color => material.color;
 	public static new AutoBehaviour<SingletonBehaviourT> setColorTo(Color targetColor)
 		=> autoBehaviour.setColorTo(targetColor);
-	public static new AutoBehaviour<SingletonBehaviourT> setChildrenColorTo(Color targetColor)
-		=> autoBehaviour.setChildrenColorTo(targetColor);
+	public static new AutoBehaviour<SingletonBehaviourT> setDescendantsColorTo(Color targetColor)
+		=> autoBehaviour.setDescendantsColorTo(targetColor);
 	public static new AutoBehaviour<SingletonBehaviourT> randomizeColor()
 		=> autoBehaviour.randomizeColor();
-	public static new AutoBehaviour<SingletonBehaviourT> setChildrenEmissionColorTo(Color targetColor, bool boolean = true)
-		=> autoBehaviour.setChildrenEmissionColorTo(targetColor, boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setDescendantsEmissionColorTo(Color targetColor, bool boolean = true)
+		=> autoBehaviour.setDescendantsEmissionColorTo(targetColor, boolean);
 	#endregion color
 
 	#region shadowcasting
@@ -258,32 +261,32 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region volume
 	public static new float audioVolume => autoBehaviour.audioVolume;
-	public static new List<float> childAudioVolumes => autoBehaviour.childAudioVolumes;
+	public static new List<float> descendantAudioVolumes => autoBehaviour.descendantAudioVolumes;
 	public static new AutoBehaviour<SingletonBehaviourT> setAudioVolumeTo(float targetVolume, bool boolean = true)
 		=> autoBehaviour.setAudioVolumeTo(targetVolume, boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> setChildAudioVolumesTo(IList<float> targetVolumes)
-		=> autoBehaviour.setChildAudioVolumesTo(targetVolumes);
+	public static new AutoBehaviour<SingletonBehaviourT> setDescendantsAudioVolumeTo(IList<float> targetVolumes)
+		=> autoBehaviour.setDescendantsAudioVolumeTo(targetVolumes);
 	#endregion volume
 
 	#region playing
 	public static new bool audioPlaying => autoBehaviour.audioPlaying;
 	public static new AutoBehaviour<SingletonBehaviourT> playAudio()
 		=> autoBehaviour.playAudio();
-	public static new AutoBehaviour<SingletonBehaviourT> playChildAudios()
-		=> autoBehaviour.playChildAudios();
+	public static new AutoBehaviour<SingletonBehaviourT> playDescendantAudios()
+		=> autoBehaviour.playDescendantAudios();
 	public static new AutoBehaviour<SingletonBehaviourT> stopAudio()
 		=> autoBehaviour.stopAudio();
-	public static new AutoBehaviour<SingletonBehaviourT> stopChildAudios()
-		=> autoBehaviour.stopChildAudios();
+	public static new AutoBehaviour<SingletonBehaviourT> stopDescendantAudios()
+		=> autoBehaviour.stopDescendantAudios();
 	public static new float audioTime => autoBehaviour.audioTime;
 	public static new AutoBehaviour<SingletonBehaviourT> setAudioTimeTo(float targetTime, bool boolean = true)
 		=> autoBehaviour.setAudioTimeTo(targetTime, boolean);
 	#endregion playing
 
-	#region acting upon child audio
-	public static new AutoBehaviour<SingletonBehaviourT> actUponChildAudioSources(Action<List<AudioSource>> action)
-		=> autoBehaviour.actUponChildAudioSources(action);
-	#endregion acting upon child audio
+	#region acting upon descendant audio
+	public static new AutoBehaviour<SingletonBehaviourT> actUponDescendantAudioSources(Action<List<AudioSource>> action)
+		=> autoBehaviour.actUponDescendantAudioSources(action);
+	#endregion acting upon descendant audio
 	#endregion AudioSource
 
 
@@ -371,18 +374,18 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region ParticleSystem
 
 	#region playing
-	public static new AutoBehaviour<SingletonBehaviourT> togglePlayingChildParticlesSystems(bool boolean)
-		=> autoBehaviour.togglePlayingChildParticlesSystems(boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> playChildParticlesSystems(bool boolean = true)
-		=> autoBehaviour.playChildParticlesSystems(boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> stopChildParticlesSystems(bool boolean = true)
-		=> autoBehaviour.stopChildParticlesSystems(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> togglePlayingDescendantParticlesSystems(bool boolean)
+		=> autoBehaviour.togglePlayingDescendantParticlesSystems(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> playDescendantParticlesSystems(bool boolean = true)
+		=> autoBehaviour.playDescendantParticlesSystems(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> stopDescendantParticlesSystems(bool boolean = true)
+		=> autoBehaviour.stopDescendantParticlesSystems(boolean);
 	#endregion playing
 
-	#region acting upon child particles systems
-	public static new AutoBehaviour<SingletonBehaviourT> actUponChildParticlesSystems(Action<List<ParticleSystem>> action)
-		=> autoBehaviour.actUponChildParticlesSystems(action);
-	#endregion acting upon child particles systems
+	#region acting upon descendant particles systems
+	public static new AutoBehaviour<SingletonBehaviourT> actUponDescendantParticlesSystems(Action<List<ParticleSystem>> action)
+		=> autoBehaviour.actUponDescendantParticlesSystems(action);
+	#endregion acting upon descendant particles systems
 	#endregion ParticleSystem
 
 
@@ -409,28 +412,28 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region intensities
 	public static new float lightIntensity => autoBehaviour.lightIntensity;
-	public static new List<float> childLightIntensities => autoBehaviour.childLightIntensities;
+	public static new List<float> descendantLightIntensities => autoBehaviour.descendantLightIntensities;
 	public static new AutoBehaviour<SingletonBehaviourT> setLightIntensityTo(float targetIntensity)
 		=> autoBehaviour.setLightIntensityTo(targetIntensity);
-	public static new AutoBehaviour<SingletonBehaviourT> setChildLightIntensitiesTo(float targetIntensity)
-		=> autoBehaviour.setChildLightIntensitiesTo(targetIntensity);
-	public static new AutoBehaviour<SingletonBehaviourT> setChildLightIntensitiesTo(IList<float> targetIntensities)
-		=> autoBehaviour.setChildLightIntensitiesTo(targetIntensities);
+	public static new AutoBehaviour<SingletonBehaviourT> setDescendantLightIntensitiesTo(float targetIntensity)
+		=> autoBehaviour.setDescendantLightIntensitiesTo(targetIntensity);
+	public static new AutoBehaviour<SingletonBehaviourT> setDescendantLightIntensitiesTo(IList<float> targetIntensities)
+		=> autoBehaviour.setDescendantLightIntensitiesTo(targetIntensities);
 	#endregion intensities
 
 	#region setting render mode
-	public static new AutoBehaviour<SingletonBehaviourT> renderChildLightsBy(LightRenderMode lightRenderMode)
-		=> autoBehaviour.renderChildLightsBy(lightRenderMode);
-	public static new AutoBehaviour<SingletonBehaviourT> renderChildLightsByPixel()
-		=> autoBehaviour.renderChildLightsByPixel();
-	public static new AutoBehaviour<SingletonBehaviourT> renderChildLightsByVertex()
-		=> autoBehaviour.renderChildLightsByVertex();
+	public static new AutoBehaviour<SingletonBehaviourT> renderDescendantLightsBy(LightRenderMode lightRenderMode)
+		=> autoBehaviour.renderDescendantLightsBy(lightRenderMode);
+	public static new AutoBehaviour<SingletonBehaviourT> renderDescendantLightsByPixel()
+		=> autoBehaviour.renderDescendantLightsByPixel();
+	public static new AutoBehaviour<SingletonBehaviourT> renderDescendantLightsByVertex()
+		=> autoBehaviour.renderDescendantLightsByVertex();
 	#endregion setting render mode
 
-	#region acting upon child lights
-	public static new AutoBehaviour<SingletonBehaviourT> actUponChildLights(Action<List<Light>> action)
-		=> autoBehaviour.actUponChildLights(action);
-	#endregion acting upon child lights
+	#region acting upon descendant lights
+	public static new AutoBehaviour<SingletonBehaviourT> actUponDescendantLights(Action<List<Light>> action)
+		=> autoBehaviour.actUponDescendantLights(action);
+	#endregion acting upon descendant lights
 	#endregion Light
 
 
@@ -443,4 +446,59 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.setPointsTo(points);
 	#endregion setting points
 	#endregion EdgeCollider2D
+
+
+	#if NAV_MESH_COMPONENTS
+	#region NavMeshAgent
+
+	#region destinating
+	public static new bool destinateTo(object destinationPosition_PositionProvider)
+		=> autoBehaviour.destinateTo(destinationPosition_PositionProvider);
+	public static new bool destinateTo<OtherSingletonBehaviourT>() where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=> autoBehaviour.destinateTo<OtherSingletonBehaviourT>();
+	public static new bool destinateToCamera()
+		=> autoBehaviour.destinateToCamera();
+	#endregion destinating
+
+	#region setting haltedness
+	public static new AutoBehaviour<SingletonBehaviourT> setHaltednessTo(bool boolean)
+		=> autoBehaviour.setHaltednessTo(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> halt()
+		=> autoBehaviour.halt();
+	public static new AutoBehaviour<SingletonBehaviourT> unhalt()
+		=> autoBehaviour.unhalt();
+	#endregion setting haltedness
+	
+	#region navigating
+	public static new bool beginNavigatingTo(object destinationPosition_PositionProvider)
+		=> autoBehaviour.beginNavigatingTo(destinationPosition_PositionProvider);
+	public static new bool beginNavigatingTo<OtherSingletonBehaviourT>() where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=> autoBehaviour.beginNavigatingTo<OtherSingletonBehaviourT>();
+	public static new bool beginNavigatingToCamera()
+		=> autoBehaviour.beginNavigatingToCamera();
+	#endregion navigating
+	
+	#region setting enablement of rotation via navigation
+	public static new NavMeshAgent setEnablementOfRotationViaNavigationTo(bool boolean)
+		=> autoBehaviour.setEnablementOfRotationViaNavigationTo(boolean);
+	public static new NavMeshAgent enableRotationViaNavigation()
+		=> autoBehaviour.enableRotationViaNavigation();
+	public static new NavMeshAgent disableRotationViaNavigation()
+		=> autoBehaviour.disableRotationViaNavigation();
+	#endregion setting enablement of rotation via navigation
+	#endregion NavMeshAgent
+
+
+	#region Bipedation
+
+	#region bipeding
+	/*public static new bool bipedeTo(object destinationPosition_PositionProvider)
+		=> autoBehaviour.bipedeTo(destinationPosition_PositionProvider);
+	public static new bool bipedeTo<OtherSingletonBehaviourT>() where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=> autoBehaviour.bipedeTo<OtherSingletonBehaviourT>();
+	public static new bool bipedeToCamera()
+		=> autoBehaviour.bipedeToCamera();*/
+	#endregion bipeding
+	#endregion Bipedation
+	#endif
 }

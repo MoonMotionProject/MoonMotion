@@ -199,18 +199,6 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setLocalsParentlyForRelativeTo<SingletonBehaviourT>(boolean));
 
 	public Vector3 position => transform.position;
-	public AutoBehaviourT movePositionTo(Vector3 position, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(position, boolean));
-	public AutoBehaviourT movePositionTo(Transform otherTransform, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherTransform, boolean));
-	public AutoBehaviourT movePositionTo(GameObject otherGameObject, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherGameObject, boolean));
-	public AutoBehaviourT movePositionTo(Component otherComponent, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherComponent, boolean));
-	public AutoBehaviourT movePositionTo(RaycastHit raycastHit, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(raycastHit, boolean));
-	public AutoBehaviourT movePositionToward(object targetPosition_PositionProvider, float honingDistance, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionToward(targetPosition_PositionProvider, honingDistance, boolean));
 	public AutoBehaviourT setPositionTo(Vector3 position, bool boolean = true)
 		=> selfAfter(()=> transform.setPositionTo(position, boolean));
 	public AutoBehaviourT setPositionTo(Transform otherTransform, bool boolean = true)
@@ -225,16 +213,20 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.resetPosition(boolean));
 	public AutoBehaviourT displacePositionBy(Vector3 displacement, bool boolean = true)
 		=> selfAfter(()=> transform.displacePositionBy(displacement, boolean));
+	public AutoBehaviourT movePositionTo(Vector3 position, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(position, boolean));
+	public AutoBehaviourT movePositionTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherTransform, boolean));
+	public AutoBehaviourT movePositionTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherGameObject, boolean));
+	public AutoBehaviourT movePositionTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherComponent, boolean));
+	public AutoBehaviourT movePositionTo(RaycastHit raycastHit, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(raycastHit, boolean));
+	public AutoBehaviourT movePositionToward(object targetPosition_PositionProvider, float honingDistance, bool boolean = true)
+		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionToward(targetPosition_PositionProvider, honingDistance, boolean));
 
 	public float positionX => transform.position.x;
-	public AutoBehaviourT movePositionXTo(float x, bool boolean = true)
-		=> selfAfter(() => transform.movePositionXTo(x, boolean));
-	public AutoBehaviourT movePositionXTo(Transform otherTransform, bool boolean = true)
-		=> selfAfter(() => transform.movePositionXTo(otherTransform, boolean));
-	public AutoBehaviourT movePositionXTo(GameObject otherGameObject, bool boolean = true)
-		=> selfAfter(() => transform.movePositionXTo(otherGameObject, boolean));
-	public AutoBehaviourT movePositionXTo(Component otherComponent, bool boolean = true)
-		=> selfAfter(() => transform.movePositionXTo(otherComponent, boolean));
 	public AutoBehaviourT setPositionXTo(float x, bool boolean = true)
 		=> selfAfter(()=> transform.setPositionXTo(x, boolean));
 	public AutoBehaviourT setPositionXTo(Transform otherTransform, bool boolean = true)
@@ -245,16 +237,23 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setPositionXTo(otherComponent, boolean));
 	public AutoBehaviourT resetPositionX(bool boolean = true)
 		=> selfAfter(()=> transform.resetPositionX(boolean));
+	public AutoBehaviourT movePositionXTo(float x, bool boolean = true)
+		=> selfAfter(() => transform.movePositionXTo(x, boolean));
+	public AutoBehaviourT movePositionXTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(() => transform.movePositionXTo(otherTransform, boolean));
+	public AutoBehaviourT movePositionXTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(() => transform.movePositionXTo(otherGameObject, boolean));
+	public AutoBehaviourT movePositionXTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(() => transform.movePositionXTo(otherComponent, boolean));
+	public bool positionXLockedness => rigidbody.positionXLockedness();
+	public Rigidbody setPositionXLockednessTo(bool lockedness, bool boolean = true)
+		=> rigidbody.setPositionXLockednessTo(lockedness, boolean);
+	public Rigidbody lockPositionX(bool boolean = true)
+		=> rigidbody.lockPositionX(boolean);
+	public Rigidbody unlockPositionX(bool boolean = true)
+		=> rigidbody.unlockPositionX(boolean);
 
 	public float positionY => transform.position.y;
-	public AutoBehaviourT movePositionYTo(float y, bool boolean = true)
-		=> selfAfter(() => transform.movePositionYTo(y, boolean));
-	public AutoBehaviourT movePositionYTo(Transform otherTransform, bool boolean = true)
-		=> selfAfter(() => transform.movePositionYTo(otherTransform, boolean));
-	public AutoBehaviourT movePositionYTo(GameObject otherGameObject, bool boolean = true)
-		=> selfAfter(() => transform.movePositionYTo(otherGameObject, boolean));
-	public AutoBehaviourT movePositionYTo(Component otherComponent, bool boolean = true)
-		=> selfAfter(() => transform.movePositionYTo(otherComponent, boolean));
 	public AutoBehaviourT setPositionYTo(float y, bool boolean = true)
 		=> selfAfter(()=> transform.setPositionYTo(y, boolean));
 	public AutoBehaviourT setPositionYTo(Transform otherTransform, bool boolean = true)
@@ -267,16 +266,23 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.resetPositionY(boolean));
 	public AutoBehaviourT negatePositionY(bool boolean = true)
 		=> selfAfter(()=> transform.negatePositionY(boolean));
+	public AutoBehaviourT movePositionYTo(float y, bool boolean = true)
+		=> selfAfter(() => transform.movePositionYTo(y, boolean));
+	public AutoBehaviourT movePositionYTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(() => transform.movePositionYTo(otherTransform, boolean));
+	public AutoBehaviourT movePositionYTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(() => transform.movePositionYTo(otherGameObject, boolean));
+	public AutoBehaviourT movePositionYTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(() => transform.movePositionYTo(otherComponent, boolean));
+	public bool positionYLockedness => rigidbody.positionYLockedness();
+	public Rigidbody setPositionYLockednessTo(bool lockedness, bool boolean = true)
+		=> rigidbody.setPositionYLockednessTo(lockedness, boolean);
+	public Rigidbody lockPositionY(bool boolean = true)
+		=> rigidbody.lockPositionY(boolean);
+	public Rigidbody unlockPositionY(bool boolean = true)
+		=> rigidbody.unlockPositionY(boolean);
 
 	public float positionZ => transform.position.z;
-	public AutoBehaviourT movePositionZTo(float z, bool boolean = true)
-		=> selfAfter(() => transform.movePositionZTo(z, boolean));
-	public AutoBehaviourT movePositionZTo(Transform otherTransform, bool boolean = true)
-		=> selfAfter(() => transform.movePositionZTo(otherTransform, boolean));
-	public AutoBehaviourT movePositionZTo(GameObject otherGameObject, bool boolean = true)
-		=> selfAfter(() => transform.movePositionZTo(otherGameObject, boolean));
-	public AutoBehaviourT movePositionZTo(Component otherComponent, bool boolean = true)
-		=> selfAfter(() => transform.movePositionZTo(otherComponent, boolean));
 	public AutoBehaviourT setPositionZTo(float z, bool boolean = true)
 		=> selfAfter(()=> transform.setPositionZTo(z, boolean));
 	public AutoBehaviourT setPositionZTo(Transform otherTransform, bool boolean = true)
@@ -287,6 +293,21 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setPositionZTo(otherComponent, boolean));
 	public AutoBehaviourT resetPositionZ(bool boolean = true)
 		=> selfAfter(()=> transform.resetPositionZ(boolean));
+	public AutoBehaviourT movePositionZTo(float z, bool boolean = true)
+		=> selfAfter(() => transform.movePositionZTo(z, boolean));
+	public AutoBehaviourT movePositionZTo(Transform otherTransform, bool boolean = true)
+		=> selfAfter(() => transform.movePositionZTo(otherTransform, boolean));
+	public AutoBehaviourT movePositionZTo(GameObject otherGameObject, bool boolean = true)
+		=> selfAfter(() => transform.movePositionZTo(otherGameObject, boolean));
+	public AutoBehaviourT movePositionZTo(Component otherComponent, bool boolean = true)
+		=> selfAfter(() => transform.movePositionZTo(otherComponent, boolean));
+	public bool positionZLockedness => rigidbody.positionZLockedness();
+	public Rigidbody setPositionZLockednessTo(bool lockedness, bool boolean = true)
+		=> rigidbody.setPositionZLockednessTo(lockedness, boolean);
+	public Rigidbody lockPositionZ(bool boolean = true)
+		=> rigidbody.lockPositionZ(boolean);
+	public Rigidbody unlockPositionZ(bool boolean = true)
+		=> rigidbody.unlockPositionZ(boolean);
 
 	public Quaternion rotation => transform.rotation;
 	public AutoBehaviourT setRotationTo(Quaternion rotation, bool boolean = true)
@@ -323,6 +344,13 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setEulerAngleXTo(otherComponent, boolean));
 	public AutoBehaviourT resetEulerAngleX(bool boolean = true)
 		=> selfAfter(()=> transform.resetEulerAngleX(boolean));
+	public bool eulerAngleXLockedness => rigidbody.eulerAngleXLockedness();
+	public Rigidbody setEulerAngleXLockednessTo(bool lockedness, bool boolean = true)
+		=> rigidbody.setEulerAngleXLockednessTo(lockedness, boolean);
+	public Rigidbody lockEulerAngleX(bool boolean = true)
+		=> rigidbody.lockEulerAngleX(boolean);
+	public Rigidbody unlockEulerAngleX(bool boolean = true)
+		=> rigidbody.unlockEulerAngleX(boolean);
 
 	public float eulerAngleY => transform.eulerAngleY();
 	public AutoBehaviourT setEulerAngleYTo(float eulerAngleY, bool boolean = true)
@@ -335,6 +363,13 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setEulerAngleYTo(otherComponent, boolean));
 	public AutoBehaviourT resetEulerAngleY(bool boolean = true)
 		=> selfAfter(()=> transform.resetEulerAngleY(boolean));
+	public bool eulerAngleYLockedness => rigidbody.eulerAngleYLockedness();
+	public Rigidbody setEulerAngleYLockednessTo(bool lockedness, bool boolean = true)
+		=> rigidbody.setEulerAngleYLockednessTo(lockedness, boolean);
+	public Rigidbody lockEulerAngleY(bool boolean = true)
+		=> rigidbody.lockEulerAngleY(boolean);
+	public Rigidbody unlockEulerAngleY(bool boolean = true)
+		=> rigidbody.unlockEulerAngleY(boolean);
 
 	public float eulerAngleZ => transform.eulerAngleZ();
 	public AutoBehaviourT setEulerAngleZTo(float eulerAngleZ, bool boolean = true)
@@ -347,6 +382,13 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setEulerAngleZTo(otherComponent, boolean));
 	public AutoBehaviourT resetEulerAngleZ(bool boolean = true)
 		=> selfAfter(()=> transform.resetEulerAngleZ(boolean));
+	public bool eulerAngleZLockedness => rigidbody.eulerAngleZLockedness();
+	public Rigidbody setEulerAngleZLockednessTo(bool lockedness, bool boolean = true)
+		=> rigidbody.setEulerAngleZLockednessTo(lockedness, boolean);
+	public Rigidbody lockEulerAngleZ(bool boolean = true)
+		=> rigidbody.lockEulerAngleZ(boolean);
+	public Rigidbody unlockEulerAngleZ(bool boolean = true)
+		=> rigidbody.unlockEulerAngleZ(boolean);
 
 	public AutoBehaviourT setGlobalsTo(Vector3 position, Quaternion rotation, bool boolean = true)
 		=> selfAfter(()=> transform.setGlobalsTo(position, rotation, boolean));

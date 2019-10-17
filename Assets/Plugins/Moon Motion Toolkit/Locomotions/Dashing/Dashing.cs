@@ -72,6 +72,13 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	[Tooltip("whether to zero the player's velocities after each dash")]
 	public bool zeroVelocitiesAfter = true;
+	
+	[BoxGroup("Dashing")]
+	[Tooltip("whether to temporarily lock the player's y position (after dashing, returning the lockedness to what it was before)")]
+	public bool temporarilyLockYPosition = true;
+
+	// the lockedness of the player's y position before dashing the last time before starting a dash when temporarily locking the player's y position //
+	private bool lastYPositionLockednessBeforeDashing = false;
 	#endregion dashing
 	#endregion variables
 
@@ -85,28 +92,36 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	private void stopDash()
 	{
 		SkiingSettings.singleton.heldVersusToggled = false;
-		
 		if (togglesSkiing)
 		{
 			Skier.disableSkiing();
+		}
+
+		potentialCurrentTargetPosition = null;
+
+		if (temporarilyLockYPosition)
+		{
+			MoonMotionPlayer.setPositionYLockednessTo(lastYPositionLockednessBeforeDashing);
 		}
 		
 		if (zeroVelocitiesAfter)
 		{
 			MoonMotionPlayer.zeroVelocities();
 		}
-
-		potentialCurrentTargetPosition = null;
 	}
 	
 	// method: begin a dash to the given provided raycast hit //
 	private void beginDashTo(object raycastHit_RaycastHitProvider)
 	{
-		SkiingSettings.singleton.heldVersusToggled = false;
-		
 		if (zeroVelocitiesBefore)
 		{
 			MoonMotionPlayer.zeroVelocities();
+		}
+
+		if (temporarilyLockYPosition)
+		{
+			lastYPositionLockednessBeforeDashing = MoonMotionPlayer.positionYLockedness;
+			MoonMotionPlayer.lockPositionY();
 		}
 		
 		RaycastHit raycastHit = raycastHit_RaycastHitProvider.provideRaycastHit();
@@ -115,6 +130,7 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 		potentialCurrentTargetPosition = raycastHit.position();
 		potentialCurrentTargetCollider = raycastHit.collider;
 
+		SkiingSettings.singleton.heldVersusToggled = false;
 		if (togglesSkiing)
 		{
 			Skier.enableSkiing();
@@ -156,7 +172,14 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 
 		if (currentlyDashing)
 		{
-			currentTargetPosition.attractAsThoughMistargeting<MoonMotionBody, MoonMotionPlayer>(forceMagnitude);
+			currentTargetPosition.attractAsThoughMistargeting
+			(
+				dashStartingPosition,
+				MoonMotionPlayer.ensuredCorrespondingRigidbody,
+				forceMagnitude,
+				Infinity.asAFloat,
+				InterpolationCurve.linear
+			);
 		}
 	}
 	#endregion updating

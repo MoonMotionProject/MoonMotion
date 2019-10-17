@@ -102,25 +102,22 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	private void stopSweep()
 	{
 		SkiingSettings.singleton.heldVersusToggled = false;
-		
 		if (togglesSkiing)
 		{
 			Skier.disableSkiing();
 		}
 		
+		potentialCurrentTargetPosition = null;
+		
 		if (zeroVelocitiesAfter)
 		{
 			MoonMotionPlayer.zeroVelocities();
 		}
-
-		potentialCurrentTargetPosition = null;
 	}
 	
 	// method: begin a sweep via the given sweeping controller //
 	private void beginSweepVia(Controller sweepingController)
 	{
-		SkiingSettings.singleton.heldVersusToggled = false;
-		
 		if (zeroVelocitiesBefore)
 		{
 			MoonMotionPlayer.zeroVelocities();
@@ -139,6 +136,7 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 			sweepDistance
 		);
 
+		SkiingSettings.singleton.heldVersusToggled = false;
 		if (togglesSkiing)
 		{
 			Skier.enableSkiing();
@@ -184,7 +182,9 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 			(
 				controllerSweepingPosition,
 				MoonMotionPlayer.ensuredCorrespondingRigidbody,
-				forceMagnitude
+				forceMagnitude,
+				Infinity.asAFloat,
+				InterpolationCurve.linear
 			);
 		}
 	}

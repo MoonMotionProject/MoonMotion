@@ -245,6 +245,13 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setPositionXTo(otherComponent, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetPositionX(bool boolean = true)
 		=> autoBehaviour.resetPositionX(boolean);
+	public static new bool positionXLockedness => autoBehaviour.positionXLockedness;
+	public static new Rigidbody setPositionXLockednessTo(bool lockedness, bool boolean = true)
+		=> autoBehaviour.setPositionXLockednessTo(lockedness, boolean);
+	public static new Rigidbody lockPositionX(bool boolean = true)
+		=> autoBehaviour.lockPositionX(boolean);
+	public static new Rigidbody unlockPositionX(bool boolean = true)
+		=> autoBehaviour.unlockPositionX(boolean);
 
 	public static new float positionY => autoBehaviour.position.y;
 	public static new AutoBehaviour<SingletonBehaviourT> movePositionYTo(float y, bool boolean = true)
@@ -267,6 +274,13 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.resetPositionY(boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> negatePositionY(bool boolean = true)
 		=> autoBehaviour.negatePositionY(boolean);
+	public static new bool positionYLockedness => autoBehaviour.positionYLockedness;
+	public static new Rigidbody setPositionYLockednessTo(bool lockedness, bool boolean = true)
+		=> autoBehaviour.setPositionYLockednessTo(lockedness, boolean);
+	public static new Rigidbody lockPositionY(bool boolean = true)
+		=> autoBehaviour.lockPositionY(boolean);
+	public static new Rigidbody unlockPositionY(bool boolean = true)
+		=> autoBehaviour.unlockPositionY(boolean);
 
 	public static new float positionZ => autoBehaviour.position.z;
 	public static new AutoBehaviour<SingletonBehaviourT> movePositionZTo(float z, bool boolean = true)
@@ -287,6 +301,13 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setPositionZTo(otherComponent, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetPositionZ(bool boolean = true)
 		=> autoBehaviour.resetPositionZ(boolean);
+	public static new bool positionZLockedness => autoBehaviour.positionZLockedness;
+	public static new Rigidbody setPositionZLockednessTo(bool lockedness, bool boolean = true)
+		=> autoBehaviour.setPositionZLockednessTo(lockedness, boolean);
+	public static new Rigidbody lockPositionZ(bool boolean = true)
+		=> autoBehaviour.lockPositionZ(boolean);
+	public static new Rigidbody unlockPositionZ(bool boolean = true)
+		=> autoBehaviour.unlockPositionZ(boolean);
 
 	public static new Quaternion rotation => autoBehaviour.rotation;
 	public static new AutoBehaviour<SingletonBehaviourT> setRotationTo(Quaternion rotation, bool boolean = true)
@@ -323,6 +344,13 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setEulerAngleXTo(otherComponent, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetEulerAngleX(bool boolean = true)
 		=> autoBehaviour.resetEulerAngleX(boolean);
+	public static new bool eulerAngleXLockedness => autoBehaviour.eulerAngleXLockedness;
+	public static new Rigidbody setEulerAngleXLockednessTo(bool lockedness, bool boolean = true)
+		=> autoBehaviour.setEulerAngleXLockednessTo(lockedness, boolean);
+	public static new Rigidbody lockEulerAngleX(bool boolean = true)
+		=> autoBehaviour.lockEulerAngleX(boolean);
+	public static new Rigidbody unlockEulerAngleX(bool boolean = true)
+		=> autoBehaviour.unlockEulerAngleX(boolean);
 
 	public static new float eulerAngleY => autoBehaviour.eulerAngleY;
 	public static new AutoBehaviour<SingletonBehaviourT> setEulerAngleYTo(float eulerAngleY, bool boolean = true)
@@ -335,6 +363,13 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setEulerAngleYTo(otherComponent, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetEulerAngleY(bool boolean = true)
 		=> autoBehaviour.resetEulerAngleY(boolean);
+	public static new bool eulerAngleYLockedness => autoBehaviour.eulerAngleYLockedness;
+	public static new Rigidbody setEulerAngleYLockednessTo(bool lockedness, bool boolean = true)
+		=> autoBehaviour.setEulerAngleYLockednessTo(lockedness, boolean);
+	public static new Rigidbody lockEulerAngleY(bool boolean = true)
+		=> autoBehaviour.lockEulerAngleY(boolean);
+	public static new Rigidbody unlockEulerAngleY(bool boolean = true)
+		=> autoBehaviour.unlockEulerAngleY(boolean);
 
 	public static new float eulerAngleZ => autoBehaviour.eulerAngleZ;
 	public static new AutoBehaviour<SingletonBehaviourT> setEulerAngleZTo(float eulerAngleZ, bool boolean = true)
@@ -347,6 +382,13 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setEulerAngleZTo(otherComponent, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetEulerAngleZ(bool boolean = true)
 		=> autoBehaviour.resetEulerAngleZ(boolean);
+	public static new bool eulerAngleZLockedness => autoBehaviour.eulerAngleZLockedness;
+	public static new Rigidbody setEulerAngleZLockednessTo(bool lockedness, bool boolean = true)
+		=> autoBehaviour.setEulerAngleZLockednessTo(lockedness, boolean);
+	public static new Rigidbody lockEulerAngleZ(bool boolean = true)
+		=> autoBehaviour.lockEulerAngleZ(boolean);
+	public static new Rigidbody unlockEulerAngleZ(bool boolean = true)
+		=> autoBehaviour.unlockEulerAngleZ(boolean);
 
 	public static new AutoBehaviour<SingletonBehaviourT> setGlobalsTo(Vector3 position, Quaternion rotation, bool boolean = true)
 		=> autoBehaviour.setGlobalsTo(position, rotation, boolean);

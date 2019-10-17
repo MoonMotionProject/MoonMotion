@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Auto Behaviour Layer Game Object:
 // #auto #gameobject
@@ -27,15 +28,11 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#region destruction
 
 	#region of this object
-	public void destroyThisObject(Func<GameObject, bool> function)
-		=> gameObject.destroy(function);
 	public void destroyThisObject(bool boolean = true)
 		=> gameObject.destroy(boolean);
 	#endregion of this object
 	
 	#region of the other given object
-	public void destroy(GameObject otherGameObject, Func<GameObject, bool> function)
-		=> otherGameObject.destroy(function);
 	public void destroy(GameObject otherGameObject, bool boolean = true)
 		=> otherGameObject.destroy(boolean);
 	#endregion of the other given object
@@ -146,6 +143,12 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 
 	public AutoBehaviourT pendValidation_IfInEditor()
 		=> selfAfter(()=> gameObject.pendValidation_IfInEditor());
-	#endif
+#endif
 	#endregion validation pending
+
+
+	#region scene determination
+
+	public Scene scene => gameObject.scene;
+	#endregion scene determination
 }

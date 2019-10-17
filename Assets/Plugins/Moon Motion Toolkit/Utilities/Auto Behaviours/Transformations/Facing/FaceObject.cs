@@ -5,6 +5,7 @@ using UnityEngine;
 // Face Object:
 // • has this object face the target object, only on the set axes
 // #transform #transformations
+[CacheTransform]
 public class FaceObject : AutoBehaviour<FaceObject>
 {
 	// variables //

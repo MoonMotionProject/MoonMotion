@@ -92,20 +92,34 @@ public static class DistanceExtensions
 
 
 	#region is within distance of
-	// methods: return whether this given provided position is within the given threshold distance of the other given provided position, specified singleton behaviour, or the main camera (respectively) //
+	// methods: return whether this given provided position is within the given threshold distance of the other given provided position, specified singleton behaviour, the player (body), or the main camera (respectively) //
 
 	public static bool isWithinDistanceOf(this Vector3 position, object otherPosition_PositionProvider, float thresholdDistance)
 		=> position.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
 	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Vector3 position, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> position.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isWithinDistanceOfCamera(this Vector3 position, float thresholdDistance)
+		=> position.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isWithinDistanceOfPlayer(this Vector3 position, float thresholdDistance)
+		=> position.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
+
 	public static bool isWithinDistanceOf(this GameObject gameObject, object otherPosition_PositionProvider, float thresholdDistance)
 		=> gameObject.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
 	public static bool isWithinDistanceOf<SingletonBehaviourT>(this GameObject gameObject, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> gameObject.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isWithinDistanceOfCamera(this GameObject gameObject, float thresholdDistance)
+		=> gameObject.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isWithinDistanceOfPlayer(this GameObject gameObject, float thresholdDistance)
+		=> gameObject.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
+
 	public static bool isWithinDistanceOf(this Component component, object otherPosition_PositionProvider, float thresholdDistance)
 		=> component.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
 	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Component component, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> component.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isWithinDistanceOfCamera(this Component component, float thresholdDistance)
+		=> component.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isWithinDistanceOfPlayer(this Component component, float thresholdDistance)
+		=> component.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
 	#endregion is within distance of
 
 

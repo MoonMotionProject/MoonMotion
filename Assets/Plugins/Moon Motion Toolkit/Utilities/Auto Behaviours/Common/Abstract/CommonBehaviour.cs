@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Common Behaviour
+// #common
 // • intended to provide functionality that is "common" to this game object / this game object's auto behaviours; functionality that is both:
 //   · general to this game object
 //   · shared among other auto behaviours on this game object, such that they don't each have to duplicate this functionality

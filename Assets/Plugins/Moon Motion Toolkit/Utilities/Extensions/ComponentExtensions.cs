@@ -27,7 +27,7 @@ public static class ComponentExtensions
 
 	// method: destroy all components in this given enumerable of components for which the given function returns true, then return this given enumerable //
 	public static IEnumerable<ComponentT> destroyWhere<ComponentT>(this IEnumerable<ComponentT> enumerable, Func<ComponentT, bool> function) where ComponentT : Component
-		=> enumerable.forEach(component => component.destroy(function));
+		=> enumerable.forEach(component => component.destroy(function(component)));
 
 	// method: destroy all objects of components in this given set of components for which the given function returns true, then return this given set //
 	public static HashSet<ComponentT> destroyObjectsWhere<ComponentT>(this HashSet<ComponentT> set, Func<ComponentT, bool> function) where ComponentT : Component

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Auto Behaviour External Layer:
-// #auto
+// #auto #common
 // • an auto behaviour layer that is external (a separate component, instead of being inherited by each auto behaviour), so as to be shared among all auto behaviours on this game object
 //   · ensured to be present on this game object whenever an auto behaviour is on this game object, by way of a RequireComponent attribute on all auto behaviours
 // • in either the editor or the build, uncache's this game object's components upon being destroyed (so also when this game object is destroyed)
@@ -37,7 +37,11 @@ public class AutoBehaviourExternalLayer : MonoBehaviour
 	[ContextMenu("OnValidate")]
 	public void OnValidate()
 	{
+		#if MOON_MOTION_TOOLKIT_SHOW_COMMON_BEHAVIOURS
+		this.unhideInInspector();
+		#else
 		this.hideInInspector();
+		#endif
 
 		if (validatedYet)
 		{

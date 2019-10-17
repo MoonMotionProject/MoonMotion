@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Singleton Behaviour Layer Game Object:
 // #auto #gameobject
@@ -35,15 +36,11 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#region destruction
 
 	#region of this object
-	public static new void destroyThisObject(Func<GameObject, bool> function)
-		=> autoBehaviour.destroyThisObject(function);
 	public static new void destroyThisObject(bool boolean = true)
 		=> autoBehaviour.destroyThisObject(boolean);
 	#endregion of this object
 	
 	#region of the other given object
-	public static new void destroy(GameObject otherGameObject, Func<GameObject, bool> function)
-		=> autoBehaviour.destroy(otherGameObject, function);
 	public static new void destroy(GameObject otherGameObject, bool boolean = true)
 		=> autoBehaviour.destroy(otherGameObject, boolean);
 	#endregion of the other given object
@@ -156,4 +153,10 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 		=> autoBehaviour.pendValidation_IfInEditor();
 	#endif
 	#endregion validation pending
+
+
+	#region scene determination
+
+	public static new Scene scene => autoBehaviour.scene;
+	#endregion scene determination
 }

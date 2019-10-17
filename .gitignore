@@ -35,10 +35,10 @@ sysinfo.txt
 
 
 # Custom Changes by Hunter
+
 *.dwlt
 /[Pp]ublication/
 
-# Custom Changes by Hunter - for plugins not distributed with the toolkit
 /[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories
 /[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories.meta
 /[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/EZ Rename
@@ -61,3 +61,11 @@ _*.generated.shader.meta
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+# Odin - Inspector and Serializer
+# Ignore the auto-generated AOT compatibility dll.
+/Assets/Plugins/Sirenix/Assemblies/AOT/*
+# Ignore all unpacked demos.
+/Assets/Plugins/Sirenix/Demos/*
+# But keep the demo packages themselves.
+!/Assets/Plugins/Sirenix/Demos/*.unitypackage

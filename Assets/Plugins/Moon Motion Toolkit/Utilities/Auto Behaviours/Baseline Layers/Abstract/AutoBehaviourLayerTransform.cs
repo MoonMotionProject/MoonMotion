@@ -364,6 +364,10 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 		=> position.isWithinDistanceOf(position_PositionProvider, thresholdDistance);
 	public bool isWithinDistanceOf<SingletonBehaviourT>(float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> position.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
+	public bool isWithinDistanceOfCamera(float thresholdDistance)
+		=> position.isWithinDistanceOfCamera(thresholdDistance);
+	public bool isWithinDistanceOfPlayer(float thresholdDistance)
+		=> position.isWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
 
 	#region is more distant than

@@ -159,6 +159,9 @@ public static class FloatExtensions
 		return float_;
 	}
 
+	public static float atLeastZero(this float float_, bool boolean = true)
+		=> float_.atLeast(0f, boolean);
+
 	public static float atMost(this float float_, float otherFloat, bool boolean = true)
 	{
 		if (boolean)
@@ -170,6 +173,15 @@ public static class FloatExtensions
 
 	public static float atMostOne(this float float_, bool boolean = true)
 		=> float_.atMost(1f, boolean);
+
+	public static float clampedWithin(this float float_, float leastFloat, float mostFloat, bool boolean = true)
+		=> boolean ? float_.atLeast(leastFloat).atMost(mostFloat) : float_;
+
+	public static float clampedFromZeroTo(this float float_, float mostFloat, bool boolean = true)
+		=> float_.clampedWithin(0f, mostFloat, boolean);
+
+	public static float clampedToOneFrom(this float float_, float leastFloat, bool boolean = true)
+		=> float_.clampedWithin(leastFloat, 1f, boolean);
 
 	public static float clampedToRatio(this float float_, bool boolean = true)
 		=> float_.atLeast(0f, boolean).atMost(1f, boolean);

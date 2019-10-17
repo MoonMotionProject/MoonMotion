@@ -408,6 +408,22 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#endregion MeshFilter
 
 
+	#region Animator
+
+	#region setting enablement of booleans
+	public static new Animator setEnablementOfAnimatorBoolean(string targetBooleanName, bool newBoolean, bool boolean = true)
+		=> autoBehaviour.setEnablementOfAnimatorBoolean(targetBooleanName, newBoolean,
+			boolean);
+	public static new Animator enableAnimatorBoolean(string targetBooleanName, bool boolean = true)
+		=> autoBehaviour.enableAnimatorBoolean(targetBooleanName,
+			boolean);
+	public static new Animator disableAnimatorBoolean(string targetBooleanName, bool boolean = true)
+		=> autoBehaviour.disableAnimatorBoolean(targetBooleanName,
+			boolean);
+	#endregion setting enablement of booleans
+	#endregion Animator
+
+
 	#region Light
 
 	#region intensities

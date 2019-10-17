@@ -8,6 +8,9 @@ public static class UnityObjectExtensions
 {
 	#region destruction
 
+
+	#region private
+
 	#if UNITY_EDITOR
 	// method: destroy this given Unity object (unconditionally and without waiting for inspectors) //
 	private static void destroy_Unconditionally_WithoutWaitingForInspectors<UnityObjectT>(this UnityObjectT unityObject) where UnityObjectT : UnityEngine.Object
@@ -47,23 +50,42 @@ public static class UnityObjectExtensions
 		UnityEngine.Object.Destroy(unityObject);
 		#endif
 	}
+	#endregion private
 
-	// method: destroy this given Unity object according to the given booleanic function upon this given Unity object //
-	public static void destroy<UnityObjectT>(this UnityObjectT unityObject, Func<UnityObjectT, bool> function) where UnityObjectT : UnityEngine.Object
-	{
-		if (function(unityObject))
-		{
-			unityObject.destroy_Unconditionally();
-		}
-	}
 
-	// method: (according to the given boolean:) destroy this given component //
-	public static void destroy<UnityObjectT>(this UnityObjectT unityObject, bool boolean = true) where UnityObjectT : UnityEngine.Object
+	#region public
+
+	// method: (according to the given boolean:) destroy this given game object – if it is in a scene (otherwise print an error) //
+	public static void destroy(this GameObject gameObject, bool boolean = true)
 	{
 		if (boolean)
 		{
-			unityObject.destroy_Unconditionally();
+			if (gameObject.scene.isYull())
+			{
+				gameObject.destroy_Unconditionally();
+			}
+			else
+			{
+				("UnityObjectExtensions.destroy given game object ("+gameObject+") which is not in a scene; not destroying to avoid destroying what may be part of a prefab.").printAsError();
+			}
 		}
 	}
+
+	// method: (according to the given boolean:) destroy this given component – if it is in a scene (otherwise print an error) //
+	public static void destroy(this Component component, bool boolean = true)
+	{
+		if (boolean)
+		{
+			if (component.scene().isYull())
+			{
+				component.destroy_Unconditionally();
+			}
+			else
+			{
+				("UnityObjectExtensions.destroy given component ("+component+") which is not in a scene; not destroying to avoid destroying what may be part of a prefab.").printAsError();
+			}
+		}
+	}
+	#endregion public
 	#endregion destruction
 }

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// NavMeshAgent Extensions: provides extension methods for handling navmesh agents //
-public static class NavMeshAgentExtensions
+// Navmesh Agent Extensions: provides extension methods for handling navmesh agents //
+public static class NavmeshAgentExtensions
 {
 	#region destinating
 	// methods: set the destination of this given navmesh agent to the given provided destination position, specified singleton behaviour, or the main camera (respectively), then return whether the destination was actually valid/set //

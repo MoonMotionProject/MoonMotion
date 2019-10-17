@@ -106,4 +106,16 @@ public static class Default
 	public const ushort vibrationIntensity = 500;
 	#endregion Controller
 	#endif
+	
+	#region Unitology
+	#if UNITOLOGY
+	public const float constitution = 1000f;
+	public const float trop = 0f;
+	public const float shielding = 0f;
+	public const InterpolationCurve healthbarInterpolationCurve = InterpolationCurve.quadratic;
+	public const float attackDamage = 0f;
+	public const float attackRange = 2f;
+	public const float attackDelay = 1f;
+	#endif
+	#endregion Unitology
 }

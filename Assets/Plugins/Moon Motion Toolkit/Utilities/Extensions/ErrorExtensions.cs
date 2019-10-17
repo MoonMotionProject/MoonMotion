@@ -6,13 +6,10 @@ using UnityEngine;
 // ErrorExtensions: provides extension methods for handling errors //
 public static class ErrorExtensions
 {
-	// method: print this given error string as an error and return this given error string //
+	// method: print this given error string as an error, then return this given error string //
 	public static string printAsError(this string errorString)
-	{
-		Debug.LogError(errorString.withNullRepresented());
-
-		return errorString;
-	}
+		=>	errorString.after(()=>
+				Debug.LogError(errorString.withNullRepresented()));
 
 	// method: print this given exception as an error with the given suffixed line //
 	public static string logAsError<ExceptionT>(this ExceptionT exception, string suffixedLine = "") where ExceptionT : Exception

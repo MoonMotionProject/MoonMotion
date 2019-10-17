@@ -13,15 +13,11 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	#region destruction
 
 	#region of this component
-	public void destroyThisBehaviour(Func<AutoBehaviourT, bool> function)
-		=> self.destroy(function);
 	public void destroyThisBehaviour(bool boolean = true)
 		=> component.destroy(boolean);
 	#endregion of this component
 	
 	#region of the other given component
-	public void destroy(Component otherComponent, Func<Component, bool> function)
-		=> otherComponent.destroy(function);
 	public void destroy(Component otherComponent, bool boolean = true)
 		=> otherComponent.destroy(boolean);
 	#endregion of the other given component

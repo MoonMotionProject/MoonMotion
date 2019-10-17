@@ -390,6 +390,22 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#endregion MeshFilter
 
 
+	#region Animator
+
+	#region setting enablement of booleans
+	public Animator setEnablementOfAnimatorBoolean(string targetBooleanName, bool newBoolean, bool boolean = true)
+		=> animator.setEnablementOf(targetBooleanName, newBoolean,
+			boolean);
+	public Animator enableAnimatorBoolean(string targetBooleanName, bool boolean = true)
+		=> animator.enable(targetBooleanName,
+			boolean);
+	public Animator disableAnimatorBoolean(string targetBooleanName, bool boolean = true)
+		=> animator.disable(targetBooleanName,
+			boolean);
+	#endregion setting enablement of booleans
+	#endregion Animator
+
+
 	#region Light
 
 	#region intensities

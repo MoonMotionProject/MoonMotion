@@ -13,15 +13,11 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	#region destruction
 
 	#region of this component
-	public static new void destroyThisBehaviour(Func<SingletonBehaviourT, bool> function)
-		=> autoBehaviour.destroyThisBehaviour(function);
 	public static new void destroyThisBehaviour(bool boolean = true)
 		=> autoBehaviour.destroyThisBehaviour(boolean);
 	#endregion of this component
 	
 	#region of the other given component
-	public static new void destroy(Component otherComponent, Func<Component, bool> function)
-		=> autoBehaviour.destroy(otherComponent, function);
 	public static new void destroy(Component otherComponent, bool boolean = true)
 		=> autoBehaviour.destroy(otherComponent, boolean);
 	#endregion of the other given component

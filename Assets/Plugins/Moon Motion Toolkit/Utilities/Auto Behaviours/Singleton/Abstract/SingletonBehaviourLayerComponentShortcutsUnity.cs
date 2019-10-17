@@ -487,18 +487,5 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.disableRotationViaNavigation();
 	#endregion setting enablement of rotation via navigation
 	#endregion NavMeshAgent
-
-
-	#region Bipedation
-
-	#region bipeding
-	/*public static new bool bipedeTo(object destinationPosition_PositionProvider)
-		=> autoBehaviour.bipedeTo(destinationPosition_PositionProvider);
-	public static new bool bipedeTo<OtherSingletonBehaviourT>() where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
-		=> autoBehaviour.bipedeTo<OtherSingletonBehaviourT>();
-	public static new bool bipedeToCamera()
-		=> autoBehaviour.bipedeToCamera();*/
-	#endregion bipeding
-	#endregion Bipedation
 	#endif
 }

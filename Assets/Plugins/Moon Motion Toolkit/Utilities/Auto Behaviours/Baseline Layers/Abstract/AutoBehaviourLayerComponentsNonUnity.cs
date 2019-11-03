@@ -2,17 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if NAV_MESH_COMPONENTS
+using UnityEngine.AI;
+#endif
 #if STEAM_VIRTUALITY
 using Valve.VR.InteractionSystem;
 #endif
 
 // Auto Behaviour Layer Components Moon Motion:
 // #auto #tracking
-// • provides this behaviour with automatically-connected properties to its game object's Moon Motion components and typical state of (and so on) those components
-public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
+// • provides this behaviour with automatically-connected properties to its game object's nonUnity components and typical state of (and so on) those components
+public abstract class	AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT> :
 					AutoBehaviourLayerComponentsUnity<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
+	#region Moon Motion Toolkit
 	#if MOON_MOTION_TOOLKIT
 	public TerrainResponse terrainResponse => cache<TerrainResponse>();
 	public Powerup powerup => cache<Powerup>();
@@ -21,6 +25,7 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 	public PowerupInstanceMethodsCaller powerupInstanceMethodsCaller => cache<PowerupInstanceMethodsCaller>();
 	public StretchScalable stretchScalable => cache<StretchScalable>();
 	#endif
+	#endregion Moon Motion Toolkit
 
 
 
@@ -51,6 +56,7 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 	public TrackLightIntensityAtAwake trackLightIntensityAtAwake => cache<TrackLightIntensityAtAwake>();
 	public TrackAwake trackAwake => cache<TrackAwake>();
 	public TrackColorAtAwake trackColorAtAwake => cache<TrackColorAtAwake>();
+	public TrackStart trackStart => cache<TrackStart>();
 	#endregion miscellaneous
 
 	#region Collideds
@@ -97,15 +103,37 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 
 
 
-	#region Plugins
+	#region Navmesh Components
+	#if NAV_MESH_COMPONENTS
+	public NavMeshAgent navmeshAgent => cache<NavMeshAgent>();
+	public Bipedation bipedation => cache<Bipedation>();
+	#endif
+	#endregion Navmesh Components
 
 
 
 
-	#if STEAM_VIRTUALITY
+
+
+
+
+
+	#region Unitology
+	#if UNITOLOGY
+	public Unit unit => cache<Unit>();
+	#endif
+	#endregion Unitology
+
+
+
+
+
+
+
+
+
 	#region Steam Virtuality
-
-
+	#if STEAM_VIRTUALITY
 	public Player player => cache<Player>();
 	public Hand hand => cache<Hand>();
 	public Interactable interactable => cache<Interactable>();
@@ -117,7 +145,6 @@ public abstract class	AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT> :
 	public Balloon balloon => cache<Balloon>();
 	public Longbow longbow => cache<Longbow>();
 	public ItemPackage itemPackage => cache<ItemPackage>();
-	#endregion Steam Virtuality
 	#endif
-	#endregion Plugins
+	#endregion Steam Virtuality
 }

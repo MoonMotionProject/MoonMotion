@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 
 // Game Object Extensions: provides extension methods for handling game objects //
-// #auto #gameobject
+// #auto #gameobject #execution
 public static class GameObjectExtensions
 {
 	#region accessing
@@ -17,6 +17,15 @@ public static class GameObjectExtensions
 	public static IEnumerable<GameObject> selectObjects(this IList<Component> components)
 		=> components.select(component => component.gameObject);
 	#endregion accessing
+
+
+	#region determining prefabness
+
+	public static bool isPrefabAsset(this GameObject gameObject)
+		=> gameObject.scene.rootCount == 0;
+	public static bool isNotPrefabAsset(this GameObject gameObject)
+		=> !gameObject.isPrefabAsset();
+	#endregion determining prefabness
 
 
 	#region existence
@@ -43,29 +52,37 @@ public static class GameObjectExtensions
 	public static GameObject createAsObject(this string name)
 		=> new GameObject(name);
 
-	// method: create a fresh game object with this given name, as a child object of the given transform, then return the created game object //
-	public static GameObject createAsChildObjectOf(this string name, Transform parent)
-		=> new GameObject(name).setParentTo(parent);
-
-	// method: create a fresh game object with this given name, as a child object of the given game object, then return the created game object //
-	public static GameObject createAsChildObjectOf(this string name, GameObject parentObject)
-		=> new GameObject(name).setParentTo(parentObject);
-
-	// method: create a fresh game object with this given name, as a child object of the transform of the given component, then return the created game object //
-	public static GameObject createAsChildObjectOf(this string name, Component parentComponent)
-		=> new GameObject(name).setParentTo(parentComponent);
-
-	// method: create a fresh game object as a child of this given transform, with the given name (defaulted to "New Game Object"), then return the created game object //
-	public static GameObject createChildObject(this Transform parent, string name = "New Game Object")
-		=> name.createAsChildObjectOf(parent);
-
-	// method: create a fresh game object as a child of this given game object, with the given name (defaulted to "New Game Object"), then return the created game object //
-	public static GameObject createChildObject(this GameObject parentObject, string name = "New Game Object")
-		=> name.createAsChildObjectOf(parentObject);
-
-	// method: create a fresh game object as a child of the transform of this given component, with the given name (defaulted to "New Game Object"), then return the created game object //
-	public static GameObject createChildObject(this Component parentComponent, string name = "New Game Object")
-		=> name.createAsChildObjectOf(parentComponent);
+	// method: create a fresh game object with this given name, as a child object of the given parent transform, with position and rotation transformations matching the parent, matching the labels to the parent according to the given 'matchLabelsToParent' boolean, then return the created game object //
+	public static GameObject createAsChildObjectOf
+	(
+		this string name,
+		object parentTransform_TransformProvider,
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	)
+		=>	new GameObject(name)
+				.setParentTo(parentTransform_TransformProvider)
+				.resetLocalPosition()
+				.resetLocalRotation(matchRotationToParent)
+				.setLabelsTo(parentTransform_TransformProvider,
+					matchLayersToParent);
+	
+	public static GameObject createChildObject
+	(
+		this GameObject parentObject,
+		string name = Default.newGameObjectName,
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	)
+		=> name.createAsChildObjectOf(parentObject, matchRotationToParent, matchLayersToParent);
+	public static GameObject createChildObject
+	(
+		this Component parentComponent,
+		string name = Default.newGameObjectName,
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	)
+		=> parentComponent.gameObject.createChildObject(name, matchRotationToParent, matchLayersToParent);
 	#endregion creating fresh game objects
 
 
@@ -74,32 +91,68 @@ public static class GameObjectExtensions
 	// method: create an instance of this given object template (object instance or prefab), with the given name (using the template's name if empty (which is the default)), then return the created game object //
 	public static GameObject create(this GameObject template, string name = "")
 		=>	UnityEngine.Object.Instantiate(template)
-			.setNameTo(name.substituteIfEmpty(template.name));
+				.setNameTo(name.ifEmptyThen(template.name));
 
-	// method: create an instance of this given object template (object instance or prefab), as a child object of the given transform, then return the created game object //
-	public static GameObject createAsChildObjectOf(this GameObject template, Transform parent)
-		=> template.create().setParentTo(parent).resetLocalPosition();
-	// method: create an instance of this given object template (object instance or prefab), as a child object of the given game object, then return the created game object //
-	public static GameObject createAsChildObjectOf(this GameObject template, GameObject parentObject)
-		=> template.createAsChildObjectOf(parentObject.transform);
-	// method: create an instance of this given object template (object instance or prefab), as a child object of the transform of the given component, then return the created game object //
-	public static GameObject createAsChildObjectOf(this GameObject template, Component parentComponent)
-		=> template.createAsChildObjectOf(parentComponent.transform);
-	// method: create an instance of this given object template (object instance or prefab), as a child object of the transform of the specified singleton behaviour class, then return the created game object //
-	public static GameObject createAsChildObjectOf<SingletonBehaviourT>(this GameObject template) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> template.createAsChildObjectOf(SingletonBehaviour<SingletonBehaviourT>.transform);
-
-	// method: create an instance of the given object template (object instance or prefab), as a child object of this given transform, with the given name (using the template's name if empty (which is the default)), then return the created game object //
-	public static GameObject createChildObject(this Transform parent, GameObject template, string name = "")
-		=> template.createAsChildObjectOf(parent)
-			.setNameTo(name.substituteIfEmpty(template.name));
-	// method: create an instance of the given object template (object instance or prefab), as a child object of this given game object, with the given name (using the template's name if empty (which is the default)), then return the created game object //
-	public static GameObject createChildObject(this GameObject parentObject, GameObject template, string name = "")
-		=> parentObject.transform.createChildObject(template, name);
-	// method: create an instance of the given object template (object instance or prefab), as a child object of the transform of this given component, with the given name (using the template's name if empty (which is the default)), then return the created game object //
-	public static GameObject createChildObject(this Component parentComponent, GameObject template, string name = "")
-		=> parentComponent.transform.createChildObject(template, name);
+	// methods: create an instance of this given game object template (object instance or prefab), as a child of the given provided parent transform, with position and rotation transformations matching the parent, matching the labels to the parent according to the given 'matchLabelsToParent' boolean, then return the created game object //
+	public static GameObject createAsChildObjectOf
+	(
+		this GameObject template,
+		object parentTransform_TransformProvider,
+		bool matchRotationToParent = Default.matchingOfRotationToParentForTemplatedGameObjectCreation,
+		bool matchLabelsToParent = Default.matchingOfLabelsToParentForTemplatedGameObjectCreation
+	)
+		=>	template.create()
+				.setParentTo(parentTransform_TransformProvider)
+				.resetLocalPosition()
+				.resetLocalRotation(matchRotationToParent)
+				.setLabelsTo(parentTransform_TransformProvider,
+					matchLabelsToParent);
+	public static GameObject createAsChildObjectOf<SingletonBehaviourT>
+	(
+		this GameObject template,
+		bool matchRotationToParent = Default.matchingOfRotationToParentForTemplatedGameObjectCreation,
+		bool matchLabelsToParent = Default.matchingOfLabelsToParentForTemplatedGameObjectCreation
+	) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> template.createAsChildObjectOf(SingletonBehaviour<SingletonBehaviourT>.transform, matchRotationToParent, matchLabelsToParent);
+	
+	public static GameObject createChildObject
+	(
+		this GameObject parentObject,
+		GameObject template,
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForTemplatedGameObjectCreation,
+		bool matchLabelsToParent = Default.matchingOfLabelsToParentForTemplatedGameObjectCreation
+	)
+		=> template.createAsChildObjectOf(parentObject, matchRotationToParent, matchLabelsToParent)
+			.setNameTo(name.ifEmptyThen(template.name));
+	public static GameObject createChildObject
+	(
+		this Component parentComponent,
+		GameObject template,
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForTemplatedGameObjectCreation,
+		bool matchLabelsToParent = Default.matchingOfLabelsToParentForTemplatedGameObjectCreation
+	)
+		=> parentComponent.gameObject.createChildObject(template, name, matchRotationToParent, matchLabelsToParent);
 	#endregion creating templated game objects
+
+
+	#region duplicating game objects
+	
+	// method: create a duplicate of this given game object, as a sibling of this given game object, with the given name (using this given game object's name if empty (which is the default)), then return the created game object //
+	public static GameObject createDuplicate(this GameObject gameObject, string name = "")
+		=>	UnityEngine.Object.Instantiate(gameObject, gameObject.parent())
+				.setNameTo(name.ifEmptyThen(gameObject.name));
+	
+	public static GameObject createTemporaryDuplicate(this GameObject gameObject, string name = "")
+		=> gameObject.createDuplicate(name).makeTemporary();
+
+	public static GameObject createDuplicateWithOnly<ComponentT>(this GameObject gameObject, string name = "") where ComponentT : Component
+		=> gameObject.createDuplicate(name).destroyAllComponentsThatAreNot<ComponentT>();
+
+	public static GameObject createDuplicateWithout<ComponentT>(this GameObject gameObject, string name = "") where ComponentT : Component
+		=> gameObject.createDuplicate(name).destroyEach<ComponentT>();
+	#endregion duplicating game objects
 
 
 	#region hierarchy selection
@@ -117,14 +170,17 @@ public static class GameObjectExtensions
 
 
 	#region printing
-
-	// method: have this given game object print the given string, prefixed with this given game object's name, then retun this given game object //
-	public static GameObject printNamely(this GameObject gameObject, string string_)
-	{
-		(gameObject.name+": "+string_).print();
-
-		return gameObject;
-	}
+	
+	public static GameObject asThisObjectLog(this GameObject gameObject, string string_, string loggingSeparator = Default.loggingSeparator)
+		=> gameObject.after(()=> string_.logAs(""+gameObject, gameObject, loggingSeparator));
+	
+	public static List<GameObject> asEachObjectLog(this IEnumerable<GameObject> gameObjects, string string_, string loggingSeparator = Default.loggingSeparator)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.asThisObjectLog(string_, loggingSeparator));
+	
+	public static HashSet<GameObject> setAfterAsEachObjectLogging(this IEnumerable<GameObject> gameObjects, string string_, string loggingSeparator = Default.loggingSeparator)
+		=>	gameObjects.setAfterForEach(gameObject =>
+				gameObject.asThisObjectLog(string_, loggingSeparator));
 	#endregion printing
 
 
@@ -162,6 +218,10 @@ public static class GameObjectExtensions
 	// method: toggle the activity of this given game object, then return this given game object //
 	public static GameObject toggleActivity(this GameObject gameObject)
 		=> gameObject.toggleActivityBy(Toggling.invertToggle);
+	// method: toggle the activity of these given game objects, then return the list of these given game objects //
+	public static List<GameObject> toggleActivity(this IEnumerable<GameObject> gameObjects)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.toggleActivity());
 
 	// method: set the activity of these given game objects to the given boolean, then return them //
 	public static GameObject[] setActivityTo(this GameObject[] gameObjects, bool activity)
@@ -175,6 +235,16 @@ public static class GameObjectExtensions
 	public static GameObject[] deactivate(this GameObject[] gameObjects)
 		=> gameObjects.setActivityTo(false);
 	#endregion activity
+
+
+	#region labels setting
+
+	// method: (according to the given boolean:) set the labels (tag and layer) of this given provided game object to the labels (respectively) of the other given provided game object, then return this given provided game object //
+	public static ObjectT setLabelsTo<ObjectT>(this ObjectT gameObject_GameObjectProvider, object otherGameObject_GameObjectProvider, bool boolean = true)
+		=>	gameObject_GameObjectProvider
+				.setTagTo(otherGameObject_GameObjectProvider, boolean)
+				.setLayerTo(otherGameObject_GameObjectProvider, boolean);
+	#endregion labels setting
 
 
 	#region acting
@@ -227,15 +297,15 @@ public static class GameObjectExtensions
 
 	#region calling local methods
 
-	// method: if this given game object exists and the given boolean is true: call all of this given game object's mono behaviours' defined methods (ignoring inherited methods that haven't been overriden) with the given name, then return this given game object //
-	public static GameObject callAllLocal(this GameObject gameObject, string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
+	// method: if this given game object exists and the given boolean is true: execute all of this given game object's mono behaviours' defined methods (ignoring inherited methods that haven't been overriden) with the given name, then return this given game object //
+	public static GameObject executeAllLocal(this GameObject gameObject, string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
 		=> gameObject.after(()=>
 			gameObject.SendMessage(methodName, sendMessageOptions),
 			boolean);
 
 	// method: (if in the editor:) have all mono behaviours on this game object validate (if they have OnValidate defined), then return this given game object //
 	public static GameObject validate_IfInEditor(this GameObject gameObject)
-		=>	gameObject.callAllLocal
+		=>	gameObject.executeAllLocal
 			(
 				"OnValidate", SendMessageOptions.DontRequireReceiver,
 				UnityIs.inEditor

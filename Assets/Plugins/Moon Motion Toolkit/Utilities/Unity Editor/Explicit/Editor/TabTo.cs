@@ -14,4 +14,7 @@ public static class TabTo
 	
 	public static void game()
 		=> EditorApplication.ExecuteMenuItem("Window/Game");
+	
+	public static void assets()
+		=> EditorUtility.FocusProjectWindow();
 }

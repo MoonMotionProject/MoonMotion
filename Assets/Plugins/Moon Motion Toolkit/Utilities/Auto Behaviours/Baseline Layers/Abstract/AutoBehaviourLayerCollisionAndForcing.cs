@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto #collision #raycasting #force
 // • provides this behaviour with methods for handling collision and forcing
 public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
-					AutoBehaviourLayerComponentShortcutsMoonMotion<AutoBehaviourT>
+					AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region calculating targeted force
@@ -91,7 +91,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 
 	#region mistargetedly forcing
 
-	public AutoBehaviourT forceTargetAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public AutoBehaviourT forceTargetAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 		=>	selfAfter(()=>
 				position.forceTargetAsThoughMistargeting
 				(
@@ -105,7 +105,7 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 					clamp
 				));
 
-	public AutoBehaviourT attractAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public AutoBehaviourT attractAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 		=>	selfAfter(()=>
 				position.attractAsThoughMistargeting
 				(
@@ -117,8 +117,29 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 					zeroForceOutsideReach,
 					clamp
 				));
+	public AutoBehaviourT applyMistargetedAttractionFrom
+	(
+		Vector3 forcingPosition,
+		object mistargetPosition_PositionProvider,
+		float magnitude = Default.forceMagnitude,
+		float reach = Default.forceReach,
+		InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve,
+		bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach,
+		bool clamp = Default.targetedForceClamping
+	)
+		=>	selfAfter(()=>
+				rigidbody.applyMistargetedAttractionFrom
+				(
+					forcingPosition,
+					mistargetPosition_PositionProvider,
+					magnitude,
+					reach,
+					reachMagnitudeZeroingCurve,
+					zeroForceOutsideReach,
+					clamp
+				));
 
-	public AutoBehaviourT repelAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public AutoBehaviourT repelAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 		=>	selfAfter(()=>
 				position.repelAsThoughMistargeting
 				(
@@ -149,6 +170,56 @@ public abstract class	AutoBehaviourLayerCollisionAndForcing<AutoBehaviourT> :
 		=> position.rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
 	public bool hasAnyRigidbodiesWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> position.hasAnyRigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
+
+	public HashSet<ComponentT> componentsWithinRadius<ComponentT>
+	(
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	position.componentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public bool hasAnyComponentsWithinRadius<ComponentT>
+	(
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	position.hasAnyComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+
+	public HashSet<ComponentT> correspondingComponentsWithinRadius<ComponentT>
+	(
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	position.objectsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).uniqueCorresponding<ComponentT>();
+	public bool hasAnyCorrespondingComponentsWithinRadius<ComponentT>
+	(
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	position.correspondingComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).hasAny();
 	#endregion radial collision
 
 

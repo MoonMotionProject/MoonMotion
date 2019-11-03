@@ -15,5 +15,7 @@ public static class MoonMotion
 	public const string newProjectName = "New Moon Motion Project";
 
 	public const string playerName = "Player";
+
+	public const string playerLayerName = playerName;
 	#endregion names
 }

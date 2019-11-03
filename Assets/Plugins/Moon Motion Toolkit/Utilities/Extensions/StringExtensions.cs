@@ -18,6 +18,14 @@ public static class StringExtensions
 	#endregion equality
 
 
+	#region containment
+
+	// method: return whether this given string contains the other given string //
+	public static bool contains(this string string_, string otherString)
+		=> string_.Contains(otherString);
+	#endregion containment
+
+
 	#region handling emptiness, nullness, and onlyness
 
 	// method: return whether this given string is empty //
@@ -57,7 +65,7 @@ public static class StringExtensions
 		=> boolean ? targetString : string_;
 
 	// method: if this given string is empty, return the given target string instead of this given string //
-	public static string substituteIfEmpty(this string string_, string targetString)
+	public static string ifEmptyThen(this string string_, string targetString)
 		=> string_.substituteIf(string_.isEmpty(), targetString);
 
 	// method: return whether this given string contains only (some amount of) the given character //
@@ -146,6 +154,12 @@ public static class StringExtensions
 
 	public static string from(this string string_, int index)
 		=> string_.Substring(index);
+
+	public static string to(this string string_, int index)
+		=> string_.Substring(0, index + 1);
+
+	public static string toFirst(this string string_, string soughtString)
+		=> string_.until(string_.indexAfterFirst(soughtString));
 
 	public static string until(this string string_, int index)
 		=> string_.Substring(0, index);
@@ -252,6 +266,20 @@ public static class StringExtensions
 	#endregion suffixing
 
 
+	#region spacing
+
+	// method: return this given string with spaces between each change in capitalization //
+	// reference: https://stackoverflow.com/a/155487/3900755 //
+	public static string pascalSpaced(this string string_)
+		=>	Regex.Replace
+			(
+				string_,
+				"([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))",
+				"$1 "
+			);
+	#endregion spacing
+
+
 	#region surrounding
 
 	// method: return this given string surrounded by the other given string //
@@ -295,6 +323,15 @@ public static class StringExtensions
 	public static string joinBySemicolons(this IEnumerable<string> strings)
 		=> strings.joinBy(";");
 	#endregion joining
+
+
+	#region including
+
+	// method: include the given string in this given hash set if the given string is not empty, then return this given hash set //
+	public static HashSet<string> includeIfNotEmpty(this HashSet<string> set, string string_)
+		=>	set.include(string_,
+				string_.isNotEmpty());
+	#endregion including
 
 
 	#region file writing

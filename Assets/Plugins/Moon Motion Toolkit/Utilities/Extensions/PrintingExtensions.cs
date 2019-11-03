@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Printing Extensions: provides extension methods for printing //
+// Printing Extensions:
+// • provides extension methods for printing
+// #console
 public static class PrintingExtensions
 {
 	#region printing what is given
@@ -14,7 +16,11 @@ public static class PrintingExtensions
 		string stringToPrint = string_.substituteIfContainsOnlySpaces("{printed an empty string or string of only spaces}");
 		if (contextGameObject.isYull())
 		{
-			Debug.Log(stringToPrint, contextGameObject);
+			Debug.Log
+			(
+				stringToPrint,
+				contextGameObject
+			);
 		}
 		else
 		{
@@ -25,19 +31,19 @@ public static class PrintingExtensions
 
 	// method: print this given object, optionally with the given game object as the context, then return it //
 	public static ObjectT print<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
-		=> object_.after(()=>
-			object_.ToString().print(contextGameObject));
+		=>	object_.after(()=>
+				object_.ToString().print(contextGameObject));
 	// method: print this given game object with itself as the context, then return it //
 	public static GameObject print(this GameObject gameObject)
 		=> gameObject.print(gameObject);
 
 	// method: print this given object, optionally with the given game object as the context, logged as following the given prefix and using the given logging separator, then return this given object //
-	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator, GameObject contextGameObject = null)
-		=> object_.after(()=>
-			(prefix+loggingSeparator+object_.ToString()).print(contextGameObject));
+	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)
+		=>	object_.after(()=>
+				(prefix+loggingSeparator+object_.ToString()).print(contextGameObject));
 	// method: print this given game object with itself as the context, logged as following the given prefix and using the given logging separator, then return this given game object //
 	public static GameObject logAs(this GameObject gameObject, string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> gameObject.logAs(prefix, loggingSeparator, gameObject);
+		=> gameObject.logAs(prefix, gameObject, loggingSeparator);
 	#endregion printing what is given
 
 

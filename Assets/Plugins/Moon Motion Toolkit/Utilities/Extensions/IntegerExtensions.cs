@@ -47,6 +47,10 @@ public static class IntegerExtensions
 	// method: return whether this given integer is between (in exclusive range of) the given lower and upper bound values //
 	public static bool between(this int integer, float lower, float upper)
 		=> (lower < integer) && (integer < upper);
+
+	public static bool isPlural(this int integer)
+		=>	integer < -1 ||
+			integer > 1;
 	#endregion range determination
 
 
@@ -95,23 +99,41 @@ public static class IntegerExtensions
 
 	#region clamping
 
-	public static int least(this int integer, int otherInteger)
-		=> Mathf.Max(integer, otherInteger);
+	public static int atLeast(this int integer, int otherInteger, bool boolean = true)
+	{
+		if (boolean)
+		{
+			return Mathf.Max(integer, otherInteger);
+		}
+		return integer;
+	}
 
-	public static int most(this int integer, int otherInteger)
-		=> Mathf.Min(integer, otherInteger);
+	public static int atLeastZero(this int integer, bool boolean = true)
+		=> integer.atLeast(0, boolean);
+
+	public static int atLeastOne(this int integer, bool boolean = true)
+		=> integer.atLeast(1, boolean);
+
+	public static int atMost(this int integer, int otherInteger, bool boolean = true)
+	{
+		if (boolean)
+		{
+			return Mathf.Min(integer, otherInteger);
+		}
+		return integer;
+	}
 
 	public static int clampedFinite(this int integer)
-		=> integer.least(int.MinValue).most(int.MaxValue);
+		=> integer.atLeast(int.MinValue).atMost(int.MaxValue);
 
 	public static int clampedFiniteAndNonnegative(this int integer)
-		=> integer.least(0).most(int.MaxValue);
+		=> integer.atLeast(0).atMost(int.MaxValue);
 
 	public static int clampedNonnegative(this int integer)
-		=> integer.least(0);
+		=> integer.atLeast(0);
 
 	public static int clampedNonpositive(this int integer)
-		=> integer.most(0);
+		=> integer.atMost(0);
 	#endregion clamping
 
 
@@ -160,6 +182,22 @@ public static class IntegerExtensions
 	public static int squared(this int integer)
 		=> ((int)integer.toThePowerOf(2));
 	#endregion math operations
+
+
+	#region execution
+
+	// method: execute the given action for each index in the range for this given count, then return this given count //
+	public static int timesExecute(this int count, Action action)
+		=> ForEach.inCount(count, action);
+
+	// method: execute the given action upon the current index for each index in the range for this given count starting from the given starting index, then return this given count //
+	public static int timesExecuteUponIndexStartingFrom(this int count, int startingIndex, Action<int> action)
+		=> ForEach.inCount(count, action, startingIndex);
+
+	// method: execute the given action upon the current index for each index in the range for this given count starting from zero, then return this given count //
+	public static int timesUponIndexExecute(this int count, Action<int> action)
+		=> count.timesExecuteUponIndexStartingFrom(0, action);
+	#endregion execution
 
 
 	#region conversion

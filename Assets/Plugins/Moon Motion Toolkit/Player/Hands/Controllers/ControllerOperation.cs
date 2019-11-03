@@ -1,7 +1,11 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
+using NaughtyAttributes;
+#endif
 
 // Controller Operation:
 // • a controller operation is used to determine controller operational status based on:
@@ -13,31 +17,77 @@ using UnityEngine;
 // • represents a Controller Operation as a scriptable object, with the aforementioned settings
 // • provides methods for determining information about how controller operations are currently operated
 [CreateAssetMenu(fileName = "New Controller Operation", menuName = "Moon Motion/Controller Operation")]
-public class ControllerOperation : ScriptableObject
+public class ControllerOperation : ResetFixedScriptableObject
 {
-	#region variables
+	#region settings
 
 
-	[InfoBox("the controller handedness (determining which controllers to check operation of) – infinite handedness results in always being operated; neither handedness is the simplest way to have this controller operation never be operated")]
+	[Tooltip("the controller handedness (determining which controllers to check operation of) – infinite handedness results in always being operated; neither handedness is the simplest way to have this controller operation never be operated")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Handedness")]
+	[EnumToggleButtons]
+	[HideLabel]
+	#else
+	[BoxGroup("Handedness")]
+	#endif
 	public Controller.Handedness handedness = Default.controllerHandedness;
-	[InfoBox("whether to return the left versus the right controller as the first operated controller when operating without any controllers operating (only relevant when handedness is infinite)")]
+
+	private bool fallbackToLeftVersusRight_ShowIf => handedness.isInfinite();
+	[Tooltip("whether to return the left versus the right controller as the first operated controller when operating without any controllers operating (only relevant when handedness is infinite)")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Handedness")]
+	[ToggleLeft]
+	[ShowIf("fallbackToLeftVersusRight_ShowIf")]
+	#else
+	[BoxGroup("Handedness")]
+	#endif
 	public bool fallbackToLeftVersusRight = Default.leftnessVersusRightness;
-	[InfoBox("the controller inputs (to check operation upon)")]
+
+	[Tooltip("the controller inputs (to check operation upon)")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Input")]
+	#else
+	[BoxGroup("Input")]
 	[ReorderableList]
+	#endif
 	public Controller.Input[] inputs;
-	[InfoBox("the controller inputtednesses (to check operation by)")]
+
+	[Tooltip("the controller inputtednesses (to check operation by)")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Input")]
+	#else
+	[BoxGroup("Input")]
 	[ReorderableList]
+	#endif
 	public Controller.Inputtedness[] inputtednesses;
-	[InfoBox("the states of being (to check operation at)")]
+
+	[Tooltip("the states of being (to check operation at)")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Input")]
+	#else
+	[BoxGroup("Input")]
 	[ReorderableList]
+	#endif
 	public Beingness[] beingnesses;
-	[InfoBox("the dependencies to check thoroughly (by which to condition this operation where each dependency is necessary)")]
+
+	[Tooltip("the dependencies to check thoroughly (by which to condition this operation where each dependency is necessary)")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Dependencies")]
+	#else
+	[BoxGroup("Dependencies")]
 	[ReorderableList]
+	#endif
 	public Dependency[] dependenciesThorough;
-	[InfoBox("the dependencies to check partially (by which to condition this operation where any of the dependencies is necessary)")]
+
+	[Tooltip("the dependencies to check partially (by which to condition this operation where any of the dependencies is necessary)")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Dependencies")]
+	#else
+	[BoxGroup("Dependencies")]
 	[ReorderableList]
+	#endif
 	public Dependency[] dependenciesPartial;
-	#endregion variables
+	#endregion settings
 
 
 

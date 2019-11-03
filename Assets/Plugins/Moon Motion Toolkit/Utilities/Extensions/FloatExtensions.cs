@@ -118,6 +118,8 @@ public static class FloatExtensions
 	// method: return whether this given float is zero (unsigned) //
 	public static bool isZero(this float float_)
 		=> (float_ == 0f);
+	public static bool isNonzero(this float float_)
+		=> !float_.isZero();
 
 	// method: return the sign integer of this given float, where zero is positive //
 	public static int signWhereZeroIsPositive(this float float_)
@@ -161,6 +163,9 @@ public static class FloatExtensions
 
 	public static float atLeastZero(this float float_, bool boolean = true)
 		=> float_.atLeast(0f, boolean);
+
+	public static float atLeastOne(this float float_, bool boolean = true)
+		=> float_.atLeast(1f, boolean);
 
 	public static float atMost(this float float_, float otherFloat, bool boolean = true)
 	{

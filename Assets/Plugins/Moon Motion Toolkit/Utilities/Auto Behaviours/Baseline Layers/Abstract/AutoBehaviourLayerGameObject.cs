@@ -8,20 +8,38 @@ using UnityEngine.SceneManagement;
 // #auto #gameobject
 // • provides this behaviour with properties and methods for its game object
 public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
-					AutoBehaviourLayerComponentsMoonMotion<AutoBehaviourT>
+					AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
+	#region determining prefabness
+
+	public bool isPrefabAsset => gameObject.isPrefabAsset();
+	public bool isNotPrefabAsset => !isPrefabAsset;
+	#endregion determining prefabness
+	
+
 	#region creating fresh game objects
 
-	public GameObject createChildObject(string name = "New Game Object")
-		=> transform.createChildObject(name);
+	public GameObject createChildObject
+	(
+		string name = Default.newGameObjectName,
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	)
+		=> transform.createChildObject(name, matchRotationToParent, matchLayersToParent);
 	#endregion creating fresh game objects
 
 
 	#region creating templated game objects
 
-	public GameObject createChildObject(GameObject template, string name = "")
-		=> transform.createChildObject(template, name);
+	public GameObject createChildObject
+	(
+		GameObject template,
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForTemplatedGameObjectCreation,
+		bool matchLabelsToParent = Default.matchingOfLabelsToParentForTemplatedGameObjectCreation
+	)
+		=> gameObject.createChildObject(template, name, matchRotationToParent, matchLabelsToParent);
 	#endregion creating templated game objects
 
 
@@ -46,14 +64,6 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	public bool notSelected => gameObject.isNotSelected();
 	#endif
 	#endregion hierarchy selection
-
-
-	#region printing
-
-	// method: have this behaviour's game object print the given string, prefixed with this behaviour's game object's name, then return this behaviour //
-	public AutoBehaviourT printNamely(string string_)
-		=> selfAfter(()=> gameObject.printNamely(string_));
-	#endregion printing
 
 
 	#region name
@@ -97,6 +107,13 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion activity
 
 
+	#region tag setting
+
+	public AutoBehaviourT setTagTo(object tag_TagProvider, bool boolean = true)
+		=> selfAfter(()=> gameObject.setTagTo(tag_TagProvider, boolean));
+	#endregion tag setting
+
+
 	#region layer identification
 
 	public string layerName => gameObject.layerName();
@@ -109,26 +126,56 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion layer identification
 
 
+	#region layer matching
+
+	public bool layerMatches(object layerIndex_ProvidedLayerIndex)
+		=> gameObject.layerMatches(layerIndex_ProvidedLayerIndex);
+	#endregion layer matching
+
+
+	#region layer determination
+
+	public bool isPlayerLayer => gameObject.isPlayerLayer();
+	public bool isNotPlayerLayer => !isPlayerLayer;
+	
+	#if UNITOLOGY
+	public bool isPlayerNeutralLayer => layerName.isPlayerNeutralLayer();
+	
+	public bool isPlayerEnemyLayer => layerName.isPlayerEnemyLayer();
+
+	public bool isPlayerAllyLayer => layerName.isPlayerAllyLayer();
+
+	public bool isPlayerAllegianceLayer => layerName.isPlayerAllegianceLayer();
+	#endif
+	#endregion layer determination
+
+
 	#region layer setting
 
-	public AutoBehaviourT setLayerTo(string layerName, bool boolean = true)
-		=> selfAfter(()=> gameObject.setLayerTo(layerName, boolean));
-	
-	public AutoBehaviourT setLayerTo(int layerIndex, bool boolean = true)
-		=> selfAfter(()=> gameObject.setLayerTo(layerIndex, boolean));
+	public AutoBehaviourT setLayerTo(object layerIndex_LayerIndexProvider, bool boolean = true)
+		=> selfAfter(()=> gameObject.setLayerTo(layerIndex_LayerIndexProvider, boolean));
 
-	public AutoBehaviourT setChildLayerTo(string layerName, bool boolean = true)
-		=> selfAfter(()=> gameObject.setChildLayersTo(layerName, boolean));
-
-	public AutoBehaviourT setChildLayersTo(int layerIndex, bool boolean = true)
-		=> selfAfter(()=> gameObject.setChildLayersTo(layerIndex, boolean));
+	public AutoBehaviourT setLayerAndMatchingDescendantLayersTo
+	(
+		object layerIndex_LayerIndexProvider,
+		bool boolean = true
+	)
+		=>	selfAfter(()=> gameObject.setLayerAndMatchingDescendantLayersTo(layerIndex_LayerIndexProvider),
+				boolean);
 	#endregion layer setting
+
+
+	#region labels setting
+	
+	public AutoBehaviourT setLabelsTo(object otherGameObject_GameObjectProvider, bool boolean = true)
+		=> selfAfter(()=> gameObject.setLabelsTo(otherGameObject_GameObjectProvider, boolean));
+	#endregion labels setting
 
 
 	#region calling local methods
 
-	public AutoBehaviourT callAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
-		=> selfAfter(()=> gameObject.callAllLocal(methodName, sendMessageOptions, boolean));
+	public AutoBehaviourT executeAllLocal(string methodName, SendMessageOptions sendMessageOptions = SendMessageOptions.DontRequireReceiver, bool boolean = true)
+		=> selfAfter(()=> gameObject.executeAllLocal(methodName, sendMessageOptions, boolean));
 
 	public AutoBehaviourT validate_IfInEditor()
 		=> selfAfter(()=> gameObject.validate_IfInEditor());

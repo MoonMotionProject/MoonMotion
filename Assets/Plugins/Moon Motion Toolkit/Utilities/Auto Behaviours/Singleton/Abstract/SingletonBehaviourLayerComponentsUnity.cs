@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if NAV_MESH_COMPONENTS
-using UnityEngine.AI;
-#endif
 
 // Singleton Behaviour Layer Components Unity:
 // #auto #force
@@ -64,8 +61,4 @@ public abstract class	SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT
 	public static new OcclusionArea occlusionArea => autoBehaviour.occlusionArea;
 	public static new OcclusionPortal occlusionPortal => autoBehaviour.occlusionPortal;
 	public static new EdgeCollider2D edgeCollider => autoBehaviour.edgeCollider;
-	#if NAV_MESH_COMPONENTS
-	public static new NavMeshAgent navmeshAgent => autoBehaviour.navmeshAgent;
-	public static new Bipedation bipedation => autoBehaviour.bipedation;
-	#endif
 }

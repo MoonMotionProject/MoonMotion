@@ -24,8 +24,7 @@ public abstract class	CommonBehaviour<CommonBehaviourT> :
 {
 	// variables //
 
-	// trackings //
-
+	
 	private bool validatedYet = false;
 
 
@@ -42,7 +41,7 @@ public abstract class	CommonBehaviour<CommonBehaviourT> :
 
 	// updating //
 
-
+	
 	// upon validation: //
 	public override void OnValidate()
 	{

@@ -5,14 +5,19 @@ using UnityEngine;
 // Providing Extensions:
 // • provides extension methods for having dynamos provide certain types
 //   · a 'dynamo' is a dynamic type, which can be specified as a parameter in a method using the keyword 'dynamic', or as an object – in the current implementation, these methods are intended for use with 'object' parameters
-// #auto #dynamics #primitives
+// #auto #dynamics #providing #primitives
 public static class ProvidingExtensions
 {
-	#region Transform
+	#region Unity
+
 
 	public static Transform provideTransform(this object dynamo)
 	{
-		if (dynamo is Transform)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is Transform)
 		{
 			return dynamo as Transform;
 		}
@@ -20,6 +25,12 @@ public static class ProvidingExtensions
 		{
 			return (dynamo as GameObject).transform;
 		}
+		#if UNITOLOGY
+		else if (dynamo is Unit)
+		{
+			return (dynamo as Unit).bestTransform;
+		}
+		#endif
 		else if (dynamo is Component)
 		{
 			return (dynamo as Component).transform;
@@ -29,14 +40,164 @@ public static class ProvidingExtensions
 			return default(Transform).returnWithError("ProvidingExtensions.provideTransform given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion Transform
+	
 
+	public static GameObject provideGameObject(this object dynamo)
+	{
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject);
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).gameObject;
+		}
+		else
+		{
+			return default(GameObject).returnWithError("ProvidingExtensions.provideGameObject given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	
 
-	#region Collider
+	public static string provideTag(this object dynamo)
+	{
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is string)
+		{
+			return (dynamo as string);
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).tag;
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).tag;
+		}
+		else
+		{
+			return default(string).returnWithError("ProvidingExtensions.provideTag given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	
+
+	public static int provideLayerIndex(this object dynamo)
+	{
+		if (dynamo.isNull())
+		{
+			return default(int).returnWithError("ProvidingExtensions.provideLayerIndex given null dynamo");
+		}
+		else if (dynamo is int)
+		{
+			return dynamo.castTo<int>();
+		}
+		else if (dynamo is string)
+		{
+			return (dynamo as string).asLayerIndex();
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).layerIndex();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).layerIndex();
+		}
+		else
+		{
+			return default(int).returnWithError("ProvidingExtensions.provideLayerIndex given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	
+
+	public static string provideLayerName(this object dynamo)
+	{
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is string)
+		{
+			return (dynamo as string);
+		}
+		else if (dynamo is int)
+		{
+			return dynamo.castTo<int>().asLayerName();
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).layerName();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).layerName();
+		}
+		else
+		{
+			return default(string).returnWithError("ProvidingExtensions.provideLayerName given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	
+
+	public static HashSet<string> provideUniqueLayerNames(this object dynamo)
+	{
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is string)
+		{
+			return (dynamo as string).startSet();
+		}
+		else if (dynamo is int)
+		{
+			return dynamo.castTo<int>().asLayerName().startSet();
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).layerName().startSet();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).layerName().startSet();
+		}
+		else if (dynamo is IEnumerable<string>)
+		{
+			return (dynamo as IEnumerable<string>).uniqueYulls();
+		}
+		else if (dynamo is IEnumerable<int>)
+		{
+			return (dynamo as IEnumerable<int>).pickUnique(integer => integer.asLayerName());
+		}
+		else if (dynamo is IEnumerable<GameObject>)
+		{
+			return (dynamo as IEnumerable<GameObject>).pickUnique(gameObject => gameObject.layerName());
+		}
+		else if (dynamo is IEnumerable<Component>)
+		{
+			return (dynamo as IEnumerable<Component>).pickUnique(component => component.layerName());
+		}
+		else
+		{
+			return default(HashSet<string>).returnWithError("ProvidingExtensions.provideUniqueLayerNames given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+
 
 	public static Collider provideCollider(this object dynamo)
 	{
-		if (dynamo is Collider)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is Collider)
 		{
 			return (dynamo as Collider);
 		}
@@ -53,10 +214,7 @@ public static class ProvidingExtensions
 			return default(Collider).returnWithError("ProvidingExtensions.provideCollider given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion Collider
 
-
-	#region RaycastHit
 
 	public static RaycastHit provideRaycastHit(this object dynamo)
 	{
@@ -73,10 +231,7 @@ public static class ProvidingExtensions
 			return default(RaycastHit).returnWithError("ProvidingExtensions.provideRaycastHit given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion RaycastHit
 
-
-	#region position
 
 	public static Vector3 providePosition(this object dynamo)
 	{
@@ -92,6 +247,12 @@ public static class ProvidingExtensions
 		{
 			return (dynamo as GameObject).position();
 		}
+		#if UNITOLOGY
+		else if (dynamo is Unit)
+		{
+			return (dynamo as Unit).bestPosition;
+		}
+		#endif
 		else if (dynamo is Component)
 		{
 			return (dynamo as Component).position();
@@ -109,14 +270,15 @@ public static class ProvidingExtensions
 			return default(Vector3).returnWithError("ProvidingExtensions.providePosition given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion position
 
 
-	#region Rigidbody
-	
 	public static Rigidbody provideRigidbody(this object dynamo)
 	{
-		if (dynamo is Rigidbody)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is Rigidbody)
 		{
 			return dynamo as Rigidbody;
 		}
@@ -133,14 +295,15 @@ public static class ProvidingExtensions
 			return default(Rigidbody).returnWithError("ProvidingExtensions.provideRigidbody given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion Rigidbody
 
 
-	#region List<Rigidbody>
-	
 	public static List<Rigidbody> provideRigidbodies(this object dynamo)
 	{
-		if (dynamo is IEnumerable<Rigidbody>)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is IEnumerable<Rigidbody>)
 		{
 			return (dynamo as IEnumerable<Rigidbody>).manifested();
 		}
@@ -169,14 +332,15 @@ public static class ProvidingExtensions
 			return default(List<Rigidbody>).returnWithError("ProvidingExtensions.provideRigidbodies given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion List<Rigidbody>
 
-
-	#region mesh
 
 	public static Mesh provideMesh(this object dynamo)
 	{
-		if (dynamo is Mesh)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is Mesh)
 		{
 			return dynamo.castTo<Mesh>();
 		}
@@ -211,14 +375,15 @@ public static class ProvidingExtensions
 			return default(Mesh).returnWithError("ProvidingExtensions.provideMesh given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion mesh
 
-
-	#region shared mesh
 
 	public static Mesh provideSharedMesh(this object dynamo)
 	{
-		if (dynamo is Mesh)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is Mesh)
 		{
 			return dynamo.castTo<Mesh>();
 		}
@@ -235,11 +400,8 @@ public static class ProvidingExtensions
 			return default(Mesh).returnWithError("ProvidingExtensions.provideSharedMesh given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion shared mesh
 
 
-	#region primitive collider center position
-	
 	public static Vector3 providePrimitiveColliderCenterPosition(this object dynamo)
 	{
 		if (dynamo is BoxCollider)
@@ -283,11 +445,8 @@ public static class ProvidingExtensions
 			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderCenterPosition given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion primitive collider center position
 
 
-	#region primitive collider local center position
-	
 	public static Vector3 providePrimitiveColliderLocalCenterPosition(this object dynamo)
 	{
 		if (dynamo is BoxCollider)
@@ -331,70 +490,15 @@ public static class ProvidingExtensions
 			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderLocalCenterPosition given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion primitive collider local center position
 
 
-	#region layer index
-
-	public static int provideLayerIndex(this object dynamo)
-	{
-		if (dynamo is int)
-		{
-			return dynamo.castTo<int>();
-		}
-		else if (dynamo is string)
-		{
-			return (dynamo as string).asLayerIndex();
-		}
-		else if (dynamo is GameObject)
-		{
-			return (dynamo as GameObject).layerIndex();
-		}
-		else if (dynamo is Component)
-		{
-			return (dynamo as Component).layerIndex();
-		}
-		else
-		{
-			return default(int).returnWithError("ProvidingExtensions.provideLayerIndex given unrecognized dynamo of type "+dynamo.type());
-		}
-	}
-	#endregion layer index
-
-
-	#region layer name
-
-	public static string provideLayerName(this object dynamo)
-	{
-		if (dynamo is string)
-		{
-			return dynamo as string;
-		}
-		else if (dynamo is int)
-		{
-			return dynamo.castTo<int>().asLayerName();
-		}
-		else if (dynamo is GameObject)
-		{
-			return (dynamo as GameObject).layerName();
-		}
-		else if (dynamo is Component)
-		{
-			return (dynamo as Component).layerName();
-		}
-		else
-		{
-			return default(string).returnWithError("ProvidingExtensions.provideLayerName given unrecognized dynamo of type "+dynamo.type());
-		}
-	}
-	#endregion layer name
-
-
-	#region HashSet<GameObject>
-	
 	public static HashSet<GameObject> provideUniqueGameObjects(this object dynamo)
 	{
-		if (dynamo is IEnumerable<GameObject>)
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is IEnumerable<GameObject>)
 		{
 			return (dynamo as IEnumerable<GameObject>).toSet();
 		}
@@ -415,5 +519,41 @@ public static class ProvidingExtensions
 			return default(HashSet<GameObject>).returnWithError("ProvidingExtensions.provideUniqueGameObjects given unrecognized dynamo of type "+dynamo.type());
 		}
 	}
-	#endregion HashSet<GameObject>
+	#endregion Unity
+
+
+
+
+	#region nonUnity
+
+
+	#region Unitology
+	#if UNITOLOGY
+	
+	public static Unit provideUnit(this object dynamo)
+	{
+		if (dynamo.isNull())
+		{
+			return null;
+		}
+		else if (dynamo is Unit)
+		{
+			return dynamo as Unit;
+		}
+		else if (dynamo is GameObject)
+		{
+			return (dynamo as GameObject).corresponding<Unit>();
+		}
+		else if (dynamo is Component)
+		{
+			return (dynamo as Component).corresponding<Unit>();
+		}
+		else
+		{
+			return default(Unit).returnWithError("ProvidingExtensions.provideUnit given unrecognized dynamo of type "+dynamo.type());
+		}
+	}
+	#endif
+	#endregion Unitology
+	#endregion nonUnity
 }

@@ -132,7 +132,11 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			gameObject.meshFilter().mesh = null;
+			MeshFilter potentialMeshFilter = gameObject.meshFilter();
+			if (potentialMeshFilter.isYull())
+			{
+				potentialMeshFilter.mesh = null;
+			}
 		}
 
 		return gameObject;
@@ -141,7 +145,11 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			component.meshFilter().mesh = null;
+			MeshFilter potentialMeshFilter = component.meshFilter();
+			if (potentialMeshFilter.isYull())
+			{
+				potentialMeshFilter.mesh = null;
+			}
 		}
 
 		return component;
@@ -160,7 +168,11 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			gameObject.meshFilter().sharedMesh = null;
+			MeshFilter potentialMeshFilter = gameObject.meshFilter();
+			if (potentialMeshFilter.isYull())
+			{
+				potentialMeshFilter.sharedMesh = null;
+			}
 		}
 
 		return gameObject;
@@ -169,7 +181,11 @@ public static class MeshFilterExtensions
 	{
 		if (boolean)
 		{
-			component.meshFilter().sharedMesh = null;
+			MeshFilter potentialMeshFilter = component.meshFilter();
+			if (potentialMeshFilter.isYull())
+			{
+				potentialMeshFilter.sharedMesh = null;
+			}
 		}
 
 		return component;

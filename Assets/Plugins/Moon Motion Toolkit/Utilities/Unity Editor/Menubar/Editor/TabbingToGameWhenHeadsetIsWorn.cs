@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 // Tabbing To Game When Headset Is Worn:
-// • according to a menubar toggle, does not \does tab to the Game window when the headset is worn
+// • according to a menubar toggle, does\ does not tab to the Game window when the headset is worn
 [InitializeOnLoad]
 public static class TabbingToGameWhenHeadsetIsWorn
 {
@@ -17,7 +17,7 @@ public static class TabbingToGameWhenHeadsetIsWorn
 
 	private static void potentiallyTabToGameForHeadsetBeingWorn()
 	{
-		if (!state)
+		if (state)
 		{
 			if (Headset.isApparentlyBeingWorn)
 			{
@@ -30,12 +30,12 @@ public static class TabbingToGameWhenHeadsetIsWorn
 
 	#region menubar toggle
 
-	private const string menuItem = "Headset Tabbing/Do Not Tab To Game When Headset Is Worn";
+	private const string menuItem = "Headset Tabbing/Tab To Game When Headset Is Worn";
 
 	public static bool state => Menu.GetChecked(menuItem);
 
 	[MenuItem(menuItem)]
-	public static void toggleWhetherToNotTabToGameWhenHeadsetIsWorn()
+	public static void toggleWhetherToTabToGameWhenHeadsetIsWorn()
 		=> Menu.SetChecked(menuItem, !state);
 	#endregion menubar toggle
 }

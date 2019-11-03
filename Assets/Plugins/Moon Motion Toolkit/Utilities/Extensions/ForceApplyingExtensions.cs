@@ -25,20 +25,20 @@ public static class ForceApplyingExtensions
 	}
 
 	public static List<Rigidbody> applyForceOf(this IEnumerable<Rigidbody> rigidbodies, Vector3 force, bool boolean = true)
-		=> rigidbodies.forEachManifested(rigidbody =>
-			rigidbody.applyForceOf(force),
-			boolean);
+		=>	rigidbodies.forEachManifested(rigidbody =>
+				rigidbody.applyForceOf(force),
+				boolean);
 
 
 	public static GameObject applyForceOf(this GameObject gameObject, Vector3 force, bool boolean = true)
-		=> boolean ?
+		=>	boolean ?
 				gameObject.rigidbody().applyForceOf(force).gameObject :
 				gameObject;
 
 	public static List<GameObject> applyForceOf(this IEnumerable<GameObject> objects, Vector3 force, bool boolean = true)
-		=> objects.forEachManifested(gameObject =>
-			gameObject.applyForceOf(force),
-			boolean);
+		=>	objects.forEachManifested(gameObject =>
+				gameObject.applyForceOf(force),
+				boolean);
 
 
 	public static ComponentT applyForceOf<ComponentT>(this ComponentT component, Vector3 force, bool boolean = true) where ComponentT : Component

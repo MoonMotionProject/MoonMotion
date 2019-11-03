@@ -162,6 +162,32 @@ public static class Visualize
 
 
 
+	#region boxes
+
+
+	public static void boxAt(object position_PositionProvider, Color? color = null, bool boolean = true, Vector3? dimensions = null)
+	{
+		if (boolean)
+		{
+			nextColorToBe(color);
+			Gizmos.DrawCube(position_PositionProvider.providePosition(), dimensions ?? Default.boxVisualizationDimensions);
+		}
+	}
+
+	public static void boxSittingAt(object position_PositionProvider, Color? color = null, bool boolean = true, Vector3? dimensions = null)
+		=>	boxAt
+			(
+				position_PositionProvider.providePosition()
+					.withY(position_PositionProvider.providePosition().y + ((dimensions ?? Default.boxVisualizationDimensions).y / 2f)),
+				color,
+				boolean,
+				dimensions
+			);
+	#endregion boxes
+
+
+
+
 	#region spheres
 
 
@@ -174,4 +200,50 @@ public static class Visualize
 		}
 	}
 	#endregion spheres
+
+
+
+
+	#region wire spheres
+
+
+	public static void wireSphereAt(Vector3 position, float radius, bool boolean = true, Color? color = null)
+	{
+		if (boolean)
+		{
+			nextColorToBe(color);
+			Gizmos.DrawWireSphere(position, radius);
+		}
+	}
+	#endregion wire spheres
+
+
+
+
+	#region icons
+
+
+	public static void iconAt(object position_PositionProvider, string name, bool allowScaling = Default.scalingOfVisualizedIcons, bool boolean = true)
+	{
+		if (boolean)
+		{
+			Gizmos.DrawIcon(position_PositionProvider.providePosition(), name, allowScaling);
+		}
+	}
+	#endregion icons
+
+
+
+
+	#region textures
+
+
+	public static void textureAt(Rect screenRectangle, Texture texture, bool boolean = true)
+	{
+		if (boolean)
+		{
+			Gizmos.DrawGUITexture(screenRectangle, texture);
+		}
+	}
+	#endregion textures
 }

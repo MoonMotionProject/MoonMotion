@@ -150,14 +150,18 @@ public static class RigidbodyExtensions
 	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given rigidbody, then return this given rigidbody //
 	public static Rigidbody zeroVelocities(this Rigidbody rigidbody, bool boolean = true)
 		=> rigidbody.setVelocitiesTo(FloatsVector.zeroes, boolean);
-	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given game object's attached rigidbody, then return this given game object //
+	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given game object's corresponding rigidbody, then return this given game object //
 	public static GameObject zeroVelocities(this GameObject gameObject, bool boolean = true)
 		=> gameObject.after(()=>
-			gameObject.rigidbody().zeroVelocities(boolean));
-	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given component's attached rigidbody, then return this given component //
+			gameObject.correspondingRigidbody().zeroVelocities(boolean));
+	// method: (according to the given boolean:) zero the (directional and angular) velocities of these given game objects' corresponding rigidbodies, then return the list of these given game objects //
+	public static List<GameObject> zeroVelocitiesOfEach(this IEnumerable<GameObject> gameObjects, bool boolean = true)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.zeroVelocities());
+	// method: (according to the given boolean:) zero the (directional and angular) velocities of this given component's corresponding rigidbody, then return this given component //
 	public static ComponentT zeroVelocities<ComponentT>(this ComponentT component, bool boolean = true) where ComponentT : Component
 		=> component.after(()=>
-			component.rigidbody().zeroVelocities(boolean));
+			component.correspondingRigidbody().zeroVelocities(boolean));
 	#endregion velocities
 
 

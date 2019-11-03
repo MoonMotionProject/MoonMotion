@@ -12,7 +12,7 @@ public static class MistargetedForceExtensions
 	
 	#region mistargetedly forcing with the given affinity
 
-	public static Vector3 forceTargetAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, Rigidbody targetRigidbody, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 forceTargetAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, Rigidbody targetRigidbody, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 		=>	forcingPosition.after(()=>
 				targetRigidbody.applyForceOf
 				(
@@ -27,7 +27,7 @@ public static class MistargetedForceExtensions
 						clamp
 					)
 				));
-	public static Vector3 forceTargetAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 forceTargetAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -47,7 +47,7 @@ public static class MistargetedForceExtensions
 	}
 				
 
-	public static GameObject forceTargetAsThoughMistargeting(this GameObject forcingObject, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static GameObject forceTargetAsThoughMistargeting(this GameObject forcingObject, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -65,7 +65,7 @@ public static class MistargetedForceExtensions
 					));
 	}
 
-	public static ComponentT forceTargetAsThoughMistargeting<ComponentT>(this ComponentT forcingComponent, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
+	public static ComponentT forceTargetAsThoughMistargeting<ComponentT>(this ComponentT forcingComponent, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -87,7 +87,7 @@ public static class MistargetedForceExtensions
 
 	#region attracting as though mistargeting (mistargetedly forcing with attraction)
 
-	public static Vector3 attractAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 attractAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -103,7 +103,18 @@ public static class MistargetedForceExtensions
 					clamp
 				);
 	}
-	public static Vector3 attractAsThoughMistargeting<SingletonBehaviourT>(this Vector3 forcingPosition, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+	public static Vector3 applyMistargetedAttractionFrom(this object targetRigidbodies_RigidbodiesProvider, Vector3 forcingPosition, object mistargetPosition_PositionProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+		=>	forcingPosition.attractAsThoughMistargeting
+			(
+				mistargetPosition_PositionProvider,
+				targetRigidbodies_RigidbodiesProvider,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
+	public static Vector3 attractAsThoughMistargeting<SingletonBehaviourT>(this Vector3 forcingPosition, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=>	forcingPosition.attractAsThoughMistargeting
 			(
 				SingletonBehaviour<SingletonBehaviourT>.position,
@@ -114,7 +125,7 @@ public static class MistargetedForceExtensions
 				zeroForceOutsideReach,
 				clamp
 			);
-	public static Vector3 attractAsThoughMistargeting<MistargetSingletonBehaviourT, TargetSingletonBehaviourT>(this Vector3 forcingPosition, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where MistargetSingletonBehaviourT : SingletonBehaviour<MistargetSingletonBehaviourT> where TargetSingletonBehaviourT : SingletonBehaviour<TargetSingletonBehaviourT>
+	public static Vector3 attractAsThoughMistargeting<MistargetSingletonBehaviourT, TargetSingletonBehaviourT>(this Vector3 forcingPosition, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where MistargetSingletonBehaviourT : SingletonBehaviour<MistargetSingletonBehaviourT> where TargetSingletonBehaviourT : SingletonBehaviour<TargetSingletonBehaviourT>
 		=>	forcingPosition.attractAsThoughMistargeting<TargetSingletonBehaviourT>
 			(
 				SingletonBehaviour<TargetSingletonBehaviourT>.ensuredCorrespondingRigidbody,
@@ -125,7 +136,7 @@ public static class MistargetedForceExtensions
 				clamp
 			);
 
-	public static GameObject attractAsThoughMistargeting(this GameObject forcingObject, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static GameObject attractAsThoughMistargeting(this GameObject forcingObject, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -141,7 +152,7 @@ public static class MistargetedForceExtensions
 						clamp
 					));
 	}
-	public static GameObject attractAsThoughMistargeting<SingletonBehaviourT>(this GameObject forcingObject, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+	public static GameObject attractAsThoughMistargeting<SingletonBehaviourT>(this GameObject forcingObject, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=>	forcingObject.attractAsThoughMistargeting
 			(
 				SingletonBehaviour<SingletonBehaviourT>.position,
@@ -153,7 +164,7 @@ public static class MistargetedForceExtensions
 				clamp
 			);
 
-	public static ComponentT attractAsThoughMistargeting<ComponentT>(this ComponentT forcingComponent, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
+	public static ComponentT attractAsThoughMistargeting<ComponentT>(this ComponentT forcingComponent, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -170,7 +181,7 @@ public static class MistargetedForceExtensions
 					));
 	}
 
-	public static RaycastHit attractAsThoughMistargeting(this RaycastHit forcingRaycastHit, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static RaycastHit attractAsThoughMistargeting(this RaycastHit forcingRaycastHit, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -186,7 +197,7 @@ public static class MistargetedForceExtensions
 						clamp
 					));
 	}
-	public static RaycastHit attractAsThoughMistargeting<SingletonBehaviourT>(this RaycastHit forcingRaycastHit, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+	public static RaycastHit attractAsThoughMistargeting<SingletonBehaviourT>(this RaycastHit forcingRaycastHit, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=>	forcingRaycastHit.attractAsThoughMistargeting
 			(
 				SingletonBehaviour<SingletonBehaviourT>.position,
@@ -202,7 +213,7 @@ public static class MistargetedForceExtensions
 
 	#region repelling as though mistargeting (mistargetedly forcing with repulsion)
 
-	public static Vector3 repelAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static Vector3 repelAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -219,7 +230,7 @@ public static class MistargetedForceExtensions
 				);
 	}
 
-	public static GameObject repelAsThoughMistargeting(this GameObject forcingObject, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
+	public static GameObject repelAsThoughMistargeting(this GameObject forcingObject, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
@@ -236,7 +247,7 @@ public static class MistargetedForceExtensions
 					));
 	}
 
-	public static ComponentT repelAsThoughMistargeting<ComponentT>(this ComponentT forcingComponent, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
+	public static ComponentT repelAsThoughMistargeting<ComponentT>(this ComponentT forcingComponent, object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where ComponentT : Component
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 

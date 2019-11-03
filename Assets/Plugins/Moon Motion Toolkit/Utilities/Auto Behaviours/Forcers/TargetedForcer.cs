@@ -1,66 +1,153 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
 using NaughtyAttributes;
+#endif
 
 // Radial Forcer:
 // • at each physics update, targetedly forces
 // #force
-public class TargetedForcer : EnabledsEditorVisualized<TargetedForcer>
+public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 {
-	// variables //
+	#region variables
 
-	
+
+	#region editor visualization
+
+	#if ODIN_INSPECTOR
+	[TabGroup("Editor Visualization")]
+	[ToggleLeft]
+	#else
 	[BoxGroup("Editor Visualization")]
+	#endif
 	[Tooltip("whether to visualize a line to the forced object")]
 	public bool visualizeLine = Default.choiceToVisualizeInEditor;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Editor Visualization")]
+	[ToggleLeft]
+	#else
 	[BoxGroup("Editor Visualization")]
+	#endif
 	[Tooltip("whether to visualize a sphere for the reach")]
 	public bool visualizeSphere = Default.choiceToVisualizeInEditor;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Editor Visualization")]
+	[ShowIf("@visualizeLine || visualizeSphere")]
+	[HideLabel]
+	#else
+	[BoxGroup("Editor Visualization")]
+	#endif
+	[Tooltip("the color to use for editor visualization")]
+	public Color visualizationColor = Default.visualizationColor;
+	#endregion editor visualization
+	
 
-	[BoxGroup("Targetedly Forcing")]
-	[Tooltip("the object to force")]
+	#region forcing
+
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
+	[Tooltip("the objects being forced")]
+	[ReadOnly]
+	public HashSet<GameObject> forcedObjects = new HashSet<GameObject>();
+	
+	#if ODIN_INSPECTOR
+	private string targetObject_TitleSubtitle
+		=>	targetObject.isYull() ?
+				targetObject.name :
+				"null";
+	[TabGroup("Forcing")]
+	[Title("What:", "$targetObject_TitleSubtitle", horizontalLine: false)]
+	[PreviewField(Alignment = ObjectFieldAlignment.Left, AlignmentHasValue = true, Height = 80)]
+	#else
+	[BoxGroup("Forcing")]
 	[ShowAssetPreview]
+	#endif
+	[Tooltip("the object to force")]
 	public GameObject targetObject;
 
-	[BoxGroup("Targetedly Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[Space]
+	[EnumToggleButtons]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the affinity of the force")]
 	public Affinity affinity = Default.affinity;
 
-	[BoxGroup("Targetedly Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[Space]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the reach of the force")]
 	public float reach = Default.forceReach;
 
-	[BoxGroup("Targetedly Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[Space]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the magnitude of the force")]
 	public float magnitude = Default.forceMagnitude;
 
-	[BoxGroup("Targetedly Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[Space]
+	[LabelText("Interpolation Curve")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the curve by which to diminish the force's magnitude to zero from the forcing position to the force's reach")]
 	public InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve;
 
-	[BoxGroup("Targetedly Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[Space]
+	[ToggleLeft]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("whether to use zero magnitude for the force when the target is outside the reach")]
 	public bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach;
 
-	[BoxGroup("Targetedly Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[Space]
+	[ToggleLeft]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("whether to clamp the reach magnitude zeroing curve interpolation")]
 	public bool clamp = Default.directedForceClamping;
+	#endregion forcing
+	#endregion variables
 
 
 
 
-	// updating //
+	#region updating
 
 
 	// upon editor visualization: //
 	private void OnDrawGizmos()
 	{
 		Visualize.nextColorToBe(visualizationColor);
-		Visualize.lineFrom(position, targetObject.position(),
-			visualizeLine);
+		if (targetObject.isYull())
+		{
+			Visualize.lineFrom(position, targetObject.position(),
+				visualizeLine);
+		}
 		Visualize.sphereAt(position, reach,
 			visualizeSphere);
 	}
@@ -77,4 +164,5 @@ public class TargetedForcer : EnabledsEditorVisualized<TargetedForcer>
 				zeroForceOutsideReach,
 				clamp
 			);
+	#endregion updating
 }

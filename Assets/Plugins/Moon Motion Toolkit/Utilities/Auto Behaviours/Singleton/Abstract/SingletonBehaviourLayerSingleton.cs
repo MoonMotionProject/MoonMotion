@@ -39,17 +39,43 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 	#region printing
 
 	#region printing this auto behaviour
-	public static new SingletonBehaviourT print()
+	public static new AutoBehaviour<SingletonBehaviourT> print()
 		=> autoBehaviour.print();
-	public static new SingletonBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
+	public static new AutoBehaviour<SingletonBehaviourT> logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> autoBehaviour.logAs(prefix, loggingSeparator);
 	#endregion printing this auto behaviour
 
 	#region printing this auto behaviour's names
-	public static new SingletonBehaviourT printName()
+	public static new AutoBehaviour<SingletonBehaviourT> printName()
 		=> autoBehaviour.printName();
 	#endregion printing this auto behaviour's names
 	#endregion printing
+
+
+
+
+	#region erroring
+	
+	public static new AutoBehaviour<SingletonBehaviourT> logError(string errorString, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.logError(errorString, prefix, contextGameObject, loggingSeparator);
+	
+	public static new AutoBehaviour<SingletonBehaviourT> asSelfLogError(string errorString, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.asSelfLogError(errorString, loggingSeparator);
+	#endregion erroring
+
+
+
+
+	#region game object
+
+
+	#region existence
+
+	public static new bool destroyed => autoBehaviour.destroyed;
+
+	public static new bool exists => autoBehaviour.exists;
+	#endregion existence
+	#endregion game object
 	#endregion layer auto behaviour
 
 

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Descendant Extensions: provides extension methods for handling descendants //
+// Descendant Extensions:
+// • provides extension methods for handling descendants
+// #transform
 public static class DescendantExtensions
 {
 	#region determining locality or descendance
@@ -47,6 +49,22 @@ public static class DescendantExtensions
 	public static bool isLocalToOrDescendantOf<SingletonBehaviourT>(this Component component) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> component.transform.isLocalToOrDescendantOf<SingletonBehaviourT>();
 	#endregion determining locality or descendance
+
+
+	#region accessing descendants
+
+	// methods: return a list of this given provided game object's descendant transforms //
+	public static List<Transform> descendantTransforms(this GameObject gameObject)
+		=> gameObject.descendants<Transform>();
+	public static List<Transform> descendantTransforms(this Component component)
+		=> component.gameObject.descendantTransforms();
+
+	// methods: return a list of this given provided game object's descendant game objects //
+	public static List<GameObject> descendantObjects(this GameObject gameObject)
+		=> gameObject.descendantTransforms().pick(transform => transform.gameObject);
+	public static List<GameObject> descendantObjects(this Component component)
+		=> component.gameObject.descendantObjects();
+	#endregion accessing descendants
 
 
 	#region destroying descendants

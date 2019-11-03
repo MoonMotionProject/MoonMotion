@@ -14,15 +14,9 @@ public static class WhetherToShowCommonBehaviours
 	public static void setCheckednessTo(bool boolean)
 		=> Menu.SetChecked(menuItem, boolean);
 
-	private static void initializeMenuItemCheckedness()
-	{
-		setCheckednessTo(Build.includesDefine(define));
-		EditorApplication.update -= initializeMenuItemCheckedness;
-	}
-
 	static WhetherToShowCommonBehaviours()
 	{
-		EditorApplication.update += initializeMenuItemCheckedness;
+		EditorApplication.delayCall += ()=> setCheckednessTo(Build.includesDefine(define));
 	}
 
 	public static bool state => Menu.GetChecked(menuItem);

@@ -46,6 +46,9 @@ public static class LightExtensions
 	public static GameObject renderDescendantLightsBy(this GameObject gameObject, LightRenderMode lightRenderMode)
 		=> gameObject.actUponDescendantLights(descendantLights =>
 			descendantLights.renderBy(lightRenderMode));
+	public static List<GameObject> forEachRenderDescendantLightsBy(this IEnumerable<GameObject> gameObjects, LightRenderMode lightRenderMode)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.renderDescendantLightsBy(lightRenderMode));
 
 	public static Light renderByPixel(this Light light)
 		=> light.renderBy(LightRenderMode.ForcePixel);
@@ -53,6 +56,8 @@ public static class LightExtensions
 		=> lights.renderBy(LightRenderMode.ForcePixel);
 	public static GameObject renderDescendantLightsByPixel(this GameObject gameObject)
 		=> gameObject.renderDescendantLightsBy(LightRenderMode.ForcePixel);
+	public static List<GameObject> forEachRenderDescendantLightsByPixel(this IEnumerable<GameObject> gameObjects)
+		=>	gameObjects.forEachRenderDescendantLightsBy(LightRenderMode.ForcePixel);
 
 	public static Light renderByVertex(this Light light)
 		=> light.renderBy(LightRenderMode.ForceVertex);
@@ -60,6 +65,8 @@ public static class LightExtensions
 		=> lights.renderBy(LightRenderMode.ForceVertex);
 	public static GameObject renderDescendantLightsByVertex(this GameObject gameObject)
 		=> gameObject.renderDescendantLightsBy(LightRenderMode.ForceVertex);
+	public static List<GameObject> forEachRenderDescendantLightsByVertex(this IEnumerable<GameObject> gameObjects)
+		=>	gameObjects.forEachRenderDescendantLightsBy(LightRenderMode.ForceVertex);
 	#endregion setting render mode
 
 

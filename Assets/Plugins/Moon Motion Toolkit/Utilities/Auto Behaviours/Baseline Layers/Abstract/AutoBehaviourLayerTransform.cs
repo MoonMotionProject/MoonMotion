@@ -56,15 +56,13 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 
 
 	#region parent
-
-	public bool parentless => transform.parentless();
+	
+	public bool hasAnyParent => transform.hasAnyParent();
+	public bool isParentless => transform.isParentless();
 	public Transform parent => transform.parent;
-	public Transform setParentTo(Transform parentTransform, bool boolean = true)
-		=> transform.setParentTo(parentTransform, boolean);
-	public Transform setParentTo(GameObject parentObject, bool boolean = true)
-		=> transform.setParentTo(parentObject, boolean);
-	public Transform setParentTo(Component parentComponent, bool boolean = true)
-		=> transform.setParentTo(parentComponent, boolean);
+	public GameObject parentObject => transform.parentObject();
+	public Transform setParentTo(object parentTransform_TransformProvider, bool boolean = true)
+		=> transform.setParentTo(parentTransform_TransformProvider, boolean);
 	public Transform setParentTo<ParentSingletonBehaviourT>(bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
 		=> transform.setParentTo<ParentSingletonBehaviourT>(boolean);
 	public Transform unparent(bool boolean = true)
@@ -176,6 +174,14 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	#endregion child iteration
 
 
+	#region accessing descendants
+	
+	public List<Transform> descendantTransforms => gameObject.descendantTransforms();
+	
+	public List<GameObject> descendantObjects => gameObject.descendantObjects();
+	#endregion accessing descendants
+
+
 	#region destroying descendants
 
 	public AutoBehaviourT destroyLastDescendantObjectWithComponentIfItExists<ComponentT>() where ComponentT : Component
@@ -237,6 +243,9 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	
 	public AutoBehaviourT faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> selfAfter(()=> transform.faceCamera(withX, withY, withZ, boolean, upDirection_MaxOf1));
+
+	public AutoBehaviourT faceWithY(object targetPosition_PositionProvider, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> selfAfter(()=> gameObject.faceWithY(targetPosition_PositionProvider, boolean, upDirection_MaxOf1));
 	#endregion facing
 
 
@@ -344,10 +353,12 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	#region nearest of
 	public Vector3 nearestOf(IEnumerable<Vector3> positions)
 		=> transform.nearestOf(positions);
-	public Transform nearestOf(IEnumerable<Transform> transforms)
-		=> transform.nearestOf(transforms);
 	public GameObject nearestOf(IEnumerable<GameObject> gameObjects)
 		=> transform.nearestOf(gameObjects);
+	public ComponentT nearestOf<ComponentT>(IEnumerable<ComponentT> components) where ComponentT : Component
+		=> transform.nearestOf(components);
+	public MonoBehaviourI nearestOfI<MonoBehaviourI>(IEnumerable<MonoBehaviourI> components) where MonoBehaviourI : class
+		=> transform.nearestOfI(components);
 	#endregion nearest of
 
 	#region farthest of
@@ -362,12 +373,20 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	#region is within distance of
 	public bool isWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
 		=> position.isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	public bool isNotWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
+		=> position.isNotWithinDistanceOf(position_PositionProvider, thresholdDistance);
 	public bool isWithinDistanceOf<SingletonBehaviourT>(float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> position.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
+	public bool isNotWithinDistanceOf<SingletonBehaviourT>(float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position.isNotWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
 	public bool isWithinDistanceOfCamera(float thresholdDistance)
 		=> position.isWithinDistanceOfCamera(thresholdDistance);
+	public bool isNotWithinDistanceOfCamera(float thresholdDistance)
+		=> position.isNotWithinDistanceOfCamera(thresholdDistance);
 	public bool isWithinDistanceOfPlayer(float thresholdDistance)
 		=> position.isWithinDistanceOfPlayer(thresholdDistance);
+	public bool isNotWithinDistanceOfPlayer(float thresholdDistance)
+		=> position.isNotWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
 
 	#region is more distant than

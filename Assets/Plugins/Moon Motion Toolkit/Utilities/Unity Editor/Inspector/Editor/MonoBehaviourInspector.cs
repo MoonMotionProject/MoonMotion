@@ -5,6 +5,7 @@ using UnityEditor;
 
 // Mono Behaviour Inspector:
 // • extends Unity's 'Editor' class for behaviours' inspectors to simplify common 'Editor' functionality
+// #mono
 public abstract class MonoBehaviourInspector<MonoBehaviourT> : Editor where MonoBehaviourT : MonoBehaviour
 {
 	// properties //

@@ -58,7 +58,7 @@ public static class RadialCollisionExtensions
 	#endregion with objects
 
 
-	#region with rigidbodies
+	#region with (corresponding) rigidbodies
 
 	public static HashSet<Rigidbody> rigidbodiesWithin(this Vector3 centerPosition, float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	centerPosition.collidersWithin
@@ -66,7 +66,7 @@ public static class RadialCollisionExtensions
 				radius,
 				triggerColliderQuery,
 				layerMask_MaxOf1
-			).uniqueRigidbodies();
+			).uniqueCorrespondingRigidbodies();
 	public static bool hasAnyRigidbodiesWithin(this Vector3 centerPosition, float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> centerPosition.rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1).hasAny();
 
@@ -79,5 +79,262 @@ public static class RadialCollisionExtensions
 		=> centerObject.position().rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
 	public static bool hasAnyRigidbodiesWithin(this GameObject centerObject, float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> centerObject.rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1).hasAny();
-	#endregion with rigidbodies
+	#endregion with (corresponding) rigidbodies
+
+
+	#region with components
+
+	public static HashSet<ComponentT> componentsWithinRadius<ComponentT>
+	(
+		this Vector3 centerPosition,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerPosition.objectsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).unique<ComponentT>();
+	public static bool hasAnyComponentsWithinRadius<ComponentT>
+	(
+		this Vector3 centerPosition,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerPosition.componentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).hasAny();
+
+	public static HashSet<ComponentT> componentsWithinRadius<ComponentT>
+	(
+		this GameObject centerGameObject,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerGameObject.position().componentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyComponentsWithinRadius<ComponentT>
+	(
+		this GameObject centerGameObject,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerGameObject.position().hasAnyComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+
+	public static HashSet<ComponentT> componentsWithinRadius<ComponentT>
+	(
+		this Component centerComponent,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerComponent.position().componentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyComponentsWithinRadius<ComponentT>
+	(
+		this Component centerComponent,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerComponent.position().hasAnyComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	#endregion with components
+
+
+	#region with corresponding components
+
+	public static HashSet<ComponentT> correspondingComponentsWithinRadius<ComponentT>
+	(
+		this Vector3 centerPosition,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerPosition.objectsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).uniqueCorresponding<ComponentT>();
+	public static bool hasAnyCorrespondingComponentsWithinRadius<ComponentT>
+	(
+		this Vector3 centerPosition,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerPosition.correspondingComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).hasAny();
+
+	public static HashSet<ComponentT> correspondingComponentsWithinRadius<ComponentT>
+	(
+		this GameObject centerGameObject,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerGameObject.position().correspondingComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyCorrespondingComponentsWithinRadius<ComponentT>
+	(
+		this GameObject centerGameObject,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerGameObject.position().hasAnyCorrespondingComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+
+	public static HashSet<ComponentT> correspondingComponentsWithinRadius<ComponentT>
+	(
+		this Component centerComponent,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerComponent.position().correspondingComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyCorrespondingComponentsWithinRadius<ComponentT>
+	(
+		this Component centerComponent,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	centerComponent.position().hasAnyCorrespondingComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	#endregion with corresponding components
+
+
+	#region with (corresponding) units
+	#if UNITOLOGY
+
+	public static HashSet<Unit> unitsWithin
+	(
+		this Vector3 centerPosition,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	centerPosition.correspondingComponentsWithinRadius<Unit>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyUnitsWithin
+	(
+		this Vector3 centerPosition,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	centerPosition.unitsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			).hasAny();
+
+	public static HashSet<Unit> unitsWithin
+	(
+		this GameObject centerGameObject,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	centerGameObject.position().unitsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyUnitsWithin
+	(
+		this GameObject centerGameObject,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	centerGameObject.position().hasAnyUnitsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+
+	public static HashSet<Unit> unitsWithin
+	(
+		this Component centerComponent,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	centerComponent.position().unitsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static bool hasAnyUnitsWithin
+	(
+		this Component centerComponent,
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	)
+		=>	centerComponent.position().hasAnyUnitsWithin
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	#endif
+	#endregion with (corresponding) units
 }

@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-#if NAV_MESH_COMPONENTS
-using UnityEngine.AI;
-#endif
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #component #force
@@ -410,17 +407,23 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region Animator
 
-	#region setting enablement of booleans
-	public static new Animator setEnablementOfAnimatorBoolean(string targetBooleanName, bool newBoolean, bool boolean = true)
-		=> autoBehaviour.setEnablementOfAnimatorBoolean(targetBooleanName, newBoolean,
+	#region triggering animatriggers
+	public static new Animator triggerAnimatrigger(string targetAnimatriggerName, bool boolean = true)
+		=>	autoBehaviour.triggerAnimatrigger(targetAnimatriggerName,
+				boolean);
+	#endregion triggering animatriggers
+
+	#region setting enablement of animatoggles
+	public static new Animator setEnablementOfAnimatoggle(string targetBooleanName, bool newBoolean, bool boolean = true)
+		=> autoBehaviour.setEnablementOfAnimatoggle(targetBooleanName, newBoolean,
 			boolean);
-	public static new Animator enableAnimatorBoolean(string targetBooleanName, bool boolean = true)
-		=> autoBehaviour.enableAnimatorBoolean(targetBooleanName,
+	public static new Animator enableAnimatoggle(string targetBooleanName, bool boolean = true)
+		=> autoBehaviour.enableAnimatoggle(targetBooleanName,
 			boolean);
-	public static new Animator disableAnimatorBoolean(string targetBooleanName, bool boolean = true)
-		=> autoBehaviour.disableAnimatorBoolean(targetBooleanName,
+	public static new Animator disableAnimatoggle(string targetBooleanName, bool boolean = true)
+		=> autoBehaviour.disableAnimatoggle(targetBooleanName,
 			boolean);
-	#endregion setting enablement of booleans
+	#endregion setting enablement of animatoggles
 	#endregion Animator
 
 
@@ -462,46 +465,4 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 		=> autoBehaviour.setPointsTo(points);
 	#endregion setting points
 	#endregion EdgeCollider2D
-
-
-	#if NAV_MESH_COMPONENTS
-	#region NavMeshAgent
-
-	#region destinating
-	public static new bool destinateTo(object destinationPosition_PositionProvider)
-		=> autoBehaviour.destinateTo(destinationPosition_PositionProvider);
-	public static new bool destinateTo<OtherSingletonBehaviourT>() where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
-		=> autoBehaviour.destinateTo<OtherSingletonBehaviourT>();
-	public static new bool destinateToCamera()
-		=> autoBehaviour.destinateToCamera();
-	#endregion destinating
-
-	#region setting haltedness
-	public static new AutoBehaviour<SingletonBehaviourT> setHaltednessTo(bool boolean)
-		=> autoBehaviour.setHaltednessTo(boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> halt()
-		=> autoBehaviour.halt();
-	public static new AutoBehaviour<SingletonBehaviourT> unhalt()
-		=> autoBehaviour.unhalt();
-	#endregion setting haltedness
-	
-	#region navigating
-	public static new bool beginNavigatingTo(object destinationPosition_PositionProvider)
-		=> autoBehaviour.beginNavigatingTo(destinationPosition_PositionProvider);
-	public static new bool beginNavigatingTo<OtherSingletonBehaviourT>() where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
-		=> autoBehaviour.beginNavigatingTo<OtherSingletonBehaviourT>();
-	public static new bool beginNavigatingToCamera()
-		=> autoBehaviour.beginNavigatingToCamera();
-	#endregion navigating
-	
-	#region setting enablement of rotation via navigation
-	public static new NavMeshAgent setEnablementOfRotationViaNavigationTo(bool boolean)
-		=> autoBehaviour.setEnablementOfRotationViaNavigationTo(boolean);
-	public static new NavMeshAgent enableRotationViaNavigation()
-		=> autoBehaviour.enableRotationViaNavigation();
-	public static new NavMeshAgent disableRotationViaNavigation()
-		=> autoBehaviour.disableRotationViaNavigation();
-	#endregion setting enablement of rotation via navigation
-	#endregion NavMeshAgent
-	#endif
 }

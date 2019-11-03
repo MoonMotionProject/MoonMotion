@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto #collision #raycasting #force
 // • provides this singleton behaviour with static access to its auto behaviour's collision and forcing layer
 public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehaviourT> :
-					SingletonBehaviourLayerComponentShortcutsMoonMotion<SingletonBehaviourT>
+					SingletonBehaviourLayerComponentShortcutsNonUnity<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	#region calculating targeted force
@@ -87,7 +87,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 
 	#region mistargetedly forcing
 
-	public static new AutoBehaviour<SingletonBehaviourT> forceTargetAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static new AutoBehaviour<SingletonBehaviourT> forceTargetAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 		=>	autoBehaviour.forceTargetAsThoughMistargeting
 			(
 				mistargetPosition_PositionProvider,
@@ -100,7 +100,7 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				clamp
 			);
 
-	public static new AutoBehaviour<SingletonBehaviourT> attractAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static new AutoBehaviour<SingletonBehaviourT> attractAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 		=>	autoBehaviour.attractAsThoughMistargeting
 			(
 				mistargetPosition_PositionProvider,
@@ -111,8 +111,28 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 				zeroForceOutsideReach,
 				clamp
 			);
+	public static new AutoBehaviour<SingletonBehaviourT> applyMistargetedAttractionFrom
+	(
+		Vector3 forcingPosition,
+		object mistargetPosition_PositionProvider,
+		float magnitude = Default.forceMagnitude,
+		float reach = Default.forceReach,
+		InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve,
+		bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach,
+		bool clamp = Default.targetedForceClamping
+	)
+		=>	autoBehaviour.applyMistargetedAttractionFrom
+			(
+				forcingPosition,
+				mistargetPosition_PositionProvider,
+				magnitude,
+				reach,
+				reachMagnitudeZeroingCurve,
+				zeroForceOutsideReach,
+				clamp
+			);
 
-	public static new AutoBehaviour<SingletonBehaviourT> repelAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
+	public static new AutoBehaviour<SingletonBehaviourT> repelAsThoughMistargeting(object mistargetPosition_PositionProvider, object targetRigidbodies_RigidbodiesProvider, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.directedForceZeroingOutsideReach, bool clamp = Default.directedForceClamping)
 		=>	autoBehaviour.repelAsThoughMistargeting
 			(
 				mistargetPosition_PositionProvider,
@@ -142,6 +162,31 @@ public abstract class	SingletonBehaviourLayerCollisionAndForcing<SingletonBehavi
 		=> autoBehaviour.rigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
 	public static new bool hasAnyRigidbodiesWithin(float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> autoBehaviour.hasAnyRigidbodiesWithin(radius, triggerColliderQuery, layerMask_MaxOf1);
+
+	public static new HashSet<ComponentT> componentsWithinRadius<ComponentT>
+	(
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	autoBehaviour.componentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
+	public static new bool hasAnyComponentsWithinRadius<ComponentT>
+	(
+		float radius,
+		QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery,
+		params LayerMask[] layerMask_MaxOf1
+	) where ComponentT : Component
+		=>	autoBehaviour.hasAnyComponentsWithinRadius<ComponentT>
+			(
+				radius,
+				triggerColliderQuery,
+				layerMask_MaxOf1
+			);
 	#endregion radial collision
 
 

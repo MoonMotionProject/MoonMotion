@@ -22,4 +22,18 @@ public static class LayerMaskExtensions
 	// method: return whether this given layer mask does not include any of the the layers of the given provided set of game objects //
 	public static bool doesNotIncludeAnyLayersOf(this LayerMask layerMask, object uniqueGameObjects_UniqueGameObjectProvider)
 		=> !layerMask.includesAnyLayersOf(uniqueGameObjects_UniqueGameObjectProvider);
+
+	// method: return whether this given provided layer index is for a layer in the given layer mask //
+	public static bool layerIsIn(this object layerIndex_LayerIndexProvider, LayerMask layerMask)
+		=> layerMask.includes(layerIndex_LayerIndexProvider);
+	public static bool layerIsNotIn(this object layerIndex_LayerIndexProvider, LayerMask layerMask)
+		=> !layerIndex_LayerIndexProvider.layerIsIn(layerMask);
+
+	// method: return the layer mask for just these given provided layer names //
+	public static LayerMask asLayerMask(this object uniqueLayerNames_UniqueLayerNamesProvider)
+		=> LayerMask.GetMask(uniqueLayerNames_UniqueLayerNamesProvider.provideUniqueLayerNames().toArray());
+
+	// method: return the set of layer names recognized by this given layer mask //
+	public static HashSet<string> recognizedLayerNames(this LayerMask layerMask)
+		=> Layers.names.uniquesWhere(layerName => layerMask.includes(layerName));
 }

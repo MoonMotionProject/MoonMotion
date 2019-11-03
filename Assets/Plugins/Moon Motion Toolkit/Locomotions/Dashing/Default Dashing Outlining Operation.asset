@@ -11,6 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901e12d04729f5440ab0c78ba8b82cae, type: 3}
   m_Name: Default Dashing Outlining Operation
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   handedness: 7
   fallbackToLeftVersusRight: 1
   inputs: 

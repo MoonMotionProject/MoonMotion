@@ -60,4 +60,10 @@ public static class FacingExtensions
 	}
 	public static GameObject faceCamera(this GameObject gameObject, bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> gameObject.transform.faceCamera(withX, withY, withZ, boolean, upDirection_MaxOf1).gameObject;
+	
+	public static GameObject faceWithY(this GameObject gameObject, object targetPosition_PositionProvider, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> gameObject.face(targetPosition_PositionProvider.providePosition(), false, true, false, boolean, upDirection_MaxOf1);
+	public static ComponentT faceWithY<ComponentT>(this ComponentT component, object targetPosition_PositionProvider, bool boolean = true, params Vector3[] upDirection_MaxOf1) where ComponentT : Component
+		=>	component.after(()=>
+				component.gameObject.faceWithY(targetPosition_PositionProvider, boolean, upDirection_MaxOf1));
 }

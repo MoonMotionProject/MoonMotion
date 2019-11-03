@@ -235,8 +235,8 @@ public static class DoubleExtensions
 	public static float toFloat(this double double_)
 		=> (float) double_;
 
-	// method: return a vector for this given double (as each coordinate) //
-	public static Vector asVector(this double double_)
-		=> new Vector(double_, double_, double_);
+	// method: return a doubles vector for this given double (as each coordinate) //
+	public static DoublesVector asVector(this double double_)
+		=> new DoublesVector(double_, double_, double_);
 	#endregion conversion
 }

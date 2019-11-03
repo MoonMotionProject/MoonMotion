@@ -39,27 +39,40 @@ public static class DistanceExtensions
 
 	// method: return the nearest vector of the given vectors to this given vector //
 	public static Vector3 nearestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
-		=> vectors.minBy(otherVector => vector.distanceWith(otherVector));
+		=> vectors.minProviderOtherwiseDefault(otherVector => vector.distanceWith(otherVector));
 
 	// method: return the nearest of the given positions to this given game object's position //
 	public static Vector3 nearestOf(this GameObject gameObject, IEnumerable<Vector3> positions)
-		=> positions.minBy(position => gameObject.distanceWith(position));
-	// method: return the nearest (by position) of the given transforms to this given game object //
-	public static Transform nearestOf(this GameObject gameObject, IEnumerable<Transform> transforms)
-		=> transforms.minBy(transform => gameObject.distanceWith(transform));
+		=> positions.minProviderOtherwiseDefault(position => gameObject.distanceWith(position));
 	// method: return the nearest (by position) of the given game objects to this given game object //
 	public static GameObject nearestOf(this GameObject gameObject, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.minBy(otherGameObject => gameObject.distanceWith(otherGameObject));
+		=> gameObjects.minProviderOtherwiseDefault(otherGameObject => gameObject.distanceWith(otherGameObject));
+	// method: return the nearest (by position) of the given components to this given game object //
+	public static ComponentT nearestOf<ComponentT>(this GameObject gameObject, IEnumerable<ComponentT> components) where ComponentT : Component
+		=> components.minProviderOtherwiseDefault(component => gameObject.distanceWith(component));
+	// method: return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given game object //
+	public static MonoBehaviourI nearestOfI<MonoBehaviourI>(this GameObject gameObject, IEnumerable<MonoBehaviourI> interfaces) where MonoBehaviourI : class
+	{
+		if (!typeof(MonoBehaviourI).IsInterface)
+		{
+			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName()+" is not an interface");
+		}
+
+		return interfaces.minProviderOtherwiseDefault(interface_ => gameObject.distanceWith(interface_.castTo<MonoBehaviour>()));
+	}
 
 	// method: return the nearest of the given positions to this given transform's position //
 	public static Vector3 nearestOf(this Transform transform, IEnumerable<Vector3> positions)
-		=> positions.minBy(position => transform.distanceWith(position));
-	// method: return the nearest (by position) of the given transforms to this given transform //
-	public static Transform nearestOf(this Transform transform, IEnumerable<Transform> transforms)
-		=> transforms.minBy(otherTransform => transform.distanceWith(otherTransform));
+		=> positions.minProviderOtherwiseDefault(position => transform.distanceWith(position));
 	// method: return the nearest (by position) of the given game objects to this given transform //
 	public static GameObject nearestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.minBy(gameObject => transform.distanceWith(gameObject));
+		=> gameObjects.minProviderOtherwiseDefault(gameObject => transform.distanceWith(gameObject));
+	// method: return the nearest (by position) of the given components to this given transform //
+	public static ComponentT nearestOf<ComponentT>(this Transform transform, IEnumerable<ComponentT> components) where ComponentT : Component
+		=> components.minProviderOtherwiseDefault(component => transform.distanceWith(component));
+	// method: return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given transform //
+	public static MonoBehaviourI nearestOfI<MonoBehaviourI>(this Transform transform, IEnumerable<MonoBehaviourI> interfaces) where MonoBehaviourI : class
+		=> transform.gameObject.nearestOfI<MonoBehaviourI>(interfaces);
 	#endregion nearest of
 
 
@@ -67,59 +80,84 @@ public static class DistanceExtensions
 
 	// method: return the farthest vector of the given vectors to this given vector //
 	public static Vector3 farthestOf(this Vector3 vector, IEnumerable<Vector3> vectors)
-		=> vectors.maxBy(otherVector => vector.distanceWith(otherVector));
+		=> vectors.maxProviderOtherwiseDefault(otherVector => vector.distanceWith(otherVector));
 
 	// method: return the farthest of the given positions to this given game object's position //
 	public static Vector3 farthestOf(this GameObject gameObject, IEnumerable<Vector3> positions)
-		=> positions.maxBy(position => gameObject.distanceWith(position));
+		=> positions.maxProviderOtherwiseDefault(position => gameObject.distanceWith(position));
 	// method: return the farthest (by position) of the given transforms to this given game object //
 	public static Transform farthestOf(this GameObject gameObject, IEnumerable<Transform> transforms)
-		=> transforms.maxBy(transform => gameObject.distanceWith(transform));
+		=> transforms.maxProviderOtherwiseDefault(transform => gameObject.distanceWith(transform));
 	// method: return the farthest (by position) of the given game objects to this given game object //
 	public static GameObject farthestOf(this GameObject gameObject, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.maxBy(otherGameObject => gameObject.distanceWith(otherGameObject));
+		=> gameObjects.maxProviderOtherwiseDefault(otherGameObject => gameObject.distanceWith(otherGameObject));
 
 	// method: return the farthest of the given positions to this given transform's position //
 	public static Vector3 farthestOf(this Transform transform, IEnumerable<Vector3> positions)
-		=> positions.maxBy(position => transform.distanceWith(position));
+		=> positions.maxProviderOtherwiseDefault(position => transform.distanceWith(position));
 	// method: return the farthest (by position) of the given transforms to this given transform //
 	public static Transform farthestOf(this Transform transform, IEnumerable<Transform> transforms)
-		=> transforms.maxBy(otherTransform => transform.distanceWith(otherTransform));
+		=> transforms.maxProviderOtherwiseDefault(otherTransform => transform.distanceWith(otherTransform));
 	// method: return the farthest (by position) of the given game objects to this given transform //
 	public static GameObject farthestOf(this Transform transform, IEnumerable<GameObject> gameObjects)
-		=> gameObjects.maxBy(gameObject => transform.distanceWith(gameObject));
+		=> gameObjects.maxProviderOtherwiseDefault(gameObject => transform.distanceWith(gameObject));
 	#endregion farthest of
 
 
 	#region is within distance of
-	// methods: return whether this given provided position is within the given threshold distance of the other given provided position, specified singleton behaviour, the player (body), or the main camera (respectively) //
+	// methods: return whether this given provided position is\isn't (respectively) within the given threshold distance of the other given provided position, specified singleton behaviour, the player (body), or the main camera (respectively) //
 
 	public static bool isWithinDistanceOf(this Vector3 position, object otherPosition_PositionProvider, float thresholdDistance)
-		=> position.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
+		=>	otherPosition_PositionProvider.isYull() &&
+			position.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
+	public static bool isNotWithinDistanceOf(this Vector3 position, object otherPosition_PositionProvider, float thresholdDistance)
+		=> !position.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
 	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Vector3 position, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> position.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this Vector3 position, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !position.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
 	public static bool isWithinDistanceOfCamera(this Vector3 position, float thresholdDistance)
 		=> position.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isNotWithinDistanceOfCamera(this Vector3 position, float thresholdDistance)
+		=> !position.isNotWithinDistanceOfCamera(thresholdDistance);
 	public static bool isWithinDistanceOfPlayer(this Vector3 position, float thresholdDistance)
 		=> position.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
+	public static bool isNotWithinDistanceOfPlayer(this Vector3 position, float thresholdDistance)
+		=> !position.isWithinDistanceOfPlayer(thresholdDistance);
 
 	public static bool isWithinDistanceOf(this GameObject gameObject, object otherPosition_PositionProvider, float thresholdDistance)
 		=> gameObject.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
+	public static bool isNotWithinDistanceOf(this GameObject gameObject, object otherPosition_PositionProvider, float thresholdDistance)
+		=> !gameObject.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
 	public static bool isWithinDistanceOf<SingletonBehaviourT>(this GameObject gameObject, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> gameObject.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this GameObject gameObject, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !gameObject.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
 	public static bool isWithinDistanceOfCamera(this GameObject gameObject, float thresholdDistance)
 		=> gameObject.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isNotWithinDistanceOfCamera(this GameObject gameObject, float thresholdDistance)
+		=> !gameObject.isWithinDistanceOfCamera(thresholdDistance);
 	public static bool isWithinDistanceOfPlayer(this GameObject gameObject, float thresholdDistance)
 		=> gameObject.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
+	public static bool isNotWithinDistanceOfPlayer(this GameObject gameObject, float thresholdDistance)
+		=> !gameObject.isWithinDistanceOfPlayer(thresholdDistance);
 
 	public static bool isWithinDistanceOf(this Component component, object otherPosition_PositionProvider, float thresholdDistance)
 		=> component.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
+	public static bool isNotWithinDistanceOf(this Component component, object otherPosition_PositionProvider, float thresholdDistance)
+		=> !component.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
 	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Component component, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> component.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this Component component, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !component.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
 	public static bool isWithinDistanceOfCamera(this Component component, float thresholdDistance)
 		=> component.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isNotWithinDistanceOfCamera(this Component component, float thresholdDistance)
+		=> !component.isWithinDistanceOfCamera(thresholdDistance);
 	public static bool isWithinDistanceOfPlayer(this Component component, float thresholdDistance)
 		=> component.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
+	public static bool isNotWithinDistanceOfPlayer(this Component component, float thresholdDistance)
+		=> !component.isWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
 
 

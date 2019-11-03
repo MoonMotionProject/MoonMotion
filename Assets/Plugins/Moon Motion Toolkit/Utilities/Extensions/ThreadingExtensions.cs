@@ -6,7 +6,7 @@ using static DigitalRuby.Threading.EZThread;
 using System;
 
 // Threading Extensions: provides extension methods and related functionality for handling threading
-// #execution
+// #threading #execution
 public static class ThreadingExtensions
 {
 	// on a background thread, execute this given action, then return this given action //
@@ -41,41 +41,8 @@ public static class ThreadingExtensions
 		return action;
 	}
 
-	// Thread:
-	// • wraps the EZThread thread class called "EZThreadRunner"
-	public class Thread
-	{
-		// variables //
-
-
-		// trackings //
-
-		private EZThreadRunner thread;
-
-
-
-
-		// constructors //
-
-
-		public Thread(EZThreadRunner thread)
-		{
-			this.thread = thread;
-		}
-
-
-
-
-		// methods //
-
-
-		// method: end this given thread //
-		public void end()
-			=> thread.end();
-	}
-
 	// on a new thread, repeatedly execute this given action (until the returned thread is ended), optionally in sync with Update according to the given boolean, then return the new thread //
-	public static Thread beginThread(this Action action, bool syncWithUpdate = true)
+	public static Thread beginThread(this Action action, bool syncWithUpdate = Default.syncingOfThreadWithUpdate)
 		=> new Thread(BeginThread(action, syncWithUpdate));
 
 	// end this given "EZThreadRunner" thread //

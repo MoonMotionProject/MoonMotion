@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Object Extensions: provides extension methods for handling objects //
+// Object Extensions:
+// • provides extension methods for handling objects
+// #auto #dynamics
 public static class ObjectExtensions
 {
 	#region yullness (whether an object is not null)
@@ -67,8 +69,11 @@ public static class ObjectExtensions
 		return object_.nullIfNullOr(!function(object_));
 	}
 
-	// method: return this given object if it is yull, otherwise returning the result of the given function //
+	// method: return this given object if it is yull, otherwise returning the result of the given function returning the type of this given object //
 	public static ObjectT ifYullOtherwise<ObjectT>(this ObjectT object_, Func<ObjectT> function)
+		=> object_.isYull() ? object_ : function();
+	// method: return this given object as an (unspecialized) object if it is yull, otherwise returning the result of the given function returning an (unspecialized) object //
+	public static object ifYullOtherwiseUnspecialized(this object object_, Func<object> function)
 		=> object_.isYull() ? object_ : function();
 	#endregion logic
 
@@ -78,6 +83,14 @@ public static class ObjectExtensions
 	// method: return whether this given object is of the specified type //
 	public static bool isOfTheType<TPotentialType>(this object object_)
 		=> typeof(TPotentialType).IsInstanceOfType(object_);
+
+	// method: return whether this given object is of the specified type //
+	public static bool isA<TPotentialType>(this object object_)
+		=> (object_ is TPotentialType);
+
+	// method: return whether this given object is not of the specified type //
+	public static bool isNot<TPotentialType>(this object object_)
+		=> !object_.isA<TPotentialType>();
 
 	// method: return the type of this given object //
 	public static Type type<ObjectT>(this ObjectT object_)

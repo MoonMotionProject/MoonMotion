@@ -5,14 +5,18 @@ using UnityEngine;
 #if STEAM_VIRTUALITY
 using Valve.VR.InteractionSystem;
 #endif
+#if NAV_MESH_COMPONENTS
+using UnityEngine.AI;
+#endif
 
 // Singleton Behaviour Layer Components Moon Motion:
 // #auto #tracking
-// • provides this singleton behaviour with static access to its auto behaviour's Moon Motion components layer
-public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehaviourT> :
+// • provides this singleton behaviour with static access to its auto behaviour's nonUnity components layer
+public abstract class	SingletonBehaviourLayerComponentsNonUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
+	#region Moon Motion Toolkit
 	#if MOON_MOTION_TOOLKIT
 	public static new TerrainResponse terrainResponse => autoBehaviour.terrainResponse;
 	public static new Powerup powerup => autoBehaviour.powerup;
@@ -21,6 +25,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new PowerupInstanceMethodsCaller powerupInstanceMethodsCaller => autoBehaviour.powerupInstanceMethodsCaller;
 	public static new StretchScalable stretchScalable => autoBehaviour.stretchScalable;
 	#endif
+	#endregion Moon Motion Toolkit
 
 
 
@@ -51,6 +56,7 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new TrackLightIntensityAtAwake trackLightIntensityAtAwake => autoBehaviour.trackLightIntensityAtAwake;
 	public static new TrackAwake trackAwake => autoBehaviour.trackAwake;
 	public static new TrackColorAtAwake trackColorAtAwake => autoBehaviour.trackColorAtAwake;
+	public static new TrackStart trackStart => autoBehaviour.trackStart;
 	#endregion miscellaneous
 
 	#region Collideds
@@ -95,16 +101,37 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 
 
 
+	
+	#region Navmesh Components
+	#if NAV_MESH_COMPONENTS
+	public static new NavMeshAgent navmeshAgent => autoBehaviour.navmeshAgent;
+	public static new Bipedation bipedation => autoBehaviour.bipedation;
+	#endif
+	#endregion Navmesh Components
 
-	#region Plugins
 
 
 
 
-	#if STEAM_VIRTUALITY
+
+
+
+
+	#region Unitology
+	#if UNITOLOGY
+	public static new Unit unit => autoBehaviour.unit;
+	#endif
+	#endregion Unitology
+
+
+
+
+
+
+
+
 	#region Steam Virtuality
-
-
+	#if STEAM_VIRTUALITY
 	public static new Player player => autoBehaviour.player;
 	public static new Hand hand => autoBehaviour.hand;
 	public static new Interactable interactable => autoBehaviour.interactable;
@@ -116,7 +143,6 @@ public abstract class	SingletonBehaviourLayerComponentsMoonMotion<SingletonBehav
 	public static new Balloon balloon => autoBehaviour.balloon;
 	public static new Longbow longbow => autoBehaviour.longbow;
 	public static new ItemPackage itemPackage => autoBehaviour.itemPackage;
-	#endregion Steam Virtuality
 	#endif
-	#endregion Plugins
+	#endregion Steam Virtuality
 }

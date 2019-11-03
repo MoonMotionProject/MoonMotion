@@ -49,15 +49,13 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 
 	#region parent
-
-	public static new bool parentless => autoBehaviour.parentless;
+	
+	public static new bool hasAnyParent => autoBehaviour.hasAnyParent;
+	public static new bool isParentless => autoBehaviour.isParentless;
 	public static new Transform parent => autoBehaviour.parent;
-	public static new Transform setParentTo(Transform parentTransform, bool boolean = true)
-		=> autoBehaviour.setParentTo(parentTransform, boolean);
-	public static new Transform setParentTo(GameObject parentObject, bool boolean = true)
-		=> autoBehaviour.setParentTo(parentObject, boolean);
-	public static new Transform setParentTo(Component parentComponent, bool boolean = true)
-		=> autoBehaviour.setParentTo(parentComponent, boolean);
+	public static new GameObject parentObject => autoBehaviour.parentObject;
+	public static new Transform setParentTo(object parentTransform_TransformProvider, bool boolean = true)
+		=> autoBehaviour.setParentTo(parentTransform_TransformProvider, boolean);
 	public static new Transform setParentTo<ParentSingletonBehaviourT>(bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
 		=> autoBehaviour.setParentTo<ParentSingletonBehaviourT>(boolean);
 	public static new Transform unparent(bool boolean = true)
@@ -169,6 +167,14 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion child iteration
 
 
+	#region accessing descendants
+	
+	public static new List<Transform> descendantTransforms => autoBehaviour.descendantTransforms;
+	
+	public static new List<GameObject> descendantObjects => autoBehaviour.descendantObjects;
+	#endregion accessing descendants
+
+
 	#region destroying descendants
 
 	public static new AutoBehaviour<SingletonBehaviourT> destroyLastDescendantObjectWithComponentIfItExists<ComponentT>() where ComponentT : Component
@@ -230,6 +236,9 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	
 	public static new AutoBehaviour<SingletonBehaviourT> faceCamera(bool withX = true, bool withY = true, bool withZ = true, bool boolean = true, params Vector3[] upDirection_MaxOf1)
 		=> autoBehaviour.faceCamera(withX, withY, withZ, boolean, upDirection_MaxOf1);
+
+	public static new AutoBehaviour<SingletonBehaviourT> faceWithY(object targetPosition_PositionProvider, bool boolean = true, params Vector3[] upDirection_MaxOf1)
+		=> autoBehaviour.faceWithY(targetPosition_PositionProvider, boolean, upDirection_MaxOf1);
 	#endregion facing
 
 
@@ -341,10 +350,12 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#region nearest of
 	public static new Vector3 nearestOf(IEnumerable<Vector3> positions)
 		=> autoBehaviour.nearestOf(positions);
-	public static new Transform nearestOf(IEnumerable<Transform> transforms)
-		=> autoBehaviour.nearestOf(transforms);
+	public static new ComponentT nearestOf<ComponentT>(IEnumerable<ComponentT> components) where ComponentT : Component
+		=> autoBehaviour.nearestOf(components);
 	public static new GameObject nearestOf(IEnumerable<GameObject> gameObjects)
 		=> autoBehaviour.nearestOf(gameObjects);
+	public static new MonoBehaviourI nearestOfI<MonoBehaviourI>(IEnumerable<MonoBehaviourI> components) where MonoBehaviourI : class
+		=> autoBehaviour.nearestOfI(components);
 	#endregion nearest of
 
 	#region farthest of
@@ -359,12 +370,20 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#region is within distance of
 	public static new bool isWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
 		=> autoBehaviour.isWithinDistanceOf(position_PositionProvider, thresholdDistance);
+	public static new bool isNotWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
+		=> autoBehaviour.isNotWithinDistanceOf(position_PositionProvider, thresholdDistance);
 	public static new bool isWithinDistanceOf<OtherSingletonBehaviourT>(float thresholdDistance) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
 		=> autoBehaviour.isWithinDistanceOf<OtherSingletonBehaviourT>(thresholdDistance);
+	public static new bool isNotWithinDistanceOf<OtherSingletonBehaviourT>(float thresholdDistance) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=> autoBehaviour.isNotWithinDistanceOf<OtherSingletonBehaviourT>(thresholdDistance);
 	public static new bool isWithinDistanceOfCamera(float thresholdDistance)
 		=> autoBehaviour.isWithinDistanceOfCamera(thresholdDistance);
+	public static new bool isNotWithinDistanceOfCamera(float thresholdDistance)
+		=> autoBehaviour.isNotWithinDistanceOfCamera(thresholdDistance);
 	public static new bool isWithinDistanceOfPlayer(float thresholdDistance)
 		=> autoBehaviour.isWithinDistanceOfPlayer(thresholdDistance);
+	public static new bool isNotWithinDistanceOfPlayer(float thresholdDistance)
+		=> autoBehaviour.isNotWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
 	
 	#region is more distant than

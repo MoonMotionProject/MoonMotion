@@ -5,6 +5,7 @@ using UnityEngine;
 
 // Hierarchy Selection Operations:
 // • provides menubar operations for the current hierarchy selection
+// #hierarchy
 public static class HierarchySelectionOperations
 {
 	#region operation methods for: hierarchy selection
@@ -22,7 +23,7 @@ public static class HierarchySelectionOperations
 
 	[MenuItem("Selection/Toggle Activity %t")]
 	public static void toggleActivity()
-		=> Hierarchy.pingSelectedGameObject().toggleActivity();
+		=> Hierarchy.pingSelectedGameObjects().toggleActivity();
 	[MenuItem("Selection/Toggle Activity %t", true)]
 	public static bool toggleActivity_Validator()
 		=> Hierarchy.selectedGameObject;
@@ -33,7 +34,7 @@ public static class HierarchySelectionOperations
 
 	[MenuItem("Selection/Reset Transformations %#r")]
 	public static void resetTransformations()
-		=> Hierarchy.pingSelectedGameObject().resetLocals();
+		=> Hierarchy.pingSelectedGameObjects().resetLocalsForEach();
 	[MenuItem("Selection/Reset Transformations %#r", true)]
 	public static bool resetTransformations_Validator()
 		=> Hierarchy.selectedGameObject;
@@ -44,7 +45,7 @@ public static class HierarchySelectionOperations
 
 	[MenuItem("Selection/Zero Velocities &%#r")]
 	public static void zeroVelocities()
-		=> Hierarchy.pingSelectedGameObject().zeroVelocities();
+		=> Hierarchy.pingSelectedGameObjects().zeroVelocitiesOfEach();
 	[MenuItem("Selection/Zero Velocities &%#r", true)]
 	public static bool zeroVelocities_Validator()
 		=> Hierarchy.selectedGameObject;
@@ -55,14 +56,14 @@ public static class HierarchySelectionOperations
 
 	[MenuItem("Selection/Render Descendant Lights By Pixel")]
 	public static void renderDescendantLightsByPixel()
-		=> Hierarchy.pingSelectedGameObjectAndPrintNamely("rendering descendant lights by pixel").renderDescendantLightsByPixel();
+		=> Hierarchy.pingSelectedGameObjectsEachLogging("rendering descendant lights by pixel").forEachRenderDescendantLightsByPixel();
 	[MenuItem("Selection/Render Descendant Lights By Pixel", true)]
 	public static bool renderDescendantLightsByPixel_Validator()
 		=> Hierarchy.selectedGameObject;
 
 	[MenuItem("Selection/Render Descendant Lights By Vertex")]
 	public static void renderDescendantLightsByVertex()
-		=> Hierarchy.pingSelectedGameObjectAndPrintNamely("rendering descendant lights by vertex").renderDescendantLightsByVertex();
+		=> Hierarchy.pingSelectedGameObjectsEachLogging("rendering descendant lights by vertex").forEachRenderDescendantLightsByVertex();
 	[MenuItem("Selection/Render Descendant Lights By Vertex", true)]
 	public static bool renderDescendantLightsByVertex_Validator()
 		=> Hierarchy.selectedGameObject;

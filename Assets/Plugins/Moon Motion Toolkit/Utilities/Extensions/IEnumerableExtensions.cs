@@ -44,7 +44,11 @@ public static class IEnumerableExtensions
 
 	// method: return whether this given enumerable is empty or null //
 	public static bool isEmptyOrNull<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.isEmpty() || enumerable.isNull();
+		=> enumerable.isNull() || enumerable.isEmpty();
+
+	// method: return whether this given enumerable is yull and not empty //
+	public static bool isYullAndNotEmpty<TItem>(this IEnumerable<TItem> enumerable)
+		=> !isEmptyOrNull(enumerable);
 
 	// method: return whether this given enumerable has any items //
 	public static bool hasAny<TItem>(this IEnumerable<TItem> enumerable)
@@ -53,6 +57,18 @@ public static class IEnumerableExtensions
 	// method: return whether this given enumerable has any items for which the given function returns true //
 	public static bool hasAny<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
 		=> enumerable.Any(function);
+
+	// method: return whether this given enumerable of booleans any booleans that are true //
+	public static bool hasAnyTrue(this IEnumerable<bool> enumerable)
+		=> enumerable.hasAny(boolean => boolean);
+
+	// method: return whether this given enumerable has any items for which the given function returns true after picking (after ensuring that the function has run on all items) //
+	public static bool hasAnyAfterPicking<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
+		=> enumerable.pick(function).hasAnyTrue();
+
+	// method: return whether this given enumerable has any items of the specified target type //
+	public static bool hasAny<TTarget>(this IEnumerable enumerable)
+		=> enumerable.only<TTarget>().hasAny();
 
 	// method: return whether this given enumerable has exactly one item //
 	public static bool hasExactlyOne<TItem>(this IEnumerable<TItem> enumerable)
@@ -106,9 +122,16 @@ public static class IEnumerableExtensions
 
 	#region manifestation
 
-	// method: return a list for this given enumerable with its yieldings manifested //
+	// method: return this given enumerable manifested (return a list for this given enumerable with its yieldings manifested) //
 	public static List<TItem> manifested<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.ToList();
+
+	// method: return this given enumerable manifested after executing the given action if the given boolean is true //
+	public static List<TItem> manifestedAfter<TItem>(this IEnumerable<TItem> enumerable, Action action, bool boolean = true)
+		=>	enumerable.after(action, boolean).manifested();
+	// method: return this given enumerable manifested after executing the given action on this given enumerable if the given boolean is true //
+	public static List<TItem> manifestedAfter<TItem>(this IEnumerable<TItem> enumerable, Action<IEnumerable<TItem>> action, bool boolean = true)
+		=>	enumerable.after(action, boolean).manifested();
 	#endregion manifestation
 
 
@@ -160,6 +183,64 @@ public static class IEnumerableExtensions
 	#endregion accessing last items
 
 
+	#region accessing first item of type
+
+	// method: return the first item in this given enumerable that has the specified target type (assuming such an item is there) //
+	public static TTarget first<TTarget>(this IEnumerable enumerable)
+		=> enumerable.only<TTarget>().first();
+
+	// method: return the first item in this given enumerable that has the specified target type, otherwise (if such an item is not there) returning the given fallback item //
+	public static TTarget firstOtherwise<TTarget>(this IEnumerable enumerable, TTarget fallbackItem)
+		=> enumerable.hasAny<TTarget>() ? enumerable.first<TTarget>() : fallbackItem;
+
+	// method: return the first item in this given enumerable that has the specified target type, otherwise (if such an item is not there) returning the default value of the specified target type //
+	public static TTarget firstOtherwiseDefault<TTarget>(this IEnumerable enumerable)
+		=> enumerable.only<TTarget>().FirstOrDefault();
+	#endregion accessing first item of type
+
+
+	#region randomization
+
+	// method: return a random item in this given enumerable if it has any items; otherwise, return the default value of the given item type //
+	public static TItem randomItem<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.hasAny() ? enumerable.item(RandomlyGenerate.fromZeroUntil(enumerable.count())) : default(TItem);
+
+	// method: return a random item in this given enumerable except any of the given items, otherwise (if none remain) a random item in this given enumerable //
+	public static TItem randomItemExceptGivenOtherwiseRandomItem<TItem>(this IEnumerable<TItem> enumerable, params TItem[] exceptedItems)
+	{
+		IEnumerable<TItem> enumerableWhereNotExcepted = enumerable.whereNotIn(exceptedItems);
+
+		return	(enumerableWhereNotExcepted.hasAny() ?
+					enumerableWhereNotExcepted.randomItem() :
+					enumerable.randomItem()
+				);
+	}
+	#endregion randomization
+
+
+	#region extremes
+
+	public static TResult min<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
+		=> enumerable.Min(function);
+
+	public static TResult max<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
+		=> enumerable.Max(function);
+
+	public static TItem minProviderOtherwiseDefault<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
+		=> enumerable.implyAscendingBy(function).firstOtherwiseDefault();
+
+	public static TItem maxProviderOtherwiseDefault<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
+		=> enumerable.implyDescendingBy(function).firstOtherwiseDefault();
+	#endregion extremes
+
+
+	#region averaging
+
+	public static float average(this IEnumerable<float> enumerable)
+		=> enumerable.Average();
+	#endregion averaging
+
+
 	#region retrieval
 
 	public static IEnumerable<TResult> select<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
@@ -167,8 +248,24 @@ public static class IEnumerableExtensions
 	public static List<TResult> pick<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.select(function).manifested();
 	
+	public static IEnumerable<TTargetItem> select<TTargetItem>(this IEnumerable enumerable)
+	{
+		foreach (object item in enumerable)
+		{
+			if (item is TTargetItem)
+			{
+				yield return item.castTo<TTargetItem>();
+			}
+		}
+	}
+	public static List<TTargetItem> pick<TTargetItem>(this IEnumerable enumerable)
+		=> enumerable.select<TTargetItem>().manifested();
+	
 	public static HashSet<TResult> pickUnique<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.select(function).toSet();
+	
+	public static IEnumerable<TResult> selectOnlyYull<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.select(function).onlyYull();
 
 	public static IEnumerable<TResult> selectByLooping<TItemThis, TItemLooped, TResult>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Func<TItemThis, TItemLooped, TResult> function)
 		 =>	Select.forCount(enumerable.count(), index =>
@@ -188,79 +285,55 @@ public static class IEnumerableExtensions
 		=> enumerable.selectFromOnly(
 				item => item.isNull(),
 				function);
+	
+	public static TResult pickUponFirstIfAny<TTarget, TResult>(this IEnumerable enumerable, Func<TTarget, TResult> function, Func<TResult> fallbackfunction)
+	{
+		if (fallbackfunction.isNull())
+		{
+			return default(TResult).returnWithError("given null fallback function");
+		}
+
+		if (enumerable.hasAny<TTarget>())
+		{
+			return function(enumerable.first<TTarget>());
+		}
+		else
+		{
+			return fallbackfunction();
+		}
+	}
 
 	public static IEnumerable<TResult> selectNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
 		=> enumerable.SelectMany(function);
+	public static List<TResult> pickNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
+		=> enumerable.selectNested(function).manifested();
+	public static HashSet<TResult> pickUniqueNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
+		=> enumerable.selectNested(function).toSet();
+	
+	private static List<TItem> recursivelyPick_NonlastRecursion<TItem>(this IEnumerable<TItem> enumerable, Func<IEnumerable<TItem>, IEnumerable<TItem>> function)
+		=> function(enumerable).recursivelyPick_NonlastRecursion(function);
+	public static List<TItem> recursivelyPick<TItem>(this IEnumerable<TItem> enumerable, Func<IEnumerable<TItem>, IEnumerable<TItem>> function)
+		=> function(enumerable).recursivelyPick_NonlastRecursion(function).manifested();
 	#endregion retrieval
 
 
-	#region removing
+	#region summing
 
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns true //
-	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=> boolean ? enumerable.Where(function) : enumerable;
-	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns true //
-	public static List<TItem> where<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=> enumerable.only(function, boolean).manifested();
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns false //
-	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=>	enumerable.only(
-				function.negated(),
-				boolean);
-	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns false //
-	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=> enumerable.except(function, boolean).manifested();
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are yull //
-	public static IEnumerable<TItem> onlyYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
-		=> enumerable.only(
-			item => item.isYull(),
-			boolean);
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a list of the items in this given enumerable which are yull //
-	public static List<TItem> whereYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
-		=> enumerable.onlyYull().manifested();
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return the set of the items in this given enumerable which are yull //
-	public static HashSet<TItem> uniqueYulls<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
-		=> enumerable.onlyYull().manifested().toSet();
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are equal to the given item //
-	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
-		=> enumerable.only(
-			item_ => item_.baselineEquals(item),
-			boolean);
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to the given item //
-	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
-		=> enumerable.except(
-			item_ => item_.baselineEquals(item),
-			boolean);
-
-	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
-	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
-		=> enumerable.except(
-			item_ => otherEnumerable.hasAny(otherItem => item_.baselineEquals(otherItem)),
-			boolean);
-	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
-	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
-		=> enumerable.except(otherEnumerable, boolean).manifested();
-	// method: instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the given items //
-	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
-		=> enumerable.except(
-			item_ => items.hasAny(otherItem => item_.baselineEquals(otherItem)));
-	// method: instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the given items //
-	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
-		=> enumerable.except(items).manifested();
-	#endregion removing
+	// method: return the sum for adding the result of the given function upon each item in this given enumerable //
+	public static float sumByPicking<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, float> function)
+	{
+		float sum = 0f;
+		enumerable.forEach(item => sum += function(item));
+		return sum;
+	}
+	#endregion summing
 
 
 	#region acting upon all items
 
 	#region acting upon all items - without indexing
 	// method: return a selection of the items in this given enumerable for which invocation of the given action is yielded //
-	private static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action)
+	private static IEnumerable<TItem> implyForEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action)
 	{
 		foreach (TItem item in enumerable)
 		{
@@ -269,8 +342,8 @@ public static class IEnumerableExtensions
 		}
 	}
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which invocation of the given action is yielded //
-	public static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
-		=> boolean ? enumerable.imply(action) : enumerable;
+	public static IEnumerable<TItem> implyForEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
+		=> boolean ? enumerable.implyForEach(action) : enumerable;
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerable<TItem> forEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
 	{
@@ -284,9 +357,15 @@ public static class IEnumerableExtensions
 
 		return enumerable;
 	}
-	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return th manifestation of this given enumerable //
+	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return the manifestation of this given enumerable //
 	public static List<TItem> forEachManifested<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
 		=> enumerable.forEach(action, boolean).manifested();
+	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return the set of (unique) items in this given enumerable //
+	public static HashSet<TItem> setAfterForEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
+		=> enumerable.forEach(action, boolean).toSet();
+	// method: (according to the given boolean:) invoke the given action on each unique item in this given enumerable, then return the set of (unique) items in this given enumerable //
+	public static HashSet<TItem> forEachUnique<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
+		=> enumerable.toSet().setAfterForEach(action, boolean);
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<TItem> action, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
 		=> enumerable.after(()=>
@@ -296,7 +375,7 @@ public static class IEnumerableExtensions
 
 	#region acting upon all items - with indexing
 	// method: return a selection of the items in this given enumerable for which invocation of the given indexed action is yielded //
-	private static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction)
+	private static IEnumerable<TItem> implyForEach<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction)
 	{
 		for (int index = 0; index < enumerable.count(); index++)
 		{
@@ -307,8 +386,8 @@ public static class IEnumerableExtensions
 		}
 	}
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which invocation of the given indexed action is yielded //
-	public static IEnumerable<TItem> imply<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction, bool boolean = true)
-		=> boolean ? enumerable.imply(indexedAction) : enumerable;
+	public static IEnumerable<TItem> implyForEach<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction, bool boolean = true)
+		=> boolean ? enumerable.implyForEach(indexedAction) : enumerable;
 	// method: (according to the given boolean:) invoke the given indexed action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerable<TItem> forEach<TItem>(this IEnumerable<TItem> enumerable, Action<int, TItem> indexedAction, bool boolean = true)
 	{
@@ -330,8 +409,8 @@ public static class IEnumerableExtensions
 	#endregion acting upon all items - with indexing
 
 	#region acting upon all items - by looping
-	public static IEnumerable<TItemThis> implyByLooping<TItemThis, TItemLooped>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true)
-		 => enumerable.imply(
+	public static IEnumerable<TItemThis> implyForEachByLooping<TItemThis, TItemLooped>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true)
+		 => enumerable.implyForEach(
 			 (index, item) => action(item, enumerableToLoop.item(index % enumerableToLoop.count())),
 			 boolean);
 	public static IEnumerable<TItemThis> forEachByLooping<TItemThis, TItemLooped>(this IEnumerable<TItemThis> enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true)
@@ -383,23 +462,21 @@ public static class IEnumerableExtensions
 	#endregion acting upon first items
 
 
-	#region randomization
+	#region acting upon first item of type
 
-	// method: return a random item in this given enumerable if it has any items; otherwise, return the default value of the given item type //
-	public static TItem randomItem<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.hasAny() ? enumerable.item(RandomlyGenerate.fromZeroUntil(enumerable.count())) : default(TItem);
-
-	// method: return a random item in this given enumerable except any of the given items, otherwise (if none remain) a random item in this given enumerable //
-	public static TItem randomItemExceptGivenOtherwiseRandomItem<TItem>(this IEnumerable<TItem> enumerable, params TItem[] exceptedItems)
+	// method: invoke the given action on the first item in this given enumerable that has the specified target type – if it has any such items; otherwise, execute the given fallback action if it is not given as the default of null //
+	public static void forFirstIfAny<TTarget>(this IEnumerable enumerable, Action<TTarget> action, Action fallbackAction = null)
 	{
-		IEnumerable<TItem> enumerableWhereNotExcepted = enumerable.whereNot(exceptedItems);
-
-		return	(enumerableWhereNotExcepted.hasAny() ?
-					enumerableWhereNotExcepted.randomItem() :
-					enumerable.randomItem()
-				);
+		if (enumerable.hasAny<TTarget>())
+		{
+			action(enumerable.first<TTarget>());
+		}
+		else if (fallbackAction.isYull())
+		{
+			fallbackAction();
+		}
 	}
-	#endregion randomization
+	#endregion acting upon first item of type
 
 
 	#region ordering
@@ -426,27 +503,126 @@ public static class IEnumerableExtensions
 	#endregion ordering
 
 
-	#region extremes
+	#region union
 
-	public static TResult min<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.Min(function);
+	// method: (according to the given boolean:) return a selection of the unique items across this given enumerable and the other given enumerable //
+	public static IEnumerable<TItem> onlyUniquesInUnionWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> boolean ? enumerable.Union(otherEnumerable) : enumerable;
 
-	public static TResult max<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.Max(function);
+	// method: (according to the given boolean:) return the set of (unique) items across this given enumerable and the other given enumerable //
+	public static HashSet<TItem> pickUniquesInUnionWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> enumerable.onlyUniquesInUnionWith(otherEnumerable).toSet();
 
-	public static TItem minBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.implyAscendingBy(function).first();
+	// method: (according to the given boolean:) return the list of (unique) items across this given enumerable and the other given enumerable //
+	public static List<TItem> pickUniquesAsListInUnionWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> enumerable.onlyUniquesInUnionWith(otherEnumerable).manifested();
+	// method: return the list of (unique) items across this given enumerable and each of the other given enumerables //
+	public static List<TItem> pickUniquesAsListInUnionWith<TItem>(this IEnumerable<TItem> enumerable, params IEnumerable<TItem>[] otherEnumerables)
+	{
+		List<TItem> list = enumerable.manifested();
 
-	public static TItem maxBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.implyDescendingBy(function).first();
-	#endregion extremes
+		otherEnumerables.forEach(otherEnumerable =>
+			list = list.pickUniquesAsListInUnionWith(otherEnumerable));
+
+		return list;
+	}
+	#endregion including
 
 
-	#region averaging
+	#region adding
+	
+	// method: return the concatenation of the other given enumerable onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
+	public static IEnumerable<TItem> with<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=>	nullsAsEmpty ?
+				(enumerable ?? Enumerable.Empty<TItem>()).Concat(otherEnumerable ?? Enumerable.Empty<TItem>()) :
+				enumerable.Concat(otherEnumerable);
+	
+	// method: return the concatenation of the other given enumerables onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
+	public static IEnumerable<TItem> with<TItem>(this IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty, params IEnumerable<TItem>[] otherEnumerables)
+	{
+		IEnumerable<TItem> concatenation = enumerable;
+		otherEnumerables.forEach(otherEnumerable =>
+			concatenation = concatenation.with(otherEnumerable));
+		return concatenation;
+	}
+	// method: return the manifestation (list form) of the concatenation of the other given enumerables onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
+	public static List<TItem> manifestedWith<TItem>(this IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty, params IEnumerable<TItem>[] otherEnumerables)
+		=> enumerable.with(nullsAsEmpty, otherEnumerables).manifested();
+	// method: return the set of (uniques in) the concatenation of the other given enumerables onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
+	public static HashSet<TItem> setWith<TItem>(this IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty, params IEnumerable<TItem>[] otherEnumerables)
+		=> enumerable.with(nullsAsEmpty, otherEnumerables).toSet();
+	#endregion adding
 
-	public static float average(this IEnumerable<float> enumerable)
-		=> enumerable.Average();
-	#endregion averaging
+
+	#region removing
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns true //
+	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
+		=> boolean ? enumerable.Where(function) : enumerable;
+	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns true //
+	public static List<TItem> where<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
+		=> enumerable.only(function, boolean).manifested();
+	public static HashSet<TItem> uniquesWhere<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
+		=> enumerable.only(function, boolean).toSet();
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns false //
+	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
+		=>	enumerable.only(
+				function.negated(),
+				boolean);
+	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable for which the given function returns false //
+	public static List<TItem> whereNot<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
+		=> enumerable.except(function, boolean).manifested();
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are yull //
+	public static IEnumerable<TItem> onlyYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
+		=> enumerable.only(
+			item => item.isYull(),
+			boolean);
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a list of the items in this given enumerable which are yull //
+	public static List<TItem> whereYull<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
+		=> enumerable.onlyYull().manifested();
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return the set of the items in this given enumerable which are yull //
+	public static HashSet<TItem> uniqueYulls<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
+		=> enumerable.onlyYull().manifested().toSet();
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are equal to the given item //
+	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
+		=> enumerable.only(
+			item_ => item_.baselineEquals(item),
+			boolean);
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to the given item //
+	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
+		=> enumerable.except(
+			item_ => item_.baselineEquals(item),
+			boolean);
+
+	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
+	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> enumerable.except(
+			item_ => otherEnumerable.hasAny(otherItem => item_.baselineEquals(otherItem)),
+			boolean);
+	// method: (according to the given boolean:) instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the items in the other given enumerable //
+	public static List<TItem> whereNotIn<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
+		=> enumerable.except(otherEnumerable, boolean).manifested();
+	// method: instead of returning this given enumerable, return a selection of the items in this given enumerable which are not equal to any of the given items //
+	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
+		=> enumerable.except(
+			item_ => items.hasAny(otherItem => item_.baselineEquals(otherItem)));
+	// method: instead of returning a list for this given enumerable, return a list of the items in this given enumerable which are not equal to any of the given items //
+	public static List<TItem> whereNotIn<TItem>(this IEnumerable<TItem> enumerable, params TItem[] items)
+		=> enumerable.except(items).manifested();
+
+	// method: instead of returning this given enumerable, return a selection of the items in this given enumerable which are of the specified target type //
+	public static IEnumerable<TTarget> only<TTarget>(this IEnumerable enumerable)
+		=> enumerable.OfType<TTarget>();
+	// method: instead of returning this given enumerable, return a list of the items in this given enumerable which are of the specified target type //
+	public static IEnumerable<TTarget> where<TTarget>(this IEnumerable enumerable)
+		=> enumerable.only<TTarget>().manifested();
+	#endregion removing
 
 
 	#region conversion
@@ -462,6 +638,9 @@ public static class IEnumerableExtensions
 	// method: return this given enumerable converted to a set (maintaining only unique items) //
 	public static HashSet<TItem> toSet<TItem>(this IEnumerable<TItem> enumerable)
 		=> new HashSet<TItem>(enumerable);
+	// method: return a list of the unique items in this given enumerable //
+	public static List<TItem> manifestedUniques<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.toSet().manifested();
 
 	// method: return a selection of those structs in this given enumerable as nullable structs //
 	public static IEnumerable<TItem?> implyEachAsNullable<TItem>(this IEnumerable<TItem> enumerable) where TItem : struct

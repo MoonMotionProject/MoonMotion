@@ -1,59 +1,122 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
 using NaughtyAttributes;
+#endif
 
 // Radial Forcer:
 // • at each physics update, radially forces
 // #force
-public class RadialForcer : EnabledsEditorVisualized<RadialForcer>
+public class RadialForcer : EnabledsBehaviour<RadialForcer>
 {
-	// variables //
+	#region variables
 
 
+	#region editor visualization
+
+	#if ODIN_INSPECTOR
+	[TabGroup("Editor Visualization")]
+	[ToggleLeft]
+	#else
 	[BoxGroup("Editor Visualization")]
+	#endif
 	[Tooltip("whether to visualize a sphere for the radius")]
 	public bool visualizeSphere = Default.choiceToVisualizeInEditor;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Editor Visualization")]
+	[ToggleLeft]
+	#else
 	[BoxGroup("Editor Visualization")]
+	#endif
 	[Tooltip("whether to visualize lines to each object to be forced")]
 	public bool visualizeLines = Default.choiceToVisualizeInEditor;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Editor Visualization")]
+	[ShowIf("@visualizeSphere || visualizeLines")]
+	[HideLabel]
+	#else
+	[BoxGroup("Editor Visualization")]
+	#endif
+	[Tooltip("the color to use for editor visualization")]
+	public Color visualizationColor = Default.visualizationColor;
+	#endregion editor visualization
+	
+
+	#region forcing
+
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the objects being forced")]
 	[ReadOnly]
 	public HashSet<GameObject> forcedObjects = new HashSet<GameObject>();
 
-
-	[BoxGroup("Radially Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[EnumToggleButtons]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the affinity of the force")]
 	public Affinity affinity = Default.affinity;
 
-	[BoxGroup("Radially Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the radius of the force")]
 	public float radius = Default.forceRadius;
 
-	[BoxGroup("Radially Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the magnitude of the force")]
 	public float magnitude = Default.forceMagnitude;
 
-	[BoxGroup("Radially Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[LabelText("Interpolation Curve")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the curve by which to diminish the force's magnitude to zero from the center position to the force's radius")]
 	public InterpolationCurve radiusDistanceMagnitudeZeroingCurve = Default.forceCurve;
 
-	[BoxGroup("Radially Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	[EnumToggleButtons]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the query to use for trigger colliders")]
 	public QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery;
 
-	[BoxGroup("Radially Forcing")]
+	#if ODIN_INSPECTOR
+	[TabGroup("Forcing")]
+	#else
+	[BoxGroup("Forcing")]
+	#endif
 	[Tooltip("the layer mask to use for colliders")]
 	public LayerMask layerMask = Default.layerMask;
+	#endregion forcing
+	#endregion variables
 
 
 
 
-	// updating //
+	#region updating
 
-	
+
 	// upon editor visualization: //
 	private void OnDrawGizmos()
 	{
@@ -87,4 +150,5 @@ public class RadialForcer : EnabledsEditorVisualized<RadialForcer>
 				triggerColliderQuery,
 				layerMask
 			);
+	#endregion updating
 }

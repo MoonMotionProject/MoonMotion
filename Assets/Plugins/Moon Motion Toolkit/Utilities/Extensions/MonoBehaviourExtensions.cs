@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 
 // Mono Behaviour Extensions: provides extension methods for handling mono behaviours //
-// #auto #execution
+// #auto #mono #execution
 public static class MonoBehaviourExtensions
 {
 	#if UNITY_EDITOR

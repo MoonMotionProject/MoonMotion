@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-#if NAV_MESH_COMPONENTS
-using UnityEngine.AI;
-#endif
 
 // Auto Behaviour Layer Component Shortcuts Unity:
 // #auto #shortcuts #component #force
@@ -392,17 +389,23 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region Animator
 
-	#region setting enablement of booleans
-	public Animator setEnablementOfAnimatorBoolean(string targetBooleanName, bool newBoolean, bool boolean = true)
+	#region triggering animatriggers
+	public Animator triggerAnimatrigger(string targetAnimatriggerName, bool boolean = true)
+		=>	animator.trigger(targetAnimatriggerName,
+				boolean);
+	#endregion triggering animatriggers
+
+	#region setting enablement of animatoggles
+	public Animator setEnablementOfAnimatoggle(string targetBooleanName, bool newBoolean, bool boolean = true)
 		=> animator.setEnablementOf(targetBooleanName, newBoolean,
 			boolean);
-	public Animator enableAnimatorBoolean(string targetBooleanName, bool boolean = true)
+	public Animator enableAnimatoggle(string targetBooleanName, bool boolean = true)
 		=> animator.enable(targetBooleanName,
 			boolean);
-	public Animator disableAnimatorBoolean(string targetBooleanName, bool boolean = true)
+	public Animator disableAnimatoggle(string targetBooleanName, bool boolean = true)
 		=> animator.disable(targetBooleanName,
 			boolean);
-	#endregion setting enablement of booleans
+	#endregion setting enablement of animatoggles
 	#endregion Animator
 
 
@@ -444,46 +447,4 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 		=> selfAfter(()=> edgeCollider.setPointsTo(points));
 	#endregion setting points
 	#endregion EdgeCollider2D
-
-
-	#if NAV_MESH_COMPONENTS
-	#region NavMeshAgent
-
-	#region destinating
-	public bool destinateTo(object destinationPosition_PositionProvider)
-		=> navmeshAgent.destinateTo(destinationPosition_PositionProvider);
-	public bool destinateTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.destinateTo<SingletonBehaviourT>();
-	public bool destinateToCamera()
-		=> navmeshAgent.destinateToCamera();
-	#endregion destinating
-	
-	#region setting haltedness
-	public AutoBehaviourT setHaltednessTo(bool boolean)
-		=> selfAfter(()=> navmeshAgent.setHaltednessTo(boolean));
-	public AutoBehaviourT halt()
-		=> selfAfter(()=> navmeshAgent.halt());
-	public AutoBehaviourT unhalt()
-		=> selfAfter(()=> navmeshAgent.unhalt());
-	#endregion setting haltedness
-	
-	#region navigating
-	public bool beginNavigatingTo(object destinationPosition_PositionProvider)
-		=> navmeshAgent.beginNavigatingTo(destinationPosition_PositionProvider);
-	public bool beginNavigatingTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.beginNavigatingTo<SingletonBehaviourT>();
-	public bool beginNavigatingToCamera()
-		=> navmeshAgent.beginNavigatingToCamera();
-	#endregion navigating
-	
-	#region setting enablement of rotation via navigation
-	public NavMeshAgent setEnablementOfRotationViaNavigationTo(bool boolean)
-		=> navmeshAgent.setEnablementOfRotationViaNavigationTo(boolean);
-	public NavMeshAgent enableRotationViaNavigation()
-		=> navmeshAgent.enableRotationViaNavigation();
-	public NavMeshAgent disableRotationViaNavigation()
-		=> navmeshAgent.disableRotationViaNavigation();
-	#endregion setting enablement of rotation via navigation
-	#endregion NavMeshAgent
-	#endif
 }

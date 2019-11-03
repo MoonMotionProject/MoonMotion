@@ -5,9 +5,9 @@ using UnityEngine;
 // Rigidbody Correspondence Extensions: provides extension methods for handling rigidbody correspondence //
 public static class RigidbodyCorrespondenceExtensions
 {
-	// method: return the rigidbody corresponding to this given game object //
+	// method: return the rigidbody corresponding to (responsible for the physics of, by assuming the first local or ancestor rigidbody of this given game object will be the rigidbody responsible as such) this given game object //
 	public static Rigidbody correspondingRigidbody(this GameObject gameObject)
-		=> gameObject.firstLocalOrAncestor<Rigidbody>();
+		=> gameObject.corresponding<Rigidbody>();
 	// method: return the rigidbody corresponding to this given component //
 	public static Rigidbody correspondingRigidbody(this Component component)
 		=> component.gameObject.correspondingRigidbody();

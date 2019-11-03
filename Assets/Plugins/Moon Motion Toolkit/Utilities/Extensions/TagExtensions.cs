@@ -55,4 +55,23 @@ public static class TagExtensions
 	public static GameObject selfOrParentWithTagContaining(this Component component, string string_)
 		=> component.gameObject.selfOrParentWithTagContaining(string_);
 	#endregion searching for self or ancestor based on comparison
+
+
+	#region setting
+
+	// method: (according to the given boolean:) set the tag of this given provided game object, then return this given provided game object //
+	public static ObjectT setTagTo<ObjectT>(this ObjectT gameObject_GameObjectProvider, object tag_TagProvider, bool boolean = true)
+		=>	gameObject_GameObjectProvider.after(()=>
+				gameObject_GameObjectProvider.provideGameObject().tag = tag_TagProvider.provideTag(),
+				boolean);
+	
+	// method: (according to the given boolean:) imply setting the tag of these given provided game objects to the given provided tag, then return the selection of these given provided game objects //
+	public static IEnumerable<ObjectT> implySetTagOfEachTo<ObjectT>(this IEnumerable<ObjectT> gameObjects_GameObjectsProvider, object tag_TagProvider, bool boolean = true)
+		=>	gameObjects_GameObjectsProvider.implyForEach(gameObject_GameObjectProvider =>
+				gameObject_GameObjectProvider.setTagTo(tag_TagProvider),
+				boolean);
+	// method: (according to the given boolean:) set the tag of these given provided game objects to the given provided tag, then return a list of these given provided game objects //
+	public static List<ObjectT> setTagOfEachTo<ObjectT>(this IEnumerable<ObjectT> gameObjects_GameObjectsProvider, object tag_TagProvider, bool boolean = true)
+		=>	gameObjects_GameObjectsProvider.implySetTagOfEachTo(tag_TagProvider, boolean).manifested();
+	#endregion setting
 }

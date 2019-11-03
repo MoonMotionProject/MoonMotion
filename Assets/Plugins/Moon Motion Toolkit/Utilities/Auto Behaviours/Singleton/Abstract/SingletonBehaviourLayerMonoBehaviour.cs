@@ -4,39 +4,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Singleton Behaviour Layer Mono Behaviour:
-// #auto #execution
+// #auto #mono #coroutines #execution
 // • provides this singleton behaviour with static access to its auto behaviour's mono behaviour layer
 public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> :
 					SingletonBehaviourLayerBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	#region coroutines
-
-	// method: have this behaviour have Unity start a coroutine using the given enumerator, then return the started coroutine //
+	
 	public static new Coroutine startCoroutine(IEnumerator enumerator)
 		=> autoBehaviour.startCoroutine(enumerator);
+	
+	public static new AutoBehaviour<SingletonBehaviourT> stopCoroutine(Coroutine coroutine)
+		=> autoBehaviour.stopCoroutine(coroutine);
+	
+	public static new AutoBehaviour<SingletonBehaviourT> stopAllCoroutines()
+		=> autoBehaviour.stopAllCoroutines();
 	#endregion coroutines
 
 
 	#region planning to execute methods
-
-	// method: plan to execute the method on this mono behaviour with the given name after the given delay, then return this (derived auto) behaviour //
+	
 	public static new AutoBehaviour<SingletonBehaviourT> planToExecuteAfter(float delay, string methodName)
 		=> autoBehaviour.planToExecuteAfter(delay, methodName);
-
-	// methods: plan to execute the given function with the given parameters after the given delay, then return this (derived auto) behaviour //
-	public static new AutoBehaviour<SingletonBehaviourT> planToExecuteAfter(float delay, Delegate function, params object[] parameters)
+	
+	public static new Coroutine planToExecuteAfter(float delay, Delegate function, params object[] parameters)
 		=> autoBehaviour.planToExecuteAfter(delay, function, parameters);
-	public static new AutoBehaviour<SingletonBehaviourT> planToExecuteAfter(float delay, Action action, params object[] parameters)
+	public static new Coroutine planToExecuteAfter(float delay, Action action, params object[] parameters)
 		=> autoBehaviour.planToExecuteAfter(delay, action, parameters);
 	#endregion planning to execute methods
 
 
+	#region planning to execute functions\actions at next check
+	
+	public static new Coroutine atNextCheckExecute(Delegate function, params object[] parameters)
+		=> autoBehaviour.atNextCheckExecute(function, parameters);
+	public static new Coroutine atNextCheckExecute(Action action, params object[] parameters)
+		=> autoBehaviour.atNextCheckExecute(action, parameters);
+	#endregion planning to execute functions\actions at next check
+
+
+	#region planning to execute functions\actions now and at every check
+	
+	public static new Coroutine nowAndAtEveryCheckExecute(Delegate function, params object[] parameters)
+		=> autoBehaviour.nowAndAtEveryCheckExecute(function, parameters);
+	public static new Coroutine nowAndAtEveryCheckExecute(Action action, params object[] parameters)
+		=> autoBehaviour.nowAndAtEveryCheckExecute(action, parameters);
+	#endregion planning to execute functions\actions now and at every check
+
+
 	#region planning to execute functions\actions at the end of the current frame
 
-	public static new AutoBehaviour<SingletonBehaviourT> atEndOfFrameExecute(Delegate function, params object[] parameters)
+	public static new Coroutine atEndOfFrameExecute(Delegate function, params object[] parameters)
 		=> autoBehaviour.atEndOfFrameExecute(function, parameters);
-	public static new AutoBehaviour<SingletonBehaviourT> atEndOfFrameExecute(Action action, params object[] parameters)
+	public static new Coroutine atEndOfFrameExecute(Action action, params object[] parameters)
 		=> autoBehaviour.atEndOfFrameExecute(action, parameters);
 	#endregion planning to execute functions\actions at the end of the current frame
 }

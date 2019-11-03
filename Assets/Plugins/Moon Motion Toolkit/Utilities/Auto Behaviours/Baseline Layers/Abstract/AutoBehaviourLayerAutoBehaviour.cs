@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto
 // • provides this behaviour with functionality baseline to all auto behaviour layers
 public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
-					AutoBehaviourLayerInterface
+					AutoBehaviourLayerImplementation
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region casted instances
@@ -85,9 +85,11 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	public static GameObject print(GameObject gameObject)
 		=> gameObject.print();
 	public static ObjectT log<ObjectT>(ObjectT object_, string prefix, string loggingSeparator = Default.loggingSeparator, GameObject contextGameObject = null)
-		=> object_.logAs(prefix, loggingSeparator, contextGameObject);
+		=> object_.logAs(prefix, contextGameObject, loggingSeparator);
 	public static GameObject log(GameObject gameObject, string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> gameObject.logAs(prefix, loggingSeparator);
+	public AutoBehaviourT asSelfLog<ObjectT>(ObjectT object_, string loggingSeparator = Default.loggingSeparator)
+		=> selfAfter(()=> object_.logAs(""+self, gameObject, loggingSeparator));
 	#endregion printing what is given
 
 	#region printing listings
@@ -99,7 +101,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	public AutoBehaviourT print()
 		=> print(self, gameObject);
 	public AutoBehaviourT logAs(string prefix, string loggingSeparator = Default.loggingSeparator)
-		=> self.logAs(prefix, loggingSeparator, gameObject);
+		=> self.logAs(prefix, gameObject, loggingSeparator);
 	#endregion printing this auto behaviour
 
 	#if UNITY_EDITOR
@@ -121,6 +123,18 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 		=> selfAfter(()=> gameObject.printName());
 	#endregion printing this auto behaviour's (game object) name
 	#endregion printing
+
+
+
+
+	#region erroring
+	
+	public AutoBehaviourT logError(string errorString, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)
+		=> selfAfter(()=> errorString.logAsError(prefix, contextGameObject, loggingSeparator));
+	
+	public AutoBehaviourT asSelfLogError(string errorString, string loggingSeparator = Default.loggingSeparator)
+		=> logError(errorString, ""+self, gameObject, loggingSeparator);
+	#endregion erroring
 
 
 

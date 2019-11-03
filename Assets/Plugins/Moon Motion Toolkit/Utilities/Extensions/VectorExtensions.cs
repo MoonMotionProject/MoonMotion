@@ -262,11 +262,11 @@ public static class VectorExtensions
 		=> new ICollectionT() {vector.x, vector.y, vector.z};
 
 	// method: return the doubles vector corresponding to this given floats vector //
-	public static Vector toDoublesVector(this Vector3 floatsVector)
-		=> new Vector(floatsVector.x, floatsVector.y, floatsVector.z);
+	public static DoublesVector toDoublesVector(this Vector3 floatsVector)
+		=> new DoublesVector(floatsVector.x, floatsVector.y, floatsVector.z);
 
 	// method: return the floats vector corresponding to this given doubles vector //
-	public static Vector3 toFloatsVector(this Vector doublesVector)
+	public static Vector3 toFloatsVector(this DoublesVector doublesVector)
 		=> new Vector3(doublesVector.x.toFloat(), doublesVector.y.toFloat(), doublesVector.z.toFloat());
 	#endregion conversion
 }

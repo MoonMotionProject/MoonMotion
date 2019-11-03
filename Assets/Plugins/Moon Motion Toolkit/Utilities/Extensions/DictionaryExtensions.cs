@@ -16,6 +16,14 @@ public static class DictionaryExtensions
 	#endregion copying
 
 
+	#region determining content
+
+	// method: return whether this given dictionary has a recording for the given key //
+	public static bool hasRecordingFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+		=> dictionary.ContainsKey(key);
+	#endregion determining content
+
+
 	#region accessing
 
 	// method: return the key value pair of this given dictionary for the given key (with the value being the default value of its type if this given dictionary doesn't contain the given key) //
@@ -124,7 +132,7 @@ public static class DictionaryExtensions
 	public static bool tryToRemove<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, bool boolean = true)
 		=> boolean && dictionary.Remove(key);
 
-	// method: (according to the given boolean:) remove the given item from this given hash set (assuming the given item is actually contained in this given hash set), then return this given hash set //
+	// method: (according to the given boolean:) remove (unrecord) the given item from this given hash set (assuming the given item is actually contained in this given hash set), then return this given hash set //
 	public static Dictionary<TKey, TValue> remove<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, bool boolean = true)
 		=> dictionary.after(()=>
 			dictionary.tryToRemove(key),

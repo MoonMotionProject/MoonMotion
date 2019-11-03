@@ -319,6 +319,11 @@ public static class GameObjectTransformationExtensions
 	// method: (according to the given boolean:) reset this given game object's local transformations (local position, local rotation, local scale) respectively to the zeroes, no rotation, and ones, then return this given game object //
 	public static GameObject resetLocals(this GameObject gameObject, bool boolean = true)
 		=> gameObject.transform.resetLocals(boolean).gameObject;
+	// method: (according to the given boolean:) reset these given game objects' local transformations (local position, local rotation, local scale) respectively to the zeroes, no rotation, and ones, then return the list of these given game objects //
+	public static List<GameObject> resetLocalsForEach(this IEnumerable<GameObject> gameObjects, bool boolean = true)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.resetLocals(),
+				boolean);
 
 
 

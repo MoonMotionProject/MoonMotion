@@ -87,13 +87,13 @@ public static class InterpolationCurved
 	}
 
 	// method: interpolate a doubles vector using this given curve and the given clamping boolean and start & end & ratio values //
-	public static Vector interpolation(this InterpolationCurve curve, bool clamp, Vector start, Vector end, double ratio)
-		=> new Vector
-		(
-			curve.interpolation(clamp, start.x, end.x, ratio),
-			curve.interpolation(clamp, start.y, end.y, ratio),
-			curve.interpolation(clamp, start.z, end.z, ratio)
-		);
+	public static DoublesVector interpolation(this InterpolationCurve curve, bool clamp, DoublesVector start, DoublesVector end, double ratio)
+		=>	new DoublesVector
+			(
+				curve.interpolation(clamp, start.x, end.x, ratio),
+				curve.interpolation(clamp, start.y, end.y, ratio),
+				curve.interpolation(clamp, start.z, end.z, ratio)
+			);
 
 	// method: interpolate a double with clamping using this given curve and the given start & end & ratio values //
 	public static double clamped(this InterpolationCurve curve, double start, double end, double ratio)
@@ -154,14 +154,14 @@ public static class InterpolationCurved
 		=> curve.unclamped(starts.asDoubles(), ends.asDoubles(), ratio).toFloats();
 
 	// method: interpolate a doubles vector with clamping using the given curve and start & end & ratio values //
-	public static Vector clamped(this InterpolationCurve curve, Vector start, Vector end, double ratio)
+	public static DoublesVector clamped(this InterpolationCurve curve, DoublesVector start, DoublesVector end, double ratio)
 		=> curve.interpolation(true, start, end, ratio);
 	// method: interpolate a floats vector (using doubles interpolation) with clamping using the given curve and start & end & ratio values //
 	public static Vector3 clamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)
 		=> curve.clamped(start.toDoublesVector(), end.toDoublesVector(), ratio).toFloatsVector();
 
 	// method: interpolate a doubles vector without clamping using this given curve and the given start & end & ratio values //
-	public static Vector unclamped(this InterpolationCurve curve, Vector start, Vector end, double ratio)
+	public static DoublesVector unclamped(this InterpolationCurve curve, DoublesVector start, DoublesVector end, double ratio)
 		=> curve.interpolation(false, start, end, ratio);
 	// method: interpolate a floats vector (using doubles interpolation) without clamping using this given curve and the given start & end & ratio values //
 	public static Vector3 unclamped(this InterpolationCurve curve, Vector3 start, Vector3 end, double ratio)

@@ -3,6 +3,7 @@ using UnityEditor;
 
 // Hierarchy Style:
 // • stylizes the hierarchy
+// #hierarchy
 [InitializeOnLoad]      // ensures that this class's constructor is called every time the project recompiles
 public static class HierarchyStyle
 {

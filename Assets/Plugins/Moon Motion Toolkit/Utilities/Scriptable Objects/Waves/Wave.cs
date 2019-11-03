@@ -5,7 +5,7 @@ using UnityEngine;
 // Wave:
 // • represents a wave (the generic abstract mathematical waveform concept) as a scriptable object
 [CreateAssetMenu(fileName = "New Wave", menuName = "Wave")]
-public class Wave : ScriptableObject
+public class Wave : ResetFixedScriptableObject
 {
 	#region constants
 	

@@ -10,10 +10,11 @@ public static class ListExtensions
 {
 	#region adding
 
-	// method: add the given item to this given list, then return this given list //
-	public static List<TItem> add<TItem>(this List<TItem> list, TItem item)
-		=> list.after(()=>
-			list.Add(item));
+	// method: (according to the given boolean:) add the given item to this given list, then return this given list //
+	public static List<TItem> add<TItem>(this List<TItem> list, TItem item, bool boolean = true)
+		=>	list.after(()=>
+				list.Add(item),
+				boolean);
 	// method: add the given items to this given list, then return this given list //
 	public static List<TItem> add<TItem>(this List<TItem> list, IEnumerable<TItem> items)
 		=> list.after(()=>
@@ -95,5 +96,15 @@ public static class ListExtensions
 	// method: return a new list containing only this given item //
 	public static List<TItem> startList<TItem>(this TItem item)
 		=> new List<TItem>() {item};
+
+	// method: return this given list with each item generalized to the specified target type //
+	public static List<TTarget> generalizedTo<TTarget, TItem>(this List<TItem> list) where TItem : TTarget
+	{
+		List<TTarget> generalizedList = new List<TTarget>();
+
+		list.forEach(item => generalizedList.add(item));
+
+		return generalizedList;
+	}
 	#endregion conversion
 }

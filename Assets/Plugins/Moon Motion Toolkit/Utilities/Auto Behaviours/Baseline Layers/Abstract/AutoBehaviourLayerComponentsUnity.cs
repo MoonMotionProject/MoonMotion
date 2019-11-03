@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if NAV_MESH_COMPONENTS
-using UnityEngine.AI;
-#endif
 
 // Auto Behaviour Layer Components Unity:
 // #auto
@@ -64,8 +61,4 @@ public abstract class	AutoBehaviourLayerComponentsUnity<AutoBehaviourT> :
 	public     OcclusionArea occlusionArea => cache<OcclusionArea>();
 	public     OcclusionPortal occlusionPortal => cache<OcclusionPortal>();
 	public     EdgeCollider2D edgeCollider => cache<EdgeCollider2D>();
-	#if NAV_MESH_COMPONENTS
-	public     NavMeshAgent navmeshAgent => cache<NavMeshAgent>();
-	public     Bipedation bipedation => cache<Bipedation>();
-	#endif
 }

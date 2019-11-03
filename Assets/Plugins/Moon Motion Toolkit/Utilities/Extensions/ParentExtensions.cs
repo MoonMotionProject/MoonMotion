@@ -6,15 +6,25 @@ using UnityEngine;
 // Parent Extensions: provides extension methods for handling parents //
 public static class ParentExtensions
 {
-	// method: return whether this given transform has no parent //
-	public static bool parentless(this Transform transform)
-		=> !transform.parent;
+	// method: return whether this given transform has any parent //
+	public static bool hasAnyParent(this Transform transform)
+		=> transform.parent.isYull();
 	// method: return whether this given game object has no parent //
-	public static bool parentless(this GameObject gameObject)
-		=> gameObject.transform.parentless();
+	public static bool hasAnyParent(this GameObject gameObject)
+		=> gameObject.transform.hasAnyParent();
 	// method: return whether this given component has no parent //
-	public static bool parentless(this Component component)
-		=> component.transform.parentless();
+	public static bool hasAnyParent(this Component component)
+		=> component.transform.hasAnyParent();
+
+	// method: return whether this given transform has no parent //
+	public static bool isParentless(this Transform transform)
+		=> !transform.hasAnyParent();
+	// method: return whether this given game object has no parent //
+	public static bool isParentless(this GameObject gameObject)
+		=> gameObject.transform.isParentless();
+	// method: return whether this given component has no parent //
+	public static bool isParentless(this Component component)
+		=> component.transform.isParentless();
 
 	// method: return this given game object's parent //
 	public static Transform parent(this GameObject gameObject)
@@ -33,55 +43,21 @@ public static class ParentExtensions
 	public static GameObject parentObject<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.parentObject();
 
-	// method: (according to the given boolean:) set this given transform's parent to the given parent transform, then return this given transform //
-	public static Transform setParentTo(this Transform transform, Transform parent, bool boolean = true)
+	// methods: (according to the given boolean:) set this given provided transform's parent to the given provided parent transform or specified singleton behaviour (respectively), then return this given provided transform (unless this given transform provider is a component and the parent is specified as a singleton behaviour) //
+	public static ObjectT setParentTo<ObjectT>(this ObjectT transform_TransformProvider, object parentTransform_TransformProvider, bool boolean = true)
 	{
 		if (boolean)
 		{
-			transform.SetParent(parent);
+			transform_TransformProvider.provideTransform().SetParent(parentTransform_TransformProvider.provideTransform());
 		}
 
-		return transform;
+		return transform_TransformProvider;
 	}
-	// method: (according to the given boolean:) set this given game object's parent to the given parent transform, then return this given game object //
-	public static GameObject setParentTo(this GameObject gameObject, Transform parent, bool boolean = true)
-		=> gameObject.transform.setParentTo(parent, boolean).gameObject;
-	// method: (according to the given boolean:) set the parent of this given component's transform to the given parent transform, then return this given component //
-	public static ComponentT setParentTo<ComponentT>(this ComponentT component, Transform parent, bool boolean = true) where ComponentT : Component
-	{
-		component.transform.setParentTo(parent, boolean);
-
-		return component;
-	}
-
-	// method: (according to the given boolean:) set this given transform's parent to the transform of the given game object, then return this given transform //
-	public static Transform setParentTo(this Transform transform, GameObject parentObject, bool boolean = true)
-		=> transform.setParentTo(parentObject.transform, boolean);
-	// method: (according to the given boolean:) set this given game object's parent to the transform of the given game object, then return this given game object //
-	public static GameObject setParentTo(this GameObject gameObject, GameObject parentObject, bool boolean = true)
-		=> gameObject.setParentTo(parentObject.transform, boolean);
-	// method: (according to the given boolean:) set the parent of this given component's transform to the transform of the given game object, then return this given component //
-	public static ComponentT setParentTo<ComponentT>(this ComponentT component, GameObject parentObject, bool boolean = true) where ComponentT : Component
-		=> component.setParentTo(parentObject.transform, boolean);
-
-	// method: (according to the given boolean:) set this given transform's parent to the transform of the given component, then return this given transform //
-	public static Transform setParentTo(this Transform transform, Component parentComponent, bool boolean = true)
-		=> transform.setParentTo(parentComponent.transform, boolean);
-	// method: (according to the given boolean:) set this given game object's parent to the transform of the given component, then return this given game object //
-	public static GameObject setParentTo(this GameObject gameObject, Component parentComponent, bool boolean = true)
-		=> gameObject.setParentTo(parentComponent.transform, boolean);
-	// method: (according to the given boolean:) set the parent of this given component's transform to the transform of the given component, then return this given component //
-	public static ComponentT setParentTo<ComponentT>(this ComponentT component, Component parentComponent, bool boolean = true) where ComponentT : Component
-		=> component.setParentTo(parentComponent.transform, boolean);
-
-	// method: (according to the given boolean:) set this given transform's parent to the transform of the specified singleton behaviour class then return this given transform //
-	public static Transform setParentTo<ParentSingletonBehaviourT>(this Transform transform, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
-		=> transform.setParentTo(SingletonBehaviour<ParentSingletonBehaviourT>.transform, boolean);
-	// method: (according to the given boolean:) set this given game object's parent to the transform of the specified singleton behaviour class then return this given game object //
 	public static GameObject setParentTo<ParentSingletonBehaviourT>(this GameObject gameObject, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
 		=> gameObject.transform.setParentTo<ParentSingletonBehaviourT>(boolean).gameObject;
-	// method: (according to the given boolean:) set this given component's parent to the transform of the specified singleton behaviour class then return this given component //
-	public static ComponentT setParentTo<ComponentT, ParentSingletonBehaviourT>(this ComponentT component, bool boolean = true) where ComponentT : Component where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
+	public static Transform setParentTo<ParentSingletonBehaviourT>(this Transform transform, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
+		=> transform.setParentTo(SingletonBehaviour<ParentSingletonBehaviourT>.transform, boolean);
+	public static void setParentTo<ParentSingletonBehaviourT>(this Component component, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
 		=> component.after(()=>
 			component.transform.setParentTo<ParentSingletonBehaviourT>(boolean));
 

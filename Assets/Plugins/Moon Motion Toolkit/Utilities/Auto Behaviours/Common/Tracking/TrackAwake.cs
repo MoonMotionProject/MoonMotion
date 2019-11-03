@@ -12,7 +12,7 @@ public class TrackAwake : TrackingBehaviour<TrackAwake>
 	// trackings //
 
 	[ReadOnly]
-	public new bool awake;
+	public new bool isAwake;
 
 
 
@@ -26,5 +26,5 @@ public class TrackAwake : TrackingBehaviour<TrackAwake>
 
 	// before the start: //
 	private void Awake()
-		=> awake = true;
+		=> isAwake = true;
 }

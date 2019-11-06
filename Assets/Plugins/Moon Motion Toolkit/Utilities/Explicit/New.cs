@@ -13,7 +13,4 @@ public static class New
 	
 	public static Action Action(this Action action)
 		=> action;
-
-	public static Thread threadExecuting(this Action action, bool syncWithUpdate = Default.syncingOfThreadWithUpdate)
-		=> action.beginThread(syncWithUpdate);
 }

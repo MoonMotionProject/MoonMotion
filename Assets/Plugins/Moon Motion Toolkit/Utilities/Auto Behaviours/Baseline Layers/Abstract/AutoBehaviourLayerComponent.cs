@@ -73,31 +73,31 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 	#region determining local components
 
-	public bool any<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+	public bool hasAny<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasAny<ComponentT>(includeInactiveComponents);
 
-	public bool any<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+	public bool hasAny<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasAny(function, includeInactiveComponents);
 	
 	public bool hasNo<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasNo<ComponentT>(includeInactiveComponents);
 
-	public bool anyComponentOtherThan(Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+	public bool hasAnyComponentOtherThan(Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
 		=> gameObject.hasAnyComponentOtherThan(component, includeInactiveComponents);
 
-	public bool anyOtherComponent(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+	public bool hasAnyOtherComponent(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
 		=> component.hasAnyOtherComponent(includeInactiveComponents);
 
-	public bool anyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+	public bool hasAnyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
 		=> gameObject.hasAnyComponentExcept(component, function, includeInactiveComponents);
 
-	public bool anyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+	public bool hasAnyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
 		=> component.hasAnyOtherComponent(function, includeInactiveComponents);
 
-	public bool anyAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+	public bool hasAnyAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
 		=> gameObject.hasAnyAutoBehaviours(includeInactiveComponents);
 
-	public bool anyOtherAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+	public bool hasAnyOtherAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
 		=> self.hasAnyOtherAutoBehaviours<AutoBehaviourT>(includeInactiveComponents);
 	#endregion determining local components
 

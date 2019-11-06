@@ -9,9 +9,9 @@ using UnityEngine;
 //     · the recognized terrain type can be set, and its recognition is handled by Terrain Response
 //       - a method is provided to cycle this setting
 //         – this can optionally play the attached toggling audio
-//     · this can optionally also recognize trigger colliders (versus only nontrigger colliders)
+//     · this can optionally also recognize trigger colliders (versus only solid colliders)
 //     · this terrain distancing is determined in two possible ways:
-//       - if this diminisher's hand is currently trigger collided with any nontrigger collider objects (according to Hand Insideness Tracking):
+//       - if this diminisher's hand is currently trigger collided with any solid collider objects (according to Hand Insideness Tracking):
 //         – if any of those objects is of a recognized terrain layer, then the diminisher is considered to be at 0 distance to a recognized terrain layer
 //         – otherwise, the diminisher is considered to not be at distance to a recognized terrain layer (at distance '-1')... in this way, diminishing can be used even solely for preventing boosting from within objects
 //         /* diminishers are expected to be able to be collision-determined based on the parent hand's collision; more precise "cheating" determination than that of Hand Insideness Tracking, for the precise point of diminishing raycasting, is not yet implemented */
@@ -21,7 +21,7 @@ using UnityEngine;
 //     · this can optionally affect only certain axes
 //     · the max distance to diminish to can be set
 //     · the curve to diminish by can be set
-//     · a toggle setting is provided to always diminish due to obstruction (when the hand is inside of a nontrigger collider not of a recognized terrain layer for diminishing), regardless of whether any applicable axes should currently be diminished
+//     · a toggle setting is provided to always diminish due to obstruction (when the hand is inside of a solid collider not of a recognized terrain layer for diminishing), regardless of whether any applicable axes should currently be diminished
 //   · upon input, the diminisher's diminishing is toggled
 //     - this can optionally be toggled globally (affecting both diminishers upon the input of this controller)
 //     - this can optionally play the attached toggling audio
@@ -48,7 +48,7 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	public float diminishingDistanceMax = 10f;
 	[Tooltip("the curve used for diminishing interpolation")]
 	public InterpolationCurve diminishingCurve = InterpolationCurve.smoother;
-	[Tooltip("whether to always prevent boosting inside obstructions (when the hand is inside a nontrigger collider that isn't a recognized terrain layer for diminishing); the alternative is to only prevent boosting inside obstructions according to whether to diminish any applicable axes")]
+	[Tooltip("whether to always prevent boosting inside obstructions (when the hand is inside a solid collider that isn't a recognized terrain layer for diminishing); the alternative is to only prevent boosting inside obstructions according to whether to diminish any applicable axes")]
 	public bool alwaysPreventBoostingInsideObstructions = true;
 	[Tooltip("whether an (unrecognized) obstruction was found the last time distance to recognized terrain was calculated")]
 	private bool terrainDistancingLastFoundObstruction = false;
@@ -193,10 +193,10 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 		// connect to the diminisher for the given booster //
 		BoosterDiminisher diminisher = diminisherFor(booster);
 
-		// determine any nontrigger colliders that this diminisher's hand is currently inside of (according to Hand Insideness Tracking) //
+		// determine any solid colliders that this diminisher's hand is currently inside of (according to Hand Insideness Tracking) //
 		HashSet<GameObject> allCollidedObjects = (booster.leftInstance ? HandInsidenessTracking.allCollidedObjectsForLeftHand() : HandInsidenessTracking.allCollidedObjectsForRightHand());
 
-		// if this diminisher's hand is currently inside of any nontrigger collider objects: //
+		// if this diminisher's hand is currently inside of any solid collider objects: //
 		if (allCollidedObjects.Count > 0)
 		{
 			// if any of the objects this diminisher's hand is inside of is on a recognized terrain layer: calculate the distance to the nearest recognized terrain to be 0 //

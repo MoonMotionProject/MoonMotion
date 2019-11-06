@@ -11,7 +11,7 @@ using UnityEngine;
 //     - however, Booster Diminisher is responsible for tracking whether each booster is at distance to an antidiminishor (since it handles terrain raycasting, and terrain could be in the way of an antidiminishor)
 //       – since Booster Diminisher is responsible for this raycasting to antidiminishors while determining terrain raycast distance, antidiminishors need to be considered a recognized kind of terrain via Terrain Response that is recognized by this booster's Booster Diminisher
 // • includes the following same functionalities of Booster Diminisher:
-//   · can optionally also hit trigger colliders (versus only nontrigger colliders)
+//   · can optionally also hit trigger colliders (versus only solid colliders)
 //   · can optionally affect only certain axes
 //   · the max distance to antidiminish within can be set
 //   · the curve to antidiminish by can be set

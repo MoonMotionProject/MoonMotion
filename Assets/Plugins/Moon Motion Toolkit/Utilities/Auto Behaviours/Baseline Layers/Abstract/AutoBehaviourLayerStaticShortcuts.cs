@@ -14,16 +14,6 @@ public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region not: Moon Motion - Moon Motion Toolkit - Utilities - Explicit
-
-	
-	#region time
-	
-	public static float time => Time.time;
-	public static float timeSince(float previousTime)
-		=> time.since(previousTime);
-	public static float timeSinceLastUpdate => Time.deltaTime;
-	public static float timeSinceLastFixedUpdate => Time.fixedDeltaTime;
-	#endregion time
 	#endregion not: Moon Motion - Moon Motion Toolkit - Utilities - Explicit
 
 
@@ -86,5 +76,25 @@ public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
 	public static Vector3 zeroesFloatsVector => FloatsVector.zeroes;
 	public static Vector3 onesFloatsVector => FloatsVector.ones;
 	#endregion FloatsVector
+
+
+	#region Game
+	
+	public static float time => Game.time;
+	public static float timeSince(float previousTime)
+		=> Game.timeSince(previousTime);
+	public static float timeSinceLastUpdate => Game.timeSinceLastUpdate;
+	public static float timeSinceLastFixedUpdate => Game.timeSinceLastFixedUpdate;
+	public static float timeInteger => Game.timeInteger;
+
+	#region divisibility
+	public static bool timeIntegerIsDivisibleBy(float divisor)
+		=> Game.timeIntegerIsDivisibleBy(divisor);
+	public static bool timeIntegerIsEven => Game.timeIntegerIsEven;
+	public static bool timeIntegerIsOdd => Game.timeIntegerIsOdd;
+	public static bool timeIntegerIsDivisibleByFive => Game.timeIntegerIsDivisibleByFive;
+	public static bool timeIntegerIsDivisibleByTen => Game.timeIntegerIsDivisibleByTen;
+	#endregion divisibility
+	#endregion Game
 	#endregion Moon Motion - Moon Motion Toolkit - Utilities - Explicit
 }

@@ -388,6 +388,20 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	public bool isNotWithinDistanceOfPlayer(float thresholdDistance)
 		=> position.isNotWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
+	
+	#region as position provider is within distance of nearest point on solid collider
+	public bool positionallyIsWithinSolidDistanceOf(object solidCollider_SolidColliderProvider, float thresholdDistance)
+		=> position.positionallyIsWithinSolidDistanceOf(solidCollider_SolidColliderProvider, thresholdDistance);
+	public bool positionallyIsNotWithinSolidDistanceOf(object solidCollider_SolidColliderProvider, float thresholdDistance)
+		=> position.positionallyIsNotWithinSolidDistanceOf(solidCollider_SolidColliderProvider, thresholdDistance);
+	#endregion as position provider is within distance of nearest point on solid collider
+	
+	#region as position provider is within distance of nearest point on solid collider otherwise position
+	public bool positionallyIsWithinIdeallySolidDistanceOf(object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+		=> position.positionallyIsWithinIdeallySolidDistanceOf(colliderOtherwisePosition_ColliderOtherwisePositionProvider, thresholdDistance);
+	public bool positionallyIsNotWithinIdeallySolidDistanceOf(object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+		=> position.positionallyIsNotWithinIdeallySolidDistanceOf(colliderOtherwisePosition_ColliderOtherwisePositionProvider, thresholdDistance);
+	#endregion as position provider is within distance of nearest point on solid collider otherwise position
 
 	#region is more distant than
 	public bool isMoreDistantThan(object otherPosition_PositionProvider, object distancePosition_PositionProvider)

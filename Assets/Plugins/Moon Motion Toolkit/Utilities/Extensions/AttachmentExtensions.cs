@@ -39,10 +39,10 @@ public static class AttachmentExtensions
 
 	// method: return the set of all (unique) game objects that the yull components of these given components are attached to //
 	public static HashSet<GameObject> uniqueObjects(this IEnumerable<Component> components)
-		=> components.onlyYull().selectObjects().toSet();
+		=> components.onlyYull().selectObjects().uniques();
 	// method: return the set of all (unique) game objects attached to these given raycast hits //
 	public static HashSet<GameObject> uniqueObjects(this IEnumerable<RaycastHit> raycastHits)
-		=> raycastHits.selectObjects().toSet();
+		=> raycastHits.selectObjects().uniques();
 	
 	// method: return the set of all unique game objects that the yull components of this given component are attached to //
 	public static HashSet<GameObject> uniqueObjects(this Component component)
@@ -153,13 +153,13 @@ public static class AttachmentExtensions
 
 	// method: return the set of all unique, yull, first rigidbodies that the yull game objects of these given game objects are attached to //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.selectRigidbodies().toSet();
+		=> gameObjects.selectRigidbodies().uniques();
 	// method: return the set of all unique, yull, first rigidbodies that the yull components of these given components are attached to //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<Component> components)
-		=> components.selectRigidbodies().toSet();
+		=> components.selectRigidbodies().uniques();
 	// method: return the set of all unique, yull rigidbodies attached to these given raycast hits //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this IEnumerable<RaycastHit> raycastHits)
-		=> raycastHits.selectRigidbodies().toSet();
+		=> raycastHits.selectRigidbodies().uniques();
 	
 	// method: return the set of all unique, yull, first rigidbodies that the yull game objects of this given game object is attached to //
 	public static HashSet<Rigidbody> uniqueRigidbodies(this GameObject gameObject)
@@ -202,10 +202,10 @@ public static class AttachmentExtensions
 
 	// method: return the set of all unique, yull, first renderers that the yull game objects of these given game objects are attached to //
 	public static HashSet<Renderer> uniqueRenderers(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.selectRenderers().toSet();
+		=> gameObjects.selectRenderers().uniques();
 	// method: return the set of all unique, yull, first renderers that the yull components of these given components are attached to //
 	public static HashSet<Renderer> uniqueRenderers(this IEnumerable<Component> components)
-		=> components.selectRenderers().toSet();
+		=> components.selectRenderers().uniques();
 	#endregion Renderer
 
 

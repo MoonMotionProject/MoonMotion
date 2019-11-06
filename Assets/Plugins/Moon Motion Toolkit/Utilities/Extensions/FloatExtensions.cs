@@ -263,6 +263,13 @@ public static class FloatExtensions
 	#endregion math operations
 
 
+	#region divisibility determination
+	
+	public static bool isDivisibleBy(this float float_, float divisor)
+		=> float_ % divisor == 0f;
+	#endregion divisibility determination
+
+
 	#region interpolation
 
 	// method: return this given ratio float "lerped" (linearly interpolated) along the range from the given start float to the given end float - without clamping //

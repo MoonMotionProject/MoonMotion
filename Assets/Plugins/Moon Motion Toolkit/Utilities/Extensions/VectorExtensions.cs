@@ -209,6 +209,12 @@ public static class VectorExtensions
 
 	#region math operations
 
+	public static Vector3 halved(this Vector3 vector)
+		=> (vector / 2f);
+
+	public static Vector3 doubled(this Vector3 vector)
+		=> (vector * 2f);
+
 	// method: return the average (value) of this given vector //
 	public static float average(this Vector3 vector)
 		=> vector.toArray().average();

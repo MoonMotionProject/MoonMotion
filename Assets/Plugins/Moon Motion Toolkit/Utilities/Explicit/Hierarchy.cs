@@ -29,7 +29,7 @@ public static class Hierarchy
 	// the (first) currently selected game object //
 	public static GameObject selectedGameObject => Selection.activeGameObject;
 	// the set of currently selected game objects //
-	public static HashSet<GameObject> selectedGameObjects => Selection.gameObjects.toSet();
+	public static HashSet<GameObject> selectedGameObjects => Selection.gameObjects.uniques();
 	#endif
 	#endregion state
 
@@ -41,7 +41,7 @@ public static class Hierarchy
 
 	// method: return the set of all yull, enabled, and unique behaviours of the specified type that are currently in the hierarchy //
 	public static HashSet<BehaviourT> allYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
-		=> Resources.FindObjectsOfTypeAll<BehaviourT>().onlyYull().onlyEnabled().toSet();
+		=> Resources.FindObjectsOfTypeAll<BehaviourT>().onlyYull().onlyEnabled().uniques();
 
 	// method: return the first yull, enabled, and unique behaviour of the specified type that is currently in the hierarchy //
 	public static BehaviourT firstYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
@@ -55,7 +55,7 @@ public static class Hierarchy
 			return default(HashSet<MonoBehaviourI>).returnWithError(typeof(MonoBehaviourI).simpleClassName()+" is not an interface");
 		}
 
-		return allYullAndEnabledAndUnique<MonoBehaviour>().only<MonoBehaviourI>().toSet();
+		return allYullAndEnabledAndUnique<MonoBehaviour>().only<MonoBehaviourI>().uniques();
 	}
 	
 	// method: return the first of the specified interface implemented on mono behaviours that are yull, enabled, and unique instances currently in the hierarchy //
@@ -84,8 +84,8 @@ public static class Hierarchy
 		=> new GameObject()
 			.makeUniversalAndTemporary();
 
-	// method: create a temporary game object, plan to destroy it after the given delay, then return the result of the given function on the temporary game object //
-	public static TResult createTemporaryObjectAndDestroyAfterPicking<TResult>(Func<GameObject, TResult> function, float temporaryObjectDestructionDelay = Default.temporaryObjectDestructionDelay)
+	// method: create a temporary game object, then return the result of the given function on the temporary game object //
+	public static TResult createTemporaryObjectAndDestroyAfterPicking<TResult>(Func<GameObject, TResult> function)
 	{
 		GameObject temporaryObject = createTemporaryObject();
 		TResult result = function(temporaryObject);

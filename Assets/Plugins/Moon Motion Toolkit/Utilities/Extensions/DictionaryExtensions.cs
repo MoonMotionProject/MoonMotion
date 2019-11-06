@@ -57,6 +57,19 @@ public static class DictionaryExtensions
 	// method: return a list for the values in this given dictionary for which the given function returns true //
 	public static List<TValue> valuesWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TValue, bool> function)
 		=> dictionary.selectValuesWhere(function).manifested();
+
+	// method: return the value recorded for the given key in this given dictionary //
+	public static TValue recordingFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+	{
+		try
+		{
+			return dictionary[key];
+		}
+		catch (KeyNotFoundException keyNotFoundException)
+		{
+			return keyNotFoundException.logAsErrorAndReturnDefault<TValue>(dictionary.asListing()+".recordingFor("+key+"):\nkey "+key+" not found in\ndictionary "+dictionary.asListing());
+		}
+	}
 	#endregion accessing
 
 

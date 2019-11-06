@@ -46,5 +46,8 @@ public static class Callstack
 	
 	// whether the current callstack includes a method with an attribute named 'ContextMenu' //
 	public static bool includesContextMenu => includesMethodWithAttributeNamed("ContextMenu");
+
+	// whether the current callstack includes 'OnDrawGizmos' //
+	public static bool includesEditorVisualization => selectMethodNames.contains("OnDrawGizmos");
 	#endregion determining specific information about the callstack
 }

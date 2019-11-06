@@ -18,7 +18,7 @@ public static class RadialCollisionExtensions
 				radius,
 				layerMask_MaxOf1.firstOtherwise(Default.layerMask),
 				triggerColliderQuery
-			).toSet();
+			).uniques();
 	public static bool hasAnyCollidersWithin(this Vector3 centerPosition, float radius, QueryTriggerInteraction triggerColliderQuery = Default.radialTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=> centerPosition.collidersWithin(radius, triggerColliderQuery, layerMask_MaxOf1).hasAny();
 

@@ -64,11 +64,7 @@ public static class DisplacementExtensions
 	#region with displacement
 	// methods: return this given provided position with the given displacement added //
 
-	public static Vector3 withDisplacement(this Vector3 position, Vector3 displacement)
-		=> position + displacement;
-	public static Vector3 withDisplacement(this GameObject gameObject, Vector3 displacement)
-		=> gameObject.position().withDisplacement(displacement);
-	public static Vector3 withDisplacement(this Component component, Vector3 displacement)
-		=> component.position().withDisplacement(displacement);
+	public static Vector3 withDisplacement(this object position_PositionProvider, Vector3 displacement)
+		=> position_PositionProvider.providePosition() + displacement;
 	#endregion with displacement
 }

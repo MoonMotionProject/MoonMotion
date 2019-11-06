@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Name Extensions: provides extension methods for handling (game object) names //
+// Name Extensions:
+// • provides extension methods for handling (game object) names
+// #name
 public static class NameExtensions
 {
 	#region listing

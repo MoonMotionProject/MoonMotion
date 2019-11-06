@@ -20,7 +20,11 @@ public static class IEnumerableExtensions
 
 	// method: return the string listing of this given enumerable, using the given separator string (comma by default) //
 	public static string asListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
-		=> string.Join(separator, enumerable);
+		=>	enumerable.isNull() ?
+				"[null listing]" :
+				enumerable.isEmpty() ?
+					"[empty listing]" :
+					string.Join(separator, enumerable);
 	#endregion listing
 
 
@@ -167,6 +171,20 @@ public static class IEnumerableExtensions
 	#endregion accessing first items
 
 
+	#region accessing nonfirst items
+
+	// method: return a selection of the nonfirst items in this given enumerable (assuming a first item is there) //
+	public static IEnumerable<TItem> selectNonfirsts<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.except(enumerable.first());
+	// method: return the list of the nonfirst items in this given enumerable (assuming a first item is there) //
+	public static List<TItem> nonfirsts<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.selectNonfirsts().manifested();
+	// method: return the set of the unique nonfirst items in this given enumerable (assuming a first item is there) //
+	public static HashSet<TItem> uniqueNonfirsts<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.selectNonfirsts().uniques();
+	#endregion accessing nonfirst items
+
+
 	#region accessing last items
 
 	// method: return the last item in this given enumerable (assuming an item is there) //
@@ -262,7 +280,7 @@ public static class IEnumerableExtensions
 		=> enumerable.select<TTargetItem>().manifested();
 	
 	public static HashSet<TResult> pickUnique<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
-		=> enumerable.select(function).toSet();
+		=> enumerable.select(function).uniques();
 	
 	public static IEnumerable<TResult> selectOnlyYull<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
 		=> enumerable.select(function).onlyYull();
@@ -308,7 +326,7 @@ public static class IEnumerableExtensions
 	public static List<TResult> pickNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
 		=> enumerable.selectNested(function).manifested();
 	public static HashSet<TResult> pickUniqueNested<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, IEnumerable<TResult>> function)
-		=> enumerable.selectNested(function).toSet();
+		=> enumerable.selectNested(function).uniques();
 	
 	private static List<TItem> recursivelyPick_NonlastRecursion<TItem>(this IEnumerable<TItem> enumerable, Func<IEnumerable<TItem>, IEnumerable<TItem>> function)
 		=> function(enumerable).recursivelyPick_NonlastRecursion(function);
@@ -362,10 +380,10 @@ public static class IEnumerableExtensions
 		=> enumerable.forEach(action, boolean).manifested();
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return the set of (unique) items in this given enumerable //
 	public static HashSet<TItem> setAfterForEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
-		=> enumerable.forEach(action, boolean).toSet();
+		=> enumerable.forEach(action, boolean).uniques();
 	// method: (according to the given boolean:) invoke the given action on each unique item in this given enumerable, then return the set of (unique) items in this given enumerable //
 	public static HashSet<TItem> forEachUnique<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
-		=> enumerable.toSet().setAfterForEach(action, boolean);
+		=> enumerable.uniques().setAfterForEach(action, boolean);
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<TItem> action, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
 		=> enumerable.after(()=>
@@ -511,7 +529,7 @@ public static class IEnumerableExtensions
 
 	// method: (according to the given boolean:) return the set of (unique) items across this given enumerable and the other given enumerable //
 	public static HashSet<TItem> pickUniquesInUnionWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
-		=> enumerable.onlyUniquesInUnionWith(otherEnumerable).toSet();
+		=> enumerable.onlyUniquesInUnionWith(otherEnumerable).uniques();
 
 	// method: (according to the given boolean:) return the list of (unique) items across this given enumerable and the other given enumerable //
 	public static List<TItem> pickUniquesAsListInUnionWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool boolean = true)
@@ -536,6 +554,12 @@ public static class IEnumerableExtensions
 		=>	nullsAsEmpty ?
 				(enumerable ?? Enumerable.Empty<TItem>()).Concat(otherEnumerable ?? Enumerable.Empty<TItem>()) :
 				enumerable.Concat(otherEnumerable);
+	// method: return the manifestation (list form) of the concatenation of the other given enumerable onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
+	public static List<TItem> manifestedWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=> enumerable.with(otherEnumerable, nullsAsEmpty).manifested();
+	// method: return the set of (uniques in) the concatenation of the other given enumerable onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
+	public static HashSet<TItem> setWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=> enumerable.with(otherEnumerable, nullsAsEmpty).uniques();
 	
 	// method: return the concatenation of the other given enumerables onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
 	public static IEnumerable<TItem> with<TItem>(this IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty, params IEnumerable<TItem>[] otherEnumerables)
@@ -550,7 +574,7 @@ public static class IEnumerableExtensions
 		=> enumerable.with(nullsAsEmpty, otherEnumerables).manifested();
 	// method: return the set of (uniques in) the concatenation of the other given enumerables onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
 	public static HashSet<TItem> setWith<TItem>(this IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty, params IEnumerable<TItem>[] otherEnumerables)
-		=> enumerable.with(nullsAsEmpty, otherEnumerables).toSet();
+		=> enumerable.with(nullsAsEmpty, otherEnumerables).uniques();
 	#endregion adding
 
 
@@ -563,7 +587,7 @@ public static class IEnumerableExtensions
 	public static List<TItem> where<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
 		=> enumerable.only(function, boolean).manifested();
 	public static HashSet<TItem> uniquesWhere<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
-		=> enumerable.only(function, boolean).toSet();
+		=> enumerable.only(function, boolean).uniques();
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable for which the given function returns false //
 	public static IEnumerable<TItem> except<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, bool boolean = true)
@@ -586,7 +610,7 @@ public static class IEnumerableExtensions
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return the set of the items in this given enumerable which are yull //
 	public static HashSet<TItem> uniqueYulls<TItem>(this IEnumerable<TItem> enumerable, bool boolean = true)
-		=> enumerable.onlyYull().manifested().toSet();
+		=> enumerable.onlyYull().manifested().uniques();
 
 	// method: (according to the given boolean:) instead of returning this given enumerable, return a selection of the items in this given enumerable which are equal to the given item //
 	public static IEnumerable<TItem> only<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool boolean = true)
@@ -636,11 +660,11 @@ public static class IEnumerableExtensions
 		=> enumerable;
 
 	// method: return this given enumerable converted to a set (maintaining only unique items) //
-	public static HashSet<TItem> toSet<TItem>(this IEnumerable<TItem> enumerable)
+	public static HashSet<TItem> uniques<TItem>(this IEnumerable<TItem> enumerable)
 		=> new HashSet<TItem>(enumerable);
 	// method: return a list of the unique items in this given enumerable //
 	public static List<TItem> manifestedUniques<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.toSet().manifested();
+		=> enumerable.uniques().manifested();
 
 	// method: return a selection of those structs in this given enumerable as nullable structs //
 	public static IEnumerable<TItem?> implyEachAsNullable<TItem>(this IEnumerable<TItem> enumerable) where TItem : struct
@@ -650,7 +674,7 @@ public static class IEnumerableExtensions
 		=> enumerable.implyEachAsNullable().manifested();
 	// method: return the set of those structs in this given enumerable as nullable structs //
 	public static HashSet<TItem?> toSetOfNullables<TItem>(this IEnumerable<TItem> enumerable) where TItem : struct
-		=> enumerable.eachAsNullable().toSet();
+		=> enumerable.eachAsNullable().uniques();
 
 	// method: return this given enumerable converted to an array //
 	public static TItem[] toArray<TItem>(this IEnumerable<TItem> enumerable)

@@ -4,5 +4,6 @@ public enum Coroute
 {
 	atNextCheck,
 	nowAndAtEveryCheck,
+	atNextCheckAndEveryCheckAfter,
 	atEndOfFrame
 }

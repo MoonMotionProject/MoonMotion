@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Hand Insideness Tracking: tracks for both hands individually (both for the left hand and for right hand) any nontrigger collider objects that hand is inside of, so as to help recognize cases of "VR cheating" via the player's hand being inside of a normally collision-inducing object 
+// Hand Insideness Tracking: tracks for both hands individually (both for the left hand and for right hand) any solid collider objects that hand is inside of, so as to help recognize cases of "VR cheating" via the player's hand being inside of a normally collision-inducing object 
 // • expects this object to be a hand's trigger collider child (expects this object to be an eventual child of a player's hand, used for the purpose of providing a trigger collider for the hand, potentially one of multiple (not necessarily the only one))
-// • tracks all objects of nontrigger colliders that this hand trigger collider is currently trigger collided with
+// • tracks all objects of solid colliders that this hand trigger collider is currently trigger collided with
 //   · has a toggle setting for being for either the left hand or the right, by which to determine which hand this tracking is for
-// • global methods are provided for determining, for either the left or right hand, all objects that any of that hand's trigger colliders (only those with this script) are currently trigger collided with via a nontrigger collider of such objects – also removing any outdated objects (that no longer exist or no longer have an immediate collider that is nontrigger)
+// • global methods are provided for determining, for either the left or right hand, all objects that any of that hand's trigger colliders (only those with this script) are currently trigger collided with via a solid collider of such objects – also removing any outdated objects (that no longer exist or no longer have an immediate collider that is solid)
 public class HandInsidenessTracking : MonoBehaviour
 {
 	// variables //
@@ -17,7 +17,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	
 	// variables for: insideness tracking //
 	public bool leftInstance = true;		// setting: this hand insideness tracking's handedness (whether this insideness tracking is for the left hand (versus the right))
-	private HashSet<GameObject> collidedObjects = new HashSet<GameObject>();		// tracking: all objects this hand trigger collider is currently trigger collided with via a nontrigger collider of such objects
+	private HashSet<GameObject> collidedObjects = new HashSet<GameObject>();		// tracking: all objects this hand trigger collider is currently trigger collided with via a solid collider of such objects
 	private Dictionary<Collider, float> collisionTrackingTimes = new Dictionary<Collider, float>();		// tracking: the last time for each collider of the collided objects that that collider was known to be still colliding (if any of these becomes longer ago than the duration of the last physics update, then the corresponding object will be untracked as being collided)
 
 
@@ -27,10 +27,10 @@ public class HandInsidenessTracking : MonoBehaviour
 	
 	// methods for: insideness tracking //
 
-	// method: clean this insideness tracking (remove any outdated tracked objects (that no longer exist or no longer have an immediate collider that is nontrigger)) //
+	// method: clean this insideness tracking (remove any outdated tracked objects (that no longer exist or no longer have an immediate collider that is solid)) //
 	private void clean()
 	{
-		// remove any tracked objects that no longer exist or no longer have an immediate collider that is nontrigger //
+		// remove any tracked objects that no longer exist or no longer have an immediate collider that is solid //
 		/* this must be done the hard way, because of: https://issuetracker.unity3d.com/issues/hashset-dot-removewhere-does-not-correctly-evaluate-null-for-gameobjects-in-builds */
 		bool continueCheckingToRemoveObjects = true;
 		while (continueCheckingToRemoveObjects)
@@ -40,16 +40,16 @@ public class HandInsidenessTracking : MonoBehaviour
 			foreach (GameObject triggerCollidedObject in collidedObjects)
 			{
 				Collider[] collidersOnObjectOrItsChildren = triggerCollidedObject.GetComponentsInChildren<Collider>();
-				HashSet<Collider> nontriggerCollidersOnObjectOnly = new HashSet<Collider>();
+				HashSet<Collider> solidCollidersOnObjectOnly = new HashSet<Collider>();
 				foreach (Collider colliderOnObjectOrItsChildren in collidersOnObjectOrItsChildren)
 				{
 					if (!colliderOnObjectOrItsChildren.isTrigger && (colliderOnObjectOrItsChildren.gameObject == triggerCollidedObject))
 					{
-						nontriggerCollidersOnObjectOnly.Add(colliderOnObjectOrItsChildren);
+						solidCollidersOnObjectOnly.Add(colliderOnObjectOrItsChildren);
 					}
 				}
 				
-				if (!triggerCollidedObject || (nontriggerCollidersOnObjectOnly.Count <= 0))
+				if (!triggerCollidedObject || (solidCollidersOnObjectOnly.Count <= 0))
 				{
 					collidedObjects.Remove(triggerCollidedObject);
 					continueCheckingToRemoveObjects = true;
@@ -140,7 +140,7 @@ public class HandInsidenessTracking : MonoBehaviour
 		// connect to the collided object //
 		GameObject collidedObject = collider.gameObject;
 		
-		// if the collider is nontrigger: //
+		// if the collider is solid: //
 		if (!collider.isTrigger)
 		{
 			// if the object/collider is somehow already tracked for this insideness tracking: //
@@ -168,13 +168,13 @@ public class HandInsidenessTracking : MonoBehaviour
 		// if the object/collider is tracked for this insideness tracking: //
 		if (collidedObjects.Contains(collidedObject))
 		{
-			// if the collider is still nontrigger: //
+			// if the collider is still solid: //
 			if (!collider.isTrigger)
 			{
 				// update the collision tracking time of this collider for this insideness tracking //
 				collisionTrackingTimes[collider] = Time.time;
 			}
-			// otherwise (if the collider is no longer nontrigger): //
+			// otherwise (if the collider is no longer solid): //
 			else
 			{
 				// untrack the object/collider for this insideness tracking //
@@ -182,7 +182,7 @@ public class HandInsidenessTracking : MonoBehaviour
 				collisionTrackingTimes.Remove(collider);
 			}
 		}
-		// otherwise: if the collider is nontrigger: //
+		// otherwise: if the collider is solid: //
 		else if (!collider.isTrigger)
 		{
 			// add the collided object to the tracking for this insideness tracking //

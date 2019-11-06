@@ -63,32 +63,32 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 
 	#region determining local components
 
-	public static new bool any<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> autoBehaviour.any<ComponentT>(includeInactiveComponents);
+	public static new bool hasAny<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> autoBehaviour.hasAny<ComponentT>(includeInactiveComponents);
 
-	public static new bool any<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> autoBehaviour.any(function, includeInactiveComponents);
+	public static new bool hasAny<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> autoBehaviour.hasAny(function, includeInactiveComponents);
 
 	public static new bool hasNo<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> autoBehaviour.hasNo<ComponentT>(includeInactiveComponents);
 
-	public static new bool anyComponentOtherThan(Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.anyComponentOtherThan(component, includeInactiveComponents);
+	public static new bool hasAnyComponentOtherThan(Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+		=> autoBehaviour.hasAnyComponentOtherThan(component, includeInactiveComponents);
 
-	public static new bool anyOtherComponent(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.anyOtherComponent(includeInactiveComponents);
+	public static new bool hasAnyOtherComponent(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+		=> autoBehaviour.hasAnyOtherComponent(includeInactiveComponents);
 
-	public static new bool anyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.anyComponentExcept(component, function, includeInactiveComponents);
+	public static new bool hasAnyComponentExcept(Component component, Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+		=> autoBehaviour.hasAnyComponentExcept(component, function, includeInactiveComponents);
 
-	public static new bool anyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.anyOtherComponent(function, includeInactiveComponents);
+	public static new bool hasAnyOtherComponent(Func<Component, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+		=> autoBehaviour.hasAnyOtherComponent(function, includeInactiveComponents);
 
-	public static new bool anyAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.anyAutoBehaviours(includeInactiveComponents);
+	public static new bool hasAnyAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+		=> autoBehaviour.hasAnyAutoBehaviours(includeInactiveComponents);
 
-	public static new bool anyOtherAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
-		=> autoBehaviour.anyOtherAutoBehaviours(includeInactiveComponents);
+	public static new bool hasAnyOtherAutoBehaviours(bool includeInactiveComponents = Default.inclusionOfInactiveComponents)
+		=> autoBehaviour.hasAnyOtherAutoBehaviours(includeInactiveComponents);
 	#endregion determining local components
 
 

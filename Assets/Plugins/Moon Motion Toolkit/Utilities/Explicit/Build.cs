@@ -28,7 +28,7 @@ public static class Build
 		=> defines.contains(define);
 	
 	public static HashSet<string> setDefinesTo(IEnumerable<string> defines)
-		=> defines.toSet().after(()=>
+		=> defines.uniques().after(()=>
 			PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, defines.joinBySemicolons()));
 
 	// method: ensure that the build defines include the given define string, then return whether it was included before //

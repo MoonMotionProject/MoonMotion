@@ -207,6 +207,10 @@ public static class ObjectExtensions
 	public static ObjectT castAs<ObjectT>(object object_) where ObjectT : class
 		=> object_ as ObjectT;
 
+	// method: return this given object as an object //
+	public static object asObject(this object object_)
+		=> object_;
+
 	// method: return this given object converted to a string with null represented //
 	public static string asStringWithNullRepresented(this object object_)
 		=> object_.isYull() ? ""+object_ : "null";

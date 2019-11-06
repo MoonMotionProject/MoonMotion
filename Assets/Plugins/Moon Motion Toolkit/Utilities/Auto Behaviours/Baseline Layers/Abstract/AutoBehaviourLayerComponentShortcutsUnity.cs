@@ -345,9 +345,24 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#endregion setting starting and ending colors
 
 	#region line of light setup
+	public AutoBehaviourT setupLineRendererAsLineOfLightFrom
+	(
+		object startingPosition_PositionProvider,
+		object endingPosition_PositionProvider,
+		Material material,
+		float width = Default.lineRendererWidth
+	)
+		=>	selfAfter(()=>
+				gameObject.setupLineRendererAsLineOfLightFrom
+				(
+					startingPosition_PositionProvider,
+					endingPosition_PositionProvider,
+					material,
+					width
+				));
 	public AutoBehaviourT setupLineRendererAsLineOfLightLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
 		=>	selfAfter(()=>
-				ensuredLineRenderer.setupAsLineOfLightLocallyDirectedFrom
+				gameObject.setupLineRendererAsLineOfLightLocallyDirectedFrom
 				(
 					startingTransform_TransformProvider.provideTransform(),
 					localDirection,

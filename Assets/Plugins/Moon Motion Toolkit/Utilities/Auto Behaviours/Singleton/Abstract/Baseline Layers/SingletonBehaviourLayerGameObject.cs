@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Singleton Behaviour Layer Game Object:
-// #auto #gameobject
+// #auto #gameobject #name
 // • provides this singleton behaviour with static access to its auto behaviour's game object layer
 public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 					SingletonBehaviourLayerComponentsNonUnity<SingletonBehaviourT>
@@ -68,8 +68,8 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#region hierarchy selection
 	#if UNITY_EDITOR
 
-	public static new bool selected => autoBehaviour.selected;
-	public static new bool notSelected => autoBehaviour.notSelected;
+	public static new bool isSelected => autoBehaviour.isSelected;
+	public static new bool isNotSelected => autoBehaviour.isNotSelected;
 	#endif
 	#endregion hierarchy selection
 
@@ -83,6 +83,15 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	public static new AutoBehaviour<SingletonBehaviourT> toNameAppend(string suffix, bool boolean = true)
 		=> autoBehaviour.toNameAppend(suffix, boolean);
 	#endregion name
+
+
+	#region name comparison
+
+	public static new bool nameMatches(string name)
+		=> autoBehaviour.nameMatches(name);
+	public static new bool nameContains(string string_)
+		=> autoBehaviour.nameContains(string_);
+	#endregion name comparison
 
 
 	#region activity

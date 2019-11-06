@@ -6,7 +6,7 @@ using UnityEngine;
 // • provides various default state:
 //   · constants ("const" variables, and "readonly" variables where "const" variables are not possible)
 //   · properties (which should be constant in result) serving as constants (where constants are not possible)
-// #default
+// #default #navmesh #unitology
 public static class Default
 {
 	#region miscellaneous
@@ -45,6 +45,9 @@ public static class Default
 	public const bool scalingOfVisualizedIcons = true;
 	public static readonly Vector3 boxVisualizationDimensions = new Vector3(.3f, .3f, .3f);
 	public static readonly Color spawningVisualizationColor = Color.green.withAlpha(.8f);
+	#if NAV_MESH_COMPONENTS
+	public static readonly Color destinationVisualizationColor = Color.green.withAlpha(.8f);
+	#endif
 	#endregion editor visualization
 
 	#region components
@@ -126,11 +129,17 @@ public static class Default
 	public const Controller.Handedness controllerHandedness = Controller.Handedness.infinite;
 	public const ushort vibrationIntensity = 500;
 	#endregion Controller
-	#endif
+#endif
 	#endregion Moon Motion Toolkit
 
 	#region fense
 	#endregion fense
+
+	#region Navmesh Components
+	#if NAV_MESH_COMPONENTS
+	public const bool destinatingAvoidanceOfProvidedSolidity = false;
+	#endif
+	#endregion Navmesh Components
 
 	#region Unitology
 	#if UNITOLOGY
@@ -173,6 +182,7 @@ public static class Default
 	public const Abiliority abiliority = Abiliority.claimsAblenessAndCancels;
 	#endregion occupation
 	#region effects
+	public const float effectDuration = 1f;
 	public const float effectDamage = 0f;
 	public const float effectHealing = 0f;
 	#endregion effects
@@ -201,5 +211,8 @@ public static class Default
 	public const float damageRadius = 5f;
 	#endregion effects
 	#endif
+	#region traits
+	public const bool pendanceNavigatingAvoidanceOfProvidedSolidity = true;
+	#endregion traits
 	#endregion Unitology
 }

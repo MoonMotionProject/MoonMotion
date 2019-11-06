@@ -39,6 +39,9 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 
 	// this instance as a mono behaviour //
 	public MonoBehaviour monoBehaviour => this.castTo<MonoBehaviour>();
+
+	// this instance as an auto behaviour //
+	public AutoBehaviour<AutoBehaviourT> autoBehaviour => this.castTo<AutoBehaviour<AutoBehaviourT>>();
 	#endregion casted instances
 
 

@@ -356,6 +356,20 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#endregion setting starting and ending colors
 
 	#region line of light setup
+	public static new AutoBehaviour<SingletonBehaviourT> setupLineRendererAsLineOfLightFrom
+	(
+		object startingPosition_PositionProvider,
+		object endingPosition_PositionProvider,
+		Material material,
+		float width = Default.lineRendererWidth
+	)
+		=>	autoBehaviour.setupLineRendererAsLineOfLightFrom
+			(
+				startingPosition_PositionProvider,
+				endingPosition_PositionProvider,
+				material,
+				width
+			);
 	public static new AutoBehaviour<SingletonBehaviourT> setupLineRendererAsLineOfLightLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
 		=>	autoBehaviour.setupLineRendererAsLineOfLightLocallyDirectedFrom
 			(

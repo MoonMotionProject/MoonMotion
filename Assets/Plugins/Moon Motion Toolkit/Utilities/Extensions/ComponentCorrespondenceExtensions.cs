@@ -37,10 +37,10 @@ public static class ComponentCorrespondenceExtensions
 	// method: return the set of all unique, yull components of the specified type that the yull game objects of these given game objects correspond to //
 	public static HashSet<ComponentT> uniqueCorresponding<ComponentT>(this IEnumerable<GameObject> gameObjects)
 		where ComponentT : Component
-		=> gameObjects.selectCorresponding<ComponentT>().toSet();
+		=> gameObjects.selectCorresponding<ComponentT>().uniques();
 	// method: return the set of all unique, yull components of the specified type that the yull components of these given components correspond to //
 	public static HashSet<ComponentT> uniqueCorresponding<ComponentT>(this IEnumerable<Component> components) 
 	
 		where ComponentT : Component
-		=> components.selectCorresponding<ComponentT>().toSet();
+		=> components.selectCorresponding<ComponentT>().uniques();
 }

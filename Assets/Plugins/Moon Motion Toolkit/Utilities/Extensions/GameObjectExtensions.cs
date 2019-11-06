@@ -156,15 +156,15 @@ public static class GameObjectExtensions
 
 
 	#region hierarchy selection
-#if UNITY_EDITOR
+	#if UNITY_EDITOR
 
 	// method: return whether this given game object is currently selected //
-	public static bool selected(this GameObject gameObject)
+	public static bool isSelected(this GameObject gameObject)
 		=> Selection.gameObjects.contains(gameObject);
 
 	// method: return whether this given game object is not currently selected //
 	public static bool isNotSelected(this GameObject gameObject)
-		=> !gameObject.selected();
+		=> !gameObject.isSelected();
 	#endif
 	#endregion hierarchy selection
 

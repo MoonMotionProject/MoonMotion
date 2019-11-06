@@ -184,6 +184,13 @@ public static class IntegerExtensions
 	#endregion math operations
 
 
+	#region divisibility determination
+	
+	public static bool isDivisibleBy(this int integer, float divisor)
+		=> integer.asFloat().isDivisibleBy(divisor);
+	#endregion divisibility determination
+
+
 	#region execution
 
 	// method: execute the given action for each index in the range for this given count, then return this given count //

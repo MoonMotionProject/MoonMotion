@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Unity Object Extensions: provides extension methods for handling Unity objects //
+// Unity Object Extensions:
+// • provides extension methods for handling Unity objects
+// #gameobject #component #destruction
 public static class UnityObjectExtensions
 {
 	#region destruction

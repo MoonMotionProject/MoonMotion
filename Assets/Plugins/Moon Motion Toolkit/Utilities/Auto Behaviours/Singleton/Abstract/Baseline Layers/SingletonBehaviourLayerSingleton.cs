@@ -23,6 +23,9 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	// the singleton instance of this class as a mono behaviour //
 	public static new MonoBehaviour monoBehaviour => autoBehaviour.monoBehaviour;
+
+	// the singleton instance of this class as an auto behaviour //
+	public static new AutoBehaviour<SingletonBehaviourT> autoBehaviour => singleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
 	#endregion casted instances
 
 
@@ -106,8 +109,19 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 		}
 	}
 
-	// the singleton instance of this class as an auto behaviour //
-	public static AutoBehaviour<SingletonBehaviourT> autoBehaviour => singleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
+	// an ensured singleton instance of this class //
+	public static SingletonBehaviourT ensuredSingleton
+	{
+		get
+		{
+			return	singleton.isYull() ?
+						singleton :
+						simpleClassName.createAsObject().addGet<SingletonBehaviourT>();
+		}
+	}
+	// an ensured singleton instance of this class as an auto behaviour //
+	public static AutoBehaviour<SingletonBehaviourT> ensuredSingletonAutoBehaviour
+		=> ensuredSingleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => autoBehaviour.gameObject;

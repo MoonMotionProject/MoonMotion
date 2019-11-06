@@ -8,7 +8,7 @@ using UnityEngine.AI;
 #endif
 
 // Auto Behaviour Layer Component Shortcuts Moon Motion:
-// #auto #shortcuts #tracking #unitology
+// #auto #shortcuts #tracking #navmesh #unitology
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its children game objects' nonUnity components
 public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviourT> :
 					AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT>
@@ -92,18 +92,32 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 	#if NAV_MESH_COMPONENTS
 	#region NavMeshAgent
 
+	#region determining whether an agent is on a navmesh
+	public bool isOnANavmesh => UnityIs.playing && navmeshAgent.isYull() && navmeshAgent.isOnANavmesh();
+	public bool isNotOnANavmesh => !isOnANavmesh;
+	#endregion determining whether an agent is on a navmesh
+	
+	#region accessing destination
+	public Vector3 destination
+		=>	navmeshAgent.isYull() ?
+				navmeshAgent.destination :
+				Callstack.includesMethodNamed("DrawOdinInspector") || Callstack.includesEditorVisualization ?
+					default(Vector3) :
+					default(Vector3).returnWithError("navmesh agent is null, so cannot get destination");
+	#endregion accessing destination
+	
 	#region destinating
-	public bool destinateTo(object destinationPosition_PositionProvider)
-		=> navmeshAgent.destinateTo(destinationPosition_PositionProvider);
-	public bool destinateTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.destinateTo<SingletonBehaviourT>();
-	public bool destinateToCamera()
-		=> navmeshAgent.destinateToCamera();
+	public bool destinateTo(object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.destinateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity);
+	public bool destinateTo<SingletonBehaviourT>(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.destinateTo<SingletonBehaviourT>(avoidProvidedSolidity);
+	public bool destinateToCamera(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.destinateToCamera(avoidProvidedSolidity);
 	#endregion destinating
 	
 	#region determining haltedness
-	public bool isHalted => navmeshAgent.isHalted();
-	public bool isNotHalted => navmeshAgent.isNotHalted();
+	public bool isHalted => UnityIs.playing && navmeshAgent.isYull() && navmeshAgent.isHalted();
+	public bool isNotHalted => !isHalted;
 	#endregion determining haltedness
 	
 	#region setting haltedness
@@ -116,14 +130,14 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 	#endregion setting haltedness
 	
 	#region navigating
-	public bool navigateTo(object destinationPosition_PositionProvider)
-		=> navmeshAgent.navigateTo(destinationPosition_PositionProvider);
-	public bool navigateTo<SingletonBehaviourT>() where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.navigateTo<SingletonBehaviourT>();
-	public bool navigateToPlayer()
-		=> navmeshAgent.navigateToPlayer();
-	public bool navigateToCamera()
-		=> navmeshAgent.navigateToCamera();
+	public bool navigateTo(object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.navigateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity);
+	public bool navigateTo<SingletonBehaviourT>(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.navigateTo<SingletonBehaviourT>(avoidProvidedSolidity);
+	public bool navigateToPlayer(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.navigateToPlayer(avoidProvidedSolidity);
+	public bool navigateToCamera(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.navigateToCamera(avoidProvidedSolidity);
 	#endregion navigating
 	
 	#region setting enablement of rotation via navigation
@@ -227,10 +241,10 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 		=> unit.nearestAwornAlly(includeSelf);
 	public Unit nearestAlly(bool includeSelf = Default.allyInclusionOfSelf)
 		=> unit.nearestAlly(includeSelf);
-	public bool isAwareOf(object targetPosition_PositionProvider)
-		=> unit.isAwareOf(targetPosition_PositionProvider);
-	public bool isNotAwareOf(object targetPosition_PositionProvider)
-		=> unit.isNotAwareOf(targetPosition_PositionProvider);
+	public bool isAwareOf(object target)
+		=> unit.isAwareOf(target);
+	public bool isNotAwareOf(object target)
+		=> unit.isNotAwareOf(target);
 	public bool isAwareOfAnyEnemy(bool includeSelf = Default.enemyInclusionOfSelf)
 		=> unit.isAwareOfAnyEnemy(includeSelf);
 	public bool isAwareOfAnyAlly(bool includeSelf = Default.allyInclusionOfSelf)
@@ -295,24 +309,40 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 	#region targeting
 	public HashSet<IntelligenceT> enemies<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
 		=> unit.enemies<IntelligenceT>();
+	public HashSet<Unit> enemyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.enemyUnits<IntelligenceT>();
 	public HashSet<IntelligenceT> allies<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
 		=> unit.allies<IntelligenceT>();
+	public HashSet<Unit> allyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.allyUnits<IntelligenceT>();
 	public HashSet<OtherIntelligenceT> awornEnemies<OtherIntelligenceT>()
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
 		=> unit.awornEnemies<OtherIntelligenceT>();
+	public HashSet<Unit> awornEnemyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.awornEnemyUnits<IntelligenceT>();
 	public HashSet<OtherIntelligenceT> awornAllies<OtherIntelligenceT>()
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
 		=> unit.awornAllies<OtherIntelligenceT>();
+	public HashSet<Unit> awornAllyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.awornAllyUnits<IntelligenceT>();
 	public OtherIntelligenceT nearestAwornEnemy<OtherIntelligenceT>()
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
 		=> unit.nearestAwornEnemy<OtherIntelligenceT>();
+	public HashSet<Unit> nearestAwornEnemyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.nearestAwornEnemyUnit<IntelligenceT>();
 	public OtherIntelligenceT nearestAwornAlly<OtherIntelligenceT>()
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
 		=> unit.nearestAwornAlly<OtherIntelligenceT>();
+	public HashSet<Unit> nearestAwornAllyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.nearestAwornAllyUnit<IntelligenceT>();
 	public IntelligenceT nearestEnemy<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
 		=> unit.nearestEnemy<IntelligenceT>();
+	public HashSet<Unit> nearestEnemyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.nearestEnemyUnit<IntelligenceT>();
 	public IntelligenceT nearestAlly<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
 		=> unit.nearestAlly<IntelligenceT>();
+	public HashSet<Unit> nearestAllyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+		=> unit.nearestAllyUnit<IntelligenceT>();
 	public bool isAwareOfAnyEnemy<OtherIntelligenceT>()
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
 		=> unit.isAwareOfAnyEnemy<OtherIntelligenceT>();

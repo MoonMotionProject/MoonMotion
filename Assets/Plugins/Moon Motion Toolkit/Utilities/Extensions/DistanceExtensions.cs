@@ -107,58 +107,69 @@ public static class DistanceExtensions
 	#region is within distance of
 	// methods: return whether this given provided position is\isn't (respectively) within the given threshold distance of the other given provided position, specified singleton behaviour, the player (body), or the main camera (respectively) //
 
-	public static bool isWithinDistanceOf(this Vector3 position, object otherPosition_PositionProvider, float thresholdDistance)
-		=>	otherPosition_PositionProvider.isYull() &&
-			position.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
-	public static bool isNotWithinDistanceOf(this Vector3 position, object otherPosition_PositionProvider, float thresholdDistance)
-		=> !position.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
-	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Vector3 position, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> position.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
-	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this Vector3 position, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> !position.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
-	public static bool isWithinDistanceOfCamera(this Vector3 position, float thresholdDistance)
-		=> position.isWithinDistanceOf(Camera.main, thresholdDistance);
-	public static bool isNotWithinDistanceOfCamera(this Vector3 position, float thresholdDistance)
-		=> !position.isNotWithinDistanceOfCamera(thresholdDistance);
-	public static bool isWithinDistanceOfPlayer(this Vector3 position, float thresholdDistance)
-		=> position.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
-	public static bool isNotWithinDistanceOfPlayer(this Vector3 position, float thresholdDistance)
-		=> !position.isWithinDistanceOfPlayer(thresholdDistance);
-
-	public static bool isWithinDistanceOf(this GameObject gameObject, object otherPosition_PositionProvider, float thresholdDistance)
-		=> gameObject.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
-	public static bool isNotWithinDistanceOf(this GameObject gameObject, object otherPosition_PositionProvider, float thresholdDistance)
-		=> !gameObject.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
-	public static bool isWithinDistanceOf<SingletonBehaviourT>(this GameObject gameObject, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> gameObject.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
-	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this GameObject gameObject, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> !gameObject.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
-	public static bool isWithinDistanceOfCamera(this GameObject gameObject, float thresholdDistance)
-		=> gameObject.isWithinDistanceOf(Camera.main, thresholdDistance);
-	public static bool isNotWithinDistanceOfCamera(this GameObject gameObject, float thresholdDistance)
-		=> !gameObject.isWithinDistanceOfCamera(thresholdDistance);
-	public static bool isWithinDistanceOfPlayer(this GameObject gameObject, float thresholdDistance)
-		=> gameObject.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
-	public static bool isNotWithinDistanceOfPlayer(this GameObject gameObject, float thresholdDistance)
-		=> !gameObject.isWithinDistanceOfPlayer(thresholdDistance);
-
-	public static bool isWithinDistanceOf(this Component component, object otherPosition_PositionProvider, float thresholdDistance)
-		=> component.position().isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
-	public static bool isNotWithinDistanceOf(this Component component, object otherPosition_PositionProvider, float thresholdDistance)
-		=> !component.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
-	public static bool isWithinDistanceOf<SingletonBehaviourT>(this Component component, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> component.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
-	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this Component component, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> !component.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
-	public static bool isWithinDistanceOfCamera(this Component component, float thresholdDistance)
-		=> component.isWithinDistanceOf(Camera.main, thresholdDistance);
-	public static bool isNotWithinDistanceOfCamera(this Component component, float thresholdDistance)
-		=> !component.isWithinDistanceOfCamera(thresholdDistance);
-	public static bool isWithinDistanceOfPlayer(this Component component, float thresholdDistance)
-		=> component.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
-	public static bool isNotWithinDistanceOfPlayer(this Component component, float thresholdDistance)
-		=> !component.isWithinDistanceOfPlayer(thresholdDistance);
+	public static bool isWithinDistanceOf(this object position_PositionProvider, object otherPosition_PositionProvider, float thresholdDistance)
+		=>	Yull.areBoth(position_PositionProvider, otherPosition_PositionProvider) &&
+			position_PositionProvider.providePosition()
+				.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
+	public static bool isNotWithinDistanceOf(this object position_PositionProvider, object otherPosition_PositionProvider, float thresholdDistance)
+		=> !position_PositionProvider.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
+	public static bool isWithinDistanceOf<SingletonBehaviourT>(this object position_PositionProvider, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> position_PositionProvider.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
+	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this object position_PositionProvider, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !position_PositionProvider.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
+	public static bool isWithinDistanceOfCamera(this object position_PositionProvider, float thresholdDistance)
+		=> position_PositionProvider.isWithinDistanceOf(Camera.main, thresholdDistance);
+	public static bool isNotWithinDistanceOfCamera(this object position_PositionProvider, float thresholdDistance)
+		=> !position_PositionProvider.isNotWithinDistanceOfCamera(thresholdDistance);
+	public static bool isWithinDistanceOfPlayer(this object position_PositionProvider, float thresholdDistance)
+		=> position_PositionProvider.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
+	public static bool isNotWithinDistanceOfPlayer(this object position_PositionProvider, float thresholdDistance)
+		=> !position_PositionProvider.isWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
+
+
+	#region as position provider is within distance of nearest point on solid collider
+	public static bool positionallyIsWithinSolidDistanceOf(this object position_PositionProvider, object solidCollider_SolidColliderProvider, float thresholdDistance)
+	{
+		Vector3 position = position_PositionProvider.providePosition();
+
+		return	position
+				.isWithinDistanceOf
+				(
+					solidCollider_SolidColliderProvider
+						.provideSolidCollider()
+							.nearestPointToPosition(position),
+					thresholdDistance
+				);
+	}
+	public static bool positionallyIsNotWithinSolidDistanceOf(this object position_PositionProvider, object solidCollider_SolidColliderProvider, float thresholdDistance)
+		=> !position_PositionProvider.positionallyIsWithinSolidDistanceOf(solidCollider_SolidColliderProvider, thresholdDistance);
+	#endregion as position provider is within distance of nearest point on solid collider
+
+
+	#region as position provider is within distance of nearest point on solid collider otherwise position
+	public static bool positionallyIsWithinIdeallySolidDistanceOf(this object position_PositionProvider, object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+	{
+		Collider potentialSolidCollider = colliderOtherwisePosition_ColliderOtherwisePositionProvider.provideSolidCollider();
+		return	potentialSolidCollider.isYull() ?
+					position_PositionProvider.positionallyIsWithinSolidDistanceOf
+					(
+						potentialSolidCollider,
+						thresholdDistance
+					) :
+					position_PositionProvider.isWithinDistanceOf
+					(
+						colliderOtherwisePosition_ColliderOtherwisePositionProvider.providePosition(),
+						thresholdDistance
+					);
+	}
+	public static bool positionallyIsNotWithinIdeallySolidDistanceOf(this object position_PositionProvider, object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+		=>	!position_PositionProvider.positionallyIsWithinIdeallySolidDistanceOf
+			(
+				colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+				thresholdDistance
+			);
+	#endregion as position provider is within distance of nearest point on solid collider otherwise position
 
 
 	#region is more distant than

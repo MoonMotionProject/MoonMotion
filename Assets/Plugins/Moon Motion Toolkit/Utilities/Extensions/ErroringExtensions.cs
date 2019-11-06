@@ -22,9 +22,23 @@ public static class ErrorExtensions
 		=>	errorString.after(()=>
 				(prefix+loggingSeparator+errorString).printAsError(contextGameObject));
 
-	// method: print this given exception as an error with the given suffixed line, optionally with the given game object as the context //
+	// method: print this given exception as an error with the given suffixed line, optionally with the given game object as the context, then return the printed string //
 	public static string logAsError<ExceptionT>(this ExceptionT exception, string suffixedLine = "", GameObject contextGameObject = null) where ExceptionT : Exception
 		=> (exception+suffixedLine.withPotentialPrefixedNewline()).printAsError(contextGameObject);
+	// method: print this given exception as an error by printing it, followed by the given error string on a new line, followed by a return statement on a new line, optionally with the given game object as the context, then return the default of the specified type //
+	public static TDefault logAsErrorAndReturnDefault<TDefault>(this Exception exception, string errorString = "", GameObject contextGameObject = null)
+	{
+		TDefault defaultToReturn = default(TDefault);
+
+		exception.logAsError
+		(
+			(errorString.withPotentialSuffix(";\n")
+				+"returning "+defaultToReturn.asStringWithNullRepresented()),
+			contextGameObject
+		);
+
+		return defaultToReturn;
+	}
 
 	// method: print the given error ("error" by default), optionally with the given game object as the context, mentioning only this given boolean as what is being returned, then return this given boolean //
 	public static bool returnWithError(this bool boolean, string error = "error", GameObject contextGameObject = null)
@@ -82,7 +96,7 @@ public static class ErrorExtensions
 		return object_;
 	}
 	
-	// method: print this given error string as an error, optionally with the given game object as the context, and return the default of the specified type //
+	// method: print this given error string as an error, optionally with the given game object as the context, then return the default of the specified type //
 	public static TDefault printAsErrorAndReturnDefault<TDefault>(this string errorString, GameObject contextGameObject = null)
 	{
 		TDefault defaultToReturn = default(TDefault);

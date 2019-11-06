@@ -25,6 +25,8 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 				return atNextCheckExecute(action);
 			case Coroute.nowAndAtEveryCheck:
 				return nowAndAtEveryCheckExecute(action);
+			case Coroute.atNextCheckAndEveryCheckAfter:
+				return atNextCheckAndEveryCheckAfterExecute(action);
 			case Coroute.atEndOfFrame:
 				return atEndOfFrameExecute(action);
 			default:
@@ -32,9 +34,15 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		}
 	}
 
-	// method: have this mono behaviour have Unity start a repeating ('nowAndAtEveryCheck' coroute) coroutine using the given action, then return the started coroutine //
-	public Coroutine startRepeatingCoroutine(Action action)
-		=> startCoroutine(action, Coroute.nowAndAtEveryCheck);
+	// method: have this mono behaviour have Unity start a repeating coroutine using the given action, starting now versus at next check according to the given boolean, then return the started coroutine //
+	public Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = true)
+		=>	startCoroutine
+			(
+				action,
+				startNowVersusAtNextCheck ?
+					Coroute.nowAndAtEveryCheck :
+					Coroute.atNextCheckAndEveryCheckAfter
+			);
 
 	// method: stop the given coroutine, then return this (derived auto) behaviour //
 	public AutoBehaviourT stopCoroutine(Coroutine coroutine)
@@ -59,7 +67,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 	{
 		if (delay.isNonzero())
 		{
-			yield return new WaitForSeconds(delay);      // wait the delay
+			yield return Wait.delay(delay);
 		}
 		
 		function.execute(parameters);
@@ -78,7 +86,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		=> startCoroutine(atNextCheckExecute_Coroutine(function, parameters));
 	private IEnumerator atNextCheckExecute_Coroutine(Delegate function, params object[] parameters)
 	{
-		yield return null;      // wait until the next coroutine check
+		yield return Wait.untilNextCheck;
 		function.execute(parameters);
 	}
 	private Coroutine atNextCheckExecute_(Delegate function, params object[] parameters)
@@ -98,7 +106,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		while (true)
 		{
 			function.execute(parameters);
-			yield return null;      // wait until the next coroutine check
+			yield return Wait.untilNextCheck;
 		}
 	}
 	private Coroutine nowAndAtEveryCheckExecute_(Delegate function, params object[] parameters)
@@ -108,6 +116,23 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 	#endregion planning to execute functions\actions now and at every check
 
 
+	#region planning to execute functions\actions at next check and every check after
+
+	// methods: plan to execute the given function with the given parameters at every coroutine check, then return the new coroutine that will do so //
+	public Coroutine atNextCheckAndEveryCheckAfterExecute(Delegate function, params object[] parameters)
+		=> startCoroutine(atNextCheckAndEveryCheckAfterExecute_Coroutine(function, parameters));
+	private IEnumerator atNextCheckAndEveryCheckAfterExecute_Coroutine(Delegate function, params object[] parameters)
+	{
+		yield return atNextCheckExecute_Coroutine(function, parameters);
+		yield return nowAndAtEveryCheckExecute_Coroutine(function, parameters);
+	}
+	private Coroutine atNextCheckAndEveryCheckAfterExecute_(Delegate function, params object[] parameters)
+		=> atNextCheckAndEveryCheckAfterExecute(function, parameters);
+	public Coroutine atNextCheckAndEveryCheckAfterExecute(Action action, params object[] parameters)
+		=> atNextCheckAndEveryCheckAfterExecute_(action, parameters);
+	#endregion planning to execute functions\actions at next check and every check after
+
+
 	#region planning to execute functions\actions at the end of the current frame
 
 	// methods: plan to execute the given function with the given parameters at the end of the current frame, then return the new coroutine that will do so //
@@ -115,7 +140,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		=> startCoroutine(atEndOfFrameExecute_Coroutine(function, parameters));
 	private IEnumerator atEndOfFrameExecute_Coroutine(Delegate function, params object[] parameters)
 	{
-		yield return new WaitForEndOfFrame();      // wait until the end of the current frame
+		yield return Wait.untilEndOfFrame;
 		function.execute(parameters);
 	}
 	private Coroutine atEndOfFrameExecute_(Delegate function, params object[] parameters)

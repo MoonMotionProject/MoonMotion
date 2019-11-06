@@ -5,6 +5,7 @@ using NaughtyAttributes;
 
 // Planned Object Destruction:
 // • destroys this object after the set delay since Start
+// #destruction #PlannedObjectDestruction
 public class PlannedObjectDestruction : AutoBehaviour<PlannedObjectDestruction>
 {
 	// variables //

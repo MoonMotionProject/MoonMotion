@@ -24,7 +24,7 @@ public static class RaycastingExtensions
 			distance,
 			layerMask_MaxOf1.firstOtherwise(Default.layerMask),
 			triggerColliderQuery
-		).toSet();
+		).uniques();
 	}
 
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsAlong(this Vector3 raycastingPosition, Vector3 direction, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)

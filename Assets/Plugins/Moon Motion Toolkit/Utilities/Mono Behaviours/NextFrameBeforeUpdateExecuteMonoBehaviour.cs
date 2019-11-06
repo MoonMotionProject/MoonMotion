@@ -12,8 +12,8 @@ public class AtEndOfFrameExecuteMonoBehaviour : MonoBehaviour
 		=> this.castTo<MonoBehaviour>().startCoroutine(atEndOfFrameExecute_Coroutine(function, parameters));
 	private IEnumerator atEndOfFrameExecute_Coroutine(Delegate function, params object[] parameters)
 	{
-		yield return new WaitForEndOfFrame();      // wait until the end of the current frame
-		function.execute(parameters);      // then, execute the given function with the given parameters
+		yield return Wait.untilEndOfFrame;
+		function.execute(parameters);
 	}
 	private Coroutine atEndOfFrameExecute_(Delegate function, params object[] parameters)
 		=> atEndOfFrameExecute(function, parameters);

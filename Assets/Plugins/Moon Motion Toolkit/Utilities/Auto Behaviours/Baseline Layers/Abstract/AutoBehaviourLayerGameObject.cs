@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Auto Behaviour Layer Game Object:
-// #auto #gameobject
+// #auto #gameobject #name
 // • provides this behaviour with properties and methods for its game object
 public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 					AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT>
@@ -60,8 +60,8 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#region hierarchy selection
 	#if UNITY_EDITOR
 
-	public bool selected => gameObject.selected();
-	public bool notSelected => gameObject.isNotSelected();
+	public bool isSelected => gameObject.isSelected();
+	public bool isNotSelected => gameObject.isNotSelected();
 	#endif
 	#endregion hierarchy selection
 
@@ -75,6 +75,15 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	public AutoBehaviourT toNameAppend(string suffix, bool boolean = true)
 		=> selfAfter(()=> gameObject.toNameAppend(suffix, boolean));
 	#endregion name
+
+
+	#region name comparison
+
+	public bool nameMatches(string name)
+		=> gameObject.nameMatches(name);
+	public bool nameContains(string string_)
+		=> gameObject.nameContains(string_);
+	#endregion name comparison
 
 
 	#region activity

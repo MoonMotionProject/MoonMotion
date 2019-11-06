@@ -64,12 +64,19 @@ public static class LineRendererExtensions
 				firstPosition_PositionProvider.providePosition(),
 				secondPosition_PositionProvider.providePosition()
 			);
+	// method: set this given line renderer's distinctivity to absolute, set this given line renderer's first and second points to the given provided first and second positions (respectively), then return this given line renderer //
+	public static LineRenderer setFirstTwoPointsGloballyTo(this LineRenderer lineRenderer, object firstPosition_PositionProvider, object secondPosition_PositionProvider)
+		=>	lineRenderer.positionGlobally().setFirstTwoPointsTo
+			(
+				firstPosition_PositionProvider.providePosition(),
+				secondPosition_PositionProvider.providePosition()
+			);
 	// method: set this given line renderer's first and second points according to the line from the given provided starting transform along the given local direction relative to the given provided starting transform, for the given distance, then return this given line renderer //
 	public static LineRenderer setFirstTwoPointsForLineLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 	{
 		Transform startingTransform = startingTransform_TransformProvider.provideTransform();
 
-		return lineRenderer.positionGlobally().setFirstTwoPointsTo
+		return lineRenderer.setFirstTwoPointsGloballyTo
 		(
 			startingTransform,
 			startingTransform.positionAlongLocal(localDirection, distance)
@@ -119,18 +126,109 @@ public static class LineRendererExtensions
 
 	#region line of light setup
 	
-	public static LineRenderer setupAsLineOfLightLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+	public static LineRenderer setupAsLineOfLightWithoutPointsUsing
+	(
+		this LineRenderer lineRenderer,
+		Material material,
+		float width = Default.lineRendererWidth
+	)
 		=>	lineRenderer
 				.nonshadowcast()
 				.nonshadowable()
 				.setMaterialTo(material)
+				.setStartingAndEndingWidthsTo(width)
+				.setStartingAndEndingColorsToColorOfMaterial();
+	
+	public static LineRenderer setupAsLineOfLightFrom
+	(
+		this LineRenderer lineRenderer,
+		object startingPosition_PositionProvider,
+		object endingPosition_PositionProvider,
+		Material material,
+		float width = Default.lineRendererWidth
+	)
+		=>	lineRenderer
+				.setupAsLineOfLightWithoutPointsUsing(material, width)
+				.setFirstTwoPointsGloballyTo
+				(
+					startingPosition_PositionProvider,
+					endingPosition_PositionProvider
+				);
+
+	public static GameObject setupLineRendererAsLineOfLightFrom
+	(
+		this GameObject gameObject,
+		object startingPosition_PositionProvider,
+		object endingPosition_PositionProvider,
+		Material material,
+		float width = Default.lineRendererWidth
+	)
+		=>	gameObject.after(()=>
+				gameObject.ensured<LineRenderer>().setupAsLineOfLightFrom
+				(
+					startingPosition_PositionProvider,
+					endingPosition_PositionProvider,
+					material,
+					width
+				));
+	public static ComponentT setupLineRendererAsLineOfLightFrom<ComponentT>
+	(
+		this ComponentT component,
+		object startingPosition_PositionProvider,
+		object endingPosition_PositionProvider,
+		Material material,
+		float width = Default.lineRendererWidth
+	) where ComponentT : Component
+		=>	component.after(()=>
+				component.ensured<LineRenderer>().setupAsLineOfLightFrom
+				(
+					startingPosition_PositionProvider,
+					endingPosition_PositionProvider,
+					material,
+					width
+				));
+	
+	public static LineRenderer setupAsLineOfLightLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance, Material material)
+		=>	lineRenderer
+				.setupAsLineOfLightWithoutPointsUsing(material)
 				.setFirstTwoPointsForLineLocallyDirectedFrom
 				(
 					startingTransform_TransformProvider.provideTransform(),
 					localDirection,
 					distance
-				)
-				.setStartingAndEndingWidthsTo(Default.lineRendererWidth)
-				.setStartingAndEndingColorsToColorOfMaterial();
+				);
+
+	public static GameObject setupLineRendererAsLineOfLightLocallyDirectedFrom
+	(
+		this GameObject gameObject,
+		object startingTransform_TransformProvider,
+		Vector3 localDirection,
+		float distance,
+		Material material
+	)
+		=>	gameObject.after(()=>
+				gameObject.ensured<LineRenderer>().setupAsLineOfLightLocallyDirectedFrom
+				(
+					startingTransform_TransformProvider.provideTransform(),
+					localDirection,
+					distance,
+					material
+				));
+	public static ComponentT setupLineRendererAsLineOfLightLocallyDirectedFrom<ComponentT>
+	(
+		this ComponentT component,
+		object startingTransform_TransformProvider,
+		Vector3 localDirection,
+		float distance,
+		Material material
+	) where ComponentT : Component
+		=>	component.after(()=>
+				component.ensured<LineRenderer>().setupAsLineOfLightLocallyDirectedFrom
+				(
+					startingTransform_TransformProvider.provideTransform(),
+					localDirection,
+					distance,
+					material
+				));
 	#endregion line of light setup
 }

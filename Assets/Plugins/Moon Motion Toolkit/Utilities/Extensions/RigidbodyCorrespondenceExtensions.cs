@@ -28,8 +28,8 @@ public static class RigidbodyCorrespondenceExtensions
 
 	// method: return the set of all unique, yull rigidbodies that the yull game objects of these given game objects correspond to //
 	public static HashSet<Rigidbody> uniqueCorrespondingRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.selectCorrespondingRigidbodies().toSet();
+		=> gameObjects.selectCorrespondingRigidbodies().uniques();
 	// method: return the set of all unique, yull rigidbodies that the yull components of these given components correspond to //
 	public static HashSet<Rigidbody> uniqueCorrespondingRigidbodies(this IEnumerable<Component> components)
-		=> components.selectCorrespondingRigidbodies().toSet();
+		=> components.selectCorrespondingRigidbodies().uniques();
 }

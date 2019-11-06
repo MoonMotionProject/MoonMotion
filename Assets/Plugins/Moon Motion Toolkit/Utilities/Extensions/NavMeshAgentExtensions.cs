@@ -4,20 +4,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Navmesh Agent Extensions: provides extension methods for handling navmesh agents //
+// Navmesh Agent Extensions:
+// • provides extension methods for handling navmesh agents
+// #navmesh
 public static class NavmeshAgentExtensions
 {
+	#region determining whether an agent is on a navmesh
+
+	// method: return whether this given navmesh agent is ("placed") on a navmesh //
+	public static bool isOnANavmesh(this NavMeshAgent navmeshAgent)
+		=> navmeshAgent.isOnNavMesh;
+	public static bool isNotOnANavmesh(this NavMeshAgent navmeshAgent)
+		=> !navmeshAgent.isOnANavmesh();
+	#endregion determining whether an agent is on a navmesh
+
+
+	#region accessing destination
+
+	// method: return the destination of this given navmesh agent //
+	public static Vector3 destination(this NavMeshAgent navmeshAgent)
+		=> navmeshAgent.destination;
+	#endregion accessing destination
+
+
 	#region destinating
-	// methods: set the destination of this given navmesh agent to the given provided destination position, specified singleton behaviour, or the main camera (respectively), then return whether the destination was actually valid/set //
-	
-	public static bool destinateTo(this NavMeshAgent navmeshAgent, object destinationPosition_PositionProvider)
-		=> navmeshAgent.SetDestination(destinationPosition_PositionProvider.providePosition());
+	// methods: set the destination of this given navmesh agent to the given position for the provided\specified\ main camera (respectively) collider – avoiding provided solidity according to the given 'avoidProvidedSolidity' boolean – or otherwise (if no collider is provided) the provided\specified\ main camera (respectively) position, then return whether the destination was actually valid/set //
 
-	public static bool destinateTo<SingletonBehaviourT>(this NavMeshAgent navmeshAgent) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.destinateTo(SingletonBehaviour<SingletonBehaviourT>.position);
+	public static bool destinateTo(this NavMeshAgent navmeshAgent, object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+	{
+		Vector3 destination
+			=	avoidProvidedSolidity && destination_ColliderOtherwisePositionProvider.provideCollider().isYull() ?
+					destination_ColliderOtherwisePositionProvider.provideCollider().nearestPointToPosition(navmeshAgent) :
+					destination_ColliderOtherwisePositionProvider.providePosition();
 
-	public static bool destinateToCamera(this NavMeshAgent navmeshAgent)
-		=> navmeshAgent.destinateTo(Camera.main);
+		navmeshAgent.SetDestination(destination);
+
+		return navmeshAgent;
+	}
+
+	public static bool destinateTo<SingletonBehaviourT>(this NavMeshAgent navmeshAgent, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.destinateTo(SingletonBehaviour<SingletonBehaviourT>.singleton, avoidProvidedSolidity);
+
+	public static bool destinateToCamera(this NavMeshAgent navmeshAgent, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.destinateTo(Camera.main, avoidProvidedSolidity);
 	#endregion destinating
 
 
@@ -25,7 +54,7 @@ public static class NavmeshAgentExtensions
 
 	// method: return whether this given navmesh agent is halted //
 	public static bool isHalted(this NavMeshAgent navmeshAgent)
-		=> navmeshAgent.isStopped;
+		=> navmeshAgent.isOnANavmesh() && navmeshAgent.isStopped;
 
 	// method: return whether this given navmesh agent is not halted //
 	public static bool isNotHalted(this NavMeshAgent navmeshAgent)
@@ -51,19 +80,22 @@ public static class NavmeshAgentExtensions
 
 
 	#region navigating
-	// methods: have this given navmesh agent begin navigating to the given provided destination position, specified singleton behaviour, the player (body), or the main camera (respectively) (unhalt this given navmesh agent and set the destination of this given navmesh agent to the respective destination position), then return whether the destination was actually valid/set //
+	// methods:
+	// have this given navmesh agent navigate to the given provided destination, avoiding solidity according to the given 'avoidProvidedSolidity' boolean
+	// (have this given navmesh agent begin navigating to the given provided destination, avoiding solidity according to the given 'avoidProvidedSolidity' boolean
+	// (have this given navmesh agent unhalt and destinate using the given parameters)) //
 	
-	public static bool navigateTo(this NavMeshAgent navmeshAgent, object destinationPosition_PositionProvider)
-		=> navmeshAgent.unhalt().destinateTo(destinationPosition_PositionProvider);
+	public static bool navigateTo(this NavMeshAgent navmeshAgent, object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.unhalt().destinateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity);
 
-	public static bool navigateTo<SingletonBehaviourT>(this NavMeshAgent navmeshAgent) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.navigateTo(SingletonBehaviour<SingletonBehaviourT>.position);
+	public static bool navigateTo<SingletonBehaviourT>(this NavMeshAgent navmeshAgent, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.navigateTo(SingletonBehaviour<SingletonBehaviourT>.singleton, avoidProvidedSolidity);
 
-	public static bool navigateToPlayer(this NavMeshAgent navmeshAgent)
-		=> navmeshAgent.navigateTo<MoonMotionBody>();
+	public static bool navigateToPlayer(this NavMeshAgent navmeshAgent, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.navigateTo<MoonMotionBody>(avoidProvidedSolidity);
 
-	public static bool navigateToCamera(this NavMeshAgent navmeshAgent)
-		=> navmeshAgent.navigateTo(Camera.main);
+	public static bool navigateToCamera(this NavMeshAgent navmeshAgent, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
+		=> navmeshAgent.navigateTo(Camera.main, avoidProvidedSolidity);
 	#endregion navigating
 
 

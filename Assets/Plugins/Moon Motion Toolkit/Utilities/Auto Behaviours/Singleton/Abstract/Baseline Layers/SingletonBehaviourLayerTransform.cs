@@ -386,6 +386,20 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> autoBehaviour.isNotWithinDistanceOfPlayer(thresholdDistance);
 	#endregion is within distance of
 	
+	#region as position provider is within distance of nearest point on solid collider
+	public static new bool positionallyIsWithinSolidDistanceOf(object solidCollider_SolidColliderProvider, float thresholdDistance)
+		=> autoBehaviour.positionallyIsWithinSolidDistanceOf(solidCollider_SolidColliderProvider, thresholdDistance);
+	public static new bool positionallyIsNotWithinSolidDistanceOf(object solidCollider_SolidColliderProvider, float thresholdDistance)
+		=> autoBehaviour.positionallyIsNotWithinSolidDistanceOf(solidCollider_SolidColliderProvider, thresholdDistance);
+	#endregion as position provider is within distance of nearest point on solid collider
+	
+	#region as position provider is within distance of nearest point on solid collider otherwise position
+	public static new bool positionallyIsWithinIdeallySolidDistanceOf(object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+		=> autoBehaviour.positionallyIsWithinIdeallySolidDistanceOf(colliderOtherwisePosition_ColliderOtherwisePositionProvider, thresholdDistance);
+	public static new bool positionallyIsNotWithinIdeallySolidDistanceOf(object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+		=> autoBehaviour.positionallyIsNotWithinIdeallySolidDistanceOf(colliderOtherwisePosition_ColliderOtherwisePositionProvider, thresholdDistance);
+	#endregion as position provider is within distance of nearest point on solid collider otherwise position
+	
 	#region is more distant than
 	public static new bool isMoreDistantThan(object otherPosition_PositionProvider, object distancePosition_PositionProvider)
 		=> autoBehaviour.isMoreDistantThan(otherPosition_PositionProvider, distancePosition_PositionProvider);

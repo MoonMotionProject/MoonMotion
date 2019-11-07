@@ -17,6 +17,7 @@ public static class Default
 	public const bool leftnessVersusRightness = true;
 	public const float thresholdDistance = .01f;
 	public const bool nullsAsEmpty = true;
+	public const bool errorSilencing = false;
 	#endregion miscellaneous
 
 	#region game object creation

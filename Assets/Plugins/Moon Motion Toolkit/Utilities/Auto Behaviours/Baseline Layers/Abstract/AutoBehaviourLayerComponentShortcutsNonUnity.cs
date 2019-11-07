@@ -107,12 +107,12 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 	#endregion accessing destination
 	
 	#region destinating
-	public bool destinateTo(object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
-		=> navmeshAgent.destinateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity);
-	public bool destinateTo<SingletonBehaviourT>(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.destinateTo<SingletonBehaviourT>(avoidProvidedSolidity);
-	public bool destinateToCamera(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
-		=> navmeshAgent.destinateToCamera(avoidProvidedSolidity);
+	public bool destinateTo(object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> navmeshAgent.destinateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
+	public bool destinateTo<SingletonBehaviourT>(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.destinateTo<SingletonBehaviourT>(avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
+	public bool destinateToCamera(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> navmeshAgent.destinateToCamera(avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
 	#endregion destinating
 	
 	#region determining haltedness
@@ -121,23 +121,23 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 	#endregion determining haltedness
 	
 	#region setting haltedness
-	public AutoBehaviourT setHaltednessTo(bool boolean)
-		=> selfAfter(()=> navmeshAgent.setHaltednessTo(boolean));
-	public AutoBehaviourT halt()
-		=> selfAfter(()=> navmeshAgent.halt());
-	public AutoBehaviourT unhalt()
-		=> selfAfter(()=> navmeshAgent.unhalt());
+	public AutoBehaviourT setHaltednessTo(bool boolean, bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> selfAfter(()=> navmeshAgent.setHaltednessTo(boolean, silenceErrorForNotOnNavmesh));
+	public AutoBehaviourT halt(bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> selfAfter(()=> navmeshAgent.halt(silenceErrorForNotOnNavmesh));
+	public AutoBehaviourT unhalt(bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> selfAfter(()=> navmeshAgent.unhalt(silenceErrorForNotOnNavmesh));
 	#endregion setting haltedness
 	
 	#region navigating
-	public bool navigateTo(object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
-		=> navmeshAgent.navigateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity);
-	public bool navigateTo<SingletonBehaviourT>(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> navmeshAgent.navigateTo<SingletonBehaviourT>(avoidProvidedSolidity);
-	public bool navigateToPlayer(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
-		=> navmeshAgent.navigateToPlayer(avoidProvidedSolidity);
-	public bool navigateToCamera(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity)
-		=> navmeshAgent.navigateToCamera(avoidProvidedSolidity);
+	public bool navigateTo(object destination_ColliderOtherwisePositionProvider, bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> navmeshAgent.navigateTo(destination_ColliderOtherwisePositionProvider, avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
+	public bool navigateTo<SingletonBehaviourT>(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> navmeshAgent.navigateTo<SingletonBehaviourT>(avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
+	public bool navigateToPlayer(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> navmeshAgent.navigateToPlayer(avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
+	public bool navigateToCamera(bool avoidProvidedSolidity = Default.destinatingAvoidanceOfProvidedSolidity, bool silenceErrorForNotOnNavmesh = Default.errorSilencing)
+		=> navmeshAgent.navigateToCamera(avoidProvidedSolidity, silenceErrorForNotOnNavmesh);
 	#endregion navigating
 	
 	#region setting enablement of rotation via navigation

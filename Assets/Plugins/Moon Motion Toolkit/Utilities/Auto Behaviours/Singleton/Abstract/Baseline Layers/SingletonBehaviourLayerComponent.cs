@@ -128,8 +128,8 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 
 	#region determining descendant components
 	
-	public static new bool anyDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> autoBehaviour.anyDescendant<ComponentT>(includeInactiveComponents);
+	public static new bool hasAnyDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> autoBehaviour.hasAnyDescendant<ComponentT>(includeInactiveComponents);
 	#endregion determining descendant components
 
 
@@ -148,8 +148,8 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 
 	#region determining local or descendant components
 	
-	public static new bool anyLocalOrDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> autoBehaviour.anyLocalOrDescendant<ComponentT>(includeInactiveComponents);
+	public static new bool hasAnyLocalOrDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> autoBehaviour.hasAnyLocalOrDescendant<ComponentT>(includeInactiveComponents);
 	#endregion determining local or descendant components
 
 

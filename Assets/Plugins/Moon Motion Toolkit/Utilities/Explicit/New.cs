@@ -13,4 +13,6 @@ public static class New
 	
 	public static Action Action(this Action action)
 		=> action;
+
+	public static Exception exception => new Exception();
 }

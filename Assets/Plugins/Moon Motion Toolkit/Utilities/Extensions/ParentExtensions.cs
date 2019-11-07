@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Parent Extensions: provides extension methods for handling parents //
+// Parent Extensions:
+// • provides extension methods for handling parents
+// #parent #transform
 public static class ParentExtensions
 {
 	// method: return whether this given transform has any parent //
@@ -25,6 +27,40 @@ public static class ParentExtensions
 	// method: return whether this given component has no parent //
 	public static bool isParentless(this Component component)
 		=> component.transform.isParentless();
+
+	// methods: return whether this given provided\specified (respectively) transform's parent is the given provided transform //
+	public static bool parentIs(this Transform transform, object potentialParentTransform_TransformProvider)
+		=> transform.parent == potentialParentTransform_TransformProvider.provideTransform();
+	public static bool parentIs(this GameObject gameObject, object potentialParentTransform_TransformProvider)
+		=> gameObject.transform.parentIs(potentialParentTransform_TransformProvider);
+	public static bool parentIs(this Component component, object potentialParentTransform_TransformProvider)
+		=> component.transform.parentIs(potentialParentTransform_TransformProvider);
+	public static bool parentIs<SingletonBehaviourT>(this Transform transform)
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> transform.parentIs(SingletonBehaviour<SingletonBehaviourT>.transform);
+	public static bool parentIs<SingletonBehaviourT>(this GameObject gameObject)
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> gameObject.parentIs(SingletonBehaviour<SingletonBehaviourT>.transform);
+	public static bool parentIs<SingletonBehaviourT>(this Component component)
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> component.parentIs(SingletonBehaviour<SingletonBehaviourT>.transform);
+
+	// methods: return whether this given provided\specified (respectively) transform's parent is not the given provided transform //
+	public static bool parentIsNot(this Transform transform, object potentialParentTransform_TransformProvider)
+		=> !transform.parentIs(potentialParentTransform_TransformProvider);
+	public static bool parentIsNot(this GameObject gameObject, object potentialParentTransform_TransformProvider)
+		=> !gameObject.parentIs(potentialParentTransform_TransformProvider);
+	public static bool parentIsNot(this Component component, object potentialParentTransform_TransformProvider)
+		=> !component.parentIs(potentialParentTransform_TransformProvider);
+	public static bool parentIsNot<SingletonBehaviourT>(this Transform transform)
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !transform.parentIs<SingletonBehaviourT>();
+	public static bool parentIsNot<SingletonBehaviourT>(this GameObject gameObject)
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !gameObject.parentIs<SingletonBehaviourT>();
+	public static bool parentIsNot<SingletonBehaviourT>(this Component component)
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> !component.parentIs<SingletonBehaviourT>();
 
 	// method: return this given game object's parent //
 	public static Transform parent(this GameObject gameObject)

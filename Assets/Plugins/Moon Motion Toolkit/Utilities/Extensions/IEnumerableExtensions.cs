@@ -304,9 +304,9 @@ public static class IEnumerableExtensions
 				item => item.isNull(),
 				function);
 	
-	public static TResult pickUponFirstIfAny<TTarget, TResult>(this IEnumerable enumerable, Func<TTarget, TResult> function, Func<TResult> fallbackfunction)
+	public static TResult pickUponFirstIfAny<TTarget, TResult>(this IEnumerable enumerable, Func<TTarget, TResult> function, Func<TResult> fallbackFunction)
 	{
-		if (fallbackfunction.isNull())
+		if (fallbackFunction.isNull())
 		{
 			return default(TResult).returnWithError("given null fallback function");
 		}
@@ -317,7 +317,7 @@ public static class IEnumerableExtensions
 		}
 		else
 		{
-			return fallbackfunction();
+			return fallbackFunction();
 		}
 	}
 
@@ -495,6 +495,23 @@ public static class IEnumerableExtensions
 		}
 	}
 	#endregion acting upon first item of type
+
+
+	#region acting upon first item where
+
+	public static List<TItem> actUponFirstIfAnyWhere<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function, Action<TItem> action, Action fallbackAction = null)
+	{
+		if (enumerable.hasAny(function))
+		{
+			action(enumerable.firstWhere(function));
+		}
+		else if (fallbackAction.isYull())
+		{
+			fallbackAction();
+		}
+		return enumerable.manifested();
+	}
+	#endregion acting upon first item where
 
 
 	#region ordering

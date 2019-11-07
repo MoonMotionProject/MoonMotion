@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Erroring Extensions:
-// • provides extension methods for erroring
+// Error Extensions:
+// • provides extension methods for handling errors
 // #console
 public static class ErrorExtensions
 {

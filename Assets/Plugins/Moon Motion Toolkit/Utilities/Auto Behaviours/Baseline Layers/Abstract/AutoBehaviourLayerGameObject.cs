@@ -13,8 +13,8 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 {
 	#region determining prefabness
 
-	public bool isPrefabAsset => gameObject.isPrefabAsset();
-	public bool isNotPrefabAsset => !isPrefabAsset;
+	public bool isPartOfPrefabAsset => gameObject.isPartOfPrefabAsset();
+	public bool isNotPartOfPrefabAsset => !isPartOfPrefabAsset;
 	#endregion determining prefabness
 	
 

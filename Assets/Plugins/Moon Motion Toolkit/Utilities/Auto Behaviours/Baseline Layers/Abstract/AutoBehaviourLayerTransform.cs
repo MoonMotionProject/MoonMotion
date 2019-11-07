@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Auto Behaviour Layer Transform:
-// #auto #transform
+// #auto #transform #parent
 // • provides this behaviour with methods and automatically-connected properties for its transform
 public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 					AutoBehaviourLayerTransformations<AutoBehaviourT>
@@ -59,6 +59,16 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 	
 	public bool hasAnyParent => transform.hasAnyParent();
 	public bool isParentless => transform.isParentless();
+	public bool parentIs(object potentialParentTransform_TransformProvider)
+		=> transform.parentIs(potentialParentTransform_TransformProvider);
+	public bool parentIs<SingletonBehaviourT>()
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> transform.parentIs<SingletonBehaviourT>();
+	public bool parentIsNot(object potentialParentTransform_TransformProvider)
+		=> transform.parentIsNot(potentialParentTransform_TransformProvider);
+	public bool parentIsNot<SingletonBehaviourT>()
+		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=> transform.parentIsNot<SingletonBehaviourT>();
 	public Transform parent => transform.parent;
 	public GameObject parentObject => transform.parentObject();
 	public Transform setParentTo(object parentTransform_TransformProvider, bool boolean = true)

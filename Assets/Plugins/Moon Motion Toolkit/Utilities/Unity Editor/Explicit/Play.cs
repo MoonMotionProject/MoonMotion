@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -14,3 +15,4 @@ public static class Play
 	public static void beep()
 		=> EditorApplication.Beep();
 }
+#endif

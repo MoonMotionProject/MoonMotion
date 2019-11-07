@@ -13,8 +13,8 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 {
 	#region determining prefabness
 
-	public static new bool isPrefabAsset => autoBehaviour.isPrefabAsset;
-	public static new bool isNotPrefabAsset => autoBehaviour.isNotPrefabAsset;
+	public static new bool isPartOfPrefabAsset => autoBehaviour.isPartOfPrefabAsset;
+	public static new bool isNotPartOfPrefabAsset => autoBehaviour.isNotPartOfPrefabAsset;
 	#endregion determining prefabness
 	
 

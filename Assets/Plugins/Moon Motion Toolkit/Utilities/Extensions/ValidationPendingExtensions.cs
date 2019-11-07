@@ -30,7 +30,7 @@ public static class ValidationPendingExtensions
 			{
 				if (gameObjectsPendingValidation.doesNotContain(gameObject))
 				{
-					gameObjectsPendingValidation.add(gameObject);
+					gameObjectsPendingValidation.include(gameObject);
 					EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(()=>
 					{
 						gameObject.ifExists(()=> gameObject.validate_IfInEditor()).unpendValidation_IfInEditor();

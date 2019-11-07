@@ -139,7 +139,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 	#region determining descendant components
 
 	// method: return whether this game object has any of the specified type of descendant component, optionally including inactive components according to the given boolean //
-	public bool anyDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+	public bool hasAnyDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasAnyDescendant<ComponentT>(includeInactiveComponents);
 	#endregion determining descendant components
 
@@ -159,7 +159,7 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 	#region determining local or descendant components
 	
-	public bool anyLocalOrDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+	public bool hasAnyLocalOrDescendant<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasAnyLocalOrDescendant<ComponentT>(includeInactiveComponents);
 	#endregion determining local or descendant components
 

@@ -11,6 +11,9 @@ public static class BooleanExtensions
 	public static bool and(this bool boolean, bool otherBoolean)
 		=> (boolean && otherBoolean);
 
+	public static bool but(this bool boolean, bool otherBoolean)
+		=> boolean.and(otherBoolean);
+
 	public static bool butNot(this bool boolean, bool otherBoolean)
 		=> boolean.and(!otherBoolean);
 

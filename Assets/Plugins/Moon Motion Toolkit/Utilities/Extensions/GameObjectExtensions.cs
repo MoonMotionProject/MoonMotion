@@ -21,10 +21,10 @@ public static class GameObjectExtensions
 
 	#region determining prefabness
 
-	public static bool isPrefabAsset(this GameObject gameObject)
+	public static bool isPartOfPrefabAsset(this GameObject gameObject)
 		=> gameObject.scene.rootCount == 0;
-	public static bool isNotPrefabAsset(this GameObject gameObject)
-		=> !gameObject.isPrefabAsset();
+	public static bool isNotPartOfPrefabAsset(this GameObject gameObject)
+		=> !gameObject.isPartOfPrefabAsset();
 	#endregion determining prefabness
 
 

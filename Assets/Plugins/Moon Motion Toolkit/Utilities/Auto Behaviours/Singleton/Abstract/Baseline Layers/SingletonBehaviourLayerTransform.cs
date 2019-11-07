@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Singleton Behaviour Layer Transform:
-// #auto #transform
+// #auto #transform #parent
 // • provides this singleton behaviour with static access to its auto behaviour's transform layer
 public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 					SingletonBehaviourLayerTransformations<SingletonBehaviourT>
@@ -52,6 +52,16 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	
 	public static new bool hasAnyParent => autoBehaviour.hasAnyParent;
 	public static new bool isParentless => autoBehaviour.isParentless;
+	public static new bool parentIs(object potentialParentTransform_TransformProvider)
+		=> autoBehaviour.parentIs(potentialParentTransform_TransformProvider);
+	public static new bool parentIs<OtherSingletonBehaviourT>()
+		where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=> autoBehaviour.parentIs<OtherSingletonBehaviourT>();
+	public static new bool parentIsNot(object potentialParentTransform_TransformProvider)
+		=> autoBehaviour.parentIsNot(potentialParentTransform_TransformProvider);
+	public static new bool parentIsNot<OtherSingletonBehaviourT>()
+		where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=> autoBehaviour.parentIsNot<OtherSingletonBehaviourT>();
 	public static new Transform parent => autoBehaviour.parent;
 	public static new GameObject parentObject => autoBehaviour.parentObject;
 	public static new Transform setParentTo(object parentTransform_TransformProvider, bool boolean = true)

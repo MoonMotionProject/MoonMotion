@@ -11,7 +11,7 @@ public class EphemeralContainer : AutoBehaviour<EphemeralContainer>
 {
 	private void Update()
 	{
-		if (childless)
+		if (isChildless)
 		{
 			destroyThisObject();
 		}

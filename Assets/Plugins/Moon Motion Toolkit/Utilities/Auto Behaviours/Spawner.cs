@@ -286,7 +286,7 @@ public class Spawner : EnabledsBehaviour<Spawner>
 			timesRemaining -= 1;
 			if (timesRemaining.isPositive())
 			{
-				planToExecuteAfter
+				executeAfter
 				(
 					delayBetweenEach,
 					()=> spawnCount_Recursion(timesRemaining)
@@ -308,7 +308,7 @@ public class Spawner : EnabledsBehaviour<Spawner>
 
 	// method: plan to call 'spawnCountAndPlanToRepeat' after the spawn interval //
 	public void plan()
-		=>	planToExecuteAfter
+		=>	executeAfter
 			(
 				spawnInterval,
 				()=> spawnCountAndPlanToRepeat()

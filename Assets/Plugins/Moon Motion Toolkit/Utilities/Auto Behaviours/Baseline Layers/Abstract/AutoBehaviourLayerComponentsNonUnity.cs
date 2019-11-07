@@ -42,6 +42,8 @@ public abstract class	AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT> :
 	#region Auto Behaviours
 
 
+	public DefaultAutoBehaviour defaultAutoBehaviour => cache<DefaultAutoBehaviour>();
+	public DefaultAutoBehaviour ensuredDefaultAutoBehaviour => cache<DefaultAutoBehaviour>(true);
 	public Kinematizer kinematizer => cache<Kinematizer>();
 	public Slower slower => cache<Slower>();
 	public FaceMainCamera faceMainCamera => cache<FaceMainCamera>();

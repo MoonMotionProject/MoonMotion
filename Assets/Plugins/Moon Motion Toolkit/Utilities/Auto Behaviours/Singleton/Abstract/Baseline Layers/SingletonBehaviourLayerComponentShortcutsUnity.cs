@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
-// #auto #shortcuts #component #force
 // • provides this singleton behaviour with static access to its auto behaviour's Unity component shortcuts layer
+// #auto #shortcuts #component #force #linerenderers
 public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
@@ -308,23 +308,17 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region setting points
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererPointAtIndex(int index, Vector2 point)
 		=> autoBehaviour.setLineRendererPointAtIndex(index, point);
-	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererPointAtIndex(int index, Vector3 position)
-		=> autoBehaviour.setLineRendererPointAtIndex(index, position);
-	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstPointTo(Vector3 position)
-		=> autoBehaviour.setLineRendererFirstPointTo(position);
-	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererSecondPointTo(Vector3 position)
-		=> autoBehaviour.setLineRendererSecondPointTo(position);
-	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
-		=>	autoBehaviour.setLineRendererFirstTwoPointsTo
-			(
-				firstPosition,
-				secondPosition
-			);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererPointAtIndex(int index, object position_PositionProvider)
+		=> autoBehaviour.setLineRendererPointAtIndex(index, position_PositionProvider);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstPointTo(object position_PositionProvider)
+		=> autoBehaviour.setLineRendererFirstPointTo(position_PositionProvider);
+	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererSecondPointTo(object position_PositionProvider)
+		=> autoBehaviour.setLineRendererSecondPointTo(position_PositionProvider);
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsTo(object firstPosition_PositionProvider, object secondPosition_PositionProvider)
 		=>	autoBehaviour.setLineRendererFirstTwoPointsTo
 			(
-				firstPosition_PositionProvider.providePosition(),
-				secondPosition_PositionProvider.providePosition()
+				firstPosition_PositionProvider,
+				secondPosition_PositionProvider
 			);
 	public static new AutoBehaviour<SingletonBehaviourT> setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 		=>	autoBehaviour.setLineRendererFirstTwoPointsForLineLocallyDirectedFrom

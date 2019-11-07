@@ -41,7 +41,9 @@ public abstract class	SingletonBehaviourLayerComponentsNonUnity<SingletonBehavio
 
 	#region Auto Behaviours
 
-
+	
+	public static new DefaultAutoBehaviour defaultAutoBehaviour => autoBehaviour.defaultAutoBehaviour;
+	public static new DefaultAutoBehaviour ensuredDefaultAutoBehaviour => autoBehaviour.ensuredDefaultAutoBehaviour;
 	public static new Kinematizer kinematizer => autoBehaviour.kinematizer;
 	public static new Slower slower => autoBehaviour.slower;
 	public static new FaceMainCamera faceMainCamera => autoBehaviour.faceMainCamera;

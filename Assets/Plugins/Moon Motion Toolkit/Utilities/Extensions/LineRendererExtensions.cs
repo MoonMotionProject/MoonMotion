@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Line Renderer Extensions: provides extension methods for handling line renderers //
+// Line Renderer Extensions:
+// • provides extension methods for handling line renderers
+// #linerenderers
 public static class LineRendererExtensions
 {
 	#region setting starting and ending widths
@@ -42,34 +44,27 @@ public static class LineRendererExtensions
 	public static LineRenderer setPointAtIndex(this LineRenderer lineRenderer, int index, Vector2 point)
 		=> lineRenderer.after(()=>
 			lineRenderer.SetPosition(index, point));
-	// method: set this given line renderer's point at the given index to the given position, then return this given line renderer //
-	public static LineRenderer setPointAtIndex(this LineRenderer lineRenderer, int index, Vector3 position)
+	// method: set this given line renderer's point at the given index to the given provided position, then return this given line renderer //
+	public static LineRenderer setPointAtIndex(this LineRenderer lineRenderer, int index, object position_PositionProvider)
 		=> lineRenderer.after(()=>
-			lineRenderer.SetPosition(index, position));
-	// method: set this given line renderer's first point to the given position, then return this given line renderer //
-	public static LineRenderer setFirstPointTo(this LineRenderer lineRenderer, Vector3 position)
-		=> lineRenderer.setPointAtIndex(0, position);
-	// method: set this given line renderer's second point to the given position, then return this given line renderer //
-	public static LineRenderer setSecondPointTo(this LineRenderer lineRenderer, Vector3 position)
-		=> lineRenderer.setPointAtIndex(1, position);
+			lineRenderer.SetPosition(index, position_PositionProvider.providePosition()));
+	// method: set this given line renderer's first point to the given provided position, then return this given line renderer //
+	public static LineRenderer setFirstPointTo(this LineRenderer lineRenderer, object position_PositionProvider)
+		=> lineRenderer.setPointAtIndex(0, position_PositionProvider);
+	// method: set this given line renderer's second point to the given provided position, then return this given line renderer //
+	public static LineRenderer setSecondPointTo(this LineRenderer lineRenderer, object position_PositionProvider)
+		=> lineRenderer.setPointAtIndex(1, position_PositionProvider);
 	// method: set this given line renderer's first and second points to the given first and second positions (respectively), then return this given line renderer //
-	public static LineRenderer setFirstTwoPointsTo(this LineRenderer lineRenderer, Vector3 firstPosition, Vector3 secondPosition)
-		=>	lineRenderer
-				.setFirstPointTo(firstPosition)
-				.setSecondPointTo(secondPosition);
-	// method: set this given line renderer's first and second points to the given provided first and second positions (respectively), then return this given line renderer //
 	public static LineRenderer setFirstTwoPointsTo(this LineRenderer lineRenderer, object firstPosition_PositionProvider, object secondPosition_PositionProvider)
-		=>	lineRenderer.setFirstTwoPointsTo
-			(
-				firstPosition_PositionProvider.providePosition(),
-				secondPosition_PositionProvider.providePosition()
-			);
+		=>	lineRenderer
+				.setFirstPointTo(firstPosition_PositionProvider)
+				.setSecondPointTo(secondPosition_PositionProvider);
 	// method: set this given line renderer's distinctivity to absolute, set this given line renderer's first and second points to the given provided first and second positions (respectively), then return this given line renderer //
 	public static LineRenderer setFirstTwoPointsGloballyTo(this LineRenderer lineRenderer, object firstPosition_PositionProvider, object secondPosition_PositionProvider)
 		=>	lineRenderer.positionGlobally().setFirstTwoPointsTo
 			(
-				firstPosition_PositionProvider.providePosition(),
-				secondPosition_PositionProvider.providePosition()
+				firstPosition_PositionProvider,
+				secondPosition_PositionProvider
 			);
 	// method: set this given line renderer's first and second points according to the line from the given provided starting transform along the given local direction relative to the given provided starting transform, for the given distance, then return this given line renderer //
 	public static LineRenderer setFirstTwoPointsForLineLocallyDirectedFrom(this LineRenderer lineRenderer, object startingTransform_TransformProvider, Vector3 localDirection, float distance)

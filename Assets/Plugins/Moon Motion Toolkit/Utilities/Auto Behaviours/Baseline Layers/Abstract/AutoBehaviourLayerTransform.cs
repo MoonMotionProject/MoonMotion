@@ -104,7 +104,7 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 
 	#region counting children
 
-	public bool childless => component.childless();
+	public bool isChildless => component.isChildless();
 
 	public bool anyChildren()
 		=> component.hasAnyChildren();

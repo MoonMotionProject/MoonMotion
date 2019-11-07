@@ -80,20 +80,20 @@ public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
 
 	#region Game
 	
-	public static float time => Game.time;
+	public static float time => Scaled.time;
 	public static float timeSince(float previousTime)
-		=> Game.timeSince(previousTime);
-	public static float timeSinceLastUpdate => Game.timeSinceLastUpdate;
-	public static float timeSinceLastFixedUpdate => Game.timeSinceLastFixedUpdate;
-	public static float timeInteger => Game.timeInteger;
+		=> Scaled.timeSince(previousTime);
+	public static float timeSinceLastUpdate => Scaled.timeSinceLastUpdate;
+	public static float timeSinceLastFixedUpdate => Scaled.timeSinceLastFixedUpdate;
+	public static float timeInteger => Scaled.timeInteger;
 
 	#region divisibility
 	public static bool timeIntegerIsDivisibleBy(float divisor)
-		=> Game.timeIntegerIsDivisibleBy(divisor);
-	public static bool timeIntegerIsEven => Game.timeIntegerIsEven;
-	public static bool timeIntegerIsOdd => Game.timeIntegerIsOdd;
-	public static bool timeIntegerIsDivisibleByFive => Game.timeIntegerIsDivisibleByFive;
-	public static bool timeIntegerIsDivisibleByTen => Game.timeIntegerIsDivisibleByTen;
+		=> Scaled.timeIntegerIsDivisibleBy(divisor);
+	public static bool timeIntegerIsEven => Scaled.timeIntegerIsEven;
+	public static bool timeIntegerIsOdd => Scaled.timeIntegerIsOdd;
+	public static bool timeIntegerIsDivisibleByFive => Scaled.timeIntegerIsDivisibleByFive;
+	public static bool timeIntegerIsDivisibleByTen => Scaled.timeIntegerIsDivisibleByTen;
 	#endregion divisibility
 	#endregion Game
 	#endregion Moon Motion - Moon Motion Toolkit - Utilities - Explicit

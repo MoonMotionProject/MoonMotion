@@ -8,12 +8,12 @@ public static class ChildExtensions
 {
 	#region counting children
 
-	public static bool childless(this Transform transform)
+	public static bool isChildless(this Transform transform)
 		=> (transform.childCount == 0);
-	public static bool childless(this GameObject gameObject)
-		=> gameObject.transform.childless();
-	public static bool childless(this Component component)
-		=> component.transform.childless();
+	public static bool isChildless(this GameObject gameObject)
+		=> gameObject.transform.isChildless();
+	public static bool isChildless(this Component component)
+		=> component.transform.isChildless();
 
 	public static bool hasAnyChildren(this Transform transform)
 		=> (transform.childCount > 0);
@@ -242,7 +242,7 @@ public static class ChildExtensions
 	public static int lastChildIndex(this Component component)
 		=> component.transform.lastChildIndex();
 
-	// method: invoke the given action on each child transform of this given component's transform, then return this given component //
+	// method: invoke the given action on each child transform of this given component, then return this given component //
 	public static ComponentT forEachChildTransform<ComponentT>(this ComponentT component, Action<Transform> action, bool boolean = true) where ComponentT : Component
 	{
 		if (boolean)
@@ -260,6 +260,13 @@ public static class ChildExtensions
 		=>	gameObject.after(()=>
 				gameObject.transform.forEachChildTransform(action),
 				boolean);
+	
+	// method: invoke the given action on each child game object of this given component, then return this given component //
+	public static ComponentT forEachChildObject<ComponentT>(this ComponentT component, Action<GameObject> action, bool boolean = true) where ComponentT : Component
+		=> component.forEachChildTransform(childTransform => action(childTransform.gameObject));
+	// method: invoke the given action on each child game object of this given game object, then return this given game object //
+	public static GameObject forEachChildObject(this GameObject gameObject, Action<GameObject> action, bool boolean = true)
+		=> gameObject.forEachChildTransform(childTransform => action(childTransform.gameObject));
 
 	// method: set the activity of all child objects of this given transform to the given 'enablement' boolean, then return this given transform //
 	public static Transform setActivityOfChildrenTo(this Transform transform, bool enablement)

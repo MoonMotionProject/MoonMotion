@@ -57,13 +57,42 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion destruction
 
 
-	#region hierarchy selection
+	#region determining hierarchy selection
 	#if UNITY_EDITOR
 
 	public bool isSelected => gameObject.isSelected();
 	public bool isNotSelected => gameObject.isNotSelected();
 	#endif
-	#endregion hierarchy selection
+	#endregion determining hierarchy selection
+
+
+	#region setting hierarchy selection
+	#if UNITY_EDITOR
+
+	public GameObject select()
+		=> gameObject.select();
+	#endif
+	#endregion setting hierarchy selection
+
+
+	#region setting hierarchy expansion
+	#if UNITY_EDITOR
+
+	public void setExpansionTo(bool expansion)
+		=> gameObject.setExpansionTo(expansion);
+	public void expand()
+		=> gameObject.expand();
+	public void collapse()
+		=> gameObject.collapse();
+
+	public void setExpansionForSelfAndDescendantsTo(bool expansion)
+		=> gameObject.setExpansionForSelfAndDescendantsTo(expansion);
+	public void expandSelfAndDescendants()
+		=> gameObject.expandSelfAndDescendants();
+	public void collapseSelfAndDescendants()
+		=> gameObject.collapseSelfAndDescendants();
+	#endif
+	#endregion setting hierarchy expansion
 
 
 	#region name

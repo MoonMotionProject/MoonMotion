@@ -48,7 +48,23 @@ public static class ParentExtensions
 	{
 		if (boolean)
 		{
-			transform_TransformProvider.provideTransform().SetParent(parentTransform_TransformProvider.provideTransform());
+			Transform transform = transform_TransformProvider.provideTransform();
+			if (transform.isYull())
+			{
+				Transform parentTransform = parentTransform_TransformProvider.provideTransform();
+				if (parentTransform.isYull())
+				{
+					transform.SetParent(parentTransform);
+				}
+				else
+				{
+					transform.SetParent(null);
+				}
+			}
+			else
+			{
+				"ParentExtensions.setParentTo given null this transform".printAsErrorAndReturnDefault<ObjectT>();
+			}
 		}
 
 		return transform_TransformProvider;
@@ -61,9 +77,15 @@ public static class ParentExtensions
 		=> component.after(()=>
 			component.transform.setParentTo<ParentSingletonBehaviourT>(boolean));
 
+	// method: (according to the given boolean:) set the parent of each of these given game objects to the given provided parent transform, then return the list of these given game objects //
+	public static List<GameObject> forEachSetParentTo(this IEnumerable<GameObject> gameObjects, object parentTransform_TransformProvider, bool boolean = true)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.setParentTo(parentTransform_TransformProvider),
+				boolean);
+
 	// method: (according to the given boolean:) unparent this given transform (set its parent to null), then return this given transform //
 	public static Transform unparent(this Transform transform, bool boolean = true)
-		=> transform.setParentTo(((Transform)null), boolean);
+		=> transform.setParentTo((Transform) null, boolean);
 	// method: (according to the given boolean:) unparent this given game object (set its parent to null), then return this given game object //
 	public static GameObject unparent(this GameObject gameObject, bool boolean = true)
 		=> gameObject.transform.unparent(boolean).gameObject;
@@ -71,6 +93,12 @@ public static class ParentExtensions
 	public static ComponentT unparent<ComponentT>(this ComponentT component, bool boolean = true) where ComponentT : Component
 		=> component.after(()=>
 			component.transform.unparent(boolean));
+
+	// method: (according to the given boolean:) unparent each of these given game objects, then return the list of these given game objects //
+	public static List<GameObject> unparentEach(this IEnumerable<GameObject> gameObjects, bool boolean = true)
+		=>	gameObjects.forEachManifested(gameObject =>
+				gameObject.unparent(),
+				boolean);
 
 	// method: (according to the given boolean:) temporarily change this given transform's parent to the given other transform, during so invoking the given action on this given transform, then return this given transform //
 	public static Transform actUponWithParentTemporarilySwappedTo(this Transform transform, Transform otherTransform, Action<Transform> action, bool boolean = true)

@@ -10,60 +10,69 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 					AutoBehaviourLayerBehaviour<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
-	#region coroutines
+	#region starting and stopping coroutines
 
 	// method: have this mono behaviour have Unity start a coroutine using the given enumerator, then return the started coroutine //
 	public Coroutine startCoroutine(IEnumerator enumerator)
 		=> monoBehaviour.startCoroutine(enumerator);
-
-	// method: have this mono behaviour have Unity start a coroutine using the given action and following the given coroute, then return the started coroutine //
-	public Coroutine startCoroutine(Action action, Coroute coroute)
+	
+	// methods: have this mono behaviour have Unity start a coroutine using the given function executing the given parameters and following the given coroute, then return the started coroutine //
+	public Coroutine startCoroutine(Coroute coroute, Delegate function, params object[] parameters)
 	{
 		switch (coroute)
 		{
 			case Coroute.atNextCheck:
-				return atNextCheckExecute(action);
+				return atNextCheckExecute(function, parameters);
 			case Coroute.nowAndAtEveryCheck:
-				return nowAndAtEveryCheckExecute(action);
+				return nowAndAtEveryCheckExecute(function, parameters);
 			case Coroute.atNextCheckAndEveryCheckAfter:
-				return atNextCheckAndEveryCheckAfterExecute(action);
+				return atNextCheckAndEveryCheckAfterExecute(function, parameters);
 			case Coroute.atEndOfFrame:
-				return atEndOfFrameExecute(action);
+				return atEndOfFrameExecute(function, parameters);
 			default:
-				return startCoroutine(action, Default.coroute).returnWithError("the Auto Behaviour Layer Mono Behaviour on "+self+" had startCoroutine called with an unrecognized coroute given");
+				return startCoroutine(Default.coroute, function, parameters).returnWithError("the Auto Behaviour Layer Mono Behaviour on "+self+" had startCoroutine called with an unrecognized coroute given, so default coroute chosen as fallback");
 		}
 	}
-
-	// method: have this mono behaviour have Unity start a repeating coroutine using the given action, starting now versus at next check according to the given boolean, then return the started coroutine //
-	public Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = true)
+	private Coroutine startCoroutine_(Coroute coroute, Delegate function, params object[] parameters)
+		=> startCoroutine(coroute, function, parameters);
+	public Coroutine startCoroutine(Coroute coroute, Action action)
+		=> startCoroutine_(coroute, action);
+	
+	// methods: have this mono behaviour have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
+	public Coroutine startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
 		=>	startCoroutine
 			(
-				action,
 				startNowVersusAtNextCheck ?
 					Coroute.nowAndAtEveryCheck :
-					Coroute.atNextCheckAndEveryCheckAfter
+					Coroute.atNextCheckAndEveryCheckAfter,
+				function,
+				parameters
 			);
+	private Coroutine startRepeatingCoroutine_(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+		=> startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
+	public Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck)
+		=> startRepeatingCoroutine_(action, startNowVersusAtNextCheck);
 
-	// method: stop the given coroutine, then return this (derived auto) behaviour //
+	// method: stop this mono behaviour's given coroutine, then return this (derived auto) behaviour //
 	public AutoBehaviourT stopCoroutine(Coroutine coroutine)
 		=> selfAfter(()=> StopCoroutine(coroutine));
 
-	// method: stop all coroutines, then return this (derived auto) behaviour //
+	// method: stop all of this mono behaviour's coroutines, then return this (derived auto) behaviour //
 	public AutoBehaviourT stopAllCoroutines()
 		=> selfAfter(()=> StopAllCoroutines());
-	#endregion coroutines
+	#endregion starting and stopping coroutines
 
 
-	#region planning to execute methods
+	#region planning to execute functions after a delay
 
 	// method: plan to execute the method on this mono behaviour with the given name after the given delay, then return this (derived auto) behaviour //
-	public AutoBehaviourT planToExecuteAfter(float delay, string methodName)
-		=> selfAfter(()=> monoBehaviour.planToExecuteAfter(delay, methodName));
+	public AutoBehaviourT executeAfter(float delay, string methodName)
+		=> selfAfter(()=> monoBehaviour.executeAfter(delay, methodName));
 
 	// methods: plan to execute the given function with the given parameters after the given delay, then return the new coroutine that will do so //
-	public Coroutine planToExecuteAfter(float delay, Delegate function, params object[] parameters)
-		=> startCoroutine(planToExecuteAfter_Coroutine(delay, function, parameters));
-	private IEnumerator planToExecuteAfter_Coroutine(float delay, Delegate function, params object[] parameters)
+	public Coroutine executeAfter(float delay, Delegate function, params object[] parameters)
+		=> startCoroutine(executeAfter_Coroutine(delay, function, parameters));
+	private IEnumerator executeAfter_Coroutine(float delay, Delegate function, params object[] parameters)
 	{
 		if (delay.isNonzero())
 		{
@@ -72,11 +81,11 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		
 		function.execute(parameters);
 	}
-	private Coroutine planToExecuteAfter_(float delay, Delegate function, params object[] parameters)
-		=> planToExecuteAfter(delay, function, parameters);
-	public Coroutine planToExecuteAfter(float delay, Action action, params object[] parameters)
-		=> planToExecuteAfter_(delay, action, parameters);
-	#endregion planning to execute methods
+	private Coroutine executeAfter_(float delay, Delegate function, params object[] parameters)
+		=> executeAfter(delay, function, parameters);
+	public Coroutine executeAfter(float delay, Action action, params object[] parameters)
+		=> executeAfter_(delay, action, parameters);
+	#endregion planning to execute functions after a delay
 
 
 	#region planning to execute functions\actions at next check

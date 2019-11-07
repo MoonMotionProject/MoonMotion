@@ -65,13 +65,42 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion destruction
 
 
-	#region hierarchy selection
+	#region determining hierarchy selection
 	#if UNITY_EDITOR
 
 	public static new bool isSelected => autoBehaviour.isSelected;
 	public static new bool isNotSelected => autoBehaviour.isNotSelected;
 	#endif
-	#endregion hierarchy selection
+	#endregion determining hierarchy selection
+
+
+	#region setting hierarchy selection
+	#if UNITY_EDITOR
+
+	public static new GameObject select()
+		=> autoBehaviour.select();
+	#endif
+	#endregion setting hierarchy selection
+
+
+	#region setting hierarchy expansion
+	#if UNITY_EDITOR
+
+	public static new void setExpansionTo(bool expansion)
+		=> autoBehaviour.setExpansionTo(expansion);
+	public static new void expand()
+		=> autoBehaviour.expand();
+	public static new void collapse()
+		=> autoBehaviour.collapse();
+
+	public static new void setExpansionForSelfAndDescendantsTo(bool expansion)
+		=> autoBehaviour.setExpansionForSelfAndDescendantsTo(expansion);
+	public static new void expandSelfAndDescendants()
+		=> autoBehaviour.expandSelfAndDescendants();
+	public static new void collapseSelfAndDescendants()
+		=> autoBehaviour.collapseSelfAndDescendants();
+	#endif
+	#endregion setting hierarchy expansion
 
 
 	#region name

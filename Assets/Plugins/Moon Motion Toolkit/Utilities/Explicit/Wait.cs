@@ -13,7 +13,10 @@ public static class Wait
 	public static IEnumerator untilNextFixedUpdate {get {yield return new WaitForFixedUpdate();}}
 	public static IEnumerator delay(float seconds)
 	{
-		yield return new WaitForSeconds(seconds);
+		if (seconds.isNonzero())
+		{
+			yield return new WaitForSeconds(seconds);
+		}
 	}
 	public static IEnumerator delayInRealtime(float seconds)
 	{

@@ -35,5 +35,5 @@ public class PlannedObjectDestruction : AutoBehaviour<PlannedObjectDestruction>
 	
 	// at the start: //
 	private void Start()
-		=> planToExecuteAfter(delay, ()=> destroyThisObject());
+		=> executeAfter(delay, ()=> destroyThisObject());
 }

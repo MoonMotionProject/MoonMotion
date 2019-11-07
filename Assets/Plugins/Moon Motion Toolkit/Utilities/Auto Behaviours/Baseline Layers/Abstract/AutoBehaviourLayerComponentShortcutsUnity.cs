@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 // Auto Behaviour Layer Component Shortcuts Unity:
-// #auto #shortcuts #component #force
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its descendant game objects' Unity components
+// #auto #shortcuts #component #force #linerenderers
 public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> :
 					AutoBehaviourLayerMonoBehaviour<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
@@ -300,21 +300,14 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#region setting points
 	public AutoBehaviourT setLineRendererPointAtIndex(int index, Vector2 point)
 		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, point));
-	public AutoBehaviourT setLineRendererPointAtIndex(int index, Vector3 position)
-		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, position));
-	public AutoBehaviourT setLineRendererFirstPointTo(Vector3 position)
-		=> selfAfter(()=> lineRenderer.setFirstPointTo(position));
-	public AutoBehaviourT setLineRendererSecondPointTo(Vector3 position)
-		=> selfAfter(()=> lineRenderer.setSecondPointTo(position));
-	public AutoBehaviourT setLineRendererFirstTwoPointsTo(Vector3 firstPosition, Vector3 secondPosition)
-		=> selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition, secondPosition));
+	public AutoBehaviourT setLineRendererPointAtIndex(int index, object position_PositionProvider)
+		=> selfAfter(()=> lineRenderer.setPointAtIndex(index, position_PositionProvider));
+	public AutoBehaviourT setLineRendererFirstPointTo(object position_PositionProvider)
+		=> selfAfter(()=> lineRenderer.setFirstPointTo(position_PositionProvider));
+	public AutoBehaviourT setLineRendererSecondPointTo(object position_PositionProvider)
+		=> selfAfter(()=> lineRenderer.setSecondPointTo(position_PositionProvider));
 	public AutoBehaviourT setLineRendererFirstTwoPointsTo(object firstPosition_PositionProvider, object secondPosition_PositionProvider)
-		=>	selfAfter(()=>
-				lineRenderer.setFirstTwoPointsTo
-				(
-					firstPosition_PositionProvider.providePosition(),
-					secondPosition_PositionProvider.providePosition()
-				));
+		=> selfAfter(()=> lineRenderer.setFirstTwoPointsTo(firstPosition_PositionProvider, secondPosition_PositionProvider));
 	public AutoBehaviourT setLineRendererFirstTwoPointsForLineLocallyDirectedFrom(object startingTransform_TransformProvider, Vector3 localDirection, float distance)
 		=>	selfAfter(()=> lineRenderer.setFirstTwoPointsForLineLocallyDirectedFrom
 			(

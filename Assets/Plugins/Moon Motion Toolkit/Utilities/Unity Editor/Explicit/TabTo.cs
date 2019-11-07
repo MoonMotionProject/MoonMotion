@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -17,4 +18,11 @@ public static class TabTo
 	
 	public static void assets()
 		=> EditorUtility.FocusProjectWindow();
+	
+	public static EditorWindow hierarchy()
+	{
+		EditorApplication.ExecuteMenuItem("Window/Hierarchy");
+		return Focused.window;
+	}
 }
+#endif

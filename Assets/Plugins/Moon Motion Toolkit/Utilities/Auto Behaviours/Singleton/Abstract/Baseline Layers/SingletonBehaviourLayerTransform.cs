@@ -97,7 +97,7 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	#region counting children
 
-	public static new bool childless => autoBehaviour.childless;
+	public static new bool isChildless => autoBehaviour.isChildless;
 
 	public static new bool anyChildren()
 		=> autoBehaviour.anyChildren();

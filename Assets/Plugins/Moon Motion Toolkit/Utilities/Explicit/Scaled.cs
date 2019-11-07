@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Game: provides properties and methods about the game's time //
-public static class Game
+// Scaled: provides properties and methods about the game's time (scaled time) //
+public static class Scaled
 {
 	public static float time => Time.time;
 	public static float timeSince(float previousTime)

@@ -15,6 +15,16 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 	public static new Coroutine startCoroutine(IEnumerator enumerator)
 		=> autoBehaviour.startCoroutine(enumerator);
 	
+	public static new Coroutine startCoroutine(Coroute coroute, Delegate function, params object[] parameters)
+		=> autoBehaviour.startCoroutine(coroute, function, parameters);
+	public static new Coroutine startCoroutine(Coroute coroute, Action action)
+		=> autoBehaviour.startCoroutine(coroute, action);
+	
+	public static new Coroutine startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+		=> autoBehaviour.startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
+	public static new Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck)
+		=> autoBehaviour.startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	
 	public static new AutoBehaviour<SingletonBehaviourT> stopCoroutine(Coroutine coroutine)
 		=> autoBehaviour.stopCoroutine(coroutine);
 	
@@ -25,13 +35,13 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 
 	#region planning to execute methods
 	
-	public static new AutoBehaviour<SingletonBehaviourT> planToExecuteAfter(float delay, string methodName)
-		=> autoBehaviour.planToExecuteAfter(delay, methodName);
+	public static new AutoBehaviour<SingletonBehaviourT> executeAfter(float delay, string methodName)
+		=> autoBehaviour.executeAfter(delay, methodName);
 	
-	public static new Coroutine planToExecuteAfter(float delay, Delegate function, params object[] parameters)
-		=> autoBehaviour.planToExecuteAfter(delay, function, parameters);
-	public static new Coroutine planToExecuteAfter(float delay, Action action, params object[] parameters)
-		=> autoBehaviour.planToExecuteAfter(delay, action, parameters);
+	public static new Coroutine executeAfter(float delay, Delegate function, params object[] parameters)
+		=> autoBehaviour.executeAfter(delay, function, parameters);
+	public static new Coroutine executeAfter(float delay, Action action, params object[] parameters)
+		=> autoBehaviour.executeAfter(delay, action, parameters);
 	#endregion planning to execute methods
 
 

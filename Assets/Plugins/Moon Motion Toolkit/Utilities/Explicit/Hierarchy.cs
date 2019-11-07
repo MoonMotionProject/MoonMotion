@@ -108,6 +108,10 @@ public static class Hierarchy
 	public static HashSet<GameObject> pingSelectedGameObjectsEachLogging(string string_)
 		=> pingSelectedGameObjects().setAfterAsEachObjectLogging(string_);
 
+	// method: select the given game objects //
+	public static void select(this IEnumerable<GameObject> gameObjects)
+		=> Selection.objects = gameObjects.uniques().toArray();
+
 	// method: deselect all current hierarchy selections //
 	public static void deselect()
 		=> Selection.objects = new UnityEngine.Object[0];

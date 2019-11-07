@@ -96,6 +96,20 @@ public static class AttachmentExtensions
 	#endregion ComponentT
 
 
+	#region DefaultAutoBehaviour
+
+	public static DefaultAutoBehaviour defaultAutoBehaviour(this GameObject gameObject, bool includeInactiveDefaultAutoBehaviours = true)
+		=> gameObject.first<DefaultAutoBehaviour>(includeInactiveDefaultAutoBehaviours);
+	public static DefaultAutoBehaviour defaultAutoBehaviour(this Component component, bool includeInactiveDefaultAutoBehaviours = true)
+		=> component.first<DefaultAutoBehaviour>(includeInactiveDefaultAutoBehaviours);
+
+	public static DefaultAutoBehaviour ensuredDefaultAutoBehaviour(this GameObject gameObject)
+		=> gameObject.ensured<DefaultAutoBehaviour>();
+	public static DefaultAutoBehaviour ensuredDefaultAutoBehaviour(this Component component)
+		=> component.ensured<DefaultAutoBehaviour>();
+	#endregion DefaultAutoBehaviour
+
+
 	#region Collider
 
 	// method: return the collider attached to this given (nullable) raycast hit (null, if the nullable raycast hit is null) //

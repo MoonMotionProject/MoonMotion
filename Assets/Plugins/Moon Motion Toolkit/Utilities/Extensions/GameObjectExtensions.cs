@@ -155,7 +155,7 @@ public static class GameObjectExtensions
 	#endregion duplicating game objects
 
 
-	#region hierarchy selection
+	#region determining hierarchy selection
 	#if UNITY_EDITOR
 
 	// method: return whether this given game object is currently selected //
@@ -166,7 +166,68 @@ public static class GameObjectExtensions
 	public static bool isNotSelected(this GameObject gameObject)
 		=> !gameObject.isSelected();
 	#endif
-	#endregion hierarchy selection
+	#endregion determining hierarchy selection
+
+
+	#region setting hierarchy selection
+	#if UNITY_EDITOR
+
+	public static GameObject select(this GameObject gameObject)
+		=>	gameObject.after(()=>
+				Selection.activeObject = gameObject);
+	#endif
+	#endregion setting hierarchy selection
+
+
+	#region setting hierarchy expansion
+	#if UNITY_EDITOR
+	
+	public static GameObject setExpansionTo(this GameObject gameObject, bool expansion)
+	{
+		if (gameObject.hasAnyChildren())
+		{
+			GameObject[] childGameObjects = gameObject.childObjects();
+				
+			childGameObjects.unparentEach();
+
+			GameObject temporaryChild = gameObject.createChildObject();
+
+			gameObject.setExpansionForSelfAndDescendantsTo(expansion);
+			
+			childGameObjects.forEachSetParentTo(gameObject);
+
+			temporaryChild.destroy();
+		}
+		return gameObject;
+	}
+	public static List<GameObject> forEachSetExpansionTo(this IEnumerable<GameObject> gameObjects, bool expansion)
+		=> gameObjects.forEachManifested(gameObject => gameObject.setExpansionTo(expansion));
+	public static GameObject expand(this GameObject gameObject)
+		=> gameObject.setExpansionTo(true);
+	public static List<GameObject> expandEach(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.forEachManifested(gameObject => gameObject.expand());
+	public static GameObject collapse(this GameObject gameObject)
+		=> gameObject.setExpansionTo(false);
+	public static List<GameObject> collapseEach(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.forEachManifested(gameObject => gameObject.collapse());
+
+	public static void setExpansionForSelfAndDescendantsTo(this GameObject gameObject, bool expansion)
+	{
+		if (gameObject.hasAnyChildren())
+		{
+			TabTo.hierarchy();
+			
+			typeof(EditorWindow).Assembly.GetType("UnityEditor.SceneHierarchyWindow")
+				.GetMethod("SetExpandedRecursive")
+					.Invoke(Focused.window, new object[] {gameObject.idee(), expansion});
+		}
+	}
+	public static void expandSelfAndDescendants(this GameObject gameObject)
+		=> gameObject.setExpansionForSelfAndDescendantsTo(true);
+	public static void collapseSelfAndDescendants(this GameObject gameObject)
+		=> gameObject.setExpansionForSelfAndDescendantsTo(false);
+	#endif
+	#endregion setting hierarchy expansion
 
 
 	#region printing

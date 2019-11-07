@@ -34,6 +34,7 @@ public static class Default
 
 	#region execution
 	public const Coroute coroute = Coroute.nowAndAtEveryCheck;
+	public const bool repeatingCoroutineStartingNowVersusAtNextCheck = true;
 	#region threading
 	public const bool syncingOfThreadWithUpdate = true;
 	#endregion threading

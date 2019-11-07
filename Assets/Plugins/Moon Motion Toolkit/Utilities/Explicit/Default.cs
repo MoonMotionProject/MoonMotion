@@ -164,11 +164,12 @@ public static class Default
 	public static readonly LayerMask enemyLayers = Layers.none;
 	public static readonly LayerMask allyLayers = Layers.none;
 	public const float awaradius = 20f;
-	public static readonly Color awaradiusVisualizationColor = Color.red.withAlpha(.35f);
+	public static readonly Color awaradiusVisualizationColor = Colors.red.withAlpha(.35f);
 	public const bool enemyInclusionOfSelf = false;
 	public const bool allyInclusionOfSelf = true;
 	#endregion targeting
 	#region abilities
+	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.purple.withAlpha(.35f);
 	#region casting
 	public const bool castingRequiringAwarenessOfTarget = true;
 	public const Fense fense = Fense.offense;
@@ -217,4 +218,10 @@ public static class Default
 	public const bool pendanceNavigatingAvoidanceOfProvidedSolidity = true;
 	#endregion traits
 	#endregion Unitology
+
+	#region Odin
+	#if ODIN_INSPECTOR
+	public const float titleSpaceBefore = 6;
+	#endif
+	#endregion Odin
 }

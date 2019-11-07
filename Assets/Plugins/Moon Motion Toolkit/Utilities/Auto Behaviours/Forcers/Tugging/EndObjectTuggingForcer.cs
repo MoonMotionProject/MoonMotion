@@ -53,7 +53,7 @@ public class EndObjectTuggingForcer : EnabledsBehaviour<EndObjectTuggingForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Tugging")]
-	[Space]
+	[PropertySpace]
 	#else
 	[BoxGroup("Tugging")]
 	#endif
@@ -62,7 +62,7 @@ public class EndObjectTuggingForcer : EnabledsBehaviour<EndObjectTuggingForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Tugging")]
-	[Space]
+	[PropertySpace]
 	[HideLabel]
 	[LabelText("Interpolation Curve")]
 	#else
@@ -89,7 +89,7 @@ public class EndObjectTuggingForcer : EnabledsBehaviour<EndObjectTuggingForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	#else
 	[BoxGroup("Raycasting")]
@@ -99,7 +99,7 @@ public class EndObjectTuggingForcer : EnabledsBehaviour<EndObjectTuggingForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	#else
 	[BoxGroup("Raycasting")]

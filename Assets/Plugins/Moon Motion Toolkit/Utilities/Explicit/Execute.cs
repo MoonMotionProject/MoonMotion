@@ -23,7 +23,7 @@ public static class Execute
 
 	#region planning to execute functions\actions at next check
 	
-	// method: plan to execute the given action upon the given component at the next editor check (if the given component is yull) //
+	// method: plan to execute the given action upon the given component at the next editor check (if the given component is still yull) //
 	public static void atNextCheckFor_IfInEditor<ComponentT>(ComponentT component, Action<ComponentT> action, bool silenceNullComponentError = Default.errorSilencing) where ComponentT : Component
 	{
 		if (UnityIs.inEditor)

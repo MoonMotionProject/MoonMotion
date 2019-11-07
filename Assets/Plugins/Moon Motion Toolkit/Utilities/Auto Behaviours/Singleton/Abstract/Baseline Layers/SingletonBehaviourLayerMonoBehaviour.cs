@@ -33,7 +33,10 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 	#endregion coroutines
 
 
-	#region planning to execute methods
+	#region planning to execute methods after a delay
+	
+	public static new AutoBehaviour<SingletonBehaviourT> executeAtNextCheck_IfInEditor(Action<SingletonBehaviourT> action, bool silenceNullBehaviourError = Default.errorSilencing)
+		=> autoBehaviour.executeAtNextCheck_IfInEditor(action, silenceNullBehaviourError);
 	
 	public static new AutoBehaviour<SingletonBehaviourT> executeAfter(float delay, string methodName)
 		=> autoBehaviour.executeAfter(delay, methodName);
@@ -42,7 +45,7 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 		=> autoBehaviour.executeAfter(delay, function, parameters);
 	public static new Coroutine executeAfter(float delay, Action action, params object[] parameters)
 		=> autoBehaviour.executeAfter(delay, action, parameters);
-	#endregion planning to execute methods
+	#endregion planning to execute methods after a delay
 
 
 	#region planning to execute functions\actions at next check

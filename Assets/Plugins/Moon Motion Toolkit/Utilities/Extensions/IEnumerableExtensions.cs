@@ -661,7 +661,7 @@ public static class IEnumerableExtensions
 	public static IEnumerable<TTarget> only<TTarget>(this IEnumerable enumerable)
 		=> enumerable.OfType<TTarget>();
 	// method: instead of returning this given enumerable, return a list of the items in this given enumerable which are of the specified target type //
-	public static IEnumerable<TTarget> where<TTarget>(this IEnumerable enumerable)
+	public static List<TTarget> where<TTarget>(this IEnumerable enumerable)
 		=> enumerable.only<TTarget>().manifested();
 	#endregion removing
 

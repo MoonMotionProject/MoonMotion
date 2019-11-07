@@ -84,8 +84,7 @@ public class EndPositionalTuggingForcer : EnabledsBehaviour<EndPositionalTugging
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	#else
 	[BoxGroup("Raycasting")]
@@ -95,7 +94,7 @@ public class EndPositionalTuggingForcer : EnabledsBehaviour<EndPositionalTugging
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	#else
 	[BoxGroup("Raycasting")]
@@ -105,7 +104,7 @@ public class EndPositionalTuggingForcer : EnabledsBehaviour<EndPositionalTugging
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	#else
 	[BoxGroup("Raycasting")]
 	#endif

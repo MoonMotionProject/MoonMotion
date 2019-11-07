@@ -267,14 +267,23 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	#endif
 	#endif
 	public GameObject spawnOne()
-		=>	spawningPositionParent.createChildObject(template)
-				.setParentTo
-				(
-					spawningHierarchyParent,
-					useParticularPositionParent || useParticularHierarchyParent
-				)
-				.applyForceAlong(relativeDirectionFor(forceDirection), forceMagnitude,
-					applyForceToSpawns);
+	{
+		GameObject spawn
+			=	spawningPositionParent.createChildObject(template)
+					.applyForceAlong(relativeDirectionFor(forceDirection), forceMagnitude,
+						applyForceToSpawns)
+					.setParentTo(spawningHierarchyParent,
+						UnityIs.inBuild && (useParticularPositionParent || useParticularHierarchyParent));
+		
+		executeAtNextCheck_IfInEditor(spawner =>
+			spawn.setParentTo
+			(
+				spawningHierarchyParent,
+				(useParticularPositionParent || useParticularHierarchyParent)
+			));
+
+		return spawn;
+	}
 
 	// method: spawn the set count of the template object //
 	#region adjunct
@@ -286,11 +295,22 @@ public class Spawner : EnabledsBehaviour<Spawner>
 			timesRemaining -= 1;
 			if (timesRemaining.isPositive())
 			{
-				executeAfter
-				(
-					delayBetweenEach,
-					()=> spawnCount_Recursion(timesRemaining)
-				);
+				#if UNITY_EDITOR
+				if (UnityIs.inEditorEditMode)
+				{
+					spawnCount_Recursion(timesRemaining);
+				}
+				else
+				{
+				#endif
+					executeAfter
+					(
+						delayBetweenEach,
+						()=> spawnCount_Recursion(timesRemaining)
+					);
+				#if UNITY_EDITOR
+				}
+				#endif
 			}
 		}
 	}

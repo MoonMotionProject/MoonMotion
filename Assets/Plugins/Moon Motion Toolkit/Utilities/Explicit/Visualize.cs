@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -199,6 +200,10 @@ public static class Visualize
 			Gizmos.DrawSphere(position, radius);
 		}
 	}
+	public static void sphereAt(Vector3 position, float radius, Color? color = null)
+		=> sphereAt(position, radius, true, color);
+	public static void sphereAt(Vector3 position, Func<float> radiusFunction, bool boolean = true, Color? color = null)
+		=> sphereAt(position, radiusFunction(), boolean, color);
 	#endregion spheres
 
 

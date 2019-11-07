@@ -84,7 +84,7 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	[LabelText("Distinctivity")]
 	#else
@@ -95,7 +95,7 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[LabelText("Distance")]
 	#else
 	[BoxGroup("Raycasting")]
@@ -105,7 +105,7 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	[LabelText("Raycast Query")]
 	#else
@@ -116,7 +116,7 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	[LabelText("Trigger Collider Query")]
 	#else
@@ -127,7 +127,7 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	[Space]
+	[PropertySpace]
 	[LabelText("Layer Mask")]
 	#else
 	[BoxGroup("Raycasting")]

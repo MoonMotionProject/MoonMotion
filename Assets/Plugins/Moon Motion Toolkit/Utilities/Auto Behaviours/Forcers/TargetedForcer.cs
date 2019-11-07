@@ -75,7 +75,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
-	[Space]
+	[PropertySpace]
 	[EnumToggleButtons]
 	#else
 	[BoxGroup("Forcing")]
@@ -85,7 +85,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
-	[Space]
+	[PropertySpace]
 	#else
 	[BoxGroup("Forcing")]
 	#endif
@@ -94,7 +94,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
-	[Space]
+	[PropertySpace]
 	#else
 	[BoxGroup("Forcing")]
 	#endif
@@ -103,7 +103,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
-	[Space]
+	[PropertySpace]
 	[LabelText("Interpolation Curve")]
 	#else
 	[BoxGroup("Forcing")]
@@ -113,7 +113,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
-	[Space]
+	[PropertySpace]
 	[ToggleLeft]
 	#else
 	[BoxGroup("Forcing")]
@@ -123,7 +123,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
-	[Space]
+	[PropertySpace]
 	[ToggleLeft]
 	#else
 	[BoxGroup("Forcing")]

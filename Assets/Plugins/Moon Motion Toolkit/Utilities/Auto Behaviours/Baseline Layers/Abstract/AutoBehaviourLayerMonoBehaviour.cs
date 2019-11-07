@@ -64,6 +64,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 
 
 	#region planning to execute functions after a delay
+	
+	// method: plan to execute the given action upon this (derived auto) behaviour at the next editor check (if this mono behaviour is still yull), then return this (derived auto) behaviour //
+	public AutoBehaviourT executeAtNextCheck_IfInEditor(Action<AutoBehaviourT> action, bool silenceNullBehaviourError = Default.errorSilencing)
+		=> selfAfter(()=> Execute.atNextCheckFor_IfInEditor(self, action, silenceNullBehaviourError));
 
 	// method: plan to execute the method on this mono behaviour with the given name after the given delay, then return this (derived auto) behaviour //
 	public AutoBehaviourT executeAfter(float delay, string methodName)

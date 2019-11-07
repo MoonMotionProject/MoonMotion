@@ -302,47 +302,59 @@ public abstract class SingletonBehaviourLayerComponentShortcutsNonUnity<Singleto
 	#region Intelligence
 
 	#region targeting
-	public static new HashSet<IntelligenceT> enemies<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<IntelligenceT> enemies<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.enemies<IntelligenceT>();
-	public static new HashSet<Unit> enemyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> enemyUnits<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.enemyUnits<IntelligenceT>();
-	public static new HashSet<IntelligenceT> allies<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<IntelligenceT> allies<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.allies<IntelligenceT>();
-	public static new HashSet<Unit> allyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> allyUnits<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.allyUnits<IntelligenceT>();
 	public static new HashSet<OtherIntelligenceT> awornEnemies<OtherIntelligenceT>()
-		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
+		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
 		=> autoBehaviour.awornEnemies<OtherIntelligenceT>();
-	public static new HashSet<Unit> awornEnemyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> awornEnemyUnits<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.awornEnemyUnits<IntelligenceT>();
 	public static new HashSet<OtherIntelligenceT> awornAllies<OtherIntelligenceT>()
-		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
+		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
 		=> autoBehaviour.awornAllies<OtherIntelligenceT>();
-	public static new HashSet<Unit> awornAllyUnits<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> awornAllyUnits<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.awornAllyUnits<IntelligenceT>();
 	public static new OtherIntelligenceT nearestAwornEnemy<OtherIntelligenceT>()
-		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
+		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestAwornEnemy<OtherIntelligenceT>();
-	public static new HashSet<Unit> nearestAwornEnemyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> nearestAwornEnemyUnit<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestAwornEnemyUnit<IntelligenceT>();
 	public static new OtherIntelligenceT nearestAwornAlly<OtherIntelligenceT>()
-		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
+		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestAwornAlly<OtherIntelligenceT>();
-	public static new HashSet<Unit> nearestAwornAllyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> nearestAwornAllyUnit<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestAwornAllyUnit<IntelligenceT>();
-	public static new IntelligenceT nearestEnemy<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new IntelligenceT nearestEnemy<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestEnemy<IntelligenceT>();
-	public static new HashSet<Unit> nearestEnemyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> nearestEnemyUnit<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestEnemyUnit<IntelligenceT>();
-	public static new IntelligenceT nearestAlly<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new IntelligenceT nearestAlly<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestAlly<IntelligenceT>();
-	public static new HashSet<Unit> nearestAllyUnit<IntelligenceT>() where IntelligenceT : Intelligence<IntelligenceT>
+	public static new HashSet<Unit> nearestAllyUnit<IntelligenceT>()
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
 		=> autoBehaviour.nearestAllyUnit<IntelligenceT>();
 	public static new bool isAwareOfAnyEnemy<OtherIntelligenceT>()
-		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
+		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
 		=> autoBehaviour.isAwareOfAnyEnemy<OtherIntelligenceT>();
 	public static new bool isAwareOfAnyAlly<OtherIntelligenceT>()
-		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>
+		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
 		=> autoBehaviour.isAwareOfAnyAlly<OtherIntelligenceT>();
 	public static new HashSet<Unit> enemyStructures(bool includeSelf = Default.enemyInclusionOfSelf)
 		=> autoBehaviour.enemyStructures(includeSelf);

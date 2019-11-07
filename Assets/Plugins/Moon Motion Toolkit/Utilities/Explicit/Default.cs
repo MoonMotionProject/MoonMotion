@@ -168,6 +168,8 @@ public static class Default
 	public const bool enemyInclusionOfSelf = false;
 	public const bool allyInclusionOfSelf = true;
 	#endregion targeting
+	#region kit
+	public const float intelligentBehaviourDelay = .1f;
 	#region abilities
 	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.purple.withAlpha(.35f);
 	#region casting
@@ -213,10 +215,11 @@ public static class Default
 	#region effects
 	public const float damageRadius = 5f;
 	#endregion effects
-	#endif
 	#region traits
 	public const bool pendanceNavigatingAvoidanceOfProvidedSolidity = true;
 	#endregion traits
+	#endregion kit
+	#endif
 	#endregion Unitology
 
 	#region Odin

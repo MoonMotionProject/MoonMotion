@@ -78,6 +78,12 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 	public bool hasAny<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasAny(function, includeInactiveComponents);
+
+	public bool hasAnyI<ComponentI>
+	(
+		bool includeInactiveComponents = Default.inclusionOfInactiveComponents
+	) where ComponentI : class
+		=> gameObject.hasAnyI<ComponentI>(includeInactiveComponents);
 	
 	public bool hasNo<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.hasNo<ComponentT>(includeInactiveComponents);
@@ -103,10 +109,11 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 
 	#region accessing local components
-
-	// method: return this component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	
 	public ComponentT first<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.first<ComponentT>(includeInactiveComponents);
+	public ComponentI firstI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> gameObject.firstI<ComponentI>(includeInactiveComponents);
 
 	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this component's game object //
 	public List<ComponentT> pick<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component

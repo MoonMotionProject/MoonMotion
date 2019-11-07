@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Auto Behaviour Layer Auto Behaviour:
-// #auto
+// #auto #console
 // • provides this behaviour with functionality baseline to all auto behaviour layers
 public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 					AutoBehaviourLayerImplementation

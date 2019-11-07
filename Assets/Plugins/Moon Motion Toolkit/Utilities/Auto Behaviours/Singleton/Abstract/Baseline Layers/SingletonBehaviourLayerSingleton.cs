@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Singleton Behaviour Layer Singleton:
-// #auto
+// #auto #console
 // • provides this singleton behaviour with static access to its auto behaviour's auto behaviour layer
 // • provides this singleton behaviour with singleton features
 public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :

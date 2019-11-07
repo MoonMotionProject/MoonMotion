@@ -69,6 +69,12 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 	public static new bool hasAny<ComponentT>(Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> autoBehaviour.hasAny(function, includeInactiveComponents);
 
+	public static new bool hasAnyI<ComponentI>
+	(
+		bool includeInactiveComponents = Default.inclusionOfInactiveComponents
+	) where ComponentI : class
+		=> autoBehaviour.hasAnyI<ComponentI>(includeInactiveComponents);
+
 	public static new bool hasNo<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> autoBehaviour.hasNo<ComponentT>(includeInactiveComponents);
 
@@ -93,10 +99,11 @@ public abstract class	SingletonBehaviourLayerComponent<SingletonBehaviourT> :
 
 
 	#region accessing local components
-
-	// method: return this component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	
 	public static new ComponentT first<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> autoBehaviour.first<ComponentT>(includeInactiveComponents);
+	public static new ComponentI firstI<ComponentI>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+		=> autoBehaviour.firstI<ComponentI>(includeInactiveComponents);
 
 	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this component's game object //
 	public static new List<ComponentT> pick<ComponentT>(bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component

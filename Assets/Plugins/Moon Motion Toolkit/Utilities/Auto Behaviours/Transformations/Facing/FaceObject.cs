@@ -30,8 +30,6 @@ public class FaceObject : AutoBehaviour<FaceObject>
 	[InlineButton("targetCamera", "Target Camera")]
 	[HideLabel]
 	[ShowInInspector]
-	#else
-	[ShowAssetPreview]
 	#endif
 	public GameObject targetObject
 	{

@@ -28,6 +28,15 @@ public static class GameObjectExtensions
 	#endregion determining prefabness
 
 
+	#region determining whether this game object could be awake right now
+
+	public static bool couldBeAwakeRightNow(this GameObject gameObject)
+		=> UnityIs.playing && gameObject.isNotPartOfPrefabAsset();
+	public static bool couldNotBeAwakeRightNow(this GameObject gameObject)
+		=> !gameObject.couldBeAwakeRightNow();
+	#endregion determining whether this game object could be awake right now
+
+
 	#region existence
 
 	// note: refer here for how to handle exceptions related to game object existence: https://stackoverflow.com/a/53195170/3900755 //
@@ -240,7 +249,7 @@ public static class GameObjectExtensions
 				gameObject.asThisObjectLog(string_, loggingSeparator));
 	
 	public static HashSet<GameObject> setAfterAsEachObjectLogging(this IEnumerable<GameObject> gameObjects, string string_, string loggingSeparator = Default.loggingSeparator)
-		=>	gameObjects.setAfterForEach(gameObject =>
+		=>	gameObjects.uniquesAfterForEach(gameObject =>
 				gameObject.asThisObjectLog(string_, loggingSeparator));
 	#endregion printing
 

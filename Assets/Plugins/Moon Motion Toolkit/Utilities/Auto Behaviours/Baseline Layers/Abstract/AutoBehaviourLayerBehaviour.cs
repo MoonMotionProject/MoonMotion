@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Auto Behaviour Layer Behaviour:
-// #auto
+// #auto #behaviour
 // • provides this behaviour with direct access to its extension methods for being a behaviour
 public abstract class	AutoBehaviourLayerBehaviour<AutoBehaviourT> :
 					AutoBehaviourLayerComponent<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region enablement of this behaviour
+
+	public bool isEnabled => self.isEnabled();
+	public bool isNotEnabled => self.isNotEnabled();
 
 	// method: set the enablement of this behaviour to the given boolean, then return this behaviour //
 	public AutoBehaviourT setEnablementTo(bool enablement)

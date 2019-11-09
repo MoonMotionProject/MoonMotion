@@ -19,7 +19,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Control")]
 	#endif
@@ -77,9 +76,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("end dashes upon the player colliding with the target collider")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool endUponTargetCollision = true;
 
 	#if ODIN_INSPECTOR
@@ -96,9 +92,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to end the dash if farther from the dash starting position than the target position is (in the same direction)")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool endIfOverdashed = true;
 
 	#if ODIN_INSPECTOR
@@ -123,9 +116,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to enable skiing upon starting a dash and to disable skiing upon ending a dash")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool togglesSkiing = true;
 	
 	#if ODIN_INSPECTOR
@@ -134,9 +124,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to zero the player's velocities before each dash")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool zeroVelocitiesBefore = true;
 	
 	#if ODIN_INSPECTOR
@@ -145,9 +132,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to zero the player's velocities after each dash")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool zeroVelocitiesAfter = true;
 	
 	#if ODIN_INSPECTOR
@@ -156,9 +140,6 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to temporarily lock the player's y position (after dashing, returning the lockedness to what it was before)")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool temporarilyLockYPosition = true;
 
 	// the lockedness of the player's y position before dashing the last time before starting a dash when temporarily locking the player's y position //

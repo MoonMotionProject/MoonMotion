@@ -40,6 +40,10 @@ public static class RequireComponentExtensions
 	// method: (via reflection:) return whether this given component is required by another component (on this given component's game object), considering inherited RequireComponent attributes according to the given boolean //
 	public static bool required_ViaReflection<ComponentTThis>(this ComponentTThis component, bool considerInheritedRequireComponents = true) where ComponentTThis : Component
 		=> component.hasAnyOtherComponent(
-			otherComponent_ => otherComponent_.requires_ViaReflection<ComponentTThis>(),
+			otherComponent_ =>
+			{
+				return	otherComponent_.isYull() &&
+						otherComponent_.requires_ViaReflection<ComponentTThis>();
+			},
 			considerInheritedRequireComponents);
 }

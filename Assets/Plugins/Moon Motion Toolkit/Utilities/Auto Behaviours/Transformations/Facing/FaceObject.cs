@@ -52,19 +52,16 @@ public class FaceObject : AutoBehaviour<FaceObject>
 
 	#if ODIN_INSPECTOR
 	[Title("Via:")]
-	[ToggleLeft]
 	[LabelText("X")]
 	#endif
 	public bool faceX = true;
 
 	#if ODIN_INSPECTOR
-	[ToggleLeft]
 	[LabelText("Y")]
 	#endif
 	public bool faceY = true;
 
 	#if ODIN_INSPECTOR
-	[ToggleLeft]
 	[LabelText("Z")]
 	#endif
 	public bool faceZ = true;

@@ -52,10 +52,10 @@ public static class Colors
 	public static readonly Color healthbarTrop = lycan;
 	public static readonly Color healthbarShielding = silver;
 	public static readonly Color statusSilence = purple;
+	public static readonly Color abilityCasting = goldenrod;
 	public static readonly Color abilityPending = orange;
 	public static readonly Color abilityChanneling = dodgerBlue;
 	public static readonly Color abilityCooling = charm;
-	public static readonly Color abilityCastingSoUnready = goldenrod;
 	public static readonly Color damage = mediumRed;
 	#endif
 	#endregion Unitology

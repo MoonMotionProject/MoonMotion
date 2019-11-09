@@ -46,10 +46,8 @@ public static class Default
 	public const bool choiceToVisualizeInEditor = true;
 	public const bool scalingOfVisualizedIcons = true;
 	public static readonly Vector3 boxVisualizationDimensions = new Vector3(.3f, .3f, .3f);
-	public static readonly Color spawningVisualizationColor = Color.green.withAlpha(.8f);
-	#if NAV_MESH_COMPONENTS
-	public static readonly Color destinationVisualizationColor = Color.green.withAlpha(.8f);
-	#endif
+	public static readonly Color positionVisualizationColor = Color.green.withAlpha(.8f);
+	public static readonly Color spawningVisualizationColor = positionVisualizationColor;
 	#endregion editor visualization
 
 	#region components
@@ -139,13 +137,19 @@ public static class Default
 
 	#region Navmesh Components
 	#if NAV_MESH_COMPONENTS
+	public const float navmeshAgentDelay = .01f;
 	public const bool destinatingAvoidanceOfProvidedSolidity = false;
+	public static readonly Color destinationVisualizationColor = positionVisualizationColor;
 	#endif
 	#endregion Navmesh Components
 
 	#region Unitology
 	#if UNITOLOGY
+	public const float unitologySphereVisualizationColorAlpha = .35f;
+	#region allegiance
 	public const Allegiance allegiance = Allegiance.playerNeutral;
+	public const AllegianceFilter allegianceFilter = AllegianceFilter.all;
+	#endregion allegiance
 	#region vitality
 	public const InterpolationCurve healthbarInterpolationCurve = InterpolationCurve.quadratic;
 	#region health
@@ -164,19 +168,21 @@ public static class Default
 	public static readonly LayerMask enemyLayers = Layers.none;
 	public static readonly LayerMask allyLayers = Layers.none;
 	public const float awaradius = 20f;
-	public static readonly Color awaradiusVisualizationColor = Colors.red.withAlpha(.35f);
+	public static readonly Color awaradiusVisualizationColor = Colors.red.withAlpha(unitologySphereVisualizationColorAlpha);
 	public const bool enemyInclusionOfSelf = false;
 	public const bool allyInclusionOfSelf = true;
 	#endregion targeting
 	#region kit
-	public const float intelligentBehaviourDelay = .1f;
+	public const float intelligentBehaviourDelay = navmeshAgentDelay;
 	#region abilities
-	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.purple.withAlpha(.35f);
 	#region casting
 	public const bool castingRequiringAwarenessOfTarget = true;
 	public const Fense fense = Fense.offense;
 	public const bool castingRequiringAbleness = true;
+	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.purple.withAlpha(unitologySphereVisualizationColorAlpha);
 	public const float targetedAbilityRange = Infinity.asAFloat;
+	public static readonly Color rangePendingVisualizationColor = Colors.abilityPending.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color rangeChannelingVisualizationColor = Colors.abilityChanneling.withAlpha(unitologySphereVisualizationColorAlpha);
 	#endregion casting
 	#region frequency
 	public const float abilityChannelation = .1f;
@@ -188,8 +194,8 @@ public static class Default
 	#endregion occupation
 	#region effects
 	public const float effectDuration = 1f;
-	public const float effectDamage = 0f;
-	public const float effectHealing = 0f;
+	public const float damage = 1f;
+	public const float healage = 1f;
 	#endregion effects
 	#region nonabstract abilities
 	#region Cancel
@@ -224,7 +230,9 @@ public static class Default
 
 	#region Odin
 	#if ODIN_INSPECTOR
-	public const float titleSpaceBefore = 6;
+	public const float propertySpaceBefore = 8f;
+	public const float propertySpaceAfter = 0f;
+	public const float titleSpaceBefore = 6f;
 	#endif
 	#endregion Odin
 }

@@ -64,6 +64,9 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 	
 	public static new AutoBehaviour<SingletonBehaviourT> asSelfLogError(string errorString, string loggingSeparator = Default.loggingSeparator)
 		=> autoBehaviour.asSelfLogError(errorString, loggingSeparator);
+	
+	public static new ObjectT asSelfLogErrorAndReturn<ObjectT>(ObjectT object_, string errorString, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.asSelfLogErrorAndReturn(object_, errorString, loggingSeparator);
 	#endregion erroring
 
 

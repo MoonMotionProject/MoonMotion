@@ -44,9 +44,12 @@ public static class EnableeComponentExtensions
 		}
 	}
 
-	// method: return the enablement of this given enablee component //
-	public static bool enablement(this Component enableeComponent)
+	// method: return whether this given enablee component is enabled //
+	public static bool isEnabled(this Component enableeComponent)
 		=> enablementOf(enableeComponent);
+	// method: return whether this given enablee component is not enabled //
+	public static bool isNotEnabled(this Component enableeComponent)
+		=> !isEnabled(enableeComponent);
 
 	private static void setEnablementOf(Component enableeComponent, bool enablement)
 	{

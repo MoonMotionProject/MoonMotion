@@ -16,6 +16,13 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	public static new bool isPartOfPrefabAsset => autoBehaviour.isPartOfPrefabAsset;
 	public static new bool isNotPartOfPrefabAsset => autoBehaviour.isNotPartOfPrefabAsset;
 	#endregion determining prefabness
+
+
+	#region determining whether this game object could be awake right now
+
+	public static new bool couldBeAwakeRightNow => autoBehaviour.couldBeAwakeRightNow;
+	public static new bool couldNotBeAwakeRightNow => autoBehaviour.couldNotBeAwakeRightNow;
+	#endregion determining whether this game object could be awake right now
 	
 
 	#region existence

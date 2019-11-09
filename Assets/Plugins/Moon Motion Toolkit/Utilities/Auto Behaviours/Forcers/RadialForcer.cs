@@ -19,7 +19,6 @@ public class RadialForcer : EnabledsBehaviour<RadialForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif
@@ -28,7 +27,6 @@ public class RadialForcer : EnabledsBehaviour<RadialForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif

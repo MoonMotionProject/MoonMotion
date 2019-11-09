@@ -53,7 +53,7 @@ public static class RigidbodyTransformationExtensions
 		=> rigidbody.movePositionXTo(component.position().x);
 	// method: return the x position lockedness of this given rigidbody //
 	public static bool positionXLockedness(this Rigidbody rigidbody)
-		=> rigidbody.constraints.HasFlag(RigidbodyConstraints.FreezePositionX);
+		=> rigidbody.constraints.has(RigidbodyConstraints.FreezePositionX);
 	// method: (according to the given boolean:) set the x position lockedness of this given rigidbody to the given lockedness boolean, then return this given rigidbody //
 	public static Rigidbody setPositionXLockednessTo(this Rigidbody rigidbody, bool lockedness, bool boolean = true)
 		=>	rigidbody.after(()=>
@@ -84,7 +84,7 @@ public static class RigidbodyTransformationExtensions
 		=> rigidbody.movePositionYTo(component.position().y);
 	// method: return the y position lockedness of this given rigidbody //
 	public static bool positionYLockedness(this Rigidbody rigidbody)
-		=> rigidbody.constraints.HasFlag(RigidbodyConstraints.FreezePositionY);
+		=> rigidbody.constraints.has(RigidbodyConstraints.FreezePositionY);
 	// method: (according to the given boolean:) set the y position lockedness of this given rigidbody to the given lockedness boolean, then return this given rigidbody //
 	public static Rigidbody setPositionYLockednessTo(this Rigidbody rigidbody, bool lockedness, bool boolean = true)
 		=>	rigidbody.after(()=>
@@ -115,7 +115,7 @@ public static class RigidbodyTransformationExtensions
 		=> rigidbody.movePositionZTo(component.position().z);
 	// method: return the z position lockedness of this given rigidbody //
 	public static bool positionZLockedness(this Rigidbody rigidbody)
-		=> rigidbody.constraints.HasFlag(RigidbodyConstraints.FreezePositionZ);
+		=> rigidbody.constraints.has(RigidbodyConstraints.FreezePositionZ);
 	// method: (according to the given boolean:) set the z position lockedness of this given rigidbody to the given lockedness boolean, then return this given rigidbody //
 	public static Rigidbody setPositionZLockednessTo(this Rigidbody rigidbody, bool lockedness, bool boolean = true)
 		=>	rigidbody.after(()=>
@@ -137,7 +137,7 @@ public static class RigidbodyTransformationExtensions
 
 	// method: return the x euler angle lockedness of this given rigidbody //
 	public static bool eulerAngleXLockedness(this Rigidbody rigidbody)
-		=> rigidbody.constraints.HasFlag(RigidbodyConstraints.FreezeRotationX);
+		=> rigidbody.constraints.has(RigidbodyConstraints.FreezeRotationX);
 	// method: (according to the given boolean:) set the x euler angle lockedness of this given rigidbody to the given lockedness boolean, then return this given rigidbody //
 	public static Rigidbody setEulerAngleXLockednessTo(this Rigidbody rigidbody, bool lockedness, bool boolean = true)
 		=>	rigidbody.after(()=>
@@ -159,7 +159,7 @@ public static class RigidbodyTransformationExtensions
 
 	// method: return the y euler angle lockedness of this given rigidbody //
 	public static bool eulerAngleYLockedness(this Rigidbody rigidbody)
-		=> rigidbody.constraints.HasFlag(RigidbodyConstraints.FreezeRotationY);
+		=> rigidbody.constraints.has(RigidbodyConstraints.FreezeRotationY);
 	// method: (according to the given boolean:) set the y euler angle lockedness of this given rigidbody to the given lockedness boolean, then return this given rigidbody //
 	public static Rigidbody setEulerAngleYLockednessTo(this Rigidbody rigidbody, bool lockedness, bool boolean = true)
 		=>	rigidbody.after(()=>
@@ -181,7 +181,7 @@ public static class RigidbodyTransformationExtensions
 
 	// method: return the z euler angle lockedness of this given rigidbody //
 	public static bool eulerAngleZLockedness(this Rigidbody rigidbody)
-		=> rigidbody.constraints.HasFlag(RigidbodyConstraints.FreezeRotationZ);
+		=> rigidbody.constraints.has(RigidbodyConstraints.FreezeRotationZ);
 	// method: (according to the given boolean:) set the z euler angle lockedness of this given rigidbody to the given lockedness boolean, then return this given rigidbody //
 	public static Rigidbody setEulerAngleZLockednessTo(this Rigidbody rigidbody, bool lockedness, bool boolean = true)
 		=>	rigidbody.after(()=>

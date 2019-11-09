@@ -36,7 +36,6 @@ public class ControllerOperation : ResetFixedScriptableObject
 	[Tooltip("whether to return the left versus the right controller as the first operated controller when operating without any controllers operating (only relevant when handedness is infinite)")]
 	#if ODIN_INSPECTOR
 	[TabGroup("Handedness")]
-	[ToggleLeft]
 	[ShowIf("fallbackToLeftVersusRight_ShowIf")]
 	#else
 	[BoxGroup("Handedness")]

@@ -379,11 +379,11 @@ public static class IEnumerableExtensions
 	public static List<TItem> forEachManifested<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
 		=> enumerable.forEach(action, boolean).manifested();
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return the set of (unique) items in this given enumerable //
-	public static HashSet<TItem> setAfterForEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
+	public static HashSet<TItem> uniquesAfterForEach<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
 		=> enumerable.forEach(action, boolean).uniques();
 	// method: (according to the given boolean:) invoke the given action on each unique item in this given enumerable, then return the set of (unique) items in this given enumerable //
 	public static HashSet<TItem> forEachUnique<TItem>(this IEnumerable<TItem> enumerable, Action<TItem> action, bool boolean = true)
-		=> enumerable.uniques().setAfterForEach(action, boolean);
+		=> enumerable.uniques().uniquesAfterForEach(action, boolean);
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<TItem> action, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
 		=> enumerable.after(()=>

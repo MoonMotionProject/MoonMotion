@@ -20,7 +20,6 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif

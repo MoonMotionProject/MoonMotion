@@ -16,8 +16,15 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	public bool isPartOfPrefabAsset => gameObject.isPartOfPrefabAsset();
 	public bool isNotPartOfPrefabAsset => !isPartOfPrefabAsset;
 	#endregion determining prefabness
-	
 
+
+	#region determining whether this game object could be awake right now
+
+	public bool couldBeAwakeRightNow => gameObject.couldBeAwakeRightNow();
+	public bool couldNotBeAwakeRightNow => gameObject.couldNotBeAwakeRightNow();
+	#endregion determining whether this game object could be awake right now
+	
+	
 	#region creating fresh game objects
 
 	public GameObject createChildObject

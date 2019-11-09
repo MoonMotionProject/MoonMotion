@@ -18,7 +18,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Control")]
 	#endif
@@ -110,7 +109,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Sweeping")]
 	#endif
@@ -135,7 +133,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Sweeping")]
 	#endif
@@ -144,7 +141,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Sweeping")]
 	#endif
@@ -153,7 +149,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Sweeping")]
 	#endif

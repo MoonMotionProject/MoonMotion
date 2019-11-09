@@ -14,7 +14,7 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 	#region Renderer
 
 	#region enablement
-	public bool rendererEnablement => renderer.enablement();
+	public bool rendererIsEnabled => renderer.isEnabled();
 	public AutoBehaviourT setRendererEnablementTo(bool boolean)
 		=> selfAfter(()=> renderer.setEnablementTo(boolean));
 	public AutoBehaviourT enableRenderer()

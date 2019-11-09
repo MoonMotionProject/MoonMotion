@@ -19,7 +19,6 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif
@@ -28,7 +27,6 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif
@@ -114,7 +112,6 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
 	[PropertySpace]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Forcing")]
 	#endif
@@ -124,7 +121,6 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
 	[PropertySpace]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Forcing")]
 	#endif

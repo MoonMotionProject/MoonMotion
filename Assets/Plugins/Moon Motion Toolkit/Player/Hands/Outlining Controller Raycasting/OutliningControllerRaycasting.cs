@@ -24,7 +24,6 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif
@@ -160,9 +159,6 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	[BoxGroup("Line Rendering")]
 	#endif
 	[Tooltip("whether to render a line representing the raycast")]
-	#if ODIN_INSPECTOR
-	[ToggleLeft]
-	#endif
 	public bool renderLine = Default.choiceToRenderRaycastLine;
 
 	#if ODIN_INSPECTOR
@@ -192,7 +188,6 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	#if ODIN_INSPECTOR
 	[TabGroup("Line Rendering")]
 	[Indent]
-	[ToggleLeft]
 	[LabelText("Render Only To Raycast Hit")]
 	[ShowIf("renderLine")]
 	#else

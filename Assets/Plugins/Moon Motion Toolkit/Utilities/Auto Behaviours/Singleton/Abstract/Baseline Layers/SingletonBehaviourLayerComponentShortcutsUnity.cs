@@ -14,7 +14,7 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	#region Renderer
 
 	#region enablement
-	public static new bool rendererEnablement => autoBehaviour.rendererEnablement;
+	public static new bool rendererIsEnabled => autoBehaviour.rendererIsEnabled;
 	public static new AutoBehaviour<SingletonBehaviourT> setRendererEnablementTo(bool boolean)
 		=> autoBehaviour.setRendererEnablementTo(boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> enableRenderer()

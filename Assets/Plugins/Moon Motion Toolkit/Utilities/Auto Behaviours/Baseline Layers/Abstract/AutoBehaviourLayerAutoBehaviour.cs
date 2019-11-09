@@ -137,6 +137,12 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	
 	public AutoBehaviourT asSelfLogError(string errorString, string loggingSeparator = Default.loggingSeparator)
 		=> logError(errorString, ""+self, gameObject, loggingSeparator);
+	
+	public ObjectT asSelfLogErrorAndReturn<ObjectT>(ObjectT object_, string errorString, string loggingSeparator = Default.loggingSeparator)
+	{
+		asSelfLogError(errorString+"; returning "+object_, loggingSeparator);
+		return object_;
+	}
 	#endregion erroring
 
 

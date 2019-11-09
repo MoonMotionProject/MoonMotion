@@ -18,9 +18,8 @@ public class EndPositionalTuggingForcer : EnabledsBehaviour<EndPositionalTugging
 
 	#region editor visualization
 
-#if ODIN_INSPECTOR
+	#if ODIN_INSPECTOR
 	[TabGroup("Editor Visualization")]
-	[ToggleLeft]
 	#else
 	[BoxGroup("Editor Visualization")]
 	#endif

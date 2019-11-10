@@ -8,7 +8,7 @@ public static class WarnIfMissingEther
 {
 	static WarnIfMissingEther()
 	{
-		potentiallyWarn();
+		EditorApplication.delayCall += potentiallyWarn;
 		EditorApplication.playModeStateChanged += potentiallyWarn;
 	}
 

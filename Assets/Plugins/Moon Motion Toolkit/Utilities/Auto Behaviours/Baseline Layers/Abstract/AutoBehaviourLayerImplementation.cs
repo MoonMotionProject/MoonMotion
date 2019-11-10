@@ -5,7 +5,8 @@ using UnityEngine;
 // Auto Behaviour Layer Implementation:
 // #auto
 // • derives from mono behaviour
-// • provides this behaviour with auto behaviour classification by implementing the auto behaviour interface
+// • implements the auto behaviour interface in order to:
+//   · provide this behaviour with auto behaviour classification
 public class AutoBehaviourLayerImplementation :
 	MonoBehaviour,
 	IAutoBehaviour

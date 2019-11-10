@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿#if ODIN_INSPECTOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
 // Upon Disable:
-// • invokes the set Unity event upon being disabled
+// • invokes the set Better Event upon being disabled
 public class UponDisable : UpdatingEventBehaviour<UponDisable>
 {
 	// updating //
@@ -12,5 +13,6 @@ public class UponDisable : UpdatingEventBehaviour<UponDisable>
 	
 	// upon being disabled: //
 	private void OnDisable()
-		=> invokeUnityEvent();
+		=> invokeBetterEvent();
 }
+#endif

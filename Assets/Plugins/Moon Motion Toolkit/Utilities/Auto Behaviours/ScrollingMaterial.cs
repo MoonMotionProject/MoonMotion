@@ -25,7 +25,7 @@ public class ScrollingMaterial : AutoBehaviour<ScrollingMaterial>
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public override void update()
 	{
 		// if scrolling is currently active: scroll the material of this renderer according to the set speeds //
 		if (active)

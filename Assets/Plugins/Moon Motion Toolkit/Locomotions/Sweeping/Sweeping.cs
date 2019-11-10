@@ -216,7 +216,7 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 	{
 		if (operations.operated() && !currentlySweeping)
 		{

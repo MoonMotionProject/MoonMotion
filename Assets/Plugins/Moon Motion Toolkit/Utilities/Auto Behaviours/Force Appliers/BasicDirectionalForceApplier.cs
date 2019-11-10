@@ -24,6 +24,6 @@ public class BasicDirectionalForceApplier : AutoBehaviour<BasicDirectionalForceA
 
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 		=> applyForceAlong(basicDirection, distinctivity, magnitude);
 }

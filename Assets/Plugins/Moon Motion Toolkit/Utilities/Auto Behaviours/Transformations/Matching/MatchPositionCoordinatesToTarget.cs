@@ -30,14 +30,14 @@ public class MatchPositionCoordinatesToTarget : MatchSomeTransformationsToTarget
 
 	// updating //
 
-	
+
 	// at each update: //
-	public virtual void Update()
-	{
-		setPositionTo	(transform.position
-							.withX(targetTransformOtherwiseThisTransform.positionX(), matchX)
-							.withY(targetTransformOtherwiseThisTransform.positionY(), matchY)
-							.withZ(targetTransformOtherwiseThisTransform.positionZ(), matchZ)
-						);
-	}
+	public override void update()
+		=>	setPositionTo
+			(
+				transform.position
+					.withX(targetTransformOtherwiseThisTransform.positionX(), matchX)
+					.withY(targetTransformOtherwiseThisTransform.positionY(), matchY)
+					.withZ(targetTransformOtherwiseThisTransform.positionZ(), matchZ)
+			);
 }

@@ -98,7 +98,7 @@ public class GravityZoneExiting : SingletonBehaviour<GravityZoneExiting>
 
 
 	// at each update: //
-	private void Update()
+	public override void update()
 	{
 		// track the last time that the player was within nonzeroly affecting gravity zonage //
 		if (GravityZone.playerWithinNonzerolyAffectingZonage())

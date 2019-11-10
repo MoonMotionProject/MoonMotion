@@ -33,7 +33,7 @@ public class Slower : AutoBehaviour<Slower>
 	
 	
 	// at each physics update: //
-	protected virtual void FixedUpdate()
+	public override void physicsUpdate()
 		// slow the attached rigidbody if slowing is currently enabled //
 		=>	slowSpeedBy
 			(

@@ -72,6 +72,19 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion destruction
 
 
+	#region changing hierarchiness
+
+	public static new AutoBehaviour<SingletonBehaviourT> makeUniversal()
+		=> autoBehaviour.makeUniversal();
+
+	public static new AutoBehaviour<SingletonBehaviourT> makeTemporary()
+		=> autoBehaviour.makeTemporary();
+
+	public static new AutoBehaviour<SingletonBehaviourT> makeUniversalAndTemporary()
+		=> autoBehaviour.makeUniversalAndTemporary();
+	#endregion changing hierarchiness
+
+
 	#region determining hierarchy selection
 	#if UNITY_EDITOR
 
@@ -84,7 +97,7 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#region setting hierarchy selection
 	#if UNITY_EDITOR
 
-	public static new GameObject select()
+	public static new AutoBehaviour<SingletonBehaviourT> select()
 		=> autoBehaviour.select();
 	#endif
 	#endregion setting hierarchy selection

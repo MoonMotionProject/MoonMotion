@@ -134,7 +134,7 @@ public class EndObjectTuggingForcer : EnabledsBehaviour<EndObjectTuggingForcer>
 	}
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 	{
 		if (raycastEndObject)
 		{

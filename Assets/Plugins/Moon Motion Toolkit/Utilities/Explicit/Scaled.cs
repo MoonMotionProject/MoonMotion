@@ -9,7 +9,7 @@ public static class Scaled
 	public static float timeSince(float previousTime)
 		=> time.since(previousTime);
 	public static float timeSinceLastUpdate => Time.deltaTime;
-	public static float timeSinceLastFixedUpdate => Time.fixedDeltaTime;
+	public static float timeSinceLastPhysicsUpdate => Time.fixedDeltaTime;
 	public static float timeInteger => time.toInteger();
 
 	#region divisibility

@@ -66,6 +66,15 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 	#endregion planning to execute functions\actions now and at every check
 
 
+	#region planning to execute functions\actions at next check and every check after
+	
+	public static new Coroutine atNextCheckAndEveryCheckAfterExecute(Delegate function, params object[] parameters)
+		=> autoBehaviour.atNextCheckAndEveryCheckAfterExecute(function, parameters);
+	public static new Coroutine atNextCheckAndEveryCheckAfterExecute(Action action, params object[] parameters)
+		=> autoBehaviour.atNextCheckAndEveryCheckAfterExecute(action, parameters);
+	#endregion planning to execute functions\actions at next check and every check after
+
+
 	#region planning to execute functions\actions at the end of the current frame
 
 	public static new Coroutine atEndOfFrameExecute(Delegate function, params object[] parameters)

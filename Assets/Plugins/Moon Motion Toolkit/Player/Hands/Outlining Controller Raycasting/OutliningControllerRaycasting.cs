@@ -299,7 +299,7 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 					outlineMaterial = Default.outlineMaterial_IfInAwakeOrStart));
 
 	// at each late update: //
-	private void LateUpdate()		// Late Update instead of Update so that the line renderer isn't seen in two places for a frame when turning via the turning locomotion, and probably other situations too
+	public override void lateUpdate()		// Late Update instead of Update so that the line renderer isn't seen in two places for a frame when turning via the turning locomotion, and probably other situations too
 	{
 		bool operationsOperated = operations.operated();
 		outliningRaycastHit =	operationsOperated ?

@@ -33,7 +33,7 @@ public class MatchTransformationsToTarget : MatchSomeTransformationsToTarget<Mat
 
 	
 	// at each update: //
-	public virtual void Update()
+	public override void update()
 		=> setTransformationsTo(targetTransformOtherwiseThisTransform).displacePositionBy(positionOffset);
 }
 
@@ -52,7 +52,7 @@ public static class MatchTransformationsToTargetExtensions
 						positionOffset.GetValueOrDefault(),
 						changePositionOffset
 					)
-					.Update());
+					.update());
 	// method: ensure a Match Transformations To Target behaviour on this given game object, set the target transform of the Match Transformations To Target behaviour to null, set the position offset of the Match Transformations To Target behaviour to the given position offset if the given boolean is true, have the behaviour update, then return this given game object //
 	public static GameObject ensuredlyMatchTransformationsToNull(this GameObject gameObject, Vector3? positionOffset = null, bool changePositionOffset = true)
 		=>	gameObject.ensureActUpon<MatchTransformationsToTarget>(matchTransformationsToTarget =>
@@ -63,5 +63,5 @@ public static class MatchTransformationsToTargetExtensions
 						positionOffset.GetValueOrDefault(),
 						changePositionOffset
 					)
-					.Update());
+					.update());
 }

@@ -10,10 +10,10 @@ public static class Stop
 	
 	// method: have the ether stop its given coroutine //
 	public static void coroutine(Coroutine coroutine)
-		=> Ether.behaviour.stopCoroutine(coroutine);
+		=> Ether.stopCoroutine(coroutine);
 
 	// method: have the ether stop all of its coroutines //
 	public static void allCoroutines()
-		=> Ether.behaviour.stopAllCoroutines();
+		=> Ether.stopAllCoroutines();
 	#endregion coroutines
 }

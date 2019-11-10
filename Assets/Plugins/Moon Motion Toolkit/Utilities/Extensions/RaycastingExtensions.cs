@@ -24,7 +24,8 @@ public static class RaycastingExtensions
 			distance,
 			layerMask_MaxOf1.firstOtherwise(Default.layerMask),
 			triggerColliderQuery
-		).uniques();
+		).implyAscendingBy(raycastHit => raycastingPosition.distanceWith(raycastHit))
+			.uniques();
 	}
 
 	public static HashSet<RaycastHit> allNonpositionallyRaycastedHitsAlong(this Vector3 raycastingPosition, Vector3 direction, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
@@ -511,8 +512,7 @@ public static class RaycastingExtensions
 				false,
 				triggerColliderQuery,
 				layerMask_MaxOf1
-			).only(function).implyAscendingBy(raycastHit =>
-				raycastingComponent.distanceWith(raycastHit))
+			).only(function)
 				.firstAsNullableOtherwiseNull();
 	public static RaycastHit? firstNonpositionallyRaycastedHitTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
@@ -706,8 +706,7 @@ public static class RaycastingExtensions
 				RaycastQuery.unlimitedHits,
 				triggerColliderQuery,
 				layerMask_MaxOf1
-			).only(function).implyAscendingBy(gameObject =>
-				raycastingComponent.distanceWith(gameObject))
+			).only(function)
 				.firstOtherwiseDefault();
 	public static GameObject firstNonpositionallyRaycastedObjectAlongLocal(this Component raycastingComponent, Vector3 localDirection, float distance = Default.raycastingDistance, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 		=>	raycastingComponent.firstNonpositionallyRaycastedObjectAlong
@@ -726,8 +725,7 @@ public static class RaycastingExtensions
 				RaycastQuery.unlimitedHits,
 				triggerColliderQuery,
 				layerMask_MaxOf1
-			).only(function).implyAscendingBy(gameObject =>
-				raycastingComponent.distanceWith(gameObject))
+			).only(function)
 				.firstOtherwiseDefault();
 	public static GameObject firstNonpositionallyRaycastedObjectTo(this Component raycastingComponent, object raycastEndPosition_PositionProvider, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{

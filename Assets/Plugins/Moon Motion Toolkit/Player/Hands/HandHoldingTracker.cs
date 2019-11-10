@@ -150,9 +150,11 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 		leftInstance = (parentHand.startingHandType == Hand.HandType.Left);
     }
 
-	// upon being enabled: //
-	private void OnEnable()
+	// upon enablement: //
+	public override void OnEnable()
 	{
+		base.OnEnable();
+
 		// connect the corresponding instance of this class //
 		if (leftInstance)
 		{
@@ -165,7 +167,7 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 	}
 
 	// at each update: //
-	private void Update()
+	public override void update()
 	{
 		// if this hand holding tracker's hand is currently holding any interactables: //
 		if (anyHeldInteractables())

@@ -12,6 +12,6 @@ public class LockedLocalScale : AutoBehaviour<LockedLocalScale>
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public override void update()
 		=> setLocalScaleTo(localScaleAwake);
 }

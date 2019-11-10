@@ -15,9 +15,9 @@ public static class Execute
 
 	// methods: (have the ether) plan to execute the given function with the given parameters after the given delay, then return the new coroutine that will do so //
 	public static Coroutine after(float delay, Delegate function, params object[] parameters)
-		=> Ether.behaviour.executeAfter(delay, function, parameters);
+		=> Ether.executeAfter(delay, function, parameters);
 	public static Coroutine after(float delay, Action action, params object[] parameters)
-		=> Ether.behaviour.executeAfter(delay, action, parameters);
+		=> Ether.executeAfter(delay, action, parameters);
 	#endregion planning to execute functions after a delay
 	
 
@@ -46,9 +46,9 @@ public static class Execute
 
 	// methods: (have the ether) plan to execute the given function with the given parameters at the next coroutine check, then return the new coroutine that will do so //
 	public static Coroutine atNextCheck(Delegate function, params object[] parameters)
-		=> Ether.behaviour.atNextCheckExecute(function, parameters);
+		=> Ether.atNextCheckExecute(function, parameters);
 	public static Coroutine atNextCheck(Action action, params object[] parameters)
-		=> Ether.behaviour.atNextCheckExecute(action, parameters);
+		=> Ether.atNextCheckExecute(action, parameters);
 	#endregion planning to execute functions\actions at next check
 
 
@@ -56,9 +56,9 @@ public static class Execute
 
 	// methods: (have the ether) plan to execute the given function with the given parameters at every coroutine check, then return the new coroutine that will do so //
 	public static Coroutine nowAndAtEveryCheck(Delegate function, params object[] parameters)
-		=> Ether.behaviour.nowAndAtEveryCheckExecute(function, parameters);
+		=> Ether.nowAndAtEveryCheckExecute(function, parameters);
 	public static Coroutine nowAndAtEveryCheck(Action action, params object[] parameters)
-		=> Ether.behaviour.nowAndAtEveryCheckExecute(action, parameters);
+		=> Ether.nowAndAtEveryCheckExecute(action, parameters);
 	#endregion planning to execute functions\actions now and at every check
 
 
@@ -66,9 +66,9 @@ public static class Execute
 
 	// methods: (have the ether) plan to execute the given function with the given parameters at every coroutine check, then return the new coroutine that will do so //
 	public static Coroutine atNextCheckAndEveryCheckAfter(Delegate function, params object[] parameters)
-		=> Ether.behaviour.atNextCheckAndEveryCheckAfterExecute(function, parameters);
+		=> Ether.atNextCheckAndEveryCheckAfterExecute(function, parameters);
 	public static Coroutine atNextCheckAndEveryCheckAfter(Action action, params object[] parameters)
-		=> Ether.behaviour.atNextCheckAndEveryCheckAfterExecute(action, parameters);
+		=> Ether.atNextCheckAndEveryCheckAfterExecute(action, parameters);
 	#endregion planning to execute functions\actions at next check and every check after
 
 
@@ -76,8 +76,8 @@ public static class Execute
 
 	// methods: (have the ether) plan to execute the given function with the given parameters at the end of the current frame, then return the new coroutine that will do so //
 	public static Coroutine atEndOfFrame(Delegate function, params object[] parameters)
-		=> Ether.behaviour.atEndOfFrameExecute(function, parameters);
+		=> Ether.atEndOfFrameExecute(function, parameters);
 	public static Coroutine atEndOfFrame(Action action, params object[] parameters)
-		=> Ether.behaviour.atEndOfFrameExecute(action, parameters);
+		=> Ether.atEndOfFrameExecute(action, parameters);
 	#endregion planning to execute functions\actions at the end of the current frame
 }

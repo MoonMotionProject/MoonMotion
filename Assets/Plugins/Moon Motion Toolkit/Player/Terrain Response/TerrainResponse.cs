@@ -220,37 +220,13 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: determine the layer of the object first found by raycasting down relative to the player body's position on the floor by the set range and from the set raise relative to the player body's position on the floor – if no objects are hit, then '-1' is returned (which will not pass layer recognition checking) //
 	private int firstRaycastedLayer()
 	{
-		// determine the position to raycast from to be the player body's position on x and z but the player's (floor) position on y, adjusted on y by the raise //
-		Vector3 raycastingPosition = (new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z) + (transform.up * raycastingRaise));
+		HashSet<Collider> raycastedColliders = MoonMotionBody.raycastedCollidersAlong(MoonMotionBody.downGlobal, Distinctivity.absolute, Infinity.asAFloat, RaycastQuery.unlimitedHitsAndAllPositionalColliders, QueryTriggerInteraction.Ignore, recognizedGroundTerrainLayerNames.with(recognizedNongroundTerrainLayerNames).asLayerMask());
 
-		RaycastHit[] raycastHitsFound = Physics.RaycastAll(raycastingPosition, bodyTransform.down(), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
-		if (Any.itemsIn(raycastHitsFound))
+		if (raycastedColliders.hasAny())
 		{
-			// determine the nearest raycast hit found's: hit distance, hit //
-			float nearestRaycastHitDistance = Mathf.Infinity;		// initialize the nearest raycast hit's distance
-			RaycastHit nearestRaycastHit = raycastHitsFound[0];		// initialize the nearest raycast hit to the first raycast hit found, by default (since it can't be null)
-			foreach (RaycastHit raycastHitFound in raycastHitsFound)
-			{
-				if (!raycastHitFound.collider.isTrigger && !(raycastHitFound.transform.gameObject.layerMatches("Player")))		// if this raycast did not hit a trigger collider nor a player object
-				{
-					float raycastHitFoundDistance = Vector3.Distance(raycastingPosition, raycastHitFound.point);		// determine this raycast's hit distance
-					// if this raycast's hit distance is less than the smallest distance found thus far, update the tracked nearest raycast hit and its distance to this raycast's //
-					if (raycastHitFoundDistance < nearestRaycastHitDistance)
-					{
-						nearestRaycastHitDistance = raycastHitFoundDistance;
-						nearestRaycastHit = raycastHitFound;
-					}
-				}
-			}
-			
-			// if the nearest raycast hit found was not against a trigger collider and was within the raycasting range: //
-			if (!nearestRaycastHit.collider.isTrigger && (nearestRaycastHitDistance <= (raycastingRange + raycastingRaise)))
-			{
-				// return the layer of the nearest raycast hit found //
-				return nearestRaycastHit.transform.gameObject.layer;
-			}
+			return raycastedColliders.first().layerIndex();
 		}
-		// otherwise (if no applicable raycast hits were found): determine the first layer found to be '-1' as a flag of no layer found (which will not pass layer recognition checking) //
+		
 		return -1;
 	}
 
@@ -336,7 +312,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 		// determine the position to raycast from to be the player body's position on x and z but the player's (floor) position on y //
 		Vector3 raycastingPosition = new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z);
 
-		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), bodyTransform.down(), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
+		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), Direction.down.asGlobalDirectionToLocalDirectionRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
 		if (Any.itemsIn(raycastHitsFound))
 		{
 			// determine the nearest raycast hit found's: hit distance, hit //
@@ -408,7 +384,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 	{
 		// update the tracking for whether the player was just terrained\grounded (respectively) //
 		playerWasJustTerrained = playerIsTerrained;

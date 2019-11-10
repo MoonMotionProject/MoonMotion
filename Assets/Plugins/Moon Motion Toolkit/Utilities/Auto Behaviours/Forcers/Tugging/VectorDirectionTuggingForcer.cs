@@ -141,7 +141,7 @@ public class VectorDirectionTuggingForcer : EnabledsBehaviour<VectorDirectionTug
 				visualizationColor);
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 		=>	tug
 			(
 				affinity,

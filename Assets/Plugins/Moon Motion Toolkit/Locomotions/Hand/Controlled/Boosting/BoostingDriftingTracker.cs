@@ -44,9 +44,9 @@ public class BoostingDriftingTracker : PlayerDependencyTracker<BoostingDriftingT
 
 
 	// at each update: //
-	protected override void Update()
+	public override void update()
 	{
-		base.Update();
+		base.update();
 
 		// if the player is currently boosting drifting: //
 		if (boostingDrifting())

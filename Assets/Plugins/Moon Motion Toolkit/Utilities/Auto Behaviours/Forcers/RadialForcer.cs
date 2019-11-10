@@ -138,7 +138,7 @@ public class RadialForcer : EnabledsBehaviour<RadialForcer>
 	}
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 		=>	forcedObjects = forceRadially
 			(
 				affinity,

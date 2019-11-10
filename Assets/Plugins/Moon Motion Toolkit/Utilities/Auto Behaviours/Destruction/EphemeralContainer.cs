@@ -9,7 +9,7 @@ using NaughtyAttributes;
 
 public class EphemeralContainer : AutoBehaviour<EphemeralContainer>
 {
-	private void Update()
+	public override void update()
 	{
 		if (isChildless)
 		{

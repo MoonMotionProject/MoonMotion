@@ -125,7 +125,7 @@ public class EndPositionalTuggingForcer : EnabledsBehaviour<EndPositionalTugging
 				visualizationColor);
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 		=>	tug
 			(
 				affinity,

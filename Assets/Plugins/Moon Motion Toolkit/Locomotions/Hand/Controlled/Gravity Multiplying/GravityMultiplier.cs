@@ -325,7 +325,7 @@ public class GravityMultiplier : HandLocomotionControlled
 		alternatingAudio = alternatingAudioSource.clip;
 	}
 	
-	// upon being enabled: //
+	// upon enablement: //
 	private void OnEnable()
 	{
 		// connect to the corresponding instance of this class //

@@ -149,7 +149,7 @@ public class BasicDirectionTuggingForcer : EnabledsBehaviour<BasicDirectionTuggi
 				visualizationColor);
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public void FixedUpdate()
 		=>	tug
 			(
 				affinity,

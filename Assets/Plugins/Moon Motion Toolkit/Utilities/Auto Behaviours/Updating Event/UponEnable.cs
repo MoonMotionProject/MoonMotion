@@ -11,8 +11,12 @@ public class UponEnable : UpdatingEventBehaviour<UponEnable>
 	// updating //
 
 	
-	// upon being enabled: //
-	private void OnEnable()
-		=> invokeBetterEvent();
+	// upon enablement: //
+	public override void OnEnable()
+	{
+		base.OnEnable();
+
+		invokeBetterEvent();
+	}
 }
 #endif

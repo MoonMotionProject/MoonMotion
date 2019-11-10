@@ -59,11 +59,19 @@ public abstract class	EnabledsBehaviourLayerEnableds<EnabledsBehaviourT> :
 	// updating //
 
 	
-	// upon being enabled: //
-	public virtual void OnEnable()
-		=> enableds_.include(enabledsBehaviour);
+	// upon enablement: //
+	public override void OnEnable()
+	{
+		base.OnEnable();
 
-	// upon being disabled: //
-	public virtual void OnDisable()
-		=> enableds_.remove(enabledsBehaviour);
+		enableds_.include(enabledsBehaviour);
+	}
+
+	// upon disablement: //
+	public override void OnDisable()
+	{
+		base.OnDisable();
+
+		enableds_.remove(enabledsBehaviour);
+	}
 }

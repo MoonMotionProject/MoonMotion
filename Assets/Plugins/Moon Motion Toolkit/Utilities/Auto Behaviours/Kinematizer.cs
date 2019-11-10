@@ -30,7 +30,7 @@ public class Kinematizer : AutoBehaviour<Kinematizer>
 
 	
 	// at each update: //
-	private void Update()
+	public override void update()
 		// kinematize the attached rigidbody according to the dependencies – if kinematizing is currently enabled //
 		=>	setKinematicityTo
 			(

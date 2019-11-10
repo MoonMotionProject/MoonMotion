@@ -11,8 +11,12 @@ public class UponDisable : UpdatingEventBehaviour<UponDisable>
 	// updating //
 
 	
-	// upon being disabled: //
-	private void OnDisable()
-		=> invokeBetterEvent();
+	// upon disablement: //
+	public override void OnDisable()
+	{
+		base.OnDisable();
+
+		invokeBetterEvent();
+	}
 }
 #endif

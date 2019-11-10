@@ -110,7 +110,7 @@ public class Turner : HandLocomotionControlled
 		playerTransform = transform.parent.parent.parent;
 	}
 	
-	// upon being enabled: //
+	// upon enablement: //
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //

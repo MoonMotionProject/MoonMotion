@@ -59,7 +59,7 @@ public abstract class SingletonAudio<SingletonAudioT> :
 
 
 	// at each late update: //
-	public virtual void LateUpdate()
+	public override void lateUpdate()
 	{
 		// updating for: smoothing audio time //
 		if (audioTimeIsNew)

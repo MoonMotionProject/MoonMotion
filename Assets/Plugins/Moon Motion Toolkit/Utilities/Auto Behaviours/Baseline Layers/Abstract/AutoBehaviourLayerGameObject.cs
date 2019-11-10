@@ -64,8 +64,21 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion destruction
 
 
+	#region changing hierarchiness
+
+	public AutoBehaviourT makeUniversal()
+		=> selfAfter(()=> gameObject.makeUniversal());
+
+	public AutoBehaviourT makeTemporary()
+		=> selfAfter(()=> gameObject.makeTemporary());
+
+	public AutoBehaviourT makeUniversalAndTemporary()
+		=> selfAfter(()=> gameObject.makeUniversalAndTemporary());
+	#endregion changing hierarchiness
+
+
 	#region determining hierarchy selection
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 
 	public bool isSelected => gameObject.isSelected();
 	public bool isNotSelected => gameObject.isNotSelected();
@@ -76,8 +89,8 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#region setting hierarchy selection
 	#if UNITY_EDITOR
 
-	public GameObject select()
-		=> gameObject.select();
+	public AutoBehaviourT select()
+		=> selfAfter(()=> gameObject.select());
 	#endif
 	#endregion setting hierarchy selection
 

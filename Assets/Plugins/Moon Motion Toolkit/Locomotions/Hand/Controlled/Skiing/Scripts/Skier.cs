@@ -76,7 +76,7 @@ public class Skier : HandLocomotionControlled
 	// updating //
 
 
-	// upon being enabled: //
+	// upon enablement: //
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //

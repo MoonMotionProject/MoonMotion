@@ -21,7 +21,7 @@ public class FaceMainCamera : AutoBehaviour<FaceMainCamera>
 
 
 	// at each update: //
-	protected virtual void Update()
+	public override void update()
     {
         faceCamera();
 		flipY(flipYAfterFacing);

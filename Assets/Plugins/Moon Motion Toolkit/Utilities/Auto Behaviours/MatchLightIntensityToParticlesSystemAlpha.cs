@@ -19,6 +19,6 @@ public class MatchLightIntensityToParticlesSystemAlpha : AutoBehaviour<MatchLigh
 
 
 	// at each update: //
-	private void Update()
+	public override void update()
 		=> setLightIntensityTo(particlesSystemOfAlpha.alphaOfFirstParticle() * factor);
 }

@@ -374,7 +374,7 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 		collider = GetComponent<Collider>();
 	}
 
-	// upon being enabled: ensure this gravity zone is tracked as one of the instances //
+	// upon enablement: ensure this gravity zone is tracked as one of the instances //
 	private void OnEnable()
 	{
 		if (!instances.Contains(this))
@@ -382,7 +382,7 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 			instances.Add(this);
 		}
 	}
-	// upon being disabled: ensure this gravity zone is not tracked as one of the instances, have Gravity Zone Exiting update as well //
+	// upon disablement: ensure this gravity zone is not tracked as one of the instances, have Gravity Zone Exiting update as well //
 	private void OnDisable()
 	{
 		if (instances.Contains(this))

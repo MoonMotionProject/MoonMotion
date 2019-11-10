@@ -52,7 +52,7 @@ public abstract class	PlayerDependencyTracker<PlayerDependencyTrackerT> :
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public override void update()
 	{
 		// track the state //
 		trackState();

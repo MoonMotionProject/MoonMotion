@@ -89,7 +89,7 @@ public class FaceObject : AutoBehaviour<FaceObject>
 
 
 	// at each update: //
-	private void Update()
+	public override void update()
 		=> faceTarget();
 	#endregion updating
 }

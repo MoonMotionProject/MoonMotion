@@ -149,7 +149,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 	}
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 		=>	forceTarget
 			(
 				targetObject,

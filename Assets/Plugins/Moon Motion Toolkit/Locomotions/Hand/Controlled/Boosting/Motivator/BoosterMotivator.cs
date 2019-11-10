@@ -120,7 +120,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 
 
 	// at each update: //
-	private void Update()
+	public override void update()
 	{
 		// for being enabled: adjusting volume and time, aesthetics cycling, vision coloring //
 		if (motivating && dependencies.areMet())

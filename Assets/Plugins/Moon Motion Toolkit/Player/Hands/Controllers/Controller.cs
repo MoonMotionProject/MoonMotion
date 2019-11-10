@@ -1536,7 +1536,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 
 	// at each update: //
-	private void Update()
+	public override void update()
 	{
 		// touchpad touching tracking //
 		trackTouchpadTouching();

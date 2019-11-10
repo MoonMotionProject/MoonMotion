@@ -210,7 +210,7 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 
 
 	// at each physics update: //
-	private void FixedUpdate()
+	public override void physicsUpdate()
 	{
 		if (operations.operated() && DashingOutlining.outlinedObject)
 		{

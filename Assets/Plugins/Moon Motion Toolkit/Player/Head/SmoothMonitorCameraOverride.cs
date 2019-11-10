@@ -37,7 +37,7 @@ public class SmoothMonitorCameraOverride : SingletonBehaviour<SmoothMonitorCamer
 
 	
 	// at each update: //
-	private void Update()
+	public override void update()
 	{
 		// smooth this smooth monitor camera override's position to that of the head transform's //
         transform.position = Vector3.SmoothDamp(transform.position, headTransform.position, ref positionVelocity, positionSmoothingDuration);

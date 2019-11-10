@@ -79,7 +79,7 @@ public class Jumper : HandLocomotionControlled
 		playerRigidbody = Player.instance.GetComponent<Rigidbody>();
 	}
 	
-	// upon being enabled: //
+	// upon enablement: //
 	private void OnEnable()
 	{
 		// connect to the corresponding instance of this class //

@@ -25,7 +25,7 @@ public class BasicSpinning : AutoBehaviour<BasicSpinning>
 
 	
 	// at each update: //
-	protected virtual void Update()
+	public override void update()
 	{
 		// determine the direction for rotation //
 		Vector3 direction =	(relative ?

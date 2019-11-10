@@ -84,7 +84,7 @@ public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
 	public static float timeSince(float previousTime)
 		=> Scaled.timeSince(previousTime);
 	public static float timeSinceLastUpdate => Scaled.timeSinceLastUpdate;
-	public static float timeSinceLastFixedUpdate => Scaled.timeSinceLastFixedUpdate;
+	public static float timeSinceLastPhysicsUpdate => Scaled.timeSinceLastPhysicsUpdate;
 	public static float timeInteger => Scaled.timeInteger;
 
 	#region divisibility

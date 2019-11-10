@@ -37,7 +37,7 @@ public class BodyTransformation : AutoBehaviour<BodyTransformation>
 
 	
 	// at the end of each update: //
-	private void LateUpdate()
+	public override void lateUpdate()
     {
 		// local rotation locking //
         setLocalRotationTo(localRotationAwake);

@@ -106,7 +106,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	// updating //
 
 	
-	// upon being enabled: //
+	// upon enablement: //
 	private void OnEnable()
 	{
 		// track this instance of this class according to its handedness //
@@ -120,7 +120,7 @@ public class HandInsidenessTracking : MonoBehaviour
 		}
 	}
 
-	// upon being disabled: //
+	// upon disablement: //
 	private void OnDisable()
 	{
 		// untrack this instance of this class according to its handedness //

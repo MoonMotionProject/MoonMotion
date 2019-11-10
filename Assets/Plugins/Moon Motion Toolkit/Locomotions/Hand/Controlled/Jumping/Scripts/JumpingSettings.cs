@@ -126,7 +126,7 @@ public class JumpingSettings : SingletonBehaviour<JumpingSettings>
 
 
 	// at each update: //
-	private void Update()
+	public override void update()
 	{
 		// if the number of midair jumps provided is -1 (standing for infinity): set the midair jumps count to -1 (standing for infinity)
 		if (midairJumpsProvided == -1)

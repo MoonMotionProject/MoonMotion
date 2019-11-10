@@ -254,7 +254,7 @@ public class Treader : HandLocomotionControlled
 		handTransform = transform.parent;
 	}
 	
-	// upon being enabled: //
+	// upon enablement: //
 	private void OnEnable()
 	{
 		// connect the corresponding instance of this class //

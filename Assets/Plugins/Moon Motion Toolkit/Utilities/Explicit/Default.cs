@@ -18,6 +18,7 @@ public static class Default
 	public const float thresholdDistance = .01f;
 	public const bool nullsAsEmpty = true;
 	public const bool errorSilencing = false;
+	public const bool editorExecutionIfPlaymodeHasChanged = true;
 	#endregion miscellaneous
 
 	#region game object creation

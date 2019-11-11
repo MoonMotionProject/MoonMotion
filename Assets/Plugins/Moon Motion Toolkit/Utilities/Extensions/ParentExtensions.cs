@@ -80,7 +80,7 @@ public static class ParentExtensions
 		=> component.transform.parentObject();
 
 	// methods: (according to the given boolean:) set this given provided transform's parent to the given provided parent transform or specified singleton behaviour (respectively), then return this given provided transform (unless this given transform provider is a component and the parent is specified as a singleton behaviour) //
-	public static ObjectT setParentTo<ObjectT>(this ObjectT transform_TransformProvider, object parentTransform_TransformProvider, bool boolean = true)
+	public static ObjectT setParentTo<ObjectT>(this ObjectT transform_TransformProvider, object parentTransform_TransformProvider, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
 	{
 		if (boolean)
 		{
@@ -88,13 +88,36 @@ public static class ParentExtensions
 			if (transform.isYull())
 			{
 				Transform parentTransform = parentTransform_TransformProvider.provideTransform();
-				if (parentTransform.isYull())
+				if (Callstack.includesOnValidate)
 				{
-					transform.SetParent(parentTransform);
+					Execute.atNextCheckFor_IfInEditor
+					(
+						transform,
+						transform_ =>
+						{
+							if (parentTransform.isYull())
+							{
+								transform_.SetParent(parentTransform);
+							}
+							else
+							{
+								transform_.SetParent(null);
+							}
+						},
+						executeIfPlaymodeHasChanged,
+						silenceNullTransformErrorForDelayInEditor
+					);
 				}
 				else
 				{
-					transform.SetParent(null);
+					if (parentTransform.isYull())
+					{
+						transform.SetParent(parentTransform);
+					}
+					else
+					{
+						transform.SetParent(null);
+					}
 				}
 			}
 			else
@@ -105,55 +128,68 @@ public static class ParentExtensions
 
 		return transform_TransformProvider;
 	}
-	public static GameObject setParentTo<ParentSingletonBehaviourT>(this GameObject gameObject, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
-		=> gameObject.transform.setParentTo<ParentSingletonBehaviourT>(boolean).gameObject;
-	public static Transform setParentTo<ParentSingletonBehaviourT>(this Transform transform, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
-		=> transform.setParentTo(SingletonBehaviour<ParentSingletonBehaviourT>.transform, boolean);
-	public static void setParentTo<ParentSingletonBehaviourT>(this Component component, bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
-		=> component.after(()=>
-			component.transform.setParentTo<ParentSingletonBehaviourT>(boolean));
+	public static GameObject setParentTo<ParentSingletonBehaviourT>(this GameObject gameObject, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
+		=> gameObject.transform.setParentTo<ParentSingletonBehaviourT>(boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor).gameObject;
+	public static Transform setParentTo<ParentSingletonBehaviourT>(this Transform transform, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
+		=> transform.setParentTo(SingletonBehaviour<ParentSingletonBehaviourT>.transform, boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor);
+	public static void setParentTo<ParentSingletonBehaviourT>(this Component component, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
+		=>	component.after(()=>
+				component.transform.setParentTo<ParentSingletonBehaviourT>(true, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor),
+				boolean);
 
 	// method: (according to the given boolean:) set the parent of each of these given game objects to the given provided parent transform, then return the list of these given game objects //
-	public static List<GameObject> forEachSetParentTo(this IEnumerable<GameObject> gameObjects, object parentTransform_TransformProvider, bool boolean = true)
+	public static List<GameObject> forEachSetParentTo(this IEnumerable<GameObject> gameObjects, object parentTransform_TransformProvider, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
 		=>	gameObjects.forEachManifested(gameObject =>
-				gameObject.setParentTo(parentTransform_TransformProvider),
+				gameObject.setParentTo(parentTransform_TransformProvider, true, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor),
 				boolean);
 
 	// method: (according to the given boolean:) unparent this given transform (set its parent to null), then return this given transform //
-	public static Transform unparent(this Transform transform, bool boolean = true)
-		=> transform.setParentTo((Transform) null, boolean);
+	public static Transform unparent(this Transform transform, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
+		=> transform.setParentTo((Transform) null, boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor);
 	// method: (according to the given boolean:) unparent this given game object (set its parent to null), then return this given game object //
-	public static GameObject unparent(this GameObject gameObject, bool boolean = true)
-		=> gameObject.transform.unparent(boolean).gameObject;
+	public static GameObject unparent(this GameObject gameObject, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
+		=> gameObject.transform.unparent(boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor).gameObject;
 	// method: (according to the given boolean:) unparent the transform of this given component (set its parent to null), then return this given component //
-	public static ComponentT unparent<ComponentT>(this ComponentT component, bool boolean = true) where ComponentT : Component
+	public static ComponentT unparent<ComponentT>(this ComponentT component, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing) where ComponentT : Component
 		=> component.after(()=>
-			component.transform.unparent(boolean));
+			component.transform.unparent(boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor));
 
 	// method: (according to the given boolean:) unparent each of these given game objects, then return the list of these given game objects //
-	public static List<GameObject> unparentEach(this IEnumerable<GameObject> gameObjects, bool boolean = true)
+	public static List<GameObject> unparentEach(this IEnumerable<GameObject> gameObjects, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
 		=>	gameObjects.forEachManifested(gameObject =>
-				gameObject.unparent(),
+				gameObject.unparent(true, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor),
 				boolean);
 
 	// method: (according to the given boolean:) temporarily change this given transform's parent to the given other transform, during so invoking the given action on this given transform, then return this given transform //
-	public static Transform actUponWithParentTemporarilySwappedTo(this Transform transform, Transform otherTransform, Action<Transform> action, bool boolean = true)
+	public static Transform actUponWithParentTemporarilySwappedTo(this Transform transform, Transform otherTransform, Action<Transform> action, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
 	{
 		if (boolean)
 		{
-			if (otherTransform)
+			if (otherTransform.isYull())
 			{
 				Transform extervalParent = transform.parent;
-				return action.asFunction()(transform.setParentTo(otherTransform)).setParentTo(extervalParent);
+				if (Callstack.includesOnValidate)
+				{
+					Execute.atNextCheckFor_IfInEditor
+					(
+						transform,
+						transform_ => action.asFunction()(transform_.setParentTo(otherTransform)).setParentTo(extervalParent),
+						executeIfPlaymodeHasChanged,
+						silenceNullTransformErrorForDelayInEditor
+					);
+					return transform;
+				}
+				else
+				{
+					return action.asFunction()(transform.setParentTo(otherTransform)).setParentTo(extervalParent);
+				}
 			}
 			else
 			{
 				return transform.returnWithError();
 			}
 		}
-		else
-		{
-			return transform;
-		}
+
+		return transform;
 	}
 }

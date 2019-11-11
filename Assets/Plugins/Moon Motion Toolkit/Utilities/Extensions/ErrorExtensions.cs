@@ -25,20 +25,21 @@ public static class ErrorExtensions
 	// method: print this given exception as an error with the given suffixed line, optionally with the given game object as the context, then return the printed string //
 	public static string logAsError<ExceptionT>(this ExceptionT exception, string suffixedLine = "", GameObject contextGameObject = null) where ExceptionT : Exception
 		=> (exception+suffixedLine.withPotentialPrefixedNewline()).printAsError(contextGameObject);
-	// method: print this given exception as an error by printing it, followed by the given error string on a new line, followed by a return statement on a new line, optionally with the given game object as the context, then return the default of the specified type //
-	public static TDefault logAsErrorAndReturnDefault<TDefault>(this Exception exception, string errorString = "", GameObject contextGameObject = null)
+	// method: print this given exception as an error by printing it, followed by the given error string on a new line, followed by a return statement on a new line, optionally with the given game object as the context, then return the given object to return //
+	public static TReturn logAsErrorAndReturn<TReturn>(this Exception exception, TReturn objectToReturn, string errorString = "", GameObject contextGameObject = null)
 	{
-		TDefault defaultToReturn = default(TDefault);
-
 		exception.logAsError
 		(
 			(errorString.withPotentialSuffix(";\n")
-				+"returning "+defaultToReturn.asStringWithNullRepresented()),
+				+"returning "+objectToReturn.asStringWithNullRepresented()),
 			contextGameObject
 		);
 
-		return defaultToReturn;
+		return objectToReturn;
 	}
+	// method: print this given exception as an error by printing it, followed by the given error string on a new line, followed by a return statement on a new line, optionally with the given game object as the context, then return the default of the specified type //
+	public static TDefault logAsErrorAndReturnDefault<TDefault>(this Exception exception, string errorString = "", GameObject contextGameObject = null)
+		=> exception.logAsErrorAndReturn(default(TDefault), errorString, contextGameObject);
 
 	// method: print the given error ("error" by default), optionally with the given game object as the context, mentioning only this given boolean as what is being returned, then return this given boolean //
 	public static bool returnWithError(this bool boolean, string error = "error", GameObject contextGameObject = null)

@@ -52,7 +52,7 @@ public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
 	#endif
 	#endregion EditorEvents
 
-
+	
 	#region Floats
 
 	#region extremes

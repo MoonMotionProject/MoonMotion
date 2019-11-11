@@ -35,9 +35,6 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 
 	#region planning to execute methods after a delay
 	
-	public static new AutoBehaviour<SingletonBehaviourT> executeAtNextCheck_IfInEditor(Action<SingletonBehaviourT> action, bool silenceNullBehaviourError = Default.errorSilencing)
-		=> autoBehaviour.executeAtNextCheck_IfInEditor(action, silenceNullBehaviourError);
-	
 	public static new AutoBehaviour<SingletonBehaviourT> executeAfter(float delay, string methodName)
 		=> autoBehaviour.executeAfter(delay, methodName);
 	

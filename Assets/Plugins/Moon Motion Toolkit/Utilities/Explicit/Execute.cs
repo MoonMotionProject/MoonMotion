@@ -22,27 +22,6 @@ public static class Execute
 	
 
 	#region planning to execute functions\actions at next check
-	
-	// method: plan to execute the given action upon the given component at the next editor check (if the given component is still yull) //
-	public static void atNextCheckFor_IfInEditor<ComponentT>(ComponentT component, Action<ComponentT> action, bool silenceNullComponentError = Default.errorSilencing) where ComponentT : Component
-	{
-		if (UnityIs.inEditor)
-		{
-			#if UNITY_EDITOR
-			EditorApplication.delayCall += ()=>
-			{
-				if (component.isYull())
-				{
-					action(component);
-				}
-				else if (!silenceNullComponentError)
-				{
-					Log.newExceptionAsError("Execute.atNextCheckFor_IfInEditor given null component");
-				}
-			};
-			#endif
-		}
-	}
 
 	// methods: (have the ether) plan to execute the given function with the given parameters at the next coroutine check, then return the new coroutine that will do so //
 	public static Coroutine atNextCheck(Delegate function, params object[] parameters)
@@ -50,6 +29,36 @@ public static class Execute
 	public static Coroutine atNextCheck(Action action, params object[] parameters)
 		=> Ether.atNextCheckExecute(action, parameters);
 	#endregion planning to execute functions\actions at next check
+
+
+	#region planning to execute functions\actions at next check in editor
+
+	// method: plan to execute the given action upon the given component at the next editor check (if the given component is still yull) //
+	public static void atNextCheckFor_IfInEditor<ComponentT>(ComponentT component, Action<ComponentT> action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullComponentError = Default.errorSilencing) where ComponentT : Component
+	{
+		#if UNITY_EDITOR
+		if (UnityIs.inEditor)
+		{
+			bool inEditorEditModeUponPlanning = UnityIs.inEditorEditMode;
+
+			EditorApplication.delayCall += ()=>
+			{
+				if (executeIfPlaymodeHasChanged || (inEditorEditModeUponPlanning == UnityIs.inEditorEditMode))
+				{
+					if (component.isYull())
+					{
+						action(component);
+					}
+					else if (!silenceNullComponentError)
+					{
+						Log.newExceptionAsError("Execute.atNextCheckFor_IfInEditor given null component");
+					}
+				}
+			};
+		}
+		#endif
+	}
+	#endregion planning to execute functions\actions at next check in editor
 
 
 	#region planning to execute functions\actions now and at every check

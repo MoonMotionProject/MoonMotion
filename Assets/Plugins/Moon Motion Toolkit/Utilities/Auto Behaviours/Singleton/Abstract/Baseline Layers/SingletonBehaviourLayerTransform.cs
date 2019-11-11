@@ -64,12 +64,12 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> autoBehaviour.parentIsNot<OtherSingletonBehaviourT>();
 	public static new Transform parent => autoBehaviour.parent;
 	public static new GameObject parentObject => autoBehaviour.parentObject;
-	public static new Transform setParentTo(object parentTransform_TransformProvider, bool boolean = true)
-		=> autoBehaviour.setParentTo(parentTransform_TransformProvider, boolean);
-	public static new Transform setParentTo<ParentSingletonBehaviourT>(bool boolean = true) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
-		=> autoBehaviour.setParentTo<ParentSingletonBehaviourT>(boolean);
-	public static new Transform unparent(bool boolean = true)
-		=> autoBehaviour.unparent(boolean);
+	public static new Transform setParentTo(object parentTransform_TransformProvider, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
+		=> autoBehaviour.setParentTo(parentTransform_TransformProvider, boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor);
+	public static new Transform setParentTo<ParentSingletonBehaviourT>(bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing) where ParentSingletonBehaviourT : SingletonBehaviour<ParentSingletonBehaviourT>
+		=> autoBehaviour.setParentTo<ParentSingletonBehaviourT>(boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor);
+	public static new Transform unparent(bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
+		=> autoBehaviour.unparent(boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor);
 	#endregion parent
 
 

@@ -82,6 +82,15 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 	public static new bool exists => autoBehaviour.exists;
 	#endregion existence
 	#endregion game object
+	
+
+
+
+	#region Execute
+	
+	public static new AutoBehaviour<SingletonBehaviourT> executeAtNextCheck_IfInEditor(Action<SingletonBehaviourT> action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullBehaviourError = Default.errorSilencing)
+		=> autoBehaviour.executeAtNextCheck_IfInEditor(action, executeIfPlaymodeHasChanged, silenceNullBehaviourError);
+	#endregion Execute
 	#endregion layer auto behaviour
 
 

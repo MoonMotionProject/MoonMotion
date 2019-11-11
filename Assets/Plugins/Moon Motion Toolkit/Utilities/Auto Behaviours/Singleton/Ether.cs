@@ -29,7 +29,7 @@ public class Ether : SingletonBehaviour<Ether>
 
 	// at each update: //
 	private void Update()
-		=> AutoBehaviours.enabledsCopy.forEach(autoBehaviour =>
+		=> AutoBehaviours.enabled_IfPlaying_Copy.forEach(autoBehaviour =>
 		{
 			if (autoBehaviour.isYull() && autoBehaviour.castTo<MonoBehaviour>().enabled)
 			{
@@ -39,7 +39,7 @@ public class Ether : SingletonBehaviour<Ether>
 
 	// at each physics update: //
 	private void FixedUpdate()
-		=> AutoBehaviours.enabledsCopy.forEach(autoBehaviour =>
+		=> AutoBehaviours.enabled_IfPlaying_Copy.forEach(autoBehaviour =>
 		{
 			if (autoBehaviour.isYull() && autoBehaviour.castTo<MonoBehaviour>().enabled)
 			{
@@ -49,7 +49,7 @@ public class Ether : SingletonBehaviour<Ether>
 
 	// at each late update: //
 	private void LateUpdate()
-		=> AutoBehaviours.enabledsCopy.forEach(autoBehaviour =>
+		=> AutoBehaviours.enabled_IfPlaying_Copy.forEach(autoBehaviour =>
 		{
 			if (autoBehaviour.isYull() && autoBehaviour.castTo<MonoBehaviour>().enabled)
 			{

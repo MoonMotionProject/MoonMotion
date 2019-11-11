@@ -182,8 +182,9 @@ public static class Default
 	public const bool castingRequiringAbleness = true;
 	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.purple.withAlpha(unitologySphereVisualizationColorAlpha);
 	public const float targetedAbilityRange = Infinity.asAFloat;
-	public static readonly Color rangePendingVisualizationColor = Colors.abilityPending.withAlpha(unitologySphereVisualizationColorAlpha);
-	public static readonly Color rangeChannelingVisualizationColor = Colors.abilityChanneling.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color pendingRangeVisualizationColor = Colors.abilityPending.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color channelingRangeVisualizationColor = Colors.abilityChanneling.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color coolingRangeVisualizationColor = Colors.abilityCooling.withAlpha(unitologySphereVisualizationColorAlpha);
 	#endregion casting
 	#region frequency
 	public const float abilityChannelation = .1f;

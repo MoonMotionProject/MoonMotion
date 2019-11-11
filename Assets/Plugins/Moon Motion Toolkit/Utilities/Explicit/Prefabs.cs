@@ -12,7 +12,7 @@ public static class Prefabs
 	public static HashSet<GameObject> filteredBy(string filterString)
 		=>	Asset.pathsForPrefabAssetsFilteredBy(filterString)
 				.pickUnique(assetPath =>
-					AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject);
+					Asset.atPathOfType<GameObject>(assetPath));
 	
 	public static HashSet<GameObject> all => filteredBy("");
 

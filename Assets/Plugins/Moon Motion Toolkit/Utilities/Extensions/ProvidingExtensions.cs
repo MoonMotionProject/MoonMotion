@@ -29,7 +29,7 @@ public static class ProvidingExtensions
 		#if UNITOLOGY
 		else if (dynamo is Unit)
 		{
-			return (dynamo as Unit).bestTransform;
+			return (dynamo as Unit).targetingTransform;
 		}
 		#endif
 		else if (dynamo is Component)
@@ -309,7 +309,7 @@ public static class ProvidingExtensions
 		#if UNITOLOGY
 		else if (dynamo is Unit)
 		{
-			return (dynamo as Unit).bestPosition;
+			return (dynamo as Unit).targetingPosition;
 		}
 		#endif
 		else if (dynamo is Component)

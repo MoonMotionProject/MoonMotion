@@ -166,12 +166,12 @@ public abstract class AutoBehaviourLayerComponentShortcutsNonUnity<AutoBehaviour
 	#region Unit
 
 	#region targeting
-	public Transform bestUnitTransform => unit.bestTransform;
-	public Transform bestUnitTransformOtherwiseSelfTransform
-		=>	(unit.isYull() && bestUnitTransform.isYull()) ?
-				bestUnitTransform :
+	public Transform targetingTransform => unit.targetingTransform;
+	public Transform targetingTransformOtherwiseSelfTransform
+		=>	(unit.isYull() && targetingTransform.isYull()) ?
+				targetingTransform :
 				transform;
-	public Vector3 bestUnitPosition => unit.bestPosition;
+	public Vector3 targetingPosition => unit.targetingPosition;
 	public float awaradius => unit.awaradius;
 	public HashSet<Unit> enemies(bool includeSelf = Default.enemyInclusionOfSelf)
 		=> unit.enemies(includeSelf);

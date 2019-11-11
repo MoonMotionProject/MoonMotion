@@ -5,6 +5,6 @@ using UnityEngine;
 // Auto Behaviours: tracks all enabled auto behaviours //
 public static class AutoBehaviours
 {
-	public static HashSet<IAutoBehaviour> enabled = new HashSet<IAutoBehaviour>();
-	public static HashSet<IAutoBehaviour> enabledsCopy => enabled.copy();
+	public static HashSet<IAutoBehaviour> enabled_IfPlaying = new HashSet<IAutoBehaviour>();
+	public static HashSet<IAutoBehaviour> enabled_IfPlaying_Copy => enabled_IfPlaying.copy();
 }

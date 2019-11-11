@@ -129,6 +129,14 @@ public static class Asset
 	public static string filetitleForAssetIdee(this string assetIdee)
 		=> filetitleForAssetPath(pathForAssetIdee(assetIdee));
 	#endregion to filetitles
+
+
+	#region to assets
+
+	// method: return the asset of the specified type at the given asset path //
+	public static AssetT atPathOfType<AssetT>(string assetPath) where AssetT : class
+		=> AssetDatabase.LoadAssetAtPath(assetPath, typeof(AssetT)) as AssetT;
+	#endregion to assets
 	#endregion conversion
 }
 #endif

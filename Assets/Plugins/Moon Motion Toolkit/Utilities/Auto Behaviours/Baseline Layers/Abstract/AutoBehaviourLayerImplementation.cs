@@ -16,11 +16,11 @@ public class AutoBehaviourLayerImplementation :
 {
 	// upon enablement: //
 	public virtual void OnEnable()
-		=> AutoBehaviours.enabled.include(this);
+		=> AutoBehaviours.enabled_IfPlaying.include(this);
 
 	// upon disablement: //
 	public virtual void OnDisable()
-		=> AutoBehaviours.enabled.remove(this);
+		=> AutoBehaviours.enabled_IfPlaying.remove(this);
 
 	// at each physics update: //
 	public virtual void physicsUpdate() {}

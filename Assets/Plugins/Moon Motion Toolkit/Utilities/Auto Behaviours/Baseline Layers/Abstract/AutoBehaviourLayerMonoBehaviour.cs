@@ -33,10 +33,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 				return startCoroutine(Default.coroute, function, parameters).returnWithError("the Auto Behaviour Layer Mono Behaviour on "+self+" had startCoroutine called with an unrecognized coroute given, so default coroute chosen as fallback");
 		}
 	}
-	private Coroutine startCoroutine_(Coroute coroute, Delegate function, params object[] parameters)
+	private Coroutine _startCoroutine(Coroute coroute, Delegate function, params object[] parameters)
 		=> startCoroutine(coroute, function, parameters);
 	public Coroutine startCoroutine(Coroute coroute, Action action)
-		=> startCoroutine_(coroute, action);
+		=> _startCoroutine(coroute, action);
 	
 	// methods: have this mono behaviour have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
 	public Coroutine startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
@@ -48,10 +48,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 				function,
 				parameters
 			);
-	private Coroutine startRepeatingCoroutine_(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+	private Coroutine _startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
 		=> startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
 	public Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck)
-		=> startRepeatingCoroutine_(action, startNowVersusAtNextCheck);
+		=> _startRepeatingCoroutine(action, startNowVersusAtNextCheck);
 
 	// method: stop this mono behaviour's given coroutine, then return this (derived auto) behaviour //
 	public AutoBehaviourT stopCoroutine(Coroutine coroutine)
@@ -81,10 +81,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		
 		function.execute(parameters);
 	}
-	private Coroutine executeAfter_(float delay, Delegate function, params object[] parameters)
+	private Coroutine _executeAfter(float delay, Delegate function, params object[] parameters)
 		=> executeAfter(delay, function, parameters);
 	public Coroutine executeAfter(float delay, Action action, params object[] parameters)
-		=> executeAfter_(delay, action, parameters);
+		=> _executeAfter(delay, action, parameters);
 	#endregion planning to execute functions after a delay
 
 
@@ -98,10 +98,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		yield return Wait.untilNextCheck;
 		function.execute(parameters);
 	}
-	private Coroutine atNextCheckExecute_(Delegate function, params object[] parameters)
+	private Coroutine _atNextCheckExecute(Delegate function, params object[] parameters)
 		=> atNextCheckExecute(function, parameters);
 	public Coroutine atNextCheckExecute(Action action, params object[] parameters)
-		=> atNextCheckExecute_(action, parameters);
+		=> _atNextCheckExecute(action, parameters);
 	#endregion planning to execute functions\actions at next check
 
 
@@ -118,10 +118,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 			yield return Wait.untilNextCheck;
 		}
 	}
-	private Coroutine nowAndAtEveryCheckExecute_(Delegate function, params object[] parameters)
+	private Coroutine _nowAndAtEveryCheckExecute(Delegate function, params object[] parameters)
 		=> nowAndAtEveryCheckExecute(function, parameters);
 	public Coroutine nowAndAtEveryCheckExecute(Action action, params object[] parameters)
-		=> nowAndAtEveryCheckExecute_(action, parameters);
+		=> _nowAndAtEveryCheckExecute(action, parameters);
 	#endregion planning to execute functions\actions now and at every check
 
 
@@ -135,10 +135,10 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		yield return atNextCheckExecute_Coroutine(function, parameters);
 		yield return nowAndAtEveryCheckExecute_Coroutine(function, parameters);
 	}
-	private Coroutine atNextCheckAndEveryCheckAfterExecute_(Delegate function, params object[] parameters)
+	private Coroutine _atNextCheckAndEveryCheckAfterExecute(Delegate function, params object[] parameters)
 		=> atNextCheckAndEveryCheckAfterExecute(function, parameters);
 	public Coroutine atNextCheckAndEveryCheckAfterExecute(Action action, params object[] parameters)
-		=> atNextCheckAndEveryCheckAfterExecute_(action, parameters);
+		=> _atNextCheckAndEveryCheckAfterExecute(action, parameters);
 	#endregion planning to execute functions\actions at next check and every check after
 
 
@@ -152,9 +152,9 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		yield return Wait.untilEndOfFrame;
 		function.execute(parameters);
 	}
-	private Coroutine atEndOfFrameExecute_(Delegate function, params object[] parameters)
+	private Coroutine _atEndOfFrameExecute(Delegate function, params object[] parameters)
 		=> atEndOfFrameExecute(function, parameters);
 	public Coroutine atEndOfFrameExecute(Action action, params object[] parameters)
-		=> atEndOfFrameExecute_(action, parameters);
+		=> _atEndOfFrameExecute(action, parameters);
 	#endregion planning to execute functions\actions at the end of the current frame
 }

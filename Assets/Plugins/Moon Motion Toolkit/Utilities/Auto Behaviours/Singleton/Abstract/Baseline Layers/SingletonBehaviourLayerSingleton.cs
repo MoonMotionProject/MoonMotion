@@ -112,19 +112,14 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 		}
 	}
 
-	// an ensured singleton instance of this class //
-	public static SingletonBehaviourT ensuredSingleton
-	{
-		get
-		{
-			return	singleton.isYull() ?
-						singleton :
-						simpleClassName.createAsObject().addGet<SingletonBehaviourT>();
-		}
-	}
+	// method: return an ensured singleton instance of this class //
+	public static SingletonBehaviourT ensuredSingleton()
+		=>	singleton.isYull() ?
+				singleton :
+				simpleClassName.createAsObject().addGet<SingletonBehaviourT>();
 	// an ensured singleton instance of this class as an auto behaviour //
-	public static AutoBehaviour<SingletonBehaviourT> ensuredSingletonAutoBehaviour
-		=> ensuredSingleton.castTo<AutoBehaviour<SingletonBehaviourT>>();
+	public static AutoBehaviour<SingletonBehaviourT> ensuredAutoBehaviour()
+		=> ensuredSingleton().castTo<AutoBehaviour<SingletonBehaviourT>>();
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => autoBehaviour.gameObject;

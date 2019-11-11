@@ -160,9 +160,9 @@ public abstract class SingletonBehaviourLayerComponentShortcutsNonUnity<Singleto
 	#region Unit
 
 	#region targeting
-	public static new Transform bestUnitTransform => autoBehaviour.bestUnitTransform;
-	public static new Transform bestUnitTransformOtherwiseSelfTransform => autoBehaviour.bestUnitTransformOtherwiseSelfTransform;
-	public static new Vector3 bestUnitPosition => autoBehaviour.bestUnitPosition;
+	public static new Transform targetingTransform => autoBehaviour.targetingTransform;
+	public static new Transform targetingTransformOtherwiseSelfTransform => autoBehaviour.targetingTransformOtherwiseSelfTransform;
+	public static new Vector3 targetingPosition => autoBehaviour.targetingPosition;
 	public static new float awaradius => autoBehaviour.awaradius;
 	public static new HashSet<Unit> enemies(bool includeSelf = Default.enemyInclusionOfSelf)
 		=> autoBehaviour.enemies(includeSelf);

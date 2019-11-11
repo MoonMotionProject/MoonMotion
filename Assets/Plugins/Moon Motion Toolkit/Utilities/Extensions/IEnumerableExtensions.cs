@@ -303,6 +303,19 @@ public static class IEnumerableExtensions
 		=> enumerable.selectFromOnly(
 				item => item.isNull(),
 				function);
+
+	public static List<TResult> pickFromOnly<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, bool> onlyFunction, Func<TItem, TResult> pickFunction)
+		=> enumerable.only(onlyFunction).pick(pickFunction);
+	
+	public static IEnumerable<TItem> yullsFromOnly<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
+		=> enumerable.only(function).onlyYull();
+	public static List<TItem> yullsWhere<TItem>(this IEnumerable<TItem> enumerable, Func<TItem, bool> function)
+		=> enumerable.yullsFromOnly(function).manifested();
+	
+	public static IEnumerable<TResult> selectYullsFrom<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.select(function).onlyYull();
+	public static List<TResult> pickYullsFrom<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function)
+		=> enumerable.selectYullsFrom(function).manifested();
 	
 	public static TResult pickUponFirstIfAny<TTarget, TResult>(this IEnumerable enumerable, Func<TTarget, TResult> function, Func<TResult> fallbackFunction)
 	{

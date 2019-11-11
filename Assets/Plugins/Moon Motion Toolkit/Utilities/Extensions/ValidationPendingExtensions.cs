@@ -31,10 +31,14 @@ public static class ValidationPendingExtensions
 				if (gameObjectsPendingValidation.doesNotContain(gameObject))
 				{
 					gameObjectsPendingValidation.include(gameObject);
-					EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(()=>
-					{
-						gameObject.ifExists(()=> gameObject.validate_IfInEditor()).unpendValidation_IfInEditor();
-					});
+					Execute.atNextCheck_IfInEditor
+					(
+						()=>
+						{
+							gameObject.ifExists(()=> gameObject.validate_IfInEditor()).unpendValidation_IfInEditor();
+						},
+						false
+					);
 				}
 			},
 			boolean);

@@ -158,15 +158,4 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	public bool exists => gameObject.exists();
 	#endregion existence
 	#endregion game object
-
-
-
-
-	#region Execute
-	
-	#if UNITY_EDITOR
-	public AutoBehaviourT executeAtNextCheck_IfInEditor(Action<AutoBehaviourT> action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullBehaviourError = Default.errorSilencing)
-		=> selfAfter(()=> Execute.atNextCheckFor_IfInEditor(self, action, executeIfPlaymodeHasChanged, silenceNullBehaviourError));
-	#endif
-	#endregion Execute
 }

@@ -33,8 +33,8 @@ public static class Execute
 
 	#region planning to execute functions\actions at next check in editor
 
-	// method: plan to execute the given action upon the given component at the next editor check (if the given component is still yull) //
-	public static void atNextCheckFor_IfInEditor<ComponentT>(ComponentT component, Action<ComponentT> action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullComponentError = Default.errorSilencing) where ComponentT : Component
+	// method: plan to execute the given action at the next editor check //
+	public static void atNextCheck_IfInEditor(Action action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silencePotentialNullException = Default.errorSilencing)
 	{
 		#if UNITY_EDITOR
 		if (UnityIs.inEditor)
@@ -45,13 +45,16 @@ public static class Execute
 			{
 				if (executeIfPlaymodeHasChanged || (inEditorEditModeUponPlanning == UnityIs.inEditorEditMode))
 				{
-					if (component.isYull())
+					try
 					{
-						action(component);
+						action();
 					}
-					else if (!silenceNullComponentError)
+					catch (NullReferenceException nullReferenceException)
 					{
-						Log.newExceptionAsError("Execute.atNextCheckFor_IfInEditor given null component");
+						if (!silencePotentialNullException)
+						{
+							nullReferenceException.logAsError("the action given to Execute.atNextCheck_IfInEditor encountered a null reference exception trying to execute");
+						}
 					}
 				}
 			};

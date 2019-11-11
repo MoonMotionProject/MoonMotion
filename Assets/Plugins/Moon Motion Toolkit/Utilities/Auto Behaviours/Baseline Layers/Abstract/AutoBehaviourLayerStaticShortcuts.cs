@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using static UnityEditor.EditorApplication;
-#endif
 
 // Auto Behaviour Layer Static Shortcuts:
 // #auto
@@ -42,15 +39,6 @@ public abstract class	AutoBehaviourLayerStaticShortcuts<AutoBehaviourT> :
 		=> Doubles.minOf(firstDouble, secondDouble);
 	#endregion extremes
 	#endregion Doubles
-
-
-	#region EditorEvents
-	
-	#if UNITY_EDITOR
-	public static CallbackFunction afterAllInspectorsHaveNextUpdatedExecute(CallbackFunction callbackFunction, bool preventExecutionIfEditorModeChangesFirst = false)
-		=> EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(callbackFunction, preventExecutionIfEditorModeChangesFirst);
-	#endif
-	#endregion EditorEvents
 
 	
 	#region Floats

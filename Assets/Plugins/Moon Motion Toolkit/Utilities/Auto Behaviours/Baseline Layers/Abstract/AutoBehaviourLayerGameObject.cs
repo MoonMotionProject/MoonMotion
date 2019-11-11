@@ -248,7 +248,7 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 
 	public AutoBehaviourT pendValidation_IfInEditor()
 		=> selfAfter(()=> gameObject.pendValidation_IfInEditor());
-#endif
+	#endif
 	#endregion validation pending
 
 

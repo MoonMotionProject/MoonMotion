@@ -36,8 +36,10 @@ public static class UnityObjectExtensions
 		{
 			if (Callstack.includesOnValidate || Callstack.includesContextMenu)
 			{
-				EditorEvents.afterAllInspectorsHaveNextUpdatedExecute(()=>
-					unityObject.destroy_Unconditionally_WithoutWaitingForInspectors());
+				Execute.atNextCheck_IfInEditor
+				(
+					()=> unityObject.destroy_Unconditionally_WithoutWaitingForInspectors()
+				);
 			}
 			else
 			{

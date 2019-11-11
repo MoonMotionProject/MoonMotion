@@ -90,18 +90,17 @@ public static class ParentExtensions
 				Transform parentTransform = parentTransform_TransformProvider.provideTransform();
 				if (Callstack.includesOnValidate)
 				{
-					Execute.atNextCheckFor_IfInEditor
+					Execute.atNextCheck_IfInEditor
 					(
-						transform,
-						transform_ =>
+						()=>
 						{
 							if (parentTransform.isYull())
 							{
-								transform_.SetParent(parentTransform);
+								transform.SetParent(parentTransform);
 							}
 							else
 							{
-								transform_.SetParent(null);
+								transform.SetParent(null);
 							}
 						},
 						executeIfPlaymodeHasChanged,
@@ -170,10 +169,9 @@ public static class ParentExtensions
 				Transform extervalParent = transform.parent;
 				if (Callstack.includesOnValidate)
 				{
-					Execute.atNextCheckFor_IfInEditor
+					Execute.atNextCheck_IfInEditor
 					(
-						transform,
-						transform_ => action.asFunction()(transform_.setParentTo(otherTransform)).setParentTo(extervalParent),
+						()=> action.asFunction()(transform.setParentTo(otherTransform)).setParentTo(extervalParent),
 						executeIfPlaymodeHasChanged,
 						silenceNullTransformErrorForDelayInEditor
 					);

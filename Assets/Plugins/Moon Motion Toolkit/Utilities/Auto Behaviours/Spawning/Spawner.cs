@@ -167,6 +167,14 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	#endregion interval
 	
 	
+	#region facing
+	
+	[TabGroup("Facing")]
+	[Tooltip("whether to, when creating a spawn, set its y euler angle to that of this spawner")]
+	public bool matchEulerAngleYWithSpawner = true;
+	#endregion facing
+	
+	
 	#region force
 	
 	[TabGroup("Force")]
@@ -205,18 +213,11 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	{
 		GameObject spawn
 			=	spawningPositionParent.createChildObject(template)
-					.applyForceAlong(relativeDirectionFor(forceDirection), forceMagnitude,
-						applyForceToSpawns)
-					.setEulerAngleYTo(this)
 					.setParentTo(spawningHierarchyParent,
-						UnityIs.inBuild && (useParticularPositionParent || useParticularHierarchyParent));
-		
-		executeAtNextCheck_IfInEditor(spawner =>
-			spawn.setParentTo
-			(
-				spawningHierarchyParent,
-				(useParticularPositionParent || useParticularHierarchyParent)
-			));
+						useParticularPositionParent || useParticularHierarchyParent)
+					.setEulerAngleYTo(this, matchEulerAngleYWithSpawner)
+					.applyForceAlong(relativeDirectionFor(forceDirection), forceMagnitude,
+						applyForceToSpawns);
 
 		return spawn;
 	}

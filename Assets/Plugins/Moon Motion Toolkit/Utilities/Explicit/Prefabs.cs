@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// Prefabs: provides properties and methods for handling prefabs //
+// Prefabs:
+// • provides properties and methods for handling prefabs
+// #assets
 public static class Prefabs
 {
 	#region filtering all prefabs

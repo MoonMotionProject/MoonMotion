@@ -39,6 +39,14 @@ public static class Asset
 		=> ideesForAssetsFilteredBy(filterString).pickUnique(idee => pathForAssetIdee(idee));
 	public static HashSet<string> pathsForAssets => pathsForAssetsFilteredBy("");
 
+	// method: return the set of asset paths for all assets of the specified type //
+	public static HashSet<string> pathsForAssetsOfType<AssetT>() where AssetT : class
+		=> pathsForAssetsFilteredBy("t:"+typeof(AssetT).simpleClassName());
+
+	// method: return the set of asset paths for all assets of the specified type //
+	public static HashSet<string> pathsForNonMoonMotionToolkitAssetsOfType<AssetT>() where AssetT : class
+		=> pathsForAssetsOfType<AssetT>().uniquesWhere(assetPath => assetPath.doesNotContain(MoonMotion.toolkitName));
+
 	// method: return the set of script asset paths for all script assets filtered by the given filter string //
 	public static HashSet<string> pathsForScriptAssetsFilteredBy(string filterString)
 		=> ideesForScriptAssetsFilteredBy(filterString).pickUnique(idee => pathForAssetIdee(idee));

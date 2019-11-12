@@ -23,6 +23,8 @@ public static class StringExtensions
 	// method: return whether this given string contains the other given string //
 	public static bool contains(this string string_, string otherString)
 		=> string_.Contains(otherString);
+	public static bool doesNotContain(this string string_, string otherString)
+		=> !string_.contains(otherString);
 	#endregion containment
 
 

@@ -32,13 +32,16 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	#endif
 	[Tooltip("the controller operations by which to dash")]
 	#if ODIN_INSPECTOR
+	#if UNITY_EDITOR
     [ListItemSelector("operations_SetSelected")]
+	#endif
 	#else
 	[ReorderableList]
 	#endif
 	public ControllerOperation[] operations;
 	#region selected operation
 	#if ODIN_INSPECTOR
+	#if UNITY_EDITOR
 	[TabGroup("Control")]
 	[InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden, Expanded = true)]
 	[HideLabel]
@@ -48,6 +51,7 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	#pragma warning restore 0414
 	public void operations_SetSelected(int index)
 		=> operations_ListItemSelected = operations.itemOtherwiseDefault(index);
+	#endif
 	#endif
 	#endregion selected operation
 	#endregion control

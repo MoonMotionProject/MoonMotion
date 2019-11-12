@@ -31,8 +31,11 @@ public static class HierarchyExtensions
 	// method: (if in the editor:) ping this given game object in the hierarchy (if it's yull), then return this given game object //
 	public static GameObject pingInHierarchy_IfInEditor(this GameObject gameObject)
 		=>	gameObject.after(gameObject_ =>
-				EditorGUIUtility.PingObject(gameObject_),
-				gameObject.isYull());
+			{
+				#if UNITY_EDITOR
+				EditorGUIUtility.PingObject(gameObject_);
+				#endif
+			}, gameObject.isYull() && UnityIs.inEditor);
 	// method: (if in the editor:) ping this given component's game object in the hierarchy (if this given component and its game object are both yull), then return this given component //
 	public static ComponentT pingInHierarchy_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
 		=>	component.after(()=>

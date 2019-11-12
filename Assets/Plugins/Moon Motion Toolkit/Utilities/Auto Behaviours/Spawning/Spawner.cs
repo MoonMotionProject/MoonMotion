@@ -278,12 +278,14 @@ public class Spawner : EnabledsBehaviour<Spawner>
 
 	#region updating
 	
-
+	
 	// upon editor visualization while selected: //
+	#if UNITY_EDITOR
 	private void OnDrawGizmosSelected()
 		=>	Visualize.boxSittingAt(spawningPositionParent,
 				spawningPositionVisualizationColor,
 				visualizeSpawningPosition);
+	#endif
 
 
 	// at the start: //

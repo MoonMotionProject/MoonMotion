@@ -52,13 +52,16 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	#endif
 	[Tooltip("the controller operations by which to raycast and so outline")]
 	#if ODIN_INSPECTOR
+	#if UNITY_EDITOR
     [ListItemSelector("operations_SetSelected")]
+	#endif
 	#else
 	[ReorderableList]
 	#endif
 	public ControllerOperation[] operations;
 	#region selected operation
 	#if ODIN_INSPECTOR
+	#if UNITY_EDITOR
 	[TabGroup("Control")]
 	[InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden, Expanded = true)]
 	[HideLabel]
@@ -68,6 +71,7 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 	#pragma warning restore 0414
 	public void operations_SetSelected(int index)
 		=> operations_ListItemSelected = operations.itemOtherwiseDefault(index);
+	#endif
 	#endif
 	#endregion selected operation
 	#endregion control

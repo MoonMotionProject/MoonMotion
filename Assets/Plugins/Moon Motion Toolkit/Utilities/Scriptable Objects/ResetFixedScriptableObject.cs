@@ -16,6 +16,8 @@ public abstract class	ResetFixedScriptableObject :
 							ScriptableObject
 							#endif
 {
+	#if UNITY_EDITOR
 	public virtual void Reset()
 		=> Reimport.assetIfImported(this);
+	#endif
 }

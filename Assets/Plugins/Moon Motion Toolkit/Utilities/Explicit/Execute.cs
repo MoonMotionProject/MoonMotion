@@ -37,7 +37,7 @@ public static class Execute
 	public static void atNextCheck_IfInEditor(Action action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silencePotentialNullException = Default.errorSilencing)
 	{
 		#if UNITY_EDITOR
-		if (UnityIs.inEditor)
+		if (UnityIs.inEditor && !BuildPipeline.isBuildingPlayer)
 		{
 			bool inEditorEditModeUponPlanning = UnityIs.inEditorEditMode;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,3 +10,4 @@ public static class Reimport
 	public static void assetIfImported(Object assetUnityObject)
 		=> Import.assetIfItActuallyHasAnAssetPath(assetUnityObject);
 }
+#endif

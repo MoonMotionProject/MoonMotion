@@ -26,7 +26,9 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
+	#if UNITY_EDITOR
     [ListItemSelector("operations_SetSelected")]
+	#endif
 	#else
 	[BoxGroup("Control")]
 	[ReorderableList]
@@ -35,6 +37,7 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	public ControllerOperation[] operations;
 	#region selected operation
 	#if ODIN_INSPECTOR
+	#if UNITY_EDITOR
 	[TabGroup("Control")]
 	[InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden, Expanded = true)]
 	[HideLabel]
@@ -44,6 +47,7 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	#pragma warning restore 0414
 	public void operations_SetSelected(int index)
 		=> operations_ListItemSelected = operations.itemOtherwiseDefault(index);
+	#endif
 	#endif
 	#endregion selected operation
 	#endregion control

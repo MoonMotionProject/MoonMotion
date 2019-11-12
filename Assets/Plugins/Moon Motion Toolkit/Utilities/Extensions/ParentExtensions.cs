@@ -88,6 +88,7 @@ public static class ParentExtensions
 			if (transform.isYull())
 			{
 				Transform parentTransform = parentTransform_TransformProvider.provideTransform();
+				#if UNITY_EDITOR
 				if (Callstack.includesOnValidate)
 				{
 					Execute.atNextCheck_IfInEditor
@@ -109,6 +110,7 @@ public static class ParentExtensions
 				}
 				else
 				{
+				#endif
 					if (parentTransform.isYull())
 					{
 						transform.SetParent(parentTransform);
@@ -117,7 +119,9 @@ public static class ParentExtensions
 					{
 						transform.SetParent(null);
 					}
+				#if UNITY_EDITOR
 				}
+				#endif
 			}
 			else
 			{
@@ -167,6 +171,7 @@ public static class ParentExtensions
 			if (otherTransform.isYull())
 			{
 				Transform extervalParent = transform.parent;
+				#if UNITY_EDITOR
 				if (Callstack.includesOnValidate)
 				{
 					Execute.atNextCheck_IfInEditor
@@ -179,8 +184,11 @@ public static class ParentExtensions
 				}
 				else
 				{
+				#endif
 					return action.asFunction()(transform.setParentTo(otherTransform)).setParentTo(extervalParent);
+				#if UNITY_EDITOR
 				}
+				#endif
 			}
 			else
 			{

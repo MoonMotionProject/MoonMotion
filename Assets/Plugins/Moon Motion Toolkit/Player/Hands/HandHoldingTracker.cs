@@ -35,7 +35,7 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 	// method: get all interactables held by this hand holding tracker's hand //
 	public List<GameObject> heldInteractables()
 	{
-		List<GameObject> heldInteractablesList = new List<GameObject>();
+		List<GameObject> heldInteractablesList = New.listOf<GameObject>();
 
 		foreach (Transform handDescendantTransform in parentHandTransform)
 		{

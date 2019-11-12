@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Moon Motion: provides Moon Motion constants //
+// Moon Motion:
+// • provides Moon Motion constants
+// #moonmotion
 public static class MoonMotion
 {
 	#region names

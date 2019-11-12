@@ -194,6 +194,10 @@ public static class VectorExtensions
 	// method: (according to the given boolean:) return this given vector but with its z value set to zero //
 	public static Vector3 withZZeroIf(this Vector3 vector, bool boolean = true)
 		=> vector.withZ(0f, boolean);
+	
+	// method: return this given vector but with its x and z values both set to zero //
+	public static Vector3 withXAndZZero(this Vector3 vector)
+		=> vector.withXZero().withZZero();
 	#endregion value replacement
 
 

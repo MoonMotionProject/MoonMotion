@@ -13,12 +13,12 @@ public class HandInsidenessTracking : MonoBehaviour
 
 	
 	// variables for: instancing //
-	private static HashSet<HandInsidenessTracking> insidenessTrackingsLeft = new HashSet<HandInsidenessTracking>(), insidenessTrackingsRight = new HashSet<HandInsidenessTracking>();		// connections - auto: all insideness trackings for either hand (left or right), respectively
+	private static HashSet<HandInsidenessTracking> insidenessTrackingsLeft = New.setOf<HandInsidenessTracking>(), insidenessTrackingsRight = New.setOf<HandInsidenessTracking>();		// connections - auto: all insideness trackings for either hand (left or right), respectively
 	
 	// variables for: insideness tracking //
 	public bool leftInstance = true;		// setting: this hand insideness tracking's handedness (whether this insideness tracking is for the left hand (versus the right))
-	private HashSet<GameObject> collidedObjects = new HashSet<GameObject>();		// tracking: all objects this hand trigger collider is currently trigger collided with via a solid collider of such objects
-	private Dictionary<Collider, float> collisionTrackingTimes = new Dictionary<Collider, float>();		// tracking: the last time for each collider of the collided objects that that collider was known to be still colliding (if any of these becomes longer ago than the duration of the last physics update, then the corresponding object will be untracked as being collided)
+	private HashSet<GameObject> collidedObjects = New.setOf<GameObject>();		// tracking: all objects this hand trigger collider is currently trigger collided with via a solid collider of such objects
+	private Dictionary<Collider, float> collisionTrackingTimes = New.dictionaryOf<Collider, float>();		// tracking: the last time for each collider of the collided objects that that collider was known to be still colliding (if any of these becomes longer ago than the duration of the last physics update, then the corresponding object will be untracked as being collided)
 
 
 
@@ -40,7 +40,7 @@ public class HandInsidenessTracking : MonoBehaviour
 			foreach (GameObject triggerCollidedObject in collidedObjects)
 			{
 				Collider[] collidersOnObjectOrItsChildren = triggerCollidedObject.GetComponentsInChildren<Collider>();
-				HashSet<Collider> solidCollidersOnObjectOnly = new HashSet<Collider>();
+				HashSet<Collider> solidCollidersOnObjectOnly = New.setOf<Collider>();
 				foreach (Collider colliderOnObjectOrItsChildren in collidersOnObjectOrItsChildren)
 				{
 					if (!colliderOnObjectOrItsChildren.isTrigger && (colliderOnObjectOrItsChildren.gameObject == triggerCollidedObject))
@@ -62,7 +62,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	// method: determine all objects that any of the left hand's insideness trackers are tracking – also removing any outdated objects //
 	public static HashSet<GameObject> allCollidedObjectsForLeftHand()
 	{
-		HashSet<GameObject> allUniqueCollidedObjectsLeftHand = new HashSet<GameObject>();
+		HashSet<GameObject> allUniqueCollidedObjectsLeftHand = New.setOf<GameObject>();
 
 		foreach (HandInsidenessTracking insidenessTrackingLeft in insidenessTrackingsLeft)
 		{
@@ -82,7 +82,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	// method: determine all objects that any of the right hand's insideness trackers are tracking – also removing any outdated objects //
 	public static HashSet<GameObject> allCollidedObjectsForRightHand()
 	{
-		HashSet<GameObject> allUniqueCollidedObjectsRightHand = new HashSet<GameObject>();
+		HashSet<GameObject> allUniqueCollidedObjectsRightHand = New.setOf<GameObject>();
 
 		foreach (HandInsidenessTracking insidenessTrackingRight in insidenessTrackingsRight)
 		{
@@ -203,7 +203,7 @@ public class HandInsidenessTracking : MonoBehaviour
 	private void FixedUpdate()
 	{
 		// if any of the collision tracking times for this insideness tracking are longer ago than the current fixed update time, untrack the corresponding collider/object //
-		Dictionary<Collider, float> collisionTrackingTimesDuplicateForIteration = new Dictionary<Collider, float>(collisionTrackingTimes);
+		Dictionary<Collider, float> collisionTrackingTimesDuplicateForIteration = New.dictionaryOf<Collider, float>(collisionTrackingTimes);
 		foreach (KeyValuePair<Collider, float> collisionTrackingTime in collisionTrackingTimesDuplicateForIteration)
 		{
 			if ((Time.time - collisionTrackingTime.Value) > Time.fixedDeltaTime)

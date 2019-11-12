@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+// #spawning
 public class Spawner : EnabledsBehaviour<Spawner>
 {
 	#region variables
@@ -112,11 +113,7 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	public int countToSpawn
 	{
 		get {return countToSpawn_;}
-		set
-		{
-			countToSpawn_ = value;
-			countToSpawn_ = countToSpawn.atLeastZero();
-		}
+		set {countToSpawn_ = value.atLeastZero();}
 	}
 
 	[SerializeField]
@@ -132,11 +129,7 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	public float delayBetweenEach
 	{
 		get {return delayBetweenEach_;}
-		set
-		{
-			delayBetweenEach_ = value;
-			delayBetweenEach_ = delayBetweenEach.atLeastZero();
-		}
+		set {delayBetweenEach_ = value.atLeastZero();}
 	}
 	#endregion spawning
 

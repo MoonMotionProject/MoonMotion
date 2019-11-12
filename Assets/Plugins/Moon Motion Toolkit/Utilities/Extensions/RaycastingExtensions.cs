@@ -121,7 +121,7 @@ public static class RaycastingExtensions
 
 	public static HashSet<Collider> allRaycastedCollidersFrom(this Vector3 direction, object raycastingPosition_PositionProvider, float distance = Default.raycastingDistance, bool queryPositionalColliders = Default.raycastingPositionalCollidersQuerying, QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery, params LayerMask[] layerMask_MaxOf1)
 	{
-		HashSet<Collider> collidersFound = new HashSet<Collider>();
+		HashSet<Collider> collidersFound = New.setOf<Collider>();
 
 		Vector3 raycastingPosition = raycastingPosition_PositionProvider.providePosition();
 

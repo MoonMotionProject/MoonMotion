@@ -220,11 +220,11 @@ public static class ObjectExtensions
 	#region composition
 
 	// method: return the key value pair for this given object as the key and the other given object as the value //
-	public static KeyValuePair<TKey, TValue> asKeyPairWithValue<TKey, TValue>(this TKey key, TValue value)
-		=> new KeyValuePair<TKey, TValue>(key, value);
+	public static KeyValuePair<TKey, TValue> asKeyToPairWithValue<TKey, TValue>(this TKey key, TValue value)
+		=> New.keyValuePairFor(key, value);
 
 	// method: return the key value pair for this given object as the value and the other given object as the key //
-	public static KeyValuePair<TKey, TValue> asValuePairWithKey<TValue, TKey>(this TValue value, TKey key)
-		=> key.asKeyPairWithValue(value);
+	public static KeyValuePair<TKey, TValue> asValueToPairWithKey<TValue, TKey>(this TValue value, TKey key)
+		=> key.asKeyToPairWithValue(value);
 	#endregion composition
 }

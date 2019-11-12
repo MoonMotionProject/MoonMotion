@@ -41,18 +41,18 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 
 	
 	// variables for: gravitizing rigidbodies and particles in general //
-	[HideInInspector] public static List<GravityZone> instances = new List<GravityZone>();		// tracking: all gravity zone instances
+	[HideInInspector] public static List<GravityZone> instances = New.listOf<GravityZone>();		// tracking: all gravity zone instances
 	[Header("Gravitizing")]
 	[Tooltip("whether gravitizing (of either rigidbodies or particles) by this Gravity Zone is allowed at all")]
 	public bool gravitizingEnabled = true;		// setting: whether gravitizing (of either rigidbodies or particles) by this Gravity Zone is allowed at all
 	[Tooltip("the force vector to apply to rigidbodies in this zone")]
-	public Vector3 gravitationForce = new Vector3(0f, -4f, 0f);		// setting: the force vector to apply to rigidbodies in this zone
+	public Vector3 gravitationForce = New.floatZeroesVectorWithY(-4f);		// setting: the force vector to apply to rigidbodies in this zone
 	
 	// variables for: gravitizing rigidbodies //
 	[Header("Gravitizing Rigidbodies")]
 	[Tooltip("whether to gravitize rigidbodies in this gravity zone /* performance of this feature can become noticeably poorer when using more than a few gravity zones (although the performance loss isn't close to as significant as that when gravitizing particles via multiple gravity zones) */")]
 	public bool gravitizeRigidbodies = true;		// setting: whether to gravitize rigidbodies in this gravity zone /* performance of this feature can become noticeably poorer when using more than a few gravity zones (although the performance loss isn't close to as significant as that when gravitizing particles via multiple gravity zones) */
-	protected HashSet<Rigidbody> rigidbodiesToGravitize = new HashSet<Rigidbody>();		// tracking: rigidbodies of objects triggering collision in this zone
+	protected HashSet<Rigidbody> rigidbodiesToGravitize = New.setOf<Rigidbody>();		// tracking: rigidbodies of objects triggering collision in this zone
 
 	// variables for: gravitizing particles //
 	protected static ParticleSystem[] allParticlesSystems = new ParticleSystem[] {};		// tracking: all particles systems (tracked by just one gravity zone at a time, the first one – if any – that is set to gravitize particles, out of all the tracked Gravity Zone instances)
@@ -70,7 +70,7 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 	private Toggling playerEntryZonageToggling = Toggling.toggleOn;		// setting: the toggling by which to toggle player zonage upon entry
 	private Toggling playerStayingZonageToggling = Toggling.toggleOn;		// setting: the toggling by which to toggle player zonage upon staying
 	private Toggling playerExitZonageToggling = Toggling.noToggling;		// setting: the toggling by which to toggle player zonage upon exit
-	public static HashSet<Collider> playerCollidingGravityZoneColliders = new HashSet<Collider>();		// tracking: Gravity Zone colliders that are currently colliding with the player
+	public static HashSet<Collider> playerCollidingGravityZoneColliders = New.setOf<Collider>();		// tracking: Gravity Zone colliders that are currently colliding with the player
 	private static bool playerWithinZonage = false;		// tracking: whether the player is currently within gravity zonage
 
 

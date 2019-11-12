@@ -23,9 +23,8 @@ public static class Prefabs
 
 	public static HashSet<GameObject> withAnyLocalOrDescendantMonoBehaviour => withAnyLocalOrDescendant<MonoBehaviour>();
 
-	#if UNITOLOGY
-	public static HashSet<GameObject> withAnyLocalOrDescendantUnit => withAnyLocalOrDescendant<Unit>();
-	#endif
+	public static HashSet<GameObject> withAnyLocalOrDescendantI<ComponentI>() where ComponentI : class
+		=> all.uniquesWhere(prefab => prefab.hasAnyLocalOrDescendantI<ComponentI>());
 	#endregion filtering all prefabs
 }
 #endif

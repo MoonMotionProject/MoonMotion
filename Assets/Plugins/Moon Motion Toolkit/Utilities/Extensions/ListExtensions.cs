@@ -95,12 +95,12 @@ public static class ListExtensions
 	
 	// method: return a new list containing only this given item //
 	public static List<TItem> startList<TItem>(this TItem item)
-		=> new List<TItem>() {item};
+		=> New.listOf(item);
 
 	// method: return this given list with each item generalized to the specified target type //
 	public static List<TTarget> generalizedTo<TTarget, TItem>(this List<TItem> list) where TItem : TTarget
 	{
-		List<TTarget> generalizedList = new List<TTarget>();
+		List<TTarget> generalizedList = New.listOf<TTarget>();
 
 		list.forEach(item => generalizedList.add(item));
 

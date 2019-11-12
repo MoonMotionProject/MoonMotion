@@ -8,7 +8,7 @@ using UnityEngine;
 // • stores recorded game objects for which to handle the Expand Self And Children If Selected attribute
 public static class ExpandSelfAndChildrenIfSelectedGameObjects
 {
-	private static HashSet<GameObject> gameObjects_ = new HashSet<GameObject>();
+	private static HashSet<GameObject> gameObjects_ = New.setOf<GameObject>();
 	private static HashSet<GameObject> gameObjects
 	{
 		get

@@ -11,7 +11,7 @@ public static class HashSetExtensions
 
 	// method: return a new copy of this given hash set //
 	public static HashSet<TItem> copy<TItem>(this HashSet<TItem> set)
-		=> new HashSet<TItem>(set);
+		=> set.uniques();
 	#endregion copying
 
 
@@ -101,12 +101,12 @@ public static class HashSetExtensions
 
 	// method: return a new set containing only this given item //
 	public static HashSet<TItem> startSet<TItem>(this TItem item)
-		=> new HashSet<TItem>() {item};
+		=> New.setOf(item);
 	// method: return a new set containing only this given item – only if this given item is yull //
 	public static HashSet<TItem> startedOtherwiseEmptySet<TItem>(this TItem item) where TItem : class
-		=> item.isYull() ? item.startSet() : new HashSet<TItem>();
+		=> item.isYull() ? item.startSet() : New.setOf<TItem>();
 	// method: return a new set containing only the struct for this given nullable struct – only if this given nullable struct is yull //
 	public static HashSet<TItem> startedOtherwiseEmptyNonnullableSet<TItem>(this TItem? item) where TItem : struct
-		=> item.isYull() ? item.GetValueOrDefault().startSet() : new HashSet<TItem>();
+		=> item.isYull() ? item.GetValueOrDefault().startSet() : New.setOf<TItem>();
 	#endregion conversion
 }

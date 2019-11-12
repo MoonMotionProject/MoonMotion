@@ -15,7 +15,7 @@ public class PowerupObjectsToggler : Powerup
 	// variables for: toggling objects //
 	[Header("Toggling Objects")]
 	[Tooltip("the objects to toggle the activity of")]
-	public GameObject[] objectsToToggle = new GameObject[] {};		// connections - manual: the objects to toggle the active state of
+	public GameObject[] objectsToToggle = New.arrayOf<GameObject>();		// connections - manual: the objects to toggle the active state of
 	[Tooltip("the toggling by which to toggle the objects")]
 	public Toggling objectToggling = Toggling.invertToggle;		// setting: the toggling by which to toggle the objects
 

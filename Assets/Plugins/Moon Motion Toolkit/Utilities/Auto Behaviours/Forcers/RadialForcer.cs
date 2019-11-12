@@ -54,7 +54,7 @@ public class RadialForcer : EnabledsBehaviour<RadialForcer>
 	#endif
 	[Tooltip("the objects being forced")]
 	[ReadOnly]
-	public HashSet<GameObject> forcedObjects = new HashSet<GameObject>();
+	public HashSet<GameObject> forcedObjects = New.setOf<GameObject>();
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Forcing")]
@@ -123,7 +123,7 @@ public class RadialForcer : EnabledsBehaviour<RadialForcer>
 			visualizeSphere);
 		if (visualizeLines)
 		{
-			HashSet<GameObject> objectsToVisualizeLinesFor = new HashSet<GameObject>();
+			HashSet<GameObject> objectsToVisualizeLinesFor = New.setOf<GameObject>();
 			if (UnityIs.playing)
 			{
 				objectsToVisualizeLinesFor = forcedObjects;

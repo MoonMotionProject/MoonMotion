@@ -18,7 +18,7 @@ public class Launcher : MonoBehaviour, ILocomotion
 
 	
 	// variables for: launching //
-	public string[] recognizedLayers = new string[] {"Player", "Default"};		// setting: the recognized layers that objects must have one of to be launched
+	public string[] recognizedLayers = New.arrayOf("Player", "Default");		// setting: the recognized layers that objects must have one of to be launched
 	public float launchingForce = 30f;		// setting: the force amount by which to launch objects
 
 	// variables for: playing launching audio //

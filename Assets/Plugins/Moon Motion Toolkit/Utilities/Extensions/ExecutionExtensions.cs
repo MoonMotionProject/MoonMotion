@@ -30,12 +30,22 @@ public static class ExecutionExtensions
 		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutine(coroute, function, parameters);
 	public static Coroutine startCoroutine(this GameObject gameObject, Coroute coroute, Action action)
 		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutine(coroute, action);
+	
+	public static Coroutine startCoroutineWithInterval(this GameObject gameObject, float interval, Coroute coroute, Delegate function, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, function, parameters);
+	public static Coroutine startCoroutineWithInterval(this GameObject gameObject, float interval, Coroute coroute, Action action)
+		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, action);
 
 	// methods: have this given game object have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
-	public static Coroutine startRepeatingCoroutine(this GameObject gameObject, Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+	public static Coroutine startRepeatingCoroutine(this GameObject gameObject, Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
 		=> gameObject.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
-	public static Coroutine startRepeatingCoroutine(this GameObject gameObject, Action action, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck)
+	public static Coroutine startRepeatingCoroutine(this GameObject gameObject, Action action, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle)
 		=> gameObject.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	
+	public static Coroutine startCoroutineRepeatingEvery(this GameObject gameObject, float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, function, startNowVersusAfterFirstInterval, parameters);
+	public static Coroutine startCoroutineRepeatingEvery(this GameObject gameObject, float interval, Action action, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle)
+		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, action, startNowVersusAfterFirstInterval);
 	#endregion this given game object
 
 
@@ -50,12 +60,22 @@ public static class ExecutionExtensions
 		=> component.ensuredDefaultAutoBehaviour().startCoroutine(coroute, function, parameters);
 	public static Coroutine startCoroutine(this Component component, Coroute coroute, Action action)
 		=> component.ensuredDefaultAutoBehaviour().startCoroutine(coroute, action);
+	
+	public static Coroutine startCoroutineWithInterval(this Component component, float interval, Coroute coroute, Delegate function, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, function, parameters);
+	public static Coroutine startCoroutineWithInterval(this Component component, float interval, Coroute coroute, Action action)
+		=> component.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, action);
 
 	// methods: have this given component have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
-	public static Coroutine startRepeatingCoroutine(this Component component, Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+	public static Coroutine startRepeatingCoroutine(this Component component, Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
 		=> component.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
-	public static Coroutine startRepeatingCoroutine(this Component component, Action action, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck)
+	public static Coroutine startRepeatingCoroutine(this Component component, Action action, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle)
 		=> component.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	
+	public static Coroutine startCoroutineRepeatingEvery(this Component component, float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, function, startNowVersusAfterFirstInterval, parameters);
+	public static Coroutine startCoroutineRepeatingEvery(this Component component, float interval, Action action, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle)
+		=> component.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, action, startNowVersusAfterFirstInterval);
 	#endregion this given component
 	#endregion starting coroutines
 
@@ -222,4 +242,52 @@ public static class ExecutionExtensions
 		=> component.ensuredDefaultAutoBehaviour().atEndOfFrameExecute(action, parameters);
 	#endregion this given component
 	#endregion planning to execute functions\actions at the end of the current frame
+
+
+
+
+	#region planning to execute functions\actions now and on interval
+
+
+	#region this given game object
+
+	public static Coroutine executeNowAndEvery(this GameObject gameObject, float interval, Delegate function, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().executeNowAndEvery(interval, function, parameters);
+	public static Coroutine executeNowAndEvery(this GameObject gameObject, float interval, Action action, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().executeNowAndEvery(interval, action, parameters);
+	#endregion this given game object
+
+	
+	#region this given component
+
+	public static Coroutine executeNowAndEvery(this Component component, float interval, Delegate function, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().executeNowAndEvery(interval, function, parameters);
+	public static Coroutine executeNowAndEvery(this Component component, float interval, Action action, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().executeNowAndEvery(interval, action, parameters);
+	#endregion this given component
+	#endregion planning to execute functions\actions now and on interval
+
+
+
+
+	#region planning to execute functions\actions after every interval
+
+
+	#region this given game object
+
+	public static Coroutine executeAfterEvery(this GameObject gameObject, float interval, Delegate function, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().executeAfterEvery(interval, function, parameters);
+	public static Coroutine executeAfterEvery(this GameObject gameObject, float interval, Action action, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().executeAfterEvery(interval, action, parameters);
+	#endregion this given game object
+
+
+	#region this given component
+
+	public static Coroutine executeAfterEvery(this Component component, float interval, Delegate function, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().executeAfterEvery(interval, function, parameters);
+	public static Coroutine executeAfterEvery(this Component component, float interval, Action action, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().executeAfterEvery(interval, action, parameters);
+	#endregion this given component
+	#endregion planning to execute functions\actions after every interval
 }

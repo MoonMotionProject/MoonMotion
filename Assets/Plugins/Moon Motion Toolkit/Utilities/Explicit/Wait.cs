@@ -11,14 +11,14 @@ public static class Wait
 	public static IEnumerator untilNextCheck {get {yield return null;}}
 	public static IEnumerator untilEndOfFrame {get {yield return new WaitForEndOfFrame();}}
 	public static IEnumerator untilNextFixedUpdate {get {yield return new WaitForFixedUpdate();}}
-	public static IEnumerator delay(float seconds)
+	public static IEnumerator delayOf(float seconds)
 	{
 		if (seconds.isNonzero())
 		{
 			yield return new WaitForSeconds(seconds);
 		}
 	}
-	public static IEnumerator delayInRealtime(float seconds)
+	public static IEnumerator realtimeDelayOf(float seconds)
 	{
 		yield return new WaitForSecondsRealtime(seconds);
 	}

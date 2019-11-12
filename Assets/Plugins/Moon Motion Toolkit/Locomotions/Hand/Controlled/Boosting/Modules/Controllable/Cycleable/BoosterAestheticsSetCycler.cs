@@ -30,7 +30,7 @@ public class BoosterAestheticsSetCycler : BoosterModuleControllableCycleable
 	[System.Serializable]
 	public class SetOfAesthetics
 	{
-		public GameObject[] array = new GameObject[] {};
+		public GameObject[] array = New.arrayOf<GameObject>();
 	}
 
 
@@ -45,8 +45,8 @@ public class BoosterAestheticsSetCycler : BoosterModuleControllableCycleable
 	// variables for: set of aesthetics changing //
 	[Header("Set of Sets of Aesthetics")]
 	[Tooltip("the set of sets of aesthetics, by which only the current index (starting at 0) will ever be enabled out of all aesthetics included; updating this set midgame is not supported")]
-	public SetOfAesthetics[] setOfSetsOfAesthetics = new SetOfAesthetics[0];		// setting: the set of sets of aesthetics, by which only the current index (starting at 0) will ever be enabled out of all aesthetics included; updating this set midgame is not supported
-	private List<GameObject> managedAesthetics = new List<GameObject>();		// tracking: a set of each of the unique aesthetics in the set of sets of aesthetics, so as to track all aesthetics being managed and disable these such managed aesthetics as needed when having only a particular set be enabled
+	public SetOfAesthetics[] setOfSetsOfAesthetics = New.arrayOf<SetOfAesthetics>();		// setting: the set of sets of aesthetics, by which only the current index (starting at 0) will ever be enabled out of all aesthetics included; updating this set midgame is not supported
+	private List<GameObject> managedAesthetics = New.listOf<GameObject>();		// tracking: a set of each of the unique aesthetics in the set of sets of aesthetics, so as to track all aesthetics being managed and disable these such managed aesthetics as needed when having only a particular set be enabled
 	
 	
 	

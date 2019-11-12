@@ -356,11 +356,8 @@ public class Treader : HandLocomotionControlled
 				// scale the treading velocity to the calculated treading speed //
 				treadingVelocity = treadingVelocity.normalized * speed;
 				
-				// determine the player's velocity //
-				Vector3 playerVelocity = PlayerVelocityReader.velocity();
-				
 				// if the player's speed in the direction of the treading velocity is not yet at or past the treading velocity's speed: //
-				if (Vector3.Dot(playerVelocity, treadingVelocity.normalized) < speed)
+				if (Vector3.Dot(MoonMotionPlayer.velocity, treadingVelocity.normalized) < speed)
 				{
 					// determine the appropriate responsiveness factor //
 					float appropriateResponsivnessFactor = responsivenessFactorSkiing;
@@ -383,7 +380,7 @@ public class Treader : HandLocomotionControlled
 
 					// hone the player's velocity x and z axes to the treading velocity x and z axes by the determined treading velocity x and z axes' magnitudes in proportion to the current frame's duration times the appropriate responsivness factor //
 					Vector3 honingVector = treadingVelocity.magnitudes().withYZero() * Time.deltaTime * appropriateResponsivnessFactor;
-					playerRigidbody.velocity = playerVelocity.honedTo(treadingVelocity, honingVector);
+					playerRigidbody.velocity = MoonMotionPlayer.velocity.honedTo(treadingVelocity, honingVector);
 				}
 			}
 			// otherwise (if this treader is not currently experiencing significant input): if the player is not currently skiing: //
@@ -399,7 +396,7 @@ public class Treader : HandLocomotionControlled
 				if (significantInputCeasing && !otherTreaderIsCurrentlyExperiencingSignificantInput)
 				{
 					// stop the player's x and z movement (zero the player velocity's x and z axes) //
-					playerRigidbody.velocity = new Vector3(0f, PlayerVelocityReader.velocityY(), 0f);
+					playerRigidbody.velocity = MoonMotionPlayer.velocity.withXAndZZero();
 				}
 			}
 		}

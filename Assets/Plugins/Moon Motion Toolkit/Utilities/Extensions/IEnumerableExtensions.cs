@@ -128,7 +128,7 @@ public static class IEnumerableExtensions
 
 	// method: return this given enumerable manifested (return a list for this given enumerable with its yieldings manifested) //
 	public static List<TItem> manifested<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.ToList();
+		=> New.listOf(enumerable);
 
 	// method: return this given enumerable manifested after executing the given action if the given boolean is true //
 	public static List<TItem> manifestedAfter<TItem>(this IEnumerable<TItem> enumerable, Action action, bool boolean = true)
@@ -691,7 +691,7 @@ public static class IEnumerableExtensions
 
 	// method: return this given enumerable converted to a set (maintaining only unique items) //
 	public static HashSet<TItem> uniques<TItem>(this IEnumerable<TItem> enumerable)
-		=> new HashSet<TItem>(enumerable);
+		=> New.setOf(enumerable);
 	// method: return a list of the unique items in this given enumerable //
 	public static List<TItem> manifestedUniques<TItem>(this IEnumerable<TItem> enumerable)
 		=> enumerable.uniques().manifested();
@@ -708,6 +708,6 @@ public static class IEnumerableExtensions
 
 	// method: return this given enumerable converted to an array //
 	public static TItem[] toArray<TItem>(this IEnumerable<TItem> enumerable)
-		=> enumerable.ToArray();
+		=> New.arrayOf(enumerable);
 	#endregion conversion
 }

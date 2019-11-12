@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
 // • provides this singleton behaviour with static access to its auto behaviour's Unity component shortcuts layer
-// #auto #shortcuts #component #force #linerenderers
+// #auto #shortcuts #component #rigidbody #force #linerenderers
 public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
@@ -125,6 +125,9 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region speeds
 	public static new float speed => autoBehaviour.speed;
+	public static new float speedX => autoBehaviour.speedX;
+	public static new float speedY => autoBehaviour.speedY;
+	public static new float speedZ => autoBehaviour.speedZ;
 	public static new AutoBehaviour<SingletonBehaviourT> setSpeedTo(float speed, bool boolean = true)
 		=> autoBehaviour.setSpeedTo(speed, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
@@ -138,6 +141,9 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 
 	#region velocities
 	public static new Vector3 velocity => autoBehaviour.velocity;
+	public static new float velocityX => autoBehaviour.velocityX;
+	public static new float velocityY => autoBehaviour.velocityY;
+	public static new float velocityZ => autoBehaviour.velocityZ;
 	public static new Vector3 angularVelocity => autoBehaviour.angularVelocity;
 	public static new AutoBehaviour<SingletonBehaviourT> setVelocityTo(Vector3 velocity, bool boolean = true)
 		=> autoBehaviour.setVelocityTo(velocity, boolean);

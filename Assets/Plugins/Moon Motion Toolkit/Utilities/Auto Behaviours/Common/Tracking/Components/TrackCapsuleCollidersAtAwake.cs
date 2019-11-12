@@ -12,7 +12,7 @@ public class TrackCapsuleCollidersAtAwake : TrackingBehaviour<TrackCapsuleCollid
 	// trackings //
 
 	[ReadOnly]
-	public new List<CapsuleCollider> capsuleCollidersAwake;
+	public new List<CapsuleCollider> capsuleCollidersAwake = null;
 
 
 

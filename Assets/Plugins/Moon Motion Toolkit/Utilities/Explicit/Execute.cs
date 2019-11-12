@@ -92,4 +92,22 @@ public static class Execute
 	public static Coroutine atEndOfFrame(Action action, params object[] parameters)
 		=> Ether.atEndOfFrameExecute(action, parameters);
 	#endregion planning to execute functions\actions at the end of the current frame
+
+
+	#region planning to execute functions\actions now and on interval
+	
+	public static Coroutine nowAndEvery(float interval, Delegate function, params object[] parameters)
+		=> Ether.executeNowAndEvery(interval, function, parameters);
+	public static Coroutine nowAndEvery(float interval, Action action, params object[] parameters)
+		=> Ether.executeNowAndEvery(interval, action, parameters);
+	#endregion planning to execute functions\actions now and on interval
+
+
+	#region planning to execute functions\actions after every interval
+		
+	public static Coroutine afterEvery(float interval, Delegate function, params object[] parameters)
+		=> Ether.executeAfterEvery(interval, function, parameters);
+	public static Coroutine afterEvery(float interval, Action action, params object[] parameters)
+		=> Ether.executeAfterEvery(interval, action, parameters);
+	#endregion planning to execute functions\actions after every interval
 }

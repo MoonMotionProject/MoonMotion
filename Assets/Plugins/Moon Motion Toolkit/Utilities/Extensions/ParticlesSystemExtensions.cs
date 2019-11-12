@@ -11,7 +11,7 @@ public static class ParticlesSystemExtensions
 	// method: get the current first particle of this given particles system //
 	public static ParticleSystem.Particle firstParticle(this ParticleSystem particlesSystem)
 	{
-		ParticleSystem.Particle[] arrayOfOneParticle = new ParticleSystem.Particle[1];
+		ParticleSystem.Particle[] arrayOfOneParticle = New.arrayForCount<ParticleSystem.Particle>(1);
 		particlesSystem.GetParticles(arrayOfOneParticle);
 		return arrayOfOneParticle[0];
 	}

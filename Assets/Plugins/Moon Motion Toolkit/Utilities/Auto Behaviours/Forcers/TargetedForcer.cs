@@ -54,7 +54,7 @@ public class TargetedForcer : EnabledsBehaviour<TargetedForcer>
 	#endif
 	[Tooltip("the objects being forced")]
 	[ReadOnly]
-	public HashSet<GameObject> forcedObjects = new HashSet<GameObject>();
+	public HashSet<GameObject> forcedObjects = New.setOf<GameObject>();
 	
 	#if ODIN_INSPECTOR
 	private string targetObject_TitleSubtitle

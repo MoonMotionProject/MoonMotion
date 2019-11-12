@@ -16,4 +16,12 @@ public static class CapsuleColliderExtensions
 	public static Vector3 centerPosition(this CapsuleCollider capsuleCollider)
 		=> capsuleCollider.localCenterPosition().asLocalPositionToGlobalPositionFrom(capsuleCollider);
 	#endregion center position
+
+
+	#region height
+
+	// method: return the halfheight of this given capsule collider //
+	public static float halfheight(this CapsuleCollider capsuleCollider)
+		=> capsuleCollider.height.halved();
+	#endregion height
 }

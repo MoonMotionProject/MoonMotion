@@ -40,16 +40,9 @@ public class JumpingTerrainingAudios : LocomotionMovementAudioSingle
 	
 	// method: calculate the current player speed (but adjust it to affect the volume accordingly if playing terraining audio) //
 	protected override float currentPlayerSpeed()
-	{
-		if ((Time.time - timeOfLastSuccessfulTerrainingAudioPlaying) <= jumpingTerrainingAudio.length)
-		{
-			return speedMax;
-		}
-		else
-		{
-			return PlayerVelocityReader.speedY();
-		}
-	}
+	=>	Scaled.timeSince(timeOfLastSuccessfulTerrainingAudioPlaying) <= jumpingTerrainingAudio.length ?
+			speedMax :
+			MoonMotionPlayer.speedY;
 	
 	
 	// methods for: playing jumping audios //

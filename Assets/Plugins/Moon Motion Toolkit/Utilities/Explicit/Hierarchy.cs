@@ -114,7 +114,7 @@ public static class Hierarchy
 
 	// method: deselect all current hierarchy selections //
 	public static void deselect()
-		=> Selection.objects = new UnityEngine.Object[0];
+		=> Selection.objects = New.arrayOf<UnityEngine.Object>();
 	#endif
 	#endregion methods
 }

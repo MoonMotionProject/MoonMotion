@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Moving Slowly On Y", menuName = "Moon Motion/Dependency Requisites/Moving Slowly On Y")]
 public class MovingSlowlyOnYRequisite : DependencyRequisite
 {
-	public override bool state => PlayerVelocityReader.speedIsSlowOnY();
+	public override bool state => PlayerVelocityReader.speedIsSlowOnY;
 }

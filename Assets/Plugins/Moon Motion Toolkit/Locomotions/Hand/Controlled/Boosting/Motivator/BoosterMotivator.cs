@@ -74,7 +74,7 @@ public class BoosterMotivator : SingletonBehaviour<BoosterMotivator>
 	[BoxGroup("Vision Coloring")]
 	[Tooltip("the array of colors to color the player's vision from (either randomly or sequentially, depending on the that setting) – if empty, the colors used will be randomized in general")]
 	[ReorderableList]
-	public Color[] colors = new Color[] {};
+	public Color[] colors = New.arrayOf<Color>();
 
 	[BoxGroup("Vision Coloring")]
 	[Tooltip("whether the colors to color the player's vision by should be used in order (versus randomly) /* going in order currently only somewhat works, for reasons unknown */")]

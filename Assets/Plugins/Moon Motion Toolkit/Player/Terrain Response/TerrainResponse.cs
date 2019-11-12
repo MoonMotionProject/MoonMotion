@@ -53,13 +53,13 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[Header("Ground Terrain")]
 	[Tooltip("array of text specifications for recognized ground terrain layer names")]
 	[ReorderableList]
-	public string[] recognizedGroundTerrainLayerNames = new string[] {"Terrain - Ground", "Booster Antidiminishor"};
+	public string[] recognizedGroundTerrainLayerNames = New.arrayOf("Terrain - Ground", "Booster Antidiminishor");
 
 	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
 	[Header("Nonground Terrain")]
 	[Tooltip("array of text specifications for recognized nonground terrain layer names")]
 	[ReorderableList]
-	public string[] recognizedNongroundTerrainLayerNames = new string[] {"Terrain - Nonground"};
+	public string[] recognizedNongroundTerrainLayerNames = New.arrayOf("Terrain - Nonground");
 	#endregion settings for: recognized layers handling
 
 
@@ -78,13 +78,13 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	#region trackings for: collided terrains tracking and groundedness determination
 
 	[Tooltip("all collided terrains (including both: all collided ground terrains, all collided nonground terrains)")]
-	[HideInInspector] public static HashSet<GameObject> collidedTerrains = new HashSet<GameObject>();
+	[HideInInspector] public static HashSet<GameObject> collidedTerrains = New.setOf<GameObject>();
 
 	[Tooltip("all collided ground terrains")]
-	[HideInInspector] public static HashSet<GameObject> collidedGroundTerrains = new HashSet<GameObject>();
+	[HideInInspector] public static HashSet<GameObject> collidedGroundTerrains = New.setOf<GameObject>();
 
 	[Tooltip("all collided nonground terrains")]
-	[HideInInspector] public static HashSet<GameObject> collidedNongroundTerrains = new HashSet<GameObject>();
+	[HideInInspector] public static HashSet<GameObject> collidedNongroundTerrains = New.setOf<GameObject>();
 	#endregion trackings for: collided terrains tracking and groundedness determination
 
 
@@ -310,7 +310,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	public bool withinDistanceToTerrainBelow_(float maxDistanceBelow)
 	{
 		// determine the position to raycast from to be the player body's position on x and z but the player's (floor) position on y //
-		Vector3 raycastingPosition = new Vector3(bodyTransform.position.x, transform.position.y, bodyTransform.position.z);
+		Vector3 raycastingPosition = bodyTransform.position.withY(positionY);
 
 		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), Direction.down.asGlobalDirectionToLocalDirectionRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
 		if (Any.itemsIn(raycastHitsFound))
@@ -423,7 +423,19 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 			// determine whether the collided terrain is ground or not //
 			bool ground = recognizedGroundTerrainLayerIndex(collidedObject.layer);
 			// if applicable: play landing feedback (vibration and audio) //
-			if ((ground || feedbackForNongroundTerrainCollision) && dependenciesFeedback.areMet() && (dependenciesFeedbackNonboostingSpeedThresholdIgnorance.areMet() || Booster.eitherHandIsBoosting() || PlayerVelocityReader.speed() >= feedbackNonboostingSpeedThreshold))
+			if
+			(
+				(
+					ground ||
+					feedbackForNongroundTerrainCollision
+				) &&
+				dependenciesFeedback.areMet() &&
+				(
+					dependenciesFeedbackNonboostingSpeedThresholdIgnorance.areMet() ||
+					Booster.eitherHandIsBoosting() ||
+					MoonMotionPlayer.speed >= feedbackNonboostingSpeedThreshold
+				)
+			)
 			{
 				// if the duration of the min interval for time between feedback attempts for the same (either liftoff\landing) event has passed since the last attempt: //
 				if (timeSince(timeOfLastAttemptedLandingFeedback) >= minFeedbackInterval)		
@@ -473,7 +485,19 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 			// determine whether the collided terrain is ground or not //
 			bool ground = recognizedGroundTerrainLayerIndex(collidedObject.layer);
 			// if applicable: play liftoff feedback (audio) //
-			if ((ground || feedbackForNongroundTerrainCollision) && dependenciesFeedback.areMet() && (dependenciesFeedbackNonboostingSpeedThresholdIgnorance.areMet() || Booster.eitherHandIsBoosting() || PlayerVelocityReader.speed() >= feedbackNonboostingSpeedThreshold))
+			if
+			(
+				(
+					ground ||
+					feedbackForNongroundTerrainCollision
+				) &&
+				dependenciesFeedback.areMet() &&
+				(
+					dependenciesFeedbackNonboostingSpeedThresholdIgnorance.areMet() ||
+					Booster.eitherHandIsBoosting() ||
+					MoonMotionPlayer.speed >= feedbackNonboostingSpeedThreshold
+				)
+			)
 			{
 				// if the duration of the min interval for time between feedback attempts for the same (either liftoff\landing) event has passed since the last attempt: //
 				if (timeSince(timeOfLastAttemptedLiftoffFeedback) >= minFeedbackInterval)		

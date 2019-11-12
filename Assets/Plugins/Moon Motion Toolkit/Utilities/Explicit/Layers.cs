@@ -5,7 +5,7 @@ using UnityEngine;
 // Layers: provides properties for layers //
 public static class Layers
 {
-	public static readonly LayerMask all = -1;        // (recognize all layers)
+	public static readonly LayerMask all = Physics.AllLayers;        // (recognize all layers)
 	public static readonly LayerMask none = 0;        // (recognize no layers)
 	
 	public const int supportedCount = 32;
@@ -22,7 +22,7 @@ public static class Layers
 	{
 		get
 		{
-			HashSet<string> layerNames = new HashSet<string>();
+			HashSet<string> layerNames = New.setOf<string>();
 
 			supportedCount.timesExecuteUponIndexStartingFrom(firstLayerIndex, layerIndex =>
 				layerNames.includeIfNotEmpty(layerIndex.asLayerName()));
@@ -35,7 +35,7 @@ public static class Layers
 	{
 		get
 		{
-			HashSet<string> layerNames = new HashSet<string>();
+			HashSet<string> layerNames = New.setOf<string>();
 
 			customSupportedCount.timesExecuteUponIndexStartingFrom(firstCustomLayerIndex, layerIndex =>
 				layerNames.includeIfNotEmpty(layerIndex.asLayerName()));

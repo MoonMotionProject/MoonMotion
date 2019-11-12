@@ -28,6 +28,6 @@ public class FeetTransformation : MonoBehaviour
         transform.localRotation = originalLocalRotation;
        
 	// following x and z position of headset //
-        transform.position = new Vector3(headsetTransform.position.x, transform.position.y, headsetTransform.position.z);
+        transform.position = headsetTransform.position.withY(transform.position.y);
     }
 }

@@ -10,7 +10,7 @@ public class Sliding : MonoBehaviour, ILocomotion
 	// variables //
 
 	
-	public Vector3 velocity = new Vector3(1f, 1f, 1f);		// setting: the velocity by which to continuously move this object's position
+	public Vector3 velocity = FloatsVector.ones;		// setting: the velocity by which to continuously move this object's position
 	public float multiplier = .01f;		// setting: the multiplier by which to scale the velocity used
 
 

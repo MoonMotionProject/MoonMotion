@@ -36,7 +36,7 @@ public class AirRushingAudio : LocomotionMovementAudioSingle
 	// method: calculate the current player speed //
 	protected override float currentPlayerSpeed()
 	{
-		return ((PlayerVelocityReader.speed() + PlayerVelocityReader.speedY()) / 2f);
+		return (MoonMotionPlayer.speed + MoonMotionPlayer.speedY).halved();
 	}
 
 

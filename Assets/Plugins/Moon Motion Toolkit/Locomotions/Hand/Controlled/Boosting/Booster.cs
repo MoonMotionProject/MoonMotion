@@ -203,12 +203,10 @@ public class Booster : HandLocomotionControlled
 			// boosting (if at least shallow force is boosting) //
 			if (boosting)
 			{
-				// determine the player's current velocity //
-				Vector3 currentPlayerVelocity = PlayerVelocityReader.velocity();
 				// determining the rotation vector for the force direction relative to this booster //
 				Vector3 forceDirectionRelative = BoosterForceApplier.direction(this).asDirectionRelativeTo(BoosterRelativizer.relativityTransform(this));
 				// determining the speed of the player's rigidbody in the direction of the booster's force aiming //
-				float bodySpeedInBoosterDirection = Vector3.Dot(currentPlayerVelocity, forceDirectionRelative);
+				float bodySpeedInBoosterDirection = Vector3.Dot(MoonMotionPlayer.velocity, forceDirectionRelative);
 				// fuel usage via Booster Defueler //
 				if (!(automating && !automatorUsingFuel))		// only if not automatically boosting without using fuel
 				{
@@ -247,14 +245,14 @@ public class Booster : HandLocomotionControlled
 					// inertia dampening //
 					if (BoosterInertiaDampener.inertiaDampened(this) && (bodySpeedInBoosterDirection < forceToApply.magnitude))
 					{
-						Vector3 inertiaDampeningForceToApply = (forceDirectionRelative * Vector3.Dot(currentPlayerVelocity, -forceDirectionRelative) * BoosterInertiaDampener.dampeningFactor(this));
+						Vector3 inertiaDampeningForceToApply = (forceDirectionRelative * Vector3.Dot(MoonMotionPlayer.velocity, -forceDirectionRelative) * BoosterInertiaDampener.dampeningFactor(this));
 						playerRigidbody.AddForce(inertiaDampeningForceToApply);
 					}
 					// application of boosting force //
 					BoosterForceApplier.applyForce(this, forceToApply);
 				}
 				// fall dampening //
-				if (BoosterFallDampener.fallDampened(this) && (currentPlayerVelocity.y < 0) && ((forceDirectionRelative - playerTransform.up).y > -.25f))	  // if fall dampening is enabled and the rigidbody is going down and this controller is boosting against that direction by at least about 45°
+				if (BoosterFallDampener.fallDampened(this) && MoonMotionPlayer.velocityY.isNegative() && ((forceDirectionRelative - playerTransform.up).y > -.25f))	  // if fall dampening is enabled and the rigidbody is going down and this controller is boosting against that direction by at least about 45°
 				{
 					Vector3 fallDampeningForceToApply = (playerTransform.up * BoosterFallDampener.dampeningForce(this) * Time.fixedDeltaTime);
 					playerRigidbody.AddForce(fallDampeningForceToApply);

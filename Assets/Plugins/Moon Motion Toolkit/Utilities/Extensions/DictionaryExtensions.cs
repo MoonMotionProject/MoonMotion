@@ -21,6 +21,10 @@ public static class DictionaryExtensions
 	// method: return whether this given dictionary has a recording for the given key //
 	public static bool hasRecordingFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
 		=> dictionary.ContainsKey(key);
+
+	// method: return whether this given dictionary contains the key value pair for the given key and value //
+	public static bool contains<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+		=> dictionary.contains(New.keyValuePairFor(key, value));
 	#endregion determining content
 
 
@@ -28,7 +32,13 @@ public static class DictionaryExtensions
 
 	// method: return the key value pair of this given dictionary for the given key (with the value being the default value of its type if this given dictionary doesn't contain the given key) //
 	public static KeyValuePair<TKey, TValue> keyValuePairFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
-		=> new KeyValuePair<TKey, TValue>(key, (dictionary.ContainsKey(key) ? dictionary[key] : default(TValue)));
+		=>	New.keyValuePairFor
+			(
+				key,
+				dictionary.ContainsKey(key) ?
+					dictionary[key] :
+					default(TValue)
+			);
 
 	// method: return a selection of the keys in this given dictionary //
 	public static IEnumerable<TKey> selectKeys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
@@ -92,10 +102,10 @@ public static class DictionaryExtensions
 
 	// method: (according to the given boolean:) record the given key and value as a pair to this given dictionary (if the dictionary doesn't contain it, add it; otherwise, overwrite it), then return the given key and value as a pair //
 	public static KeyValuePair<TKey, TValue> recordGet<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value, bool boolean = true)
-		=> new KeyValuePair<TKey, TValue>(key, value).after(()=>
-			dictionary.record(key,
-				value,
-				boolean));
+		=>	New.keyValuePairFor(key, value).after(()=>
+				dictionary.record(
+					key, value,
+					boolean));
 	// method: (according to the given boolean:) record the given key value pair to this given dictionary, then return the given key value pair //
 	public static KeyValuePair<TKey, TValue> recordGet<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, KeyValuePair<TKey, TValue> keyValuePair, bool boolean = true)
 		=>	dictionary.recordGet(

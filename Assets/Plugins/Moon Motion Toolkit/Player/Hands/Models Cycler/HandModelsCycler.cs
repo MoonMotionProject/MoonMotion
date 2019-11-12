@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using NaughtyAttributes;
+using static Controller.Input;
+using Input = Controller.Input;
 
 // Hand Models Cycler: provides functionality for changing (especially by cycling) the parent hand's set of hand models (/ trigger colliders)
 // (probably best used in conjunction with Locomotions Cycler)
@@ -42,7 +44,7 @@ public class HandModelsCycler : MonoBehaviour
 	public class SetOfHandModels
 	{
 		public bool includesControllerModel = true;
-		public GameObject[] array = new GameObject[] {};
+		public GameObject[] array = New.arrayOf<GameObject>();
 	}
 
 
@@ -60,7 +62,7 @@ public class HandModelsCycler : MonoBehaviour
 	private Controller controller;		// connection - auto: this cycler's hand's controller
 	[Header("Input")]
 	[ReorderableList]
-	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use for controlling this cycler
+	public Input[] inputs = New.arrayOf(noInput);		// setting: array of controller inputs to use for controlling this cycler
 	public bool inputEnabled = true;		// setting: whether this cycler's input is currently enabled
 	[Tooltip("the dependencies by which to restrict whether input is allowed")]
 	[ReorderableList]
@@ -81,8 +83,8 @@ public class HandModelsCycler : MonoBehaviour
 	// variables for: set of hand models changing //
 	[Header("Set of Sets of Hand Models")]
 	[Tooltip("the set of sets of hand models, by which only the current index (starting at 0) will ever be enabled out of all hand models included; updating this set midgame is not supported")]
-	public SetOfHandModels[] setOfSetsOfHandModels = new SetOfHandModels[0];		// setting: the set of sets of hand models, by which only the current index (starting at 0) will ever be enabled out of all hand models included; updating this set midgame is not supported
-	private List<GameObject> managedHandModels = new List<GameObject>();		// tracking: a set of each of the unique hand models in the set of sets of hand models, so as to track all hand models being managed and disable these such managed hand models as needed when having only a particular set be enabled (also according with the inclusions of default controller models within the set of sets)
+	public SetOfHandModels[] setOfSetsOfHandModels = New.arrayOf<SetOfHandModels>();		// setting: the set of sets of hand models, by which only the current index (starting at 0) will ever be enabled out of all hand models included; updating this set midgame is not supported
+	private List<GameObject> managedHandModels = New.listOf<GameObject>();		// tracking: a set of each of the unique hand models in the set of sets of hand models, so as to track all hand models being managed and disable these such managed hand models as needed when having only a particular set be enabled (also according with the inclusions of default controller models within the set of sets)
 
 
 

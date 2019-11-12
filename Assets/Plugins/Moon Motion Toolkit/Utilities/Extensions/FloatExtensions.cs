@@ -327,7 +327,7 @@ public static class FloatExtensions
 		=> float_;
 
 	// method: return a vector for this given float (as each coordinate) //
-	public static Vector3 asVector(this float float_)
-		=> new Vector3(float_, float_, float_);
+	public static Vector3 toFloatsVector(this float float_)
+		=> New.floatsVectorOf(float_, float_, float_);
 	#endregion conversion
 }

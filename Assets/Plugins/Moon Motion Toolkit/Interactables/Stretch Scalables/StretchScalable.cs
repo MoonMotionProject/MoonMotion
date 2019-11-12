@@ -18,10 +18,10 @@ namespace Valve.VR.InteractionSystem
 		public ControllerOperation stretchingOperation;
 
 		[Tooltip("the min world scale for each axis that this object can be stretched to by this component (when being set, the scale is also clamped to be a valid scale)")]
-		public Vector3 worldScaleMin = new Vector3(.1f, .1f, .1f);
+		public Vector3 worldScaleMin = .1f.toFloatsVector();
 
 		[Tooltip("the max world scale for each axis that this object can be stretched to by this component (when being set, the scale is also clamped to be a valid scale)")]
-		public Vector3 worldScaleMax = new Vector3(100f, 100f, 100f);
+		public Vector3 worldScaleMax = 100f.toFloatsVector();
 
 
 		// trackings //
@@ -77,7 +77,7 @@ namespace Valve.VR.InteractionSystem
 				float controllersDistance = stretchingController.position().distanceWith(hand);
 				float stretchDistance = controllersDistance - startingControllersDistance;
 
-				Vector3 targetWorldScale = previousWorldScale + stretchDistance.asVector();
+				Vector3 targetWorldScale = previousWorldScale + stretchDistance.toFloatsVector();
 
 				unparent();
 				setLocalScaleTo(targetWorldScale.atLeast(worldScaleMin).atMost(worldScaleMax).clampedToBeValidScale());

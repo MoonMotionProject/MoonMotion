@@ -88,7 +88,7 @@ public static class ChildExtensions
 		=> component.transform.selectChildTransforms();
 	public static Transform[] childTransforms(this Transform transform)
 	{
-		Transform[] array = new Transform[transform.childCount];
+		Transform[] array = New.arrayForCount<Transform>(transform.childCount);
 
 		for (int childIndex = 0; childIndex < transform.childCount; childIndex++)
 		{
@@ -115,7 +115,7 @@ public static class ChildExtensions
 		=> component.transform.selectChildObjects();
 	public static GameObject[] childObjects(this Transform transform)
 	{
-		GameObject[] array = new GameObject[transform.childCount];
+		GameObject[] array = New.arrayForCount<GameObject>(transform.childCount);
 
 		for (int childIndex = 0; childIndex < transform.childCount; childIndex++)
 		{

@@ -19,6 +19,7 @@ public static class Default
 	public const bool nullsAsEmpty = true;
 	public const bool errorSilencing = false;
 	public const bool editorExecutionIfPlaymodeHasChanged = true;
+	public const bool startingNowVersusAtNextCycle = true;
 	#endregion miscellaneous
 
 	#region game object creation
@@ -36,7 +37,6 @@ public static class Default
 
 	#region execution
 	public const Coroute coroute = Coroute.nowAndAtEveryCheck;
-	public const bool repeatingCoroutineStartingNowVersusAtNextCheck = true;
 	#region threading
 	public const bool syncingOfThreadWithUpdate = true;
 	#endregion threading
@@ -46,7 +46,7 @@ public static class Default
 	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
 	public const bool choiceToVisualizeInEditor = true;
 	public const bool scalingOfVisualizedIcons = true;
-	public static readonly Vector3 boxVisualizationDimensions = new Vector3(.3f, .3f, .3f);
+	public static readonly Vector3 boxVisualizationDimensions = .3f.toFloatsVector();
 	public static readonly Color positionVisualizationColor = Color.green.withAlpha(.8f);
 	public static readonly Color spawningVisualizationColor = positionVisualizationColor;
 	#endregion editor visualization
@@ -227,11 +227,14 @@ public static class Default
 	public const bool pendanceNavigatingAvoidanceOfProvidedSolidity = true;
 	#endregion traits
 	#endregion kit
+	#region intelligence
+	public const float behavingInterval = .3f;
+	#endregion intelligence
 	#endif
 	#endregion Unitology
 
 	#region Odin
-	#if ODIN_INSPECTOR
+#if ODIN_INSPECTOR
 	public const float propertySpaceBefore = 8f;
 	public const float propertySpaceAfter = 0f;
 	public const float titleSpaceBefore = 6f;

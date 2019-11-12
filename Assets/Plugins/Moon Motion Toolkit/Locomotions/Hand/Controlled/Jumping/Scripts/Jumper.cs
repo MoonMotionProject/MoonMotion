@@ -111,11 +111,11 @@ public class Jumper : HandLocomotionControlled
 			// handle midair jumping //
 			if (!TerrainResponse.terrained())
 			{
-				Vector3 playerVelocity = PlayerVelocityReader.velocity();
+				Vector3 playerVelocity = MoonMotionPlayer.velocity;
 
 				if (midairJumpingReplacesVelocity && ((playerVelocity.y < forceAmount) || (Flipper.flipped && (playerVelocity.y > -forceAmount))))
 				{
-					playerRigidbody.velocity = new Vector3(playerVelocity.x, 0f, playerVelocity.z);
+					playerRigidbody.velocity = MoonMotionPlayer.velocity.withYZero();
 				}
 
 				if (!JumpingSettings.midairJumpingInfinite())
@@ -128,7 +128,13 @@ public class Jumper : HandLocomotionControlled
 			playJumpingAudio();
 
 			// change the player's velocity for this jumping //
-			playerRigidbody.velocity += new Vector3(0f, (Flipper.flipped ? -forceAmount : forceAmount), 0f);
+			playerRigidbody.velocity
+				+=	New.floatZeroesVectorWithY
+					(
+						Flipper.flipped ?
+							-forceAmount :
+							forceAmount
+					);
 
 			// have Jumping Settings track the time of the last jump as right now //
 			JumpingSettings.trackTimeOfLastJump();

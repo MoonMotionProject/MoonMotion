@@ -12,7 +12,7 @@ public class TrackCollideds : TrackingBehaviour<TrackCollideds>
 	// trackings //
 
 	[ReadOnly]
-	public new HashSet<Collider> collidedColliders = new HashSet<Collider>();
+	public new HashSet<Collider> collidedColliders = New.setOf<Collider>();
 
 
 

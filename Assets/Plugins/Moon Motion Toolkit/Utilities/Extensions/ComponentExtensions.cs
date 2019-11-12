@@ -534,6 +534,16 @@ public static class ComponentExtensions
 	// method: return whether this given raycast hit's game object has any of the specified type of local or descendant component, optionally including inactive components according to the given boolean //
 	public static bool hasAnyLocalOrDescendant<ComponentT>(this RaycastHit raycastHit, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> Any.itemsIn(raycastHit.localAndDescendant<ComponentT>(includeInactiveComponents));
+	
+	public static bool hasAnyLocalOrDescendantI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+	{
+		if (!typeof(ComponentI).IsInterface)
+		{
+			return false.returnWithError(typeof(ComponentI).simpleClassName()+" is not an interface");
+		}
+
+		return Any.itemsIn(gameObject.localAndDescendantI<ComponentI>(includeInactiveComponents));
+	}
 	#endregion determining local or descendant components
 
 
@@ -553,6 +563,16 @@ public static class ComponentExtensions
 		=> gameObject.firstLocalOrDescendant<ComponentT>().gameObject;
 	public static GameObject firstLocalOrDescendantObjectWith<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.firstLocalOrDescendant<ComponentT>().gameObject;
+	
+	public static ComponentI firstLocalOrDescendantI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
+	{
+		if (!typeof(ComponentI).IsInterface)
+		{
+			return default(ComponentI).returnWithError(typeof(ComponentI).simpleClassName()+" is not an interface");
+		}
+
+		return gameObject.GetComponentInChildren<ComponentI>(includeInactiveComponents);
+	}
 
 	// method: return an array of this given game object's local and descendant components of the specified class, optionally including inactive components according to the given boolean //
 	public static ComponentT[] localAndDescendant<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component

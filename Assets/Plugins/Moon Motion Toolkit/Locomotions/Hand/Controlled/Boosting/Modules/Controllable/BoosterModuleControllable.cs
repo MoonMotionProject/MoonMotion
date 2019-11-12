@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using Input = Controller.Input;
+using static Controller.Input;
 
 // Booster Module Controllable
 // • provides this booster module with:
@@ -18,7 +20,7 @@ public abstract class BoosterModuleControllable : BoosterModule
 	protected Controller controller;		// connection - auto: the controller of this module's booster
 	[BoxGroup("Input")]
 	[ReorderableList]
-	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use for controlling this module
+	public Input[] inputs = New.arrayOf(noInput);		// setting: array of controller inputs to use for controlling this module
 	[BoxGroup("Input")]
 	public bool inputEnabled = true;		// setting: whether this module's input is currently enabled
 

@@ -38,7 +38,7 @@ public class Controller : EnabledsBehaviour<Controller>
 	// controller inputs //
 	public enum Input
 	{
-		none,
+		noInput,
 		trigger,
 		touchpad,
 		menuButton,
@@ -290,7 +290,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputTouching(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -330,7 +330,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputTouched(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -370,7 +370,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputUntouching(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -410,7 +410,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputShallowing(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -450,7 +450,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputShallowed(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -490,7 +490,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputUnshallowing(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -530,7 +530,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputDeeping(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -570,7 +570,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputDeeped(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -610,7 +610,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputUndeeping(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -650,7 +650,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputPressing(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -690,7 +690,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputPressed(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -730,7 +730,7 @@ public class Controller : EnabledsBehaviour<Controller>
 
 	public bool inputUnpressing(Input input)
 	{
-		if (input == Input.none)
+		if (input == Input.noInput)
 		{
 			return false;
 		}
@@ -1087,7 +1087,7 @@ public class Controller : EnabledsBehaviour<Controller>
 	{
 		foreach (Input input in inputs)
 		{
-			if (input != Input.none)
+			if (input != Input.noInput)
 			{
 				return true;
 			}
@@ -1343,25 +1343,25 @@ public class Controller : EnabledsBehaviour<Controller>
 	{
 		if (operation.handedness == Handedness.neither)
 		{
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		else if (operation.handedness == Handedness.one)
 		{
 			if (operatedLeft(operation, beingnesses) && !operatedRight(operation, beingnesses))
 			{
-				return new HashSet<Controller>() {left};
+				return left.startSet();
 			}
 			else if (!operatedLeft(operation, beingnesses) && operatedRight(operation, beingnesses))
 			{
-				return new HashSet<Controller>() {right};
+				return right.startSet();
 			}
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		else if (operation.handedness == Handedness.left)
 		{
 			if (operatedLeft(operation, beingnesses))
 			{
-				return new HashSet<Controller>() {left};
+				return left.startSet();
 			}
 			return new HashSet<Controller>();
 		}
@@ -1369,17 +1369,17 @@ public class Controller : EnabledsBehaviour<Controller>
 		{
 			if (operatedRight(operation, beingnesses))
 			{
-				return new HashSet<Controller>() {right};
+				return right.startSet();
 			}
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		else if (operation.handedness == Handedness.each)
 		{
 			if (operatedLeft(operation, beingnesses) && operatedRight(operation, beingnesses))
 			{
-				return new HashSet<Controller>() {left, right};
+				return New.setOf(left, right);
 			}
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		else if (operation.handedness == Handedness.both)
 		{
@@ -1398,7 +1398,7 @@ public class Controller : EnabledsBehaviour<Controller>
 					}
 					if (operatedLeft(operation, Beingness.being) && operatedRight(operation, Beingness.being))
 					{
-						return new HashSet<Controller>() {left, right};
+						return New.setOf(left, right);
 					}
 					else
 					{
@@ -1414,7 +1414,7 @@ public class Controller : EnabledsBehaviour<Controller>
 					}
 					if (operatedLeft(operation, Beingness.being) && operatedRight(operation, Beingness.being))
 					{
-						return new HashSet<Controller>() {left, right};
+						return New.setOf(left, right);
 					}
 					else
 					{
@@ -1430,7 +1430,7 @@ public class Controller : EnabledsBehaviour<Controller>
 					}
 					if ((operatedLeft(operation, Beingness.unbecoming) && operatedRight(operation, Beingness.unbecoming)) || (operatedLeft(operation, Beingness.unbecoming) && operatedRight(operation, Beingness.being)) || (operatedLeft(operation, Beingness.being) && operatedRight(operation, Beingness.unbecoming)))
 					{
-						return new HashSet<Controller>() {left, right};
+						return New.setOf(left, right);
 					}
 					else
 					{
@@ -1442,11 +1442,11 @@ public class Controller : EnabledsBehaviour<Controller>
 					continue;
 				}
 			}
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		else if ((operation.handedness == Handedness.either) || (operation.handedness == Handedness.infinite))
 		{
-			HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
+			HashSet<Controller> setOfOperatedControllers = New.setOf<Controller>();
 			if (operatedLeft(operation, beingnesses))
 			{
 				setOfOperatedControllers.Add(left);
@@ -1459,7 +1459,7 @@ public class Controller : EnabledsBehaviour<Controller>
 		}
 		else        // (default case)
 		{
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 	}
 	// method: determine the set of controllers for which the given operation is currently operated at the given state of being, ignoring its states of being and dependencies //
@@ -1477,7 +1477,7 @@ public class Controller : EnabledsBehaviour<Controller>
 	{
 		if (!operation.dependenciesMet())
 		{
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		return operatedControllersIgnoringDependencies(operation);
 	}
@@ -1486,18 +1486,18 @@ public class Controller : EnabledsBehaviour<Controller>
 	{
 		if (!(operation.beingnesses.Contains(beingness) || operation.beingnesses.isEmpty()))
 		{
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		if (!operation.dependenciesMet())
 		{
-			return new HashSet<Controller>();
+			return New.setOf<Controller>();
 		}
 		return operatedControllersIgnoringDependencies(operation, beingness);
 	}
 	// method: determine the set of controllers for which any of the given operations are currently operated //
 	public static HashSet<Controller> operatedControllers(ControllerOperation[] operations)
 	{
-		HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
+		HashSet<Controller> setOfOperatedControllers = New.setOf<Controller>();
 		foreach (ControllerOperation operation in operations)
 		{
 			HashSet<Controller> setOfOperatedControllersForOperation = operatedControllers(operation);
@@ -1511,7 +1511,7 @@ public class Controller : EnabledsBehaviour<Controller>
 	// method: determine the set of controllers for which any of the given operations are currently operated at the given state of being (first requiring such an operation to accept either the given state of being, or no state of beings) //
 	public static HashSet<Controller> operatedControllers(ControllerOperation[] operations, Beingness beingness)
 	{
-		HashSet<Controller> setOfOperatedControllers = new HashSet<Controller>();
+		HashSet<Controller> setOfOperatedControllers = New.setOf<Controller>();
 		foreach (ControllerOperation operation in operations)
 		{
 			HashSet<Controller> setOfOperatedControllersForOperation = operatedControllers(operation, beingness);

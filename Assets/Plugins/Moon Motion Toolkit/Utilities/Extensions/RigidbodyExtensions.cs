@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Rigidbody Extensions: provides extension methods for handling rigidbodies //
+// Rigidbody Extensions:
+// • provides extension methods for handling rigidbodies
+// #rigidbody
 public static class RigidbodyExtensions
 {
 	#region kinematicity
@@ -85,6 +87,16 @@ public static class RigidbodyExtensions
 	public static float speed(this Rigidbody rigidbody)
 		=> rigidbody.velocity.magnitude;
 
+	// method: return the x coordinate of the speed of this given rigidbody //
+	public static float speedX(this Rigidbody rigidbody)
+		=> rigidbody.velocityX().magnitude();
+	// method: return the y coordinate of the speed of this given rigidbody //
+	public static float speedY(this Rigidbody rigidbody)
+		=> rigidbody.velocityY().magnitude();
+	// method: return the z coordinate of the speed of this given rigidbody //
+	public static float speedZ(this Rigidbody rigidbody)
+		=> rigidbody.velocityZ().magnitude();
+
 	// method: (according to the given boolean:) set the (directional velocity) speed of this given rigidbody to the given speed, then return this given rigidbody //
 	public static Rigidbody setSpeedTo(this Rigidbody rigidbody, float speed, bool boolean = true)
 		=> rigidbody.setVelocityTo((speed * rigidbody.velocityDirection()), boolean);
@@ -108,6 +120,16 @@ public static class RigidbodyExtensions
 
 
 	#region velocities
+
+	// method: return the x coordinate of the velocity of this given rigidbody //
+	public static float velocityX(this Rigidbody rigidbody)
+		=> rigidbody.velocity.x;
+	// method: return the y coordinate of the velocity of this given rigidbody //
+	public static float velocityY(this Rigidbody rigidbody)
+		=> rigidbody.velocity.y;
+	// method: return the z coordinate of the velocity of this given rigidbody //
+	public static float velocityZ(this Rigidbody rigidbody)
+		=> rigidbody.velocity.z;
 
 	// method: (according to the given boolean:) set this given rigidbody's (directional) velocity to the given (directional) velocity, then return this given rigidbody //
 	public static Rigidbody setVelocityTo(this Rigidbody rigidbody, Vector3 velocity, bool boolean = true)

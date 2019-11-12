@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 // Auto Behaviour Layer Component Shortcuts Unity:
 // • provides this behaviour with automatically-connected state and methods (recursively) of its game object's and its descendant game objects' Unity components
-// #auto #shortcuts #component #force #linerenderers
+// #auto #shortcuts #component #rigidbody #force #linerenderers
 public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> :
 					AutoBehaviourLayerMonoBehaviour<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
@@ -125,6 +125,9 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region speeds
 	public float speed => ensuredCorrespondingRigidbody.speed();
+	public float speedX => rigidbody.speedX();
+	public float speedY => rigidbody.speedY();
+	public float speedZ => rigidbody.speedZ();
 	public AutoBehaviourT setSpeedTo(float speed, bool boolean = true)
 		=> selfAfter(()=> ensuredCorrespondingRigidbody.setSpeedTo(speed, boolean));
 	public AutoBehaviourT honeSpeed(float honingTarget, float honingAmount, bool boolean = true)
@@ -138,6 +141,9 @@ public abstract class	AutoBehaviourLayerComponentShortcutsUnity<AutoBehaviourT> 
 
 	#region velocities
 	public Vector3 velocity => ensuredCorrespondingRigidbody.velocity;
+	public float velocityX => ensuredCorrespondingRigidbody.velocityX();
+	public float velocityY => ensuredCorrespondingRigidbody.velocityY();
+	public float velocityZ => ensuredCorrespondingRigidbody.velocityZ();
 	public Vector3 angularVelocity => ensuredCorrespondingRigidbody.angularVelocity;
 	public AutoBehaviourT setVelocityTo(Vector3 velocity, bool boolean = true)
 		=> selfAfter(()=> ensuredCorrespondingRigidbody.setVelocityTo(velocity, boolean));

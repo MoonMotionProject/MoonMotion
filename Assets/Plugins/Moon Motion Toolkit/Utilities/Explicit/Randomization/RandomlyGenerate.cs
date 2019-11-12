@@ -45,6 +45,6 @@ public static class RandomlyGenerate
 
 	// method: generate a random vector in the range within the two vectors given by the two given axes values //
 	public static Vector3 vectorWithin(float vectorAxesValueFirst, float vectorAxesValueSecond)
-		=> within(vectorAxesValueFirst, vectorAxesValueSecond).asVector();
+		=> within(vectorAxesValueFirst, vectorAxesValueSecond).toFloatsVector();
 	#endregion randomly generating within a given range
 }

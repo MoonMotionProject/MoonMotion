@@ -4,6 +4,8 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 using System.Linq;
 using NaughtyAttributes;
+using static Controller.Input;
+using Input = Controller.Input;
 
 // Locomotions Cycler
 // • A Locomotions Cycler is a module intended for both hands of the player.
@@ -30,7 +32,7 @@ public class LocomotionsCycler : MonoBehaviour
 	[System.Serializable]
 	public class LocomotionCombination
 	{
-		public GameObject[] array = new GameObject[] {};
+		public GameObject[] array = New.arrayOf<GameObject>();
 	}
 
 
@@ -49,7 +51,8 @@ public class LocomotionsCycler : MonoBehaviour
 	private Controller controller;		// connection - auto: the hand's controller
 	[Header("Input")]
 	[ReorderableList]
-	public Controller.Input[] inputs = new Controller.Input[] {Controller.Input.none};		// setting: array of controller inputs to use
+	[Tooltip("the array of controller inputs to use")]
+	public Input[] inputs = New.arrayOf(noInput);
 	public bool inputEnabled = true;		// setting: whether this Locomotions Cycler's input is currently enabled
 	[Tooltip("the dependencies by which to restrict whether input is allowed")]
 	[ReorderableList]
@@ -59,13 +62,13 @@ public class LocomotionsCycler : MonoBehaviour
 	
 	// variables for: locomotion cycling //
 	[Header("Locomotion Combinations")]
-	public LocomotionCombination[] combinations = new LocomotionCombination[] {new LocomotionCombination()};        // connection - manual: array of locomotion combinations (each combination being one set of multiple locomotions to enable at a time) to cycle through
+	public LocomotionCombination[] combinations = New.arrayOf(new LocomotionCombination());        // connection - manual: array of locomotion combinations (each combination being one set of multiple locomotions to enable at a time) to cycle through
 	private LocomotionCombination[] rememberedCombinations;		// tracking: a backup of the locomotion combinations (made before the start), to effectively lock the combinations to what it was set to before the start
 	[Header("Locomotion Combination Index")]
 	public int index = 0;		// setting: current locomotion combination index (at which those locomotions are currently loaded)
 	public static bool cyclingAllowed = true;		// tracking: whether locomotion cycling is currently allowed
 	private int indexAtPreviousCyclingUpdate;		// tracking: the value of the index at the previous update when cycling was allowed (to be compared to the current index to determine if the locomotions need to be refreshed)
-	private static HashSet<GameObject> managedLocomotions = new HashSet<GameObject>();     // tracking: array of locomotions that are managed by this Locomotions Cycler (tracked as those locomotions which are descendants of either Locomotions Cycler or the player)
+	private static HashSet<GameObject> managedLocomotions = New.setOf<GameObject>();     // tracking: array of locomotions that are managed by this Locomotions Cycler (tracked as those locomotions which are descendants of either Locomotions Cycler or the player)
 	private AudioSource audioComponent;		// connection - auto: the attached locomotion cycling audio
 
 
@@ -223,7 +226,7 @@ public class LocomotionsCycler : MonoBehaviour
 		// ensure that the combinations array is not empty of combinations, setting it to have one combination empty of locomotions if it is //
 		if (combinations.isEmpty())
 		{
-			combinations = new LocomotionCombination[] {new LocomotionCombination()};
+			combinations = New.arrayOf(new LocomotionCombination());
 		}
 
 		// track the remembered locomotion combinations as the locomotion combinations as they are before the start //

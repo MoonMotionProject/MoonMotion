@@ -16,7 +16,7 @@ public abstract class	EnabledsBehaviourLayerEnableds<EnabledsBehaviourT> :
 	// trackings //
 
 	// the set of all enabled instances (of this particular specialization of EnabledsBehaviour) //
-	private static HashSet<EnabledsBehaviourT> enableds_ = new HashSet<EnabledsBehaviourT>();
+	private static HashSet<EnabledsBehaviourT> enableds_ = New.setOf<EnabledsBehaviourT>();
 	public static HashSet<EnabledsBehaviourT> enableds
 	{
 		get

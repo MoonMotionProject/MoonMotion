@@ -56,7 +56,7 @@ public abstract class LocomotionMovementAudio : MonoBehaviour
 	
 	// method: calculate the current player speed //
 	protected virtual float currentPlayerSpeed()
-		=> PlayerVelocityReader.speed();
+		=> MoonMotionPlayer.speed;
 
 	// method: adjust the given audio source's volume by the given amount //
 	protected virtual void adjustVolumeOfGivenAudioSource(AudioSource audioSource, float amount)

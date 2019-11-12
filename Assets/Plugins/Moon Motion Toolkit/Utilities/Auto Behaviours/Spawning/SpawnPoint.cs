@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using NaughtyAttributes;
 #endif
 
+// #spawning
 public class SpawnPoint : EnabledsBehaviour<SpawnPoint>
 {
 	

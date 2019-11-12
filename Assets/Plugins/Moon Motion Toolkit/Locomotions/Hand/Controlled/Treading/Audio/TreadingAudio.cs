@@ -64,9 +64,9 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 	private void playRandomFootstepRecursively()
 	{
 		// determine the footstep audios not played previously (to prevent adjacent repeats in the consecutive randomization), as well as the corresponding sources and indeces //
-		List<AudioClip> footstepAudiosNotPlayedPreviously = new List<AudioClip>();
-		List<AudioSource> footstepAudiosNotPlayedPreviouslySources = new List<AudioSource>();
-		List<int> footstepAudiosNotPlayedPreviouslyIndeces = new List<int>();
+		List<AudioClip> footstepAudiosNotPlayedPreviously = New.listOf<AudioClip>();
+		List<AudioSource> footstepAudiosNotPlayedPreviouslySources = New.listOf<AudioSource>();
+		List<int> footstepAudiosNotPlayedPreviouslyIndeces = New.listOf<int>();
 		for (int footstepAudioIndex = 0; footstepAudioIndex < footstepAudios.Length; footstepAudioIndex++)
 		{
 			if (footstepAudioIndex != previousFootstepAudioIndex)
@@ -97,15 +97,14 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 
 		// determine the interval duration //
 		float intervalDuration = randomFootstepAudio.length;		// initialize the interval duration to the played footstep audio's length as a default
-		float playerSpeed = PlayerVelocityReader.speed();		// determine the player's current speed
-		if (playerSpeed < speedMid)		// if the player's current speed below the mid speed reference: interpolate from min to mid
+		if (MoonMotionPlayer.speed < speedMid)		// if the player's current speed below the mid speed reference: interpolate from min to mid
 		{
-			float playerSpeedRangeRatio = ((playerSpeed - speedMin) / (speedMid - speedMin));
+			float playerSpeedRangeRatio = ((MoonMotionPlayer.speed - speedMin) / (speedMid - speedMin));
 			intervalDuration = speedIntervalCurve.clamped(intervalMax, intervalMid, playerSpeedRangeRatio);
 		}
 		else		// otherwise (if the player's current speed is at or above the mid speed reference): interpolate from mid to max
 		{
-			float playerSpeedRangeRatio = ((playerSpeed - speedMid) / (speedMax - speedMid));
+			float playerSpeedRangeRatio = ((MoonMotionPlayer.speed - speedMid) / (speedMax - speedMid));
 			intervalDuration = speedIntervalCurve.clamped(intervalMid, intervalMin, playerSpeedRangeRatio);
 		}
 		
@@ -146,8 +145,8 @@ public class TreadingAudio : LocomotionMovementAudioMultiple
 	private void Start()
 	{
 		// connect to the footstep audios //
-		List<AudioSource> listedFootstepAudioSources = new List<AudioSource>();
-		List<AudioClip> listedFootstepAudios = new List<AudioClip>();
+		List<AudioSource> listedFootstepAudioSources = New.listOf<AudioSource>();
+		List<AudioClip> listedFootstepAudios = New.listOf<AudioClip>();
 		foreach (AudioSource audioSource in audioSources)
 		{
 			if (audioSource.transform != transform)

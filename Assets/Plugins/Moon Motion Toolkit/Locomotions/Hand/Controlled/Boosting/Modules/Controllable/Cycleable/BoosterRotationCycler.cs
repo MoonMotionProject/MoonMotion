@@ -31,8 +31,8 @@ public class BoosterRotationCycler : BoosterModuleControllableCycleable
 	[Header("Rotations Set")]
 	[Tooltip("at the start, the whole set of rotations to cycle through is determined by appending this set of additional rotations to the booster's starting rotation")]
 	[ReorderableList]
-	public Vector3[] additionalRotations = new Vector3[0];		// setting: the set of additional rotations
-	private List<Vector3> rotationsSet = new List<Vector3>();		// tracking: the whole set of rotations
+	public Vector3[] additionalRotations = New.arrayOf<Vector3>();		// setting: the set of additional rotations
+	private List<Vector3> rotationsSet = New.listOf<Vector3>();		// tracking: the whole set of rotations
 	
 	
 	

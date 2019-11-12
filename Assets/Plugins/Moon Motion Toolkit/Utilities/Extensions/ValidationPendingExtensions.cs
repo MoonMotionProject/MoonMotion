@@ -12,7 +12,7 @@ public static class ValidationPendingExtensions
 
 	// tracking //
 
-	public static HashSet<GameObject> gameObjectsPendingValidation = new HashSet<GameObject>();
+	public static HashSet<GameObject> gameObjectsPendingValidation = New.setOf<GameObject>();
 
 
 

@@ -8,7 +8,8 @@ public static class FloatMemory
 	// variables //
 
 	
-	private static Dictionary<string, float> memory = new Dictionary<string, float>();
+	private static Dictionary<string, float> memory
+		= New.dictionaryOf<string, float>();
 
 
 

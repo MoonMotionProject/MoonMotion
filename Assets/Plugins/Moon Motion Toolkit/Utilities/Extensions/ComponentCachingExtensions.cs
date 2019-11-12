@@ -12,10 +12,12 @@ public static class ComponentCachingExtensions
 	// tracking //
 
 	// a dictionary of cached component dictionaries (dictionaries of those components on a particular game object which are cached here, keyed by their type) for game object keys //
-	public static Dictionary<GameObject, Dictionary<Type, Component>> cachedComponentDictionaries = new Dictionary<GameObject, Dictionary<Type, Component>>();
+	public static Dictionary<GameObject, Dictionary<Type, Component>> cachedComponentDictionaries
+		= New.dictionaryOf<GameObject, Dictionary<Type, Component>>();
 	
 	// a dictionary of cached corresponding rigidbodies for game object keys //
-	public static Dictionary<GameObject, Rigidbody> cachedCorrespondingRigidbodies = new Dictionary<GameObject, Rigidbody>();
+	public static Dictionary<GameObject, Rigidbody> cachedCorrespondingRigidbodies =
+		New.dictionaryOf<GameObject, Rigidbody>();
 
 
 

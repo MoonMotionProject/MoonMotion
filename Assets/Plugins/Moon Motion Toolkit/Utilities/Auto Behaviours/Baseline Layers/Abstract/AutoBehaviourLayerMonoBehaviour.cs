@@ -30,7 +30,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 			case Coroute.atEndOfFrame:
 				return atEndOfFrameExecute(function, parameters);
 			default:
-				return startCoroutine(Default.coroute, function, parameters).returnWithError("the Auto Behaviour Layer Mono Behaviour on "+self+" had startCoroutine called with an unrecognized coroute given, so default coroute chosen as fallback");
+				return startCoroutine(Default.coroute, function, parameters).returnWithError("the Auto Behaviour Layer Mono Behaviour on "+self+" had startCoroutine called with the coroute "+coroute+" given, which is not accepted by this method, so the default coroute was chosen as a fallback");
 		}
 	}
 	private Coroutine _startCoroutine(Coroute coroute, Delegate function, params object[] parameters)
@@ -38,8 +38,26 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 	public Coroutine startCoroutine(Coroute coroute, Action action)
 		=> _startCoroutine(coroute, action);
 	
+	// methods: have this mono behaviour have Unity start a coroutine using the given interval and the given function executing the given parameters and following the given coroute, then return the started coroutine //
+	public Coroutine startCoroutineWithInterval(float interval, Coroute coroute, Delegate function, params object[] parameters)
+	{
+		switch (coroute)
+		{
+			case Coroute.nowAndOnInterval:
+				return executeNowAndEvery(interval, function, parameters);
+			case Coroute.afterEachInterval:
+				return executeAfterEvery(interval, function, parameters);
+			default:
+				return startCoroutine(Default.coroute, function, parameters).returnWithError("the Auto Behaviour Layer Mono Behaviour on "+self+" had startCoroutineWithInterval called with the coroute "+coroute+" given, which is not accepted by this method, so the default coroute was chosen as a fallback");
+		}
+	}
+	private Coroutine _startCoroutineWithInterval(float interval, Coroute coroute, Delegate function, params object[] parameters)
+		=> startCoroutineWithInterval(interval, coroute, function, parameters);
+	public Coroutine startCoroutineWithInterval(float interval, Coroute coroute, Action action)
+		=> _startCoroutineWithInterval(interval, coroute, action);
+	
 	// methods: have this mono behaviour have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
-	public Coroutine startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+	public Coroutine startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
 		=>	startCoroutine
 			(
 				startNowVersusAtNextCheck ?
@@ -48,10 +66,26 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 				function,
 				parameters
 			);
-	private Coroutine _startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck, params object[] parameters)
+	private Coroutine _startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
 		=> startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
-	public Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = Default.repeatingCoroutineStartingNowVersusAtNextCheck)
+	public Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle)
 		=> _startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	
+	// methods: have this mono behaviour have Unity start a repeating coroutine using the given interval and the given function executing the given parameters, starting now versus after the first interval according to the given boolean, then return the started coroutine //
+	public Coroutine startCoroutineRepeatingEvery(float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
+		=>	startCoroutineWithInterval
+			(
+				interval,
+				startNowVersusAfterFirstInterval ?
+					Coroute.nowAndOnInterval :
+					Coroute.afterEachInterval,
+				function,
+				parameters
+			);
+	private Coroutine _startCoroutineRepeatingEvery(float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
+		=> startCoroutineRepeatingEvery(interval, function, startNowVersusAfterFirstInterval, parameters);
+	public Coroutine startCoroutineRepeatingEvery(float interval, Action action, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle)
+		=> _startCoroutineRepeatingEvery(interval, action, startNowVersusAfterFirstInterval);
 
 	// method: stop this mono behaviour's given coroutine, then return this (derived auto) behaviour //
 	public AutoBehaviourT stopCoroutine(Coroutine coroutine)
@@ -76,7 +110,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 	{
 		if (delay.isNonzero())
 		{
-			yield return Wait.delay(delay);
+			yield return Wait.delayOf(delay);
 		}
 		
 		function.execute(parameters);
@@ -107,7 +141,7 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 
 	#region planning to execute functions\actions now and at every check
 
-	// methods: plan to execute the given function with the given parameters at every coroutine check, then return the new coroutine that will do so //
+	// methods: plan to execute the given function with the given parameters now and at every coroutine check, then return the new coroutine that will do so //
 	public Coroutine nowAndAtEveryCheckExecute(Delegate function, params object[] parameters)
 		=> startCoroutine(nowAndAtEveryCheckExecute_Coroutine(function, parameters));
 	private IEnumerator nowAndAtEveryCheckExecute_Coroutine(Delegate function, params object[] parameters)
@@ -132,8 +166,11 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 		=> startCoroutine(atNextCheckAndEveryCheckAfterExecute_Coroutine(function, parameters));
 	private IEnumerator atNextCheckAndEveryCheckAfterExecute_Coroutine(Delegate function, params object[] parameters)
 	{
-		yield return atNextCheckExecute_Coroutine(function, parameters);
-		yield return nowAndAtEveryCheckExecute_Coroutine(function, parameters);
+		while (true)
+		{
+			yield return Wait.untilNextCheck;
+			function.execute(parameters);
+		}
 	}
 	private Coroutine _atNextCheckAndEveryCheckAfterExecute(Delegate function, params object[] parameters)
 		=> atNextCheckAndEveryCheckAfterExecute(function, parameters);
@@ -157,4 +194,44 @@ public abstract class	AutoBehaviourLayerMonoBehaviour<AutoBehaviourT> :
 	public Coroutine atEndOfFrameExecute(Action action, params object[] parameters)
 		=> _atEndOfFrameExecute(action, parameters);
 	#endregion planning to execute functions\actions at the end of the current frame
+
+
+	#region planning to execute functions\actions now and on interval
+
+	// methods: plan to execute the given function with the given parameters now and on the given interval, then return the new coroutine that will do so //
+	public Coroutine executeNowAndEvery(float interval, Delegate function, params object[] parameters)
+		=> startCoroutine(executeNowAndEvery_Coroutine(interval, function, parameters));
+	private IEnumerator executeNowAndEvery_Coroutine(float interval, Delegate function, params object[] parameters)
+	{
+		while (true)
+		{
+			function.execute(parameters);
+			yield return Wait.delayOf(interval);
+		}
+	}
+	private Coroutine _executeNowAndEvery(float interval, Delegate function, params object[] parameters)
+		=> executeNowAndEvery(interval, function, parameters);
+	public Coroutine executeNowAndEvery(float interval, Action action, params object[] parameters)
+		=> _executeNowAndEvery(interval, action, parameters);
+	#endregion planning to execute functions\actions now and on interval
+
+
+	#region planning to execute functions\actions after every interval
+
+	// methods: plan to execute the given function with the given parameters after every interval (for the given interval), then return the new coroutine that will do so //
+	public Coroutine executeAfterEvery(float interval, Delegate function, params object[] parameters)
+		=> startCoroutine(executeAfterEvery_Coroutine(interval, function, parameters));
+	private IEnumerator executeAfterEvery_Coroutine(float interval, Delegate function, params object[] parameters)
+	{
+		while (true)
+		{
+			yield return Wait.delayOf(interval);
+			function.execute(parameters);
+		}
+	}
+	private Coroutine _executeAfterEvery(float interval, Delegate function, params object[] parameters)
+		=> executeAfterEvery(interval, function, parameters);
+	public Coroutine executeAfterEvery(float interval, Action action, params object[] parameters)
+		=> _executeAfterEvery(interval, action, parameters);
+	#endregion planning to execute functions\actions after every interval
 }

@@ -11,8 +11,8 @@ public class ScrollingMaterial : AutoBehaviour<ScrollingMaterial>
 	// variables //
 
 	// settings: the speed by which to scroll this material, in x and y (respectively) //
-	[Header("Speeds")]
-	public float speedX, speedY;
+	[Header("Scrolling Speeds")]
+	public float scrollingSpeedX, scrollingSpeedY;
 	
 	// setting: whether this material should scroll currntly
 	[Header("Toggle")]
@@ -36,8 +36,8 @@ public class ScrollingMaterial : AutoBehaviour<ScrollingMaterial>
 				"_MainTex",
 				new Vector2
 				(
-					Time.time * speedX,
-					Time.time * speedY
+					Time.time * scrollingSpeedX,
+					Time.time * scrollingSpeedY
 				)
 			);
 		}

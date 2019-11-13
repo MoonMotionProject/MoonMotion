@@ -21,16 +21,16 @@ public static class SiblingExtensions
 
 	#region accessing siblings
 
-	// method: return a selection of the transforms of this given transform's siblings and itself //
-	public static IEnumerable<Transform> selectSiblingAndSelfTransforms(this Transform transform)
-		=> transform.parent.selectChildTransforms();
-	// method: return a selection of the transforms of this given game object's siblings and itself //
-	public static IEnumerable<Transform> selectSiblingAndSelfTransforms(this GameObject gameObject)
-		=> gameObject.transform.selectSiblingAndSelfTransforms();
-	// method: return a selection of the transforms of this given component's siblings and itself //
-	public static IEnumerable<Transform> selectSiblingAndSelfTransforms(this Component component)
-		=> component.transform.selectSiblingAndSelfTransforms();
-	// method: return a selection of the transforms of this given transform's siblings and itself //
+	// method: return an accessor for the transforms of this given transform's siblings and itself //
+	public static IEnumerable<Transform> accessSiblingAndSelfTransforms(this Transform transform)
+		=> transform.parent.accessChildTransforms();
+	// method: return an accessor for the transforms of this given game object's siblings and itself //
+	public static IEnumerable<Transform> accessSiblingAndSelfTransforms(this GameObject gameObject)
+		=> gameObject.transform.accessSiblingAndSelfTransforms();
+	// method: return an accessor for the transforms of this given component's siblings and itself //
+	public static IEnumerable<Transform> accessSiblingAndSelfTransforms(this Component component)
+		=> component.transform.accessSiblingAndSelfTransforms();
+	// method: return an accessor for the transforms of this given transform's siblings and itself //
 	public static Transform[] siblingAndSelfTransforms(this Transform transform)
 		=> transform.parent.childTransforms();
 	// method: return an array of the transforms of this given game object's siblings and itself //
@@ -40,15 +40,15 @@ public static class SiblingExtensions
 	public static Transform[] siblingAndSelfTransforms(this Component component)
 		=> component.transform.siblingAndSelfTransforms();
 
-	// method: return a selection of the game objects of this given transform's siblings and itself //
-	public static IEnumerable<GameObject> selectSiblingAndSelfObjects(this Transform transform)
-		=> transform.parent.selectChildObjects();
-	// method: return a selection of the game objects of this given game object's siblings and itself //
-	public static IEnumerable<GameObject> selectSiblingAndSelfObjects(this GameObject gameObject)
-		=> gameObject.transform.selectSiblingAndSelfObjects();
-	// method: return a selection of the game objects of this given component's siblings and itself //
-	public static IEnumerable<GameObject> selectSiblingAndSelfObjects(this Component component)
-		=> component.transform.selectSiblingAndSelfObjects();
+	// method: return an accessor for the game objects of this given transform's siblings and itself //
+	public static IEnumerable<GameObject> accessSiblingAndSelfObjects(this Transform transform)
+		=> transform.parent.accessChildObjects();
+	// method: return an accessor for the game objects of this given game object's siblings and itself //
+	public static IEnumerable<GameObject> accessSiblingAndSelfObjects(this GameObject gameObject)
+		=> gameObject.transform.accessSiblingAndSelfObjects();
+	// method: return an accessor for the game objects of this given component's siblings and itself //
+	public static IEnumerable<GameObject> accessSiblingAndSelfObjects(this Component component)
+		=> component.transform.accessSiblingAndSelfObjects();
 	// method: return an array of the game objects of this given transform's siblings and itself //
 	public static GameObject[] siblingAndSelfObjects(this Transform transform)
 		=> transform.parent.childObjects();
@@ -59,18 +59,18 @@ public static class SiblingExtensions
 	public static GameObject[] siblingAndSelfObjects(this Component component)
 		=> component.transform.siblingAndSelfObjects();
 
-	// method: return a selection of the transforms of this given transform's siblings (not including itself) //
-	public static IEnumerable<Transform> selectSiblingTransforms(this Transform transform)
-		=> transform.selectSiblingAndSelfTransforms().only(siblingOrSelfTransform => (siblingOrSelfTransform != transform));
-	// method: return a selection of the transforms of this given game object's siblings (not including itself) //
-	public static IEnumerable<Transform> selectSiblingTransforms(this GameObject gameObject)
-		=> gameObject.transform.selectSiblingTransforms();
-	// method: return a selection of the transforms of this given component's siblings (not including itself) //
-	public static IEnumerable<Transform> selectSiblingTransforms(this Component component)
-		=> component.transform.selectSiblingTransforms();
+	// method: return an accessor for the transforms of this given transform's siblings (not including itself) //
+	public static IEnumerable<Transform> accessSiblingTransforms(this Transform transform)
+		=> transform.accessSiblingAndSelfTransforms().only(siblingOrSelfTransform => (siblingOrSelfTransform != transform));
+	// method: return an accessor for the transforms of this given game object's siblings (not including itself) //
+	public static IEnumerable<Transform> accessSiblingTransforms(this GameObject gameObject)
+		=> gameObject.transform.accessSiblingTransforms();
+	// method: return an accessor for the transforms of this given component's siblings (not including itself) //
+	public static IEnumerable<Transform> accessSiblingTransforms(this Component component)
+		=> component.transform.accessSiblingTransforms();
 	// method: return a list of the transforms of this given transform's siblings (not including itself) //
 	public static List<Transform> siblingTransforms(this Transform transform)
-		=> transform.selectSiblingTransforms().manifested();
+		=> transform.accessSiblingTransforms().manifested();
 	// method: return a list of the transforms of this given game object's siblings (not including itself) //
 	public static List<Transform> siblingTransforms(this GameObject gameObject)
 		=> gameObject.transform.siblingTransforms();
@@ -78,18 +78,18 @@ public static class SiblingExtensions
 	public static List<Transform> siblingTransforms(this Component component)
 		=> component.transform.siblingTransforms();
 
-	// method: return a selection of the game objects of this given transform's siblings (not including itself) //
-	public static IEnumerable<GameObject> selectSiblingObjects(this Transform transform)
-		=> transform.selectSiblingAndSelfObjects().only(siblingOrSelfObject => (siblingOrSelfObject != transform.gameObject));
-	// method: return a selection of the game objects of this given game object's siblings (not including itself) //
-	public static IEnumerable<GameObject> selectSiblingObjects(this GameObject gameObject)
-		=> gameObject.transform.selectSiblingObjects();
-	// method: return a selection of the game objects of this given component's siblings (not including itself) //
-	public static IEnumerable<GameObject> selectSiblingObjects(this Component component)
-		=> component.transform.selectSiblingObjects();
+	// method: return an accessor for the game objects of this given transform's siblings (not including itself) //
+	public static IEnumerable<GameObject> accessSiblingObjects(this Transform transform)
+		=> transform.accessSiblingAndSelfObjects().only(siblingOrSelfObject => (siblingOrSelfObject != transform.gameObject));
+	// method: return an accessor for the game objects of this given game object's siblings (not including itself) //
+	public static IEnumerable<GameObject> accessSiblingObjects(this GameObject gameObject)
+		=> gameObject.transform.accessSiblingObjects();
+	// method: return an accessor for the game objects of this given component's siblings (not including itself) //
+	public static IEnumerable<GameObject> accessSiblingObjects(this Component component)
+		=> component.transform.accessSiblingObjects();
 	// method: return a list of the game objects of this given transform's siblings (not including itself) //
 	public static List<GameObject> siblingObjects(this Transform transform)
-		=> transform.selectSiblingObjects().manifested();
+		=> transform.accessSiblingObjects().manifested();
 	// method: return a list of the game objects of this given game object's siblings (not including itself) //
 	public static List<GameObject> siblingObjects(this GameObject gameObject)
 		=> gameObject.transform.siblingObjects();

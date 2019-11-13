@@ -9,9 +9,9 @@ public static class GameObjectTransformationExtensions
 	// method: return this given game object's local position //
 	public static Vector3 localPosition(this GameObject gameObject)
 		=> gameObject.transform.localPosition;
-	// method: return an selection of local positions corresponding to these given game objects //
-	public static IEnumerable<Vector3> selectLocalPositions(this IList<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.localPosition());// method: (according to the given boolean:) set this given game object's local position to the given local position, then return this given game object //
+	// method: return an accessor for the local positions corresponding to these given game objects //
+	public static IEnumerable<Vector3> accessLocalPositions(this IList<GameObject> gameObjects)
+		=> gameObjects.access(gameObject => gameObject.localPosition());// method: (according to the given boolean:) set this given game object's local position to the given local position, then return this given game object //
 	public static GameObject setLocalPositionTo(this GameObject gameObject, Vector3 localPosition, bool boolean = true)
 		=> gameObject.transform.setLocalPositionTo(localPosition, boolean).gameObject;
 	// method: (according to the given boolean:) set this given game object's local position to the local position for the given x, y, and z values, then return this given game object //
@@ -208,9 +208,9 @@ public static class GameObjectTransformationExtensions
 	// method: return this given game object's local scale //
 	public static Vector3 localScale(this GameObject gameObject)
 		=> gameObject.transform.localScale;
-	// method: return a selection of local scales corresponding to these given game objects //
-	public static IEnumerable<Vector3> selectLocalScales(this IList<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.localScale());
+	// method: return an accessor for the local scales corresponding to these given game objects //
+	public static IEnumerable<Vector3> accessLocalScales(this IList<GameObject> gameObjects)
+		=> gameObjects.access(gameObject => gameObject.localScale());
 	// method: (according to the given boolean:) set this given game object's local scale to the given local scale, then return this given game object //
 	public static GameObject setLocalScaleTo(this GameObject gameObject, Vector3 localScale, bool boolean = true)
 		=> gameObject.transform.setLocalScaleTo(localScale, boolean).gameObject;
@@ -342,9 +342,9 @@ public static class GameObjectTransformationExtensions
 	// method: return this given game object's (global) position //
 	public static Vector3 position(this GameObject gameObject)
 		=> gameObject.transform.position;
-	// method: return a selection of (global) positions corresponding to these given game objects //
-	public static IEnumerable<Vector3> selectPositions(this IList<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.position());
+	// method: return an accessor for the (global) positions corresponding to these given game objects //
+	public static IEnumerable<Vector3> accessPositions(this IList<GameObject> gameObjects)
+		=> gameObjects.access(gameObject => gameObject.position());
 	// method: (assumes this game object has a rigidbody attached:) (according to the given boolean:) move this given game object's (global) position to the given position provider (try to set, but respect collisions in the way), then return this given game object //
 	public static GameObject movePositionTo(this GameObject gameObject, Vector3 position, bool boolean = true)
 		=> gameObject.correspondingRigidbody().movePositionTo(position, boolean).gameObject;

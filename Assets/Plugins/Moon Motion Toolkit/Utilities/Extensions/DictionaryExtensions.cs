@@ -40,33 +40,33 @@ public static class DictionaryExtensions
 					default(TValue)
 			);
 
-	// method: return a selection of the keys in this given dictionary //
-	public static IEnumerable<TKey> selectKeys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.select(keyValuePair => keyValuePair.Key);
+	// method: return an accessor for the keys in this given dictionary //
+	public static IEnumerable<TKey> accessKeys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
+		=> dictionary.access(keyValuePair => keyValuePair.Key);
 	// method: return a list for the keys in this given dictionary //
 	public static List<TKey> keys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.selectKeys().manifested();
+		=> dictionary.accessKeys().manifested();
 
-	// method: return a selection of the values in this given dictionary //
-	public static IEnumerable<TValue> selectValues<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.select(keyValuePair => keyValuePair.Value);
+	// method: return an accessor for the values in this given dictionary //
+	public static IEnumerable<TValue> accessValues<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
+		=> dictionary.access(keyValuePair => keyValuePair.Value);
 	// method: return a list for the values in this given dictionary //
 	public static List<TValue> values<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.selectValues().manifested();
+		=> dictionary.accessValues().manifested();
 
-	// method: return a selection of the keys in this given dictionary for which the given function returns true //
-	public static IEnumerable<TKey> selectKeysWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)
-		=> dictionary.selectKeys().only(function);
+	// method: return an accessor for the keys in this given dictionary for which the given function returns true //
+	public static IEnumerable<TKey> accessKeysWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)
+		=> dictionary.accessKeys().only(function);
 	// method: return a list for the keys in this given dictionary for which the given function returns true //
 	public static List<TKey> keysWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)
-		=> dictionary.selectKeysWhere(function).manifested();
+		=> dictionary.accessKeysWhere(function).manifested();
 
-	// method: return a selection of the values in this given dictionary for which the given function returns true //
-	public static IEnumerable<TValue> selectValuesWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TValue, bool> function)
-		=> dictionary.selectValues().only(function);
+	// method: return an accessor for the values in this given dictionary for which the given function returns true //
+	public static IEnumerable<TValue> accessValuesWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TValue, bool> function)
+		=> dictionary.accessValues().only(function);
 	// method: return a list for the values in this given dictionary for which the given function returns true //
 	public static List<TValue> valuesWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TValue, bool> function)
-		=> dictionary.selectValuesWhere(function).manifested();
+		=> dictionary.accessValuesWhere(function).manifested();
 
 	// method: return the value recorded for the given key in this given dictionary //
 	public static TValue recordingFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)

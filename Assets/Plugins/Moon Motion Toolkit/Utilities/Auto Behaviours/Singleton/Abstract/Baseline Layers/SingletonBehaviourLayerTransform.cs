@@ -18,16 +18,16 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	#region accessing siblings
 
-	public static new IEnumerable<Transform> selectSiblingAndSelfTransforms => autoBehaviour.selectSiblingAndSelfTransforms;
+	public static new IEnumerable<Transform> accessSiblingAndSelfTransforms => autoBehaviour.accessSiblingAndSelfTransforms;
 	public static new Transform[] siblingAndSelfTransforms => autoBehaviour.siblingAndSelfTransforms;
 
-	public static new IEnumerable<GameObject> selectSiblingAndSelfObjects => autoBehaviour.selectSiblingAndSelfObjects;
+	public static new IEnumerable<GameObject> accessSiblingAndSelfObjects => autoBehaviour.accessSiblingAndSelfObjects;
 	public static new GameObject[] siblingAndSelfObjects => autoBehaviour.siblingAndSelfObjects;
 
-	public static new IEnumerable<Transform> selectSiblingTransforms => autoBehaviour.selectSiblingTransforms;
+	public static new IEnumerable<Transform> accessSiblingTransforms => autoBehaviour.accessSiblingTransforms;
 	public static new IEnumerable<Transform> siblingTransforms => autoBehaviour.siblingTransforms;
 
-	public static new IEnumerable<GameObject> selectSiblingObjects => autoBehaviour.selectSiblingObjects;
+	public static new IEnumerable<GameObject> accessSiblingObjects => autoBehaviour.accessSiblingObjects;
 	public static new IEnumerable<GameObject> siblingObjects => autoBehaviour.siblingObjects;
 	#endregion siblings
 
@@ -97,10 +97,10 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	public static new GameObject lastPiblingObject => autoBehaviour.lastPiblingObject;
 
-	public static new IEnumerable<Transform> selectPiblingTransforms => autoBehaviour.selectPiblingTransforms;
+	public static new IEnumerable<Transform> accessPiblingTransforms => autoBehaviour.accessPiblingTransforms;
 	public static new Transform[] piblingTransforms => autoBehaviour.piblingTransforms;
 
-	public static new IEnumerable<GameObject> selectPiblingObjects => autoBehaviour.selectPiblingObjects;
+	public static new IEnumerable<GameObject> accessPiblingObjects => autoBehaviour.accessPiblingObjects;
 	public static new GameObject[] piblingObjects => autoBehaviour.piblingObjects;
 	#endregion accessing piblings
 
@@ -132,10 +132,10 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 
 	public static new GameObject lastChildObject => autoBehaviour.lastChildObject;
 
-	public static new IEnumerable<Transform> selectChildTransforms => autoBehaviour.selectChildTransforms();
+	public static new IEnumerable<Transform> accessChildTransforms => autoBehaviour.accessChildTransforms();
 	public static new Transform[] childTransforms => autoBehaviour.childTransforms;
 
-	public static new IEnumerable<GameObject> selectChildObjects => autoBehaviour.selectChildObjects();
+	public static new IEnumerable<GameObject> accessChildObjects => autoBehaviour.accessChildObjects();
 	public static new GameObject[] childObjects => autoBehaviour.childObjects;
 	#endregion accessing children
 

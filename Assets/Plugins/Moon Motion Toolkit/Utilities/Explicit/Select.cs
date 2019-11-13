@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Select: provides methods for yielding in iteration //
-public static class Select
+// Access: provides methods for returning accessors (by yielding in iteration) //
+public static class Access
 {
 	#region yielding while iterating ranges
 
-	// method: return a selection of the given function upon the current index for each index in the range from the given start integer to the given end integer //
+	// method: return an accessor of the given function upon the current index for each index in the range from the given start integer to the given end integer //
 	public static IEnumerable<TResult> forRange<TResult>(int start, int end, Func<int, TResult> function)
 	{
 		for (int index = start; index <= end; index++)
@@ -20,8 +20,8 @@ public static class Select
 
 
 	#region yielding while iterating counts
-
-	// method: return a selection of the given function upon the current index for each index in the range for the given count, starting from the given starting index (0 by default) //
+	
+	// method: return an accessor of the given function upon the current index for each index in the range for the given count, starting from the given starting index (0 by default) //
 	public static IEnumerable<TResult> forCount<TResult>(int count, Func<int, TResult> function, int startingIndex = 0)
 		=> forRange(startingIndex, startingIndex + (count - 1), function);
 	#endregion yielding while iterating counts

@@ -18,21 +18,21 @@ public static class Callstack
 	public static StackFrame stackFrame(int index)
 		=> stackTrace.GetFrame(index);
 
-	public static IEnumerable<MethodBase> selectMethods => stackFrames.select(stackFrame => stackFrame.GetMethod());
+	public static IEnumerable<MethodBase> accessMethods => stackFrames.access(stackFrame => stackFrame.GetMethod());
 
-	public static IEnumerable<string> selectMethodNames => selectMethods.select(method => method.Name);
+	public static IEnumerable<string> accessMethodNames => accessMethods.access(method => method.Name);
 
-	public static IEnumerable<IEnumerable<Attribute>> selectAttributesOfEachMethod => selectMethods.select(method => method.GetCustomAttributes());
+	public static IEnumerable<IEnumerable<Attribute>> accessAttributesOfEachMethod => accessMethods.access(method => method.GetCustomAttributes());
 
-	public static IEnumerable<Attribute> selectAttributesOfAllMethods => selectMethods.selectNested(method => method.GetCustomAttributes());
+	public static IEnumerable<Attribute> accessAttributesOfAllMethods => accessMethods.accessNested(method => method.GetCustomAttributes());
 
-	public static IEnumerable<string> selectNamesOfAtttributesOfAllMethods => selectAttributesOfAllMethods.select(attribute => attribute.className());
+	public static IEnumerable<string> accessNamesOfAtttributesOfAllMethods => accessAttributesOfAllMethods.access(attribute => attribute.className());
 
 	public static bool includesMethodNamed(string name)
-		=> selectMethodNames.contains(name);
+		=> accessMethodNames.contains(name);
 
 	public static bool includesMethodWithAttributeNamed(string name)
-		=> selectNamesOfAtttributesOfAllMethods.contains(name);
+		=> accessNamesOfAtttributesOfAllMethods.contains(name);
 	#endregion callstack in general
 
 
@@ -42,12 +42,12 @@ public static class Callstack
 
 
 	// whether the current callstack includes 'OnValidate' //
-	public static bool includesOnValidate => selectMethodNames.contains("OnValidate");
+	public static bool includesOnValidate => accessMethodNames.contains("OnValidate");
 	
 	// whether the current callstack includes a method with an attribute named 'ContextMenu' //
 	public static bool includesContextMenu => includesMethodWithAttributeNamed("ContextMenu");
 
 	// whether the current callstack includes 'OnDrawGizmos' //
-	public static bool includesEditorVisualization => selectMethodNames.contains("OnDrawGizmos");
+	public static bool includesEditorVisualization => accessMethodNames.contains("OnDrawGizmos");
 	#endregion determining specific information about the callstack
 }

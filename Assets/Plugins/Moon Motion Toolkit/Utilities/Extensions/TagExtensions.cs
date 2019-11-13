@@ -65,7 +65,7 @@ public static class TagExtensions
 				gameObject_GameObjectProvider.provideGameObject().tag = tag_TagProvider.provideTag(),
 				boolean);
 	
-	// method: (according to the given boolean:) imply setting the tag of these given provided game objects to the given provided tag, then return the selection of these given provided game objects //
+	// method: (according to the given boolean:) imply setting the tag of these given provided game objects to the given provided tag, then return the accessor for these given provided game objects //
 	public static IEnumerable<ObjectT> implySetTagOfEachTo<ObjectT>(this IEnumerable<ObjectT> gameObjects_GameObjectsProvider, object tag_TagProvider, bool boolean = true)
 		=>	gameObjects_GameObjectsProvider.implyForEach(gameObject_GameObjectProvider =>
 				gameObject_GameObjectProvider.setTagTo(tag_TagProvider),

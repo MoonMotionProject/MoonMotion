@@ -72,53 +72,65 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion destruction
 
 
-	#region changing hierarchiness
-
+	#region making objects universal andor temporary
+	
 	public static new AutoBehaviour<SingletonBehaviourT> makeUniversal()
 		=> autoBehaviour.makeUniversal();
-
+	
 	public static new AutoBehaviour<SingletonBehaviourT> makeTemporary()
 		=> autoBehaviour.makeTemporary();
-
+	
 	public static new AutoBehaviour<SingletonBehaviourT> makeUniversalAndTemporary()
 		=> autoBehaviour.makeUniversalAndTemporary();
-	#endregion changing hierarchiness
+	#endregion making objects universal andor temporary
 
 
 	#region determining hierarchy selection
 	#if UNITY_EDITOR
 
-	public static new bool isSelected => autoBehaviour.isSelected;
-	public static new bool isNotSelected => autoBehaviour.isNotSelected;
+	public static new bool isSelectedInHierarchy => autoBehaviour.isSelectedInHierarchy;
+	public static new bool isNotSelectedInHierarchy => autoBehaviour.isNotSelectedInHierarchy;
 	#endif
 	#endregion determining hierarchy selection
 
 
-	#region setting hierarchy selection
-	#if UNITY_EDITOR
+	#region setting hierarchy objects selection
 
-	public static new AutoBehaviour<SingletonBehaviourT> select()
-		=> autoBehaviour.select();
-	#endif
-	#endregion setting hierarchy selection
+	public static new AutoBehaviour<SingletonBehaviourT> selectInHierarchy_IfInEditor()
+		=> autoBehaviour.selectInHierarchy_IfInEditor();
+	#endregion setting hierarchy objects selection
 
+
+	#region pinging objects in the hierarchy
+	
+	public static new AutoBehaviour<SingletonBehaviourT> pingInHierarchy_IfInEditor()
+		=> autoBehaviour.pingInHierarchy_IfInEditor();
+	#endregion pinging objects in the hierarchy
+
+
+	#region setting hierarchy objects selection then pinging the selection
+	
+	public static new AutoBehaviour<SingletonBehaviourT> selectAndPingInHierarchy_IfInEditor()
+		=> autoBehaviour.selectAndPingInHierarchy_IfInEditor();
+	#endregion setting hierarchy objects selection then pinging the selection
+	
 
 	#region setting hierarchy expansion
 	#if UNITY_EDITOR
+	
+	public static new AutoBehaviour<SingletonBehaviourT> setHierarchyExpansionTo(bool expansion)
+		=> autoBehaviour.setHierarchyExpansionTo(expansion);
+	public static new AutoBehaviour<SingletonBehaviourT> expandInHierarchy()
+		=> autoBehaviour.expandInHierarchy();
+	public static new AutoBehaviour<SingletonBehaviourT> collapseInHierarchy()
+		=> autoBehaviour.collapseInHierarchy();
 
-	public static new void setExpansionTo(bool expansion)
-		=> autoBehaviour.setExpansionTo(expansion);
-	public static new void expand()
-		=> autoBehaviour.expand();
-	public static new void collapse()
-		=> autoBehaviour.collapse();
-
-	public static new void setExpansionForSelfAndDescendantsTo(bool expansion)
-		=> autoBehaviour.setExpansionForSelfAndDescendantsTo(expansion);
-	public static new void expandSelfAndDescendants()
-		=> autoBehaviour.expandSelfAndDescendants();
-	public static new void collapseSelfAndDescendants()
-		=> autoBehaviour.collapseSelfAndDescendants();
+	public static new void setHierarchyExpansionForSelfAndDescendantsTo(bool expansion)
+		=> autoBehaviour.setHierarchyExpansionForSelfAndDescendantsTo(expansion);
+	public static new void expandSelfAndDescendantsInHierarchy()
+		=> autoBehaviour.expandSelfAndDescendantsInHierarchy();
+	public static new void collapseSelfAndDescendantsInHierarchy()
+		=> autoBehaviour.collapseSelfAndDescendantsInHierarchy();
 	#endif
 	#endregion setting hierarchy expansion
 

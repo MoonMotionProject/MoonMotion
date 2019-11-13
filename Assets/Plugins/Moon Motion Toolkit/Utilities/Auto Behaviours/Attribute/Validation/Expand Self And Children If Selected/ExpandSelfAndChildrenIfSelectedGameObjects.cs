@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// Expand Self And Children If Selected Recordings:
+// Expand Self And Children If Selected Game Objects:
 // • stores recorded game objects for which to handle the Expand Self And Children If Selected attribute
 public static class ExpandSelfAndChildrenIfSelectedGameObjects
 {
@@ -26,11 +26,11 @@ public static class ExpandSelfAndChildrenIfSelectedGameObjects
 			if (UnityIs.inEditorEditMode)
 			{
 				gameObjects
-					.only(gameObject => gameObject.isSelected())
+					.only(gameObject => gameObject.isSelectedInHierarchy())
 						.forEach(gameObject =>
 						{
-							gameObject.expand();
-							gameObject.childObjects().expandEach();
+							gameObject.expandInHierarchy();
+							gameObject.childObjects().expandUniquesInHierarchy();
 						});
 			}
 		};

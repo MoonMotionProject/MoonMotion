@@ -25,16 +25,16 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 
 	#region accessing siblings
 
-	public IEnumerable<Transform> selectSiblingAndSelfTransforms => transform.selectSiblingAndSelfTransforms();
+	public IEnumerable<Transform> accessSiblingAndSelfTransforms => transform.accessSiblingAndSelfTransforms();
 	public Transform[] siblingAndSelfTransforms => transform.siblingAndSelfTransforms();
 
-	public IEnumerable<GameObject> selectSiblingAndSelfObjects => transform.selectSiblingAndSelfObjects();
+	public IEnumerable<GameObject> accessSiblingAndSelfObjects => transform.accessSiblingAndSelfObjects();
 	public GameObject[] siblingAndSelfObjects => transform.siblingAndSelfObjects();
 
-	public IEnumerable<Transform> selectSiblingTransforms => transform.selectSiblingTransforms();
+	public IEnumerable<Transform> accessSiblingTransforms => transform.accessSiblingTransforms();
 	public IEnumerable<Transform> siblingTransforms => transform.siblingTransforms();
 
-	public IEnumerable<GameObject> selectSiblingObjects => transform.selectSiblingObjects();
+	public IEnumerable<GameObject> accessSiblingObjects => transform.accessSiblingObjects();
 	public IEnumerable<GameObject> siblingObjects => transform.siblingObjects();
 	#endregion siblings
 
@@ -104,10 +104,10 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 
 	public GameObject lastPiblingObject => transform.lastPiblingObject();
 
-	public IEnumerable<Transform> selectPiblingTransforms => transform.selectPiblingTransforms();
+	public IEnumerable<Transform> accessPiblingTransforms => transform.accessPiblingTransforms();
 	public Transform[] piblingTransforms => transform.piblingTransforms();
 
-	public IEnumerable<GameObject> selectPiblingObjects => transform.selectPiblingObjects();
+	public IEnumerable<GameObject> accessPiblingObjects => transform.accessPiblingObjects();
 	public GameObject[] piblingObjects => transform.piblingObjects();
 	#endregion accessing piblings
 
@@ -139,10 +139,10 @@ public abstract class	AutoBehaviourLayerTransform<AutoBehaviourT> :
 
 	public GameObject lastChildObject => transform.lastChildObject();
 
-	public IEnumerable<Transform> selectChildTransforms => transform.selectChildTransforms();
+	public IEnumerable<Transform> accessChildTransforms => transform.accessChildTransforms();
 	public Transform[] childTransforms => transform.childTransforms();
 
-	public IEnumerable<GameObject> selectChildObjects => transform.selectChildObjects();
+	public IEnumerable<GameObject> accessChildObjects => transform.accessChildObjects();
 	public GameObject[] childObjects => transform.childObjects();
 	#endregion accessing children
 

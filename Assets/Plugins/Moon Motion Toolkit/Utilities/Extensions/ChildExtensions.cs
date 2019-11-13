@@ -75,17 +75,17 @@ public static class ChildExtensions
 	public static GameObject lastChildObject(this Component component)
 		=> component.transform.lastChildObject();
 
-	public static IEnumerable<Transform> selectChildTransforms(this Transform transform)
+	public static IEnumerable<Transform> accessChildTransforms(this Transform transform)
 	{
 		foreach (Transform childTransform in transform)
 		{
 			yield return childTransform;
 		}
 	}
-	public static IEnumerable<Transform> selectChildTransforms(this GameObject gameObject)
-		=> gameObject.transform.selectChildTransforms();
-	public static IEnumerable<Transform> selectChildTransforms(this Component component)
-		=> component.transform.selectChildTransforms();
+	public static IEnumerable<Transform> accessChildTransforms(this GameObject gameObject)
+		=> gameObject.transform.accessChildTransforms();
+	public static IEnumerable<Transform> accessChildTransforms(this Component component)
+		=> component.transform.accessChildTransforms();
 	public static Transform[] childTransforms(this Transform transform)
 	{
 		Transform[] array = New.arrayForCount<Transform>(transform.childCount);
@@ -102,17 +102,17 @@ public static class ChildExtensions
 	public static Transform[] childTransforms(this Component component)
 		=> component.transform.childTransforms();
 
-	public static IEnumerable<GameObject> selectChildObjects(this Transform transform)
+	public static IEnumerable<GameObject> accessChildObjects(this Transform transform)
 	{
 		foreach (Transform childTransform in transform)
 		{
 			yield return childTransform.gameObject;
 		}
 	}
-	public static IEnumerable<GameObject> selectChildObjects(this GameObject gameObject)
-		=> gameObject.transform.selectChildObjects();
-	public static IEnumerable<GameObject> selectChildObjects(this Component component)
-		=> component.transform.selectChildObjects();
+	public static IEnumerable<GameObject> accessChildObjects(this GameObject gameObject)
+		=> gameObject.transform.accessChildObjects();
+	public static IEnumerable<GameObject> accessChildObjects(this Component component)
+		=> component.transform.accessChildObjects();
 	public static GameObject[] childObjects(this Transform transform)
 	{
 		GameObject[] array = New.arrayForCount<GameObject>(transform.childCount);

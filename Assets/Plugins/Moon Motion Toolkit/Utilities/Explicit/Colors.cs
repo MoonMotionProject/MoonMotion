@@ -28,6 +28,9 @@ public static class Colors
 
 	#region provided here
 	#region editor
+	public static Color windowBackgroundDark => new Color(.21875f, .21875f, .21875f);
+	public static Color windowBackgroundDarkDarkened => new Color(.2f, .2f, .2f);
+	public static Color selection => new Color(.2421875f, .37109375f, .5859375f);
 	public static Color inspectorTextPlay => new Color32(133, 161, 135, 255);
 	#endregion editor
 	public static Color silver => new Color32(211, 211, 211, 255);

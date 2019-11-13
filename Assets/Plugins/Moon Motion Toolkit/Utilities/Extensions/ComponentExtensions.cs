@@ -350,12 +350,12 @@ public static class ComponentExtensions
 					gameObject.pickI<ComponentI>(false).firstOtherwiseDefault();
 	}
 	
-	// method: return a selection of the specified class of components in these given game objects, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectEachFirst<ComponentT>(this GameObject[] gameObjects, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObjects.selectFromYull(gameObject => gameObject.first<ComponentT>(includeInactiveComponents));
-	// method: return a selection of the specified class of components in these given transforms, optionally including inactive components according to the given boolean //
-	public static IEnumerable<ComponentT> selectEachFirst<ComponentT>(this Transform[] transforms, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> transforms.selectFromYull(transform => transform.first<ComponentT>(includeInactiveComponents));
+	// method: return an accessor for the specified class of components in these given game objects, optionally including inactive components according to the given boolean //
+	public static IEnumerable<ComponentT> accessEachFirst<ComponentT>(this GameObject[] gameObjects, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObjects.accessFromYull(gameObject => gameObject.first<ComponentT>(includeInactiveComponents));
+	// method: return an accessor for the specified class of components in these given transforms, optionally including inactive components according to the given boolean //
+	public static IEnumerable<ComponentT> accessEachFirst<ComponentT>(this Transform[] transforms, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transforms.accessFromYull(transform => transform.first<ComponentT>(includeInactiveComponents));
 
 	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given game object //
 	public static List<ComponentT> pick<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component

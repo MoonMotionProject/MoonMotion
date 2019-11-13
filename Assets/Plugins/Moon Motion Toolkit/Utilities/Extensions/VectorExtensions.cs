@@ -22,26 +22,26 @@ public static class VectorExtensions
 
 	#region accessing
 
-	// method: return the selection of x values of these given vectors //
-	public static IEnumerable<float> selectXValues(this IEnumerable<Vector3> vectors)
-		=> vectors.select(vector => vector.x);
+	// method: return the accessor for the x values of these given vectors //
+	public static IEnumerable<float> accessXValues(this IEnumerable<Vector3> vectors)
+		=> vectors.access(vector => vector.x);
 	// method: return the list of x values of these given vectors //
 	public static List<float> xValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectXValues().manifested();
+		=> vectors.accessXValues().manifested();
 
-	// method: return the selection of y values of these given vectors //
-	public static IEnumerable<float> selectYValues(this IEnumerable<Vector3> vectors)
-		=> vectors.select(vector => vector.y);
+	// method: return the accessor for the y values of these given vectors //
+	public static IEnumerable<float> accessYValues(this IEnumerable<Vector3> vectors)
+		=> vectors.access(vector => vector.y);
 	// method: return the list of y values of these given vectors //
 	public static List<float> yValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectYValues().manifested();
+		=> vectors.accessYValues().manifested();
 
-	// method: return the selection of z values of these given vectors //
-	public static IEnumerable<float> selectZValues(this IEnumerable<Vector3> vectors)
-		=> vectors.select(vector => vector.z);
+	// method: return the accessor for the z values of these given vectors //
+	public static IEnumerable<float> accessZValues(this IEnumerable<Vector3> vectors)
+		=> vectors.access(vector => vector.z);
 	// method: return the list of z values of these given vectors //
 	public static List<float> zValues(this IEnumerable<Vector3> vectors)
-		=> vectors.selectZValues().manifested();
+		=> vectors.accessZValues().manifested();
 	#endregion accessing
 
 
@@ -225,22 +225,22 @@ public static class VectorExtensions
 
 	// method: return the average x coordinate value of these given vectors //
 	public static float averageX(this IEnumerable<Vector3> vectors)
-		=> vectors.selectXValues().average();
+		=> vectors.accessXValues().average();
 
 	// method: return the average y coordinate value of these given vectors //
 	public static float averageY(this IEnumerable<Vector3> vectors)
-		=> vectors.selectYValues().average();
+		=> vectors.accessYValues().average();
 
 	// method: return the average z coordinate value of these given vectors //
 	public static float averageZ(this IEnumerable<Vector3> vectors)
-		=> vectors.selectZValues().average();
+		=> vectors.accessZValues().average();
 
-	// method: return a selection of averages (average values) corresponding to these given vectors //
-	public static IEnumerable<float> selectAverages(this IEnumerable<Vector3> vectors)
-		=> vectors.select(vector => vector.average());
+	// method: return an accessor for the averages (average values) corresponding to these given vectors //
+	public static IEnumerable<float> accessAverages(this IEnumerable<Vector3> vectors)
+		=> vectors.access(vector => vector.average());
 	// method: return a list of averages (average values) corresponding to these given vectors //
 	public static List<float> averages(this IEnumerable<Vector3> vectors)
-		=> vectors.selectAverages().manifested();
+		=> vectors.accessAverages().manifested();
 
 	// method: determine the average value of these given vectors //
 	public static float averageValue(this IEnumerable<Vector3> vectors)

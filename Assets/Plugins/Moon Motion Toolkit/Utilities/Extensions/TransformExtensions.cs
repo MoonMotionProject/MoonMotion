@@ -10,9 +10,9 @@ public static class TransformExtensions
 {
 	#region accessing
 
-	// method: return a selection of the transforms for this given enumerable of game objects //
-	public static IEnumerable<Transform> selectTransforms(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.select(gameObject => gameObject.transform);
+	// method: return an accessor for the transforms for this given enumerable of game objects //
+	public static IEnumerable<Transform> accessTransforms(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.access(gameObject => gameObject.transform);
 	#endregion accessing
 
 
@@ -84,15 +84,15 @@ public static class TransformExtensions
 
 	// method: determine the average of these given transforms' local positions //
 	public static Vector3 averageLocalPosition(this Transform[] transforms)
-		=> transforms.selectLocalPositions().average();
+		=> transforms.accessLocalPositions().average();
 
 	// method: determine the average of these given transforms' local scales //
 	public static Vector3 averageLocalScale(this Transform[] transforms)
-		=> transforms.selectLocalScales().average();
+		=> transforms.accessLocalScales().average();
 
 	// method: determine the average of these given transforms' (global) positions //
 	public static Vector3 averagePosition(this Transform[] transforms)
-		=> transforms.selectPositions().average();
+		=> transforms.accessPositions().average();
 	#endregion transformation averages
 
 

@@ -67,12 +67,12 @@ public static class PiblingExtensions
 	public static GameObject lastPiblingObject(this Component component)
 		=> component.transform.lastPiblingObject();
 
-	public static IEnumerable<Transform> selectPiblingTransforms(this Transform transform)
-		=> transform.parent.parent.selectChildTransforms();
-	public static IEnumerable<Transform> selectPiblingTransforms(this GameObject gameObject)
-		=> gameObject.transform.selectPiblingTransforms();
-	public static IEnumerable<Transform> selectPiblingTransforms(this Component component)
-		=> component.transform.selectPiblingTransforms();
+	public static IEnumerable<Transform> accessPiblingTransforms(this Transform transform)
+		=> transform.parent.parent.accessChildTransforms();
+	public static IEnumerable<Transform> accessPiblingTransforms(this GameObject gameObject)
+		=> gameObject.transform.accessPiblingTransforms();
+	public static IEnumerable<Transform> accessPiblingTransforms(this Component component)
+		=> component.transform.accessPiblingTransforms();
 	public static Transform[] piblingTransforms(this Transform transform)
 		=> transform.parent.parent.childTransforms();
 	public static Transform[] piblingTransforms(this GameObject gameObject)
@@ -80,12 +80,12 @@ public static class PiblingExtensions
 	public static Transform[] piblingTransforms(this Component component)
 		=> component.transform.piblingTransforms();
 
-	public static IEnumerable<GameObject> selectPiblingObjects(this Transform transform)
-		=> transform.parent.parent.selectChildObjects();
-	public static IEnumerable<GameObject> selectPiblingObjects(this GameObject gameObject)
-		=> gameObject.transform.selectPiblingObjects();
-	public static IEnumerable<GameObject> selectPiblingObjects(this Component component)
-		=> component.transform.selectPiblingObjects();
+	public static IEnumerable<GameObject> accessPiblingObjects(this Transform transform)
+		=> transform.parent.parent.accessChildObjects();
+	public static IEnumerable<GameObject> accessPiblingObjects(this GameObject gameObject)
+		=> gameObject.transform.accessPiblingObjects();
+	public static IEnumerable<GameObject> accessPiblingObjects(this Component component)
+		=> component.transform.accessPiblingObjects();
 	public static GameObject[] piblingObjects(this Transform transform)
 		=> transform.parent.parent.childObjects();
 	public static GameObject[] piblingObjects(this GameObject gameObject)
@@ -93,14 +93,14 @@ public static class PiblingExtensions
 	public static GameObject[] piblingObjects(this Component component)
 		=> component.transform.piblingObjects();
 	
-	public static IEnumerable<ComponentT> selectEachFirstPibling<ComponentT>(this Transform transform) where ComponentT : Component
-		=> transform.piblingObjects().selectEachFirst<ComponentT>();
-	public static IEnumerable<ComponentT> selectEachFirstPibling<ComponentT>(this GameObject gameObject) where ComponentT : Component
-		=> gameObject.transform.selectEachFirstPibling<ComponentT>();
-	public static IEnumerable<ComponentT> selectEachFirstPibling<ComponentT>(this ComponentT component) where ComponentT : Component
-		=> component.transform.selectEachFirstPibling<ComponentT>();
+	public static IEnumerable<ComponentT> accessEachFirstPibling<ComponentT>(this Transform transform) where ComponentT : Component
+		=> transform.piblingObjects().accessEachFirst<ComponentT>();
+	public static IEnumerable<ComponentT> accessEachFirstPibling<ComponentT>(this GameObject gameObject) where ComponentT : Component
+		=> gameObject.transform.accessEachFirstPibling<ComponentT>();
+	public static IEnumerable<ComponentT> accessEachFirstPibling<ComponentT>(this ComponentT component) where ComponentT : Component
+		=> component.transform.accessEachFirstPibling<ComponentT>();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this Transform transform) where ComponentT : Component
-		=> transform.selectEachFirstPibling<ComponentT>().manifested();
+		=> transform.accessEachFirstPibling<ComponentT>().manifested();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this GameObject gameObject) where ComponentT : Component
 		=> gameObject.transform.eachFirstPibling<ComponentT>();
 	public static List<ComponentT> eachFirstPibling<ComponentT>(this ComponentT component) where ComponentT : Component

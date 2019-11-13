@@ -8,7 +8,7 @@ public static class BehaviourExtensions
 {
 	#region removing
 
-	// method: (according to the given boolean:) instead of returning this given enumerable of behaviours, return a selection of the behaviours in this given enumerable of behaviours which are enabled //
+	// method: (according to the given boolean:) instead of returning this given enumerable of behaviours, return an accessor for the behaviours in this given enumerable of behaviours which are enabled //
 	public static IEnumerable<BehaviourT> onlyEnabled<BehaviourT>(this IEnumerable<BehaviourT> enumerable, bool boolean = true) where BehaviourT : Behaviour
 		=>	enumerable.only(
 				behaviour => behaviour.enabled,

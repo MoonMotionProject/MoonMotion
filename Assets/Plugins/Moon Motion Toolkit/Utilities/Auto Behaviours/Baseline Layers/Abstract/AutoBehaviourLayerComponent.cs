@@ -26,8 +26,8 @@ public abstract class	AutoBehaviourLayerComponent<AutoBehaviourT> :
 
 	#region accessing piblings
 
-	// a selection of the same components on this component's piblings //
-	public IEnumerable<AutoBehaviourT> selectEachFirstPibling => self.selectEachFirstPibling();
+	// an accessor of the same components on this component's piblings //
+	public IEnumerable<AutoBehaviourT> accessEachFirstPibling => self.accessEachFirstPibling();
 
 	// a list of the same components on this component's piblings //
 	public List<AutoBehaviourT> eachFirstPibling => self.eachFirstPibling();

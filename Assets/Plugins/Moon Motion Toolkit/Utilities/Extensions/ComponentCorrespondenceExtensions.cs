@@ -16,31 +16,31 @@ public static class ComponentCorrespondenceExtensions
 		where ComponentT : Component
 		=> component.gameObject.corresponding<ComponentT>();
 
-	// method: return a selection of each of the yull components of the specified type that each of the respective yull game objects of these given game objects corresponds to //
-	public static IEnumerable<ComponentT> selectCorresponding<ComponentT>(this IEnumerable<GameObject> gameObjects)
+	// method: return an accessor for each of the yull components of the specified type that each of the respective yull game objects of these given game objects corresponds to //
+	public static IEnumerable<ComponentT> accessCorresponding<ComponentT>(this IEnumerable<GameObject> gameObjects)
 		where ComponentT : Component
-		=> gameObjects.onlyYull().select(gameObject => gameObject.corresponding<ComponentT>()).onlyYull();
-	// method: return a selection of each of the yull components of the specified type that each of the respective yull components of these given components corresponds to //
-	public static IEnumerable<ComponentT> selectCorresponding<ComponentT>(this IEnumerable<Component> components)
+		=> gameObjects.onlyYull().access(gameObject => gameObject.corresponding<ComponentT>()).onlyYull();
+	// method: return an accessor for each of the yull components of the specified type that each of the respective yull components of these given components corresponds to //
+	public static IEnumerable<ComponentT> accessCorresponding<ComponentT>(this IEnumerable<Component> components)
 		where ComponentT : Component
-		=> components.onlyYull().select(component => component.corresponding<ComponentT>()).onlyYull();
+		=> components.onlyYull().access(component => component.corresponding<ComponentT>()).onlyYull();
 	
 	// method: return a list of each of the yull components of the specified type that each of the respective yull game objects of these given game objects corresponds to //
 	public static List<ComponentT> corresponding<ComponentT>(this IEnumerable<GameObject> gameObjects) 
 		where ComponentT : Component
-		=> gameObjects.selectCorresponding<ComponentT>().manifested();
+		=> gameObjects.accessCorresponding<ComponentT>().manifested();
 	// method: return a list of each of the yull components of the specified type that each of the respective yull components of these given components corresponds to //
 	public static List<ComponentT> corresponding<ComponentT>(this IEnumerable<Component> components)
 		where ComponentT : Component
-		=> components.selectCorresponding<ComponentT>().manifested();
+		=> components.accessCorresponding<ComponentT>().manifested();
 
 	// method: return the set of all unique, yull components of the specified type that the yull game objects of these given game objects correspond to //
 	public static HashSet<ComponentT> uniqueCorresponding<ComponentT>(this IEnumerable<GameObject> gameObjects)
 		where ComponentT : Component
-		=> gameObjects.selectCorresponding<ComponentT>().uniques();
+		=> gameObjects.accessCorresponding<ComponentT>().uniques();
 	// method: return the set of all unique, yull components of the specified type that the yull components of these given components correspond to //
 	public static HashSet<ComponentT> uniqueCorresponding<ComponentT>(this IEnumerable<Component> components) 
 	
 		where ComponentT : Component
-		=> components.selectCorresponding<ComponentT>().uniques();
+		=> components.accessCorresponding<ComponentT>().uniques();
 }

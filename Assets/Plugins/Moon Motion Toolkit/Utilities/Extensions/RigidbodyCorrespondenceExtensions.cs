@@ -12,24 +12,24 @@ public static class RigidbodyCorrespondenceExtensions
 	public static Rigidbody correspondingRigidbody(this Component component)
 		=> component.gameObject.correspondingRigidbody();
 
-	// method: return a selection of each of the yull rigidbodies that each of the respective yull game objects of these given game objects corresponds to //
-	public static IEnumerable<Rigidbody> selectCorrespondingRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.onlyYull().select(gameObject => gameObject.correspondingRigidbody()).onlyYull();
-	// method: return a selection of each of the yull rigidbodies that each of the respective yull components of these given components corresponds to //
-	public static IEnumerable<Rigidbody> selectCorrespondingRigidbodies(this IEnumerable<Component> components)
-		=> components.onlyYull().select(component => component.correspondingRigidbody()).onlyYull();
+	// method: return an accessor for each of the yull rigidbodies that each of the respective yull game objects of these given game objects corresponds to //
+	public static IEnumerable<Rigidbody> accessCorrespondingRigidbodies(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.onlyYull().access(gameObject => gameObject.correspondingRigidbody()).onlyYull();
+	// method: return an accessor for each of the yull rigidbodies that each of the respective yull components of these given components corresponds to //
+	public static IEnumerable<Rigidbody> accessCorrespondingRigidbodies(this IEnumerable<Component> components)
+		=> components.onlyYull().access(component => component.correspondingRigidbody()).onlyYull();
 	
 	// method: return a list of each of the yull rigidbodies that each of the respective yull game objects of these given game objects corresponds to //
 	public static List<Rigidbody> correspondingRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.selectCorrespondingRigidbodies().manifested();
+		=> gameObjects.accessCorrespondingRigidbodies().manifested();
 	// method: return a list of each of the yull rigidbodies that each of the respective yull components of these given components corresponds to //
 	public static List<Rigidbody> correspondingRigidbodies(this IEnumerable<Component> components)
-		=> components.selectCorrespondingRigidbodies().manifested();
+		=> components.accessCorrespondingRigidbodies().manifested();
 
 	// method: return the set of all unique, yull rigidbodies that the yull game objects of these given game objects correspond to //
 	public static HashSet<Rigidbody> uniqueCorrespondingRigidbodies(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.selectCorrespondingRigidbodies().uniques();
+		=> gameObjects.accessCorrespondingRigidbodies().uniques();
 	// method: return the set of all unique, yull rigidbodies that the yull components of these given components correspond to //
 	public static HashSet<Rigidbody> uniqueCorrespondingRigidbodies(this IEnumerable<Component> components)
-		=> components.selectCorrespondingRigidbodies().uniques();
+		=> components.accessCorrespondingRigidbodies().uniques();
 }

@@ -12,7 +12,7 @@ public static class NameExtensions
 
 	// method: return the string that is the listing of the names corresponding to these given game objects //
 	public static string namesListing(this GameObject[] gameObjects)
-		=> gameObjects.selectNames().asListing();
+		=> gameObjects.accessNames().asListing();
 	#endregion listing
 
 
@@ -22,9 +22,9 @@ public static class NameExtensions
 	public static string nameQuoted(this GameObject gameObject)
 		=> gameObject.name.quoted();
 
-	// method: return the selection of names corresponding to these given game objects //
-	public static IEnumerable<string> selectNames(this GameObject[] gameObjects)
-		=> gameObjects.select(gameObject => gameObject.name);
+	// method: return the accessor for the names corresponding to these given game objects //
+	public static IEnumerable<string> accessNames(this GameObject[] gameObjects)
+		=> gameObjects.access(gameObject => gameObject.name);
 	#endregion accessing
 
 

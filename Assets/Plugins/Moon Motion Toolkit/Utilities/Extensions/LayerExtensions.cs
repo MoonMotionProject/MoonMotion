@@ -191,7 +191,7 @@ public static class LayerExtensions
 				gameObject_GameObjectProvider.provideGameObject().layer = layerIndex_LayerIndexProvider.provideLayerIndex(),
 				boolean);
 	
-	// method: (according to the given boolean:) imply setting the layer of these given provided game objects to the layer for the given provided layer index, then return the selection of these given provided game objects //
+	// method: (according to the given boolean:) imply setting the layer of these given provided game objects to the layer for the given provided layer index, then return the accessor for these given provided game objects //
 	public static IEnumerable<ObjectT> implySetLayerOfEachTo<ObjectT>(this IEnumerable<ObjectT> gameObjects_GameObjectsProvider, object layerIndex_LayerIndexProvider, bool boolean = true)
 		=>	gameObjects_GameObjectsProvider.implyForEach(gameObject_GameObjectProvider =>
 				gameObject_GameObjectProvider.setLayerTo(layerIndex_LayerIndexProvider),

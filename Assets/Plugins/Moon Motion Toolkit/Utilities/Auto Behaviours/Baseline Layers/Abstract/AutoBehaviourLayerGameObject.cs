@@ -64,53 +64,65 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion destruction
 
 
-	#region changing hierarchiness
-
+	#region making objects universal andor temporary
+	
 	public AutoBehaviourT makeUniversal()
 		=> selfAfter(()=> gameObject.makeUniversal());
-
+	
 	public AutoBehaviourT makeTemporary()
 		=> selfAfter(()=> gameObject.makeTemporary());
-
+	
 	public AutoBehaviourT makeUniversalAndTemporary()
 		=> selfAfter(()=> gameObject.makeUniversalAndTemporary());
-	#endregion changing hierarchiness
+	#endregion making objects universal andor temporary
 
 
 	#region determining hierarchy selection
-#if UNITY_EDITOR
+	#if UNITY_EDITOR
 
-	public bool isSelected => gameObject.isSelected();
-	public bool isNotSelected => gameObject.isNotSelected();
+	public bool isSelectedInHierarchy => gameObject.isSelectedInHierarchy();
+	public bool isNotSelectedInHierarchy => gameObject.isNotSelectedInHierarchy();
 	#endif
 	#endregion determining hierarchy selection
 
 
-	#region setting hierarchy selection
-	#if UNITY_EDITOR
+	#region setting hierarchy objects selection
 
-	public AutoBehaviourT select()
-		=> selfAfter(()=> gameObject.select());
-	#endif
-	#endregion setting hierarchy selection
+	public AutoBehaviourT selectInHierarchy_IfInEditor()
+		=> selfAfter(()=> gameObject.selectInHierarchy_IfInEditor());
+	#endregion setting hierarchy objects selection
 
+
+	#region pinging objects in the hierarchy
+	
+	public AutoBehaviourT pingInHierarchy_IfInEditor()
+		=> selfAfter(()=> gameObject.pingInHierarchy_IfInEditor());
+	#endregion pinging objects in the hierarchy
+
+
+	#region setting hierarchy objects selection then pinging the selection
+	
+	public AutoBehaviourT selectAndPingInHierarchy_IfInEditor()
+		=> selfAfter(()=> gameObject.selectAndPingInHierarchy_IfInEditor());
+	#endregion setting hierarchy objects selection then pinging the selection
+	
 
 	#region setting hierarchy expansion
 	#if UNITY_EDITOR
+	
+	public AutoBehaviourT setHierarchyExpansionTo(bool expansion)
+		=> selfAfter(()=> gameObject.setHierarchyExpansionTo(expansion));
+	public AutoBehaviourT expandInHierarchy()
+		=> selfAfter(()=> gameObject.expandInHierarchy());
+	public AutoBehaviourT collapseInHierarchy()
+		=> selfAfter(()=> gameObject.collapseInHierarchy());
 
-	public void setExpansionTo(bool expansion)
-		=> gameObject.setExpansionTo(expansion);
-	public void expand()
-		=> gameObject.expand();
-	public void collapse()
-		=> gameObject.collapse();
-
-	public void setExpansionForSelfAndDescendantsTo(bool expansion)
-		=> gameObject.setExpansionForSelfAndDescendantsTo(expansion);
-	public void expandSelfAndDescendants()
-		=> gameObject.expandSelfAndDescendants();
-	public void collapseSelfAndDescendants()
-		=> gameObject.collapseSelfAndDescendants();
+	public AutoBehaviourT setHierarchyExpansionForSelfAndDescendantsTo(bool expansion)
+		=> selfAfter(()=> gameObject.setHierarchyExpansionForSelfAndDescendantsTo(expansion));
+	public AutoBehaviourT expandSelfAndDescendantsInHierarchy()
+		=> selfAfter(()=> gameObject.expandSelfAndDescendantsInHierarchy());
+	public AutoBehaviourT collapseSelfAndDescendantsInHierarchy()
+		=> selfAfter(()=> gameObject.collapseSelfAndDescendantsInHierarchy());
 	#endif
 	#endregion setting hierarchy expansion
 

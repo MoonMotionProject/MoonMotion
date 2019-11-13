@@ -6,9 +6,9 @@ using UnityEngine;
 // #auto #transform #transformations
 public static class TransformTransformationExtensions
 {
-	// method: return a selection of local positions corresponding to these given transforms //
-	public static IEnumerable<Vector3> selectLocalPositions(this IList<Transform> transforms)
-		=> transforms.select(transform => transform.localPosition);
+	// method: return an accessor for the local positions corresponding to these given transforms //
+	public static IEnumerable<Vector3> accessLocalPositions(this IList<Transform> transforms)
+		=> transforms.access(transform => transform.localPosition);
 	// method: (according to the given boolean:) set this given transform's local position to the given local position, then return this given transform //
 	public static Transform setLocalPositionTo(this Transform transform, Vector3 localPosition, bool boolean = true)
 	{
@@ -218,9 +218,9 @@ public static class TransformTransformationExtensions
 
 
 
-	// method: return a selection of local scales corresponding to these given transforms //
-	public static IEnumerable<Vector3> selectLocalScales(this IList<Transform> transforms)
-		=> transforms.select(transform => transform.localScale);
+	// method: return an accessor for the local scales corresponding to these given transforms //
+	public static IEnumerable<Vector3> accessLocalScales(this IList<Transform> transforms)
+		=> transforms.access(transform => transform.localScale);
 	// method: (according to the given boolean:) set this given transform's local scale to the given local scale, then return this given transform //
 	public static Transform setLocalScaleTo(this Transform transform, Vector3 localScale, bool boolean = true)
 	{
@@ -365,9 +365,9 @@ public static class TransformTransformationExtensions
 
 
 
-	// method: return a selection of (global) positions corresponding to these given transforms //
-	public static IEnumerable<Vector3> selectPositions(this IList<Transform> transforms)
-		=> transforms.select(transform => transform.position);
+	// method: return an accessor for the (global) positions corresponding to these given transforms //
+	public static IEnumerable<Vector3> accessPositions(this IList<Transform> transforms)
+		=> transforms.access(transform => transform.position);
 	// method: (according to the given boolean:) set this given transform's (global) position to the given (global) position, then return this given transform //
 	public static Transform setPositionTo(this Transform transform, Vector3 position, bool boolean = true)
 	{

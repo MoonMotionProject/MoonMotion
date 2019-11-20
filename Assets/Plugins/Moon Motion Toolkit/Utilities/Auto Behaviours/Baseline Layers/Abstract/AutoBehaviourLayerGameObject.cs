@@ -33,7 +33,23 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
 		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
 	)
-		=> transform.createChildObject(name, matchRotationToParent, matchLayersToParent);
+		=> gameObject.createChildObject(name, matchRotationToParent, matchLayersToParent);
+
+	public GameObject createChildObjectForNew_ViaReflection<ComponentT>
+	(
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	) where ComponentT : Component
+		=> gameObject.createChildObjectForNew_ViaReflection<ComponentT>(name, matchRotationToParent, matchLayersToParent);
+	
+	public ComponentT createChildObjectForNewGet_ViaReflection<ComponentT>
+	(
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	) where ComponentT : Component
+		=> gameObject.createChildObjectForNewGet_ViaReflection<ComponentT>(name, matchRotationToParent, matchLayersToParent);
 	#endregion creating fresh game objects
 
 
@@ -93,13 +109,6 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion setting hierarchy objects selection
 
 
-	#region pinging objects in the hierarchy
-	
-	public AutoBehaviourT pingInHierarchy_IfInEditor()
-		=> selfAfter(()=> gameObject.pingInHierarchy_IfInEditor());
-	#endregion pinging objects in the hierarchy
-
-
 	#region setting hierarchy objects selection then pinging the selection
 	
 	public AutoBehaviourT selectAndPingInHierarchy_IfInEditor()
@@ -116,13 +125,20 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 		=> selfAfter(()=> gameObject.expandInHierarchy());
 	public AutoBehaviourT collapseInHierarchy()
 		=> selfAfter(()=> gameObject.collapseInHierarchy());
+	
+	public AutoBehaviourT setHierarchyExpansionForSelfAndChildrenTo(bool expansion)
+		=> selfAfter(()=> gameObject.setHierarchyExpansionForSelfAndChildrenTo(expansion));
+	public AutoBehaviourT expandSelfAndChildrenInHierarchy()
+		=> selfAfter(()=> gameObject.expandSelfAndChildrenInHierarchy());
+	public AutoBehaviourT collapseSelfAndChildrenInHierarchy()
+		=> selfAfter(()=> gameObject.collapseSelfAndChildrenInHierarchy());
 
-	public AutoBehaviourT setHierarchyExpansionForSelfAndDescendantsTo(bool expansion)
-		=> selfAfter(()=> gameObject.setHierarchyExpansionForSelfAndDescendantsTo(expansion));
-	public AutoBehaviourT expandSelfAndDescendantsInHierarchy()
-		=> selfAfter(()=> gameObject.expandSelfAndDescendantsInHierarchy());
-	public AutoBehaviourT collapseSelfAndDescendantsInHierarchy()
-		=> selfAfter(()=> gameObject.collapseSelfAndDescendantsInHierarchy());
+	public AutoBehaviourT setHierarchyExpansionForLodalsTo(bool expansion)
+		=> selfAfter(()=> gameObject.setHierarchyExpansionForLodalsTo(expansion));
+	public AutoBehaviourT expandLodalsInHierarchy()
+		=> selfAfter(()=> gameObject.expandLodalsInHierarchy());
+	public AutoBehaviourT collapseLodalsInHierarchy()
+		=> selfAfter(()=> gameObject.collapseLodalsInHierarchy());
 	#endif
 	#endregion setting hierarchy expansion
 
@@ -131,8 +147,10 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 
 	public AutoBehaviourT setNameTo(string name, bool boolean = true)
 		=> selfAfter(()=> gameObject.setNameTo(name, boolean));
-	public AutoBehaviourT setNameToSimpleClassName(bool boolean = true)
-		=> selfAfter(()=> setNameTo(simpleClassName, boolean));
+	public AutoBehaviourT setNameToSimpleClassName_ViaReflection(bool boolean = true)
+		=> selfAfter(()=> setNameTo(simpleClassName_ViaReflection, boolean));
+	public AutoBehaviourT setNameToSpacedSimpleClassName_ViaReflection(bool boolean = true)
+		=> selfAfter(()=> setNameTo(spacedSimpleClassName_ViaReflection, boolean));
 	public AutoBehaviourT toNameAppend(string suffix, bool boolean = true)
 		=> selfAfter(()=> gameObject.toNameAppend(suffix, boolean));
 	#endregion name

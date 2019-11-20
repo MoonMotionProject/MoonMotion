@@ -18,13 +18,15 @@ public static class Prefabs
 	
 	public static HashSet<GameObject> all => filteredBy("");
 
-	public static HashSet<GameObject> withAnyLocalOrDescendant<ComponentT>() where ComponentT : Component
-		=> all.uniquesWhere(prefab => prefab.hasAnyLocalOrDescendant<ComponentT>());
+	public static HashSet<GameObject> withAnyLodal<ComponentT>() where ComponentT : Component
+		=> all.uniquesWhere(prefab => prefab.hasAnyLodal<ComponentT>());
 
-	public static HashSet<GameObject> withAnyLocalOrDescendantMonoBehaviour => withAnyLocalOrDescendant<MonoBehaviour>();
+	public static HashSet<GameObject> withAnyLodalMonoBehaviour => withAnyLodal<MonoBehaviour>();
 
-	public static HashSet<GameObject> withAnyLocalOrDescendantI<ComponentI>() where ComponentI : class
-		=> all.uniquesWhere(prefab => prefab.hasAnyLocalOrDescendantI<ComponentI>());
+	public static HashSet<GameObject> withAnyLodalAutoBehaviourExternalLayer => withAnyLodal<AutoBehaviourExternalLayer>();
+
+	public static HashSet<GameObject> withAnyLodalI<ComponentI>() where ComponentI : class
+		=> all.uniquesWhere(prefab => prefab.hasAnyLodalI<ComponentI>());
 	#endregion filtering all prefabs
 }
 #endif

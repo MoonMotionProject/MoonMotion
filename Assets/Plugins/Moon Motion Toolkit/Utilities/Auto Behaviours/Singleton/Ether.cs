@@ -13,7 +13,7 @@ using NaughtyAttributes;
 //   · the updating and physics updating of all enabled auto behaviours
 //   · static execution such as for coroutines
 // #auto #updating #execution #coroutines
-[UseClassNameForObject]
+[UseClassNameForObjectUponValidation]
 public class Ether : SingletonBehaviour<Ether>
 {
 	// updating //

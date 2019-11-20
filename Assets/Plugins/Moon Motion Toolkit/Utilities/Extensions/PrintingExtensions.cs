@@ -31,7 +31,7 @@ public static class PrintingExtensions
 
 	// method: print this given object, optionally with the given game object as the context, then return it //
 	public static ObjectT print<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
-		=>	object_.after(()=>
+		=>	object_.returnAnd(()=>
 				object_.ToString().print(contextGameObject));
 	// method: print this given game object with itself as the context, then return it //
 	public static GameObject print(this GameObject gameObject)
@@ -39,7 +39,7 @@ public static class PrintingExtensions
 
 	// method: print this given object, optionally with the given game object as the context, logged as following the given prefix and using the given logging separator, then return this given object //
 	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)
-		=>	object_.after(()=>
+		=>	object_.returnAnd(()=>
 				(prefix+loggingSeparator+object_.ToString()).print(contextGameObject));
 	// method: print this given game object with itself as the context, logged as following the given prefix and using the given logging separator, then return this given game object //
 	public static GameObject logAs(this GameObject gameObject, string prefix, string loggingSeparator = Default.loggingSeparator)
@@ -60,18 +60,22 @@ public static class PrintingExtensions
 
 	// method: print the string listing of this given enumerable, optionally with the given game object as the context, using the given separator string (comma by default), then return this given enumerable //
 	public static IEnumerable<TItem> printListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator, GameObject contextGameObject = null)
-		=> enumerable.after(()=>
+		=>	enumerable.after(()=>
 			   enumerable.asListing(separator).print(contextGameObject));
+
+	// method: print the string listing of the uniques in this given enumerable, optionally with the given game object as the context, using the given separator string (comma by default), then return the set of items in this given enumerable //
+	public static HashSet<TItem> printUniquesListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator, GameObject contextGameObject = null)
+		=> enumerable.uniques().printListing(separator, contextGameObject).uniques();
 	#endregion printing listings
 
 
 	#if UNITY_EDITOR
 	#region printing asset paths
 	
-	// method: print the asset path of the script asset with this given script asset type (class of a script asset), optionally with the given game object as the context, then return this given script asset type //
-	public static Type printAssetPath(this Type scriptAssetType, GameObject contextGameObject = null)
+	// method: (via reflection:) print the asset path of the script asset with this given script asset type (class of a script asset), optionally with the given game object as the context, then return this given script asset type //
+	public static Type printAssetPath_ViaReflection(this Type scriptAssetType, GameObject contextGameObject = null)
 		=> scriptAssetType.after(()=>
-				scriptAssetType.assetPath().print(contextGameObject));
+				scriptAssetType.assetPath_ViaReflection().print(contextGameObject));
 
 	// method: print the asset path of this given mono behaviour, optionally with the given game object as the context, then return this given mono behaviour //
 	public static MonoBehaviour printAssetPath(this MonoBehaviour monoBehaviour, GameObject contextGameObject = null)
@@ -83,15 +87,15 @@ public static class PrintingExtensions
 
 	#region printing class names
 
-	// method: print this given object's class name, optionally with the given game object as the context, then return this given object //
-	public static ObjectT printClassName<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
-		=> object_.after(()=>
-			   object_.className().print(contextGameObject));
+	// method: (via reflection:) print this given object's class name, optionally with the given game object as the context, then return this given object //
+	public static ObjectT printClassName_ViaReflection<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
+		=> object_.returnAnd(()=>
+			   object_.className_ViaReflection().print(contextGameObject));
 
-	// method: print this given object's simple class name, optionally with the given game object as the context, then return this given object //
-	public static ObjectT printSimpleClassName<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
-		=> object_.after(()=>
-			   object_.simpleClassName().print(contextGameObject));
+	// method: (via reflection:) print this given object's simple class name, optionally with the given game object as the context, then return this given object //
+	public static ObjectT printSimpleClassName_ViaReflection<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
+		=> object_.returnAnd(()=>
+			   object_.simpleClassName_ViaReflection().print(contextGameObject));
 	#endregion printing class names
 
 

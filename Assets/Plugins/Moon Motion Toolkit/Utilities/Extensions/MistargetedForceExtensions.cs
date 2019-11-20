@@ -13,7 +13,7 @@ public static class MistargetedForceExtensions
 	#region mistargetedly forcing with the given affinity
 
 	public static Vector3 forceTargetAsThoughMistargeting(this Vector3 forcingPosition, object mistargetPosition_PositionProvider, Rigidbody targetRigidbody, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
-		=>	forcingPosition.after(()=>
+		=>	forcingPosition.returnAnd(()=>
 				targetRigidbody.applyForceOf
 				(
 					mistargetPosition_PositionProvider.providePosition().targetedForceBy
@@ -31,7 +31,7 @@ public static class MistargetedForceExtensions
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
-		return	forcingPosition.after(()=>
+		return	forcingPosition.returnAnd(()=>
 					targetRigidbodies.forEach(rigidbody =>
 						forcingPosition.forceTargetAsThoughMistargeting
 						(
@@ -128,7 +128,7 @@ public static class MistargetedForceExtensions
 	public static Vector3 attractAsThoughMistargeting<MistargetSingletonBehaviourT, TargetSingletonBehaviourT>(this Vector3 forcingPosition, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.mistargetedForceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where MistargetSingletonBehaviourT : SingletonBehaviour<MistargetSingletonBehaviourT> where TargetSingletonBehaviourT : SingletonBehaviour<TargetSingletonBehaviourT>
 		=>	forcingPosition.attractAsThoughMistargeting<TargetSingletonBehaviourT>
 			(
-				SingletonBehaviour<TargetSingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				SingletonBehaviour<TargetSingletonBehaviourT>.ensuredCorrespondingRigidbody(),
 				magnitude,
 				reach,
 				reachMagnitudeZeroingCurve,
@@ -185,7 +185,7 @@ public static class MistargetedForceExtensions
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
-		return	forcingRaycastHit.after(()=>
+		return	forcingRaycastHit.returnAnd(()=>
 					forcingRaycastHit.position().attractAsThoughMistargeting
 					(
 						mistargetPosition_PositionProvider,

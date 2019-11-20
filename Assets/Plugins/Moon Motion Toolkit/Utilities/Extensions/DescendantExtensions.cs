@@ -1,55 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Descendant Extensions:
 // • provides extension methods for handling descendants
-// #transform
+// #descendant #family #transform #component
 public static class DescendantExtensions
 {
-	#region determining locality or descendance
+	#region determining descendants
 
-	// method: return whether this given transform is local to or a descendant of the other given transform //
-	public static bool isLocalToOrDescendantOf(this Transform transform, Transform otherTransform)
-		=> transform.IsChildOf(otherTransform);
-	// method: return whether this given game object is local to or a descendant of the given transform //
-	public static bool isLocalToOrDescendantOf(this GameObject gameObject, Transform transform)
-		=> gameObject.transform.isLocalToOrDescendantOf(transform);
-	// method: return whether this given component is local to or a descendant of the given transform //
-	public static bool isLocalToOrDescendantOf(this Component component, Transform transform)
-		=> component.transform.isLocalToOrDescendantOf(transform);
+	// method: return whether this given game object has any of the specified type of descendant component, optionally including inactive components according to the given boolean //
+	public static bool hasAnyDescendant<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> Any.itemsIn(gameObject.descendants<ComponentT>(includeInactiveComponents));
 
-	// method: return whether this given transform is local to or a descendant of the given game object //
-	public static bool isLocalToOrDescendantOf(this Transform transform, GameObject gameObject)
-		=> transform.isLocalToOrDescendantOf(gameObject.transform);
-	// method: return whether this given game object is local to or a descendant of the other given game object //
-	public static bool isLocalToOrDescendantOf(this GameObject gameObject, GameObject otherGameObject)
-		=> gameObject.transform.isLocalToOrDescendantOf(otherGameObject);
-	// method: return whether this given component is local to or a descendant of the given game object //
-	public static bool isLocalToOrDescendantOf(this Component component, GameObject gameObject)
-		=> component.transform.isLocalToOrDescendantOf(gameObject);
+	// method: return whether this given transform has any of the specified type of descendant component, optionally including inactive components according to the given boolean //
+	public static bool hasAnyDescendant<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> Any.itemsIn(transform.descendants<ComponentT>(includeInactiveComponents));
 
-	// method: return whether this given transform is local to or a descendant of the given component //
-	public static bool isLocalToOrDescendantOf(this Transform transform, Component component)
-		=> transform.isLocalToOrDescendantOf(component);
-	// method: return whether this given game object is local to or a descendant of the given component //
-	public static bool isLocalToOrDescendantOf(this GameObject gameObject, Component component)
-		=> gameObject.transform.isLocalToOrDescendantOf(component);
-	// method: return whether this given component is local to or a descendant of the other given component //
-	public static bool isLocalToOrDescendantOf(this Component component, Component otherComponent)
-		=> component.transform.isLocalToOrDescendantOf(otherComponent);
-
-	// method: return whether this given transform is local to or a descendant of the specified singleton behaviour class //
-	public static bool isLocalToOrDescendantOf<SingletonBehaviourT>(this Transform transform) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> transform.isLocalToOrDescendantOf(SingletonBehaviour<SingletonBehaviourT>.transform);
-	// method: return whether this given game object is local to or a descendant of the specified singleton behaviour class //
-	public static bool isLocalToOrDescendantOf<SingletonBehaviourT>(this GameObject gameObject) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> gameObject.transform.isLocalToOrDescendantOf<SingletonBehaviourT>();
-	// method: return whether this given component is local to or a descendant of the specified singleton behaviour class //
-	public static bool isLocalToOrDescendantOf<SingletonBehaviourT>(this Component component) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> component.transform.isLocalToOrDescendantOf<SingletonBehaviourT>();
-	#endregion determining locality or descendance
-
+	// method: return whether this given component has any of the specified type of descendant component, optionally including inactive components according to the given boolean //
+	public static bool hasAnyDescendant<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> Any.itemsIn(component.descendants<ComponentT>(includeInactiveComponents));
+	#endregion determining descendants
+	
 
 	#region accessing descendants
 
@@ -64,6 +37,42 @@ public static class DescendantExtensions
 		=> gameObject.descendantTransforms().pick(transform => transform.gameObject);
 	public static List<GameObject> descendantObjects(this Component component)
 		=> component.gameObject.descendantObjects();
+
+	// method: return this given game object's first descendant component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstDescendant<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.descendants<ComponentT>(includeInactiveComponents).FirstOrDefault();
+
+	// method: return this given transform's first descendant component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstDescendant<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.firstDescendant<ComponentT>(includeInactiveComponents);
+
+	// method: return this given component's first descendant component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstDescendant<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.firstDescendant<ComponentT>(includeInactiveComponents);
+
+	// method: return this given game object's last descendant component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT lastDescendant<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.descendants<ComponentT>(includeInactiveComponents).LastOrDefault();
+
+	// method: return this given transform's last descendant component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT lastDescendant<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.lastDescendant<ComponentT>(includeInactiveComponents);
+
+	// method: return this given component's last descendant component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT lastDescendant<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.lastDescendant<ComponentT>(includeInactiveComponents);
+
+	// method: return a list of this given game object's descendant components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> descendants<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.GetComponentsInChildren<ComponentT>(includeInactiveComponents).where(component => component.whereNotOn(gameObject));
+
+	// method: return a list of this given transform's descendant components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> descendants<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.descendants<ComponentT>(includeInactiveComponents);
+
+	// method: return a list of this given component's descendant components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> descendants<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.descendants<ComponentT>(includeInactiveComponents);
 	#endregion accessing descendants
 
 

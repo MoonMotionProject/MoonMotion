@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
+[RequireComponent(typeof(TrackCollideds))]
+
 // Moon Motion Player:
 // • singleton for the Moon Motion Player
 // • requires the Moon Motion Player to track collideds
 // • provides properties and methods for the Moon Motion Player
 // #moonmotion
-[RequireComponent(typeof(TrackCollideds))]
+[ExpandSelfIfSelected]
 public class MoonMotionPlayer : SingletonBehaviour<MoonMotionPlayer>
 {
 	public static Vector3 displacementForSettingBodyPositionTo(object targetPosition_PositionProvider)

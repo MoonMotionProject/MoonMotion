@@ -174,7 +174,7 @@ public static class TargetedForceExtensions
 	#region targetedly forcing with the given affinity
 
 	public static Vector3 forceTarget(this Vector3 forcingPosition, Rigidbody targetRigidbody, Affinity affinity, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping)
-		=>	forcingPosition.after(()=>
+		=>	forcingPosition.returnAnd(()=>
 				targetRigidbody.applyForceOf
 				(
 					targetRigidbody.targetedForceBy
@@ -192,7 +192,7 @@ public static class TargetedForceExtensions
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
-		return	forcingPosition.after(()=>
+		return	forcingPosition.returnAnd(()=>
 					targetRigidbodies.forEach(rigidbody =>
 						forcingPosition.forceTarget
 						(
@@ -263,7 +263,7 @@ public static class TargetedForceExtensions
 	public static Vector3 attract<SingletonBehaviourT>(this Vector3 forcingPosition, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=>	forcingPosition.attract
 			(
-				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody(),
 				magnitude,
 				reach,
 				reachMagnitudeZeroingCurve,
@@ -289,7 +289,7 @@ public static class TargetedForceExtensions
 	public static GameObject attract<SingletonBehaviourT>(this GameObject forcingObject, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=>	forcingObject.attract
 			(
-				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody(),
 				magnitude,
 				reach,
 				reachMagnitudeZeroingCurve,
@@ -317,7 +317,7 @@ public static class TargetedForceExtensions
 	{
 		List<Rigidbody> targetRigidbodies = targetRigidbodies_RigidbodiesProvider.provideRigidbodies();
 
-		return	forcingRaycastHit.after(()=>
+		return	forcingRaycastHit.returnAnd(()=>
 					forcingRaycastHit.position().attract
 					(
 						targetRigidbodies,
@@ -331,7 +331,7 @@ public static class TargetedForceExtensions
 	public static RaycastHit attract<SingletonBehaviourT>(this RaycastHit forcingRaycastHit, float magnitude = Default.forceMagnitude, float reach = Default.forceReach, InterpolationCurve reachMagnitudeZeroingCurve = Default.forceCurve, bool zeroForceOutsideReach = Default.targetedForceZeroingOutsideReach, bool clamp = Default.targetedForceClamping) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=>	forcingRaycastHit.attract
 			(
-				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody,
+				SingletonBehaviour<SingletonBehaviourT>.ensuredCorrespondingRigidbody(),
 				magnitude,
 				reach,
 				reachMagnitudeZeroingCurve,

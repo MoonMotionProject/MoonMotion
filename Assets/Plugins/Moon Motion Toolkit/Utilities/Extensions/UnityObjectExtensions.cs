@@ -28,7 +28,7 @@ public static class UnityObjectExtensions
 	}
 	#endif
 
-	// method: destroy this given Unity object (unconditionally) //
+	// method: (via reflection in edit mode only:) destroy this given Unity object (unconditionally) //
 	private static void destroy_Unconditionally<UnityObjectT>(this UnityObjectT unityObject) where UnityObjectT : UnityEngine.Object
 	{
 		#if UNITY_EDITOR
@@ -59,7 +59,7 @@ public static class UnityObjectExtensions
 
 	#region public
 
-	// method: (according to the given boolean:) destroy this given game object – if it is in a scene (otherwise print an error) //
+	// method: (via reflection in edit mode only:) (according to the given boolean:) destroy this given game object – if it is in a scene (otherwise print an error) //
 	public static void destroy(this GameObject gameObject, bool boolean = true)
 	{
 		if (boolean)
@@ -75,7 +75,7 @@ public static class UnityObjectExtensions
 		}
 	}
 
-	// method: (according to the given boolean:) destroy this given component – if it is in a scene (otherwise print an error) //
+	// method: (via reflection in edit mode only:) (according to the given boolean:) destroy this given component – if it is in a scene (otherwise print an error) //
 	public static void destroy(this Component component, bool boolean = true)
 	{
 		if (boolean)

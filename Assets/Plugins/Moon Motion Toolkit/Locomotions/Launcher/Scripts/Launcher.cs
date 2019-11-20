@@ -58,7 +58,7 @@ public class Launcher : MonoBehaviour, ILocomotion
 	// upon trigger entry: //
 	private void OnTriggerEnter(Collider collider)
 	{
-		Rigidbody collidedRigidbody = collider.firstSelfOrAncestorTransformWith<Rigidbody>().GetComponent<Rigidbody>();
+		Rigidbody collidedRigidbody = collider.firstCoralTransformWith<Rigidbody>().GetComponent<Rigidbody>();
 		
 		if (collidedRigidbody)
 		{

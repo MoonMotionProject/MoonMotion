@@ -232,9 +232,9 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 
 				bool raycastHitIsValid
 					=	(
-							(firstFoundAMeshFilter = raycastHitToEvaluate.hasAnyLocalOrDescendant<MeshFilter>()) ||
-							(firstFoundASkinnedMeshRenderer = raycastHitToEvaluate.hasAnyLocalOrDescendant<SkinnedMeshRenderer>()) ||
-							raycastHitToEvaluate.hasAnyLocalOrDescendant<CapsuleCollider>()
+							(firstFoundAMeshFilter = raycastHitToEvaluate.hasAnyLodal<MeshFilter>()) ||
+							(firstFoundASkinnedMeshRenderer = raycastHitToEvaluate.hasAnyLodal<SkinnedMeshRenderer>()) ||
+							raycastHitToEvaluate.hasAnyLodal<CapsuleCollider>()
 						) &&
 						raycastHitToEvaluate.objectIsNotStatic();
 
@@ -341,11 +341,11 @@ public abstract class	OutliningControllerRaycasting<OutliningControllerRaycastin
 				else	// if 'foundSkinnedMeshRenderer'
 				{
 					GameObject skinnedMeshRendererObject
-						= outlinedObject.firstLocalOrDescendantObjectWith<SkinnedMeshRenderer>();
+						= outlinedObject.firstLodalObjectWith<SkinnedMeshRenderer>();
 					outlineShadingObject.destroy();
 					outlineShadingObject
 						= skinnedMeshRendererObject
-							.createDuplicateWithOnly<SkinnedMeshRenderer>(outlineShadingObjectName)
+							.createDuplicateMaintainingOnlyComponentsDerivedFrom_ViaReflection<SkinnedMeshRenderer>(outlineShadingObjectName)
 							.setParentTo(this)
 							.setLabelsTo(this)
 							.setMaterialTo(outlineMaterial)

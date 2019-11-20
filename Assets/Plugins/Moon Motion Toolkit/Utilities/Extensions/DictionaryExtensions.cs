@@ -21,6 +21,8 @@ public static class DictionaryExtensions
 	// method: return whether this given dictionary has a recording for the given key //
 	public static bool hasRecordingFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
 		=> dictionary.ContainsKey(key);
+	public static bool hasNoRecordingFor<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key)
+		=> !dictionary.hasRecordingFor(key);
 
 	// method: return whether this given dictionary contains the key value pair for the given key and value //
 	public static bool contains<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
@@ -44,15 +46,15 @@ public static class DictionaryExtensions
 	public static IEnumerable<TKey> accessKeys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
 		=> dictionary.access(keyValuePair => keyValuePair.Key);
 	// method: return a list for the keys in this given dictionary //
-	public static List<TKey> keys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.accessKeys().manifested();
+	public static HashSet<TKey> keys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
+		=> dictionary.accessKeys().uniques();
 
 	// method: return an accessor for the values in this given dictionary //
 	public static IEnumerable<TValue> accessValues<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
 		=> dictionary.access(keyValuePair => keyValuePair.Value);
 	// method: return a list for the values in this given dictionary //
-	public static List<TValue> values<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-		=> dictionary.accessValues().manifested();
+	public static HashSet<TValue> values<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
+		=> dictionary.accessValues().uniques();
 
 	// method: return an accessor for the keys in this given dictionary for which the given function returns true //
 	public static IEnumerable<TKey> accessKeysWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)
@@ -102,7 +104,7 @@ public static class DictionaryExtensions
 
 	// method: (according to the given boolean:) record the given key and value as a pair to this given dictionary (if the dictionary doesn't contain it, add it; otherwise, overwrite it), then return the given key and value as a pair //
 	public static KeyValuePair<TKey, TValue> recordGet<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value, bool boolean = true)
-		=>	New.keyValuePairFor(key, value).after(()=>
+		=>	New.keyValuePairFor(key, value).returnAnd(()=>
 				dictionary.record(
 					key, value,
 					boolean));
@@ -115,14 +117,14 @@ public static class DictionaryExtensions
 
 	// method: (according to the given boolean:) set the given key of the given dictionary to this given value, then return this given value //
 	public static TValue recordIn<TKey, TValue>(this TValue value, Dictionary<TKey, TValue> dictionary, TKey key, bool boolean = true)
-		=> value.after(()=>
-			dictionary.record(key, value),
-			boolean);
+		=>	value.returnAnd(()=>
+				dictionary.record(key, value),
+				boolean);
 	// method: (according to the given boolean:) add this given key value pair to the given dictionary, then return this given key value pair //
 	public static KeyValuePair<TKey, TValue> recordIn<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair, Dictionary<TKey, TValue> dictionary, bool boolean = true)
-		=> keyValuePair.after(()=>
-			dictionary.record(keyValuePair),
-			boolean);
+		=>	keyValuePair.returnAnd(()=>
+				dictionary.record(keyValuePair),
+				boolean);
 
 	// method: (according to the given boolean:) add this given key value pair to the given dictionary, then return the given dictionary //
 	public static Dictionary<TKey, TValue> recordInGet<TKey, TValue>(this KeyValuePair<TKey, TValue> keyValuePair, Dictionary<TKey, TValue> dictionary, bool boolean = true)
@@ -163,9 +165,9 @@ public static class DictionaryExtensions
 
 	// method: (according to the given boolean:) remove this given key from this given dictionary (assuming this given key is actually contained in the given dictionary), then return this given key //
 	public static TKey removeFrom<TKey, TValue>(this TKey key, Dictionary<TKey, TValue> dictionary, bool boolean = true)
-		=> key.after(()=>
-			dictionary.tryToRemove(key),
-			boolean);
+		=>	key.returnAnd(()=>
+				dictionary.tryToRemove(key),
+				boolean);
 
 	// method: remove all keys from this given dictionary for which the given function upon the dictionary's corresponding key returns true, then return this given dictionary //
 	public static Dictionary<TKey, TValue> removeWhere<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<TKey, bool> function)

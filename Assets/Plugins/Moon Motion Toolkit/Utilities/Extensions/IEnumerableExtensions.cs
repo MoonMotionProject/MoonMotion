@@ -20,11 +20,22 @@ public static class IEnumerableExtensions
 
 	// method: return the string listing of this given enumerable, using the given separator string (comma by default) //
 	public static string asListing<TItem>(this IEnumerable<TItem> enumerable, string separator = Default.listingSeparator)
-		=>	enumerable.isNull() ?
-				"[null listing]" :
-				enumerable.isEmpty() ?
-					"[empty listing]" :
-					string.Join(separator, enumerable);
+	{
+		if (enumerable.isNull())
+		{
+			return "[null listing]";
+		}
+		if (enumerable.isEmpty())
+		{
+			return "[empty listing]";
+		}
+		string listing = string.Join(separator, enumerable);
+		if (listing.isNull())
+		{
+			return "[listing error]".returnWithError("asListing encountered an unexpected error in creating listing string");
+		}
+		return listing;
+	}
 	#endregion listing
 
 
@@ -141,9 +152,22 @@ public static class IEnumerableExtensions
 
 	#region accessing items by index
 
-	// method: return the item at the given index in this given enumerable (assuming an item is there) //
-	public static TItem item<TItem>(this IEnumerable<TItem> enumerable, int index)
-		=> enumerable.ElementAt(index);
+	// method: return the item at the given index in this given enumerable (assuming an item is there), otherwise returning the default of the specified item type and silencing the argument out of range exception according to the given boolean //
+	public static TItem item<TItem>(this IEnumerable<TItem> enumerable, int index, bool silenceArgumentOutOfRangeException = Default.errorSilencing)
+	{
+		try
+		{
+			return enumerable.ElementAt(index);
+		}
+		catch (ArgumentOutOfRangeException)
+		{
+			if (!silenceArgumentOutOfRangeException)
+			{
+				"IEnumerableExtensions.item given index outside of the range of the given this enumerable".printAsErrorAndReturnDefault<TItem>();
+			}
+			return default(TItem);
+		}
+	}
 
 	// method: return the item at the given index in this given enumerable, otherwise (if an item is not there) returning the default value of the specified item type //
 	public static TItem itemOtherwiseDefault<TItem>(this IEnumerable<TItem> enumerable, int index)
@@ -399,9 +423,9 @@ public static class IEnumerableExtensions
 		=> enumerable.uniques().uniquesAfterForEach(action, boolean);
 	// method: (according to the given boolean:) invoke the given action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<TItem> action, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
-		=> enumerable.after(()=>
-			enumerable.castTo<IEnumerable<TItem>>().forEach(action),
-			boolean);
+		=>	enumerable.returnAnd(()=>
+				enumerable.castTo<IEnumerable<TItem>>().forEach(action),
+				boolean);
 	#endregion acting upon all items - without indexing
 
 	#region acting upon all items - with indexing
@@ -434,9 +458,9 @@ public static class IEnumerableExtensions
 	}
 	// method: (according to the given boolean:) invoke the given indexed action on each item in this given enumerable, then return this given enumerable //
 	public static IEnumerableT forEach_EnumerableSpecializedViaCasting<IEnumerableT, TItem>(this IEnumerableT enumerable, Action<int, TItem> indexedAction, bool boolean = true) where IEnumerableT : IEnumerable<TItem>
-		=> enumerable.after(()=>
-			enumerable.castTo<IEnumerable<TItem>>().forEach(indexedAction),
-			boolean);
+		=>	enumerable.returnAnd(()=>
+				enumerable.castTo<IEnumerable<TItem>>().forEach(indexedAction),
+				boolean);
 	#endregion acting upon all items - with indexing
 
 	#region acting upon all items - by looping
@@ -449,9 +473,10 @@ public static class IEnumerableExtensions
 			 (index, item) => action(item, enumerableToLoop.item(index % enumerableToLoop.count())),
 			 boolean);
 	public static IEnumerableT forEachByLooping_EnumerableSpecializedViaCasting<IEnumerableT, TItemThis, TItemLooped>(this IEnumerableT enumerable, IEnumerable<TItemLooped> enumerableToLoop, Action<TItemThis, TItemLooped> action, bool boolean = true) where IEnumerableT : IEnumerable<TItemThis>
-		=> enumerable.after(()=>
-			enumerable.castTo<IEnumerable<TItemThis>>().forEachByLooping(enumerableToLoop, action),
-			boolean);
+		=>	enumerable.returnAnd(()=>
+				enumerable.castTo<IEnumerable<TItemThis>>()
+					.forEachByLooping(enumerableToLoop, action),
+				boolean);
 	#endregion acting upon all items - by looping
 
 	#region acting upon all items - only for which the given function returns true
@@ -530,7 +555,16 @@ public static class IEnumerableExtensions
 	#region ordering
 
 	public static IEnumerable<TItem> implyAscendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.OrderBy(function);
+	{
+		try
+		{
+			return enumerable.OrderBy(function);
+		}
+		catch (Exception exception)
+		{
+			return exception.logAsErrorAndReturn(enumerable, "implyAscendingBy encountered an exception, probably when using the function parameter is was given (so check if the given function parameter is causing the exception)");
+		}
+	}
 	public static List<TItem> ascendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.implyAscendingBy(function).manifested();
 
@@ -540,7 +574,16 @@ public static class IEnumerableExtensions
 		=> enumerable.implyAscending().manifested();
 
 	public static IEnumerable<TItem> implyDescendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
-		=> enumerable.OrderByDescending(function);
+	{
+		try
+		{
+			return enumerable.OrderByDescending(function);
+		}
+		catch (Exception exception)
+		{
+			return exception.logAsErrorAndReturn(enumerable, "implyDescendingBy encountered an exception, probably when using the function parameter is was given (so check if the given function parameter is causing the exception)");
+		}
+	}
 	public static List<TItem> descendingBy<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.implyDescendingBy(function).manifested();
 
@@ -548,6 +591,11 @@ public static class IEnumerableExtensions
 		=> enumerable.implyDescendingBy(item => item);
 	public static List<TItem> descending<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
 		=> enumerable.implyDescending().manifested();
+
+	public static IEnumerable<TItem> implyReversed<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.Reverse();
+	public static List<TItem> reversed<TItem>(this IEnumerable<TItem> enumerable)
+		=> enumerable.implyReversed().manifested();
 	#endregion ordering
 
 
@@ -590,6 +638,14 @@ public static class IEnumerableExtensions
 	// method: return the set of (uniques in) the concatenation of the other given enumerable onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
 	public static HashSet<TItem> setWith<TItem>(this IEnumerable<TItem> enumerable, IEnumerable<TItem> otherEnumerable, bool nullsAsEmpty = Default.nullsAsEmpty)
 		=> enumerable.with(otherEnumerable, nullsAsEmpty).uniques();
+	public static IEnumerable<TItem> with<TItem>(this IEnumerable<TItem> enumerable, TItem item, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=> enumerable.with(new TItem[] {item}, nullsAsEmpty);
+	public static List<TItem> manifestedWith<TItem>(this IEnumerable<TItem> enumerable, TItem otherItem, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=> enumerable.with(otherItem, nullsAsEmpty).manifested();
+	public static HashSet<TItem> setWith<TItem>(this IEnumerable<TItem> enumerable, TItem otherItem, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=> enumerable.with(otherItem, nullsAsEmpty).uniques();
+	public static IEnumerable<TItem> with<TItem>(this TItem item, IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty)
+		=> enumerable.with(item, nullsAsEmpty);
 	
 	// method: return the concatenation of the other given enumerables onto this given enumerable, where null is treated as empty according to the given 'nullsAsEmpty' boolean //
 	public static IEnumerable<TItem> with<TItem>(this IEnumerable<TItem> enumerable, bool nullsAsEmpty = Default.nullsAsEmpty, params IEnumerable<TItem>[] otherEnumerables)

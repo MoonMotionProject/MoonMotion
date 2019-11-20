@@ -10,7 +10,7 @@ using Valve.VR.InteractionSystem;
 #endif
 
 // Auto Behaviour Layer Components Moon Motion:
-// #auto #tracking
+// #auto #tracking #unitology
 // • provides this behaviour with automatically-connected properties to its game object's nonUnity components and typical state of (and so on) those components
 public abstract class	AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT> :
 					AutoBehaviourLayerComponentsUnity<AutoBehaviourT>
@@ -43,12 +43,29 @@ public abstract class	AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT> :
 
 
 	public DefaultAutoBehaviour defaultAutoBehaviour => cache<DefaultAutoBehaviour>();
-	public DefaultAutoBehaviour ensuredDefaultAutoBehaviour => cache<DefaultAutoBehaviour>(true);
+	public DefaultAutoBehaviour ensuredDefaultAutoBehaviour() => cache<DefaultAutoBehaviour>(true);
 	public Kinematizer kinematizer => cache<Kinematizer>();
 	public Slower slower => cache<Slower>();
 	public FaceMainCamera faceMainCamera => cache<FaceMainCamera>();
 	public Hovering hovering => cache<Hovering>();
 	public BasicSpinning basicSpinning => cache<BasicSpinning>();
+
+
+	#region spawning
+	
+	#if ODIN_INSPECTOR
+	public Spawner spawner => cache<Spawner>();
+	public Spawner correspondingSpawner => cacheCorresponding<Spawner>();
+	public Spawner ensuredCorrespondingSpawner() => cacheCorresponding<Spawner>(true);
+	public Spawner lodespondingSpawner => cacheLodesponding<Spawner>();
+	public Spawner ensuredLodespondingSpawner() => cacheLodesponding<Spawner>(true);
+	#endif
+	public SpawnPoint spawnPoint => cache<SpawnPoint>();
+	public SpawnPoint correspondingSpawnPoint => cacheCorresponding<SpawnPoint>();
+	public SpawnPoint ensuredCorrespondingSpawnPoint() => cacheCorresponding<SpawnPoint>(true);
+	public SpawnPoint lodespondingSpawnPoint => cacheLodesponding<SpawnPoint>();
+	public SpawnPoint ensuredLodespondingSpawnPoint() => cacheLodesponding<SpawnPoint>(true);
+	#endregion spawning
 
 
 	#region Trackings
@@ -123,6 +140,40 @@ public abstract class	AutoBehaviourLayerComponentsNonUnity<AutoBehaviourT> :
 	#region Unitology
 	#if UNITOLOGY
 	public Unit unit => cache<Unit>();
+	public Unit correspondingUnit => cacheCorresponding<Unit>();
+	public Unit ensuredCorrespondingUnit() => cacheCorresponding<Unit>(true);
+	public UnitEffectsPoint unitEffectsPoint => cache<UnitEffectsPoint>();
+	public UnitEffectsPoint correspondingUnitEffectsPoint => cacheCorresponding<UnitEffectsPoint>();
+	public UnitEffectsPoint ensuredCorrespondingUnitEffectsPoint() => cacheCorresponding<UnitEffectsPoint>(true);
+	public UnitEffectsPoint lodespondingUnitEffectsPoint => cacheLodesponding<UnitEffectsPoint>();
+	public UnitEffectsPoint ensuredLodespondingUnitEffectsPoint() => cacheLodesponding<UnitEffectsPoint>(true);
+	public DescendantUnitsAllegior descendantUnitsAllegior => cache<DescendantUnitsAllegior>();
+	public DescendantUnitsAllegior correspondingDescendantUnitsAllegior => cacheCorresponding<DescendantUnitsAllegior>();
+	public UnitTargetPoint unitTargetPoint => cache<UnitTargetPoint>();
+	public UnitTargetPoint correspondingUnitTargetPoint => cacheCorresponding<UnitTargetPoint>();
+	public UnitTargetPoint ensuredCorrespondingUnitTargetPoint() => cacheCorresponding<UnitTargetPoint>(true);
+	public UnitTargetPoint lodespondingUnitTargetPoint => cacheLodesponding<UnitTargetPoint>();
+	public UnitTargetPoint ensuredLodespondingUnitTargetPoint() => cacheLodesponding<UnitTargetPoint>(true);
+	public UnitTargetCollidance unitTargetCollidance => cache<UnitTargetCollidance>();
+	public UnitTargetCollidance correspondingUnitTargetCollidance => cacheCorresponding<UnitTargetCollidance>();
+	public UnitTargetCollidance ensuredCorrespondingUnitTargetCollidance() => cacheCorresponding<UnitTargetCollidance>(true);
+	public UnitTargetCollidance lodespondingUnitTargetCollidance => cacheLodesponding<UnitTargetCollidance>();
+	public UnitTargetCollidance ensuredLodespondingUnitTargetCollidance() => cacheLodesponding<UnitTargetCollidance>(true);
+	public UnitAwareness unitAwareness
+		=> cache<UnitAwareness>();
+	public UnitAwareness correspondingUnitAwareness
+		=> cacheCorresponding<UnitAwareness>();
+	public UnitAwareness ensuredCorrespondingUnitAwareness()
+		=> cacheCorresponding<UnitAwareness>(true);
+	public UnitAwareness lodespondingUnitAwareness
+		=> cacheLodesponding<UnitAwareness>();
+	public UnitAwareness ensuredLodespondingUnitAwareness()
+		=> cacheLodesponding<UnitAwareness>(true);
+	public UnitTargetingPoint unitTargetingPoint => cache<UnitTargetingPoint>();
+	public UnitTargetingPoint correspondingUnitTargetingPoint => cacheCorresponding<UnitTargetingPoint>();
+	public UnitTargetingPoint ensuredCorrespondingUnitTargetingPoint() => cacheCorresponding<UnitTargetingPoint>(true);
+	public UnitTargetingPoint lodespondingUnitTargetingPoint => cacheLodesponding<UnitTargetingPoint>();
+	public UnitTargetingPoint ensuredLodespondingUnitTargetingPoint() => cacheLodesponding<UnitTargetingPoint>(true);
 	#endif
 	#endregion Unitology
 

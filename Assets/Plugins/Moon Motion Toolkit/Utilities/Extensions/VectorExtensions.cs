@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Vector Extensions: provides extension methods for handling vectors
-// #fundamentals #numbers
+// #fundamentals #numbers #vectors
 public static class VectorExtensions
 {
 	#region equality

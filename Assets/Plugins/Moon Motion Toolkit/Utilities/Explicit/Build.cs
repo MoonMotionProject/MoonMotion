@@ -34,15 +34,15 @@ public static class Build
 
 	// method: ensure that the build defines include the given define string, then return whether it was included before //
 	public static bool ensureDefine(string define)
-		=> defines.contains(define) ?
-			true :
-			false.after(()=> setDefinesTo(defines.add(define)));
+		=>	defines.contains(define) ?
+				true :
+				false.returnAnd(()=> setDefinesTo(defines.add(define)));
 
 	// method: ensure that the build defines don't include the given define string, then return whether it was included before //
 	public static bool ensureNoDefine(string define)
-		=> defines.contains(define) ?
-			true.after(()=> setDefinesTo(defines.whereNot(define_ => define_.matches(define)))) :
-			false;
+		=>	defines.contains(define) ?
+				true.returnAnd(()=> setDefinesTo(defines.whereNot(define_ => define_.matches(define)))) :
+				false;
 	#endregion defines
 }
 #endif

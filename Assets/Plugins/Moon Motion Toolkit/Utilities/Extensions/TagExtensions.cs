@@ -37,31 +37,31 @@ public static class TagExtensions
 	#endregion comparison
 
 
-	#region searching for self or ancestor based on comparison
+	#region searching for coral objects based on tag comparison
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given tag (null if none found) //
-	public static GameObject selfOrParentWithTag(this GameObject gameObject, string tag)
-		=> gameObject.selfOrParentWithLabelThatMatchesOrContains(tag, LabelType.tag, true);
+	public static GameObject firstCoralObjectWithTag(this GameObject gameObject, string tag)
+		=> gameObject.firstCoralObjectWithLabelThatMatchesOrContains(tag, LabelType.tag, true);
 
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have the given tag (null if none found) //
-	public static GameObject selfOrParentWithTag(this Component component, string tag)
-		=> component.gameObject.selfOrParentWithTag(tag);
+	public static GameObject firstCoralObjectWithTag(this Component component, string tag)
+		=> component.gameObject.firstCoralObjectWithTag(tag);
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have a tag containing the given string (null if none found) //
-	public static GameObject selfOrParentWithTagContaining(this GameObject gameObject, string string_)
-		=> gameObject.selfOrParentWithLabelThatMatchesOrContains(string_, LabelType.tag, false);
+	public static GameObject firstCoralObjectWithTagContaining(this GameObject gameObject, string string_)
+		=> gameObject.firstCoralObjectWithLabelThatMatchesOrContains(string_, LabelType.tag, false);
 
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a tag containing the given string (null if none found) //
-	public static GameObject selfOrParentWithTagContaining(this Component component, string string_)
-		=> component.gameObject.selfOrParentWithTagContaining(string_);
-	#endregion searching for self or ancestor based on comparison
+	public static GameObject firstCoralObjectWithTagContaining(this Component component, string string_)
+		=> component.gameObject.firstCoralObjectWithTagContaining(string_);
+	#endregion searching for coral objects based on tag comparison
 
 
 	#region setting
 
 	// method: (according to the given boolean:) set the tag of this given provided game object, then return this given provided game object //
 	public static ObjectT setTagTo<ObjectT>(this ObjectT gameObject_GameObjectProvider, object tag_TagProvider, bool boolean = true)
-		=>	gameObject_GameObjectProvider.after(()=>
+		=>	gameObject_GameObjectProvider.returnAnd(()=>
 				gameObject_GameObjectProvider.provideGameObject().tag = tag_TagProvider.provideTag(),
 				boolean);
 	

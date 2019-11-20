@@ -17,8 +17,8 @@ public static class ISetExtensions
 
 	// method: (according to the given boolean:) include the given item in this given set, then return the given item //
 	public static TItem includeGet<TItem>(this ISet<TItem> set, TItem item, bool boolean = true)
-		=> item.after(()=>
-			set.include(item, boolean));
+		=>	item.returnAnd(()=>
+				set.include(item, boolean));
 
 	// method: (according to the given boolean:) include this given item in the given set, then return the given set //
 	public static ISet<TItem> includeInGet<TItem>(this TItem item, ISet<TItem> set, bool boolean = true)

@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 
 // Match Some Transformations to Target
-// #transform #transformations
+// #transformers
 [CacheTransform]
 public abstract class	MatchSomeTransformationsToTarget<MatchSomeTransformationsToTargetT> :
 					AutoBehaviour<MatchSomeTransformationsToTargetT>

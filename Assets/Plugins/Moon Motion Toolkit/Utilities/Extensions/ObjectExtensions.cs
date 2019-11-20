@@ -5,16 +5,17 @@ using UnityEngine;
 
 // Object Extensions:
 // • provides extension methods for handling objects
-// #auto #dynamics
+// #objects
 public static class ObjectExtensions
 {
 	#region yullness (whether an object is not null)
 	// methods: return whether this given object is null\yull, respectively... also checking in case of being a Unity object since Unity overloads null to be true sometimes and I want to recognize those cases, to be consistent //
 	
+	/* (via reflection) */
 	public static bool isNull(this object object_)
-		=>	(object_ == null) ||
+		=>	object_ == null ||
 			(
-				object_.isOfTheType<UnityEngine.Object>() &&
+				object_.isDerivedFrom_ViaReflection<UnityEngine.Object>() &&
 				object_.castTo<UnityEngine.Object>() == null
 			);
 	
@@ -47,6 +48,28 @@ public static class ObjectExtensions
 		return object_.nullIfNullOr(function(object_));
 	}
 
+	// method: return null if this given object is null; otherwise, return the result of the given function //
+	public static TResult nullIfNullOtherwise<TResult>(this object object_, Func<TResult> function) where TResult : class
+	{
+		if (object_.isNull())
+		{
+			return null;
+		}
+
+		return function();
+	}
+
+	// method: return null if this given object is null; otherwise, return the result of the given function on this given object //
+	public static TResult nullIfNullOtherwise<ObjectT, TResult>(this ObjectT object_, Func<ObjectT, TResult> function) where ObjectT : class where TResult : class
+	{
+		if (object_.isNull())
+		{
+			return null;
+		}
+
+		return function(object_);
+	}
+
 	// method: return null if the given boolean is false, otherwise returning this given object //
 	public static ObjectT yullOnlyIf<ObjectT>(this ObjectT object_, bool boolean) where ObjectT : class
 	{
@@ -69,41 +92,13 @@ public static class ObjectExtensions
 		return object_.nullIfNullOr(!function(object_));
 	}
 
-	// method: return this given object if it is yull, otherwise returning the result of the given function returning the type of this given object //
+	// method: return this given object if it is yull, otherwise returning the result of the given function returning the same type as this given object //
 	public static ObjectT ifYullOtherwise<ObjectT>(this ObjectT object_, Func<ObjectT> function)
 		=> object_.isYull() ? object_ : function();
 	// method: return this given object as an (unspecialized) object if it is yull, otherwise returning the result of the given function returning an (unspecialized) object //
 	public static object ifYullOtherwiseUnspecialized(this object object_, Func<object> function)
 		=> object_.isYull() ? object_ : function();
 	#endregion logic
-
-
-	#region class
-
-	// method: return whether this given object is of the specified type //
-	public static bool isOfTheType<TPotentialType>(this object object_)
-		=> typeof(TPotentialType).IsInstanceOfType(object_);
-
-	// method: return whether this given object is of the specified type //
-	public static bool isA<TPotentialType>(this object object_)
-		=> (object_ is TPotentialType);
-
-	// method: return whether this given object is not of the specified type //
-	public static bool isNot<TPotentialType>(this object object_)
-		=> !object_.isA<TPotentialType>();
-
-	// method: return the type of this given object //
-	public static Type type<ObjectT>(this ObjectT object_)
-		=> typeof(ObjectT);
-
-	// method: return the class name of this given object //
-	public static string className<ObjectT>(this ObjectT object_)
-		=> object_.type().className();
-
-	// method: return the simple class name of this given object //
-	public static string simpleClassName<ObjectT>(this ObjectT object_)
-		=> object_.type().simpleClassName();
-	#endregion class
 
 
 	#region determining content
@@ -156,15 +151,11 @@ public static class ObjectExtensions
 	  As such, the below method is being used exclusively over the above method so as to keep syntax consistent. This requires the lambda syntax to be passed using the empty left side '()=>'.
 	  If ever the option becomes available to use the above method instead (like, if void-passing support is added), then keep in mind it would not support the use of a boolean upon which to actually execute the code, since such code would execute before being passed as the generic object type, so an if would need to be used inside the code*/
 	// method: (according to the given boolean:) execute the given action, then return this given object //
-	public static ObjectT after<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
-	{
-		action.predicatedWith(boolean)();
-
-		return object_;
-	}
+	public static ObjectT after<ObjectT>(this ObjectT object_, Action action, bool boolean = true) where ObjectT : class
+		=> object_.returnAnd(action, boolean);
 
 	// method: (according to the given boolean:) execute the given action on this given object, then return this given object //
-	public static ObjectT after<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+	public static ObjectT after<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true) where ObjectT : class
 	{
 		action.predicatedWith(boolean)(object_);
 
@@ -172,28 +163,42 @@ public static class ObjectExtensions
 	}
 
 	// method: (according to the given boolean:) if this given object is yull, execute the given action, then return this given object //
-	public static ObjectT afterIfYullDoing<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
+	public static ObjectT afterIfYullDoing<ObjectT>(this ObjectT object_, Action action, bool boolean = true) where ObjectT : class
 		=> object_.after(
 			action,
 			object_.isYull().and(boolean));
 
 	// method: if this given object is yull and the given boolean is true, execute the given action on this given object and return this given object //
-	public static ObjectT afterIfYullDoing<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+	public static ObjectT afterIfYullDoing<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true) where ObjectT : class
 		=> object_.after(
 			action,
 			object_.isYull().and(boolean));
 
 	// method: (according to the given boolean:) if this given object is null, execute the given action, then return this given object //
-	public static ObjectT afterIfNullDoing<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
+	public static ObjectT afterIfNullDoing<ObjectT>(this ObjectT object_, Action action, bool boolean = true) where ObjectT : class
 		=> object_.after(
 			action,
 			object_.isNull().and(boolean));
 
 	// method: if this given object is null and the given boolean is true, execute the given action on this given object and return this given object //
-	public static ObjectT afterIfNullDoing<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+	public static ObjectT afterIfNullDoing<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true) where ObjectT : class
 		=> object_.after(
 			action,
 			object_.isNull().and(boolean));
+
+	/* these are different methods/signatures than 'after' so as to avoid the confusion where it seems like, for example, returning a vector "after" doing something to it will actually return the vector modified in that way (it won't, because vector isn't a reference type) */
+	public static ObjectT returnAnd<ObjectT>(this ObjectT object_, Action action, bool boolean = true)
+	{
+		action.predicatedWith(boolean)();
+
+		return object_;
+	}
+	public static ObjectT returnAndUse<ObjectT>(this ObjectT object_, Action<ObjectT> action, bool boolean = true)
+	{
+		action.predicatedWith(boolean)(object_);
+
+		return object_;
+	}
 	#endregion acting
 
 

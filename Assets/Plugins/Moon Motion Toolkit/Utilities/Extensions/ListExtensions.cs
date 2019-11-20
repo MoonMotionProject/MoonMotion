@@ -25,12 +25,12 @@ public static class ListExtensions
 
 	// method: add the given item to this given list, then return the given item //
 	public static TItem addGet<TItem>(this List<TItem> list, TItem item)
-		=> item.after(()=>
-			list.add(item));
+		=>	item.returnAnd(()=>
+				list.add(item));
 	// method: add the given items to this given list, then return a list of these given items //
 	public static List<TItem> addGet<TItem>(this List<TItem> list, IEnumerable<TItem> items)
-		=> items.manifested().after(()=>
-			list.add(items));
+		=>	items.manifested().after(()=>
+				list.add(items));
 	// method: add the given items to this given list, then return a list of these given items //
 	public static List<TItem> addGet<TItem>(this List<TItem> list, params TItem[] items)
 		=> list.addGet(items.asEnumerable());
@@ -66,17 +66,17 @@ public static class ListExtensions
 		=> list.remove(items.asEnumerable());
 	// method: remove the items in this given list for which the given function returns from this given list, then return this given list //
 	public static List<TItem> removeWhere<TItem>(this List<TItem> list, Func<TItem, bool> function)
-		=> list.after(()=>
-			list.RemoveAll(function.asPredicate()));
+		=>	list.after(()=>
+				list.RemoveAll(function.asPredicate()));
 
 	// method: remove the first occurrence of the given item from this given list (assuming the given item is actually contained in this given list), then return the given item //
 	public static TItem extract<TItem>(this List<TItem> list, TItem item)
-		=> item.after(()=>
-			list.remove(item));
+		=>	item.returnAnd(()=>
+				list.remove(item));
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
 	public static List<TItem> extract<TItem>(this List<TItem> list, IEnumerable<TItem> items)
-		=> items.manifested().after(()=>
-			list.remove(items));
+		=>	items.manifested().after(()=>
+				list.remove(items));
 	// method: remove the first occurrence of each of these given items from this given list (assuming every given item is actually contained in this given list), then return these given items //
 	public static List<TItem> extract<TItem>(this List<TItem> list, params TItem[] items)
 		=> list.extract(items.asEnumerable());

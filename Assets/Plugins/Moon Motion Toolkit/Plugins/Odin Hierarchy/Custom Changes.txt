@@ -1,0 +1,10 @@
+#hierarchy
+
+This is from this commit:
+https://github.com/5argon/OdinHierarchy/commit/afb560c231c7d56d5d0bf0a7173929fc75a14b1e
+
+• removed asmdef file because it had an issue
+• fixed a called method name to 'OpenEditorIconsOverview'
+• added a pragma for 'Rect extended2 = new Rect(extended);'
+• changed interface and added more settings
+• organized code somewhat

@@ -11,8 +11,8 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region casted instances
-
-	// this instance as an instance of the particular derived class specializing AutoBehaviour //
+	
+	// (via reflection if error:) this instance as an instance of the particular derived class specializing AutoBehaviour //
 	public AutoBehaviourT self
 	{
 		get
@@ -26,7 +26,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 				#if UNITY_EDITOR
 				if (UnityIs.inEditor)
 				{
-					return assetPath.thenNewlineAnd("is being extended like AutoBehaviour<"+simpleClassName+"> in a class that should actually be generically passing itself").printAsErrorAndReturnDefault<AutoBehaviourT>();
+					return assetPath_ViaReflection.thenNewlineAnd("is being extended like AutoBehaviour<"+simpleClassName_ViaReflection+"> in a class that should actually be generically passing itself").printAsErrorAndReturnDefault<AutoBehaviourT>();
 				}
 				#endif
 				return default(AutoBehaviourT);		// should be unreachable
@@ -59,7 +59,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	#if UNITY_EDITOR
 	#region asset path
 
-	public static string assetPath => typeof(AutoBehaviourT).assetPath();
+	public static string assetPath_ViaReflection => typeof(AutoBehaviourT).assetPath_ViaReflection();
 	#endregion asset path
 	#endif
 
@@ -70,9 +70,11 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 
 	public static Type type => typeof(AutoBehaviourT);
 
-	public static string className => type.className();
+	public static string className_ViaReflection => type.className_ViaReflection();
 
-	public static string simpleClassName => type.simpleClassName();
+	public static string simpleClassName_ViaReflection => type.simpleClassName_ViaReflection();
+
+	public static string spacedSimpleClassName_ViaReflection => type.spacedSimpleClassName_ViaReflection();
 
 	public string nameQuoted => gameObject.nameQuoted();
 	#endregion names
@@ -91,8 +93,10 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 		=> object_.logAs(prefix, contextGameObject, loggingSeparator);
 	public static GameObject log(GameObject gameObject, string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> gameObject.logAs(prefix, loggingSeparator);
-	public AutoBehaviourT asSelfLog<ObjectT>(ObjectT object_, string loggingSeparator = Default.loggingSeparator)
-		=> selfAfter(()=> object_.logAs(""+self, gameObject, loggingSeparator));
+	public AutoBehaviourT log(string string_, string loggingSeparator = Default.loggingSeparator)
+		=> selfAfter(()=> gameObject.log(string_, loggingSeparator));
+	public AutoBehaviourT pickLog(Func<AutoBehaviourT, string> function, string loggingSeparator = Default.loggingSeparator)
+		=> selfAfter(()=> gameObject.log(function(self), loggingSeparator));
 	#endregion printing what is given
 
 	#region printing listings
@@ -109,16 +113,16 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 
 	#if UNITY_EDITOR
 	#region printing this auto behaviour's asset path
-	public static string printAssetPath()
-		=> print(assetPath);
+	public static string printAssetPath_ViaReflection()
+		=> print(assetPath_ViaReflection);
 	#endregion printing this auto behaviour's asset path
 	#endif
 
 	#region printing this auto behaviour's class names
 	public static string printClassName()
-		=> print(className);
+		=> print(className_ViaReflection);
 	public static string printSimpleClassName()
-		=> print(simpleClassName);
+		=> print(simpleClassName_ViaReflection);
 	#endregion printing this auto behaviour's class names
 
 	#region printing this auto behaviour's (game object) name
@@ -135,14 +139,17 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	public AutoBehaviourT logError(string errorString, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)
 		=> selfAfter(()=> errorString.logAsError(prefix, contextGameObject, loggingSeparator));
 	
-	public AutoBehaviourT asSelfLogError(string errorString, string loggingSeparator = Default.loggingSeparator)
+	public AutoBehaviourT logError(string errorString, string loggingSeparator = Default.loggingSeparator)
 		=> logError(errorString, ""+self, gameObject, loggingSeparator);
 	
-	public ObjectT asSelfLogErrorAndReturn<ObjectT>(ObjectT object_, string errorString, string loggingSeparator = Default.loggingSeparator)
+	public ObjectT logErrorAndReturn<ObjectT>(ObjectT object_, string errorString, string loggingSeparator = Default.loggingSeparator)
 	{
-		asSelfLogError(errorString+"; returning "+object_, loggingSeparator);
+		logError(errorString+"; returning "+object_, loggingSeparator);
 		return object_;
 	}
+	
+	public ObjectT logErrorAndReturnDefault<ObjectT>(string errorString, string loggingSeparator = Default.loggingSeparator)
+		=> logErrorAndReturn(default(ObjectT), errorString, loggingSeparator);
 	#endregion erroring
 
 

@@ -41,6 +41,14 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	#region printing
 
+	#region printing what is given
+
+	public static new AutoBehaviour<SingletonBehaviourT> log(string string_, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.log(string_, loggingSeparator);
+	public static AutoBehaviour<SingletonBehaviourT> pickLog(Func<AutoBehaviour<SingletonBehaviourT>, string> function, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.pickLog(function, loggingSeparator);
+	#endregion printing what is given
+
 	#region printing this auto behaviour
 	public static new AutoBehaviour<SingletonBehaviourT> print()
 		=> autoBehaviour.print();
@@ -62,11 +70,11 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 	public static new AutoBehaviour<SingletonBehaviourT> logError(string errorString, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)
 		=> autoBehaviour.logError(errorString, prefix, contextGameObject, loggingSeparator);
 	
-	public static new AutoBehaviour<SingletonBehaviourT> asSelfLogError(string errorString, string loggingSeparator = Default.loggingSeparator)
-		=> autoBehaviour.asSelfLogError(errorString, loggingSeparator);
+	public static new AutoBehaviour<SingletonBehaviourT> logError(string errorString, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.logError(errorString, loggingSeparator);
 	
-	public static new ObjectT asSelfLogErrorAndReturn<ObjectT>(ObjectT object_, string errorString, string loggingSeparator = Default.loggingSeparator)
-		=> autoBehaviour.asSelfLogErrorAndReturn(object_, errorString, loggingSeparator);
+	public static new ObjectT logErrorAndReturn<ObjectT>(ObjectT object_, string errorString, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.logErrorAndReturn(object_, errorString, loggingSeparator);
 	#endregion erroring
 
 
@@ -112,14 +120,14 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 		}
 	}
 
-	// method: return an ensured singleton instance of this class //
-	public static SingletonBehaviourT ensuredSingleton()
+	// (via reflection:) method: return an ensured singleton instance of this class //
+	public static SingletonBehaviourT ensuredSingleton_ViaReflection()
 		=>	singleton.isYull() ?
 				singleton :
-				simpleClassName.createAsObject().addGet<SingletonBehaviourT>();
-	// an ensured singleton instance of this class as an auto behaviour //
-	public static AutoBehaviour<SingletonBehaviourT> ensuredAutoBehaviour()
-		=> ensuredSingleton().castTo<AutoBehaviour<SingletonBehaviourT>>();
+				simpleClassName_ViaReflection.createAsObject().addGet<SingletonBehaviourT>();
+	// (via reflection:) an ensured singleton instance of this class as an auto behaviour //
+	public static AutoBehaviour<SingletonBehaviourT> ensuredAutoBehaviour_ViaReflection()
+		=> ensuredSingleton_ViaReflection().castTo<AutoBehaviour<SingletonBehaviourT>>();
 
 	// this class's singleton game object //
 	public static new GameObject gameObject => autoBehaviour.gameObject;

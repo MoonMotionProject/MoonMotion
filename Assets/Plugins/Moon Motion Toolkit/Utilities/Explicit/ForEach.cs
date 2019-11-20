@@ -32,12 +32,12 @@ public static class ForEach
 
 	// method: execute the given action for each index in the range for the given count, then return that count //
 	public static int inCount(int count, Action action)
-		=>	count.after(()=>
+		=>	count.returnAnd(()=>
 				inRange(0, count - 1, action));
 
 	// method: execute the given action upon the current index for each index in the range for the given count starting from the given starting index (0 by default), then return that count //
 	public static int inCount(int count, Action<int> action, int startingIndex = 0)
-		=>	count.after(()=>
+		=>	count.returnAnd(()=>
 				inRange(startingIndex, startingIndex + (count - 1), action));
 	#endregion iterating counts
 }

@@ -31,29 +31,29 @@ public static class MeshFilterExtensions
 	public static Mesh sharedMesh(this Component component)
 		=> component.gameObject.sharedMesh();
 
-	public static Mesh firstLocalOrDescendantMesh(this GameObject gameObject)
+	public static Mesh firstLodalMesh(this GameObject gameObject)
 	{
-		MeshFilter firstLocalOrDescendantMeshFilter = gameObject.firstLocalOrDescendantMeshFilter();
-		if (firstLocalOrDescendantMeshFilter.isYull())
+		MeshFilter firstLodalMeshFilter = gameObject.firstLodalMeshFilter();
+		if (firstLodalMeshFilter.isYull())
 		{
-			return firstLocalOrDescendantMeshFilter.mesh;
+			return firstLodalMeshFilter.mesh;
 		}
 		return null;
 	}
-	public static Mesh firstLocalOrDescendantMesh(this Component component)
-		=> component.gameObject.firstLocalOrDescendantMesh();
+	public static Mesh firstLodalMesh(this Component component)
+		=> component.gameObject.firstLodalMesh();
 
-	public static Mesh firstLocalOrDescendantSharedMesh(this GameObject gameObject)
+	public static Mesh firstLodalSharedMesh(this GameObject gameObject)
 	{
-		MeshFilter firstLocalOrDescendantMeshFilter = gameObject.firstLocalOrDescendantMeshFilter();
-		if (firstLocalOrDescendantMeshFilter.isYull())
+		MeshFilter firstLodalMeshFilter = gameObject.firstLodalMeshFilter();
+		if (firstLodalMeshFilter.isYull())
 		{
-			return firstLocalOrDescendantMeshFilter.sharedMesh;
+			return firstLodalMeshFilter.sharedMesh;
 		}
 		return null;
 	}
-	public static Mesh firstLocalOrDescendantSharedMesh(this Component component)
-		=> component.gameObject.firstLocalOrDescendantSharedMesh();
+	public static Mesh firstLodalSharedMesh(this Component component)
+		=> component.gameObject.firstLodalSharedMesh();
 	#endregion accessing meshes
 
 

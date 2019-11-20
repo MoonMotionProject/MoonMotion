@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto #behaviour
 // • provides this behaviour with direct access to its extension methods for being a behaviour
 public abstract class	AutoBehaviourLayerBehaviour<AutoBehaviourT> :
-					AutoBehaviourLayerComponent<AutoBehaviourT>
+					AutoBehaviourLayerFamily<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	#region enablement of this behaviour

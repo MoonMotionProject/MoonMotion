@@ -38,5 +38,7 @@ public static class TimeExtensions
 	// method: return the amount of time past the given previous time this given time is //
 	public static float since(this float time, float previousTime)
 		=> time - previousTime;
+	public static double since(this float time, double previousTime)
+		=> time - previousTime;
 	#endregion displacement
 }

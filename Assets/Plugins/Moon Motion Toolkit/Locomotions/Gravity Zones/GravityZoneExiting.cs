@@ -110,7 +110,7 @@ public class GravityZoneExiting : SingletonBehaviour<GravityZoneExiting>
 	// upon trigger entry: //
 	private void OnTriggerEnter(Collider collider)
 	{
-		if (collider.selfOrParentWithLayer("Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
+		if (collider.firstCoralObjectWithLayer("Gravity Zone").isYull())		// if the collider is owned by a Gravity Zone transform
 		{
 			GravityZone.playerCollidingGravityZoneColliders.Add(collider);		// track the Gravity Zone's collider as colliding with the player
 		}
@@ -119,7 +119,7 @@ public class GravityZoneExiting : SingletonBehaviour<GravityZoneExiting>
 	// upon trigger staying: //
 	private void OnTriggerStay(Collider collider)
 	{
-		if (collider.selfOrParentWithLayer("Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
+		if (collider.firstCoralObjectWithLayer("Gravity Zone").isYull())		// if the collider is owned by a Gravity Zone transform
 		{
 			// if this collider is not tracked as one of the Gravity Zones colliding with they player: //
 			if (!GravityZone.playerCollidingGravityZoneColliders.Contains(collider))
@@ -132,7 +132,7 @@ public class GravityZoneExiting : SingletonBehaviour<GravityZoneExiting>
 	// upon trigger exit: //
 	private void OnTriggerExit(Collider collider)
 	{
-		if (collider.selfOrParentWithLayer("Gravity Zone"))		// if the collider is owned by a Gravity Zone transform
+		if (collider.firstCoralObjectWithLayer("Gravity Zone").isYull())		// if the collider is owned by a Gravity Zone transform
 		{
 			GravityZone.playerCollidingGravityZoneColliders.Remove(collider);		// untrack the Gravity Zone's collider as colliding with the player
 

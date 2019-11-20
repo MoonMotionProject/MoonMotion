@@ -12,28 +12,28 @@ public abstract class	SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT> 
 {
 	#region coroutines
 	
-	public static new Coroutine startCoroutine(IEnumerator enumerator)
-		=> autoBehaviour.startCoroutine(enumerator);
+	public static new Coroutine beginCoroutine(IEnumerator enumerator)
+		=> autoBehaviour.beginCoroutine(enumerator);
 	
-	public static new Coroutine startCoroutine(Coroute coroute, Delegate function, params object[] parameters)
-		=> autoBehaviour.startCoroutine(coroute, function, parameters);
-	public static new Coroutine startCoroutine(Coroute coroute, Action action)
-		=> autoBehaviour.startCoroutine(coroute, action);
+	public static new Coroutine beginCoroutine(Coroute coroute, Delegate function, params object[] parameters)
+		=> autoBehaviour.beginCoroutine(coroute, function, parameters);
+	public static new Coroutine beginCoroutine(Coroute coroute, Action action)
+		=> autoBehaviour.beginCoroutine(coroute, action);
 	
-	public static new Coroutine startCoroutineWithInterval(float interval, Coroute coroute, Delegate function, params object[] parameters)
-		=> autoBehaviour.startCoroutineWithInterval(interval, coroute, function, parameters);
-	public static new Coroutine startCoroutineWithInterval(float interval, Coroute coroute, Action action)
-		=> autoBehaviour.startCoroutineWithInterval(interval, coroute, action);
+	public static new Coroutine beginCoroutineWithInterval(float interval, Coroute coroute, Delegate function, params object[] parameters)
+		=> autoBehaviour.beginCoroutineWithInterval(interval, coroute, function, parameters);
+	public static new Coroutine beginCoroutineWithInterval(float interval, Coroute coroute, Action action)
+		=> autoBehaviour.beginCoroutineWithInterval(interval, coroute, action);
 	
-	public static new Coroutine startRepeatingCoroutine(Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
-		=> autoBehaviour.startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
-	public static new Coroutine startRepeatingCoroutine(Action action, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle)
-		=> autoBehaviour.startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	public static new Coroutine beginRepeatingCoroutine(Delegate function, bool beginNowVersusAtNextCheck = Default.beginningNowVersusAtNextCycle, params object[] parameters)
+		=> autoBehaviour.beginRepeatingCoroutine(function, beginNowVersusAtNextCheck, parameters);
+	public static new Coroutine beginRepeatingCoroutine(Action action, bool beginNowVersusAtNextCheck = Default.beginningNowVersusAtNextCycle)
+		=> autoBehaviour.beginRepeatingCoroutine(action, beginNowVersusAtNextCheck);
 	
-	public static new Coroutine startCoroutineRepeatingEvery(float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
-		=> autoBehaviour.startCoroutineRepeatingEvery(interval, function, startNowVersusAfterFirstInterval, parameters);
-	public static new Coroutine startCoroutineRepeatingEvery(float interval, Action action, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle)
-		=> autoBehaviour.startCoroutineRepeatingEvery(interval, action, startNowVersusAfterFirstInterval);
+	public static new Coroutine beginCoroutineRepeatingEvery(float interval, Delegate function, bool beginNowVersusAfterFirstInterval = Default.beginningNowVersusAtNextCycle, params object[] parameters)
+		=> autoBehaviour.beginCoroutineRepeatingEvery(interval, function, beginNowVersusAfterFirstInterval, parameters);
+	public static new Coroutine beginCoroutineRepeatingEvery(float interval, Action action, bool beginNowVersusAfterFirstInterval = Default.beginningNowVersusAtNextCycle)
+		=> autoBehaviour.beginCoroutineRepeatingEvery(interval, action, beginNowVersusAfterFirstInterval);
 	
 	public static new AutoBehaviour<SingletonBehaviourT> stopCoroutine(Coroutine coroutine)
 		=> autoBehaviour.stopCoroutine(coroutine);

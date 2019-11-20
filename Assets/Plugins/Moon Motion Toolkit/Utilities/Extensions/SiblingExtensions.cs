@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Sibling Extensions: provides extension methods for handling siblings //
+// Sibling Extensions:
+// • provides extension methods for handling siblings
+// #sibling #family #transform #component
 public static class SiblingExtensions
 {
 	#region sibling indexing

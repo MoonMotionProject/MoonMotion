@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 
 // Mono Behaviour Extensions: provides extension methods for handling mono behaviours //
-// #auto #mono #execution
+// #mono #coroutines #execution
 public static class MonoBehaviourExtensions
 {
 	#if UNITY_EDITOR
@@ -23,8 +23,8 @@ public static class MonoBehaviourExtensions
 
 	#region coroutines
 
-	// method: have this given mono behaviour have Unity start a coroutine using the given enumerator, then return the started coroutine //
-	public static Coroutine startCoroutine(this MonoBehaviour monoBehaviour, IEnumerator enumerator)
+	// method: have this given mono behaviour have Unity begin a coroutine using the given enumerator, then return the begun coroutine //
+	public static Coroutine beginCoroutine(this MonoBehaviour monoBehaviour, IEnumerator enumerator)
 		=> monoBehaviour.StartCoroutine(enumerator);
 	#endregion coroutines
 

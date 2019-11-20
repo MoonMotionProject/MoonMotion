@@ -160,94 +160,56 @@ public abstract class SingletonBehaviourLayerComponentShortcutsNonUnity<Singleto
 	#region Unit
 
 	#region targeting
-	public static new Transform targetingTransform => autoBehaviour.targetingTransform;
-	public static new Transform targetingTransformOtherwiseSelfTransform => autoBehaviour.targetingTransformOtherwiseSelfTransform;
-	public static new Vector3 targetingPosition => autoBehaviour.targetingPosition;
+	public static new Transform unitTargetTransform => autoBehaviour.unitTargetTransform;
+	public static new Transform unitTargetTransformOtherwiseSelfTransform => autoBehaviour.unitTargetTransformOtherwiseSelfTransform;
+	public static new Vector3 unitTargetPosition => autoBehaviour.unitTargetPosition;
 	public static new float awaradius => autoBehaviour.awaradius;
-	public static new HashSet<Unit> enemies(bool includeSelf = Default.enemyInclusionOfSelf)
-		=> autoBehaviour.enemies(includeSelf);
+	public static new bool selfIrrelevantlyConsidersAnAllyOf(object layerIndex_LayerIndexProvider)
+		=> autoBehaviour.selfIrrelevantlyConsidersAnAllyOf(layerIndex_LayerIndexProvider);
+	public static new bool selfIrrelevantlyConsidersAnEnemyOf(object layerIndex_LayerIndexProvider)
+		=> autoBehaviour.selfIrrelevantlyConsidersAnEnemyOf(layerIndex_LayerIndexProvider);
+	public static new bool considersAnAllyOf(object unit_UnitProvider, bool includeSelf = Default.allyInclusionOfSelf)
+		=> autoBehaviour.considersAnAllyOf(unit_UnitProvider, includeSelf);
+	public static new bool considersAnEnemyOf(object unit_UnitProvider, bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.considersAnEnemyOf(unit_UnitProvider, includeSelf);
 	public static new HashSet<Unit> allies(bool includeSelf = Default.allyInclusionOfSelf)
 		=> autoBehaviour.allies(includeSelf);
-	public static new HashSet<Unit> unitsWithinRangeFor
-	(
-		LayerMask layers,
-		float range,
-		bool includeSelf
-	)
-		=>	autoBehaviour.unitsWithinRangeFor
-			(
-				layers,
-				range,
-				includeSelf
-			);
-	public static new HashSet<Unit> enemiesWithin
-	(
-		float range,
-		bool includeSelf = Default.enemyInclusionOfSelf
-	)
-		=>	autoBehaviour.enemiesWithin
-			(
-				range,
-				includeSelf
-			);
-	public static new HashSet<Unit> alliesWithin
-	(
-		float range,
-		bool includeSelf = Default.allyInclusionOfSelf
-	)
-		=>	autoBehaviour.alliesWithin
-			(
-				range,
-				includeSelf
-			);
-	public static new Unit nearestEnemyWithin
-	(
-		float range,
-		bool includeSelf = Default.enemyInclusionOfSelf
-	)
-		=>	autoBehaviour.nearestEnemyWithin
-			(
-				range,
-				includeSelf
-			);
-	public static new Unit nearestEnemy
-	(
-		bool includeSelf = Default.enemyInclusionOfSelf
-	)
-		=> autoBehaviour.nearestEnemy(includeSelf);
-	public static new Unit nearestAllyWithin
-	(
-		float range,
-		bool includeSelf = Default.allyInclusionOfSelf
-	)
-		=>	autoBehaviour.nearestAllyWithin
-			(
-				range,
-				includeSelf
-			);
-	public static new Unit nearestAlly
-	(
-		bool includeSelf = Default.allyInclusionOfSelf
-	)
+	public static new HashSet<Unit> enemies(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.enemies(includeSelf);
+	public static new Unit nearestAlly(bool includeSelf = Default.nearestAllyInclusionOfSelf)
 		=> autoBehaviour.nearestAlly(includeSelf);
+	public static new Unit nearestEnemy(bool includeSelf = Default.nearestEnemyInclusionOfSelf)
+		=> autoBehaviour.nearestEnemy(includeSelf);
+	public static new bool isAwareOf(Vector3 targetPosition)
+		=> autoBehaviour.isAwareOf(targetPosition);
+	public static new bool isNotAwareOf(Vector3 targetPosition)
+		=> autoBehaviour.isNotAwareOf(targetPosition);
+	public static new bool isAwareOf(Unit targetUnit)
+		=> autoBehaviour.isAwareOf(targetUnit);
+	public static new bool isNotAwareOf(Unit targetUnit)
+		=> autoBehaviour.isNotAwareOf(targetUnit);
 	public static new bool isAwareOf(object target)
 		=> autoBehaviour.isAwareOf(target);
 	public static new bool isNotAwareOf(object target)
 		=> autoBehaviour.isNotAwareOf(target);
-	public static new bool isAwareOfAnyEnemy
-	(
-		bool includeSelf = Default.enemyInclusionOfSelf
-	)
-		=> autoBehaviour.isAwareOfAnyEnemy(includeSelf);
-	public static new bool isAwareOfAnyAlly
-	(
-		bool includeSelf = Default.allyInclusionOfSelf
-	)
+	public static new bool isAwareOfAnyUnit(bool includeSelf = Default.allegianceIrrelevantInclusionOfSelf)
+		=> autoBehaviour.isAwareOfAnyUnit(includeSelf);
+	public static new bool isAwareOfAnyAlly(bool includeSelf = Default.allyInclusionOfSelf)
 		=> autoBehaviour.isAwareOfAnyAlly(includeSelf);
-	public static new bool considersAnEnemyOf(object layerIndex_LayerIndexProvider)
-		=> autoBehaviour.considersAnEnemyOf(layerIndex_LayerIndexProvider);
-	public static new bool considersAnAllyOf(object layerIndex_LayerIndexProvider)
-		=> autoBehaviour.considersAnAllyOf(layerIndex_LayerIndexProvider);
+	public static new bool isAwareOfAnyEnemy(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.isAwareOfAnyEnemy(includeSelf);
+	public static new HashSet<Unit> awornUnits(bool includeSelf = Default.allegianceIrrelevantInclusionOfSelf)
+		=> autoBehaviour.awornUnits(includeSelf);
+	public static new HashSet<Unit> awornAllies(bool includeSelf = Default.allyInclusionOfSelf)
+		=> autoBehaviour.awornAllies(includeSelf);
+	public static new HashSet<Unit> awornEnemies(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.awornEnemies(includeSelf);
+	public static new Unit nearestAwornUnit(bool includeSelf = Default.nearestAllegianceIrrelevantInclusionOfSelf)
+		=> autoBehaviour.nearestAwornUnit(includeSelf);
+	public static new Unit nearestAwornAlly(bool includeSelf = Default.nearestAllyInclusionOfSelf)
+		=> autoBehaviour.nearestAwornAlly(includeSelf);
+	public static new Unit nearestAwornEnemy(bool includeSelf = Default.nearestEnemyInclusionOfSelf)
+		=> autoBehaviour.nearestAwornEnemy(includeSelf);
 	#endregion targeting
 
 	#region trying to cast particular abilities
@@ -302,76 +264,76 @@ public abstract class SingletonBehaviourLayerComponentShortcutsNonUnity<Singleto
 	#region Intelligence
 
 	#region targeting
-	public static new HashSet<IntelligenceT> enemies<IntelligenceT>()
+	public static new HashSet<IntelligenceT> allies<IntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.enemies<IntelligenceT>();
-	public static new HashSet<Unit> enemyUnits<IntelligenceT>()
+		=> autoBehaviour.allies<IntelligenceT>(includeSelf);
+	public static new HashSet<IntelligenceT> enemies<IntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.enemyUnits<IntelligenceT>();
-	public static new HashSet<IntelligenceT> allies<IntelligenceT>()
+		=> autoBehaviour.enemies<IntelligenceT>(includeSelf);
+	public static new HashSet<Unit> allyUnits<IntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.allies<IntelligenceT>();
-	public static new HashSet<Unit> allyUnits<IntelligenceT>()
+		=> autoBehaviour.allyUnits<IntelligenceT>(includeSelf);
+	public static new HashSet<Unit> enemyUnits<IntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.allyUnits<IntelligenceT>();
-	public static new HashSet<OtherIntelligenceT> awornEnemies<OtherIntelligenceT>()
+		=> autoBehaviour.enemyUnits<IntelligenceT>(includeSelf);
+	public static new HashSet<OtherIntelligenceT> awornAllies<OtherIntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
-		=> autoBehaviour.awornEnemies<OtherIntelligenceT>();
-	public static new HashSet<Unit> awornEnemyUnits<IntelligenceT>()
-		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.awornEnemyUnits<IntelligenceT>();
-	public static new HashSet<OtherIntelligenceT> awornAllies<OtherIntelligenceT>()
+		=> autoBehaviour.awornAllies<OtherIntelligenceT>(includeSelf);
+	public static new HashSet<OtherIntelligenceT> awornEnemies<OtherIntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
-		=> autoBehaviour.awornAllies<OtherIntelligenceT>();
-	public static new HashSet<Unit> awornAllyUnits<IntelligenceT>()
+		=> autoBehaviour.awornEnemies<OtherIntelligenceT>(includeSelf);
+	public static new HashSet<Unit> awornAllyUnits<IntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.awornAllyUnits<IntelligenceT>();
-	public static new OtherIntelligenceT nearestAwornEnemy<OtherIntelligenceT>()
+		=> autoBehaviour.awornAllyUnits<IntelligenceT>(includeSelf);
+	public static new HashSet<Unit> awornEnemyUnits<IntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
+		=> autoBehaviour.awornEnemyUnits<IntelligenceT>(includeSelf);
+	public static new OtherIntelligenceT nearestAwornAlly<OtherIntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestAwornEnemy<OtherIntelligenceT>();
-	public static new HashSet<Unit> nearestAwornEnemyUnit<IntelligenceT>()
-		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestAwornEnemyUnit<IntelligenceT>();
-	public static new OtherIntelligenceT nearestAwornAlly<OtherIntelligenceT>()
+		=> autoBehaviour.nearestAwornAlly<OtherIntelligenceT>(includeSelf);
+	public static new OtherIntelligenceT nearestAwornEnemy<OtherIntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestAwornAlly<OtherIntelligenceT>();
-	public static new HashSet<Unit> nearestAwornAllyUnit<IntelligenceT>()
+		=> autoBehaviour.nearestAwornEnemy<OtherIntelligenceT>(includeSelf);
+	public static new HashSet<Unit> nearestAwornAllyUnit<IntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestAwornAllyUnit<IntelligenceT>();
-	public static new IntelligenceT nearestEnemy<IntelligenceT>()
+		=> autoBehaviour.nearestAwornAllyUnit<IntelligenceT>(includeSelf);
+	public static new HashSet<Unit> nearestAwornEnemyUnit<IntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestEnemy<IntelligenceT>();
-	public static new HashSet<Unit> nearestEnemyUnit<IntelligenceT>()
+		=> autoBehaviour.nearestAwornEnemyUnit<IntelligenceT>(includeSelf);
+	public static new IntelligenceT nearestAlly<IntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestEnemyUnit<IntelligenceT>();
-	public static new IntelligenceT nearestAlly<IntelligenceT>()
+		=> autoBehaviour.nearestAlly<IntelligenceT>(includeSelf);
+	public static new IntelligenceT nearestEnemy<IntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestAlly<IntelligenceT>();
-	public static new HashSet<Unit> nearestAllyUnit<IntelligenceT>()
+		=> autoBehaviour.nearestEnemy<IntelligenceT>(includeSelf);
+	public static new HashSet<Unit> nearestAllyUnit<IntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
-		=> autoBehaviour.nearestAllyUnit<IntelligenceT>();
-	public static new bool isAwareOfAnyEnemy<OtherIntelligenceT>()
+		=> autoBehaviour.nearestAllyUnit<IntelligenceT>(includeSelf);
+	public static new HashSet<Unit> nearestEnemyUnit<IntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
+		where IntelligenceT : Intelligence<IntelligenceT>, IIntelligence
+		=> autoBehaviour.nearestEnemyUnit<IntelligenceT>(includeSelf);
+	public static new bool isAwareOfAnyAlly<OtherIntelligenceT>(bool includeSelf = Default.allyInclusionOfSelf)
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
-		=> autoBehaviour.isAwareOfAnyEnemy<OtherIntelligenceT>();
-	public static new bool isAwareOfAnyAlly<OtherIntelligenceT>()
+		=> autoBehaviour.isAwareOfAnyAlly<OtherIntelligenceT>(includeSelf);
+	public static new bool isAwareOfAnyEnemy<OtherIntelligenceT>(bool includeSelf = Default.enemyInclusionOfSelf)
 		where OtherIntelligenceT : Intelligence<OtherIntelligenceT>, IIntelligence
-		=> autoBehaviour.isAwareOfAnyAlly<OtherIntelligenceT>();
-	public static new HashSet<Unit> enemyStructures(bool includeSelf = Default.enemyInclusionOfSelf)
-		=> autoBehaviour.enemyStructures(includeSelf);
+		=> autoBehaviour.isAwareOfAnyEnemy<OtherIntelligenceT>(includeSelf);
 	public static new HashSet<Unit> allyStructures(bool includeSelf = Default.allyInclusionOfSelf)
 		=> autoBehaviour.allyStructures(includeSelf);
-	public static new HashSet<Unit> awornEnemyStructures(bool includeSelf = Default.enemyInclusionOfSelf)
-		=> autoBehaviour.awornEnemyStructures(includeSelf);
+	public static new HashSet<Unit> enemyStructures(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.enemyStructures(includeSelf);
 	public static new HashSet<Unit> awornAllyStructures(bool includeSelf = Default.allyInclusionOfSelf)
 		=> autoBehaviour.awornAllyStructures(includeSelf);
-	public static new Unit nearestAwornEnemyStructure(bool includeSelf = Default.enemyInclusionOfSelf)
-		=> autoBehaviour.nearestAwornEnemyStructure(includeSelf);
+	public static new HashSet<Unit> awornEnemyStructures(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.awornEnemyStructures(includeSelf);
 	public static new Unit nearestAwornAllyStructure(bool includeSelf = Default.allyInclusionOfSelf)
 		=> autoBehaviour.nearestAwornAllyStructure(includeSelf);
-	public static new bool isAwareOfAnyEnemyStructure(bool includeSelf = Default.enemyInclusionOfSelf)
-		=> autoBehaviour.isAwareOfAnyEnemyStructure(includeSelf);
+	public static new Unit nearestAwornEnemyStructure(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.nearestAwornEnemyStructure(includeSelf);
 	public static new bool isAwareOfAnyAllyStructure(bool includeSelf = Default.allyInclusionOfSelf)
 		=> autoBehaviour.isAwareOfAnyAllyStructure(includeSelf);
+	public static new bool isAwareOfAnyEnemyStructure(bool includeSelf = Default.enemyInclusionOfSelf)
+		=> autoBehaviour.isAwareOfAnyEnemyStructure(includeSelf);
 	#endregion targeting
 	#endregion Intelligence
 	#endif

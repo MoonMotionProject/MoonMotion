@@ -6,7 +6,7 @@ using UnityEngine;
 // • provides various default state:
 //   · constants ("const" variables, and "readonly" variables where "const" variables are not possible)
 //   · properties (which should be constant in result) serving as constants (where constants are not possible)
-// #default #navmesh #unitology
+// #constants #navmesh #unitology
 public static class Default
 {
 	#region miscellaneous
@@ -19,12 +19,23 @@ public static class Default
 	public const bool nullsAsEmpty = true;
 	public const bool errorSilencing = false;
 	public const bool editorExecutionIfPlaymodeHasChanged = true;
-	public const bool startingNowVersusAtNextCycle = true;
+	public const bool beginningNowVersusAtNextCycle = true;
 	#endregion miscellaneous
+
+	#region hierarchy
+	#if UNITY_EDITOR
+	public const float hierarchyIconSize = 14f;
+	public const float hierarchyIconPaddingRight = 6f;
+	#endif
+	#endregion hierarchy
+
+	#region transformations
+	public static readonly Vector3 localScale = FloatsVector.ones;
+	#endregion transformations
 
 	#region game object creation
 	public const string newGameObjectName = "New Game Object";
-	public const bool matchingOfRotationToParentForFreshGameObjectCreation = false;
+	public const bool matchingOfRotationToParentForFreshGameObjectCreation = true;
 	public const bool matchingOfLabelsToParentForFreshGameObjectCreation = true;
 	public const bool matchingOfRotationToParentForTemplatedGameObjectCreation = false;
 	public const bool matchingOfLabelsToParentForTemplatedGameObjectCreation = false;
@@ -43,12 +54,13 @@ public static class Default
 	#endregion execution
 
 	#region editor visualization
-	public static readonly Color visualizationColor = Color.white.withAlpha(.3f);
+	public static readonly Color visualizationColor = Colors.white.withAlpha(.3f);
 	public const bool choiceToVisualizeInEditor = true;
 	public const bool scalingOfVisualizedIcons = true;
 	public static readonly Vector3 boxVisualizationDimensions = .3f.toFloatsVector();
-	public static readonly Color positionVisualizationColor = Color.green.withAlpha(.8f);
-	public static readonly Color spawningVisualizationColor = positionVisualizationColor;
+	public const float positionVisualizationColorAlpha = .8f;
+	public static readonly Color positionVisualizationColor = Colors.orange.withAlpha(positionVisualizationColorAlpha);
+	public static readonly Color spawningVisualizationColor = Colors.magenta.withAlpha(positionVisualizationColorAlpha);
 	#endregion editor visualization
 
 	#region components
@@ -169,9 +181,17 @@ public static class Default
 	public static readonly LayerMask enemyLayers = Layers.none;
 	public static readonly LayerMask allyLayers = Layers.none;
 	public const float awaradius = 20f;
-	public static readonly Color awaradiusVisualizationColor = Colors.red.withAlpha(unitologySphereVisualizationColorAlpha);
-	public const bool enemyInclusionOfSelf = false;
+	public static readonly Color allyAwarenessVisualizationColor = Colors.green.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color enemyAwarenessVisualizationColor = Colors.red.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color awaradiusVisualizationColor = enemyAwarenessVisualizationColor;
+	public const bool allegianceIrrelevantInclusionOfSelf = false;
 	public const bool allyInclusionOfSelf = true;
+	public const bool enemyInclusionOfSelf = false;
+	public const bool nearestUnitInclusionOfSelf = false;
+	public const bool nearestAllegianceIrrelevantInclusionOfSelf = nearestUnitInclusionOfSelf;
+	public const bool nearestAllyInclusionOfSelf = nearestUnitInclusionOfSelf;
+	public const bool nearestEnemyInclusionOfSelf = nearestUnitInclusionOfSelf;
+	public const float unitTargetTriggerColliderRadius = .01f;
 	#endregion targeting
 	#region kit
 	public const float intelligentBehaviourDelay = navmeshAgentDelay;
@@ -180,7 +200,7 @@ public static class Default
 	public const bool castingRequiringAwarenessOfTarget = true;
 	public const Fense fense = Fense.offense;
 	public const bool castingRequiringAbleness = true;
-	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.purple.withAlpha(unitologySphereVisualizationColorAlpha);
+	public static readonly Color selectedAbilityRangeVisualizationColor = Colors.abilityCasting.withAlpha(unitologySphereVisualizationColorAlpha);
 	public const float targetedAbilityRange = Infinity.asAFloat;
 	public static readonly Color pendingRangeVisualizationColor = Colors.abilityPending.withAlpha(unitologySphereVisualizationColorAlpha);
 	public static readonly Color channelingRangeVisualizationColor = Colors.abilityChanneling.withAlpha(unitologySphereVisualizationColorAlpha);

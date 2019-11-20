@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Colors:
-// • provides color properties and methods
-// #default
+// • provides color constants and methods
+// #constants
 public static class Colors
 {
-	#region properties
+	#region constants
 
 
 	#region basic
@@ -38,6 +38,9 @@ public static class Colors
 	public static Color orange => new Color32(255, 165, 0, 255);
 	public static Color brown => new Color32(165, 42, 42, 255);
 	public static Color purple => new Color32(143, 0, 254, 255);
+	public static Color mediumPurple => new Color32(147, 112, 219, 255);
+	public static Color blueViolet => new Color32(138, 43, 226, 255);
+	public static Color hotPink => new Color32(255, 105, 180, 255);
 	public static Color forestGreen => new Color32(34, 139, 34, 255);
 	public static Color lycan => new Color32(79, 244, 162, 255);
 	public static Color charm => new Color32(219, 112, 147, 255);
@@ -54,15 +57,16 @@ public static class Colors
 	public static readonly Color healthbarHigh = green;
 	public static readonly Color healthbarTrop = lycan;
 	public static readonly Color healthbarShielding = silver;
-	public static readonly Color statusSilence = purple;
-	public static readonly Color abilityCasting = goldenrod;
+	public static readonly Color statusSilence = hotPink;
+	public static readonly Color abilityCasting = blueViolet;
+	public static readonly Color abilityCasting_forLists = mediumPurple;
 	public static readonly Color abilityPending = orange;
 	public static readonly Color abilityChanneling = dodgerBlue;
 	public static readonly Color abilityCooling = charm;
 	public static readonly Color damage = mediumRed;
 	#endif
 	#endregion Unitology
-	#endregion properties
+	#endregion constants
 
 
 

@@ -30,14 +30,14 @@ public static class HashSetExtensions
 
 	// method: (according to the given boolean:) include the given item in this given hash set, then return the given item //
 	public static TItem includeGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
-		=> item.after(()=>
-			set.include(item),
-			boolean);
+		=>	item.returnAnd(()=>
+				set.include(item),
+				boolean);
 	// method: (according to the given boolean:) include the given items in this given hash set, then return the given items //
 	public static IEnumerable<TItem> includeGet<TItem>(this HashSet<TItem> set, IEnumerable<TItem> items, bool boolean = true)
-		=> items.after(()=>
-			set.include(items),
-			boolean);
+		=>	items.returnAnd(()=>
+				set.include(items),
+				boolean);
 
 	// method: (according to the given boolean:) include this given item in the given hash set, then return the given hash set //
 	public static HashSet<TItem> includeInGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)
@@ -71,9 +71,9 @@ public static class HashSetExtensions
 
 	// method: (according to the given boolean:) remove the given item from this given hash set (assuming the given item is actually contained in this given hash set), then return the given item //
 	public static TItem removeGet<TItem>(this HashSet<TItem> set, TItem item, bool boolean = true)
-		=> item.after(()=>
-			set.tryToRemove(item),
-			boolean);
+		=>	item.returnAnd(()=>
+				set.tryToRemove(item),
+				boolean);
 
 	// method: (according to the given boolean:) remove this given item from the given hash set (assuming the given item is actually contained in this given hash set), then return this given hash set //
 	public static HashSet<TItem> removeFromGet<TItem>(this TItem item, HashSet<TItem> set, bool boolean = true)

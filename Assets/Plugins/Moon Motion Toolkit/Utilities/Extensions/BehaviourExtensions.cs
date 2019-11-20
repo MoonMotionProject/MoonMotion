@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Behaviour Extensions: provides extension methods for handling behaviours //
-// #auto
+// #behaviour
 public static class BehaviourExtensions
 {
 	#region removing

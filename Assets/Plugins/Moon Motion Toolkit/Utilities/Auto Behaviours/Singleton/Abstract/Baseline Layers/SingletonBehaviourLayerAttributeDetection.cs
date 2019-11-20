@@ -11,6 +11,11 @@ public abstract class	SingletonBehaviourLayerAttributeDetection<SingletonBehavio
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	// method: return whether the inheritor's class has the specified attribute, including inherited attributes according to the given boolean //
-	public static new bool inheritorHasAttribute<AttributeT>(bool includeInheritedAttributes = true) where AttributeT : Attribute
-		=> autoBehaviour.inheritorHasAttribute<AttributeT>(includeInheritedAttributes);
+	public static new bool inheritorHasAttribute_ViaReflection<AttributeT>(bool includeInheritedAttributes = true)
+		where AttributeT : Attribute
+		=> autoBehaviour.inheritorHasAttribute_ViaReflection<AttributeT>(includeInheritedAttributes);
+
+	public static new AttributeT firstAttributeOnInheritorOfType_ViaReflection<AttributeT>(bool includeInheritedAttributes = true)
+		where AttributeT : Attribute
+		=> autoBehaviour.firstAttributeOnInheritorOfType_ViaReflection<AttributeT>(includeInheritedAttributes);
 }

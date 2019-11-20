@@ -235,10 +235,10 @@ public static class AttachmentExtensions
 	public static MeshFilter ensuredMeshFilter(this Component component)
 		=> component.ensured<MeshFilter>();
 
-	public static MeshFilter firstLocalOrDescendantMeshFilter(this GameObject gameObject, bool includeInactiveMeshFilters = true)
-		=> gameObject.firstLocalOrDescendant<MeshFilter>(includeInactiveMeshFilters);
-	public static MeshFilter firstLocalOrDescendantMeshFilter(this Component component, bool includeInactiveMeshFilters = true)
-		=> component.firstLocalOrDescendant<MeshFilter>(includeInactiveMeshFilters);
+	public static MeshFilter firstLodalMeshFilter(this GameObject gameObject, bool includeInactiveMeshFilters = true)
+		=> gameObject.firstLodal<MeshFilter>(includeInactiveMeshFilters);
+	public static MeshFilter firstLodalMeshFilter(this Component component, bool includeInactiveMeshFilters = true)
+		=> component.firstLodal<MeshFilter>(includeInactiveMeshFilters);
 	#endregion MeshFilter
 	#endregion retrieval
 }

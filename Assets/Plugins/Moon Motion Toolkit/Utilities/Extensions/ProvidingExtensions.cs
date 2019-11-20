@@ -6,12 +6,13 @@ using UnityEngine;
 // Providing Extensions:
 // • provides extension methods for having dynamos provide certain types
 //   · a 'dynamo' is a dynamic type, which can be specified as a parameter in a method using the keyword 'dynamic', or as an object – in the current implementation, these methods are intended for use with 'object' parameters
-// #auto #dynamics #providing #primitives
+// #dynamics #providing #primitives
 public static class ProvidingExtensions
 {
 	#region Unity
 
-
+	
+	/* (via reflection if error) */
 	public static Transform provideTransform(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -29,7 +30,7 @@ public static class ProvidingExtensions
 		#if UNITOLOGY
 		else if (dynamo is Unit)
 		{
-			return (dynamo as Unit).targetingTransform;
+			return (dynamo as Unit).unitTargetTransform;
 		}
 		#endif
 		else if (dynamo is Component)
@@ -38,11 +39,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Transform).returnWithError("ProvidingExtensions.provideTransform given unrecognized dynamo of type "+dynamo.type());
+			return default(Transform).returnWithError("ProvidingExtensions.provideTransform given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 	
-
+	
+	/* (via reflection if error) */
 	public static GameObject provideGameObject(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -59,11 +61,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(GameObject).returnWithError("ProvidingExtensions.provideGameObject given unrecognized dynamo of type "+dynamo.type());
+			return default(GameObject).returnWithError("ProvidingExtensions.provideGameObject given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 	
-
+	
+	/* (via reflection if error) */
 	public static string provideTag(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -84,11 +87,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(string).returnWithError("ProvidingExtensions.provideTag given unrecognized dynamo of type "+dynamo.type());
+			return default(string).returnWithError("ProvidingExtensions.provideTag given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 	
-
+	
+	/* (via reflection if error) */
 	public static int provideLayerIndex(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -113,9 +117,10 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(int).returnWithError("ProvidingExtensions.provideLayerIndex given unrecognized dynamo of type "+dynamo.type());
+			return default(int).returnWithError("ProvidingExtensions.provideLayerIndex given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static string provideLayerName(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -140,9 +145,10 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(string).returnWithError("ProvidingExtensions.provideLayerName given unrecognized dynamo of type "+dynamo.type());
+			return default(string).returnWithError("ProvidingExtensions.provideLayerName given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static HashSet<string> provideUniqueLayerNames(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -183,11 +189,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(HashSet<string>).returnWithError("ProvidingExtensions.provideUniqueLayerNames given unrecognized dynamo of type "+dynamo.type());
+			return default(HashSet<string>).returnWithError("ProvidingExtensions.provideUniqueLayerNames given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static Collider provideCollider(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -208,17 +215,18 @@ public static class ProvidingExtensions
 		}
 		else if (dynamo is GameObject)
 		{
-			return (dynamo as GameObject).firstLocalOrDescendant<Collider>();
+			return (dynamo as GameObject).firstLodal<Collider>();
 		}
 		else if (dynamo is Component)
 		{
-			return (dynamo as Component).firstLocalOrDescendant<Collider>();
+			return (dynamo as Component).firstLodal<Collider>();
 		}
 		else
 		{
-			return default(Collider).returnWithError("ProvidingExtensions.provideCollider given unrecognized dynamo of type "+dynamo.type());
+			return default(Collider).returnWithError("ProvidingExtensions.provideCollider given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static Collider provideSolidCollider(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -235,17 +243,18 @@ public static class ProvidingExtensions
 		}
 		else if (dynamo is GameObject)
 		{
-			return (dynamo as GameObject).firstLocalOrDescendantSolid<Collider>();
+			return (dynamo as GameObject).firstLodalSolid<Collider>();
 		}
 		else if (dynamo is Component)
 		{
-			return (dynamo as Component).firstLocalOrDescendantSolid<Collider>();
+			return (dynamo as Component).firstLodalSolid<Collider>();
 		}
 		else
 		{
-			return default(Collider).returnWithError("ProvidingExtensions.provideSolidCollider given unrecognized dynamo of type "+dynamo.type());
+			return default(Collider).returnWithError("ProvidingExtensions.provideSolidCollider given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static Collider provideTriggerCollider(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -262,19 +271,20 @@ public static class ProvidingExtensions
 		}
 		else if (dynamo is GameObject)
 		{
-			return (dynamo as GameObject).firstLocalOrDescendantTrigger<Collider>();
+			return (dynamo as GameObject).firstLodalTrigger<Collider>();
 		}
 		else if (dynamo is Component)
 		{
-			return (dynamo as Component).firstLocalOrDescendantTrigger<Collider>();
+			return (dynamo as Component).firstLodalTrigger<Collider>();
 		}
 		else
 		{
-			return default(Collider).returnWithError("ProvidingExtensions.provideTriggerCollider given unrecognized dynamo of type "+dynamo.type());
+			return default(Collider).returnWithError("ProvidingExtensions.provideTriggerCollider given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static RaycastHit provideRaycastHit(this object dynamo)
 	{
 		if (dynamo is RaycastHit?)
@@ -287,11 +297,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(RaycastHit).returnWithError("ProvidingExtensions.provideRaycastHit given unrecognized dynamo of type "+dynamo.type());
+			return default(RaycastHit).returnWithError("ProvidingExtensions.provideRaycastHit given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static Vector3 providePosition(this object dynamo)
 	{
 		if (dynamo is Vector3?)
@@ -309,7 +320,7 @@ public static class ProvidingExtensions
 		#if UNITOLOGY
 		else if (dynamo is Unit)
 		{
-			return (dynamo as Unit).targetingPosition;
+			return (dynamo as Unit).unitTargetPosition;
 		}
 		#endif
 		else if (dynamo is Component)
@@ -326,11 +337,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Vector3).returnWithError("ProvidingExtensions.providePosition given unrecognized dynamo of type "+dynamo.type());
+			return default(Vector3).returnWithError("ProvidingExtensions.providePosition given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static Rigidbody provideRigidbody(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -351,9 +363,10 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Rigidbody).returnWithError("ProvidingExtensions.provideRigidbody given unrecognized dynamo of type "+dynamo.type());
+			return default(Rigidbody).returnWithError("ProvidingExtensions.provideRigidbody given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static List<Rigidbody> provideRigidbodies(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -386,11 +399,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(List<Rigidbody>).returnWithError("ProvidingExtensions.provideRigidbodies given unrecognized dynamo of type "+dynamo.type());
+			return default(List<Rigidbody>).returnWithError("ProvidingExtensions.provideRigidbodies given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static Mesh provideMesh(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -404,18 +418,18 @@ public static class ProvidingExtensions
 		else if (dynamo is GameObject)
 		{
 			GameObject gameObject = (dynamo as GameObject);
-			Mesh mesh = gameObject.firstLocalOrDescendantMesh();
+			Mesh mesh = gameObject.firstLodalMesh();
 			if (mesh.isNull())
 			{
-				if (gameObject.firstLocalOrDescendant<BoxCollider>().isYull())
+				if (gameObject.firstLodal<BoxCollider>().isYull())
 				{
 					return Meshes.cube;
 				}
-				else if (gameObject.firstLocalOrDescendant<SphereCollider>().isYull())
+				else if (gameObject.firstLodal<SphereCollider>().isYull())
 				{
 					return Meshes.sphere;
 				}
-				else if (gameObject.firstLocalOrDescendant<CapsuleCollider>().isYull())
+				else if (gameObject.firstLodal<CapsuleCollider>().isYull())
 				{
 					return Meshes.capsule;
 				}
@@ -429,9 +443,10 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Mesh).returnWithError("ProvidingExtensions.provideMesh given unrecognized dynamo of type "+dynamo.type());
+			return default(Mesh).returnWithError("ProvidingExtensions.provideMesh given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static Mesh provideSharedMesh(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -444,19 +459,20 @@ public static class ProvidingExtensions
 		}
 		else if (dynamo is GameObject)
 		{
-			return (dynamo as GameObject).firstLocalOrDescendantSharedMesh();
+			return (dynamo as GameObject).firstLodalSharedMesh();
 		}
 		else if (dynamo is Component)
 		{
-			return (dynamo as Component).firstLocalOrDescendantSharedMesh();
+			return (dynamo as Component).firstLodalSharedMesh();
 		}
 		else
 		{
-			return default(Mesh).returnWithError("ProvidingExtensions.provideSharedMesh given unrecognized dynamo of type "+dynamo.type());
+			return default(Mesh).returnWithError("ProvidingExtensions.provideSharedMesh given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static Vector3 providePrimitiveColliderCenterPosition(this object dynamo)
 	{
 		if (dynamo is BoxCollider)
@@ -474,20 +490,20 @@ public static class ProvidingExtensions
 		else if (dynamo is GameObject)
 		{
 			GameObject gameObject = (dynamo as GameObject);
-			BoxCollider firstLocalOrDescendantBoxCollider = gameObject.firstLocalOrDescendant<BoxCollider>();
-			if (firstLocalOrDescendantBoxCollider.isYull())
+			BoxCollider firstLodalBoxCollider = gameObject.firstLodal<BoxCollider>();
+			if (firstLodalBoxCollider.isYull())
 			{
-				return firstLocalOrDescendantBoxCollider.centerPosition();
+				return firstLodalBoxCollider.centerPosition();
 			}
-			SphereCollider firstLocalOrDescendantSphereCollider = gameObject.firstLocalOrDescendant<SphereCollider>();
-			if (firstLocalOrDescendantSphereCollider.isYull())
+			SphereCollider firstLodalSphereCollider = gameObject.firstLodal<SphereCollider>();
+			if (firstLodalSphereCollider.isYull())
 			{
-				return firstLocalOrDescendantSphereCollider.centerPosition();
+				return firstLodalSphereCollider.centerPosition();
 			}
-			CapsuleCollider firstLocalOrDescendantCapsuleCollider = gameObject.firstLocalOrDescendant<CapsuleCollider>();
-			if (firstLocalOrDescendantCapsuleCollider.isYull())
+			CapsuleCollider firstLodalCapsuleCollider = gameObject.firstLodal<CapsuleCollider>();
+			if (firstLodalCapsuleCollider.isYull())
 			{
-				return firstLocalOrDescendantCapsuleCollider.centerPosition();
+				return firstLodalCapsuleCollider.centerPosition();
 			}
 			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderCenterPosition given game object (or component, earlier) without a primitive collider");
 		}
@@ -497,9 +513,10 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderCenterPosition given unrecognized dynamo of type "+dynamo.type());
+			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderCenterPosition given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
+	/* (via reflection if error) */
 	public static Vector3 providePrimitiveColliderLocalCenterPosition(this object dynamo)
 	{
 		if (dynamo is BoxCollider)
@@ -517,20 +534,20 @@ public static class ProvidingExtensions
 		else if (dynamo is GameObject)
 		{
 			GameObject gameObject = (dynamo as GameObject);
-			BoxCollider firstLocalOrDescendantBoxCollider = gameObject.firstLocalOrDescendant<BoxCollider>();
-			if (firstLocalOrDescendantBoxCollider.isYull())
+			BoxCollider firstLodalBoxCollider = gameObject.firstLodal<BoxCollider>();
+			if (firstLodalBoxCollider.isYull())
 			{
-				return firstLocalOrDescendantBoxCollider.localCenterPosition();
+				return firstLodalBoxCollider.localCenterPosition();
 			}
-			SphereCollider firstLocalOrDescendantSphereCollider = gameObject.firstLocalOrDescendant<SphereCollider>();
-			if (firstLocalOrDescendantSphereCollider.isYull())
+			SphereCollider firstLodalSphereCollider = gameObject.firstLodal<SphereCollider>();
+			if (firstLodalSphereCollider.isYull())
 			{
-				return firstLocalOrDescendantSphereCollider.localCenterPosition();
+				return firstLodalSphereCollider.localCenterPosition();
 			}
-			CapsuleCollider firstLocalOrDescendantCapsuleCollider = gameObject.firstLocalOrDescendant<CapsuleCollider>();
-			if (firstLocalOrDescendantCapsuleCollider.isYull())
+			CapsuleCollider firstLodalCapsuleCollider = gameObject.firstLodal<CapsuleCollider>();
+			if (firstLodalCapsuleCollider.isYull())
 			{
-				return firstLocalOrDescendantCapsuleCollider.localCenterPosition();
+				return firstLodalCapsuleCollider.localCenterPosition();
 			}
 			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderLocalCenterPosition given game object (or component, earlier) without a primitive collider");
 		}
@@ -540,11 +557,12 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderLocalCenterPosition given unrecognized dynamo of type "+dynamo.type());
+			return default(Vector3).returnWithError("ProvidingExtensions.providePrimitiveColliderLocalCenterPosition given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 
-
+	
+	/* (via reflection if error) */
 	public static HashSet<GameObject> provideUniqueGameObjects(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -569,7 +587,7 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(HashSet<GameObject>).returnWithError("ProvidingExtensions.provideUniqueGameObjects given unrecognized dynamo of type "+dynamo.type());
+			return default(HashSet<GameObject>).returnWithError("ProvidingExtensions.provideUniqueGameObjects given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 	#endregion Unity
@@ -583,6 +601,7 @@ public static class ProvidingExtensions
 	#region Unitology
 	#if UNITOLOGY
 	
+	/* (via reflection if error) */
 	public static Unit provideUnit(this object dynamo)
 	{
 		if (dynamo.isNull())
@@ -603,7 +622,7 @@ public static class ProvidingExtensions
 		}
 		else
 		{
-			return default(Unit).returnWithError("ProvidingExtensions.provideUnit given unrecognized dynamo of type "+dynamo.type());
+			return default(Unit).returnWithError("ProvidingExtensions.provideUnit given unrecognized dynamo of type "+dynamo.derivedType_ViaReflection());
 		}
 	}
 	

@@ -8,76 +8,76 @@ using UnityEngine;
 // #coroutines #execution
 public static class ExecutionExtensions
 {
-	#region starting coroutines
+	#region beginning coroutines
 
 
 	#region the ether
 
-	// method: have the ether have Unity start a coroutine using this given enumerator, then return the started coroutine //
-	public static Coroutine startAsCoroutine(this IEnumerator enumerator)
-		=> Start.coroutine(enumerator);
+	// method: have the ether have Unity begin a coroutine using this given enumerator, then return the begun coroutine //
+	public static Coroutine beginAsCoroutine(this IEnumerator enumerator)
+		=> Begin.coroutine(enumerator);
 	#endregion the ether
 
 
 	#region this given game object
 
-	// method: have this given game object have Unity start a coroutine using the given enumerator, then return the started coroutine //
-	public static Coroutine startCoroutine(this GameObject gameObject, IEnumerator enumerator)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutine(enumerator);
+	// method: have this given game object have Unity begin a coroutine using the given enumerator, then return the begun coroutine //
+	public static Coroutine beginCoroutine(this GameObject gameObject, IEnumerator enumerator)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutine(enumerator);
 
-	// methods: have this given game object have Unity start a coroutine using the given function executing the given parameters and following the given coroute, then return the started coroutine //
-	public static Coroutine startCoroutine(this GameObject gameObject, Coroute coroute, Delegate function, params object[] parameters)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutine(coroute, function, parameters);
-	public static Coroutine startCoroutine(this GameObject gameObject, Coroute coroute, Action action)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutine(coroute, action);
+	// methods: have this given game object have Unity begin a coroutine using the given function executing the given parameters and following the given coroute, then return the begun coroutine //
+	public static Coroutine beginCoroutine(this GameObject gameObject, Coroute coroute, Delegate function, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutine(coroute, function, parameters);
+	public static Coroutine beginCoroutine(this GameObject gameObject, Coroute coroute, Action action)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutine(coroute, action);
 	
-	public static Coroutine startCoroutineWithInterval(this GameObject gameObject, float interval, Coroute coroute, Delegate function, params object[] parameters)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, function, parameters);
-	public static Coroutine startCoroutineWithInterval(this GameObject gameObject, float interval, Coroute coroute, Action action)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, action);
+	public static Coroutine beginCoroutineWithInterval(this GameObject gameObject, float interval, Coroute coroute, Delegate function, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutineWithInterval(interval, coroute, function, parameters);
+	public static Coroutine beginCoroutineWithInterval(this GameObject gameObject, float interval, Coroute coroute, Action action)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutineWithInterval(interval, coroute, action);
 
-	// methods: have this given game object have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
-	public static Coroutine startRepeatingCoroutine(this GameObject gameObject, Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
-		=> gameObject.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
-	public static Coroutine startRepeatingCoroutine(this GameObject gameObject, Action action, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle)
-		=> gameObject.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	// methods: have this given game object have Unity begin a repeating coroutine using the given function executing the given parameters, beginning now versus at next check according to the given boolean, then return the begun coroutine //
+	public static Coroutine beginRepeatingCoroutine(this GameObject gameObject, Delegate function, bool beginNowVersusAtNextCheck = Default.beginningNowVersusAtNextCycle, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginRepeatingCoroutine(function, beginNowVersusAtNextCheck, parameters);
+	public static Coroutine beginRepeatingCoroutine(this GameObject gameObject, Action action, bool beginNowVersusAtNextCheck = Default.beginningNowVersusAtNextCycle)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginRepeatingCoroutine(action, beginNowVersusAtNextCheck);
 	
-	public static Coroutine startCoroutineRepeatingEvery(this GameObject gameObject, float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, function, startNowVersusAfterFirstInterval, parameters);
-	public static Coroutine startCoroutineRepeatingEvery(this GameObject gameObject, float interval, Action action, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle)
-		=> gameObject.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, action, startNowVersusAfterFirstInterval);
+	public static Coroutine beginCoroutineRepeatingEvery(this GameObject gameObject, float interval, Delegate function, bool beginNowVersusAfterFirstInterval = Default.beginningNowVersusAtNextCycle, params object[] parameters)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutineRepeatingEvery(interval, function, beginNowVersusAfterFirstInterval, parameters);
+	public static Coroutine beginCoroutineRepeatingEvery(this GameObject gameObject, float interval, Action action, bool beginNowVersusAfterFirstInterval = Default.beginningNowVersusAtNextCycle)
+		=> gameObject.ensuredDefaultAutoBehaviour().beginCoroutineRepeatingEvery(interval, action, beginNowVersusAfterFirstInterval);
 	#endregion this given game object
 
 
 	#region this given component
 
-	// method: have this given component have Unity start a coroutine using the given enumerator, then return the started coroutine //
-	public static Coroutine startCoroutine(this Component component, IEnumerator enumerator)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutine(enumerator);
+	// method: have this given component have Unity begin a coroutine using the given enumerator, then return the begun coroutine //
+	public static Coroutine beginCoroutine(this Component component, IEnumerator enumerator)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutine(enumerator);
 
-	// methods: have this given component have Unity start a coroutine using the given function executing the given parameters and following the given coroute, then return the started coroutine //
-	public static Coroutine startCoroutine(this Component component, Coroute coroute, Delegate function, params object[] parameters)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutine(coroute, function, parameters);
-	public static Coroutine startCoroutine(this Component component, Coroute coroute, Action action)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutine(coroute, action);
+	// methods: have this given component have Unity begin a coroutine using the given function executing the given parameters and following the given coroute, then return the begun coroutine //
+	public static Coroutine beginCoroutine(this Component component, Coroute coroute, Delegate function, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutine(coroute, function, parameters);
+	public static Coroutine beginCoroutine(this Component component, Coroute coroute, Action action)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutine(coroute, action);
 	
-	public static Coroutine startCoroutineWithInterval(this Component component, float interval, Coroute coroute, Delegate function, params object[] parameters)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, function, parameters);
-	public static Coroutine startCoroutineWithInterval(this Component component, float interval, Coroute coroute, Action action)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutineWithInterval(interval, coroute, action);
+	public static Coroutine beginCoroutineWithInterval(this Component component, float interval, Coroute coroute, Delegate function, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutineWithInterval(interval, coroute, function, parameters);
+	public static Coroutine beginCoroutineWithInterval(this Component component, float interval, Coroute coroute, Action action)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutineWithInterval(interval, coroute, action);
 
-	// methods: have this given component have Unity start a repeating coroutine using the given function executing the given parameters, starting now versus at next check according to the given boolean, then return the started coroutine //
-	public static Coroutine startRepeatingCoroutine(this Component component, Delegate function, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle, params object[] parameters)
-		=> component.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(function, startNowVersusAtNextCheck, parameters);
-	public static Coroutine startRepeatingCoroutine(this Component component, Action action, bool startNowVersusAtNextCheck = Default.startingNowVersusAtNextCycle)
-		=> component.ensuredDefaultAutoBehaviour().startRepeatingCoroutine(action, startNowVersusAtNextCheck);
+	// methods: have this given component have Unity begin a repeating coroutine using the given function executing the given parameters, beginning now versus at next check according to the given boolean, then return the begun coroutine //
+	public static Coroutine beginRepeatingCoroutine(this Component component, Delegate function, bool beginNowVersusAtNextCheck = Default.beginningNowVersusAtNextCycle, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().beginRepeatingCoroutine(function, beginNowVersusAtNextCheck, parameters);
+	public static Coroutine beginRepeatingCoroutine(this Component component, Action action, bool beginNowVersusAtNextCheck = Default.beginningNowVersusAtNextCycle)
+		=> component.ensuredDefaultAutoBehaviour().beginRepeatingCoroutine(action, beginNowVersusAtNextCheck);
 	
-	public static Coroutine startCoroutineRepeatingEvery(this Component component, float interval, Delegate function, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle, params object[] parameters)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, function, startNowVersusAfterFirstInterval, parameters);
-	public static Coroutine startCoroutineRepeatingEvery(this Component component, float interval, Action action, bool startNowVersusAfterFirstInterval = Default.startingNowVersusAtNextCycle)
-		=> component.ensuredDefaultAutoBehaviour().startCoroutineRepeatingEvery(interval, action, startNowVersusAfterFirstInterval);
+	public static Coroutine beginCoroutineRepeatingEvery(this Component component, float interval, Delegate function, bool beginNowVersusAfterFirstInterval = Default.beginningNowVersusAtNextCycle, params object[] parameters)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutineRepeatingEvery(interval, function, beginNowVersusAfterFirstInterval, parameters);
+	public static Coroutine beginCoroutineRepeatingEvery(this Component component, float interval, Action action, bool beginNowVersusAfterFirstInterval = Default.beginningNowVersusAtNextCycle)
+		=> component.ensuredDefaultAutoBehaviour().beginCoroutineRepeatingEvery(interval, action, beginNowVersusAfterFirstInterval);
 	#endregion this given component
-	#endregion starting coroutines
+	#endregion beginning coroutines
 
 
 

@@ -5,9 +5,11 @@ using UnityEngine;
 
 // Parent Extensions:
 // • provides extension methods for handling parents
-// #parent #transform
+// #parent #family #transform #component
 public static class ParentExtensions
 {
+	#region determining parents
+
 	// method: return whether this given transform has any parent //
 	public static bool hasAnyParent(this Transform transform)
 		=> transform.parent.isYull();
@@ -61,6 +63,10 @@ public static class ParentExtensions
 	public static bool parentIsNot<SingletonBehaviourT>(this Component component)
 		where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 		=> !component.parentIs<SingletonBehaviourT>();
+	#endregion determining parents
+
+
+	#region accessing parents
 
 	// method: return this given game object's parent //
 	public static Transform parent(this GameObject gameObject)
@@ -79,6 +85,34 @@ public static class ParentExtensions
 	public static GameObject parentObject<ComponentT>(this ComponentT component) where ComponentT : Component
 		=> component.transform.parentObject();
 
+	// method: return this given game object's parent's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstParent<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.parent().first<ComponentT>(includeInactiveComponents);
+
+	// method: return this given transform's parent's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstParent<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.firstParent<ComponentT>(includeInactiveComponents);
+
+	// method: return this given component's parent's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstParent<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.firstParent<ComponentT>(includeInactiveComponents);
+
+	// method: return a list of this given game object's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> parental<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.parent().pick<ComponentT>(includeInactiveComponents);
+
+	// method: return a list of this given transform's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> parental<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> transform.gameObject.parental<ComponentT>(includeInactiveComponents);
+
+	// method: return a list of this given component's parent's components of the specified class, optionally including inactive components according to the given boolean //
+	public static List<ComponentT> parental<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> component.gameObject.parental<ComponentT>(includeInactiveComponents);
+	#endregion accessing parents
+
+
+	#region setting parents
+
 	// methods: (according to the given boolean:) set this given provided transform's parent to the given provided parent transform or specified singleton behaviour (respectively), then return this given provided transform (unless this given transform provider is a component and the parent is specified as a singleton behaviour) //
 	public static ObjectT setParentTo<ObjectT>(this ObjectT transform_TransformProvider, object parentTransform_TransformProvider, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
 	{
@@ -88,6 +122,7 @@ public static class ParentExtensions
 			if (transform.isYull())
 			{
 				Transform parentTransform = parentTransform_TransformProvider.provideTransform();
+				List<string> callstackMethodNames_for_setParentTo = Callstack.methodNames;
 				#if UNITY_EDITOR
 				if (Callstack.includesOnValidate)
 				{
@@ -95,13 +130,27 @@ public static class ParentExtensions
 					(
 						()=>
 						{
-							if (parentTransform.isYull())
+							try
 							{
-								transform.SetParent(parentTransform);
+								if (parentTransform.isYull())
+								{
+									transform.SetParent(parentTransform);
+								}
+								else
+								{
+									transform.SetParent(null);
+								}
 							}
-							else
+							catch (NullReferenceException nullReferenceException)
 							{
-								transform.SetParent(null);
+								if (!silenceNullTransformErrorForDelayInEditor)
+								{
+									nullReferenceException.logAsError
+									(
+										"the this transform given to ParentExtensions.setParentTo has become null by now (when the action given by ParentExtensions.setParentTo to Execute.atNextCheck_IfInEditor is being executed); here is the listing of method names that were in the callstack upon calling ParentExtensions.setParentTo:".thenNewline()
+										+callstackMethodNames_for_setParentTo.asListing()
+									);
+								}
 							}
 						},
 						executeIfPlaymodeHasChanged,
@@ -148,10 +197,21 @@ public static class ParentExtensions
 
 	// method: (according to the given boolean:) unparent this given transform (set its parent to null), then return this given transform //
 	public static Transform unparent(this Transform transform, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
-		=> transform.setParentTo((Transform) null, boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor);
+		=>	transform.setParentTo
+			(
+				(Transform) null,
+				boolean,
+				executeIfPlaymodeHasChanged,
+				silenceNullTransformErrorForDelayInEditor
+			);
 	// method: (according to the given boolean:) unparent this given game object (set its parent to null), then return this given game object //
 	public static GameObject unparent(this GameObject gameObject, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
-		=> gameObject.transform.unparent(boolean, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor).gameObject;
+		=>	gameObject.transform.unparent
+			(
+				boolean,
+				executeIfPlaymodeHasChanged,
+				silenceNullTransformErrorForDelayInEditor
+			).gameObject;
 	// method: (according to the given boolean:) unparent the transform of this given component (set its parent to null), then return this given component //
 	public static ComponentT unparent<ComponentT>(this ComponentT component, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing) where ComponentT : Component
 		=> component.after(()=>
@@ -162,6 +222,10 @@ public static class ParentExtensions
 		=>	gameObjects.forEachManifested(gameObject =>
 				gameObject.unparent(true, executeIfPlaymodeHasChanged, silenceNullTransformErrorForDelayInEditor),
 				boolean);
+	#endregion setting parents
+	
+
+	#region acting based upon parent
 
 	// method: (according to the given boolean:) temporarily change this given transform's parent to the given other transform, during so invoking the given action on this given transform, then return this given transform //
 	public static Transform actUponWithParentTemporarilySwappedTo(this Transform transform, Transform otherTransform, Action<Transform> action, bool boolean = true, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silenceNullTransformErrorForDelayInEditor = Default.errorSilencing)
@@ -198,4 +262,5 @@ public static class ParentExtensions
 
 		return transform;
 	}
+	#endregion acting based upon parent
 }

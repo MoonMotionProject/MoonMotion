@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Component Transformation Extensions: provides extension methods for handling component transformations
-// #auto #transform #transformations
+// #transform #transformations
 public static class ComponentTransformationExtensions
 {
 	// method: return the local position of the transform of this given component //
@@ -288,6 +288,8 @@ public static class ComponentTransformationExtensions
 
 		return component;
 	}
+	public static bool localScaleIsDefault(this Component component)
+		=> component.transform.localScaleIsDefault();
 
 
 

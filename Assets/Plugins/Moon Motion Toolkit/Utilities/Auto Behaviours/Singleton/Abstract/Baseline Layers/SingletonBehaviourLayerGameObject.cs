@@ -42,6 +42,22 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
 	)
 		=> autoBehaviour.createChildObject(name, matchRotationToParent, matchLayersToParent);
+
+	public static new GameObject createChildObjectForNew_ViaReflection<ComponentT>
+	(
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	) where ComponentT : Component
+		=> autoBehaviour.createChildObjectForNew_ViaReflection<ComponentT>(name, matchRotationToParent, matchLayersToParent);
+	
+	public static new ComponentT createChildObjectForNewGet_ViaReflection<ComponentT>
+	(
+		string name = "",
+		bool matchRotationToParent = Default.matchingOfRotationToParentForFreshGameObjectCreation,
+		bool matchLayersToParent = Default.matchingOfLabelsToParentForFreshGameObjectCreation
+	) where ComponentT : Component
+		=> autoBehaviour.createChildObjectForNewGet_ViaReflection<ComponentT>(name, matchRotationToParent, matchLayersToParent);
 	#endregion creating fresh game objects
 
 
@@ -101,13 +117,6 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion setting hierarchy objects selection
 
 
-	#region pinging objects in the hierarchy
-	
-	public static new AutoBehaviour<SingletonBehaviourT> pingInHierarchy_IfInEditor()
-		=> autoBehaviour.pingInHierarchy_IfInEditor();
-	#endregion pinging objects in the hierarchy
-
-
 	#region setting hierarchy objects selection then pinging the selection
 	
 	public static new AutoBehaviour<SingletonBehaviourT> selectAndPingInHierarchy_IfInEditor()
@@ -124,13 +133,20 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 		=> autoBehaviour.expandInHierarchy();
 	public static new AutoBehaviour<SingletonBehaviourT> collapseInHierarchy()
 		=> autoBehaviour.collapseInHierarchy();
+	
+	public static new AutoBehaviour<SingletonBehaviourT> setHierarchyExpansionForSelfAndChildrenTo(bool expansion)
+		=> autoBehaviour.setHierarchyExpansionForSelfAndChildrenTo(expansion);
+	public static new AutoBehaviour<SingletonBehaviourT> expandSelfAndChildrenInHierarchy()
+		=> autoBehaviour.expandSelfAndChildrenInHierarchy();
+	public static new AutoBehaviour<SingletonBehaviourT> collapseSelfAndChildrenInHierarchy()
+		=> autoBehaviour.collapseSelfAndChildrenInHierarchy();
 
-	public static new void setHierarchyExpansionForSelfAndDescendantsTo(bool expansion)
-		=> autoBehaviour.setHierarchyExpansionForSelfAndDescendantsTo(expansion);
-	public static new void expandSelfAndDescendantsInHierarchy()
-		=> autoBehaviour.expandSelfAndDescendantsInHierarchy();
-	public static new void collapseSelfAndDescendantsInHierarchy()
-		=> autoBehaviour.collapseSelfAndDescendantsInHierarchy();
+	public static new void setHierarchyExpansionForLodalsTo(bool expansion)
+		=> autoBehaviour.setHierarchyExpansionForLodalsTo(expansion);
+	public static new void expandLodalsInHierarchy()
+		=> autoBehaviour.expandLodalsInHierarchy();
+	public static new void collapseLodalsInHierarchy()
+		=> autoBehaviour.collapseLodalsInHierarchy();
 	#endif
 	#endregion setting hierarchy expansion
 
@@ -139,8 +155,8 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 
 	public static new AutoBehaviour<SingletonBehaviourT> setNameTo(string name, bool boolean = true)
 		=> autoBehaviour.setNameTo(name, boolean);
-	public static new AutoBehaviour<SingletonBehaviourT> setNameToSimpleClassName(bool boolean = true)
-		=> autoBehaviour.setNameToSimpleClassName(boolean);
+	public static new AutoBehaviour<SingletonBehaviourT> setNameToSimpleClassName_ViaReflection(bool boolean = true)
+		=> autoBehaviour.setNameToSimpleClassName_ViaReflection(boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> toNameAppend(string suffix, bool boolean = true)
 		=> autoBehaviour.toNameAppend(suffix, boolean);
 	#endregion name

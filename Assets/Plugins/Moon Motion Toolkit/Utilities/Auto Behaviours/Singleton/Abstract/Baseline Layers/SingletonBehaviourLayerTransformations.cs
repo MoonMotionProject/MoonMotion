@@ -132,6 +132,8 @@ public abstract class	SingletonBehaviourLayerTransformations<SingletonBehaviourT
 		=> autoBehaviour.setLocalScaleTo(otherComponent, boolean);
 	public static new AutoBehaviour<SingletonBehaviourT> resetLocalScale(bool boolean = true)
 		=> autoBehaviour.resetLocalScale(boolean);
+	public static new bool localScaleIsDefault => autoBehaviour.localScaleIsDefault;
+	public static new bool localScaleIsNotDefault => autoBehaviour.localScaleIsNotDefault;
 
 	public static new float localScaleX => autoBehaviour.localScale.x;
 	public static new AutoBehaviour<SingletonBehaviourT> setLocalScaleXTo(float x, bool boolean = true)

@@ -27,7 +27,8 @@ public static class EnableeComponentExtensions
 
 
 	#region enablement of this given enablee component
-
+	
+	/* (via reflection if error) */
 	private static bool enablementOf(Component enableeComponent)
 	{
 		if (enableeComponent is Behaviour)
@@ -40,7 +41,7 @@ public static class EnableeComponentExtensions
 		}
 		else
 		{
-			return default(bool).returnWithError("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.type());
+			return default(bool).returnWithError("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.derivedType_ViaReflection());
 		}
 	}
 
@@ -51,6 +52,7 @@ public static class EnableeComponentExtensions
 	public static bool isNotEnabled(this Component enableeComponent)
 		=> !isEnabled(enableeComponent);
 
+	/* (via reflection if error) */
 	private static void setEnablementOf(Component enableeComponent, bool enablement)
 	{
 		if (enableeComponent is Behaviour)
@@ -63,7 +65,7 @@ public static class EnableeComponentExtensions
 		}
 		else
 		{
-			("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.type()).printAsError();
+			("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.derivedType_ViaReflection()).printAsError();
 		}
 	}
 

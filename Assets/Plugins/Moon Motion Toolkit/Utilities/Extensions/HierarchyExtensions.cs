@@ -92,26 +92,13 @@ public static class HierarchyExtensions
 
 	#region pinging objects in the hierarchy
 
-	// method: (if in the editor:) ping this given game object in the hierarchy (if it's yull), then return this given game object //
-	public static GameObject pingInHierarchy_IfInEditor(this GameObject gameObject)
-		=>	gameObject.after(gameObject_ =>
-			{
-				#if UNITY_EDITOR
-				EditorGUIUtility.PingObject(gameObject_);
-				#endif
-			}, gameObject.isYull() && UnityIs.inEditor);
-	// method: (if in the editor:) ping this given component's game object in the hierarchy (if this given component and its game object are both yull), then return this given component //
-	public static ComponentT pingInHierarchy_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
-		=>	component.after(()=>
-				component.gameObject.pingInHierarchy_IfInEditor(),
-				component.isYull() && component.gameObject.isYull());
 	// method: (if in the editor:) ping these given game objects in the hierarchy (only each one that is yull), then return the set of these given game objects //
 	public static HashSet<GameObject> pingUniquesInHierarchy_IfInEditor(this IEnumerable<GameObject> gameObjects)
 		=>	gameObjects.forEachUnique(gameObject =>
 			{
 				if (gameObject.isYull())
 				{
-					gameObject.pingInHierarchy_IfInEditor();
+					Hierarchy.ping_IfInEditor(gameObject);
 				}
 			});
 	// method: (if in the editor:) ping these given components' game objects in the hierarchy (only each component that is yull (and whose game object is yull)), then return the set of these given components //
@@ -120,7 +107,7 @@ public static class HierarchyExtensions
 			{
 				if (component.isYull())
 				{
-					component.pingInHierarchy_IfInEditor();
+					Hierarchy.ping_IfInEditor(component);
 				}
 			});
 	#endregion pinging objects in the hierarchy
@@ -131,7 +118,7 @@ public static class HierarchyExtensions
 	// method: (if in the editor:) select and ping this given game object in the hierarchy (if it's yull), then return this given game object //
 	public static GameObject selectAndPingInHierarchy_IfInEditor(this GameObject gameObject)
 		=>	gameObject.after(()=>
-				gameObject.selectInHierarchy_IfInEditor().pingInHierarchy_IfInEditor(),
+				Hierarchy.ping_IfInEditor(gameObject.selectInHierarchy_IfInEditor()),
 				gameObject.isYull());
 	// method: (if in the editor:) select and ping this given component's game object in the hierarchy (if this given component and its game object are both yull), then return this given component //
 	public static ComponentT selectAndPingInHierarchy_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
@@ -154,7 +141,7 @@ public static class HierarchyExtensions
 
 			GameObject temporaryChild = gameObject.createChildObject();
 
-			gameObject.setHierarchyExpansionForSelfAndDescendantsTo(expansion);
+			gameObject.setHierarchyExpansionForLodalsTo(expansion);
 			
 			childGameObjects.forEachSetParentTo(gameObject);
 
@@ -172,8 +159,17 @@ public static class HierarchyExtensions
 		=> gameObject.setHierarchyExpansionTo(false);
 	public static HashSet<GameObject> collapseUniquesInHierarchy(this IEnumerable<GameObject> gameObjects)
 		=> gameObjects.setHierarchyExpansionOfUniquesTo(false);
+	
+	public static GameObject setHierarchyExpansionForSelfAndChildrenTo(this GameObject gameObject, bool expansion)
+		=>	gameObject.after(()=>
+				gameObject.setHierarchyExpansionTo(expansion)
+					.childObjects().setHierarchyExpansionOfUniquesTo(expansion));
+	public static GameObject expandSelfAndChildrenInHierarchy(this GameObject gameObject)
+		=> gameObject.setHierarchyExpansionForSelfAndChildrenTo(true);
+	public static GameObject collapseSelfAndChildrenInHierarchy(this GameObject gameObject)
+		=> gameObject.setHierarchyExpansionForSelfAndChildrenTo(false);
 
-	public static GameObject setHierarchyExpansionForSelfAndDescendantsTo(this GameObject gameObject, bool expansion)
+	public static GameObject setHierarchyExpansionForLodalsTo(this GameObject gameObject, bool expansion)
 	{
 		if (gameObject.hasAnyChildren())
 		{
@@ -186,10 +182,10 @@ public static class HierarchyExtensions
 
 		return gameObject;
 	}
-	public static GameObject expandSelfAndDescendantsInHierarchy(this GameObject gameObject)
-		=> gameObject.setHierarchyExpansionForSelfAndDescendantsTo(true);
-	public static GameObject collapseSelfAndDescendantsInHierarchy(this GameObject gameObject)
-		=> gameObject.setHierarchyExpansionForSelfAndDescendantsTo(false);
+	public static GameObject expandLodalsInHierarchy(this GameObject gameObject)
+		=> gameObject.setHierarchyExpansionForLodalsTo(true);
+	public static GameObject collapseLodalsInHierarchy(this GameObject gameObject)
+		=> gameObject.setHierarchyExpansionForLodalsTo(false);
 	#endif
 	#endregion setting hierarchy expansion
 }

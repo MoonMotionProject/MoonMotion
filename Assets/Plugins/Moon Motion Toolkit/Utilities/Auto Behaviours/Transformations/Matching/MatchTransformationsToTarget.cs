@@ -5,7 +5,7 @@ using NaughtyAttributes;
 
 // Match Transformations to Target:
 // • updates this object's transformations to match the transformations of the target transform (otherwise this transform)
-// #transform #transformations
+// #transformers
 public class MatchTransformationsToTarget : MatchSomeTransformationsToTarget<MatchTransformationsToTarget>
 {
 	// variables //

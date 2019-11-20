@@ -28,17 +28,21 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	[Tooltip("whether spawned objects are spawned positioned as children to a particular parent instead of this object")]
 	public bool useParticularPositionParent = true;
 
-	private GameObject automatedParticularPositionParent()
-		=>	particularPositionParent_
-				=	hasAnyLocalOrDescendant<SpawnPoint>() ?
-						firstLocalOrDescendant<SpawnPoint>().gameObject :
-						gameObject;
+	private GameObject automatedParticularPositionParent
+		=>	hasAnyLodal<SpawnPoint>() ?
+				lodespondingSpawnPoint.isYull() ?
+					lodespondingSpawnPoint.gameObject :
+					logErrorAndReturnDefault<GameObject>("encountered unexpected null lodespondingSpawnPoint") :
+				gameObject;
+	private GameObject automateParticularPositionParent()
+		=> particularPositionParent_ = automatedParticularPositionParent;	
 	private GameObject particularPositionParent_ = null;
 	[TabGroup("Spawning")]
 	[PropertyOrder(-1)]
 	[Indent]
 	[PropertyTooltip("the particular position parent object which spawned objects are spawned positioned as children of instead of this object")]
-	[InlineButton("automatedParticularPositionParent", "Automate")]
+	[InfoBox("when automated:\nif a lodal Spawn Point is found, its object will be used; otherwise, this object will be used")]
+	[InlineButton("automateParticularPositionParent", "Automate")]
 	[ShowIf("useParticularPositionParent")]
 	[HideLabel]
 	[ShowInInspector]
@@ -48,7 +52,7 @@ public class Spawner : EnabledsBehaviour<Spawner>
 		{
 			return	particularPositionParent_.isYull() ?
 						particularPositionParent_ :
-						automatedParticularPositionParent();
+						automateParticularPositionParent();
 		}
 		set {particularPositionParent_ = value;}
 	}
@@ -67,9 +71,12 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	[Tooltip("whether to visualize a cube for the spawning position")]
 	public bool visualizeSpawningPosition = Default.choiceToVisualizeInEditor;
 	
+	private void defaultSpawningPositionVisualizationColor()
+		=> spawningPositionVisualizationColor = Default.spawningVisualizationColor;
 	[TabGroup("Spawning")]
 	[Indent]
 	[Tooltip("the color to use for editor visualization of the spawning position")]
+	[InlineButton("defaultSpawningPositionVisualizationColor", "Default")]
 	[ShowIf("visualizeSpawningPosition")]
 	[HideLabel]
 	public Color spawningPositionVisualizationColor = Default.spawningVisualizationColor;
@@ -130,6 +137,18 @@ public class Spawner : EnabledsBehaviour<Spawner>
 	{
 		get {return delayBetweenEach_;}
 		set {delayBetweenEach_ = value.atLeastZero();}
+	}
+
+	[SerializeField]
+	[HideInInspector]
+	private float startingSpawnDelay_ = Default.delay;
+	[TabGroup("Spawning")]
+	[Title("When")]
+	[ShowInInspector]
+	public float startingSpawnDelay
+	{
+		get {return startingSpawnDelay_;}
+		set {startingSpawnDelay_ = value.atLeastZero();}
 	}
 	#endregion spawning
 
@@ -264,25 +283,8 @@ public class Spawner : EnabledsBehaviour<Spawner>
 		spawnCount();
 		plan();
 	}
-	#endregion methods
-
-
-
-
-	#region updating
 	
-	
-	// upon editor visualization while selected: //
-	#if UNITY_EDITOR
-	private void OnDrawGizmosSelected()
-		=>	Visualize.boxSittingAt(spawningPositionParent,
-				spawningPositionVisualizationColor,
-				visualizeSpawningPosition);
-	#endif
-
-
-	// at the start: //
-	private void Start()
+	public void startingSpawn()
 	{
 		if (spawnOnInterval)
 		{
@@ -300,6 +302,26 @@ public class Spawner : EnabledsBehaviour<Spawner>
 			spawnCount();
 		}
 	}
+	#endregion methods
+
+
+
+
+	#region updating
+	
+	
+	// upon editor visualization while selected: //
+	#if UNITY_EDITOR
+	private void OnDrawGizmosSelected()
+		=>	Visualize.boxSittingAt(spawningPosition,
+				spawningPositionVisualizationColor,
+				visualizeSpawningPosition);
+	#endif
+
+
+	// at the start: //
+	private void Start()
+		=> executeAfter(startingSpawnDelay, startingSpawn);
 	#endregion updating
 }
 #endif

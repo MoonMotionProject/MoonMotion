@@ -30,15 +30,6 @@ public abstract class	CommonBehaviour<CommonBehaviourT> :
 
 
 
-	// properties //
-
-	
-	// whether this behaviour is currently required //
-	public virtual bool behaviourRequired => required_ViaReflection();
-
-
-
-
 	// updating //
 
 	
@@ -49,7 +40,7 @@ public abstract class	CommonBehaviour<CommonBehaviourT> :
 
 		if (validatedYet)
 		{
-			if (!behaviourRequired)
+			if (!isRequired_ViaAdditionalReflection())
 			{
 				destroyThisBehaviour();
 			}

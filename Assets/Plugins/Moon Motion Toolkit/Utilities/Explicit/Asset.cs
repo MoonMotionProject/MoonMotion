@@ -39,13 +39,13 @@ public static class Asset
 		=> ideesForAssetsFilteredBy(filterString).pickUnique(idee => pathForAssetIdee(idee));
 	public static HashSet<string> pathsForAssets => pathsForAssetsFilteredBy("");
 
-	// method: return the set of asset paths for all assets of the specified type //
-	public static HashSet<string> pathsForAssetsOfType<AssetT>() where AssetT : class
-		=> pathsForAssetsFilteredBy("t:"+typeof(AssetT).simpleClassName());
+	// method: (via reflection:) return the set of asset paths for all assets of the specified type //
+	public static HashSet<string> pathsForAssetsOfType_ViaReflection<AssetT>() where AssetT : class
+		=> pathsForAssetsFilteredBy("t:"+typeof(AssetT).simpleClassName_ViaReflection());
 
-	// method: return the set of asset paths for all assets of the specified type //
-	public static HashSet<string> pathsForNonMoonMotionToolkitAssetsOfType<AssetT>() where AssetT : class
-		=> pathsForAssetsOfType<AssetT>().uniquesWhere(assetPath => assetPath.doesNotContain(MoonMotion.toolkitName));
+	// method: (via reflection:) return the set of asset paths for all assets of the specified type //
+	public static HashSet<string> pathsForNonMoonMotionToolkitAssetsOfType_ViaReflection<AssetT>() where AssetT : class
+		=> pathsForAssetsOfType_ViaReflection<AssetT>().uniquesWhere(assetPath => assetPath.doesNotContain(MoonMotion.toolkitName));
 
 	// method: return the set of script asset paths for all script assets filtered by the given filter string //
 	public static HashSet<string> pathsForScriptAssetsFilteredBy(string filterString)
@@ -77,7 +77,7 @@ public static class Asset
 											filteredScriptAssetIdees.first() :
 											filteredScriptAssetIdees.isPlural() ?
 												filteredScriptAssetIdees.firstWhere(assetIdee =>
-					filetitleForAssetIdee(assetIdee).matches(simpleClassName)) :
+					filenameForAssetIdee(assetIdee).matches(simpleClassName)) :
 												"";
 
 			if (matchingAssetIdee.isNotEmptyNorNull())
@@ -92,6 +92,10 @@ public static class Asset
 	
 
 	#region to asset paths
+
+	// method: return the asset path for the asset with the given title at the given asset address //
+	public static string pathFor(string assetTitle, string assetAddress)
+		=> "Assets\\"+assetAddress+"\\"+assetTitle;
 	
 	// method: return the asset path of the given asset Unity object //
 	public static string pathForAsset(UnityEngine.Object assetUnityObject)
@@ -109,34 +113,34 @@ public static class Asset
 	public static string pathForSimpleClassName(string simpleClassName)
 		=> pathForAssetIdee(ideeForSimpleClassName(simpleClassName));
 
-	// method: return the asset path of the script asset with the given script asset type (class of a script asset) //
-	public static string pathForScriptAssetType(Type scriptAssetType)
-		=> pathForSimpleClassName(scriptAssetType.simpleClassName());
+	// method: (via reflection:) return the asset path of the script asset with the given script asset type (class of a script asset) //
+	public static string pathForScriptAssetType_ViaReflection(Type scriptAssetType)
+		=> pathForSimpleClassName(scriptAssetType.simpleClassName_ViaReflection());
 	#endregion to asset paths
-
-
-	#region to filenames
-
-	// method: return the asset filename for the given asset path //
-	public static string filenameForAssetPath(string assetPath)
-		=> Path.GetFileName(assetPath);
-
-	// method: return the asset filename for the given asset idee //
-	public static string filenameForAssetIdee(this string assetIdee)
-		=> filenameForAssetPath(pathForAssetIdee(assetIdee));
-	#endregion to filenames
 
 
 	#region to filetitles
 
 	// method: return the asset filetitle for the given asset path //
-	public static string filetitleForAssetPath(this string assetPath)
-		=> Path.GetFileNameWithoutExtension(assetPath);
+	public static string filetitleForAssetPath(string assetPath)
+		=> Path.GetFileName(assetPath);
 
 	// method: return the asset filetitle for the given asset idee //
 	public static string filetitleForAssetIdee(this string assetIdee)
 		=> filetitleForAssetPath(pathForAssetIdee(assetIdee));
 	#endregion to filetitles
+
+
+	#region to filenames
+
+	// method: return the asset filename for the given asset path //
+	public static string filenameForAssetPath(this string assetPath)
+		=> Path.GetFileNameWithoutExtension(assetPath);
+
+	// method: return the asset filename for the given asset idee //
+	public static string filenameForAssetIdee(this string assetIdee)
+		=> filenameForAssetPath(pathForAssetIdee(assetIdee));
+	#endregion to filenames
 
 
 	#region to assets

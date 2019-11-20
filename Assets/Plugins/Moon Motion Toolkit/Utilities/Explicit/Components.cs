@@ -8,16 +8,16 @@ using UnityEngine;
 public static class Components
 {
 	public static HashSet<ComponentT> prefabbedOfType<ComponentT>() where ComponentT : Component
-		=>	Prefabs.withAnyLocalOrDescendant<ComponentT>()
+		=>	Prefabs.withAnyLodal<ComponentT>()
 				.pickUnique(prefab =>
-					prefab.firstLocalOrDescendant<ComponentT>());
+					prefab.firstLodal<ComponentT>());
 	public static List<ComponentT> manifestedlyPrefabbedOfType<ComponentT>() where ComponentT : Component
 		=> prefabbedOfType<ComponentT>().manifested();
 	
 	public static HashSet<ComponentI> prefabbedOfTypeI<ComponentI>() where ComponentI : class
-		=>	Prefabs.withAnyLocalOrDescendantI<ComponentI>()
+		=>	Prefabs.withAnyLodalI<ComponentI>()
 				.pickUnique(prefab =>
-					prefab.firstLocalOrDescendantI<ComponentI>());
+					prefab.firstLodalI<ComponentI>());
 	public static List<ComponentI> manifestedlyPrefabbedOfTypeI<ComponentI>() where ComponentI : class
 		=> prefabbedOfTypeI<ComponentI>().manifested();
 }

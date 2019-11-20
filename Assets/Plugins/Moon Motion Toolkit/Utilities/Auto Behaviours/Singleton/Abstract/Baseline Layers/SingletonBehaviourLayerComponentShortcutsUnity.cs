@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 // Singleton Behaviour Layer Component Shortcuts Unity:
 // • provides this singleton behaviour with static access to its auto behaviour's Unity component shortcuts layer
-// #auto #shortcuts #component #rigidbody #force #linerenderers
+// #auto #shortcuts #component #rigidbody #force #collider #linerenderers
 public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerMonoBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
@@ -251,6 +251,37 @@ public abstract class	SingletonBehaviourLayerComponentShortcutsUnity<SingletonBe
 	}
 	#endregion applying directed force
 	#endregion Rigidbody
+
+
+	#region Collider
+
+	#region setting solidity
+	public static new Collider setSolidityTo(bool solidity, bool boolean = true)
+		=> autoBehaviour.setSolidityTo(solidity, boolean);
+	public static new Collider solidify(bool boolean = true)
+		=> autoBehaviour.solidify(boolean);
+	public static new Collider triggerize(bool boolean = true)
+		=> autoBehaviour.triggerize(boolean);
+	#endregion setting solidity
+	#endregion Collider
+
+
+	#region SphereCollider
+
+	#region setting solidity
+	public static new SphereCollider setSphereColliderSolidityTo(bool solidity, bool boolean = true)
+		=> autoBehaviour.setSphereColliderSolidityTo(solidity, boolean);
+	public static new SphereCollider solidifySphereCollider(bool boolean = true)
+		=> autoBehaviour.solidifySphereCollider(boolean);
+	public static new SphereCollider triggerizeSphereCollider(bool boolean = true)
+		=> autoBehaviour.triggerizeSphereCollider(boolean);
+	#endregion setting solidity
+	
+	#region setting radius
+	public static new SphereCollider setSphereColliderRadiusTo(float radius)
+		=> autoBehaviour.setSphereColliderRadiusTo(radius);
+	#endregion setting radius
+	#endregion SphereCollider
 
 
 	#region AudioSource

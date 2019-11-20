@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Rigidbody Correspondence Extensions: provides extension methods for handling rigidbody correspondence //
+// Rigidbody Correspondence Extensions:
+// • provides extension methods for handling rigidbody correspondence
+// #rigidbody #correspondence #corality #component
 public static class RigidbodyCorrespondenceExtensions
 {
-	// method: return the rigidbody corresponding to (responsible for the physics of, by assuming the first local or ancestor rigidbody of this given game object will be the rigidbody responsible as such) this given game object //
+	// method: return the rigidbody corresponding to (responsible for the physics of, by assuming the first coral rigidbody of this given game object will be the rigidbody responsible as such) this given game object //
 	public static Rigidbody correspondingRigidbody(this GameObject gameObject)
-		=> gameObject.corresponding<Rigidbody>();
+		=> gameObject.corresponding<Rigidbody>();		/* if this implementation changes, then ComponentCachingExtensions.cacheCorresponding will need to handle the Rigidbody case differently per such an implementation change */
 	// method: return the rigidbody corresponding to this given component //
 	public static Rigidbody correspondingRigidbody(this Component component)
 		=> component.gameObject.correspondingRigidbody();

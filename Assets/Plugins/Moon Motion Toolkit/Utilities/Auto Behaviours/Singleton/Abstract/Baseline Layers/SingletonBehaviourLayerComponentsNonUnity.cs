@@ -10,7 +10,7 @@ using UnityEngine.AI;
 #endif
 
 // Singleton Behaviour Layer Components Moon Motion:
-// #auto #tracking
+// #auto #tracking #unitology
 // • provides this singleton behaviour with static access to its auto behaviour's nonUnity components layer
 public abstract class	SingletonBehaviourLayerComponentsNonUnity<SingletonBehaviourT> :
 					SingletonBehaviourLayerComponentsUnity<SingletonBehaviourT>
@@ -43,12 +43,29 @@ public abstract class	SingletonBehaviourLayerComponentsNonUnity<SingletonBehavio
 
 	
 	public static new DefaultAutoBehaviour defaultAutoBehaviour => autoBehaviour.defaultAutoBehaviour;
-	public static new DefaultAutoBehaviour ensuredDefaultAutoBehaviour => autoBehaviour.ensuredDefaultAutoBehaviour;
+	public static new DefaultAutoBehaviour ensuredDefaultAutoBehaviour() => autoBehaviour.ensuredDefaultAutoBehaviour();
 	public static new Kinematizer kinematizer => autoBehaviour.kinematizer;
 	public static new Slower slower => autoBehaviour.slower;
 	public static new FaceMainCamera faceMainCamera => autoBehaviour.faceMainCamera;
 	public static new Hovering hovering => autoBehaviour.hovering;
 	public static new BasicSpinning basicSpinning => autoBehaviour.basicSpinning;
+
+
+	#region spawning
+	
+	#if ODIN_INSPECTOR
+	public static new Spawner spawner => autoBehaviour.spawner;
+	public static new Spawner correspondingSpawner => autoBehaviour.correspondingSpawner;
+	public static new Spawner ensuredCorrespondingSpawner() => autoBehaviour.ensuredCorrespondingSpawner();
+	public static new Spawner lodespondingSpawner => autoBehaviour.lodespondingSpawner;
+	public static new Spawner ensuredLodespondingSpawner() => autoBehaviour.ensuredLodespondingSpawner();
+	#endif
+	public static new SpawnPoint spawnPoint => autoBehaviour.spawnPoint;
+	public static new SpawnPoint correspondingSpawnPoint => autoBehaviour.correspondingSpawnPoint;
+	public static new SpawnPoint ensuredCorrespondingSpawnPoint() => autoBehaviour.ensuredCorrespondingSpawnPoint();
+	public static new SpawnPoint lodespondingSpawnPoint => autoBehaviour.lodespondingSpawnPoint;
+	public static new SpawnPoint ensuredLodespondingSpawnPoint() => autoBehaviour.ensuredLodespondingSpawnPoint();
+	#endregion spawning
 
 
 	#region Tracking
@@ -122,6 +139,40 @@ public abstract class	SingletonBehaviourLayerComponentsNonUnity<SingletonBehavio
 	#region Unitology
 	#if UNITOLOGY
 	public static new Unit unit => autoBehaviour.unit;
+	public static new Unit correspondingUnit => autoBehaviour.correspondingUnit;
+	public static new Unit ensuredCorrespondingUnit() => autoBehaviour.ensuredCorrespondingUnit();
+	public static new UnitEffectsPoint unitEffectsPoint => autoBehaviour.unitEffectsPoint;
+	public static new UnitEffectsPoint correspondingUnitEffectsPoint => autoBehaviour.correspondingUnitEffectsPoint;
+	public static new UnitEffectsPoint ensuredCorrespondingUnitEffectsPoint() => autoBehaviour.ensuredCorrespondingUnitEffectsPoint();
+	public static new UnitEffectsPoint lodespondingUnitEffectsPoint => autoBehaviour.lodespondingUnitEffectsPoint;
+	public static new UnitEffectsPoint ensuredLodespondingUnitEffectsPoint() => autoBehaviour.ensuredLodespondingUnitEffectsPoint();
+	public static new DescendantUnitsAllegior descendantUnitsAllegior => autoBehaviour.descendantUnitsAllegior;
+	public static new DescendantUnitsAllegior correspondingDescendantUnitsAllegior => autoBehaviour.correspondingDescendantUnitsAllegior;
+	public static new UnitTargetPoint unitTargetPoint => autoBehaviour.unitTargetPoint;
+	public static new UnitTargetPoint correspondingUnitTargetPoint => autoBehaviour.correspondingUnitTargetPoint;
+	public static new UnitTargetPoint ensuredCorrespondingUnitTargetPoint() => autoBehaviour.ensuredCorrespondingUnitTargetPoint();
+	public static new UnitTargetPoint lodespondingUnitTargetPoint => autoBehaviour.lodespondingUnitTargetPoint;
+	public static new UnitTargetPoint ensuredLodespondingUnitTargetPoint() => autoBehaviour.ensuredLodespondingUnitTargetPoint();
+	public static new UnitTargetCollidance unitTargetCollidance => autoBehaviour.unitTargetCollidance;
+	public static new UnitTargetCollidance correspondingUnitTargetCollidance => autoBehaviour.correspondingUnitTargetCollidance;
+	public static new UnitTargetCollidance ensuredCorrespondingUnitTargetCollidance() => autoBehaviour.ensuredCorrespondingUnitTargetCollidance();
+	public static new UnitTargetCollidance lodespondingUnitTargetCollidance => autoBehaviour.lodespondingUnitTargetCollidance;
+	public static new UnitTargetCollidance ensuredLodespondingUnitTargetCollidance() => autoBehaviour.ensuredLodespondingUnitTargetCollidance();
+	public static new UnitAwareness unitAwareness
+		=> autoBehaviour.unitAwareness;
+	public static new UnitAwareness correspondingUnitAwareness
+		=> autoBehaviour.correspondingUnitAwareness;
+	public static new UnitAwareness ensuredCorrespondingUnitAwareness()
+		=> autoBehaviour.ensuredCorrespondingUnitAwareness();
+	public static new UnitAwareness lodespondingUnitAwareness
+		=> autoBehaviour.lodespondingUnitAwareness;
+	public static new UnitAwareness ensuredLodespondingUnitAwareness()
+		=> autoBehaviour.ensuredLodespondingUnitAwareness();
+	public static new UnitTargetingPoint unitTargetingPoint => autoBehaviour.unitTargetingPoint;
+	public static new UnitTargetingPoint correspondingUnitTargetingPoint => autoBehaviour.correspondingUnitTargetingPoint;
+	public static new UnitTargetingPoint ensuredCorrespondingUnitTargetingPoint() => autoBehaviour.ensuredCorrespondingUnitTargetingPoint();
+	public static new UnitTargetingPoint lodespondingUnitTargetingPoint => autoBehaviour.lodespondingUnitTargetingPoint;
+	public static new UnitTargetingPoint ensuredLodespondingUnitTargetingPoint() => autoBehaviour.ensuredLodespondingUnitTargetingPoint();
 	#endif
 	#endregion Unitology
 

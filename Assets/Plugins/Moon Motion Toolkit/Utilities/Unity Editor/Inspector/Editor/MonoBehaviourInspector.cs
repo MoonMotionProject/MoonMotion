@@ -26,5 +26,5 @@ public abstract class MonoBehaviourInspector<MonoBehaviourT> : Editor where Mono
 	// methods //
 	
 	public override bool RequiresConstantRepaint()
-		=> monoBehaviour.attributed<MonoBehaviourT, RequiresConstantRepaintAttribute>();
+		=> monoBehaviour.attributed_ViaReflection<MonoBehaviourT, RequiresConstantRepaintAttribute>();
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Collider Extensions: provides extension methods for handling colliders //
+// Collider Extensions:
+// • provides extension methods for handling colliders
+// #collider
 public static class ColliderExtensions
 {
 	#region solidity determination
@@ -11,6 +13,29 @@ public static class ColliderExtensions
 	public static bool isSolid(this Collider collider)
 		=> !collider.isTrigger;
 	#endregion solidity determination
+
+
+	#region setting solidity
+
+	// method: (according to the given boolean:) set this given collider's solidity to the given solidity boolean, then return this given collider //
+	public static ColliderT setSolidityTo<ColliderT>(this ColliderT collider, bool solidity, bool boolean = true)
+		where ColliderT : Collider
+		=>	collider.after(()=>
+				collider.isTrigger = !solidity,
+				boolean);
+
+	// method: (according to the given boolean:) solidify this given collider (set this given collider's solidity to true), then return this given collider //
+	public static ColliderT solidify<ColliderT>(this ColliderT collider, bool boolean = true)
+		where ColliderT : Collider
+		=>	collider.setSolidityTo(true,
+				boolean);
+
+	// method: (according to the given boolean:) triggerize this given collider (set this given collider's solidity to false), then return this given collider //
+	public static ColliderT triggerize<ColliderT>(this ColliderT collider, bool boolean = true)
+		where ColliderT : Collider
+		=>	collider.setSolidityTo(false,
+				boolean);
+	#endregion setting solidity
 
 
 	#region handling solidity
@@ -27,26 +52,6 @@ public static class ColliderExtensions
 				collider :
 				null;
 	#endregion handling solidity
-
-
-	#region accessing local or descendant colliders based on solidity
-
-	#region accessing local or descendant solid colliders
-	// methods: return this given provided game object's first local or descendant solid collider of the specified collider type (null if none found), optionally including inactive colliders according to the given boolean //
-	public static ColliderT firstLocalOrDescendantSolid<ColliderT>(this GameObject gameObject, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> gameObject.localAndDescendant<ColliderT>(includeInactiveColliders).firstWhere(collider => collider.isSolid());
-	public static ColliderT firstLocalOrDescendantSolid<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> component.gameObject.firstLocalOrDescendantSolid<ColliderT>(includeInactiveColliders);
-	#endregion accessing local or descendant solid colliders
-
-	#region accessing local or descendant trigger colliders
-	// methods: return this given provided game object's first local or descendant trigger collider of the specified collider type (null if none found), optionally including inactive colliders according to the given boolean //
-	public static ColliderT firstLocalOrDescendantTrigger<ColliderT>(this GameObject gameObject, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> gameObject.localAndDescendant<ColliderT>(includeInactiveColliders).firstWhere(collider => collider.isTrigger);
-	public static ColliderT firstLocalOrDescendantTrigger<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> component.gameObject.firstLocalOrDescendantTrigger<ColliderT>(includeInactiveColliders);
-	#endregion accessing local or descendant trigger colliders
-	#endregion accessing local or descendant colliders based on solidity
 
 	
 	#region point determination

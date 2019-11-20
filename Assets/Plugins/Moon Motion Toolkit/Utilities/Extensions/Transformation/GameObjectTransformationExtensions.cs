@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // GameObject Transformation Extensions: provides extension methods for handling game object transformations
-// #auto #transform #transformations
+// #transform #transformations
 public static class GameObjectTransformationExtensions
 {
 	// method: return this given game object's local position //
@@ -229,6 +229,8 @@ public static class GameObjectTransformationExtensions
 	// method: (according to the given boolean:) reset this given game object's local scale to ones, then return this given game object //
 	public static GameObject resetLocalScale(this GameObject gameObject, bool boolean = true)
 		=> gameObject.transform.resetLocalScale(boolean).gameObject;
+	public static bool localScaleIsDefault(this GameObject gameObject)
+		=> gameObject.transform.localScaleIsDefault();
 
 
 

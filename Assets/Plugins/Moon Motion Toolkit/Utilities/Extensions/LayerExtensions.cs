@@ -161,24 +161,24 @@ public static class LayerExtensions
 
 
 
-	#region searching for self or ancestor based on comparison
+	#region searching for coral objects based on layer comparison
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given layer name (null if none found) //
-	public static GameObject selfOrParentWithLayer(this GameObject gameObject, string layerName)
-		=> gameObject.selfOrParentWithLabelThatMatchesOrContains(layerName, LabelType.layerName, true);
+	public static GameObject firstCoralObjectWithLayer(this GameObject gameObject, string layerName)
+		=> gameObject.firstCoralObjectWithLabelThatMatchesOrContains(layerName, LabelType.layerName, true);
 
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have the given layer name (null if none found) //
-	public static GameObject selfOrParentWithLayer(this Component component, string layerName)
-		=> component.gameObject.selfOrParentWithLayer(layerName);
+	public static GameObject firstCoralObjectWithLayer(this Component component, string layerName)
+		=> component.gameObject.firstCoralObjectWithLayer(layerName);
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have a layer name containing the given string (null if none found) //
-	public static GameObject selfOrParentWithLayerContaining(this GameObject gameObject, string string_)
-		=> gameObject.selfOrParentWithLabelThatMatchesOrContains(string_, LabelType.layerName, false);
+	public static GameObject firstCoralObjectWithLayerContaining(this GameObject gameObject, string string_)
+		=> gameObject.firstCoralObjectWithLabelThatMatchesOrContains(string_, LabelType.layerName, false);
 
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a layer name containing the given string (null if none found) //
-	public static GameObject selfOrParentWithLayerContaining(this Component component, string string_)
-		=> component.gameObject.selfOrParentWithLayerContaining(string_);
-	#endregion searching for self or ancestor based on comparison
+	public static GameObject firstCoralObjectWithLayerContaining(this Component component, string string_)
+		=> component.gameObject.firstCoralObjectWithLayerContaining(string_);
+	#endregion searching for coral objects based on layer comparison
 
 
 
@@ -187,7 +187,7 @@ public static class LayerExtensions
 	
 	// method: (according to the given boolean:) set the layer of this given provided game object to the layer for the given provided layer index, then return this given provided game object //
 	public static ObjectT setLayerTo<ObjectT>(this ObjectT gameObject_GameObjectProvider, object layerIndex_LayerIndexProvider, bool boolean = true)
-		=>	gameObject_GameObjectProvider.after(()=>
+		=>	gameObject_GameObjectProvider.returnAnd(()=>
 				gameObject_GameObjectProvider.provideGameObject().layer = layerIndex_LayerIndexProvider.provideLayerIndex(),
 				boolean);
 	

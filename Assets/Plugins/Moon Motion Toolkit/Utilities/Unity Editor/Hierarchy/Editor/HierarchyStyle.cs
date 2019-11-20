@@ -7,10 +7,12 @@ using UnityEditor;
 [InitializeOnLoad]      // ensures that this class's constructor is called every time the project recompiles
 public static class HierarchyStyle
 {
+	#if !ODIN_INSPECTOR
 	static HierarchyStyle()
 	{
 		EditorApplication.hierarchyWindowItemOnGUI += stylizeHierarchy;
 	}
+	#endif
 
 
 	private static GUIStyle nameStyleActive
@@ -47,7 +49,8 @@ public static class HierarchyStyle
 				nameStyleActive :
 				nameStyleInactiveOnlyGlobally) :
 			nameStyleInactiveLocally;
-	private static GUIStyle layerStyle
+	
+	public static GUIStyle layerStyle
 	{
 		get
 		{

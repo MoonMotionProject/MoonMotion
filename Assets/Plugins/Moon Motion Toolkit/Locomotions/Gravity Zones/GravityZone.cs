@@ -440,8 +440,8 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 	{
 		// code for: gravitizing rigidbodies, player zonage toggling //
 		
-		// track any potential rigidbody (local or parent) of the given collider for being gravitized – if it has not been tracked yet //
-		Transform rigidbodyTransform = collider.firstSelfOrAncestorTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		// track any potential rigidbody (coral) of the given collider for being gravitized – if it has not been tracked yet //
+		Transform rigidbodyTransform = collider.firstCoralTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)			// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -475,8 +475,8 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 	{
 		// code for: gravitizing rigidbodies, player zonage toggling //
 		
-		// track any potential rigidbody (local or parent) of the given collider for being gravitized – if it has not been tracked yet //
-		Transform rigidbodyTransform = collider.firstSelfOrAncestorTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		// track any potential rigidbody (coral) of the given collider for being gravitized – if it has not been tracked yet //
+		Transform rigidbodyTransform = collider.firstCoralTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)			// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //
@@ -520,8 +520,8 @@ public abstract class GravityZone : MonoBehaviour, ILocomotion
 	{
 		// code for: agravitizing rigidbodies, player zonage toggling //
 		
-		// untrack any potential rigidbody (local or parent) of the given collider for being gravitized – if it is currently tracked //
-		Transform rigidbodyTransform = collider.firstSelfOrAncestorTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
+		// untrack any potential rigidbody (coral) of the given collider for being gravitized – if it is currently tracked //
+		Transform rigidbodyTransform = collider.firstCoralTransformWith<Rigidbody>();		// find the transform of this collider's rigidbody, if it has one locally or as a parent; otherwise, determine no transform (null) for this collider's rigidbody transform
 		if (rigidbodyTransform)		// if this collider does have a rigidbody (by checking the determined rigidbody transform)
 		{
 			// determine the rigidbody of this collider (based on the determined rigidbody transform) //

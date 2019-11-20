@@ -5,44 +5,44 @@ using UnityEngine;
 
 // Auto Behaviour Layer Components Unity:
 // #auto
-// • provides this behaviour with automatically-connected properties to its game object's Unity components and typical state of (and so on) those components
+// • provides this behaviour with automatically-connected properties and methods to its game object's Unity components and typical state of (and so on) those components
 public abstract class	AutoBehaviourLayerComponentsUnity<AutoBehaviourT> :
 					AutoBehaviourLayerCachedComponents<AutoBehaviourT>
 						where AutoBehaviourT : AutoBehaviour<AutoBehaviourT>
 {
 	public new Renderer renderer => cache<Renderer>();
-	public     Renderer ensuredRenderer => cache<Renderer>(true);
+	public     Renderer ensuredRenderer() => cache<Renderer>(true);
 	public new Rigidbody rigidbody => cache<Rigidbody>();
-	public     Rigidbody ensuredRigidbody => cache<Rigidbody>(true);
-	public     Rigidbody correspondingRigidbody => cacheCorrespondingRigidbody();
-	public     Rigidbody ensuredCorrespondingRigidbody => cacheCorrespondingRigidbody(true);
-	public     HashSet<Rigidbody> ensuredCorrespondingRigidbodyAsSet => ensuredCorrespondingRigidbody.startSet();
+	public     Rigidbody ensuredRigidbody() => cache<Rigidbody>(true);
+	public     Rigidbody correspondingRigidbody => cacheCorresponding<Rigidbody>();
+	public     Rigidbody ensuredCorrespondingRigidbody() => cacheCorresponding<Rigidbody>(true);
+	public     HashSet<Rigidbody> ensuredCorrespondingRigidbodyAsSet => ensuredCorrespondingRigidbody().startSet();
 	public new Collider collider => cache<Collider>();
-	public     Collider ensuredCollider => cache<Collider>(true);
+	public     Collider ensuredCollider() => cache<Collider>(true);
 	public     MeshCollider meshCollider => cache<MeshCollider>();
-	public     MeshCollider ensuredMeshCollider => cache<MeshCollider>(true);
+	public     MeshCollider ensuredMeshCollider() => cache<MeshCollider>(true);
 	public     BoxCollider boxCollider => cache<BoxCollider>();
-	public     BoxCollider ensuredBoxCollider => cache<BoxCollider>(true);
+	public     BoxCollider ensuredBoxCollider() => cache<BoxCollider>(true);
 	public     SphereCollider sphereCollider => cache<SphereCollider>();
-	public     SphereCollider ensuredSphereCollider => cache<SphereCollider>(true);
+	public     SphereCollider ensuredSphereCollider() => cache<SphereCollider>(true);
 	public     CapsuleCollider capsuleCollider => cache<CapsuleCollider>();
-	public     CapsuleCollider ensuredCapsuleCollider => cache<CapsuleCollider>(true);
+	public     CapsuleCollider ensuredCapsuleCollider() => cache<CapsuleCollider>(true);
 	public     TerrainCollider terrainCollider => cache<TerrainCollider>();
-	public     TerrainCollider ensuredTerrainCollider => cache<TerrainCollider>(true);
+	public     TerrainCollider ensuredTerrainCollider() => cache<TerrainCollider>(true);
 	public     WheelCollider wheelCollider => cache<WheelCollider>();
-	public     WheelCollider ensuredWheelCollider => cache<WheelCollider>(true);
+	public     WheelCollider ensuredWheelCollider() => cache<WheelCollider>(true);
 	public     AudioSource audioSource => cache<AudioSource>();
-	public     AudioSource ensuredAudioSource => cache<AudioSource>(true);
+	public     AudioSource ensuredAudioSource() => cache<AudioSource>(true);
 	public     LineRenderer lineRenderer => cache<LineRenderer>();
-	public     LineRenderer ensuredLineRenderer => cache<LineRenderer>(true);
+	public     LineRenderer ensuredLineRenderer() => cache<LineRenderer>(true);
 	public     TrailRenderer trailRenderer => cache<TrailRenderer>();
-	public     TrailRenderer ensuredTrailRenderer => cache<TrailRenderer>(true);
+	public     TrailRenderer ensuredTrailRenderer() => cache<TrailRenderer>(true);
 	public     ParticleSystem particlesSystem => cache<ParticleSystem>();
-	public     ParticleSystem ensuredParticlesSystem => cache<ParticleSystem>(true);
+	public     ParticleSystem ensuredParticlesSystem() => cache<ParticleSystem>(true);
 	public     MeshFilter meshFilter => cache<MeshFilter>();
-	public     MeshFilter ensuredMeshFilter => cache<MeshFilter>(true);
+	public     MeshFilter ensuredMeshFilter() => cache<MeshFilter>(true);
 	public     MeshRenderer meshRenderer => cache<MeshRenderer>();
-	public     MeshRenderer ensuredMeshRenderer => cache<MeshRenderer>(true);
+	public     MeshRenderer ensuredMeshRenderer() => cache<MeshRenderer>(true);
 	public     SkinnedMeshRenderer skinnedMeshRenderer => cache<SkinnedMeshRenderer>();
 	public     TextMesh textMesh => cache<TextMesh>();
 	public new Animation animation => cache<Animation>();

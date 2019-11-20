@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Transform Transformation Extensions: provides extension methods for handling transform transformations
-// #auto #transform #transformations
+// #transform #transformations
 public static class TransformTransformationExtensions
 {
 	// method: return an accessor for the local positions corresponding to these given transforms //
@@ -245,7 +245,11 @@ public static class TransformTransformationExtensions
 		=> transform.setLocalScaleTo(component.localScale(), boolean);
 	// method: (according to the given boolean:) reset this given transform's local scale to ones, then return this given transform //
 	public static Transform resetLocalScale(this Transform transform, bool boolean = true)
-		=> transform.setLocalScaleTo(Vector3.one, boolean);
+		=> transform.setLocalScaleTo(Default.localScale, boolean);
+	public static bool localScaleIsDefault(this Transform transform)
+		=> transform.localScale.matches(Default.localScale);
+	public static bool localScaleIsNotDefault(this Transform transform)
+		=> !transform.localScaleIsDefault();
 
 
 

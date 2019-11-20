@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Pibling Extensions: provides extension methods for handling piblings //
+// Pibling Extensions:
+// • provides extension methods for handling piblings
+// #pibling #family #transform #component
 public static class PiblingExtensions
 {
 	#region pibling indexing

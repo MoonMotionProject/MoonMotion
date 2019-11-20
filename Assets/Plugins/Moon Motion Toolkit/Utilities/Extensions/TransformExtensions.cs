@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 // Transform Extensions: provides extension methods for handling transforms //
-// #auto #transform
+// #transform
 public static class TransformExtensions
 {
 	#region accessing

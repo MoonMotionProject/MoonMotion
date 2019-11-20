@@ -5,7 +5,8 @@ using NaughtyAttributes;
 
 // Match Position Coordinates to Target:
 // • updates this object's position to match the position coordinates of the target transform (otherwise this transform), for only those coordinate axes toggled as needing to be matched
-// #transform #transformations
+// #transformers
+[CacheTransform]
 public class MatchPositionCoordinatesToTarget : MatchSomeTransformationsToTarget<MatchPositionCoordinatesToTarget>
 {
 	// variables //

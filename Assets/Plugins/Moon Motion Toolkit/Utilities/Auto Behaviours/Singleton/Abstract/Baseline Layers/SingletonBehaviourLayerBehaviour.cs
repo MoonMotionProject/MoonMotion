@@ -7,7 +7,7 @@ using UnityEngine;
 // #auto #behaviour
 // • provides this singleton behaviour with static access to its auto behaviour's behaviour layer
 public abstract class	SingletonBehaviourLayerBehaviour<SingletonBehaviourT> :
-					SingletonBehaviourLayerComponent<SingletonBehaviourT>
+					SingletonBehaviourLayerFamily<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
 {
 	#region enablement of this behaviour

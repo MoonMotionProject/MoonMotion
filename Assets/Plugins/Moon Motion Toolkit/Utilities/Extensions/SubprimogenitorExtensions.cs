@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Subprimogenitor Extensions: provides extension methods for handling subprimogenitors //
+// Subprimogenitor Extensions:
+// • provides extension methods for handling subprimogenitors (second-most ancestral ancestors)
+// #subprimogenitor #family #transform #component
 public static class SubprimogenitorExtensions
 {
 	#region subprimogenitor indexing
@@ -36,7 +38,7 @@ public static class SubprimogenitorExtensions
 	{
 		foreach (Transform subprimogenitorTransform_ in transform.primogenitorTransform())
 		{
-			if (subprimogenitorTransform_.isLocalToOrAncestorOf(transform))
+			if (subprimogenitorTransform_.isCoralTo(transform))
 			{
 				return subprimogenitorTransform_;
 			}

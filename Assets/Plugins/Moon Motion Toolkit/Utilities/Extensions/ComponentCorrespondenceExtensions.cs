@@ -1,20 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Component Correspondence Extensions:
 // • provides extension methods for handling component correspondence
-// #component
+// #component #correspondence #corality
 public static class ComponentCorrespondenceExtensions
 {
-	// method: return the component of the specified type that is corresponding to (is the first local or ancestor component of the specified type of) this given game object //
+	// method: return the component of the specified type that is corresponding to (is the first coral component of the specified type of) this given game object //
 	public static ComponentT corresponding<ComponentT>(this GameObject gameObject)
 		where ComponentT : Component
-		=> gameObject.firstLocalOrAncestor<ComponentT>();
+		=> gameObject.firstCoral<ComponentT>();
 	// method: return the component of the specified type that is corresponding to this given component //
 	public static ComponentT corresponding<ComponentT>(this Component component)
 		where ComponentT : Component
 		=> component.gameObject.corresponding<ComponentT>();
+	
+	public static Component corresponding_ViaReflection(this GameObject gameObject, Type type)
+		=> gameObject.firstCoral_ViaReflection(type);
+	public static Component corresponding_ViaReflection(this Component component, Type type)
+		=> component.gameObject.corresponding_ViaReflection(type);
 
 	// method: return an accessor for each of the yull components of the specified type that each of the respective yull game objects of these given game objects corresponds to //
 	public static IEnumerable<ComponentT> accessCorresponding<ComponentT>(this IEnumerable<GameObject> gameObjects)

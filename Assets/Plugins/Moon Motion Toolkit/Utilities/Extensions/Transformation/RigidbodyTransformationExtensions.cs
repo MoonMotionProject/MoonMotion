@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Rigidbody Transformation Extensions: provides extension methods for handling rigidbody transformations
-// #auto #transform #transformations
+// #transform #transformations
 public static class RigidbodyTransformationExtensions
 {
 	#region position

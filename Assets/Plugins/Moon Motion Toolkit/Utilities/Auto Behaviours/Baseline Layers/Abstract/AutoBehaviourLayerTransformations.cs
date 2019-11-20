@@ -132,6 +132,8 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 		=> selfAfter(()=> transform.setLocalScaleTo(otherComponent, boolean));
 	public AutoBehaviourT resetLocalScale(bool boolean = true)
 		=> selfAfter(()=> transform.resetLocalScale(boolean));
+	public bool localScaleIsDefault => transform.localScaleIsDefault();
+	public bool localScaleIsNotDefault => transform.localScaleIsNotDefault();
 
 	public float localScaleX => transform.localScale.x;
 	public AutoBehaviourT setLocalScaleXTo(float x, bool boolean = true)
@@ -214,17 +216,17 @@ public abstract class	AutoBehaviourLayerTransformations<AutoBehaviourT> :
 	public AutoBehaviourT displacePositionBy(Vector3 displacement, bool boolean = true)
 		=> selfAfter(()=> transform.displacePositionBy(displacement, boolean));
 	public AutoBehaviourT movePositionTo(Vector3 position, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(position, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody().movePositionTo(position, boolean));
 	public AutoBehaviourT movePositionTo(Transform otherTransform, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherTransform, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody().movePositionTo(otherTransform, boolean));
 	public AutoBehaviourT movePositionTo(GameObject otherGameObject, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherGameObject, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody().movePositionTo(otherGameObject, boolean));
 	public AutoBehaviourT movePositionTo(Component otherComponent, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(otherComponent, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody().movePositionTo(otherComponent, boolean));
 	public AutoBehaviourT movePositionTo(RaycastHit raycastHit, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionTo(raycastHit, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody().movePositionTo(raycastHit, boolean));
 	public AutoBehaviourT movePositionToward(object targetPosition_PositionProvider, float honingDistance, bool boolean = true)
-		=> selfAfter(()=> ensuredCorrespondingRigidbody.movePositionToward(targetPosition_PositionProvider, honingDistance, boolean));
+		=> selfAfter(()=> ensuredCorrespondingRigidbody().movePositionToward(targetPosition_PositionProvider, honingDistance, boolean));
 
 	public float positionX => transform.position.x;
 	public AutoBehaviourT setPositionXTo(float x, bool boolean = true)

@@ -82,20 +82,20 @@ public static class NameExtensions
 	#endregion comparison
 
 
-	#region searching for self or ancestor based on comparison 
+	#region searching for coral objects based on name comparison
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have the given name (null if none found) //
-	public static GameObject selfOrParentWithName(this GameObject gameObject, string name)
-		=> gameObject.selfOrParentWithLabelThatMatchesOrContains(name, LabelType.name, true);
+	public static GameObject firstCoralObjectWithName(this GameObject gameObject, string name)
+		=> gameObject.firstCoralObjectWithLabelThatMatchesOrContains(name, LabelType.name, true);
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have the given name (null if none found) //
-	public static GameObject selfOrParentWithName(this Component component, string name)
-		=> component.gameObject.selfOrParentWithName(name);
+	public static GameObject firstCoralObjectWithName(this Component component, string name)
+		=> component.gameObject.firstCoralObjectWithName(name);
 
 	// method: return the first game object out of this given game object and its parent game objects (searching upward) to have a name containing the given string (null if none found) //
-	public static GameObject selfOrParentWithNameContaining(this GameObject gameObject, string string_)
-		=> gameObject.selfOrParentWithLabelThatMatchesOrContains(string_, LabelType.name, false);
+	public static GameObject firstCoralObjectWithNameContaining(this GameObject gameObject, string string_)
+		=> gameObject.firstCoralObjectWithLabelThatMatchesOrContains(string_, LabelType.name, false);
 	// method: return the first game object out of the game object for this component and that game object's parent game objects (searching upward) to have a name containing the given string (null if none found) //
-	public static GameObject selfOrParentWithNameContaining(this Component component, string string_)
-		=> component.gameObject.selfOrParentWithNameContaining(string_);
-	#endregion searching for self or ancestor based on comparison 
+	public static GameObject firstCoralObjectWithNameContaining(this Component component, string string_)
+		=> component.gameObject.firstCoralObjectWithNameContaining(string_);
+	#endregion searching for coral objects based on name comparison
 }

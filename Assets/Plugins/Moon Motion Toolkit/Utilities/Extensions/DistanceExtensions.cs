@@ -50,12 +50,12 @@ public static class DistanceExtensions
 	// method: return the nearest (by position) of the given components to this given game object //
 	public static ComponentT nearestOf<ComponentT>(this GameObject gameObject, IEnumerable<ComponentT> components) where ComponentT : Component
 		=> components.minProviderOtherwiseDefault(component => gameObject.distanceWith(component));
-	// method: return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given game object //
+	// method: (via reflection if error:) return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given game object //
 	public static MonoBehaviourI nearestOfI<MonoBehaviourI>(this GameObject gameObject, IEnumerable<MonoBehaviourI> interfaces) where MonoBehaviourI : class
 	{
 		if (!typeof(MonoBehaviourI).IsInterface)
 		{
-			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName()+" is not an interface");
+			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
 		}
 
 		return interfaces.minProviderOtherwiseDefault(interface_ => gameObject.distanceWith(interface_.castTo<MonoBehaviour>()));
@@ -72,7 +72,7 @@ public static class DistanceExtensions
 		=> components.minProviderOtherwiseDefault(component => transform.distanceWith(component));
 	// method: return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given transform //
 	public static MonoBehaviourI nearestOfI<MonoBehaviourI>(this Transform transform, IEnumerable<MonoBehaviourI> interfaces) where MonoBehaviourI : class
-		=> transform.gameObject.nearestOfI<MonoBehaviourI>(interfaces);
+		=> transform.gameObject.nearestOfI(interfaces);
 	#endregion nearest of
 
 

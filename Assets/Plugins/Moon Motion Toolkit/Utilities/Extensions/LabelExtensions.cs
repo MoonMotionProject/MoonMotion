@@ -62,7 +62,7 @@ public static class LabelExtensions
 			return false.returnWithError(System.Reflection.MethodBase.GetCurrentMethod().Name+" did not receive valid 'labelType' argument");
 		}
 	}
-	public static GameObject selfOrParentWithLabelThatMatchesOrContains(this GameObject gameObject, string string_, LabelType labelType, bool matchesVersusContains)
+	public static GameObject firstCoralObjectWithLabelThatMatchesOrContains(this GameObject gameObject, string string_, LabelType labelType, bool matchesVersusContains)
 	{
 		Transform transformAtCurrentLevel = gameObject.transform;
 		if (transformAtCurrentLevel.hasLabelThatMatchesOrContains(string_, labelType, matchesVersusContains))

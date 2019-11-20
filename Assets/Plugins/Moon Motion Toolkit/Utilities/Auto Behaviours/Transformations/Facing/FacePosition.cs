@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Face Object:
 // • has this object face the target position, only on the set axes
-// #transform #transformations
+// #transformers
 [CacheTransform]
 public class FacePosition : AutoBehaviour<FacePosition>
 {

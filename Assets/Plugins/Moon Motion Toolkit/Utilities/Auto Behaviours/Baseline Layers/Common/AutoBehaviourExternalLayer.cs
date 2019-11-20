@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,40 +15,66 @@ public class AutoBehaviourExternalLayer : MonoBehaviour
 {
 	// variables //
 
-	// trackings //
-
+	
+	public const float playingHiddennessRefreshingInterval = 5f;
+	
 	private bool validatedYet = false;
 
-
-
-
-	// properties //
-
 	
-	// whether this behaviour is currently required //
-	public virtual bool behaviourRequired => this.required_ViaReflection();
 
 
-
-
-	// updating //
-
+	// methods //
 	
-	// upon validation: //
-	[ContextMenu("OnValidate")]
-	public void OnValidate()
+	
+	public void refreshHiddenness()
 	{
 		#if MOON_MOTION_TOOLKIT_SHOW_COMMON_BEHAVIOURS
 		this.unhideInInspector();
 		#else
 		this.hideInInspector();
 		#endif
+	}
+	
+	
+	
+	
+	// updating //
+
+	
+	#if UNITY_EDITOR
+	// upon validation: //
+	[ContextMenu("OnValidate")]
+	public void OnValidate()
+	{
+		refreshHiddenness();
 
 		if (validatedYet)
 		{
-			if (!behaviourRequired)
+			if (!this.isRequired_ViaAdditionalReflection())
 			{
-				this.destroy();
+				this.unhideInInspector();
+
+				if (gameObject.isNotPartOfPrefabAsset())
+				{
+					try
+					{
+						this.destroy();
+					}
+					catch (Exception unexpectedException)
+					{
+						unexpectedException.logAsError("an Auto Behaviour External Layer\nneeds to destroy itself\nsince it is no longer required,\nbut encountered this unexpected exception;\nit is located on "+gameObject+",\nand has unhidden itself...\nfigure out why it couldn't be destroyed,\nprevent that from being an issue in the future,\nand destroy it!");
+					}
+				}
+				/* previously, an error was put out whenever an instance of this behaviour was no longer required but was on a prefab... this is disabled now because it doesn't really have a significant negative impact if it stays
+				else
+				{
+					GameObject prefabThisIsOn
+						=	Prefabs.withAnyLodalAutoBehaviourExternalLayer
+								.firstWhere(prefab =>
+									prefab.lodal<AutoBehaviourExternalLayer>().contains(this));
+
+					New.exception.logAsError("an Auto Behaviour External Layer\nneeds to destroy itself\nsince it is no longer required,\nbut it is on a prefab\nso it cannot be destroyed;\nit is located on "+gameObject+"\nof prefab "+prefabThisIsOn+",\nand has unhidden itself... go destroy it!");
+				}*/
 			}
 		}
 		else
@@ -55,6 +82,27 @@ public class AutoBehaviourExternalLayer : MonoBehaviour
 			validatedYet = true;
 		}
 	}
+	
+	// at the start: //
+	private void Start()
+	{
+		if (UnityIs.playing)
+		{
+			Begin.coroutineRepeatingEvery
+			(
+				playingHiddennessRefreshingInterval,
+				()=>
+				{
+					if (this.isYull())
+					{
+						refreshHiddenness();
+					}
+				},
+				false
+			);
+		}
+	}
+	#endif
 
 	// upon destruction: //
 	private void OnDestroy()

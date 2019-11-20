@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Primogenitor Extensions: provides extension methods for handling primogenitors //
+// Primogenitor Extensions:
+// • provides extension methods for handling primogenitors (most ancestral ancestors)
+// #primogenitor #family #transform #component
 public static class PrimogenitorExtensions
 {
 	#region primogenitor indexing

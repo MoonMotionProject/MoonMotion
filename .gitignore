@@ -39,6 +39,9 @@ sysinfo.txt
 *.dwlt
 /[Pp]ublication/
 
+/Assets/Layouts
+/Assets/Layouts.meta
+
 /[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories
 /[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories.meta
 /[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/EZ Rename

@@ -23,7 +23,17 @@ public class ControlsEditor : OdinEditorWindow
 	[Button("Reload Custom Controller Operations", ButtonSizes.Large)]
 	[PropertyOrder(-4)]
 	private void reloadCustomControllerOperations()
-		=> customControllerOperations_ = null;
+		=>	customControllerOperations_
+				= Assets.notFromMoonMotionToolkitManifestedOfType_ViaReflection<ControllerOperation>();
+
+	private List<ControllerOperation> reloadedCustomControllerOperations
+	{
+		get
+		{
+			reloadCustomControllerOperations();
+			return customControllerOperations_;
+		}
+	}
 
 	[SerializeField]
 	[HideInInspector]
@@ -31,19 +41,16 @@ public class ControlsEditor : OdinEditorWindow
 	[PropertyOrder(-3)]
 	[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true)]
 	[HideReferenceObjectPicker]
-    [ListItemSelector("customControllerOperations_SetSelected")]
+    [ListItemSelector("customControllerOperations_ViaReflection_SetSelected")]
 	[LabelText("Custom Controller Operations")]
 	[ShowInInspector]
 	public List<ControllerOperation> customControllerOperations_ViaReflection
 	{
 		get
 		{
-			return	customControllerOperations_.isYullAndNotEmpty() ?
+			return	customControllerOperations_.isYull() ?
 						customControllerOperations_ :
-						(
-							customControllerOperations_
-								= Assets.notFromMoonMotionToolkitManifestedOfType_ViaReflection<ControllerOperation>()
-						);
+						reloadedCustomControllerOperations;
 		}
 		private set {}
 	}

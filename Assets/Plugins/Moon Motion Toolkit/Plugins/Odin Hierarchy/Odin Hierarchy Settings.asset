@@ -44,8 +44,8 @@ MonoBehaviour:
     nameContains: 
     layerContains: 
     scene: 
-    component: Singleton
-    attribute: 
+    component: 
+    attribute: Container
     component_matching: 
     drawBackgroundColor: 0
     color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -93,7 +93,7 @@ MonoBehaviour:
     component: 
     attribute: 
     component_matching: 
-    drawBackgroundColor: 1
+    drawBackgroundColor: 0
     color: {r: 0, g: 0, b: 1, a: 0.39215687}
     style: 4
     icon: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
     component: 
     attribute: 
     component_matching: MoonMotionPlayer
-    drawBackgroundColor: 1
+    drawBackgroundColor: 0
     color: {r: 0, g: 0, b: 1, a: 0.39215687}
     style: 4
     icon: 1

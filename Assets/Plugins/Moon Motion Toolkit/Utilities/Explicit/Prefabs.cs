@@ -12,9 +12,9 @@ public static class Prefabs
 	#region filtering all prefabs
 	
 	public static HashSet<GameObject> filteredBy(string filterString)
-		=>	Asset.pathsForPrefabAssetsFilteredBy(filterString)
-				.pickUnique(assetPath =>
-					Asset.atPathOfType<GameObject>(assetPath));
+		=>	Project.pathsForPrefabAssetsFilteredBy(filterString)
+				.pickUnique(projectPath =>
+					Asset.atProjectPathOfType<GameObject>(projectPath));
 	
 	public static HashSet<GameObject> all => filteredBy("");
 

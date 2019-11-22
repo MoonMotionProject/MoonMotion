@@ -81,7 +81,7 @@ public class OdinHierarchySettings : ScriptableObject
 
 	private void defaultIconSize()
 		=> iconSize = Default.hierarchyIconSize;
-	[BoxGroup("Icons In General")]
+	[FoldoutGroup("Icons In General")]
 	[InlineButton("defaultIconSize", "Default")]
 	[LabelText("Size")]
     [ShowIf("@iconAndSecret")]
@@ -89,7 +89,7 @@ public class OdinHierarchySettings : ScriptableObject
 	
 	private void defaultPaddingRight()
 		=> iconPaddingRight = Default.hierarchyIconPaddingRight;
-	[BoxGroup("Icons In General")]
+	[FoldoutGroup("Icons In General")]
 	[InlineButton("defaultPaddingRight", "Default")]
 	[LabelText("Padding Right")]
     [ShowIf("@iconAndSecret")]
@@ -98,10 +98,11 @@ public class OdinHierarchySettings : ScriptableObject
     private static bool secret;
     public void ToggleSecret() => secret = !secret;
 	
+	[ListDrawerSettings(ListElementLabelName = "name")]
 	[LabelText("Styling Rules")]
     public List<Stylization> stylizations;
 
-    [System.Serializable]
+	[System.Serializable]
     public class Stylization
     {
 		[PropertyOrder(-666)]

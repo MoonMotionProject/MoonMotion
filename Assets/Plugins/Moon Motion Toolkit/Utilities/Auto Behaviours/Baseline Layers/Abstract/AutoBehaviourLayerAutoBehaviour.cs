@@ -26,7 +26,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 				#if UNITY_EDITOR
 				if (UnityIs.inEditor)
 				{
-					return assetPath_ViaReflection.thenNewlineAnd("is being extended like AutoBehaviour<"+simpleClassName_ViaReflection+"> in a class that should actually be generically passing itself").printAsErrorAndReturnDefault<AutoBehaviourT>();
+					return projectPath_ViaReflection.thenNewlineAnd("is being extended like AutoBehaviour<"+simpleClassName_ViaReflection+"> in a class that should actually be generically passing itself").printAsErrorAndReturnDefault<AutoBehaviourT>();
 				}
 				#endif
 				return default(AutoBehaviourT);		// should be unreachable
@@ -59,7 +59,7 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 	#if UNITY_EDITOR
 	#region asset path
 
-	public static string assetPath_ViaReflection => typeof(AutoBehaviourT).assetPath_ViaReflection();
+	public static string projectPath_ViaReflection => typeof(AutoBehaviourT).projectPath_ViaReflection();
 	#endregion asset path
 	#endif
 
@@ -113,8 +113,8 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 
 	#if UNITY_EDITOR
 	#region printing this auto behaviour's asset path
-	public static string printAssetPath_ViaReflection()
-		=> print(assetPath_ViaReflection);
+	public static string printProjectPath_ViaReflection()
+		=> print(projectPath_ViaReflection);
 	#endregion printing this auto behaviour's asset path
 	#endif
 

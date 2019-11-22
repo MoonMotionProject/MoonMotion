@@ -8,6 +8,6 @@ public static class Reimport
 {
 	// method: reimport the given asset Unity object if it is actually imported currently //
 	public static void assetIfImported(Object assetUnityObject)
-		=> Import.assetIfItActuallyHasAnAssetPath(assetUnityObject);
+		=> Import.assetIfInAssets(assetUnityObject);
 }
 #endif

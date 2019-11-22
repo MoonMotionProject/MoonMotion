@@ -5,6 +5,10 @@ using UnityEngine;
 // Address: provides methods for handling addresses //
 public static class Address
 {
-	public static string forAssetAddress(string assetAddress)
-		=> Assets.address+assetAddress;
+	public const string divider = "\\";
+
+	public static string forProjectAddress(string projectAddress)
+		=> Project.path+projectAddress;
+	public static string forAssetPath(string assetAddress)
+		=> Assets.path+assetAddress;
 }

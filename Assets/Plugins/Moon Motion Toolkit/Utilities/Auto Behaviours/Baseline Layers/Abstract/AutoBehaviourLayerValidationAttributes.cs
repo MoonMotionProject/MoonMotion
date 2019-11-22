@@ -30,9 +30,9 @@ public abstract class	AutoBehaviourLayerValidationAttributes<AutoBehaviourT> :
 				setNameToSpacedSimpleClassName_ViaReflection();
 			}
 		
-			if (inheritorHasAttribute_ViaReflection<ExpandSelfIfSelectedAttribute>())
+			if (inheritorHasAttribute_ViaReflection<ExpandIfSelectedAttribute>())
 			{
-				ExpandSelfIfSelectedGameObjects.include(gameObject);
+				ExpandIfSelectedGameObjects.include(gameObject);
 			}
 
 			if (inheritorHasAttribute_ViaReflection<ExpandSelfAndChildrenUponValidationAttribute>())

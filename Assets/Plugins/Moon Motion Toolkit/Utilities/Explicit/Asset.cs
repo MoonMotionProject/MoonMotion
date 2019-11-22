@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,35 +27,6 @@ public static class Asset
 		=> ideesForAssetsFilteredBy("t:Prefab "+filterString);
 	public static string[] ideesForPrefabAssets => ideesForPrefabAssetsFilteredBy("");
 	#endregion filtering all asset idees
-
-
-
-
-	#region filtering all asset paths
-
-	// method: return the set of asset paths for all assets filtered by the given filter string //
-	public static HashSet<string> pathsForAssetsFilteredBy(string filterString)
-		=> ideesForAssetsFilteredBy(filterString).pickUnique(idee => pathForAssetIdee(idee));
-	public static HashSet<string> pathsForAssets => pathsForAssetsFilteredBy("");
-
-	// method: (via reflection:) return the set of asset paths for all assets of the specified type //
-	public static HashSet<string> pathsForAssetsOfType_ViaReflection<AssetT>() where AssetT : class
-		=> pathsForAssetsFilteredBy("t:"+typeof(AssetT).simpleClassName_ViaReflection());
-
-	// method: (via reflection:) return the set of asset paths for all assets of the specified type //
-	public static HashSet<string> pathsForNonMoonMotionToolkitAssetsOfType_ViaReflection<AssetT>() where AssetT : class
-		=> pathsForAssetsOfType_ViaReflection<AssetT>().uniquesWhere(assetPath => assetPath.doesNotContain(MoonMotion.toolkitName));
-
-	// method: return the set of script asset paths for all script assets filtered by the given filter string //
-	public static HashSet<string> pathsForScriptAssetsFilteredBy(string filterString)
-		=> ideesForScriptAssetsFilteredBy(filterString).pickUnique(idee => pathForAssetIdee(idee));
-	public static HashSet<string> pathsForScriptAssets => pathsForScriptAssetsFilteredBy("");
-
-	// method: return the set of prefab asset paths for all prefab assets filtered by the given filter string //
-	public static HashSet<string> pathsForPrefabAssetsFilteredBy(string filterString)
-		=> ideesForPrefabAssetsFilteredBy(filterString).pickUnique(idee => pathForAssetIdee(idee));
-	public static HashSet<string> pathsForPrefabAssets => pathsForPrefabAssetsFilteredBy("");
-	#endregion filtering all asset paths
 
 
 
@@ -89,66 +59,50 @@ public static class Asset
 				.printAsErrorAndReturnDefault<string>();
 	}
 	#endregion to idees
-	
-
-	#region to asset paths
-
-	// method: return the asset path for the asset with the given title at the given asset address //
-	public static string pathFor(string assetTitle, string assetAddress)
-		=> "Assets\\"+assetAddress+"\\"+assetTitle;
-	
-	// method: return the asset path of the given asset Unity object //
-	public static string pathForAsset(UnityEngine.Object assetUnityObject)
-		=> AssetDatabase.GetAssetPath(assetUnityObject);
-	
-	// method: return the asset path of the given mono behaviour's script asset //
-	public static string pathForMonoBehaviour(MonoBehaviour monoBehaviour)
-		=> pathForAsset(monoBehaviour.asScript());
-
-	// method: return the asset path of the asset for the given asset idee //
-	public static string pathForAssetIdee(string assetIdee)
-		=> AssetDatabase.GUIDToAssetPath(assetIdee);
-
-	// method: return the asset path of the script asset with the given simple class name //
-	public static string pathForSimpleClassName(string simpleClassName)
-		=> pathForAssetIdee(ideeForSimpleClassName(simpleClassName));
-
-	// method: (via reflection:) return the asset path of the script asset with the given script asset type (class of a script asset) //
-	public static string pathForScriptAssetType_ViaReflection(Type scriptAssetType)
-		=> pathForSimpleClassName(scriptAssetType.simpleClassName_ViaReflection());
-	#endregion to asset paths
 
 
 	#region to filetitles
 
-	// method: return the asset filetitle for the given asset path //
-	public static string filetitleForAssetPath(string assetPath)
-		=> Path.GetFileName(assetPath);
+	// method: return the asset filetitle for the given project path //
+	public static string filetitleForProjectPath(string projectPath)
+		=> System.IO.Path.GetFileName(projectPath);
 
 	// method: return the asset filetitle for the given asset idee //
 	public static string filetitleForAssetIdee(this string assetIdee)
-		=> filetitleForAssetPath(pathForAssetIdee(assetIdee));
+		=> filetitleForProjectPath(Project.pathForAssetIdee(assetIdee));
 	#endregion to filetitles
 
 
 	#region to filenames
 
-	// method: return the asset filename for the given asset path //
-	public static string filenameForAssetPath(this string assetPath)
-		=> Path.GetFileNameWithoutExtension(assetPath);
+	// method: return the asset filename for the given project path //
+	public static string filenameForProjectPath(this string projectPath)
+		=> System.IO.Path.GetFileNameWithoutExtension(projectPath);
 
 	// method: return the asset filename for the given asset idee //
 	public static string filenameForAssetIdee(this string assetIdee)
-		=> filenameForAssetPath(pathForAssetIdee(assetIdee));
+		=> filenameForProjectPath(Project.pathForAssetIdee(assetIdee));
 	#endregion to filenames
 
 
 	#region to assets
 
+	// method: return the asset of the specified type at the given project path //
+	public static AssetT atProjectPathOfType<AssetT>(string projectPath) where AssetT : class
+		=> AssetDatabase.LoadAssetAtPath(projectPath, typeof(AssetT)) as AssetT;
+
 	// method: return the asset of the specified type at the given asset path //
-	public static AssetT atPathOfType<AssetT>(string assetPath) where AssetT : class
-		=> AssetDatabase.LoadAssetAtPath(assetPath, typeof(AssetT)) as AssetT;
+	public static AssetT atAssetPathOfType<AssetT>(string assetPath) where AssetT : class
+		=> atProjectPathOfType<AssetT>(Project.pathFor(assetPath));
 	#endregion to assets
+
+
+	#region to asset paths
+	
+	// method: return the asset path for the asset with the given title at the given asset address //
+	public static string pathFor(string assetTitle, string assetAddress)
+		=> assetAddress.ress()+assetTitle;
+	#endregion to asset paths
 	#endregion conversion
 }
 #endif

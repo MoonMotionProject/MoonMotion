@@ -70,18 +70,18 @@ public static class PrintingExtensions
 
 
 	#if UNITY_EDITOR
-	#region printing asset paths
+	#region printing project paths
 	
-	// method: (via reflection:) print the asset path of the script asset with this given script asset type (class of a script asset), optionally with the given game object as the context, then return this given script asset type //
-	public static Type printAssetPath_ViaReflection(this Type scriptAssetType, GameObject contextGameObject = null)
+	// method: (via reflection:) print the project path of the script asset with this given script asset type (class of a script asset), optionally with the given game object as the context, then return this given script asset type //
+	public static Type printProjectPath_ViaReflection(this Type scriptAssetType, GameObject contextGameObject = null)
 		=> scriptAssetType.after(()=>
-				scriptAssetType.assetPath_ViaReflection().print(contextGameObject));
+				scriptAssetType.projectPath_ViaReflection().print(contextGameObject));
 
-	// method: print the asset path of this given mono behaviour, optionally with the given game object as the context, then return this given mono behaviour //
-	public static MonoBehaviour printAssetPath(this MonoBehaviour monoBehaviour, GameObject contextGameObject = null)
+	// method: print the project path of this given mono behaviour, optionally with the given game object as the context, then return this given mono behaviour //
+	public static MonoBehaviour printProjectPath(this MonoBehaviour monoBehaviour, GameObject contextGameObject = null)
 		=> monoBehaviour.after(()=>
-				monoBehaviour.assetPath().print(contextGameObject));
-	#endregion printing asset paths
+				monoBehaviour.projectPath().print(contextGameObject));
+	#endregion printing project paths
 	#endif
 
 

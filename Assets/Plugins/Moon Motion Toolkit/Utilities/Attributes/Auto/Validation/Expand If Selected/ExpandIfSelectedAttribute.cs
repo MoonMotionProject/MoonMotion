@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class ExpandSelfIfSelectedAttribute : ValidationAttribute
+public class ExpandIfSelectedAttribute : ValidationAttribute
 {
 	
 }

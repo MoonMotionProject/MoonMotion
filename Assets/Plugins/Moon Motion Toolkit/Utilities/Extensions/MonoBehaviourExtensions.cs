@@ -12,12 +12,12 @@ using UnityEngine;
 public static class MonoBehaviourExtensions
 {
 	#if UNITY_EDITOR
-	#region asset path
+	#region project path
 
-	// method: return the asset path of this given mono behaviour's script asset //
-	public static string assetPath(this MonoBehaviour monoBehaviour)
-		=> Asset.pathForMonoBehaviour(monoBehaviour);
-	#endregion asset path
+	// method: return the project path of this given mono behaviour's script asset //
+	public static string projectPath(this MonoBehaviour monoBehaviour)
+		=> Project.pathForMonoBehaviour(monoBehaviour);
+	#endregion project path
 	#endif
 
 

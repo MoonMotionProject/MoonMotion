@@ -7,34 +7,39 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-// Layout: provides properties and methods for handling the editor layout //
+// Layout:
+// • provides properties and methods for handling the editor layout
+// #layouts
 public static class Layout
 {
 	public static Type type => Type.GetType("UnityEditor.WindowLayout,UnityEditor");
 
 	public static void saveAs(string assetName, string assetAddress = "Layouts")
 	{
-		Assets.ensureFolderForAddress(assetAddress);
+		Assets.ensureFolderFor(assetAddress);
 		
-		string assetTitle = assetName+".asset";
+		string assetPath = Asset.pathFor(assetName+".asset", assetAddress);
 
 		type.GetMethod
 		(
 			"SaveWindowLayout",
 			BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static,
 			null,
-			new Type[] {typeof(string)},
+			new Type[]
+			{
+				typeof(string)
+			},
 			null
 		).Invoke
 		(
 			null,
 			new object[]
 			{
-				Address.forAssetAddress(assetAddress)+"\\"+assetTitle
+				Filepath.forAssetPath(assetPath)
 			}
 		);
 
-		Import.assetTitled(assetTitle, assetAddress);
+		Import.asset(assetPath);
 	}
 	
 	public static void load(string assetName, string assetAddress = "Layouts")
@@ -44,14 +49,18 @@ public static class Layout
 			"LoadWindowLayout",
 			BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static,
 			null,
-			new Type[] {typeof(string), typeof(bool)},
+			new Type[]
+			{
+				typeof(string),
+				typeof(bool)
+			},
 			null
 		).Invoke
 		(
 			null,
 			new object[]
 			{
-				Address.forAssetAddress(assetAddress)+"\\"+assetName+".asset",
+				Filepath.forAsset(assetName+".asset", assetAddress),
 				false
 			}
 		);

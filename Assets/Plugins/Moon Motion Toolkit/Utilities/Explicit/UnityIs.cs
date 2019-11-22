@@ -21,4 +21,7 @@ public static class UnityIs
 	#endif
 	public static bool playingPaused => playing.and(paused);
 	public static bool playingUnpaused => playing.and(unpaused);
+	#if UNITY_EDITOR
+	public static bool compiling => EditorApplication.isCompiling;
+	#endif
 }

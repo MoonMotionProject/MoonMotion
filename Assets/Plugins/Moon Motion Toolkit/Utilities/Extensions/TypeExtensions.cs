@@ -9,9 +9,9 @@ using UnityEngine;
 public static class TypeExtensions
 {
 	#if UNITY_EDITOR
-	// method: (via reflection:) return the asset path of the script asset with this given script asset type (class of a script asset) //
-	public static string assetPath_ViaReflection(this Type scriptAssetType)
-		=> Asset.pathForScriptAssetType_ViaReflection(scriptAssetType);
+	// method: (via reflection:) return the project path of the script asset with this given script asset type (class of a script asset) //
+	public static string projectPath_ViaReflection(this Type scriptAssetType)
+		=> Project.pathForScriptAssetType_ViaReflection(scriptAssetType);
 	#endif
 
 	// method: (via reflection:) return the static property of this given type with the given name and the specified type //

@@ -7,8 +7,8 @@ using UnityEngine;
 // Tab To: provides methods for tabbing to editor windows //
 public static class TabTo
 {
-	private static void window<SearchableEditorWindowT>() where SearchableEditorWindowT : SearchableEditorWindow
-		=> EditorWindow.FocusWindowIfItsOpen(typeof(SearchableEditorWindowT));
+	private static void window<EditorWindowT>() where EditorWindowT : EditorWindow
+		=> EditorWindow.FocusWindowIfItsOpen(typeof(EditorWindowT));
 
 	public static void scene()
 		=> window<SceneView>();

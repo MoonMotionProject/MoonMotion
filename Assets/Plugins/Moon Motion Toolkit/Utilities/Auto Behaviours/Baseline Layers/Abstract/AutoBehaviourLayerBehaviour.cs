@@ -13,7 +13,7 @@ public abstract class	AutoBehaviourLayerBehaviour<AutoBehaviourT> :
 	#region enablement of this behaviour
 
 	public bool isEnabled => self.isEnabled();
-	public bool isNotEnabled => self.isNotEnabled();
+	public bool isDisabled => self.isDisabled();
 
 	// method: set the enablement of this behaviour to the given boolean, then return this behaviour //
 	public AutoBehaviourT setEnablementTo(bool enablement)

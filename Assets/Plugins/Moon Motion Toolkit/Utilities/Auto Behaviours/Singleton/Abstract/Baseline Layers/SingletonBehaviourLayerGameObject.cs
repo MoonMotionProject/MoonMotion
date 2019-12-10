@@ -101,27 +101,34 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#endregion making objects universal andor temporary
 
 
-	#region determining hierarchy selection
+	#region determining selection
 	#if UNITY_EDITOR
 
-	public static new bool isSelectedInHierarchy => autoBehaviour.isSelectedInHierarchy;
-	public static new bool isNotSelectedInHierarchy => autoBehaviour.isNotSelectedInHierarchy;
+	public static new bool isSelected => autoBehaviour.isSelected;
+	public static new bool isNotSelected => autoBehaviour.isNotSelected;
 	#endif
-	#endregion determining hierarchy selection
+	#endregion determining selection
 
 
-	#region setting hierarchy objects selection
+	#region setting selection
 
-	public static new AutoBehaviour<SingletonBehaviourT> selectInHierarchy_IfInEditor()
-		=> autoBehaviour.selectInHierarchy_IfInEditor();
-	#endregion setting hierarchy objects selection
+	public static new AutoBehaviour<SingletonBehaviourT> select_IfInEditor()
+		=> autoBehaviour.select_IfInEditor();
+	#endregion setting selection
 
 
-	#region setting hierarchy objects selection then pinging the selection
+	#region pinging
+
+	public static new AutoBehaviour<SingletonBehaviourT> ping_IfInEditor()
+		=> autoBehaviour.ping_IfInEditor();
+	#endregion pinging
+
+
+	#region setting selection then pinging the selection
 	
-	public static new AutoBehaviour<SingletonBehaviourT> selectAndPingInHierarchy_IfInEditor()
-		=> autoBehaviour.selectAndPingInHierarchy_IfInEditor();
-	#endregion setting hierarchy objects selection then pinging the selection
+	public static new AutoBehaviour<SingletonBehaviourT> selectAndPing_IfInEditor()
+		=> autoBehaviour.selectAndPing_IfInEditor();
+	#endregion setting selection then pinging the selection
 	
 
 	#region setting hierarchy expansion
@@ -174,10 +181,14 @@ public abstract class	SingletonBehaviourLayerGameObject<SingletonBehaviourT> :
 	#region activity
 
 	// method: return whether this behaviour's game object is active locally //
-	public static new bool activeLocally => autoBehaviour.activeLocally;
+	public static new bool isActiveLocally => autoBehaviour.isActiveLocally;
+	// method: return whether this behaviour's game object is inactive locally //
+	public static new bool isInactiveLocally => autoBehaviour.isInactiveLocally;
 
 	// method: return whether this behaviour's game object is active globally //
-	public static new bool activeGlobally => autoBehaviour.activeGlobally;
+	public static new bool isActiveGlobally => autoBehaviour.isActiveGlobally;
+	// method: return whether this behaviour's game object is inactive globally //
+	public static new bool isInactiveGlobally => autoBehaviour.isInactiveGlobally;
 
 	// method: set the activity of this behaviour's game object to the given boolean, then return this behaviour //
 	public static new AutoBehaviour<SingletonBehaviourT> setActivityTo(bool boolean)

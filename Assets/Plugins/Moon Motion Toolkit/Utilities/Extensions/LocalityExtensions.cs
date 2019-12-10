@@ -47,14 +47,15 @@ public static class LocalityExtensions
 	) where ComponentT : Component
 		=> component.gameObject.hasAny(function, includeInactiveComponents);
 
-	// methods: (via reflection if error:) return whether this given provided game object has any component of the specified interface, optionally including inactive components according to the given boolean //
+	/* (via reflection) */
+	// methods: return whether this given provided game object has any component of the specified interface, optionally including inactive components according to the given boolean //
 	public static bool hasAnyI<ComponentI>
 	(
 		this GameObject gameObject,
 		bool includeInactiveComponents = Default.inclusionOfInactiveComponents
 	) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return false.returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -74,7 +75,8 @@ public static class LocalityExtensions
 	) where ComponentI : class
 		=> component.gameObject.hasAnyI<ComponentI>(includeInactiveComponents);
 
-	// methods: (via reflection if error:) return whether this given provided game object has any component of the specified interface for which the given function returns true, optionally including inactive components according to the given boolean //
+	/* (via reflection) */
+	// methods: return whether this given provided game object has any component of the specified interface for which the given function returns true, optionally including inactive components according to the given boolean //
 	public static bool hasAnyI<ComponentI>
 	(
 		this GameObject gameObject,
@@ -82,7 +84,7 @@ public static class LocalityExtensions
 		bool includeInactiveComponents = Default.inclusionOfInactiveComponents
 	) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return false.returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -171,10 +173,11 @@ public static class LocalityExtensions
 	// method: return this given component's game object's first component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT first<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.gameObject.first<ComponentT>(includeInactiveComponents);
-	// method: (via reflection if error:) return this given game object's first component of the specified interface (null if none found), optionally including inactive components according to the given boolean //
+	/* (via reflection) */
+	// method: return this given game object's first component of the specified interface (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentI firstI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return default(ComponentI).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -194,7 +197,7 @@ public static class LocalityExtensions
 	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given game object //
 	public static List<ComponentT> pick<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=>	gameObject.GetComponents<ComponentT>().where(component =>
-				component.activeGlobally(),
+				component.isActiveGlobally(),
 				!includeInactiveComponents);
 	// method: return a list of the specified class of components, optionally including inactive components according to the given boolean, on this given transform //
 	public static List<ComponentT> pick<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
@@ -202,16 +205,17 @@ public static class LocalityExtensions
 	// method: return a list of the specified class of components on this given component's game object, optionally including inactive components according to the given boolean //
 	public static List<ComponentT> pick<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.gameObject.pick<ComponentT>(includeInactiveComponents);
-	// method: (via reflection if error:) return a list of the specified interface of components, optionally including inactive components according to the given boolean, on this given game object //
+	/* (via reflection) */
+	// method: return a list of the specified interface of components, optionally including inactive components according to the given boolean, on this given game object //
 	public static List<ComponentI> pickI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return default(List<ComponentI>).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
 
 		return	gameObject.GetComponents<ComponentI>().where(component =>
-					component.castTo<Component>().activeGlobally(),
+					component.castTo<Component>().isActiveGlobally(),
 					!includeInactiveComponents);
 	}
 

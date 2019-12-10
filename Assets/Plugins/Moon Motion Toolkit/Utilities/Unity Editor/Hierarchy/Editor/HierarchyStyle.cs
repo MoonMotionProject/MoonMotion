@@ -44,8 +44,8 @@ public static class HierarchyStyle
 		}
 	}
 	private static GUIStyle hierarchyNameStyle(this GameObject gameObject)
-		=> gameObject.activeLocally() ?
-			(gameObject.activeGlobally() ?
+		=> gameObject.isActiveLocally() ?
+			(gameObject.isActiveGlobally() ?
 				nameStyleActive :
 				nameStyleInactiveOnlyGlobally) :
 			nameStyleInactiveLocally;
@@ -64,9 +64,9 @@ public static class HierarchyStyle
 	private static GUIStyle hierarchyLayerStyle(this GameObject gameObject)
 		=>  layerStyle;
 
-	private static void stylizeHierarchy(int gameObjectIdee, Rect selectionRectangle)
+	private static void stylizeHierarchy(int gameObjectInstanceIdee, Rect selectionRectangle)
 	{
-		GameObject gameObject = gameObjectIdee.gameObject();
+		GameObject gameObject = gameObjectInstanceIdee.asInstanceIdeeToGameObject();
 		if (gameObject.exists())
 		{
 			if (gameObject.isNotOnDefaultLayer())

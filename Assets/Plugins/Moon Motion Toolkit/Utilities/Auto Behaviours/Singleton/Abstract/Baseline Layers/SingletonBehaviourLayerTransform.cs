@@ -196,22 +196,90 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion farthest of
 
 	#region is within distance of
-	public static new bool isWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
-		=> autoBehaviour.isWithinDistanceOf(position_PositionProvider, thresholdDistance);
-	public static new bool isNotWithinDistanceOf(object position_PositionProvider, float thresholdDistance)
-		=> autoBehaviour.isNotWithinDistanceOf(position_PositionProvider, thresholdDistance);
-	public static new bool isWithinDistanceOf<OtherSingletonBehaviourT>(float thresholdDistance) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
-		=> autoBehaviour.isWithinDistanceOf<OtherSingletonBehaviourT>(thresholdDistance);
-	public static new bool isNotWithinDistanceOf<OtherSingletonBehaviourT>(float thresholdDistance) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
-		=> autoBehaviour.isNotWithinDistanceOf<OtherSingletonBehaviourT>(thresholdDistance);
-	public static new bool isWithinDistanceOfCamera(float thresholdDistance)
-		=> autoBehaviour.isWithinDistanceOfCamera(thresholdDistance);
-	public static new bool isNotWithinDistanceOfCamera(float thresholdDistance)
-		=> autoBehaviour.isNotWithinDistanceOfCamera(thresholdDistance);
-	public static new bool isWithinDistanceOfPlayer(float thresholdDistance)
-		=> autoBehaviour.isWithinDistanceOfPlayer(thresholdDistance);
-	public static new bool isNotWithinDistanceOfPlayer(float thresholdDistance)
-		=> autoBehaviour.isNotWithinDistanceOfPlayer(thresholdDistance);
+	public static new bool isWithinDistanceOf
+	(
+		object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour.isWithinDistanceOf
+			(
+				position_PositionProvider,
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isNotWithinDistanceOf
+	(
+		object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour.isNotWithinDistanceOf
+			(
+				position_PositionProvider,
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isWithinDistanceOf<OtherSingletonBehaviourT>
+	(
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=>	autoBehaviour.isWithinDistanceOf<OtherSingletonBehaviourT>
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isNotWithinDistanceOf<OtherSingletonBehaviourT>
+	(
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	) where OtherSingletonBehaviourT : SingletonBehaviour<OtherSingletonBehaviourT>
+		=>	autoBehaviour.isNotWithinDistanceOf<OtherSingletonBehaviourT>
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isWithinDistanceOfCamera
+	(
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour.isWithinDistanceOfCamera
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isNotWithinDistanceOfCamera
+	(
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour.isNotWithinDistanceOfCamera
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isWithinDistanceOfPlayer
+	(
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour.isWithinDistanceOfPlayer
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static new bool isNotWithinDistanceOfPlayer
+	(
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour.isNotWithinDistanceOfPlayer
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
 	#endregion is within distance of
 	
 	#region as position provider is within distance of nearest point on solid collider
@@ -222,10 +290,32 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 	#endregion as position provider is within distance of nearest point on solid collider
 	
 	#region as position provider is within distance of nearest point on solid collider otherwise position
-	public static new bool positionallyIsWithinIdeallySolidDistanceOf(object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
-		=> autoBehaviour.positionallyIsWithinIdeallySolidDistanceOf(colliderOtherwisePosition_ColliderOtherwisePositionProvider, thresholdDistance);
-	public static new bool positionallyIsNotWithinIdeallySolidDistanceOf(object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
-		=> autoBehaviour.positionallyIsNotWithinIdeallySolidDistanceOf(colliderOtherwisePosition_ColliderOtherwisePositionProvider, thresholdDistance);
+	public static new bool positionallyIsWithinIdeallySolidDistanceOf
+	(
+		object colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+		float thresholdDistance,
+		bool treatOtherProviderNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour
+				.positionallyIsWithinIdeallySolidDistanceOf
+				(
+					colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+					thresholdDistance,
+					treatOtherProviderNullAsInfinitelyDistant
+				);
+	public static new bool positionallyIsNotWithinIdeallySolidDistanceOf
+	(
+		object colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+		float thresholdDistance,
+		bool treatOtherProviderNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	autoBehaviour
+				.positionallyIsNotWithinIdeallySolidDistanceOf
+				(
+					colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+					thresholdDistance,
+					treatOtherProviderNullAsInfinitelyDistant
+				);
 	#endregion as position provider is within distance of nearest point on solid collider otherwise position
 	
 	#region is more distant than
@@ -266,4 +356,12 @@ public abstract class	SingletonBehaviourLayerTransform<SingletonBehaviourT> :
 		=> autoBehaviour.positionAlongForwardOf(transform_TransformProvider, distance);
 	#endregion determining another position relative to the provided position, along the forward direction of the provided transform
 	#endregion position
+
+
+	#region rendering bounds
+	
+	public static new Vector3 renderingBoundsDimensions => autoBehaviour.renderingBoundsDimensions;
+	public static new float shortestRenderingBound => autoBehaviour.shortestRenderingBound;
+	public static new float longestRenderingBound => autoBehaviour.longestRenderingBound;
+	#endregion rendering bounds
 }

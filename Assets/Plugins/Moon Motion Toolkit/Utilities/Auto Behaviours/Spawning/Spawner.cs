@@ -30,9 +30,7 @@ public class Spawner : EnabledsBehaviour<Spawner>
 
 	private GameObject automatedParticularPositionParent
 		=>	hasAnyLodal<SpawnPoint>() ?
-				lodespondingSpawnPoint.isYull() ?
-					lodespondingSpawnPoint.gameObject :
-					logErrorAndReturnDefault<GameObject>("encountered unexpected null lodespondingSpawnPoint") :
+				lodespondingSpawnPoint.gameObject :
 				gameObject;
 	private GameObject automateParticularPositionParent()
 		=> particularPositionParent_ = automatedParticularPositionParent;	

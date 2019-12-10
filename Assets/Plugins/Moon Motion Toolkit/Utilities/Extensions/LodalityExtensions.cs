@@ -76,10 +76,10 @@ public static class LodalityExtensions
 	public static bool hasAnyLodal<ComponentT>(this RaycastHit raycastHit, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> Any.itemsIn(raycastHit.lodal<ComponentT>(includeInactiveComponents));
 	
-	/* (via reflection if error) */
+	/* (via reflection) */
 	public static bool hasAnyLodalI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return false.returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -94,32 +94,38 @@ public static class LodalityExtensions
 	// method: return this given game object's first lodal component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstLodal<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.GetComponentInChildren<ComponentT>(includeInactiveComponents);
-	public static ComponentT firstLodalWhere<ComponentT>(this GameObject gameObject, Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
-		=> gameObject.lodal<ComponentT>(includeInactiveComponents).firstWhere(function);
-	public static ColliderT firstLodalSolid<ColliderT>(this GameObject gameObject, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> gameObject.lodalSolid<ColliderT>(includeInactiveColliders).first();
-	public static ColliderT firstLodalSolid<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> component.gameObject.firstLodalSolid<ColliderT>(includeInactiveColliders);
-	public static ColliderT firstLodalTrigger<ColliderT>(this GameObject gameObject, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> gameObject.lodalTrigger<ColliderT>(includeInactiveColliders).first();
-	public static ColliderT firstLodalTrigger<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
-		=> component.gameObject.firstLodalTrigger<ColliderT>(includeInactiveColliders);
 	// method: return this given transform's first lodal component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstLodal<ComponentT>(this Transform transform, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> transform.GetComponentInChildren<ComponentT>(includeInactiveComponents);
 	// method: return this given component's first lodal component of the specified class (null if none found), optionally including inactive components according to the given boolean //
 	public static ComponentT firstLodal<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.GetComponentInChildren<ComponentT>(includeInactiveComponents);
+	// method: return this given raycast hit's first lodal component of the specified class (null if none found), optionally including inactive components according to the given boolean //
+	public static ComponentT firstLodal<ComponentT>(this RaycastHit raycastHit, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> raycastHit.transform.firstLodal<ComponentT>(includeInactiveComponents);
+
+	public static ComponentT firstLodalWhere<ComponentT>(this GameObject gameObject, Func<ComponentT, bool> function, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
+		=> gameObject.lodal<ComponentT>(includeInactiveComponents).firstWhere(function);
+
+	public static ColliderT firstLodalSolid<ColliderT>(this GameObject gameObject, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
+		=> gameObject.lodalSolid<ColliderT>(includeInactiveColliders).first();
+	public static ColliderT firstLodalSolid<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
+		=> component.gameObject.firstLodalSolid<ColliderT>(includeInactiveColliders);
+
+	public static ColliderT firstLodalTrigger<ColliderT>(this GameObject gameObject, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
+		=> gameObject.lodalTrigger<ColliderT>(includeInactiveColliders).first();
+	public static ColliderT firstLodalTrigger<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
+		=> component.gameObject.firstLodalTrigger<ColliderT>(includeInactiveColliders);
 	
 	public static GameObject firstLodalObjectWith<ComponentT>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> gameObject.firstLodal<ComponentT>().gameObject;
 	public static GameObject firstLodalObjectWith<ComponentT>(this Component component, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentT : Component
 		=> component.firstLodal<ComponentT>().gameObject;
 	
-	/* (via reflection if error) */
+	/* (via reflection) */
 	public static ComponentI firstLodalI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return default(ComponentI).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -145,10 +151,11 @@ public static class LodalityExtensions
 	public static HashSet<ColliderT> lodalTrigger<ColliderT>(this Component component, bool includeInactiveColliders = Default.inclusionOfInactiveComponents) where ColliderT : Collider
 		=> component.gameObject.lodalTrigger<ColliderT>(includeInactiveColliders);
 	
-	// method: (via reflection if error:) return an array of the specified interface of components, optionally including inactive components according to the given boolean, which are lodal to this given game object //
+	/* (via reflection) */
+	// method: return an array of the specified interface of components, optionally including inactive components according to the given boolean, which are lodal to this given game object //
 	public static ComponentI[] lodalI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return default(ComponentI[]).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -156,10 +163,11 @@ public static class LodalityExtensions
 		return gameObject.GetComponentsInChildren<ComponentI>(includeInactiveComponents);
 	}
 
-	// method: (via reflection if error:) return the set of game objects with the specified interface of components, optionally including inactive components according to the given boolean, which are lodal to this given game object //
+	/* (via reflection) */
+	// method: return the set of game objects with the specified interface of components, optionally including inactive components according to the given boolean, which are lodal to this given game object //
 	public static HashSet<GameObject> lodalObjectsWithI<ComponentI>(this GameObject gameObject, bool includeInactiveComponents = Default.inclusionOfInactiveComponents) where ComponentI : class
 	{
-		if (!typeof(ComponentI).IsInterface)
+		if (Interfaces.doesNotInclude<ComponentI>())
 		{
 			return default(HashSet<GameObject>).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
 		}

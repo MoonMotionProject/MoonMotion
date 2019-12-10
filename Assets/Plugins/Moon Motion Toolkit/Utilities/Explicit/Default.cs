@@ -20,12 +20,18 @@ public static class Default
 	public const bool errorSilencing = false;
 	public const bool editorExecutionIfPlaymodeHasChanged = true;
 	public const bool beginningNowVersusAtNextCycle = true;
+	public const bool treatingOfNullAsARelevantValue = false;
+	#region colors
+	public static readonly Color settingsColor = Colors.gray;
+	public static readonly Color previousnessColor = Colors.orange;
+	#endregion colors
 	#endregion miscellaneous
 
 	#region hierarchy
 	#if UNITY_EDITOR
 	public const float hierarchyIconSize = 14f;
 	public const float hierarchyIconPaddingRight = 6f;
+	public static Color layerHierarchyLabelColor => Colors.gray;
 	#endif
 	#endregion hierarchy
 
@@ -105,7 +111,7 @@ public static class Default
 	public static readonly Vector3 raycastingDirection = Direction.forward;
 	public const BasicDirection raycastingBasicDirection = BasicDirection.forward;
 	public const float raycastingDistance = 15f;
-	public const float outlineRaycastingDistance = Infinity.asAFloat;
+	public const float targetingRaycastingDistance = Infinity.asAFloat;
 	public const RaycastQuery raycastQuery = RaycastQuery.unlimitedHitsAndAllPositionalColliders;
 	public const QueryTriggerInteraction raycastingTriggerColliderQuery = QueryTriggerInteraction.Collide;
 	public const Distinctivity raycastingDistinctivity = Distinctivity.relative;
@@ -141,8 +147,9 @@ public static class Default
 	#region Controller
 	public const Controller.Handedness controllerHandedness = Controller.Handedness.infinite;
 	public const ushort vibrationIntensity = 500;
+	public const ushort targetingVibrationIntensity = 400;
 	#endregion Controller
-#endif
+	#endif
 	#endregion Moon Motion Toolkit
 
 	#region fense

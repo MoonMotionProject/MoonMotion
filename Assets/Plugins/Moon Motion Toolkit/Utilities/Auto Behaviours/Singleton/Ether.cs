@@ -14,6 +14,7 @@ using NaughtyAttributes;
 //   · static execution such as for coroutines
 // #auto #updating #execution #coroutines
 [UseClassNameForObjectUponValidation]
+[Container]
 public class Ether : SingletonBehaviour<Ether>
 {
 	// updating //

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[InitializeOnLoad]
+// #defines
 public static class DefineMoonMotionToolkit
 {
-	static DefineMoonMotionToolkit()
-	{
-		Build.ensureDefine("MOON_MOTION_TOOLKIT");
-	}
+    [InitializeOnLoadMethod]
+	private static void ensureDefine()
+		=> Build.ensureDefine("MOON_MOTION_TOOLKIT");
 }

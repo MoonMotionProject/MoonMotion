@@ -13,7 +13,7 @@ public abstract class	SingletonBehaviourLayerBehaviour<SingletonBehaviourT> :
 	#region enablement of this behaviour
 
 	public static new bool isEnabled => autoBehaviour.isEnabled;
-	public static new bool isNotEnabled => autoBehaviour.isNotEnabled;
+	public static new bool isDisabled => autoBehaviour.isDisabled;
 
 	// method: set the enablement of this behaviour to the given boolean, then return this behaviour //
 	public static new AutoBehaviour<SingletonBehaviourT> setEnablementTo(bool enablement)

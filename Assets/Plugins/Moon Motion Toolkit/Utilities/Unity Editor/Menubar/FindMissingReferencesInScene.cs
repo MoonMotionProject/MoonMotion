@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 // Find Missing References In Scene:
-// • provides a menubar command to log errors for each missing reference in the scene
+// • provides a menubar operation to log errors for each missing reference in the scene
 // • based on code from: https://www.reddit.com/r/Unity3D/comments/2ogoaq/find_missing_references_in_the_unity_editor/cmnoge0?utm_source=share&utm_medium=web2x
 public static class FindMissingReferencesInScene
 {
@@ -17,7 +17,7 @@ public static class FindMissingReferencesInScene
 		Debug.LogError("Missing reference found in: "+objectName+" - property: "+propertyName);
 	}
 
-	[MenuItem("Status/Find Missing References In Scene %#q")]
+	[MenuItem("Macros/Find Missing References In Scene &%q")]
 	public static void findMissingReferencesInScene()
 	{
 		bool issueFound = false;

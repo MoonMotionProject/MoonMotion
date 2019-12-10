@@ -262,6 +262,12 @@ public static class IEnumerableExtensions
 
 	#region extremes
 
+	public static TItem min<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
+		=> enumerable.Min();
+
+	public static TItem max<TItem>(this IEnumerable<TItem> enumerable) where TItem : IComparable
+		=> enumerable.Max();
+
 	public static TResult min<TItem, TResult>(this IEnumerable<TItem> enumerable, Func<TItem, TResult> function) where TResult : IComparable
 		=> enumerable.Min(function);
 

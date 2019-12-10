@@ -11,7 +11,7 @@ public static class TabToSceneAtStart
 {
 	static TabToSceneAtStart()
 	{
-		EditorApplication.playModeStateChanged += tabToScene;
+		Execute.atNextPlaymodeChange_IfInEditor(tabToScene);
 	}
 
 	private static void tabToScene(PlayModeStateChange playModeStateChange)

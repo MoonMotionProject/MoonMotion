@@ -11,10 +11,11 @@ using UnityEngine;
 public static class Project
 {
 	#region constants
-
+	
 
 	#if UNITY_EDITOR
-	public static string path => Directory.GetCurrentDirectory();
+	public static string filepath => Directory.GetCurrentDirectory();
+	public static string filepathRess => filepath.ress();
 	#endif
 	
 	#region name
@@ -69,7 +70,7 @@ public static class Project
 
 	// method: return the project path for the asset with the given title at the given asset address //
 	public static string pathFor(string assetPath)
-		=> Assets.folderNameRessed+assetPath;
+		=> Assets.folderName.withPotentialRessingSuffix(assetPath);
 
 	// method: return the project path for the asset with the given title at the given asset address //
 	public static string pathFor(string assetTitle, string assetAddress)

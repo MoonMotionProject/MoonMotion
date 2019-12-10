@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Colors:
 // • provides color constants and methods
-// #constants
+// #constants #hierarchy #unitology
 public static class Colors
 {
 	#region constants
@@ -50,7 +50,11 @@ public static class Colors
 	public static Color mediumRed => new Color32(255, 51, 51, 255);
 	#endregion provided here
 	#endregion basic
-	
+
+	#region hierarchy
+	public static Color defaultLayerHierarchyLabelColor => new Color32(123, 123, 123, 128);		// the color to use for labels in the hierarchy for the layer 'Default'
+	#endregion hierarchy
+
 	#region Unitology
 	#if UNITOLOGY
 	public static readonly Color healthbarLow = red;

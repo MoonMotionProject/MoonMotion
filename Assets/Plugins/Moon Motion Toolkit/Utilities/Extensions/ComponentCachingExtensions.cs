@@ -8,10 +8,8 @@ using UnityEngine;
 // #component #correspondence #lodespondence
 public static class ComponentCachingExtensions
 {
-	// variables //
-
+	#region variables
 	
-	// tracking //
 
 	// a dictionary of cached component dictionaries (dictionaries of those components on a particular game object which are cached here, keyed by their type) for game object keys //
 	public static Dictionary<GameObject, Dictionary<Type, Component>> cachedComponentDictionaries
@@ -24,11 +22,12 @@ public static class ComponentCachingExtensions
 	// a dictionary of cached lodesponding component dictionaries (dictionaries of those components lodesponding to a particular game object which are cached here, keyed by their type) for game object keys //
 	public static Dictionary<GameObject, Dictionary<Type, Component>> cachedLodespondingComponentDictionaries =
 		New.dictionaryOf<GameObject, Dictionary<Type, Component>>();
+	#endregion variables
 
 
 
 
-	// methods //
+	#region methods
 
 
 	// method: cachingly return the component of the specified type in the cached components for this given game object, optionally adding the specified type of component to this given game object if none is found //
@@ -38,7 +37,7 @@ public static class ComponentCachingExtensions
 				gameObject,
 				()=> new Dictionary<Type, Component>()
 			)
-			.cache
+			.cacheYull
 			(
 				typeof(ComponentT),
 				()=> gameObject.first<ComponentT>().ifYullOtherwise(()=>
@@ -53,7 +52,7 @@ public static class ComponentCachingExtensions
 				gameObject,
 				()=> new Dictionary<Type, Component>()
 			)
-			.cache
+			.cacheYull
 			(
 				typeof(ComponentT),
 				()=> gameObject.corresponding<ComponentT>().ifYullOtherwise(()=>
@@ -68,7 +67,7 @@ public static class ComponentCachingExtensions
 				gameObject,
 				()=> new Dictionary<Type, Component>()
 			)
-			.cache
+			.cacheYull
 			(
 				typeof(ComponentT),
 				()=> gameObject.lodesponding<ComponentT>().ifYullOtherwise(()=>
@@ -89,4 +88,5 @@ public static class ComponentCachingExtensions
 		cachedCorrespondingComponentDictionaries.clean();
 		cachedLodespondingComponentDictionaries.clean();
 	}
+	#endregion methods
 }

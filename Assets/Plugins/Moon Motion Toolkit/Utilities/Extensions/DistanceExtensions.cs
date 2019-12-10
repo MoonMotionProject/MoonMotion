@@ -50,10 +50,11 @@ public static class DistanceExtensions
 	// method: return the nearest (by position) of the given components to this given game object //
 	public static ComponentT nearestOf<ComponentT>(this GameObject gameObject, IEnumerable<ComponentT> components) where ComponentT : Component
 		=> components.minProviderOtherwiseDefault(component => gameObject.distanceWith(component));
-	// method: (via reflection if error:) return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given game object //
+	/* (via reflection) */
+	// method: return the nearest (by position) of the given interfaces (implemented by mono behaviours) to this given game object //
 	public static MonoBehaviourI nearestOfI<MonoBehaviourI>(this GameObject gameObject, IEnumerable<MonoBehaviourI> interfaces) where MonoBehaviourI : class
 	{
-		if (!typeof(MonoBehaviourI).IsInterface)
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
 		{
 			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -107,24 +108,116 @@ public static class DistanceExtensions
 	#region is within distance of
 	// methods: return whether this given provided position is\isn't (respectively) within the given threshold distance of the other given provided position, specified singleton behaviour, the player (body), or the main camera (respectively) //
 
-	public static bool isWithinDistanceOf(this object position_PositionProvider, object otherPosition_PositionProvider, float thresholdDistance)
-		=>	Yull.areBoth(position_PositionProvider, otherPosition_PositionProvider) &&
-			position_PositionProvider.providePosition()
-				.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
-	public static bool isNotWithinDistanceOf(this object position_PositionProvider, object otherPosition_PositionProvider, float thresholdDistance)
-		=> !position_PositionProvider.isWithinDistanceOf(otherPosition_PositionProvider, thresholdDistance);
-	public static bool isWithinDistanceOf<SingletonBehaviourT>(this object position_PositionProvider, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> position_PositionProvider.isWithinDistanceOf(SingletonBehaviour<SingletonBehaviourT>.position, thresholdDistance);
-	public static bool isNotWithinDistanceOf<SingletonBehaviourT>(this object position_PositionProvider, float thresholdDistance) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
-		=> !position_PositionProvider.isWithinDistanceOf<SingletonBehaviourT>(thresholdDistance);
-	public static bool isWithinDistanceOfCamera(this object position_PositionProvider, float thresholdDistance)
-		=> position_PositionProvider.isWithinDistanceOf(Camera.main, thresholdDistance);
-	public static bool isNotWithinDistanceOfCamera(this object position_PositionProvider, float thresholdDistance)
-		=> !position_PositionProvider.isNotWithinDistanceOfCamera(thresholdDistance);
-	public static bool isWithinDistanceOfPlayer(this object position_PositionProvider, float thresholdDistance)
-		=> position_PositionProvider.isWithinDistanceOf<MoonMotionBody>(thresholdDistance);
-	public static bool isNotWithinDistanceOfPlayer(this object position_PositionProvider, float thresholdDistance)
-		=> !position_PositionProvider.isWithinDistanceOfPlayer(thresholdDistance);
+	public static bool isWithinDistanceOf
+	(
+		this object position_PositionProvider,
+		object otherPosition_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+	{
+		if (position_PositionProvider.isNull())
+		{
+			return false.returnWithError("given null position provider");
+		}
+		if (thresholdDistance.isNegative())
+		{
+			return false.returnWithError("given negative threshold distance");
+		}
+		if (otherPosition_PositionProvider.isNull() && !treatOtherPositionNullAsInfinitelyDistant)
+		{
+			return false.returnWithError("given null other position provider but 'treatOtherPositionNullAsInfinitelyDistant' is false");
+		}
+
+		if (otherPosition_PositionProvider.isNull() && treatOtherPositionNullAsInfinitelyDistant)
+		{
+			return thresholdDistance.isInfinity();
+		}
+
+		return	position_PositionProvider.providePosition()
+					.distanceWith(otherPosition_PositionProvider.providePosition()) <= thresholdDistance;
+	}
+	public static bool isNotWithinDistanceOf
+	(
+		this object position_PositionProvider,
+		object otherPosition_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	!position_PositionProvider.isWithinDistanceOf
+			(
+				otherPosition_PositionProvider,
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static bool isWithinDistanceOf<SingletonBehaviourT>
+	(
+		this object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=>	position_PositionProvider.isWithinDistanceOf
+			(
+				SingletonBehaviour<SingletonBehaviourT>.position,
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static bool isNotWithinDistanceOf<SingletonBehaviourT>
+	(
+		this object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	) where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
+		=>	!position_PositionProvider.isWithinDistanceOf<SingletonBehaviourT>
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static bool isWithinDistanceOfCamera
+	(
+		this object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	position_PositionProvider.isWithinDistanceOf
+			(
+				Camera.main,
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static bool isNotWithinDistanceOfCamera
+	(
+		this object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	!position_PositionProvider.isNotWithinDistanceOfCamera
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static bool isWithinDistanceOfPlayer
+	(
+		this object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	position_PositionProvider.isWithinDistanceOf<MoonMotionBody>
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
+	public static bool isNotWithinDistanceOfPlayer
+	(
+		this object position_PositionProvider,
+		float thresholdDistance,
+		bool treatOtherPositionNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
+		=>	!position_PositionProvider.isWithinDistanceOfPlayer
+			(
+				thresholdDistance,
+				treatOtherPositionNullAsInfinitelyDistant
+			);
 	#endregion is within distance of
 
 
@@ -148,8 +241,32 @@ public static class DistanceExtensions
 
 
 	#region as position provider is within distance of nearest point on solid collider otherwise position
-	public static bool positionallyIsWithinIdeallySolidDistanceOf(this object position_PositionProvider, object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+	public static bool positionallyIsWithinIdeallySolidDistanceOf
+	(
+		this object position_PositionProvider,
+		object colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+		float thresholdDistance,
+		bool treatOtherProviderNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
 	{
+		if (position_PositionProvider.isNull())
+		{
+			return false.returnWithError("given null position provider");
+		}
+		if (thresholdDistance.isNegative())
+		{
+			return false.returnWithError("given negative threshold distance");
+		}
+		if (colliderOtherwisePosition_ColliderOtherwisePositionProvider.isNull() && !treatOtherProviderNullAsInfinitelyDistant)
+		{
+			return false.returnWithError("given null other provider but 'treatOtherProviderNullAsInfinitelyDistant' is false");
+		}
+
+		if (colliderOtherwisePosition_ColliderOtherwisePositionProvider.isNull() && treatOtherProviderNullAsInfinitelyDistant)
+		{
+			return thresholdDistance.isInfinity();
+		}
+
 		Collider potentialSolidCollider = colliderOtherwisePosition_ColliderOtherwisePositionProvider.provideSolidCollider();
 		return	potentialSolidCollider.isYull() ?
 					position_PositionProvider.positionallyIsWithinSolidDistanceOf
@@ -163,11 +280,18 @@ public static class DistanceExtensions
 						thresholdDistance
 					);
 	}
-	public static bool positionallyIsNotWithinIdeallySolidDistanceOf(this object position_PositionProvider, object colliderOtherwisePosition_ColliderOtherwisePositionProvider, float thresholdDistance)
+	public static bool positionallyIsNotWithinIdeallySolidDistanceOf
+	(
+		this object position_PositionProvider,
+		object colliderOtherwisePosition_ColliderOtherwisePositionProvider,
+		float thresholdDistance,
+		bool treatOtherProviderNullAsInfinitelyDistant = Default.treatingOfNullAsARelevantValue
+	)
 		=>	!position_PositionProvider.positionallyIsWithinIdeallySolidDistanceOf
 			(
 				colliderOtherwisePosition_ColliderOtherwisePositionProvider,
-				thresholdDistance
+				thresholdDistance,
+				treatOtherProviderNullAsInfinitelyDistant
 			);
 	#endregion as position provider is within distance of nearest point on solid collider otherwise position
 

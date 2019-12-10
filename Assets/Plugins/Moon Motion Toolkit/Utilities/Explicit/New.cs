@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 // New:
 // • provides members for that allow for fluent creation of certain objects
-// #new #enumerables
+// #new #enumerables #reflection
 public static class New
 {
 	#region miscellaneous
@@ -26,6 +30,22 @@ public static class New
 		=> FloatsVector.zeroes.withY(y);
 	public static Vector3 floatZeroesVectorWithZ(float z)
 		=> FloatsVector.zeroes.withZ(z);
+
+	public static GameObject gameObject => "New Object".createAsObject();
+
+	#if UNITY_EDITOR
+	// reference: https://forum.unity.com/threads/tutorial-how-to-to-show-specific-folder-content-in-the-project-window-via-editor-scripting.508247/ //
+	public static EditorWindow assetsWindow_ViaReflection
+	{
+		get
+		{
+			Type assetsWindowType = Assets.windowType_ViaReflection;
+			return	EditorWindow.GetWindow(assetsWindowType)
+						.show()
+						.invoke(assetsWindowType.publicInstanceMethodNamed("Init"));
+		}
+	}
+	#endif
 	#endregion miscellaneous
 
 

@@ -129,6 +129,8 @@ public static class TypeOrObjectExtensions
 	// method: (via reflection:) return whether this given object has any self or inherited simple class name for which the given function returns true //
 	public static bool hasAnySelfOrInheritedSimpleClassName_ViaReflection<ObjectT>(this ObjectT object_, Func<string, bool> function)
 		=> object_.accessSelfThenInheritedSimpleClassNames_ViaReflection().hasAny(function);
+	public static bool hasNoSelfOrInheritedSimpleClassName_ViaReflection<ObjectT>(this ObjectT object_, Func<string, bool> function)
+		=> !object_.hasAnySelfOrInheritedSimpleClassName_ViaReflection(function);
 
 	// method: (via reflection:) return the (pascal) spaced simple class name of this given type //
 	public static string spacedSimpleClassName_ViaReflection(this Type type)

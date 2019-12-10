@@ -24,8 +24,8 @@ public class PlannedObjectDestruction : AutoBehaviour<PlannedObjectDestruction>
 	
 	// method: set the delay to the given delay //
 	public PlannedObjectDestruction setDelayTo(float givenDelay)
-		=> selfAfter(()=>
-			delay = givenDelay);
+		=>	selfAfter(()=>
+				delay = givenDelay);
 
 
 

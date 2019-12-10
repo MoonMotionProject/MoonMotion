@@ -7,6 +7,7 @@ using UnityEngine;
 // #auto #console
 // • provides this singleton behaviour with static access to its auto behaviour's auto behaviour layer
 // • provides this singleton behaviour with singleton features
+[DisallowMultipleComponent]		// prevents multiple of the same kind of singleton from being added to the same object
 public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 					AutoBehaviour<SingletonBehaviourT>
 						where SingletonBehaviourT : SingletonBehaviour<SingletonBehaviourT>
@@ -43,8 +44,8 @@ public abstract class SingletonBehaviourLayerSingleton<SingletonBehaviourT> :
 
 	#region printing what is given
 
-	public static new AutoBehaviour<SingletonBehaviourT> log(string string_, string loggingSeparator = Default.loggingSeparator)
-		=> autoBehaviour.log(string_, loggingSeparator);
+	public static new AutoBehaviour<SingletonBehaviourT> log(string string_, bool boolean = true, string loggingSeparator = Default.loggingSeparator)
+		=> autoBehaviour.log(string_, boolean, loggingSeparator);
 	public static AutoBehaviour<SingletonBehaviourT> pickLog(Func<AutoBehaviour<SingletonBehaviourT>, string> function, string loggingSeparator = Default.loggingSeparator)
 		=> autoBehaviour.pickLog(function, loggingSeparator);
 	#endregion printing what is given

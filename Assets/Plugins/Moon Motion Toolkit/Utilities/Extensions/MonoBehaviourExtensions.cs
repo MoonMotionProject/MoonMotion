@@ -38,6 +38,68 @@ public static class MonoBehaviourExtensions
 	#endregion planning to execute methods
 
 
+	#region validation
+
+	// method: (via reflection:) (if in the editor:) have this given mono behaviour validate if it has validation defined (if it has an 'OnValidate' method, call it), then return this given mono behaviour //
+	public static MonoBehaviourT validate_IfInEditor_ViaReflection<MonoBehaviourT>(this MonoBehaviourT monoBehaviour) where MonoBehaviourT : MonoBehaviour
+	{
+		#if UNITY_EDITOR
+		if (monoBehaviour.isNull())
+		{
+			return "MonoBehaviourExtensions.validate_IfInEditor_ViaReflection given null mono behaviour".printAsErrorAndReturnDefault<MonoBehaviourT>();
+		}
+
+		dynamic monoBehaviourDynamo = monoBehaviour;
+		try
+		{
+			monoBehaviourDynamo.OnValidate();
+		}
+		catch (Exception exception)		// should be a 'RuntimeBinderException' – unfortunately, that class isn't available in with Unity, for some unknown reason... so it's checked to be via reflection, below, and an error is printed if it isn't
+		{
+			if
+			(
+				exception.hasNoSelfOrInheritedSimpleClassName_ViaReflection(selfOrInheritedSimpleClassName =>
+					selfOrInheritedSimpleClassName.contains("RuntimeBinder"))
+			)
+			{
+				monoBehaviour.returnWithError("MonoBehaviourExtensions.validate_IfInEditor_ViaReflection encountered unexpected exception:\n"+exception);
+			}
+		}
+		#endif
+
+		return monoBehaviour;
+	}
+
+	/* (via reflection) */
+	public static MonoBehaviourI validateI_IfInEditor_ViaReflection<MonoBehaviourI>(this MonoBehaviourI monoBehaviour) where MonoBehaviourI : class
+	{
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
+		{
+			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
+		}
+
+		return	monoBehaviour.after(()=>
+					monoBehaviour.castTo<MonoBehaviour>().validate_IfInEditor_ViaReflection());
+	}
+
+	// method: (if in the editor:) have this given set of mono behaviours validate, then return this given set of mono behaviours //
+	public static HashSet<MonoBehaviourT> validate_IfInEditor_ViaReflection<MonoBehaviourT>(this HashSet<MonoBehaviourT> monoBehaviours) where MonoBehaviourT : MonoBehaviour
+		=> monoBehaviours.forEach(monoBehaviour => monoBehaviour.validate_IfInEditor_ViaReflection());
+
+	/* (via reflection) */
+	public static HashSet<MonoBehaviourI> validateI_IfInEditor_ViaReflection<MonoBehaviourI>(this HashSet<MonoBehaviourI> monoBehaviours) where MonoBehaviourI : class
+	{
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
+		{
+			return default(HashSet<MonoBehaviourI>).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
+		}
+
+		return	monoBehaviours.after(()=>
+					monoBehaviours.forEach(monoBehaviour => monoBehaviour.validateI_IfInEditor_ViaReflection()));
+	}
+	#endregion validation
+
+
 	#region conversion
 
 	#if UNITY_EDITOR

@@ -49,17 +49,16 @@ public static class OdinHierarchyDrawer
         }
     }
 
-	public static GUIStyle styleForUsingLayerName
+	public static GUIStyle styleForUsingLayerNameWith(Color color)
 	{
-		get
-		{
-			GUIStyle guiStyle = new GUIStyle(GUI.skin.label);
-			guiStyle.alignment = TextAnchor.MiddleRight;
-			guiStyle.fontSize = 9;
-			guiStyle.normal.textColor = Color.gray;
-			return guiStyle;
-		}
+		GUIStyle guiStyle = new GUIStyle(GUI.skin.label);
+		guiStyle.alignment = TextAnchor.MiddleRight;
+		guiStyle.fontSize = 9;
+		guiStyle.normal.textColor = color;
+		return guiStyle;
 	}
+	public static GUIStyle styleForUsingLayerName
+		=> styleForUsingLayerNameWith(Default.layerHierarchyLabelColor);
 
     private static void Draw(int id, Rect rect)
     {
@@ -108,7 +107,13 @@ public static class OdinHierarchyDrawer
 			}
             string textToDraw
 				=	(item.useLayerName ?
-						gameObject.layerName().withReplaced("Default", "") :
+						gameObject
+							.layerName()
+								.withReplaced
+								(
+									Layer.defaultName, "",
+									item.treatDefaultLayerNameAsEmpty
+								) :
 						item.overrideText
 					).withPotentialTrailingSpace();
             EditorGUI.LabelField
@@ -118,7 +123,9 @@ public static class OdinHierarchyDrawer
 					textToDraw :
 					"",
 				(item.drawText && item.useLayerName) ?
-					styleForUsingLayerName :
+					!item.treatDefaultLayerNameAsEmpty && item.useUniqueColorForDefaultLayerLabels && textToDraw.matches(Layer.defaultName.withPotentialTrailingSpace()) ?
+						styleForUsingLayerNameWith(item.defaultLayerLabelColor) :
+						styleForUsingLayerName :
 					style
 			);
 			if (item.drawBackgroundColor)

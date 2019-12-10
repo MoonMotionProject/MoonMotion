@@ -12,6 +12,16 @@ public static class Hierarchy
 {
 	#region state
 
+	
+	public static Type windowType_ViaReflection => EditorAssembly.classNamed("UnityEditor.SceneHierarchyWindow");
+
+	public static UnityEngine.Object window_ViaReflection
+		=> Resources.FindObjectsOfTypeAll(windowType_ViaReflection).first();
+
+	public static object treeViewControllerFor_ViaReflection(UnityEngine.Object hierarchyWindow)
+		=> hierarchyWindow.valueOf(windowType_ViaReflection.nonpublicInstanceFieldNamed("m_TreeView"));
+	public static object windowTreeViewController_ViaReflection
+		=> treeViewControllerFor_ViaReflection(window_ViaReflection);
 
 	public static IEnumerable<Scene> accessScenes
 		=>	Access.forCount(SceneManager.sceneCount, sceneIndex =>
@@ -25,16 +35,6 @@ public static class Hierarchy
 	public static int primogenitorCount => accessPrimogenitorObjects.count();
 
 	public static int lastPrimogenitorIndex => primogenitorCount - 1;
-
-	#if UNITY_EDITOR
-	// whether the hierarchy has any selected game objects //
-	public static bool hasAnySelectedGameObjects => selectedGameObject.isYull();
-	public static bool hasNoSelectedGameObjects => !hasAnySelectedGameObjects;
-	// the (first) currently selected game object //
-	public static GameObject selectedGameObject => Selection.activeGameObject;
-	// the set of currently selected game objects //
-	public static HashSet<GameObject> selectedGameObjects => Selection.gameObjects.uniques();
-	#endif
 	#endregion state
 
 
@@ -44,6 +44,41 @@ public static class Hierarchy
 
 
 	#region accessing components in the hierarchy
+
+	// method: return the set of all yull and unique behaviours of the specified type that are currently in the hierarchy //
+	public static HashSet<BehaviourT> allYullAndUnique<BehaviourT>() where BehaviourT : Behaviour
+		=>	Resources.FindObjectsOfTypeAll<BehaviourT>()
+				.onlyYull()
+				.only(behaviour => behaviour.gameObject.isNotPartOfPrefabAsset())
+				.uniques();
+
+	// method: return the first yull and unique behaviour of the specified type that is currently in the hierarchy //
+	public static BehaviourT firstYullAndUnique<BehaviourT>() where BehaviourT : Behaviour
+		=> allYullAndUnique<BehaviourT>().firstOtherwiseDefault();
+
+	/* (via reflection) */
+	// method: return the set of all of the specified interface implemented on mono behaviours that are yull and unique instances currently in the hierarchy //
+	public static HashSet<MonoBehaviourI> allYullAndUniqueI<MonoBehaviourI>() where MonoBehaviourI : class
+	{
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
+		{
+			return default(HashSet<MonoBehaviourI>).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
+		}
+
+		return allYullAndUnique<MonoBehaviour>().only<MonoBehaviourI>().uniques();
+	}
+	
+	/* (via reflection) */
+	// method: return the first of the specified interface implemented on mono behaviours that are yull and unique instances currently in the hierarchy //
+	public static MonoBehaviourI firstYullAndUniqueI<MonoBehaviourI>() where MonoBehaviourI : class
+	{
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
+		{
+			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
+		}
+
+		return allYullAndUniqueI<MonoBehaviourI>().firstOtherwiseDefault();
+	}
 
 	// method: return the set of all yull, enabled, and unique behaviours of the specified type that are currently in the hierarchy //
 	public static HashSet<BehaviourT> allYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
@@ -57,10 +92,11 @@ public static class Hierarchy
 	public static BehaviourT firstYullAndEnabledAndUnique<BehaviourT>() where BehaviourT : Behaviour
 		=> allYullAndEnabledAndUnique<BehaviourT>().firstOtherwiseDefault();
 
-	// method: (via reflection if error:) return the set of all of the specified interface implemented on mono behaviours that are yull, enabled, and unique instances currently in the hierarchy //
+	/* (via reflection) */
+	// method: return the set of all of the specified interface implemented on mono behaviours that are yull, enabled, and unique instances currently in the hierarchy //
 	public static HashSet<MonoBehaviourI> allYullAndEnabledAndUniqueI<MonoBehaviourI>() where MonoBehaviourI : class
 	{
-		if (!typeof(MonoBehaviourI).IsInterface)
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
 		{
 			return default(HashSet<MonoBehaviourI>).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -68,10 +104,11 @@ public static class Hierarchy
 		return allYullAndEnabledAndUnique<MonoBehaviour>().only<MonoBehaviourI>().uniques();
 	}
 	
-	// method: (via reflection if error:) return the first of the specified interface implemented on mono behaviours that are yull, enabled, and unique instances currently in the hierarchy //
+	/* (via reflection) */
+	// method: return the first of the specified interface implemented on mono behaviours that are yull, enabled, and unique instances currently in the hierarchy //
 	public static MonoBehaviourI firstYullAndEnabledAndUniqueI<MonoBehaviourI>() where MonoBehaviourI : class
 	{
-		if (!typeof(MonoBehaviourI).IsInterface)
+		if (Interfaces.doesNotInclude<MonoBehaviourI>())
 		{
 			return default(MonoBehaviourI).returnWithError(typeof(MonoBehaviourI).simpleClassName_ViaReflection()+" is not an interface");
 		}
@@ -109,51 +146,10 @@ public static class Hierarchy
 	#endregion creating universal andor temporary objects
 
 
-	#region setting hierarchy objects selection
-	#if UNITY_EDITOR
-
-	// method: deselect in the hierarchy all current hierarchy selection objects //
-	public static void deselect()
-		=> Selection.objects = New.arrayOf<UnityEngine.Object>();
-#endif
-	#endregion setting hierarchy objects selection
-
-
-	#region pinging a given object
-
-	// method: (if in the editor:) ping this given game object in the hierarchy (if it's yull), then return this given game object //
-	public static GameObject ping_IfInEditor(GameObject gameObject)
-		=>	gameObject.after(gameObject_ =>
-			{
-				#if UNITY_EDITOR
-				EditorGUIUtility.PingObject(gameObject_);
-				#endif
-			}, gameObject.isYull() && UnityIs.inEditor);
-	// method: (if in the editor:) ping this given component's game object in the hierarchy (if this given component and its game object are both yull), then return this given component //
-	public static ComponentT ping_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
-		=>	component.after(()=>
-				ping_IfInEditor(component.gameObject),
-				component.isYull() && component.gameObject.isYull());
-	#endregion pinging a given object
-
-
-	#region pinging hierarchy selection objects
-
-	#if UNITY_EDITOR
-	// method: ping the game object currently selected in the hierarchy, then return it //
-	public static GameObject pingSelectedGameObject()
-		=> ping_IfInEditor(selectedGameObject);
-	// method: ping the set of game objects currently selected in the hierarchy, then return the set //
-	public static HashSet<GameObject> pingSelectedGameObjects()
-		=> selectedGameObjects.pingUniquesInHierarchy_IfInEditor();
-
-	// method: ping the game object currently selected in the hierarchy, then return it after having it log the given string //
-	public static GameObject pingSelectedGameObjectLogging(string string_)
-		=> pingSelectedGameObject().log(string_);
-	// method: ping the set of game objects currently selected in the hierarchy, then return the set after logging the given string as each game object //
-	public static HashSet<GameObject> pingSelectedGameObjectsEachLogging(string string_)
-		=> pingSelectedGameObjects().uniquesAfterAsEachObjectLogging(string_);
-	#endif
-	#endregion pinging hierarchy selection objects
+	#region setting hierarchy expansion
+	
+	public static void collapseAllObjects()
+		=> accessPrimogenitorObjects.collapseLodalsInHierarchy();
+	#endregion setting hierarchy expansion
 	#endregion methods
 }

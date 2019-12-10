@@ -33,11 +33,11 @@ public static class Execute
 
 	#region planning to execute functions\actions at next check in editor
 
-	// method: plan to execute the given action at the next editor check //
+	// method: (if in the editor:) plan to execute the given action at the next editor check //
 	public static void atNextCheck_IfInEditor(Action action, bool executeIfPlaymodeHasChanged = Default.editorExecutionIfPlaymodeHasChanged, bool silencePotentialNullException = Default.errorSilencing)
 	{
 		#if UNITY_EDITOR
-		if (UnityIs.inEditor && !BuildPipeline.isBuildingPlayer)
+		if (!BuildPipeline.isBuildingPlayer)
 		{
 			bool inEditorEditModeUponPlanning = UnityIs.inEditorEditMode;
 
@@ -59,6 +59,18 @@ public static class Execute
 				}
 			};
 		}
+		#endif
+	}
+	#endregion planning to execute functions\actions at next check in editor
+
+
+	#region planning to execute functions\actions at next playmode change if in editor
+
+	// method: (if in the editor:) plan to execute the given action at the next playmode change //
+	public static void atNextPlaymodeChange_IfInEditor(Action<PlayModeStateChange> action)
+	{
+		#if UNITY_EDITOR
+		EditorApplication.playModeStateChanged += action;
 		#endif
 	}
 	#endregion planning to execute functions\actions at next check in editor

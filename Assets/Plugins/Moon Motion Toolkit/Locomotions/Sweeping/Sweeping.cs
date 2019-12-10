@@ -222,15 +222,15 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	// at each physics update: //
 	public override void physicsUpdate()
 	{
-		if (operations.operated() && !currentlySweeping)
+		if (operations.isOperated() && !currentlySweeping)
 		{
-			beginSweepVia(operations.firstOperatedControllerOtherwiseFallback());
+			beginSweepVia(operations.firstRelevantController());
 		}
 		else if
 		(
 			currentlySweeping &&
 			(
-				(isCancelable && operations.operated()) ||
+				(isCancelable && operations.isOperated()) ||
 
 				(limitSweepDuration && (timeSince(sweepStartingTime) > sweepDurationLimit)) ||
 

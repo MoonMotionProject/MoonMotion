@@ -41,15 +41,15 @@ public static class EnableeComponentExtensions
 		}
 		else
 		{
-			return default(bool).returnWithError("EnableeComponentExtensions.setEnablementOf given unrecognized dynamo of type "+enableeComponent.derivedType_ViaReflection());
+			return default(bool).returnWithError("given unrecognized dynamo of type "+enableeComponent.derivedType_ViaReflection());
 		}
 	}
 
 	// method: return whether this given enablee component is enabled //
 	public static bool isEnabled(this Component enableeComponent)
 		=> enablementOf(enableeComponent);
-	// method: return whether this given enablee component is not enabled //
-	public static bool isNotEnabled(this Component enableeComponent)
+	// method: return whether this given enablee component is disabled //
+	public static bool isDisabled(this Component enableeComponent)
 		=> !isEnabled(enableeComponent);
 
 	/* (via reflection if error) */

@@ -11,7 +11,7 @@ public static class PauseAtStart
 {
 	static PauseAtStart()
 	{
-		EditorApplication.playModeStateChanged += pause;
+		Execute.atNextPlaymodeChange_IfInEditor(pause);
 	}
 
 	private static void pause(PlayModeStateChange playModeStateChange)

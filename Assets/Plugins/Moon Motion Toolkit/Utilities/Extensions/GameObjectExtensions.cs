@@ -9,7 +9,7 @@ using UnityEngine;
 
 // Game Object Extensions:
 // • provides extension methods for handling game objects
-// #gameobject #execution
+// #gameobject #execution #console
 public static class GameObjectExtensions
 {
 	#region accessing
@@ -65,28 +65,36 @@ public static class GameObjectExtensions
 
 	#region printing
 	
-	public static GameObject log(this GameObject gameObject, string string_, string loggingSeparator = Default.loggingSeparator)
-		=> gameObject.after(()=> string_.logAs(""+gameObject, gameObject, loggingSeparator));
+	public static GameObject log(this GameObject gameObject, string string_, bool boolean = true, string loggingSeparator = Default.loggingSeparator)
+		=>	gameObject.after(()=>
+				string_.logAs(""+gameObject, gameObject, loggingSeparator),
+				boolean);
 	
 	public static List<GameObject> asEachObjectLog(this IEnumerable<GameObject> gameObjects, string string_, string loggingSeparator = Default.loggingSeparator)
 		=>	gameObjects.forEachManifested(gameObject =>
-				gameObject.log(string_, loggingSeparator));
+				gameObject.log(string_, true, loggingSeparator));
 	
 	public static HashSet<GameObject> uniquesAfterAsEachObjectLogging(this IEnumerable<GameObject> gameObjects, string string_, string loggingSeparator = Default.loggingSeparator)
 		=>	gameObjects.uniquesAfterForEach(gameObject =>
-				gameObject.log(string_, loggingSeparator));
+				gameObject.log(string_, true, loggingSeparator));
 	#endregion printing
 
 
 	#region activity
 
 	// method: return whether this given game object is active locally //
-	public static bool activeLocally(this GameObject gameObject)
+	public static bool isActiveLocally(this GameObject gameObject)
 		=> gameObject.activeSelf;
+	// method: return whether this given game object is inactive locally //
+	public static bool isInactiveLocally(this GameObject gameObject)
+		=> !gameObject.isActiveLocally();
 
 	// method: return whether this given game object is active globally //
-	public static bool activeGlobally(this GameObject gameObject)
+	public static bool isActiveGlobally(this GameObject gameObject)
 		=> gameObject.activeInHierarchy;
+	// method: return whether this given game object is inactive globally //
+	public static bool isInactiveGlobally(this GameObject gameObject)
+		=> !gameObject.isActiveGlobally();
 
 	// method: set the activity of this given game object to the given boolean, then return this given game object //
 	public static GameObject setActivityTo(this GameObject gameObject, bool activity)
@@ -103,7 +111,7 @@ public static class GameObjectExtensions
 
 	// method: toggle the activity of this given game object using the given toggling, then return this given game object //
 	public static GameObject toggleActivityBy(this GameObject gameObject, Toggling toggling)
-		=> gameObject.setActivityTo(gameObject.activeLocally().toggledBy(toggling));
+		=> gameObject.setActivityTo(gameObject.isActiveLocally().toggledBy(toggling));
 
 	// method: toggle the activity of these given game objects using the given toggling, then return them //
 	public static GameObject[] toggleActivityBy(this GameObject[] gameObjects, Toggling toggling)
@@ -197,26 +205,16 @@ public static class GameObjectExtensions
 			gameObject.SendMessage(methodName, sendMessageOptions),
 			boolean);
 
-	// method: (if in the editor:) have all mono behaviours on this game object validate (if they have OnValidate defined), then return this given game object //
+	// method: (if in the editor:) have this given game object validate (have all mono behaviours on this given game object validate (if they have OnValidate defined)), then return this given game object //
 	public static GameObject validate_IfInEditor(this GameObject gameObject)
 		=>	gameObject.executeAllLocal
 			(
 				"OnValidate", SendMessageOptions.DontRequireReceiver,
 				UnityIs.inEditor
 			);
+
+	// method: (if in the editor:) have this given set of game objects validate, then return this given set of game objects //
+	public static HashSet<GameObject> validate_IfInEditor(this HashSet<GameObject> gameObjects)
+		=> gameObjects.forEach(gameObject => gameObject.validate_IfInEditor());
 	#endregion calling local methods
-
-
-	#region conversion
-
-	// method: return the game object idee for this given game object //
-	public static int idee(this GameObject gameObject)
-		=> gameObject.GetInstanceID();
-
-	#if UNITY_EDITOR
-	// method: if there is a game object corresponding to this given integer as a game object idee, return that game object; otherwise, return null //
-	public static GameObject gameObject(this int gameObjectIdee)
-		=> EditorUtility.InstanceIDToObject(gameObjectIdee) as GameObject;
-	#endif
-	#endregion conversion
 }

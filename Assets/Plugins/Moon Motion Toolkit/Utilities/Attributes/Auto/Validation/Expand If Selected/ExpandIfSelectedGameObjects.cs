@@ -20,8 +20,8 @@ public static class ExpandIfSelectedGameObjects
 			if (UnityIs.inEditorEditMode)
 			{
 				gameObjects
-					.only(gameObject => gameObject.isSelectedInHierarchy())
-						.expandUniquesInHierarchy();
+					.only(gameObject => gameObject.isSelected())
+						.expandInHierarchy();
 			}
 		};
 	}

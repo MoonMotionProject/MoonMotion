@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 // Unity Object Extensions:
 // • provides extension methods for handling Unity objects
-// #gameobject #component #destruction
+// #unityobject #gameobject #component #destruction #assets
 public static class UnityObjectExtensions
 {
 	#region destruction
@@ -92,4 +95,17 @@ public static class UnityObjectExtensions
 	}
 	#endregion public
 	#endregion destruction
+
+
+
+
+	#region conversion
+
+	
+	#if UNITY_EDITOR
+	// method: return the serialized object for this given Unity object //
+	public static SerializedObject asSerializedObject(this UnityEngine.Object object_)
+		=> new SerializedObject(object_);
+	#endif
+	#endregion conversion
 }

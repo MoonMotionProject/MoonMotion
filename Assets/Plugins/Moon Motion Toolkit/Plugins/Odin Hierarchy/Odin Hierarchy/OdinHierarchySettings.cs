@@ -98,7 +98,7 @@ public class OdinHierarchySettings : ScriptableObject
     private static bool secret;
     public void ToggleSecret() => secret = !secret;
 	
-	[ListDrawerSettings(ListElementLabelName = "name")]
+	[ListDrawerSettings(ListElementLabelName = "name", ShowPaging = false)]
 	[LabelText("Styling Rules")]
     public List<Stylization> stylizations;
 
@@ -109,6 +109,11 @@ public class OdinHierarchySettings : ScriptableObject
 		[PropertyTooltip("(this name is just for organizational purposes)")]
 		[HideLabel]
 		public string name = "New Styling Rule";
+
+        [TabGroup("Context")]
+		[Title("Expansion Conditions")]
+		[PropertyOrder(-9)]
+		public bool expandedObjectsOnly = false;
 
         [TabGroup("Context")]
 		[Title("Prefab Conditions")]
@@ -264,6 +269,21 @@ public class OdinHierarchySettings : ScriptableObject
 		[Indent]
 		[ShowIf("drawText")]
         public bool useLayerName = false;
+		private bool treatDefaultLayerNameAsEmpty_And_useUniqueColorForDefaultLayerLabels_ShowIf => drawText && useLayerName;
+        [TabGroup("Label")]
+		[Indent(2)]
+		[ShowIf("treatDefaultLayerNameAsEmpty_And_useUniqueColorForDefaultLayerLabels_ShowIf")]
+        public bool treatDefaultLayerNameAsEmpty = false;
+        [TabGroup("Label")]
+		[Indent(2)]
+		[ShowIf("treatDefaultLayerNameAsEmpty_And_useUniqueColorForDefaultLayerLabels_ShowIf")]
+        public bool useUniqueColorForDefaultLayerLabels = true;
+		private bool defaultLayerLabelColor_ShowIf => treatDefaultLayerNameAsEmpty_And_useUniqueColorForDefaultLayerLabels_ShowIf && useUniqueColorForDefaultLayerLabels;
+        [TabGroup("Label")]
+		[Indent(3)]
+		[ShowIf("defaultLayerLabelColor_ShowIf")]
+		[HideLabel]
+        public Color defaultLayerLabelColor = Colors.defaultLayerHierarchyLabelColor;
         [TabGroup("Label")]
         [ShowIf("@drawText && !useLayerName"), Indent]
 		[HideLabel]
@@ -284,6 +304,7 @@ public class OdinHierarchySettings : ScriptableObject
 		[HideLabel]
         public Decoration decorationType = Decoration.Right;
         [TabGroup("Decoration")]
+		[Space]
 		[ColorPalette]
         [ShowIf("decoration"), Indent(1)]
 		[HideLabel]
@@ -295,6 +316,10 @@ public class OdinHierarchySettings : ScriptableObject
         return stylizations.reversed()?.FirstOrDefault(s =>
 		{
             return
+				(
+					!s.expandedObjectsOnly ||
+					go.isExpandedInHierarchy_ViaReflection()
+				) &&
 				(
 					!s.prefabInstancesOnly ||
 					go.isInstanceOfPrefabAsset()

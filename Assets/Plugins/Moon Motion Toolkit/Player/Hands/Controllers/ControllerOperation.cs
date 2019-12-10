@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Handedness = Controller.Handedness;
+using Input = Controller.Input;
+using Inputtedness = Controller.Inputtedness;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #else
@@ -30,13 +33,11 @@ public class ControllerOperation : ResetFixedScriptableObject
 	#else
 	[BoxGroup("Handedness")]
 	#endif
-	public Controller.Handedness handedness = Default.controllerHandedness;
-
-	private bool fallbackToLeftVersusRight_ShowIf => handedness.isInfinite();
-	[Tooltip("whether to return the left versus the right controller as the first operated controller when operating without any controllers operating (only relevant when handedness is infinite)")]
+	public Handedness handedness = Default.controllerHandedness;
+	
+	[Tooltip("whether to return the left versus the right controller as the first relevant controller when:\n· operating without any controllers operating (when handedness is infinite)\n· none of the operations being evaluated are currently operated")]
 	#if ODIN_INSPECTOR
 	[TabGroup("Handedness")]
-	[ShowIf("fallbackToLeftVersusRight_ShowIf")]
 	#else
 	[BoxGroup("Handedness")]
 	#endif
@@ -49,7 +50,7 @@ public class ControllerOperation : ResetFixedScriptableObject
 	[BoxGroup("Input")]
 	[ReorderableList]
 	#endif
-	public Controller.Input[] inputs;
+	public Input[] inputs;
 
 	[Tooltip("the controller inputtednesses (to check operation by)")]
 	#if ODIN_INSPECTOR
@@ -58,7 +59,7 @@ public class ControllerOperation : ResetFixedScriptableObject
 	[BoxGroup("Input")]
 	[ReorderableList]
 	#endif
-	public Controller.Inputtedness[] inputtednesses;
+	public Inputtedness[] inputtednesses;
 
 	[Tooltip("the states of being (to check operation at)")]
 	#if ODIN_INSPECTOR
@@ -94,7 +95,9 @@ public class ControllerOperation : ResetFixedScriptableObject
 	#region properties
 
 
-	// the controller to fallback to as the first operated controller when operating without any controllers operating (when handedness is infinite) //
+	// the controller to fallback to:
+	// · as the relevant controller when operating without any controllers operating (when handedness is infinite)
+	// · when the relevant controller for some operations is requested but none of those operations are currently operated
 	public Controller fallbackController => fallbackToLeftVersusRight ? Controller.left : Controller.right;
 	#endregion properties
 

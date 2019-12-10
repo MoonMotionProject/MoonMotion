@@ -10,7 +10,7 @@ public static class CleanNullGameObjectsForComponentCachingUponChangingEditorMod
 {
 	static CleanNullGameObjectsForComponentCachingUponChangingEditorMode()
 	{
-		EditorApplication.playModeStateChanged += cleanNullGameObjectsForComponentCaching;
+		Execute.atNextPlaymodeChange_IfInEditor(cleanNullGameObjectsForComponentCaching);
 	}
 
 	private static void cleanNullGameObjectsForComponentCaching(PlayModeStateChange playModeStateChange)

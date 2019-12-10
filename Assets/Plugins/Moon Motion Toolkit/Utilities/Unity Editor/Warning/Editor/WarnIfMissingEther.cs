@@ -8,8 +8,8 @@ public static class WarnIfMissingEther
 {
 	static WarnIfMissingEther()
 	{
-		EditorApplication.delayCall += potentiallyWarn;
-		EditorApplication.playModeStateChanged += potentiallyWarn;
+		Execute.atNextCheck_IfInEditor(potentiallyWarn);
+		Execute.atNextPlaymodeChange_IfInEditor(potentiallyWarn);
 	}
 
 	private static void potentiallyWarn()

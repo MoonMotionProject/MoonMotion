@@ -212,19 +212,19 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 
 	#region updating
 
-
+	
 	// at each physics update: //
 	public override void physicsUpdate()
 	{
-		if (operations.operated() && DashingOutlining.outlinedObject)
+		if (operations.isOperated() && DashingTargeting.targetedObject)
 		{
-			beginDashTo(DashingOutlining.outliningRaycastHit);
+			beginDashTo(DashingTargeting.targetingRaycastHit);
 		}
 		else if
 		(
 			currentlyDashing &&
 			(
-				(isCancelable && !DashingOutlining.outlinedObject && operations.operated()) ||
+				(isCancelable && !DashingTargeting.targetedObject && operations.isOperated()) ||
 
 				endUponTargetCollision.and(MoonMotionPlayer.isCollidedWith(potentialCurrentTargetCollider)) ||
 

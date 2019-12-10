@@ -108,7 +108,7 @@ public static class VectorExtensions
 
 	// method: return whether this given vector is all zeroes //
 	public static bool isZeroes(this Vector3 vector)
-		=> (vector.x.isZero() && vector.y.isZero() && vector.z.isZero());
+		=> vector == FloatsVector.zeroes;
 
 	// method: return whether this given vector is nonnegative //
 	public static bool isNonnegative(this Vector3 vector)
@@ -258,6 +258,12 @@ public static class VectorExtensions
 	// method: return this given vector multiplied by the other given vector (axis-respectively) //
 	public static Vector3 multiplyBy(this Vector3 vector, Vector3 otherVector)
 		=> new Vector3(vector.x * otherVector.x, vector.y * otherVector.y, vector.z * otherVector.z);
+	
+	public static float min(this Vector3 vector)
+		=> vector.toArray().min();
+	
+	public static float max(this Vector3 vector)
+		=> vector.toArray().max();
 	#endregion math operations
 
 

@@ -5,15 +5,12 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-// Clear: provides a method for clearing the console //
+// Clear: provides methods for clearing things //
 public static class Clear
 {
+	// method: clear the console
+	// reference: https://answers.unity.com/questions/707636/clear-console-window.html
 	public static void console_ViaReflection()
-	{
-		var assembly = Assembly.GetAssembly(typeof(SceneView));
-		var type = assembly.GetType("UnityEditor.LogEntries");
-		var method = type.GetMethod("Clear");
-		method.Invoke(new object(), null);
-	}
+		=> New.genericObject.invoke(typeof(SceneView).assembly().classNamed("UnityEditor.LogEntries").methodNamed("Clear"));
 }
 #endif

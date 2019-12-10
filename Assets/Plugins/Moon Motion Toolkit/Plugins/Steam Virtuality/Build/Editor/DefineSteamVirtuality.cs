@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[InitializeOnLoad]
+// #defines
 public static class DefineSteamVirtuality
 {
-	static DefineSteamVirtuality()
-	{
-		Build.ensureDefine("STEAM_VIRTUALITY");
-	}
+	[InitializeOnLoadMethod]
+	private static void ensureDefine()
+		=> Build.ensureDefine("STEAM_VIRTUALITY");
 }

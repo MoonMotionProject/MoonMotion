@@ -16,6 +16,7 @@ MonoBehaviour:
   iconPaddingRight: 6
   stylizations:
   - name: Layer Labeling
+    expandedObjectsOnly: 0
     prefabInstancesOnly: 0
     useStringContainmentConditions: 0
     nameContains: 
@@ -30,15 +31,46 @@ MonoBehaviour:
     icon: 0
     sizeAdjustment: 0
     paddingRightAdjustment: 0
-    iconName_: 
+    iconName_: Stop
     drawText: 1
     useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.48235297, g: 0.48235297, b: 0.48235297, a: 0.5019608}
     overrideText: blah
     textAnchor: 5
     decoration: 0
     decorationType: 3
     decorationColor: {r: 0, g: 1, b: 0, a: 0.30980393}
   - name: Containers
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: Container
+    component_matching: 
+    drawBackgroundColor: 1
+    color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0.39215687}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: FolderBack
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+    overrideText: Teeeeee
+    textAnchor: 5
+    decoration: 0
+    decorationType: 2
+    decorationColor: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+  - name: Containers - Expanded
+    expandedObjectsOnly: 1
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
@@ -48,20 +80,51 @@ MonoBehaviour:
     attribute: Container
     component_matching: 
     drawBackgroundColor: 0
-    color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    color: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 0.89411765}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: Folder
+    drawText: 1
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 2
+    decorationColor: {r: 0.18823531, g: 0.18823531, b: 0.18823531, a: 1}
+  - name: Ether
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Ether
+    drawBackgroundColor: 1
+    color: {r: 1, g: 0, b: 0.93721867, a: 0.4392157}
     style: 4
     icon: 1
     sizeAdjustment: 4.5
-    paddingRightAdjustment: 5
-    iconName_: Folder
+    paddingRightAdjustment: 0
+    iconName_: StarPointer
     drawText: 0
     useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
     overrideText: 
     textAnchor: 5
     decoration: 0
-    decorationType: 1
-    decorationColor: {r: 1, g: 1, b: 1, a: 0.39215687}
-  - name: Ether
+    decorationType: 2
+    decorationColor: {r: 1, g: 1, b: 1, a: 0.4392157}
+  - name: Ether - Expanded
+    expandedObjectsOnly: 1
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
@@ -75,16 +138,20 @@ MonoBehaviour:
     style: 4
     icon: 1
     sizeAdjustment: 4.5
-    paddingRightAdjustment: 5
+    paddingRightAdjustment: 0
     iconName_: StarPointer
     drawText: 0
     useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
     overrideText: 
     textAnchor: 5
-    decoration: 0
-    decorationType: 1
-    decorationColor: {r: 0.827, g: 0.294, b: 0.333, a: 1}
+    decoration: 1
+    decorationType: 2
+    decorationColor: {r: 1, g: 0, b: 0.93721867, a: 0.4392157}
   - name: Player
+    expandedObjectsOnly: 0
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
@@ -93,7 +160,7 @@ MonoBehaviour:
     component: 
     attribute: 
     component_matching: 
-    drawBackgroundColor: 0
+    drawBackgroundColor: 1
     color: {r: 0, g: 0, b: 1, a: 0.39215687}
     style: 4
     icon: 0
@@ -102,12 +169,16 @@ MonoBehaviour:
     iconName_: SingleUser
     drawText: 0
     useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
     overrideText: 
     textAnchor: 5
     decoration: 1
     decorationType: 0
     decorationColor: {r: 0, g: 0, b: 1, a: 1}
   - name: Player - Primogenitor
+    expandedObjectsOnly: 0
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
@@ -116,7 +187,7 @@ MonoBehaviour:
     component: 
     attribute: 
     component_matching: MoonMotionPlayer
-    drawBackgroundColor: 0
+    drawBackgroundColor: 1
     color: {r: 0, g: 0, b: 1, a: 0.39215687}
     style: 4
     icon: 1
@@ -125,104 +196,70 @@ MonoBehaviour:
     iconName_: SingleUser
     drawText: 0
     useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
     overrideText: 
     textAnchor: 5
     decoration: 1
     decorationType: 0
     decorationColor: {r: 0, g: 0, b: 1, a: 1}
-  - name: Ally
+  - name: Neutrals
+    expandedObjectsOnly: 0
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
-    layerContains: Ally
+    layerContains: 
     scene: 
     component: 
     attribute: 
-    component_matching: 
-    drawBackgroundColor: 0
-    color: {r: 0, g: 1, b: 0, a: 0.39215687}
-    style: 4
-    icon: 0
-    sizeAdjustment: 0
-    paddingRightAdjustment: 0
-    iconName_: PacmanGhost
-    drawText: 0
-    useLayerName: 1
-    overrideText: 
-    textAnchor: 5
-    decoration: 1
-    decorationType: 0
-    decorationColor: {r: 0, g: 1, b: 0, a: 1}
-  - name: Ally - Unit Primogenitor
-    prefabInstancesOnly: 0
-    useStringContainmentConditions: 1
-    nameContains: 
-    layerContains: Ally
-    scene: 
-    component: 
-    attribute: 
-    component_matching: Unit
-    drawBackgroundColor: 0
-    color: {r: 0, g: 1, b: 0, a: 0.39215687}
+    component_matching: Neutrals
+    drawBackgroundColor: 1
+    color: {r: 1, g: 1, b: 1, a: 0.39215687}
     style: 4
     icon: 1
-    sizeAdjustment: 0
+    sizeAdjustment: 2.5
     paddingRightAdjustment: 0
-    iconName_: PacmanGhost
-    drawText: 0
-    useLayerName: 1
-    overrideText: 
-    textAnchor: 5
-    decoration: 1
-    decorationType: 0
-    decorationColor: {r: 0, g: 1, b: 0, a: 1}
-  - name: Enemy
-    prefabInstancesOnly: 0
-    useStringContainmentConditions: 1
-    nameContains: 
-    layerContains: Enemy
-    scene: 
-    component: 
-    attribute: 
-    component_matching: 
-    drawBackgroundColor: 0
-    color: {r: 1, g: 0, b: 0, a: 0.39215687}
-    style: 4
-    icon: 0
-    sizeAdjustment: 0
-    paddingRightAdjustment: 0
-    iconName_: PacmanGhost
-    drawText: 0
-    useLayerName: 1
-    overrideText: 
-    textAnchor: 5
-    decoration: 1
-    decorationType: 0
-    decorationColor: {r: 1, g: 0, b: 0, a: 1}
-  - name: Enemy - Unit Primogenitor
-    prefabInstancesOnly: 0
-    useStringContainmentConditions: 1
-    nameContains: 
-    layerContains: Enemy
-    scene: 
-    component: 
-    attribute: 
-    component_matching: Unit
-    drawBackgroundColor: 0
-    color: {r: 1, g: 0, b: 0, a: 0.39215687}
-    style: 4
-    icon: 1
-    sizeAdjustment: 0
-    paddingRightAdjustment: 0
-    iconName_: PacmanGhost
+    iconName_: FolderBack
     drawText: 0
     useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0, g: 0, b: 0, a: 1}
     overrideText: 
     textAnchor: 5
     decoration: 1
     decorationType: 0
-    decorationColor: {r: 1, g: 0, b: 0, a: 1}
+    decorationColor: {r: 1, g: 1, b: 1, a: 1}
+  - name: Neutrals - Expanded
+    expandedObjectsOnly: 1
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Neutrals
+    drawBackgroundColor: 0
+    color: {r: 1, g: 1, b: 1, a: 0.39215687}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: Folder
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0, g: 0, b: 0, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 2
+    decorationColor: {r: 1, g: 1, b: 1, a: 1}
   - name: Neutral
+    expandedObjectsOnly: 0
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
@@ -240,12 +277,16 @@ MonoBehaviour:
     iconName_: PacmanGhost
     drawText: 0
     useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
     overrideText: 
     textAnchor: 5
     decoration: 1
     decorationType: 0
     decorationColor: {r: 1, g: 1, b: 1, a: 1}
   - name: Neutral - Unit Primogenitor
+    expandedObjectsOnly: 0
     prefabInstancesOnly: 0
     useStringContainmentConditions: 1
     nameContains: 
@@ -263,8 +304,227 @@ MonoBehaviour:
     iconName_: PacmanGhost
     drawText: 0
     useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
     overrideText: 
     textAnchor: 5
     decoration: 1
     decorationType: 0
     decorationColor: {r: 1, g: 1, b: 1, a: 1}
+  - name: Allies
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Allies
+    drawBackgroundColor: 1
+    color: {r: 0.21960784, g: 1, b: 0.21960784, a: 0.39215687}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: FolderBack
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0, g: 0, b: 0, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 0
+    decorationColor: {r: 0, g: 1, b: 0, a: 1}
+  - name: Allies - Expanded
+    expandedObjectsOnly: 1
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Allies
+    drawBackgroundColor: 0
+    color: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: Folder
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0, g: 0, b: 0, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 2
+    decorationColor: {r: 0, g: 1, b: 0, a: 1}
+  - name: Ally
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: Ally
+    scene: 
+    component: 
+    attribute: 
+    component_matching: 
+    drawBackgroundColor: 0
+    color: {r: 0, g: 1, b: 0, a: 0.39215687}
+    style: 4
+    icon: 0
+    sizeAdjustment: 0
+    paddingRightAdjustment: 0
+    iconName_: PacmanGhost
+    drawText: 0
+    useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 0
+    decorationColor: {r: 0, g: 1, b: 0, a: 1}
+  - name: Ally - Unit Primogenitor
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: Ally
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Unit
+    drawBackgroundColor: 0
+    color: {r: 0, g: 1, b: 0, a: 0.39215687}
+    style: 4
+    icon: 1
+    sizeAdjustment: 0
+    paddingRightAdjustment: 0
+    iconName_: PacmanGhost
+    drawText: 0
+    useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 0
+    decorationColor: {r: 0, g: 1, b: 0, a: 1}
+  - name: Enemies
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Enemies
+    drawBackgroundColor: 1
+    color: {r: 1, g: 0.21960784, b: 0.21960784, a: 0.39215687}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: FolderBack
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0, g: 0, b: 0, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 0
+    decorationColor: {r: 1, g: 0, b: 0, a: 1}
+  - name: Enemies - Expanded
+    expandedObjectsOnly: 1
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: 
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Enemies
+    drawBackgroundColor: 0
+    color: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+    style: 4
+    icon: 1
+    sizeAdjustment: 2.5
+    paddingRightAdjustment: 0
+    iconName_: Folder
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0, g: 0, b: 0, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 2
+    decorationColor: {r: 1, g: 0, b: 0, a: 1}
+  - name: Enemy
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: Enemy
+    scene: 
+    component: 
+    attribute: 
+    component_matching: 
+    drawBackgroundColor: 0
+    color: {r: 1, g: 0, b: 0, a: 0.39215687}
+    style: 4
+    icon: 0
+    sizeAdjustment: 0
+    paddingRightAdjustment: 0
+    iconName_: PacmanGhost
+    drawText: 0
+    useLayerName: 1
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 0
+    decorationColor: {r: 1, g: 0, b: 0, a: 1}
+  - name: Enemy - Unit Primogenitor
+    expandedObjectsOnly: 0
+    prefabInstancesOnly: 0
+    useStringContainmentConditions: 1
+    nameContains: 
+    layerContains: Enemy
+    scene: 
+    component: 
+    attribute: 
+    component_matching: Unit
+    drawBackgroundColor: 0
+    color: {r: 1, g: 0, b: 0, a: 0.39215687}
+    style: 4
+    icon: 1
+    sizeAdjustment: 0
+    paddingRightAdjustment: 0
+    iconName_: PacmanGhost
+    drawText: 0
+    useLayerName: 0
+    treatDefaultLayerNameAsEmpty: 0
+    useUniqueColorForDefaultLayerLabels: 1
+    defaultLayerLabelColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+    overrideText: 
+    textAnchor: 5
+    decoration: 1
+    decorationType: 0
+    decorationColor: {r: 1, g: 0, b: 0, a: 1}

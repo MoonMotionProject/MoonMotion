@@ -62,17 +62,54 @@ public static class ComponentExtensions
 	#region activity
 
 	// method: return whether this given component's game object is active locally //
-	public static bool activeLocally(this Component component)
-		=> component.gameObject.activeLocally();
+	public static bool isActiveLocally(this Component component)
+		=> component.gameObject.isActiveLocally();
+	// method: return whether this given component's game object is inactive locally //
+	public static bool isInactiveLocally(this Component component)
+		=> component.gameObject.isInactiveLocally();
 
 	// method: return whether this given component's game object is active globally //
-	public static bool activeGlobally(this Component component)
-		=> component.gameObject.activeGlobally();
+	public static bool isActiveGlobally(this Component component)
+		=> component.gameObject.isActiveGlobally();
+	// method: return whether this given component's game object is inactive globally //
+	public static bool isInactiveGlobally(this Component component)
+		=> component.gameObject.isInactiveGlobally();
 
 	// method: set the activity of this given component's game object to the given boolean, then return this given component //
 	public static ComponentT setActivityTo<ComponentT>(this ComponentT component, bool activity) where ComponentT : Component
 		=> component.after(()=>
 			component.gameObject.setActivityTo(activity));
+
+	// method: activate this given component, then return it //
+	public static ComponentT activate<ComponentT>(this ComponentT component) where ComponentT : Component
+		=>	component.after(()=>
+				component.gameObject.activate());
+
+	// method: deactivate this given component, then return it //
+	public static ComponentT deactivate<ComponentT>(this ComponentT component) where ComponentT : Component
+		=>	component.after(()=>
+				component.gameObject.activate());
+
+	// method: toggle the activity of this given component using the given toggling, then return this given component //
+	public static ComponentT toggleActivityBy<ComponentT>(this ComponentT component, Toggling toggling) where ComponentT : Component
+		=>	component.after(()=>
+				component.gameObject.toggleActivityBy(toggling));
+
+	// method: toggle the activity of these given components using the given toggling, then return them //
+	public static ComponentT[] toggleActivityBy<ComponentT>(this ComponentT[] components, Toggling toggling) where ComponentT : Component
+		=> components.forEach(component => component.toggleActivityBy(toggling));
+
+	// method: set the activity of these given components to the given boolean, then return them //
+	public static ComponentT[] setActivityTo<ComponentT>(this ComponentT[] components, bool activity) where ComponentT : Component
+		=> components.forEach(component => component.setActivityTo(activity));
+
+	// method: activate these given components, then return them //
+	public static ComponentT[] activate<ComponentT>(this ComponentT[] components) where ComponentT : Component
+		=> components.setActivityTo(true);
+
+	// method: deactivate these given components, then return them //
+	public static ComponentT[] deactivate<ComponentT>(this ComponentT[] components) where ComponentT : Component
+		=> components.setActivityTo(false);
 	#endregion activity
 
 
@@ -83,10 +120,38 @@ public static class ComponentExtensions
 		=> component.after(()=>
 			component.gameObject.executeAllLocal(methodName, sendMessageOptions, boolean));
 
-	// method: (if in the editor:) have all mono behaviours on this component's game object validate (if they have OnValidate defined), then return this given component //
-	public static ComponentT validate_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
-		=> component.after(()=>
-			component.gameObject.validate_IfInEditor());
+	// method: (if in the editor:) have this given component's game object validate, then return this given component //
+	public static ComponentT validateObject_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
+		=>	component.after(()=>
+				component.gameObject.validate_IfInEditor());
+
+	/* (via reflection) */
+	public static ComponentI validateObjectViaThisI_IfInEditor<ComponentI>(this ComponentI component) where ComponentI : class
+	{
+		if (Interfaces.doesNotInclude<ComponentI>())
+		{
+			return default(ComponentI).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
+		}
+
+		return	component.after(()=>
+					component.castTo<Component>().validateObject_IfInEditor());
+	}
+
+	// method: (if in the editor:) have this given set of components' game objects validate, then return this given set of components //
+	public static HashSet<ComponentT> validateObjects_IfInEditor<ComponentT>(this HashSet<ComponentT> components) where ComponentT : Component
+		=> components.forEach(component => component.validateObject_IfInEditor());
+
+	/* (via reflection) */
+	public static HashSet<ComponentI> validateObjectsViaTheseI_IfInEditor<ComponentI>(this HashSet<ComponentI> components) where ComponentI : class
+	{
+		if (Interfaces.doesNotInclude<ComponentI>())
+		{
+			return default(HashSet<ComponentI>).returnWithError(typeof(ComponentI).simpleClassName_ViaReflection()+" is not an interface");
+		}
+
+		return	components.after(()=>
+					components.forEach(component => component.validateObjectViaThisI_IfInEditor()));
+	}
 	#endregion calling local methods
 
 

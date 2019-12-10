@@ -6,13 +6,13 @@ using UnityEngine.Rendering;
 // Renderer Extensions: provides extension methods for handling renderers //
 public static class RendererExtensions
 {
-	#region game object's renderer enablement
+	#region setting enablement
 
 	// method: set the enablement of this given game object's renderer to the given boolean, then return this given game object //
 	public static GameObject setRendererEnablementTo(this GameObject gameObject, bool enablement)
 		=> gameObject.after(()=>
 			gameObject.first<Renderer>().setEnablementTo(enablement));
-	#endregion game object's renderer enablement
+	#endregion setting enablement
 
 
 	#region setting materials

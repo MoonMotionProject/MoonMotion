@@ -42,7 +42,7 @@ public static class StringExtensions
 	public static bool isEmptyOrNull(this string string_)
 		=> (string_.isNull() || string_.isEmpty());
 
-	// method: return whether this given string is not empty nor null //
+	// method: return whether this given string is neither empty nor null //
 	public static bool isNotEmptyNorNull(this string string_)
 		=> !string_.isEmptyOrNull();
 
@@ -54,11 +54,11 @@ public static class StringExtensions
 	public static string withNullRepresented(this string string_)
 		=> string_ ?? "null";
 
-	// method: return this given string with a newline prefix if it is not empty nor null //
+	// method: return this given string with a newline prefix if it is neither empty nor null //
 	public static string withPotentialPrefixedNewline(this string string_)
 		=> string_.withPotentialPrefix("\n");
 
-	// method: return this given string with a newline suffix if it is not empty nor null //
+	// method: return this given string with a newline suffix if it is neither empty nor null //
 	public static string withPotentialSuffixedNewline(this string string_)
 		=> string_.withPotentialSuffix("\n");
 
@@ -144,8 +144,10 @@ public static class StringExtensions
 
 	#region replacing characters
 
-	public static string withReplaced(this string string_, string stringTemplateToReplace, string replacementString)
-		=> string_.Replace(stringTemplateToReplace, replacementString);
+	public static string withReplaced(this string string_, string stringTemplateToReplace, string replacementString, bool boolean = true)
+		=>	boolean ?
+				string_.Replace(stringTemplateToReplace, replacementString) :
+				string_;
 	#endregion replacing characters
 
 

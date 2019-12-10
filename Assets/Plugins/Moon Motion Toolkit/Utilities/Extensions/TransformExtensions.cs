@@ -24,50 +24,6 @@ public static class TransformExtensions
 	#endregion destruction
 
 
-	#region activity
-
-	// method: return whether this given transform is active locally //
-	public static bool activeLocally(this Transform transform)
-		=> transform.gameObject.activeLocally();
-
-	// method: return whether this given transform is active globally //
-	public static bool activeGlobally(this Transform transform)
-		=> transform.gameObject.activeGlobally();
-
-	// method: set the activity of this given transform to the given boolean, then return this given transform //
-	public static Transform setActivityTo(this Transform transform, bool activity)
-		=> transform.gameObject.setActivityTo(activity).transform;
-
-	// method: activate this given transform, then return it //
-	public static Transform activate(this Transform transform)
-		=> transform.gameObject.activate().transform;
-
-	// method: deactivate this given transform, then return it //
-	public static Transform deactivate(this Transform transform)
-		=> transform.gameObject.activate().transform;
-
-	// method: toggle the activity of this given transform using the given toggling, then return this given transform //
-	public static Transform toggleActivityBy(this Transform transform, Toggling toggling)
-		=> transform.gameObject.toggleActivityBy(toggling).transform;
-
-	// method: toggle the activity of these given transforms using the given toggling, then return them //
-	public static Transform[] toggleActivityBy(this Transform[] transforms, Toggling toggling)
-		=> transforms.forEach(transform => transform.toggleActivityBy(toggling));
-
-	// method: set the activity of these given transforms to the given boolean, then return them //
-	public static Transform[] setActivityTo(this Transform[] transforms, bool activity)
-		=> transforms.forEach(transform => transform.setActivityTo(activity));
-
-	// method: activate these given transforms, then return them //
-	public static Transform[] activate(this Transform[] transforms)
-		=> transforms.setActivityTo(true);
-
-	// method: deactivate these given transforms, then return them //
-	public static Transform[] deactivate(this Transform[] transforms)
-		=> transforms.setActivityTo(false);
-	#endregion activity
-
-
 	#region calling local methods
 
 	// method: execute all of this transform's game object's mono behaviours' defined methods (ignoring inherited methods that haven't been overriden) with the given name, then return this given game object //

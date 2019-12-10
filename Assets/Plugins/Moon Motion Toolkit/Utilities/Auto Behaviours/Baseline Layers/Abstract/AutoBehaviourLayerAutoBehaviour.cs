@@ -93,10 +93,11 @@ public abstract class	AutoBehaviourLayerAutoBehaviour<AutoBehaviourT> :
 		=> object_.logAs(prefix, contextGameObject, loggingSeparator);
 	public static GameObject log(GameObject gameObject, string prefix, string loggingSeparator = Default.loggingSeparator)
 		=> gameObject.logAs(prefix, loggingSeparator);
-	public AutoBehaviourT log(string string_, string loggingSeparator = Default.loggingSeparator)
-		=> selfAfter(()=> gameObject.log(string_, loggingSeparator));
+	public AutoBehaviourT log(string string_, bool boolean = true, string loggingSeparator = Default.loggingSeparator)
+		=>	selfAfter(()=>
+				gameObject.log(string_, boolean, loggingSeparator));
 	public AutoBehaviourT pickLog(Func<AutoBehaviourT, string> function, string loggingSeparator = Default.loggingSeparator)
-		=> selfAfter(()=> gameObject.log(function(self), loggingSeparator));
+		=> selfAfter(()=> gameObject.log(function(self), true, loggingSeparator));
 	#endregion printing what is given
 
 	#region printing listings

@@ -93,27 +93,34 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#endregion making objects universal andor temporary
 
 
-	#region determining hierarchy selection
+	#region determining selection
 	#if UNITY_EDITOR
 
-	public bool isSelectedInHierarchy => gameObject.isSelectedInHierarchy();
-	public bool isNotSelectedInHierarchy => gameObject.isNotSelectedInHierarchy();
+	public bool isSelected => gameObject.isSelected();
+	public bool isNotSelected => gameObject.isNotSelected();
 	#endif
-	#endregion determining hierarchy selection
+	#endregion determining selection
 
 
-	#region setting hierarchy objects selection
+	#region setting selection
 
-	public AutoBehaviourT selectInHierarchy_IfInEditor()
-		=> selfAfter(()=> gameObject.selectInHierarchy_IfInEditor());
-	#endregion setting hierarchy objects selection
+	public AutoBehaviourT select_IfInEditor()
+		=> selfAfter(()=> gameObject.select_IfInEditor());
+	#endregion setting selection
 
 
-	#region setting hierarchy objects selection then pinging the selection
+	#region pinging
+
+	public AutoBehaviourT ping_IfInEditor()
+		=> selfAfter(()=> gameObject.ping_IfInEditor());
+	#endregion pinging
+
+
+	#region setting selection then pinging the selection
 	
-	public AutoBehaviourT selectAndPingInHierarchy_IfInEditor()
-		=> selfAfter(()=> gameObject.selectAndPingInHierarchy_IfInEditor());
-	#endregion setting hierarchy objects selection then pinging the selection
+	public AutoBehaviourT selectAndPing_IfInEditor()
+		=> selfAfter(()=> gameObject.selectAndPing_IfInEditor());
+	#endregion setting selection then pinging the selection
 	
 
 	#region setting hierarchy expansion
@@ -168,10 +175,14 @@ public abstract class	AutoBehaviourLayerGameObject<AutoBehaviourT> :
 	#region activity
 
 	// method: return whether this behaviour's game object is active locally //
-	public bool activeLocally => gameObject.activeLocally();
+	public bool isActiveLocally => gameObject.isActiveLocally();
+	// method: return whether this behaviour's game object is inactive locally //
+	public bool isInactiveLocally => gameObject.isInactiveLocally();
 
 	// method: return whether this behaviour's game object is active globally //
-	public bool activeGlobally => gameObject.activeGlobally();
+	public bool isActiveGlobally => gameObject.isActiveGlobally();
+	// method: return whether this behaviour's game object is inactive globally //
+	public bool isInactiveGlobally => gameObject.isInactiveGlobally();
 
 	// method: set the activity of this behaviour's game object to the given boolean, then return this behaviour //
 	public AutoBehaviourT setActivityTo(bool enablement)

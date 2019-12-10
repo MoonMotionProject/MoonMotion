@@ -77,9 +77,11 @@ public static class DictionaryExtensions
 		{
 			return dictionary[key];
 		}
-		catch (KeyNotFoundException keyNotFoundException)
+		catch (KeyNotFoundException)
 		{
-			return keyNotFoundException.logAsErrorAndReturnDefault<TValue>(dictionary.asListing()+".recordingFor("+key+"):\nkey "+key+" not found in\ndictionary "+dictionary.asListing());
+			string dictionaryListing = dictionary.asListing();
+			
+			return (dictionaryListing+".recordingFor("+key+"):\nkey "+key+" not found in\ndictionary "+dictionaryListing).printAsErrorAndReturnDefault<TValue>();
 		}
 	}
 	#endregion accessing
@@ -141,13 +143,27 @@ public static class DictionaryExtensions
 
 	#region caching
 
-	// method: return the value of this given dictionary at the given key, or if that key isn't set, add the result of the given backup value function to this given dictionary then return that given backup value //
+	// method: return the value of this given dictionary at the given key, or if that key isn't set, record the result of the given backup value function in this given dictionary for the given key and then return that given backup value //
 	public static TValue cache<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, Func<TValue> backupValueFunction)
 		=>	(
 				dictionary.ContainsKey(key) ?
 					dictionary[key] :
 					backupValueFunction().recordIn(dictionary, key)
 			);
+
+	// method: return the value of this given dictionary at the given key, or if that key isn't set or is null, record the result of the given backup value function in this given dictionary for the given key and then return that given backup value //
+	public static TValue cacheYull<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, Func<TValue> backupValueFunction)
+	{
+		if (dictionary.ContainsKey(key))
+		{
+			TValue valueFound = dictionary[key];
+			if (valueFound.isYull())
+			{
+				return valueFound;
+			}
+		}
+		return backupValueFunction().recordIn(dictionary, key);
+	}
 	#endregion caching
 
 

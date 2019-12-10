@@ -29,13 +29,18 @@ public static class PrintingExtensions
 		return string_;
 	}   
 
-	// method: print this given object, optionally with the given game object as the context, then return it //
+	// method: print this given object, optionally with the given game object as the context, then return this given object //
 	public static ObjectT print<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
 		=>	object_.returnAnd(()=>
 				object_.ToString().print(contextGameObject));
 	// method: print this given game object with itself as the context, then return it //
 	public static GameObject print(this GameObject gameObject)
 		=> gameObject.print(gameObject);
+	
+	// method: print whether this given object is yull, optionally with the given game object as the context, then return this given object //
+	public static ObjectT printYullness<ObjectT>(this ObjectT object_, GameObject contextGameObject = null)
+		=>	object_.returnAnd(()=>
+				object_.isYull().print(contextGameObject));
 
 	// method: print this given object, optionally with the given game object as the context, logged as following the given prefix and using the given logging separator, then return this given object //
 	public static ObjectT logAs<ObjectT>(this ObjectT object_, string prefix, GameObject contextGameObject = null, string loggingSeparator = Default.loggingSeparator)

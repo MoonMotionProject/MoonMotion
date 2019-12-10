@@ -20,7 +20,7 @@ public static class ExpandSelfAndChildrenIfSelectedGameObjects
 			if (UnityIs.inEditorEditMode)
 			{
 				gameObjects
-					.only(gameObject => gameObject.isSelectedInHierarchy())
+					.only(gameObject => gameObject.isSelected())
 						.forEach(gameObject =>
 							gameObject.expandSelfAndChildrenInHierarchy());
 			}

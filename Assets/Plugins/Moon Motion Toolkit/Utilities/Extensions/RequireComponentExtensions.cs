@@ -25,9 +25,9 @@ public static class RequireComponentExtensions
 	public static bool requires_ViaAdditionalReflection(this Component component, Type potentiallyRequiredComponentType, bool considerInheritedRequireComponents = true)
 		=> component.hasAnyRequireComponentAttributes_ViaAdditionalReflection(requireComponentAttribute =>
 		   (
-			   requireComponentAttribute.m_Type0.isAssignableFrom_ViaReflection(potentiallyRequiredComponentType) ||
-			   requireComponentAttribute.m_Type1.isAssignableFrom_ViaReflection(potentiallyRequiredComponentType) ||
-			   requireComponentAttribute.m_Type2.isAssignableFrom_ViaReflection(potentiallyRequiredComponentType)
+			   potentiallyRequiredComponentType.inheritsIfYull_ViaReflection(requireComponentAttribute.m_Type0) ||
+			   potentiallyRequiredComponentType.inheritsIfYull_ViaReflection(requireComponentAttribute.m_Type1) ||
+			   potentiallyRequiredComponentType.inheritsIfYull_ViaReflection(requireComponentAttribute.m_Type2)
 		   ),
 			considerInheritedRequireComponents);
 

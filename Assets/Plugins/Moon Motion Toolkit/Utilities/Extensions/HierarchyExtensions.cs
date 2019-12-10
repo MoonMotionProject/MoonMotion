@@ -38,94 +38,28 @@ public static class HierarchyExtensions
 		=>	component.after(()=>
 				component.gameObject.makeUniversalAndTemporary());
 	#endregion making objects universal andor temporary
-
-
-	#region determining hierarchy selection
-	#if UNITY_EDITOR
-
-	// method: return whether this given game object is currently selected in the hierarchy //
-	public static bool isSelectedInHierarchy(this GameObject gameObject)
-		=> Selection.gameObjects.contains(gameObject);
-
-	// method: return whether this given game object is not currently selected in the hierarchy //
-	public static bool isNotSelectedInHierarchy(this GameObject gameObject)
-		=> !gameObject.isSelectedInHierarchy();
-	#endif
-	#endregion determining hierarchy selection
 	
 
-	#region setting hierarchy objects selection
+	#region setting hierarchy expansion
+	#if UNITY_EDITOR
 
-	// method: (if in the editor:) select this given game object in the hierarchy, then return this given game object //
-	public static GameObject selectInHierarchy_IfInEditor(this GameObject gameObject)
-	{
-		#if UNITY_EDITOR
-		if (UnityIs.inEditor)
-		{
-			return Selection.activeGameObject = gameObject;
-		}
-		#endif
+	// method: (via reflection:) return whether the game object for this given instance idee is currently expanded in the hierarchy //
+	public static bool asGameObjectInstanceIdeeIsExpandedInHierarchy_ViaReflection(this int gameObjectInstanceIdee)
+		=>	TreeViews.expansionOf_ViaReflection
+			(
+				gameObjectInstanceIdee,
+				Hierarchy.windowTreeViewController_ViaReflection
+			);
+	public static bool asGameObjectInstanceIdeeIsNotExpandedInHierarchy_ViaReflection(this int gameObjectInstanceIdee)
+		=> !gameObjectInstanceIdee.asGameObjectInstanceIdeeIsExpandedInHierarchy_ViaReflection();
 
-		return gameObject;
-	}
-	// method: (if in the editor:) select this given component's game object in the hierarchy (if this given component and its game object are both yull), then return this given component //
-	public static ComponentT selectInHierarchy_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
-		=>	component.after(()=>
-				component.gameObject.selectInHierarchy_IfInEditor(),
-				component.isYull() && component.gameObject.isYull());
-	// method: (if in the editor:) select the uniques of these given game objects in the hierarchy, then return the set of these given game objects //
-	public static HashSet<GameObject> selectUniquesInHierarchy_IfInEditor(this IEnumerable<GameObject> gameObjects)
-	{
-		HashSet<GameObject> uniqueGameObjects = gameObjects.uniques();
-
-		#if UNITY_EDITOR
-		if (UnityIs.inEditor)
-		{
-			Selection.objects = uniqueGameObjects.toArray();
-		}
-		#endif
-
-		return uniqueGameObjects;
-	}
-	#endregion setting hierarchy objects selection
-
-
-	#region pinging objects in the hierarchy
-
-	// method: (if in the editor:) ping these given game objects in the hierarchy (only each one that is yull), then return the set of these given game objects //
-	public static HashSet<GameObject> pingUniquesInHierarchy_IfInEditor(this IEnumerable<GameObject> gameObjects)
-		=>	gameObjects.forEachUnique(gameObject =>
-			{
-				if (gameObject.isYull())
-				{
-					Hierarchy.ping_IfInEditor(gameObject);
-				}
-			});
-	// method: (if in the editor:) ping these given components' game objects in the hierarchy (only each component that is yull (and whose game object is yull)), then return the set of these given components //
-	public static HashSet<ComponentT> pingUniquesInHierarchy_IfInEditor<ComponentT>(this IEnumerable<ComponentT> components) where ComponentT : Component
-		=>	components.forEachUnique(component =>
-			{
-				if (component.isYull())
-				{
-					Hierarchy.ping_IfInEditor(component);
-				}
-			});
-	#endregion pinging objects in the hierarchy
-
-
-	#region setting hierarchy objects selection then pinging the selection
-
-	// method: (if in the editor:) select and ping this given game object in the hierarchy (if it's yull), then return this given game object //
-	public static GameObject selectAndPingInHierarchy_IfInEditor(this GameObject gameObject)
-		=>	gameObject.after(()=>
-				Hierarchy.ping_IfInEditor(gameObject.selectInHierarchy_IfInEditor()),
-				gameObject.isYull());
-	// method: (if in the editor:) select and ping this given component's game object in the hierarchy (if this given component and its game object are both yull), then return this given component //
-	public static ComponentT selectAndPingInHierarchy_IfInEditor<ComponentT>(this ComponentT component) where ComponentT : Component
-		=>	component.after(()=>
-				component.gameObject.selectAndPingInHierarchy_IfInEditor(),
-				component.isYull() && component.gameObject.isYull());
-	#endregion setting hierarchy objects selection then pinging the selection
+	// method: (via reflection:) return whether this given game object is currently expanded in the hierarchy //
+	public static bool isExpandedInHierarchy_ViaReflection(this GameObject gameObject)
+		=> gameObject.instanceIdee().asGameObjectInstanceIdeeIsExpandedInHierarchy_ViaReflection();
+	public static bool isNotExpandedInHierarchy_ViaReflection(this GameObject gameObject)
+		=> !gameObject.isExpandedInHierarchy_ViaReflection();
+	#endif
+	#endregion setting hierarchy expansion
 	
 
 	#region setting hierarchy expansion
@@ -149,21 +83,21 @@ public static class HierarchyExtensions
 		}
 		return gameObject;
 	}
-	public static HashSet<GameObject> setHierarchyExpansionOfUniquesTo(this IEnumerable<GameObject> gameObjects, bool expansion)
+	public static HashSet<GameObject> setHierarchyExpansionTo(this IEnumerable<GameObject> gameObjects, bool expansion)
 		=> gameObjects.forEachUnique(gameObject => gameObject.setHierarchyExpansionTo(expansion));
 	public static GameObject expandInHierarchy(this GameObject gameObject)
 		=> gameObject.setHierarchyExpansionTo(true);
-	public static HashSet<GameObject> expandUniquesInHierarchy(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.setHierarchyExpansionOfUniquesTo(true);
+	public static HashSet<GameObject> expandInHierarchy(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.setHierarchyExpansionTo(true);
 	public static GameObject collapseInHierarchy(this GameObject gameObject)
 		=> gameObject.setHierarchyExpansionTo(false);
-	public static HashSet<GameObject> collapseUniquesInHierarchy(this IEnumerable<GameObject> gameObjects)
-		=> gameObjects.setHierarchyExpansionOfUniquesTo(false);
+	public static HashSet<GameObject> collapseInHierarchy(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.setHierarchyExpansionTo(false);
 	
 	public static GameObject setHierarchyExpansionForSelfAndChildrenTo(this GameObject gameObject, bool expansion)
 		=>	gameObject.after(()=>
 				gameObject.setHierarchyExpansionTo(expansion)
-					.childObjects().setHierarchyExpansionOfUniquesTo(expansion));
+					.childObjects().setHierarchyExpansionTo(expansion));
 	public static GameObject expandSelfAndChildrenInHierarchy(this GameObject gameObject)
 		=> gameObject.setHierarchyExpansionForSelfAndChildrenTo(true);
 	public static GameObject collapseSelfAndChildrenInHierarchy(this GameObject gameObject)
@@ -176,8 +110,18 @@ public static class HierarchyExtensions
 			TabTo.hierarchy();
 			
 			typeof(EditorWindow).Assembly.GetType("UnityEditor.SceneHierarchyWindow")
-				.GetMethod("SetExpandedRecursive")
-					.Invoke(Focused.window, new object[] {gameObject.idee(), expansion});
+				.GetMethod
+				(
+					"SetExpandedRecursive"
+				).Invoke
+				(
+					Focused.window,
+					new object[]
+					{
+						gameObject.instanceIdee(),
+						expansion
+					}
+				);
 		}
 
 		return gameObject;
@@ -186,6 +130,12 @@ public static class HierarchyExtensions
 		=> gameObject.setHierarchyExpansionForLodalsTo(true);
 	public static GameObject collapseLodalsInHierarchy(this GameObject gameObject)
 		=> gameObject.setHierarchyExpansionForLodalsTo(false);
+	public static HashSet<GameObject> setHierarchyExpansionForLodalsTo(this IEnumerable<GameObject> gameObjects, bool expansion)
+		=> gameObjects.forEachUnique(gameObject => gameObject.setHierarchyExpansionForLodalsTo(expansion));
+	public static HashSet<GameObject> expandLodalsInHierarchy(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.forEachUnique(gameObject => gameObject.expandLodalsInHierarchy());
+	public static HashSet<GameObject> collapseLodalsInHierarchy(this IEnumerable<GameObject> gameObjects)
+		=> gameObjects.forEachUnique(gameObject => gameObject.collapseLodalsInHierarchy());
 	#endif
 	#endregion setting hierarchy expansion
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 // #layouts
 public static class Layout
 {
-	public static Type type => Type.GetType("UnityEditor.WindowLayout,UnityEditor");
+	public static Type type => "UnityEditor.WindowLayout,UnityEditor".asClassNameToType();
 
 	public static void saveAs(string assetName, string assetAddress = "Layouts")
 	{

@@ -17,7 +17,8 @@ public static class WhetherToShowCommonBehaviours
 
 	static WhetherToShowCommonBehaviours()
 	{
-		EditorApplication.delayCall += ()=> setCheckednessTo(Build.includesDefine(define));
+		Execute.atNextCheck_IfInEditor(()=>
+			setCheckednessTo(Build.includesDefine(define)));
 	}
 
 	public static bool state => Menu.GetChecked(menuItem);

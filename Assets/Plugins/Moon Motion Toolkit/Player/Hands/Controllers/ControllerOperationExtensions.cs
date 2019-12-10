@@ -7,7 +7,7 @@ using UnityEngine;
 public static class ControllerOperationExtensions
 {
 	// method: return whether these operations are currently operated //
-	public static bool operated(this ControllerOperation[] controllerOperations)
+	public static bool isOperated(this ControllerOperation[] controllerOperations)
 		=> Controller.operated(controllerOperations);
 
 	// method: return the set of controllers for which any of the given operations are currently operated //
@@ -23,7 +23,16 @@ public static class ControllerOperationExtensions
 	public static Controller fallbackControllerOfFirstOperatedOperation(this IEnumerable<ControllerOperation> controllerOperations)
 		=> controllerOperations.firstOperatedOperation().fallbackController;
 
-	// method: return the first controller for which any of the given operations are currently operated, otherwise returning the left controller //
-	public static Controller firstOperatedControllerOtherwiseFallback(this ControllerOperation[] controllerOperations)
-		=> controllerOperations.operatedControllers().firstOtherwise(controllerOperations.fallbackControllerOfFirstOperatedOperation());
+	// method: return the fallback controller of the first operation of these given operations //
+	public static Controller fallbackControllerOfFirstOperation(this IEnumerable<ControllerOperation> controllerOperations)
+		=> controllerOperations.first().fallbackController;
+
+	// method: return the first controller for which any of the given operations are currently operated, otherwise returning the fallback controller of the first operated operation if any of the given operations are currently operated, otherwise returning the fallback controller of the first operation //
+	public static Controller firstRelevantController(this ControllerOperation[] controllerOperations)
+		=>	controllerOperations.operatedControllers().firstOtherwise
+			(
+				controllerOperations.isOperated() ?
+					controllerOperations.fallbackControllerOfFirstOperatedOperation() :
+					controllerOperations.fallbackControllerOfFirstOperation()
+			);
 }

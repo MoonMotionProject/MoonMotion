@@ -1,9 +1,0 @@
-'Naughty Attributes' is the 'NaughtyAttributes' plugin from Git Hub (https://github.com/dbrizov/NaughtyAttributes), in particular the following commit:
-https://github.com/dbrizov/NaughtyAttributes/tree/3793b854c04ea4cd05d563050ec989a8313e78da (because this was the last commit to work in Unity v.2018.1.0f2)
-with the following custom modifications:
-
-• removed unnecessary instructions/examples/tests sort of stuff; please refer to the readme for NaughtyAttributes on Git Hub for guidance: https://github.com/dbrizov/NaughtyAttributes/blob/master/README.md
-
-• implemented the changes of a later commit (https://github.com/dbrizov/NaughtyAttributes/commit/921193408bcc0a1ec956c21c985a80e2a581b77a) to 'ReorderableListPropertyDrawer.cs' which allows serialized classes working as reorderable lists
-
-• replaced some '.' operators with '?.' operators in InspectorEditor.cs, so as to prevent null errors

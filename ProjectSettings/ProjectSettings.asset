@@ -607,7 +607,7 @@ PlayerSettings:
   webGLCompressionFormat: 1
   webGLLinkerTarget: 0
   scriptingDefineSymbols:
-    1: MOON_MOTION_TOOLKIT;STEAM_VIRTUALITY
+    1: MOON_MOTION_TOOLKIT;STEAM_VIRTUALITY;LUNITY
   platformArchitecture: {}
   scriptingBackend:
     Standalone: 0

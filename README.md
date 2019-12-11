@@ -1,3 +1,5 @@
+Note: As Lunity is not yet released, please use [v.22.0.0](https://github.com/MoonMotionProject/MoonMotion/commit/44f570081ca74ba7f4a5841fcf7bc73ae4e824af) or older.
+
 ![Moon Motion](http://moonmotionproject.com/images/Logo-for-Git-Hub.png)
 
 #### Free and open source toolkit for VR locomotion

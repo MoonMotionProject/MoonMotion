@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
 // Jumping Terraining Audios:
 // • adjusts the attached jumping unterraining\terraining audios' audio source via extension of Locomotion Movement Audio Single
@@ -19,7 +22,13 @@ public class JumpingTerrainingAudios : LocomotionMovementAudioSingle
 	
 	// variables for: playing jumping unterraining and terraining audios //
 	[Header("Audios")]
+	#if ODIN_INSPECTOR
+	[InlineEditor(InlineEditorModes.SmallPreview)]
+	#endif
 	public AudioClip jumpingUnterrainingAudio;		// connection - manual: the audio for jumping unterraining
+	#if ODIN_INSPECTOR
+	[InlineEditor(InlineEditorModes.SmallPreview)]
+	#endif
 	public AudioClip jumpingTerrainingAudio;		// connection - manual: the audio for jumping terraining
 	[Header("Playing Interval")]
 	[Tooltip("the min duration allowed between attempted playings of unterraining or terraining audio (of the same type (unterraining\\terraining)), to reduce spamming")]

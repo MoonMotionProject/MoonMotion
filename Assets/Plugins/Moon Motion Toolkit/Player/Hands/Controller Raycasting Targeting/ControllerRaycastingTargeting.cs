@@ -24,20 +24,20 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	#region editor visualization
 
 	#if ODIN_INSPECTOR
-	[TabGroup("Editor Visualization")]
+	[TabGroup("Visualization")]
 	#else
-	[BoxGroup("Editor Visualization")]
+	[BoxGroup("Visualization")]
 	#endif
 	[Tooltip("whether to visualize the line of the raycast")]
 	public bool visualizeLine = Default.choiceToVisualizeInEditor;
 
 	#if ODIN_INSPECTOR
-	[TabGroup("Editor Visualization")]
+	[TabGroup("Visualization")]
 	[Indent]
 	[ShowIf("visualizeLine")]
 	[HideLabel]
 	#else
-	[BoxGroup("Editor Visualization")]
+	[BoxGroup("Visualization")]
 	#endif
 	[Tooltip("the color to use for editor visualization")]
 	public Color visualizationColor = Default.visualizationColor;

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#else
 using NaughtyAttributes;
+#endif
 
 // Terrain Response
 // • enumerates recognized terrain types
@@ -49,26 +53,32 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 	#region settings for: recognized layers handling
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Recognized Layers")]
+	[InfoBox("for feedback, booster diminishing, etc.")]
+	[LabelText("Ground")]
+	#else
 	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
 	[Header("Ground Terrain")]
-	[Tooltip("array of text specifications for recognized ground terrain layer names")]
 	[ReorderableList]
+	#endif
+	[Tooltip("array of text specifications for recognized ground terrain layer names")]
 	public string[] recognizedGroundTerrainLayerNames = New.arrayOf("Terrain - Ground", "Booster Antidiminishor");
-
+	
+	#if ODIN_INSPECTOR
+	[TabGroup("Recognized Layers")]
+	[LabelText("Nonground")]
+	#else
 	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
 	[Header("Nonground Terrain")]
-	[Tooltip("array of text specifications for recognized nonground terrain layer names")]
 	[ReorderableList]
+	#endif
+	[Tooltip("array of text specifications for recognized nonground terrain layer names")]
 	public string[] recognizedNongroundTerrainLayerNames = New.arrayOf("Terrain - Nonground");
 	#endregion settings for: recognized layers handling
 
 
 	#region variables for: raycasting in general
-
-	[BoxGroup("Raycasting")]
-	[Header("Source")]
-	[Tooltip("the body transform from which to raycast")]
-	public Transform bodyTransform;
 
 	[Tooltip("the collision raycasting raise (height above the player body's position from which to start raycasting from (don't worry – player layer objects will not block detection of terrain)) by which to ensure that any object immediately below the player is beneath the starting point of raycasts")]
 	private static float raycastingRaise = .01f;
@@ -78,20 +88,27 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	#region trackings for: collided terrains tracking and groundedness determination
 
 	[Tooltip("all collided terrains (including both: all collided ground terrains, all collided nonground terrains)")]
-	[HideInInspector] public static HashSet<GameObject> collidedTerrains = New.setOf<GameObject>();
+	[HideInInspector]
+	public static HashSet<GameObject> collidedTerrains = New.setOf<GameObject>();
 
 	[Tooltip("all collided ground terrains")]
-	[HideInInspector] public static HashSet<GameObject> collidedGroundTerrains = New.setOf<GameObject>();
+	[HideInInspector]
+	public static HashSet<GameObject> collidedGroundTerrains = New.setOf<GameObject>();
 
 	[Tooltip("all collided nonground terrains")]
-	[HideInInspector] public static HashSet<GameObject> collidedNongroundTerrains = New.setOf<GameObject>();
+	[HideInInspector]
+	public static HashSet<GameObject> collidedNongroundTerrains = New.setOf<GameObject>();
 	#endregion trackings for: collided terrains tracking and groundedness determination
 
 
 	#region settings for: collision determination
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Raycasting")]
+	[LabelText("Range")]
+	#else
 	[BoxGroup("Raycasting")]
-	[Header("Terrain Collision Determination")]
+	#endif
 	[Tooltip("the max range of the raycasting from the bottom of the player's body within which to allow the player to be considered collided with a certain terrain")]
 	public float raycastingRange = .01f;
 
@@ -103,49 +120,103 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 	#region variables for: feedback
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[LabelText("Min Interval")]
+	#else
 	[BoxGroup("Feedback")]
 	[Header("Interval")]
+	#endif
 	[Tooltip("the min duration allowed between attempted playings of landing or liftoff feedback (of the same type (landing\\liftoff)), to reduce spamming")]
 	public float minFeedbackInterval = .3f;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[FoldoutGroup("_DefaultTabGroup/Feedback/Audio")]
+	[InlineEditor(InlineEditorModes.SmallPreview)]
+	[LabelText("Landing")]
+	#else
 	[BoxGroup("Feedback")]
 	[Header("Audio")]
-	[Tooltip("array of landing audios (to randomly play one of upon landing)")]
 	[ReorderableList]
+	#endif
+	[Tooltip("array of landing audios (to randomly play one of upon landing)")]
 	public AudioClip[] landingAudioSet;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[FoldoutGroup("_DefaultTabGroup/Feedback/Audio")]
+	[InlineEditor(InlineEditorModes.SmallPreview)]
+	[LabelText("Liftoff")]
+	#else
 	[BoxGroup("Feedback")]
-	[Tooltip("array of liftoff audios (to randomly play one of upon liftoff)")]
 	[ReorderableList]
+	#endif
+	[Tooltip("array of liftoff audios (to randomly play one of upon liftoff)")]
 	public AudioClip[] liftoffAudioSet;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[FoldoutGroup("_DefaultTabGroup/Feedback/Vibration")]
+	[LabelText("Duration")]
+	#else
 	[BoxGroup("Feedback")]
 	[Header("Vibration")]
+	#endif
 	[Tooltip("the duration to use for landing vibration feedback")]
 	public float vibrationDuration = .07f;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[FoldoutGroup("_DefaultTabGroup/Feedback/Vibration")]
+	[LabelText("Intensity")]
+	#else
 	[BoxGroup("Feedback")]
+	#endif
 	[Tooltip("the intensity to use for landing vibration feedback")]
 	public ushort vibrationIntensity = 1500;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[LabelText("Dependencies")]
+	#else
 	[BoxGroup("Feedback")]
-	[Header("Conditions")]
-	[Tooltip("the dependencies by which to allow landing and liftoff feedback")]
+	[Header("Dependencies")]
 	[ReorderableList]
+	#endif
+	[Tooltip("the dependencies by which to allow landing and liftoff feedback")]
 	public Dependency[] dependenciesFeedback;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[FoldoutGroup("_DefaultTabGroup/Feedback/Nonboosting Threshold")]
+	[LabelText("Speed")]
+	#else
 	[BoxGroup("Feedback")]
+	[Header("Nonboosting Threshold")]
+	#endif
 	[Tooltip("the min speed of the player that is required for landing and liftoff feedback to play when the player is not boosting (to reduce feedback spamming when merely treading, skiing, etc. instead of boosting)")]
 	public float feedbackNonboostingSpeedThreshold = 6f;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[FoldoutGroup("_DefaultTabGroup/Feedback/Nonboosting Threshold")]
+	[LabelText("Ignorance Dependencies")]
+	#else
 	[BoxGroup("Feedback")]
-	[Tooltip("the dependencies by which to ignore the nonboosting speed threshold for playing feedback")]
 	[ReorderableList]
+	#endif
+	[Tooltip("the dependencies by which to ignore the nonboosting speed threshold for playing feedback")]
 	public Dependency[] dependenciesFeedbackNonboostingSpeedThresholdIgnorance;
 
+	#if ODIN_INSPECTOR
+	[TabGroup("Feedback")]
+	[LabelText("Notice Nonground Collision")]
+	#else
 	[BoxGroup("Feedback")]
 	[Header("Nonground")]
-	[Tooltip("whether to play landing and liftoff feedback for nonground terrain collision")]
+	#endif
+	[Tooltip("whether to notice nonground terrain collision for playing landing and liftoff feedback")]
 	public bool feedbackForNongroundTerrainCollision = true;
 	#endregion variables for: feedback
 
@@ -220,7 +291,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: determine the layer of the object first found by raycasting down relative to the player body's position on the floor by the set range and from the set raise relative to the player body's position on the floor – if no objects are hit, then '-1' is returned (which will not pass layer recognition checking) //
 	private int firstRaycastedLayer()
 	{
-		HashSet<Collider> raycastedColliders = MoonMotionBody.raycastedCollidersAlong(MoonMotionBody.downGlobal, Distinctivity.absolute, Infinity.asAFloat, RaycastQuery.unlimitedHitsAndAllPositionalColliders, QueryTriggerInteraction.Ignore, recognizedGroundTerrainLayerNames.with(recognizedNongroundTerrainLayerNames).asLayerMask());
+		HashSet<Collider> raycastedColliders = MoonMotionBody.raycastedCollidersAlong(MoonMotionBody.downward, Distinctivity.absolute, Infinity.asAFloat, RaycastQuery.unlimitedHitsAndAllPositionalColliders, QueryTriggerInteraction.Ignore, recognizedGroundTerrainLayerNames.with(recognizedNongroundTerrainLayerNames).asLayerMask());
 
 		if (raycastedColliders.hasAny())
 		{
@@ -310,9 +381,9 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	public bool withinDistanceToTerrainBelow_(float maxDistanceBelow)
 	{
 		// determine the position to raycast from to be the player body's position on x and z but the player's (floor) position on y //
-		Vector3 raycastingPosition = bodyTransform.position.withY(positionY);
+		Vector3 raycastingPosition = MoonMotionBody.position.withY(positionY);
 
-		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), Direction.down.asGlobalDirectionToLocalDirectionRelativeTo(bodyTransform), Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
+		RaycastHit[] raycastHitsFound = Physics.RaycastAll((raycastingPosition + new Vector3(0f, raycastingRaise, 0f)), MoonMotionBody.downward, Mathf.Infinity, Physics.DefaultRaycastLayers);		// get all raycast hits for raycasting from the player's body relatively downward
 		if (Any.itemsIn(raycastHitsFound))
 		{
 			// determine the nearest raycast hit found's: hit distance, hit //

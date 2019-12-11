@@ -169,10 +169,10 @@ public class Controller : EnabledsBehaviour<Controller>
 	public float touchpadY => hand.controller.isNull() ? 0f : hand.controller.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0).y;
 	public int touchpadYSign => touchpadY.sign();
 	public int touchpadYSignWhereZeroIsPositive => touchpadY.signWhereZeroIsPositive();
-	public Vector3 relativeTouchpadYDirectionAsZ => forwardLocal * touchpadY;
-	public Vector3 relativeTouchpadXDirection => rightLocal * touchpadX;
+	public Vector3 relativeTouchpadYDirectionAsZ => forward * touchpadY;
+	public Vector3 relativeTouchpadXDirection => rightward * touchpadX;
 	public Vector3 relativeTouchpadDirection => relativeTouchpadYDirectionAsZ + relativeTouchpadXDirection;
-	public Vector3 relativeTouchpadDirectionWhereZeroesIsForward => relativeTouchpadDirection.ifOnlyZeroesThen(()=> forwardLocal);
+	public Vector3 relativeTouchpadDirectionWhereZeroesIsForward => relativeTouchpadDirection.ifOnlyZeroesThen(()=> forward);
 	public float touchpadDistance
 		=>	hand.controller.isNull() ?
 				-1f :

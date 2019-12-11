@@ -14,12 +14,14 @@ public class Dependency
 
 
 	#if ODIN_INSPECTOR
+	[HorizontalGroup("Horizontal Group")]
 	[EnumToggleButtons]
 	[HideLabel]
 	#endif
 	public DependencyRequisition requisition;       // the Dependency Requisition of this Dependency (by which this Dependency is either dependent as 'when' or 'when not' matching the state of this Dependency's Dependency Requisite)
 
 	#if ODIN_INSPECTOR
+	[HorizontalGroup("Horizontal Group")]
 	[HideLabel]
 	#endif
 	public DependencyRequisite requisite;       // the Dependency Requisite (Moon Motion feature upon which its state may be depended) of this Dependency

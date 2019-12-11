@@ -222,7 +222,7 @@ public class Booster : HandLocomotionControlled
 					{
 						if (BoosterPulser.pulsingPlayerUpDirectionOnly(this))
 						{
-							Vector3 playerUpDirection = BasicDirection.up.asDirectionRelativeTo(playerTransform);
+							Vector3 playerUpDirection = BasicDirection.upward.asDirectionRelativeTo(playerTransform);
 							float forceToApplyForPlayerUpOnly = Vector3.Dot(forceToApply, playerUpDirection);
 							forceToApply += (playerUpDirection * forceToApplyForPlayerUpOnly * BoosterPulser.pulsingForcePercentage(this) * Mathf.Sin(Time.time / BoosterPulser.pulsingForceFrequency(this)));
 						}

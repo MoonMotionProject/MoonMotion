@@ -77,7 +77,7 @@ public class Launcher : MonoBehaviour, ILocomotion
 				collidedRigidbody.velocity = FloatsVector.zeroes;
 				collidedRigidbody.angularVelocity = FloatsVector.zeroes;
 
-				Vector3 forceDirection = BasicDirection.up.asDirectionRelativeTo(transform);
+				Vector3 forceDirection = BasicDirection.upward.asDirectionRelativeTo(transform);
 				Vector3 newVelocity = (launchingForce * forceDirection);
 				collidedRigidbody.velocity = newVelocity;
 

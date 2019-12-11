@@ -29,7 +29,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 	public float forceShallow = 300f;	   // setting: the amount of force applied for shallow boosting of the booster's main boosting force
 	[Tooltip("the amount of force applied for deep boosting of the booster's main boosting force")]
 	public float forceDeep = 800f;	  // setting: the amount of force applied for deep boosting of the booster's main boosting force
-	public BasicDirection forceDirection = BasicDirection.up;	   // setting: the direction of force applied for boosting (aimed for by rotating the booster) (opposite of the boosting direction (which is the direction that the jet goes out in))
+	public BasicDirection forceDirection = BasicDirection.upward;	   // setting: the direction of force applied for boosting (aimed for by rotating the booster) (opposite of the boosting direction (which is the direction that the jet goes out in))
 	
 	// variables for: applying force //
 	private Rigidbody playerRigidbody;		// connection - auto: the player rigidbody (to apply boosting force to)
@@ -124,7 +124,7 @@ public class BoosterForceApplier : BoosterModuleControllableToggleable
 				return right.forceDirection;
 			}
 		}
-		return BasicDirection.up;
+		return BasicDirection.upward;
 	}
 	
 	

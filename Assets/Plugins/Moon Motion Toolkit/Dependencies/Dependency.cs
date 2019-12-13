@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 #else
 using NaughtyAttributes;
 #endif
+using UnityEngine;
 
 // Dependency
 // • a Dependency is a pair of both a Dependency Requisite and a Dependency Requisition
@@ -21,7 +22,12 @@ public class Dependency
 	public DependencyRequisition requisition;       // the Dependency Requisition of this Dependency (by which this Dependency is either dependent as 'when' or 'when not' matching the state of this Dependency's Dependency Requisite)
 
 	#if ODIN_INSPECTOR
+	private Color requisite_GUIColor
+		=>	requisition.isWhen() ?
+				Colors.dependencyRequisitionWhen :
+				Colors.dependencyRequisitionWhenNot;
 	[HorizontalGroup("Horizontal Group")]
+	[GUIColor("requisite_GUIColor")]
 	[HideLabel]
 	#endif
 	public DependencyRequisite requisite;       // the Dependency Requisite (Moon Motion feature upon which its state may be depended) of this Dependency

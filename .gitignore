@@ -42,17 +42,12 @@ sysinfo.txt
 /Assets/Layouts
 /Assets/Layouts.meta
 
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Clean Empty Directories.meta
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/EZ Rename
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/EZ Rename.meta
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Explorer Revealer
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Explorer Revealer.meta
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Favority
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Favority.meta
-/[Uu]ser[Ss]ettings/[Ff]avority.asset
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Console Enhanced Free
-/[Aa]ssets/[Pp]lugins/Moon Motion Toolkit/[Pp]lugins/Console Enhanced Free.meta
+
+# Personal Plugins Distributions
+/[Aa]ssets/[Pp]lugins/Personal Distribution - Lunity
+/[Aa]ssets/[Pp]lugins/Personal Distribution - Lunity.meta
+/[Aa]ssets/[Pp]lugins/Personal Distribution - Lunity - for original Moon Motion
+/[Aa]ssets/[Pp]lugins/Personal Distribution - Lunity - for original Moon Motion.meta
 
 
 # Raymarching Toolkit for Unity

@@ -8,13 +8,13 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 
 // #unitology
-public class ControlsEditor : OdinEditorWindow
+public class ControlsDesigner : OdinEditorWindow
 {
 	#region window
 
-	[MenuItem("Window/Controls Editor")]
+	[MenuItem("Window/Controls Designer")]
     private static void show()
-		=> GetWindow<ControlsEditor>().Show();
+		=> GetWindow<ControlsDesigner>().Show();
 	#endregion window
 
 

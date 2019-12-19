@@ -6,6 +6,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using Sirenix.Utilities.Editor;
 
 // #unitology
 public class ControlsDesigner : OdinEditorWindow
@@ -19,13 +20,16 @@ public class ControlsDesigner : OdinEditorWindow
 
 
 	#region content
-
-	[Button("Reload Custom Controller Operations", ButtonSizes.Large)]
-	[PropertyOrder(-4)]
+	
 	private void reloadCustomControllerOperations()
-		=>	customControllerOperations_
+	{
+		if (SirenixEditorGUI.ToolbarButton(EditorIcons.Refresh))
+		{
+			customControllerOperations_
 				= Assets.notFromMoonMotionToolkitManifestedOfType_ViaReflection<ControllerOperation>();
-
+			Play.listReloadedAudio();
+		}
+	}
 	private List<ControllerOperation> reloadedCustomControllerOperations
 	{
 		get
@@ -34,12 +38,11 @@ public class ControlsDesigner : OdinEditorWindow
 			return customControllerOperations_;
 		}
 	}
-
 	[SerializeField]
 	[HideInInspector]
 	private List<ControllerOperation> customControllerOperations_ = null;
 	[PropertyOrder(-3)]
-	[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true)]
+	[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, OnTitleBarGUI = "reloadCustomControllerOperations")]
 	[HideReferenceObjectPicker]
     [ListItemSelector("customControllerOperations_ViaReflection_SetSelected")]
 	[LabelText("Custom Controller Operations")]

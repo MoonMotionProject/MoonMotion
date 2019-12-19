@@ -127,7 +127,7 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Highlighting")]
-	//[InlineEditor(InlineEditorObjectFieldModes.CompletelyHidden)]
+	[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
 	#else
 	[BoxGroup("Highlighting")]
 	#endif

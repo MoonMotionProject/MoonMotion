@@ -16,22 +16,21 @@ public class Dependency
 {
 	#region state
 
-
+	
+	private Color GUIColor
+		=> Colors.forCurrentnessFor(isCurrent);
+	
 	#if ODIN_INSPECTOR
-	private Color requisition_GUIColor
-		=> Colors.forOnnessFor(requisition.isWhen());
 	[HorizontalGroup("Horizontal Group")]
-	[GUIColor("requisition_GUIColor")]
+	[GUIColor("GUIColor")]
 	[EnumToggleButtons]
 	[HideLabel]
 	#endif
 	public DependencyRequisition requisition;       // the Dependency Requisition of this Dependency (by which this Dependency is either dependent as 'when' or 'when not' matching the state of this Dependency's Dependency Requisite)
 
 	#if ODIN_INSPECTOR
-	private Color requisite_GUIColor
-		=> Colors.forCurrentnessFor(isCurrent);
 	[HorizontalGroup("Horizontal Group")]
-	[GUIColor("requisite_GUIColor")]
+	[GUIColor("GUIColor")]
 	[HideLabel]
 	#endif
 	public DependencyRequisite requisite;       // the Dependency Requisite (Moon Motion feature upon which its state may be depended) of this Dependency

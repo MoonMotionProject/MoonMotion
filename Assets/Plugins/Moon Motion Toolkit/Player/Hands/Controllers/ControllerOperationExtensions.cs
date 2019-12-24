@@ -17,7 +17,7 @@ public static class ControllerOperationExtensions
 	// method: return the first controller operation of these given controller operations which is currently operated //
 	public static ControllerOperation firstOperatedOperation(this IEnumerable<ControllerOperation> controllerOperations)
 		=>	controllerOperations.firstWhere(controllerOperation =>
-				controllerOperation.operated());
+				controllerOperation.isOperated());
 
 	// method: return the fallback controller of the first operated operation of these given operations //
 	public static Controller fallbackControllerOfFirstOperatedOperation(this IEnumerable<ControllerOperation> controllerOperations)

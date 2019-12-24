@@ -21,8 +21,11 @@ using NaughtyAttributes;
 // • provides methods for determining information about how controller operations are currently operated
 [CreateAssetMenu(fileName = "New Controller Operation", menuName = "Moon Motion/Controller Operation")]
 public class ControllerOperation : ResetFixedScriptableObject
+#if ODIN_INSPECTOR
+, ICircumstance
+#endif
 {
-	#region settings
+	#region variables
 
 
 	[Tooltip("the controller handedness (determining which controllers to check operation of) – infinite handedness results in always being operated; neither handedness is the simplest way to have this controller operation never be operated")]
@@ -87,7 +90,7 @@ public class ControllerOperation : ResetFixedScriptableObject
 	[ReorderableList]
 	#endif
 	public Dependency[] dependenciesPartial;
-	#endregion settings
+	#endregion variables
 
 
 
@@ -99,6 +102,10 @@ public class ControllerOperation : ResetFixedScriptableObject
 	// · as the relevant controller when operating without any controllers operating (when handedness is infinite)
 	// · when the relevant controller for some operations is requested but none of those operations are currently operated
 	public Controller fallbackController => fallbackToLeftVersusRight ? Controller.left : Controller.right;
+	
+	#if ODIN_INSPECTOR
+	public bool isCurrent => isOperated();
+	#endif
 	#endregion properties
 
 
@@ -112,20 +119,20 @@ public class ControllerOperation : ResetFixedScriptableObject
 		=> (dependenciesThorough.areMet() && dependenciesPartial.arePartiallyMetWhereEmptyIsTrue());
 
 	// method: determine whether this operation is currently operated //
-	public bool operated()
+	public bool isOperated()
 		=> Controller.operated(this);
 	// method: determine whether this operation is currently operated at the given state of being (first requires this operation to accept either the given state of being, or no state of being) //
-	public bool operated(Beingness beingness)
+	public bool isOperated(Beingness beingness)
 		=> Controller.operated(this, beingness);
 	// method: determine whether this operation is currently operated at the becoming state of being (first requires this operation to accept either the becoming state of being, or no state of being) //
-	public bool operatedBecomingly()
-		=> operated(Beingness.becoming);
+	public bool isOperatedBecomingly()
+		=> isOperated(Beingness.becoming);
 	// method: determine whether this operation is currently operated at the being state of being (first requires this operation to accept either the being state of being, or no state of being) //
-	public bool operatedBeingly()
-		=> operated(Beingness.being);
+	public bool isOperatedBeingly()
+		=> isOperated(Beingness.being);
 	// method: determine whether this operation is currently operated at the unbecoming state of being (first requires this operation to accept either the unbecoming state of being, or no state of being) //
-	public bool operatedUnbecomingly()
-		=> operated(Beingness.unbecoming);
+	public bool isOperatedUnbecomingly()
+		=> isOperated(Beingness.unbecoming);
 
 	// method: determine the set of controllers for which this operation is currently operated //
 	public HashSet<Controller> operatedControllers()

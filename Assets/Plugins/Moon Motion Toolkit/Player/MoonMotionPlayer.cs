@@ -10,7 +10,6 @@ using NaughtyAttributes;
 // • requires the Moon Motion Player to track collideds
 // • provides properties and methods for the Moon Motion Player
 // #moonmotion
-[ExpandIfSelected]
 public class MoonMotionPlayer : SingletonBehaviour<MoonMotionPlayer>
 {
 	public static Vector3 displacementForSettingBodyPositionTo(object targetPosition_PositionProvider)

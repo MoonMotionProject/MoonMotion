@@ -8,7 +8,7 @@ using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using Sirenix.Utilities.Editor;
 
-// #unitology
+// #unitology #window
 public class ControlsDesigner : OdinEditorWindow
 {
 	#region window
@@ -42,7 +42,7 @@ public class ControlsDesigner : OdinEditorWindow
 	[HideInInspector]
 	private List<ControllerOperation> customControllerOperations_ = null;
 	[PropertyOrder(-3)]
-	[ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, OnTitleBarGUI = "reloadCustomControllerOperations")]
+	[ListDrawerSettings(IsReadOnly = true, OnTitleBarGUI = "reloadCustomControllerOperations")]
 	[HideReferenceObjectPicker]
     [ListItemSelector("customControllerOperations_ViaReflection_SetSelected")]
 	[LabelText("Custom Controller Operations")]

@@ -59,7 +59,7 @@ namespace Valve.VR.InteractionSystem
 
 		private void HandAttachedUpdate(Hand hand)        // "Called every Update() while this GameObject is attached to the hand"
 		{
-			if (stretchingOperation.operatedBecomingly())
+			if (stretchingOperation.isOperatedBecomingly())
 			{
 				stretchScaling = true;
 
@@ -70,7 +70,7 @@ namespace Valve.VR.InteractionSystem
 				stretchingControllerStartPosition = stretchingController.position();
 				startingControllersDistance = stretchingControllerStartPosition.distanceWith(hand);
 			}
-			if (stretchingOperation.operatedBeingly())
+			if (stretchingOperation.isOperatedBeingly())
 			{
 				stretchScaling = true;
 
@@ -83,7 +83,7 @@ namespace Valve.VR.InteractionSystem
 				setLocalScaleTo(targetWorldScale.atLeast(worldScaleMin).atMost(worldScaleMax).clampedToBeValidScale());
 				setParentTo(hand);
 			}
-			if (stretchingOperation.operatedUnbecomingly())
+			if (stretchingOperation.isOperatedUnbecomingly())
 			{
 				stretchScaling = false;
 			}

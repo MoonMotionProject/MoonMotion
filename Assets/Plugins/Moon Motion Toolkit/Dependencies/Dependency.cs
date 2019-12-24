@@ -10,12 +10,18 @@ using UnityEngine;
 //   · see 'Dependencies' for further context
 [System.Serializable]
 public class Dependency
+#if ODIN_INSPECTOR
+: ICircumstance
+#endif
 {
-	#region variables
+	#region state
 
 
 	#if ODIN_INSPECTOR
+	private Color requisition_GUIColor
+		=> Colors.forOnnessFor(requisition.isWhen());
 	[HorizontalGroup("Horizontal Group")]
+	[GUIColor("requisition_GUIColor")]
 	[EnumToggleButtons]
 	[HideLabel]
 	#endif
@@ -23,15 +29,24 @@ public class Dependency
 
 	#if ODIN_INSPECTOR
 	private Color requisite_GUIColor
-		=>	requisition.isWhen() ?
-				Colors.dependencyRequisitionWhen :
-				Colors.dependencyRequisitionWhenNot;
+		=> Colors.forCurrentnessFor(isCurrent);
 	[HorizontalGroup("Horizontal Group")]
 	[GUIColor("requisite_GUIColor")]
 	[HideLabel]
 	#endif
 	public DependencyRequisite requisite;       // the Dependency Requisite (Moon Motion feature upon which its state may be depended) of this Dependency
-	#endregion variables
+
+	// method: determine whether this dependency is met //
+	public bool isMet()
+		=>	(requisite ?
+				(requisite.state == requisition.asBoolean()) :
+				false.returnWithError("dependency requisite not given")
+			);
+	
+	#if ODIN_INSPECTOR
+	public bool isCurrent => isMet();
+	#endif
+	#endregion state
 
 
 

@@ -18,15 +18,8 @@ public static class Dependencies
 
 	
 	// method: determine the boolean for the given Dependency Requisition //
-	private static bool asBoolean(this DependencyRequisition requisition)
-		=> (requisition == DependencyRequisition.when);
-
-	// method: determine whether the given Dependency is met //
-	public static bool isMet(this Dependency dependency)
-		=>	(dependency.requisite ?
-				(dependency.requisite.state == dependency.requisition.asBoolean()) :
-				false.returnWithError("dependency requisite not given")
-			);
+	public static bool asBoolean(this DependencyRequisition requisition)
+		=> requisition == DependencyRequisition.when;
 
 	// method: determine whether the given dependencies are met //
 	public static bool areMet(this Dependency[] dependencies)

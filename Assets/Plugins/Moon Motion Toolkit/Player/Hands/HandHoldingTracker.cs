@@ -17,7 +17,7 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 
 	
 	// variables for: instancing, hand holding tracking\determination //
-	private Transform parentHandTransform;		// connection - auto: the transform of this hand holding tracker's parent hand
+	private Transform parentHandTransform => parent;
 	private Hand parentHand;		// connection - auto: this hand holding tracker's hand
 	[HideInInspector] public bool leftInstance = true;		// tracking: this hand holding tracker's handedness (whether this hand holding tracker is for the left hand (versus the right))
 	public static HandHoldingTracker left, right;		// connections - auto: the left and right instances of this class, respectively
@@ -69,67 +69,67 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 
 	// method: determine whether any interactables are held by this hand holding tracker's hand //
 	public bool anyHeldInteractables()
-		=> Any.itemsIn(heldInteractables());
+		=> UnityIs.playing && Any.itemsIn(heldInteractables());
 
 	// method: determine whether any interactables are held by the left hand //
 	public static bool anyHeldInteractablesLeft()
-		=> Any.itemsIn(heldInteractablesLeft());
+		=> UnityIs.playing && Any.itemsIn(heldInteractablesLeft());
 
 	// method: determine whether any interactables are held by the right hand //
 	public static bool anyHeldInteractablesRight()
-		=> Any.itemsIn(heldInteractablesRight());
+		=> UnityIs.playing && Any.itemsIn(heldInteractablesRight());
 
 	// method: determine whether any interactables are held by the both of the hands //
 	public static bool anyHeldInteractablesEither()
-		=> Any.itemsIn(heldInteractablesBoth());
+		=> UnityIs.playing && Any.itemsIn(heldInteractablesBoth());
 
 	// method: determine whether any interactables were held within the given time ago by this hand holding tracker's hand //
 	public bool anyHeldInteractablesWithin(float timeAgo)
-		=> timeSince(timeOfLastHoldingAnyInteractables) <= timeAgo;
+		=> UnityIs.playing && timeSince(timeOfLastHoldingAnyInteractables) <= timeAgo;
 
 	// method: determine whether any interactables were held within the given time ago by the left hand //
 	public static bool anyHeldInteractablesLeftWithin(float timeAgo)
-		=> left.anyHeldInteractablesWithin(timeAgo);
+		=> UnityIs.playing && left.anyHeldInteractablesWithin(timeAgo);
 
 	// method: determine whether any interactables were held within the given time ago by the right hand //
 	public static bool anyHeldInteractablesRightWithin(float timeAgo)
-		=> right.anyHeldInteractablesWithin(timeAgo);
+		=> UnityIs.playing && right.anyHeldInteractablesWithin(timeAgo);
 
 	// method: determine whether any interactables were held within the given time ago by the both of the hands //
 	public static bool anyHeldInteractablesEitherWithin(float timeAgo)
-		=> anyHeldInteractablesLeftWithin(timeAgo) || anyHeldInteractablesRightWithin(timeAgo);
+		=> UnityIs.playing && (anyHeldInteractablesLeftWithin(timeAgo) || anyHeldInteractablesRightWithin(timeAgo));
 
 	// method: determine whether any interactables are being hovered by this hand holding tracker's hand //
 	public bool anyHoveredInteractables()
-		=> handHoveringWithNonheldInteractable;
+		=> UnityIs.playing && handHoveringWithNonheldInteractable;
 
 	// method: determine whether any interactables are being hovered by the left hand //
 	public static bool anyHoveredInteractablesLeft()
-		=> left.anyHoveredInteractables();
+		=> UnityIs.playing && left.anyHoveredInteractables();
 
 	// method: determine whether any interactables are being hovered by the right hand //
 	public static bool anyHoveredInteractablesRight()
-		=> right.anyHoveredInteractables();
+		=> UnityIs.playing && right.anyHoveredInteractables();
 
 	// method: determine whether any interactables are being hovered by the both of the hands //
 	public static bool anyHoveredInteractablesEither()
-		=> anyHoveredInteractablesLeft() || anyHoveredInteractablesRight();
+		=> UnityIs.playing && (anyHoveredInteractablesLeft() || anyHoveredInteractablesRight());
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of this hand holding tracker's hand //
 	public bool longbowArrowHand()
-		=> parentHandTransform.hasAnyDescendant<ArrowHand>();
+		=> UnityIs.playing && parentHandTransform.hasAnyDescendant<ArrowHand>();
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of the left hand //
 	public static bool longbowArrowHandLeft()
-		=> left.longbowArrowHand();
+		=> UnityIs.playing && left.longbowArrowHand();
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of the right hand //
 	public static bool longbowArrowHandRight()
-		=> right.longbowArrowHand();
+		=> UnityIs.playing && right.longbowArrowHand();
 
 	// method: determine whether being a Longbow Arrow Hand is the current state of either of the hands //
 	public static bool longbowArrowHandEither()
-		=> longbowArrowHandLeft() || longbowArrowHandRight();
+		=> UnityIs.playing && (longbowArrowHandLeft() || longbowArrowHandRight());
 
 
 
@@ -140,9 +140,6 @@ public class HandHoldingTracker : AutoBehaviour<HandHoldingTracker>
 	// before the start: //
 	private void Awake()
     {
-		// connect to the transform of this hand holding tracker's parent hand //
-		parentHandTransform = transform.parent;
-
 		// connect to this hand holding tracker's hand //
 		parentHand = parentHandTransform.first<Hand>();
 		

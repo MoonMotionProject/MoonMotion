@@ -34,77 +34,77 @@ public class Booster : HandLocomotionControlled
 	// method: determine whether this hand is boosting //
 	public bool thisHandIsBoosting()
 	{
-		return boosting;
+		return UnityIs.playing && boosting;
 	}
 	// method: determine whether the left hand is boosting //
 	public static bool leftHandIsBoosting()
 	{
-		return left.thisHandIsBoosting();
+		return UnityIs.playing && left.thisHandIsBoosting();
 	}
 	// method: determine whether the right hand is boosting //
 	public static bool rightHandIsBoosting()
 	{
-		return right.thisHandIsBoosting();
+		return UnityIs.playing && right.thisHandIsBoosting();
 	}
 	// method: determine whether either hand is boosting //
 	public static bool eitherHandIsBoosting()
 	{
-		return (leftHandIsBoosting() || rightHandIsBoosting());
+		return UnityIs.playing && (leftHandIsBoosting() || rightHandIsBoosting());
 	}
 	// method: determine whether both hands are boosting //
 	public static bool bothHandsAreBoosting()
 	{
-		return (leftHandIsBoosting() && rightHandIsBoosting());
+		return UnityIs.playing && (leftHandIsBoosting() && rightHandIsBoosting());
 	}
 	// method: determine whether this hand is boosting deeply //
 	public bool thisHandIsBoostingDeeply()
 	{
-		return boostingDeeply;
+		return UnityIs.playing && boostingDeeply;
 	}
 	// method: determine whether the left hand is boosting deeply //
 	public static bool leftHandIsBoostingDeeply()
 	{
-		return left.thisHandIsBoostingDeeply();
+		return UnityIs.playing && left.thisHandIsBoostingDeeply();
 	}
 	// method: determine whether the right hand is boosting deeply //
 	public static bool rightHandIsBoostingDeeply()
 	{
-		return right.thisHandIsBoostingDeeply();
+		return UnityIs.playing && right.thisHandIsBoostingDeeply();
 	}
 	// method: determine whether either hand is boosting deeply //
 	public static bool eitherHandIsBoostingDeeply()
 	{
-		return (leftHandIsBoostingDeeply() || rightHandIsBoostingDeeply());
+		return UnityIs.playing && (leftHandIsBoostingDeeply() || rightHandIsBoostingDeeply());
 	}
 	// method: determine whether both hands are boosting deeply //
 	public static bool bothHandsAreBoostingDeeply()
 	{
-		return (leftHandIsBoostingDeeply() && rightHandIsBoostingDeeply());
+		return UnityIs.playing && (leftHandIsBoostingDeeply() && rightHandIsBoostingDeeply());
 	}
 	// method: determine whether this hand is boosting shallowly //
 	public bool thisHandIsBoostingShallowly()
 	{
-		return (thisHandIsBoosting() && !thisHandIsBoostingDeeply());
+		return UnityIs.playing && (thisHandIsBoosting() && !thisHandIsBoostingDeeply());
 	}
 	// method: determine whether the left hand is boosting shallowly //
 	public static bool leftHandIsBoostingShallowly()
 	{
-		return left.thisHandIsBoostingShallowly();
+		return UnityIs.playing && left.thisHandIsBoostingShallowly();
 	}
 	// method: determine whether the right hand is boosting shallowly //
 	public static bool rightHandIsBoostingShallowly()
 	{
-		return right.thisHandIsBoostingShallowly();
+		return UnityIs.playing && right.thisHandIsBoostingShallowly();
 	}
 	// method: determine whether either hand is boosting shallowly //
 	public static bool eitherHandIsBoostingShallowly()
 	{
-		return (leftHandIsBoostingShallowly() || rightHandIsBoostingShallowly());
+		return UnityIs.playing && (leftHandIsBoostingShallowly() || rightHandIsBoostingShallowly());
 	}
 	// method: determine whether both hands are boosting shallowly //
 	public static bool bothHandsAreBoostingShallowly()
 	{
-		return (leftHandIsBoostingShallowly() && rightHandIsBoostingShallowly());
+		return UnityIs.playing && (leftHandIsBoostingShallowly() && rightHandIsBoostingShallowly());
 	}
 	
 	

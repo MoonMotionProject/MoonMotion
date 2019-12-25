@@ -39,7 +39,7 @@ public class Launcher : MonoBehaviour, ILocomotion
 
 	// method: determine whether the player was launched within the given amount of time ago //
 	public static bool playerLastLaunchedWithin(float timeAgo)
-		=> (Time.time - lastTimePlayerLaunched) <= timeAgo;
+		=> UnityIs.playing && ((Time.time - lastTimePlayerLaunched) <= timeAgo);
 
 
 

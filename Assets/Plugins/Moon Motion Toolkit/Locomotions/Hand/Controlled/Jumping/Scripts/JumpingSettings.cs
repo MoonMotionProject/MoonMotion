@@ -113,7 +113,7 @@ public class JumpingSettings : SingletonBehaviour<JumpingSettings>
 	}
 	// method: determine whether the time of the last jump was within the given amount of time from now //
 	public static bool lastJumpedWithin(float timeThreshold)
-		=> timeSince(timeOfLastJump) < timeThreshold;
+		=> UnityIs.playing && (timeSince(timeOfLastJump) < timeThreshold);
 
 	// method: determine whether jumping is ready (based on its cooldown duration) //
 	public static bool jumpingReady()

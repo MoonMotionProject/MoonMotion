@@ -36,7 +36,7 @@ public class LaunchingDriftingTracker : PlayerDependencyTracker<LaunchingDriftin
 
 	// method: determine whether the player was last launching drifting within the given time ago //
 	public static bool playerLastLaunchingDriftingWithin(float timeAgo)
-		=> timeSince(timePlayerWasLastLaunchingDrifting) <= timeAgo;
+		=> UnityIs.playing && timeSince(timePlayerWasLastLaunchingDrifting) <= timeAgo;
 
 
 

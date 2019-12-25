@@ -35,7 +35,7 @@ public class BoostingDriftingTracker : PlayerDependencyTracker<BoostingDriftingT
 
 	// method: determine whether the player was last boosting drifting within the given time ago //
 	public static bool playerLastBoostingDriftingWithin(float timeAgo)
-		=> timeSince(timePlayerWasLastBoostingDrifting) <= timeAgo;
+		=> UnityIs.playing && (timeSince(timePlayerWasLastBoostingDrifting) <= timeAgo);
 
 
 

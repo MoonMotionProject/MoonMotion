@@ -51,48 +51,32 @@ public class GravityMultiplier : HandLocomotionControlled
 
 	// method: play the attached gravity multiplier alternating audio //
 	public void playAlternatingAudio()
-	{
-		alternatingAudioSource.PlayOneShot(alternatingAudio);
-	}
+		=> alternatingAudioSource.PlayOneShot(alternatingAudio);
 
 	
 	// methods for: adjusting the gravity modifier settings //
 
 	// method: change the primary gravity modifier to the given modifier for this Gravity Multiplier //
 	public void changeModifierPrimary(float modifier)
-	{
-		modifierPrimary = modifier;
-	}
+		=> modifierPrimary = modifier;
 	// method: change the primary gravity modifier to the given modifier for the given Gravity Multiplier //
 	public static void changeModifierPrimary(GravityMultiplier gravityMultiplier, float modifier)
-	{
-		gravityMultiplier.changeModifierPrimary(modifier);
-	}
+		=> gravityMultiplier.changeModifierPrimary(modifier);
 	// method: change the primary gravity modifier to the given modifier for the given Gravity Multiplier //
 	public void changeModifierPrimary_(GravityMultiplier gravityMultiplier, float modifier)
-	{
-		changeModifierPrimary(gravityMultiplier, modifier);
-	}
+		=> changeModifierPrimary(gravityMultiplier, modifier);
 	// method: change the primary gravity modifier to the given modifier for the left Gravity Multiplier //
 	public static void changeModifierPrimaryLeft(float modifier)
-	{
-		left.changeModifierPrimary(modifier);
-	}
+		=> left.changeModifierPrimary(modifier);
 	// method: change the primary gravity modifier to the given modifier for the left Gravity Multiplier //
 	public void changeModifierPrimaryLeft_(float modifier)
-	{
-		changeModifierPrimaryLeft(modifier);
-	}
+		=> changeModifierPrimaryLeft(modifier);
 	// method: change the primary gravity modifier to the given modifier for the right Gravity Multiplier //
 	public static void changeModifierPrimaryRight(float modifier)
-	{
-		right.changeModifierPrimary(modifier);
-	}
+		=> right.changeModifierPrimary(modifier);
 	// method: change the primary gravity modifier to the given modifier for the right Gravity Multiplier //
 	public void changeModifierPrimaryRight_(float modifier)
-	{
-		changeModifierPrimaryRight(modifier);
-	}
+		=> changeModifierPrimaryRight(modifier);
 	// method: change the primary gravity modifier to the given modifier for both Gravity Multipliers //
 	public static void changeModifierPrimaryBoth(float modifier)
 	{
@@ -101,44 +85,28 @@ public class GravityMultiplier : HandLocomotionControlled
 	}
 	// method: change the primary gravity modifier to the given modifier for both Gravity Multipliers //
 	public void changeModifierPrimaryBoth_(float modifier)
-	{
-		changeModifierPrimaryBoth(modifier);
-	}
+		=> changeModifierPrimaryBoth(modifier);
 	// method: change the alternate gravity modifier to the given modifier for this Gravity Multiplier //
 	public void changeModifierAlternate(float modifier)
-	{
-		modifierAlternate = modifier;
-	}
+		=> modifierAlternate = modifier;
 	// method: change the alternate gravity modifier to the given modifier for the given Gravity Multiplier //
 	public static void changeModifierAlternate(GravityMultiplier gravityMultiplier, float modifier)
-	{
-		gravityMultiplier.changeModifierAlternate(modifier);
-	}
+		=> gravityMultiplier.changeModifierAlternate(modifier);
 	// method: change the alternate gravity modifier to the given modifier for the given Gravity Multiplier //
 	public void changeModifierAlternate_(GravityMultiplier gravityMultiplier, float modifier)
-	{
-		changeModifierAlternate(gravityMultiplier, modifier);
-	}
+		=> changeModifierAlternate(gravityMultiplier, modifier);
 	// method: change the alternate gravity modifier to the given modifier for the left Gravity Multiplier //
 	public static void changeModifierAlternateLeft(float modifier)
-	{
-		left.changeModifierAlternate(modifier);
-	}
+		=> left.changeModifierAlternate(modifier);
 	// method: change the alternate gravity modifier to the given modifier for the left Gravity Multiplier //
 	public void changeModifierAlternateLeft_(float modifier)
-	{
-		changeModifierAlternateLeft(modifier);
-	}
+		=> changeModifierAlternateLeft(modifier);
 	// method: change the alternate gravity modifier to the given modifier for the right Gravity Multiplier //
 	public static void changeModifierAlternateRight(float modifier)
-	{
-		right.changeModifierAlternate(modifier);
-	}
+		=> right.changeModifierAlternate(modifier);
 	// method: change the alternate gravity modifier to the given modifier for the right Gravity Multiplier //
 	public void changeModifierAlternateRight_(float modifier)
-	{
-		changeModifierAlternateRight(modifier);
-	}
+		=> changeModifierAlternateRight(modifier);
 	// method: change the alternate gravity modifier to the given modifier for both Gravity Multipliers //
 	public static void changeModifierAlternateBoth(float modifier)
 	{
@@ -147,9 +115,7 @@ public class GravityMultiplier : HandLocomotionControlled
 	}
 	// method: change the alternate gravity modifier to the given modifier for both Gravity Multipliers //
 	public void changeModifierAlternateBoth_(float modifier)
-	{
-		changeModifierAlternateBoth(modifier);
-	}
+		=> changeModifierAlternateBoth(modifier);
 	
 	
 	// methods for: changing alternation //
@@ -167,34 +133,22 @@ public class GravityMultiplier : HandLocomotionControlled
 	}
 	// method: change alternation to the given boolean for the given Gravity Multiplier, optionally playing the alternating audio //
 	public static void changeAlternation(GravityMultiplier gravityMultiplier, bool boolean, bool playAudio)
-	{
-		gravityMultiplier.changeAlternation(boolean, playAudio);
-	}
+		=> gravityMultiplier.changeAlternation(boolean, playAudio);
 	// method: change alternation to the given boolean for the given Gravity Multiplier, optionally playing the alternating audio //
 	public void changeAlternation_(GravityMultiplier gravityMultiplier, bool boolean, bool playAudio)
-	{
-		changeAlternation(gravityMultiplier, boolean, playAudio);
-	}
+		=> changeAlternation(gravityMultiplier, boolean, playAudio);
 	// method: change alternation to the given boolean for the left Gravity Multiplier, optionally playing the alternating audio //
 	public static void changeAlternationLeft(bool boolean, bool playAudio)
-	{
-		changeAlternation(left, boolean, playAudio);
-	}
+		=> changeAlternation(left, boolean, playAudio);
 	// method: change alternation to the given boolean for the left Gravity Multiplier, optionally playing the alternating audio //
 	public void changeAlternationLeft_(bool boolean, bool playAudio)
-	{
-		changeAlternationLeft(boolean, playAudio);
-	}
+		=> changeAlternationLeft(boolean, playAudio);
 	// method: change alternation to the given boolean for the right Gravity Multiplier, optionally playing the alternating audio //
 	public static void changeAlternationRight(bool boolean, bool playAudio)
-	{
-		changeAlternation(right, boolean, playAudio);
-	}
+		=> changeAlternation(right, boolean, playAudio);
 	// method: change alternation to the given boolean for the left Gravity Multiplier, optionally playing the alternating audio //
 	public void changeAlternationRight_(bool boolean, bool playAudio)
-	{
-		changeAlternationRight(boolean, playAudio);
-	}
+		=> changeAlternationRight(boolean, playAudio);
 	// method: change alternation to the given boolean for both Gravity Multipliers, optionally playing the alternating audio //
 	public static void changeAlternationBoth(bool boolean, bool playAudio)
 	{
@@ -203,44 +157,28 @@ public class GravityMultiplier : HandLocomotionControlled
 	}
 	// method: change alternation to the given boolean for both Gravity Multipliers, optionally playing the alternating audio //
 	public void changeAlternationBoth_(bool boolean, bool playAudio)
-	{
-		changeAlternationBoth(boolean, playAudio);
-	}
+		=> changeAlternationBoth(boolean, playAudio);
 	// method: toggle alternation for this Gravity Multiplier, optionally playing the alternating audio //
 	public void toggleAlternation(bool playAudio)
-	{
-		changeAlternation(!alternated, playAudio);
-	}
+		=> changeAlternation(!alternated, playAudio);
 	// method: toggle alternation for the given Gravity Multiplier, optionally playing the alternating audio //
 	public static void toggleAlternation(GravityMultiplier gravityMultiplier, bool playAudio)
-	{
-		gravityMultiplier.toggleAlternation(playAudio);
-	}
+		=> gravityMultiplier.toggleAlternation(playAudio);
 	// method: toggle alternation for the given Gravity Multiplier, optionally playing the alternating audio //
 	public void toggleAlternation_(GravityMultiplier gravityMultiplier, bool playAudio)
-	{
-		toggleAlternation(gravityMultiplier, playAudio);
-	}
+		=> toggleAlternation(gravityMultiplier, playAudio);
 	// method: toggle alternation for the left Gravity Multiplier, optionally playing the alternating audio //
 	public static void toggleAlternationLeft(bool playAudio)
-	{
-		toggleAlternation(left, playAudio);
-	}
+		=> toggleAlternation(left, playAudio);
 	// method: toggle alternation for the left Gravity Multiplier, optionally playing the alternating audio //
 	public void toggleAlternationLeft_(bool playAudio)
-	{
-		toggleAlternationLeft(playAudio);
-	}
+		=> toggleAlternationLeft(playAudio);
 	// method: toggle alternation for the right Gravity Multiplier, optionally playing the alternating audio //
 	public static void toggleAlternationRight(bool playAudio)
-	{
-		toggleAlternation(right, playAudio);
-	}
+		=> toggleAlternation(right, playAudio);
 	// method: toggle alternation for the left Gravity Multiplier, optionally playing the alternating audio //
 	public void toggleAlternationRight_(bool playAudio)
-	{
-		toggleAlternationRight(playAudio);
-	}
+		=> toggleAlternationRight(playAudio);
 	// method: toggle alternation for both Gravity Multipliers, optionally playing the alternating audio //
 	public static void toggleAlternationBoth(bool playAudio)
 	{
@@ -249,9 +187,7 @@ public class GravityMultiplier : HandLocomotionControlled
 	}
 	// method: toggle alternation for both Gravity Multipliers, optionally playing the alternating audio //
 	public void toggleAlternationBoth_(bool playAudio)
-	{
-		toggleAlternationBoth(playAudio);
-	}
+		=> toggleAlternationBoth(playAudio);
 	// method: toggle alternation for input (possibly globally, depending on the setting for whether input alternates globally; playing the alternating audio) //
 	public void toggleAlternationForInput()
 	{
@@ -305,9 +241,7 @@ public class GravityMultiplier : HandLocomotionControlled
 	}
 	// method: determine the player's current gravity modifier //
 	public float currentGravityModifier_()
-	{
-		return currentGravityModifier();
-	}
+		=> currentGravityModifier();
 	
 	
 	

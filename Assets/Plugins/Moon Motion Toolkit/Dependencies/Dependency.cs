@@ -17,8 +17,10 @@ public class Dependency
 	#region state
 
 	
+	#if ODIN_INSPECTOR
 	private Color GUIColor
 		=> Colors.forCurrentnessFor(isCurrent);
+	#endif
 	
 	#if ODIN_INSPECTOR
 	[HorizontalGroup("Horizontal Group")]

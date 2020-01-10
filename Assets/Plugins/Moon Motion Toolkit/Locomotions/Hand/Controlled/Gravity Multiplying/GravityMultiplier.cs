@@ -51,7 +51,12 @@ public class GravityMultiplier : HandLocomotionControlled
 
 	// method: play the attached gravity multiplier alternating audio //
 	public void playAlternatingAudio()
-		=> alternatingAudioSource.PlayOneShot(alternatingAudio);
+	{
+		if (alternatingAudioSource.isActiveAndEnabled)
+		{
+			alternatingAudioSource.PlayOneShot(alternatingAudio);
+		}
+	}
 
 	
 	// methods for: adjusting the gravity modifier settings //

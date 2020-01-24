@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4490453983087048}
   - component: {fileID: 114258735572272814}
   - component: {fileID: 114448250277483864}
-  - component: {fileID: 114582607920012192}
   - component: {fileID: 114825724968543296}
   - component: {fileID: 114805698899864734}
   - component: {fileID: 114254916554331886}
@@ -656,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
+  basicDirection: 4
   relative: 0
   spinningSpeed: 10
 --- !u!114 &114258735572272814
@@ -670,6 +669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpAudio: {fileID: 0}
+  pickupAudio: {fileID: 0}
   respawnsCount: -1
   respawningDelay: 3
 --- !u!114 &114327350246328312
@@ -746,17 +747,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114582607920012192
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1217419844437220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114608869356187772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -786,7 +776,7 @@ MonoBehaviour:
   randomTimeOffsetMax: 0
 --- !u!114 &114825724968543296
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1217419844437220}

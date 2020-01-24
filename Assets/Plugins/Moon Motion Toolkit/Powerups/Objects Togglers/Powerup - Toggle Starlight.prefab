@@ -68,7 +68,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4069927036153046}
   - component: {fileID: 114527533257795630}
-  - component: {fileID: 114195684382223318}
   - component: {fileID: 114749554188950856}
   - component: {fileID: 114951010754743592}
   - component: {fileID: 114689669712347094}
@@ -644,17 +643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipYAfterFacing: 1
---- !u!114 &114195684382223318
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1419392003328660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114249600630701890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -677,6 +665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94b2f95701220b43905e5912021fbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpAudio: {fileID: 0}
+  pickupAudio: {fileID: 0}
   respawnsCount: -1
   respawningDelay: 2
   objectsToToggle:
@@ -704,12 +694,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
+  basicDirection: 4
   relative: 0
   spinningSpeed: 10
 --- !u!114 &114749554188950856
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1419392003328660}

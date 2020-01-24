@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4400340084640768}
   - component: {fileID: 114500621153024788}
   - component: {fileID: 114824248278538112}
-  - component: {fileID: 114694120812532358}
   - component: {fileID: 114328437106549844}
   - component: {fileID: 114999935545887252}
   - component: {fileID: 114724295045074960}
@@ -658,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &114328437106549844
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1040391300272380}
@@ -690,19 +689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpAudio: {fileID: 0}
+  pickupAudio: {fileID: 0}
   respawnsCount: -1
   respawningDelay: 2
---- !u!114 &114694120812532358
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040391300272380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114724295045074960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -714,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
+  basicDirection: 4
   relative: 0
   spinningSpeed: 10
 --- !u!114 &114824248278538112

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4882993957744262}
   - component: {fileID: 114293933643227758}
   - component: {fileID: 114738943081588488}
-  - component: {fileID: 114023219788822866}
   - component: {fileID: 114410040789303958}
   - component: {fileID: 114977080742265532}
   - component: {fileID: 114769209552120606}
@@ -633,17 +632,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114023219788822866
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1124476217788432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114093049007608894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -678,6 +666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpAudio: {fileID: 0}
+  pickupAudio: {fileID: 0}
   respawnsCount: -1
   respawningDelay: 2
 --- !u!114 &114346857448081366
@@ -693,7 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &114410040789303958
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1124476217788432}
@@ -777,7 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
+  basicDirection: 4
   relative: 0
   spinningSpeed: 10
 --- !u!114 &114977080742265532

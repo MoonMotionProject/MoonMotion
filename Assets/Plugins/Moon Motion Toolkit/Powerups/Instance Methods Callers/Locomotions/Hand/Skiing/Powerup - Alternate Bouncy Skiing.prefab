@@ -85,7 +85,6 @@ GameObject:
   - component: {fileID: 4080525737426232}
   - component: {fileID: 114727645702825066}
   - component: {fileID: 114634878871973898}
-  - component: {fileID: 114547926481611352}
   - component: {fileID: 114248757185878678}
   - component: {fileID: 114178755142126230}
   - component: {fileID: 114800285147974396}
@@ -651,7 +650,7 @@ MonoBehaviour:
   randomTimeOffsetMax: 0
 --- !u!114 &114248757185878678
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1756956839865406}
@@ -704,17 +703,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb3002794b7e2264c8b6e44351760d39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114547926481611352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1756956839865406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62195206070e992468816141528f52d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114634878871973898
@@ -780,6 +768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e4de195ecca48459def2a5766e5ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpAudio: {fileID: 0}
+  pickupAudio: {fileID: 0}
   respawnsCount: -1
   respawningDelay: 3
 --- !u!114 &114800285147974396
@@ -793,6 +783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464d24ccbaa54cb4390d28e5f3ad51cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 5
+  basicDirection: 4
   relative: 0
   spinningSpeed: 10

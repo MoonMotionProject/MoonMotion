@@ -60,10 +60,8 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	#else
 	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
 	[Header("Ground Terrain")]
-	[ReorderableList]
 	#endif
-	[Tooltip("array of text specifications for recognized ground terrain layer names")]
-	public string[] recognizedGroundTerrainLayerNames = New.arrayOf("Terrain - Ground", "Booster Antidiminishor");
+	public LayerMask recognizedGroundTerrainLayers;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Recognized Layers")]
@@ -71,10 +69,8 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	#else
 	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
 	[Header("Nonground Terrain")]
-	[ReorderableList]
 	#endif
-	[Tooltip("array of text specifications for recognized nonground terrain layer names")]
-	public string[] recognizedNongroundTerrainLayerNames = New.arrayOf("Terrain - Nonground");
+	public LayerMask recognizedNongroundTerrainLayers;
 	#endregion settings for: recognized layers handling
 
 
@@ -241,17 +237,15 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 
 	// method: check if the given layer index matches to a recognized ground terrain layer //
 	public static bool recognizedGroundTerrainLayerIndex(int layerIndex)
-		=> layerIndex.matchesAnyLayerNameIn(singleton.recognizedGroundTerrainLayerNames);
+		=> singleton.recognizedGroundTerrainLayers.includes(layerIndex);
 
 	// method: check if the given layer index matches to a recognized nonground terrain layer //
 	public static bool recognizedNongroundTerrainLayerIndex(int layerIndex)
-		=> layerIndex.matchesAnyLayerNameIn(singleton.recognizedNongroundTerrainLayerNames);
+		=> singleton.recognizedNongroundTerrainLayers.includes(layerIndex);
 
 	// method: check if the given layer index matches to a recognized terrain layer //
 	public static bool recognizedTerrainLayerIndex(int layerIndex)
-		=> layerIndex.matchesAnyLayerNameIn(
-			singleton.recognizedGroundTerrainLayerNames,
-			singleton.recognizedNongroundTerrainLayerNames);
+		=> recognizedGroundTerrainLayerIndex(layerIndex) || recognizedNongroundTerrainLayerIndex(layerIndex);
 
 	// method: check if the given layer index matches to a recognized terrain layer of the given recognized terrain type //
 	public static bool recognizedTypedTerrainLayerIndex(RecognizedTerrainType recognizedTerrainType, int layerIndex)
@@ -291,7 +285,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	// method: determine the layer of the object first found by raycasting down relative to the player body's position on the floor by the set range and from the set raise relative to the player body's position on the floor – if no objects are hit, then '-1' is returned (which will not pass layer recognition checking) //
 	private int firstRaycastedLayer()
 	{
-		HashSet<Collider> raycastedColliders = MoonMotionBody.raycastedCollidersAlong(MoonMotionBody.downward, Distinctivity.absolute, Infinity.asAFloat, RaycastQuery.unlimitedHitsAndAllPositionalColliders, QueryTriggerInteraction.Ignore, recognizedGroundTerrainLayerNames.with(recognizedNongroundTerrainLayerNames).asLayerMask());
+		HashSet<Collider> raycastedColliders = MoonMotionBody.raycastedCollidersAlong(MoonMotionBody.downward, Distinctivity.absolute, Infinity.asAFloat, RaycastQuery.unlimitedHitsAndAllPositionalColliders, QueryTriggerInteraction.Ignore, recognizedGroundTerrainLayers.inUnionWith(recognizedNongroundTerrainLayers));
 
 		if (raycastedColliders.hasAny())
 		{

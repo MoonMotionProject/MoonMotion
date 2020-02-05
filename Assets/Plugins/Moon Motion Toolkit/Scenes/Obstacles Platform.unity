@@ -208,7 +208,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 99157616}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Trussed Crates Arrangement
   m_TagString: Untagged
   m_Icon: {fileID: 0}

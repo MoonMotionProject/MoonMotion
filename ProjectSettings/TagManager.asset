@@ -19,8 +19,8 @@ TagManager:
   - Player
   - Powerup
   - Gravity Zone
-  - Terrain - Ground
-  - Terrain - Nonground
+  - Ground
+  - Nonground Terrain
   - Booster Antidiminishor
   - Player Passthrough
   - Postprocessing

@@ -525,7 +525,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 99157616}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Trussed Crates Arrangement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9048,6 +9048,10 @@ Prefab:
     - target: {fileID: 4029369445239990, guid: fe495992ef655d84f90f3a2d7fc54ea0, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1553951004374288, guid: fe495992ef655d84f90f3a2d7fc54ea0, type: 2}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe495992ef655d84f90f3a2d7fc54ea0, type: 2}

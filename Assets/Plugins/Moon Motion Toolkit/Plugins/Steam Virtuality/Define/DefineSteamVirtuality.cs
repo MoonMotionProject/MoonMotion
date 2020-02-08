@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -10,3 +11,4 @@ public static class DefineSteamVirtuality
 	private static void ensureDefine()
 		=> Build.ensureDefine("STEAM_VIRTUALITY");
 }
+#endif

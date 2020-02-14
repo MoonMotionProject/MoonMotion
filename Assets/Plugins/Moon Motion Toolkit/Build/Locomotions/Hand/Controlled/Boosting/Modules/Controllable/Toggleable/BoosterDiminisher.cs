@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +41,6 @@ public class BoosterDiminisher : BoosterModuleControllableToggleable
 	[Tooltip("the recognized terrain type (defined by Terrain Response) to diminish boosting from (such that any other terrain types will not be treated as recognized terrain, resulting in inability to boost off of those types) – by default, ground only, because diminishing is an effect of gravity seems more implicit to ground surfaces; however, for purposes where diminishing isn't inspired by gravity, nonground terrain (such as walls in some zero gravity tunnel) may very well be suitable for diminishing")]
 	public TerrainResponse.RecognizedTerrainType recognizedTerrainType = TerrainResponse.RecognizedTerrainType.groundOnly;
 	[Tooltip("dependencies for whether this diminisher diminishes on the respective coordinate axis in particular")]
-	[ReorderableList]
 	public Dependency[] dependenciesX, dependenciesY, dependenciesZ;
 	[Tooltip("the max distance to diminish to (such that at max distance, the booster force is totally diminished)")]
 	public float diminishingDistanceMax = 10f;

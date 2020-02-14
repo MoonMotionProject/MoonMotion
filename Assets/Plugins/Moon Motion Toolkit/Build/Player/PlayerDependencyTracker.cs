@@ -1,6 +1,8 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 using UnityEngine;
 
 // Player Dependency Tracker
@@ -14,15 +16,15 @@ public abstract class	PlayerDependencyTracker<PlayerDependencyTrackerT> :
 	
 	
 	[Tooltip("the state of the Dependency Requisite")]
-	[ShowNonSerializedField]
+	#if ODIN_INSPECTOR
+	[ShowInInspector]
+	#endif
 	protected bool requisiteState = false;
 
 	[Tooltip("the dependencies by which the state is tracked as true")]
-	[ReorderableList]
 	public Dependency[] dependenciesTrue;
 
 	[Tooltip("the partial dependencies by which the state is tracked as false, only if the true dependencies were not met")]
-	[ReorderableList]
 	public Dependency[] partialDependenciesOtherwiseFalse;
 
 

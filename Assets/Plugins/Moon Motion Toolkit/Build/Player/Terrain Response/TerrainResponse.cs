@@ -4,8 +4,6 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#else
-using NaughtyAttributes;
 #endif
 
 // Terrain Response
@@ -58,8 +56,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[InfoBox("for feedback, booster diminishing, etc.")]
 	[LabelText("Ground")]
 	#else
-	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
-	[Header("Ground Terrain")]
+	[Header("Recognized Ground Terrain")]
 	#endif
 	public LayerMask recognizedGroundTerrainLayers;
 	
@@ -67,8 +64,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[TabGroup("Recognized Layers")]
 	[LabelText("Nonground")]
 	#else
-	[BoxGroup("Recognized Layers (for feedback, booster diminishing, ...)")]
-	[Header("Nonground Terrain")]
+	[Header("Recognized Nonground Terrain")]
 	#endif
 	public LayerMask recognizedNongroundTerrainLayers;
 	#endregion settings for: recognized layers handling
@@ -102,8 +98,6 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
 	[LabelText("Range")]
-	#else
-	[BoxGroup("Raycasting")]
 	#endif
 	[Tooltip("the max range of the raycasting from the bottom of the player's body within which to allow the player to be considered collided with a certain terrain")]
 	public float raycastingRange = .01f;
@@ -120,8 +114,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[TabGroup("Feedback")]
 	[LabelText("Min Interval")]
 	#else
-	[BoxGroup("Feedback")]
-	[Header("Interval")]
+	[Header("Feedback Interval")]
 	#endif
 	[Tooltip("the min duration allowed between attempted playings of landing or liftoff feedback (of the same type (landing\\liftoff)), to reduce spamming")]
 	public float minFeedbackInterval = .3f;
@@ -132,9 +125,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[InlineEditor(InlineEditorModes.SmallPreview)]
 	[LabelText("Landing")]
 	#else
-	[BoxGroup("Feedback")]
-	[Header("Audio")]
-	[ReorderableList]
+	[Header("Feedback Audio")]
 	#endif
 	[Tooltip("array of landing audios (to randomly play one of upon landing)")]
 	public AudioClip[] landingAudioSet;
@@ -145,8 +136,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[InlineEditor(InlineEditorModes.SmallPreview)]
 	[LabelText("Liftoff")]
 	#else
-	[BoxGroup("Feedback")]
-	[ReorderableList]
+	[Header("Feedback Liftoff Audio")]
 	#endif
 	[Tooltip("array of liftoff audios (to randomly play one of upon liftoff)")]
 	public AudioClip[] liftoffAudioSet;
@@ -156,8 +146,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[FoldoutGroup("_DefaultTabGroup/Feedback/Vibration")]
 	[LabelText("Duration")]
 	#else
-	[BoxGroup("Feedback")]
-	[Header("Vibration")]
+	[Header("Feedback Vibration Duration")]
 	#endif
 	[Tooltip("the duration to use for landing vibration feedback")]
 	public float vibrationDuration = .07f;
@@ -167,7 +156,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[FoldoutGroup("_DefaultTabGroup/Feedback/Vibration")]
 	[LabelText("Intensity")]
 	#else
-	[BoxGroup("Feedback")]
+	[Header("Feedback Vibration Intensity")]
 	#endif
 	[Tooltip("the intensity to use for landing vibration feedback")]
 	public ushort vibrationIntensity = 1500;
@@ -176,9 +165,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[TabGroup("Feedback")]
 	[LabelText("Dependencies")]
 	#else
-	[BoxGroup("Feedback")]
-	[Header("Dependencies")]
-	[ReorderableList]
+	[Header("Feedback Dependencies")]
 	#endif
 	[Tooltip("the dependencies by which to allow landing and liftoff feedback")]
 	public Dependency[] dependenciesFeedback;
@@ -188,8 +175,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[FoldoutGroup("_DefaultTabGroup/Feedback/Nonboosting Threshold")]
 	[LabelText("Speed")]
 	#else
-	[BoxGroup("Feedback")]
-	[Header("Nonboosting Threshold")]
+	[Header("Feedback Speed")]
 	#endif
 	[Tooltip("the min speed of the player that is required for landing and liftoff feedback to play when the player is not boosting (to reduce feedback spamming when merely treading, skiing, etc. instead of boosting)")]
 	public float feedbackNonboostingSpeedThreshold = 6f;
@@ -199,8 +185,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[FoldoutGroup("_DefaultTabGroup/Feedback/Nonboosting Threshold")]
 	[LabelText("Ignorance Dependencies")]
 	#else
-	[BoxGroup("Feedback")]
-	[ReorderableList]
+	[Header("Feedback Ignorance Dependencies")]
 	#endif
 	[Tooltip("the dependencies by which to ignore the nonboosting speed threshold for playing feedback")]
 	public Dependency[] dependenciesFeedbackNonboostingSpeedThresholdIgnorance;
@@ -209,8 +194,7 @@ public class TerrainResponse : SingletonBehaviour<TerrainResponse>
 	[TabGroup("Feedback")]
 	[LabelText("Notice Nonground Collision")]
 	#else
-	[BoxGroup("Feedback")]
-	[Header("Nonground")]
+	[Header("Feedback For Nonground Collision")]
 	#endif
 	[Tooltip("whether to notice nonground terrain collision for playing landing and liftoff feedback")]
 	public bool feedbackForNongroundTerrainCollision = true;

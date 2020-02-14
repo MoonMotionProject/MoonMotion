@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#else
-using NaughtyAttributes;
 #endif
 #if HIGHLIGHT_PLUS
 using HighlightPlus;
@@ -25,8 +23,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Visualization")]
-	#else
-	[BoxGroup("Visualization")]
 	#endif
 	[Tooltip("whether to visualize the line of the raycast")]
 	public bool visualizeLine = Default.choiceToVisualizeInEditor;
@@ -36,8 +32,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	[Indent]
 	[ShowIf("visualizeLine")]
 	[HideLabel]
-	#else
-	[BoxGroup("Visualization")]
 	#endif
 	[Tooltip("the color to use for editor visualization")]
 	public Color visualizationColor = Default.visualizationColor;
@@ -48,16 +42,12 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
-	#else
-	[BoxGroup("Control")]
 	#endif
 	[Tooltip("the controller operations by which to raycast")]
 	#if ODIN_INSPECTOR
 	#if UNITY_EDITOR
     [ListItemSelector("operations_SetSelected")]
 	#endif
-	#else
-	[ReorderableList]
 	#endif
 	public ControllerOperation[] operations;
 	#region selected operation
@@ -79,34 +69,26 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 
 
 	#region raycasting
-	[InfoBox("Raycasting is nonpositional (does not include colliders overlapping this position) and is from the first relevant controller. It will detect the first raycasted object that is not static and has a lodal mesh filter or, otherwise, skinned mesh renderer. (Objects not meeting those requirements will not obscure raycasting.)")]		// ∗
-
 	#if ODIN_INSPECTOR
+	[InfoBox("Raycasting is nonpositional (does not include colliders overlapping this position) and is from the first relevant controller. It will detect the first raycasted object that is not static and has a lodal mesh filter or, otherwise, skinned mesh renderer. (Objects not meeting those requirements will not obscure raycasting.)")]		// ∗
+	
 	[TabGroup("Raycasting")]
-	#else
-	[BoxGroup("Raycasting")]
 	#endif
 	public Vector3 localDirection = Default.raycastingDirection;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	#else
-	[BoxGroup("Raycasting")]
 	#endif
 	public float distance = Default.targetingRaycastingDistance;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
 	[EnumToggleButtons]
-	#else
-	[BoxGroup("Raycasting")]
 	#endif
 	public QueryTriggerInteraction triggerColliderQuery = Default.raycastingTriggerColliderQuery;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Raycasting")]
-	#else
-	[BoxGroup("Raycasting")]
 	#endif
 	public LayerMask layerMask = Default.layerMask;
 	
@@ -159,8 +141,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Line Rendering")]
-	#else
-	[BoxGroup("Line Rendering")]
 	#endif
 	[Tooltip("whether to render a line representing the raycast")]
 	public bool renderLine = Default.choiceToRenderRaycastLine;
@@ -171,8 +151,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	[PreviewField(Alignment = ObjectFieldAlignment.Center, AlignmentHasValue = true, Height = 60)]
 	[ShowIf("renderLine")]
 	[HideLabel]
-	#else
-	[BoxGroup("Line Rendering")]
 	#endif
 	[Tooltip("the material with which to render the line representing the raycast")]
 	public Material lineMaterial;
@@ -183,8 +161,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	[SuffixLabel("Width", Overlay = true)]
 	[ShowIf("renderLine")]
 	[HideLabel]
-	#else
-	[BoxGroup("Line Rendering")]
 	#endif
 	[Tooltip("the width at which to render the line representing the raycast")]
 	public float lineWidth = Default.lineRendererWidth;
@@ -194,8 +170,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	[Indent]
 	[LabelText("Render Only To Raycast Hit")]
 	[ShowIf("renderLine")]
-	#else
-	[BoxGroup("Line Rendering")]
 	#endif
 	[Tooltip("whether to render the line only to the raycast hit versus for the set distance")]
 	public bool renderLineOnlyToHit = Default.choiceToRenderRaycastLineOnlyToHit;
@@ -209,8 +183,6 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 		=> vibrationIntensity = Default.targetingVibrationIntensity;
 	[TabGroup("Feedback")]
 	[InlineButton("defaultVibrationIntensity", "Default")]
-	#else
-	[BoxGroup("Feedback")]
 	#endif
 	[Tooltip("the intensity at which to vibrate the raycasting controller when highlighting and unoutlining an object")]
 	public ushort vibrationIntensity = Default.targetingVibrationIntensity;

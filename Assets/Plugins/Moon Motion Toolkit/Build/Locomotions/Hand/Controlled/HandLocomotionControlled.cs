@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-using NaughtyAttributes;
 using Input = Controller.Input;
 using static Controller.Input;
 
@@ -17,7 +16,6 @@ public abstract class HandLocomotionControlled : HandLocomotion
 	
 	// variables for: input //
 	[Header("Locomotion Input")]
-	[ReorderableList]
 	public Input[] inputsLocomotion = New.arrayOf(touchpad);		// setting: array of controller inputs to use – defaulted to touchpad because it is the most versatile
 	public bool locomotionInputEnabled = true;		// setting: whether this locomotion's input is currently enabled
 

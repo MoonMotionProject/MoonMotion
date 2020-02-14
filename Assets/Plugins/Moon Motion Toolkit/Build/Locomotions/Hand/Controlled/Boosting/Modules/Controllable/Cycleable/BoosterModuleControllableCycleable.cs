@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,11 +30,11 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 
 	// settings for: input //
 
-	[BoxGroup("Input")]
+	/*[BoxGroup("Input")]*/
 	[Tooltip("whether or not input should cycle globally (for both hands at once)")]
 	public bool globallyCycle = true;
 
-	[BoxGroup("Input")]
+	/*[BoxGroup("Input")]*/
 	[Tooltip("whether input should play the attached cycling audio")]
 	public bool inputPlaysAudio = true;
 	
@@ -53,28 +52,26 @@ public abstract class BoosterModuleControllableCycleable : BoosterModuleControll
 
 	// variables for: dependencies meeting changing cycling //
 
-	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	/*[BoxGroup("Dependencies Meeting Changing Cycling")]*/
 	[Tooltip("whether cycling via the dependencies for cycling is currently enabled")]
 	public bool dependenciesCyclingEnabled = true;
 
-	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	/*[BoxGroup("Dependencies Meeting Changing Cycling")]*/
 	[Tooltip("the dependencies by which to allow cycling via the dependencies for cycling")]
-	[ReorderableList]
 	public Dependency[] dependenciesForDependenciesCycling;
 
-	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	/*[BoxGroup("Dependencies Meeting Changing Cycling")]*/
 	[Tooltip("the dependencies for cycling (the dependencies for which cycling should occur upon the changing of whether they are met... note that the dependency requisition shouldn't matter)")]
-	[ReorderableList]
 	public Dependency[] dependenciesForCycling;
 
 	[Tooltip("whether the dependencies for cycling was met last time")]
 	private bool dependenciesForCyclingMetLastTime = false;
 
-	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	/*[BoxGroup("Dependencies Meeting Changing Cycling")]*/
 	[Tooltip("whether to cycle globally when cycling via the dependencies for cycling")]
 	public bool dependenciesForCyclingCyclesGlobally = false;
 
-	[BoxGroup("Dependencies Meeting Changing Cycling")]
+	/*[BoxGroup("Dependencies Meeting Changing Cycling")]*/
 	[Tooltip("whether to play audio for cycling via the dependencies for cycling")]
 	public bool dependenciesForCyclingPlaysAudio = false;
 

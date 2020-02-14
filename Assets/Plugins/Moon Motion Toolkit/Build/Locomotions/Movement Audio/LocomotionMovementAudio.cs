@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-using NaughtyAttributes;
 
 // Locomotion Movement Audio
 // • adjusts locomotion audio volume, using max volume and volume increment settings, and based on whether certain dependency settings are met
@@ -15,35 +14,27 @@ public abstract class LocomotionMovementAudio : MonoBehaviour
 	
 	
 	// variables for: adjusting volume //
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("the max volume percentage (to interpolate to from 0)")]
 	[Range(0f, 1f)]
 	public float volumeMax = .15f;
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("a factor of the percentage by which to increment the volume in a single frame (the other factor being the time passed in that frame)")]
 	public float volumeIncrementFactor = 2f;
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("a factor of the percentage by which to decrement the volume in a single frame (the other factor being the time passed in that frame)")]
 	public float volumeDecrementFactor = 2f;
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("the min speed by which to interpolate a modification of the max volume from 0")]
 	public float speedMin = 0f;
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("the max speed by which to interpolate a modification of the max volume from 0")]
 	public float speedMax = 7f;
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("the curve by which to interpolate a modification of the max volume from 0")]
 	public InterpolationCurve speedVolumeCurve = InterpolationCurve.sine;
-
-	[BoxGroup("Volume Adjustment")]
+	
 	[Tooltip("the dependencies by which to play this locomotion movement audio (the conditions by which to determine whether the audio volume may be incremented)")]
-	[ReorderableList]
 	public Dependency[] dependencies;
 
 	

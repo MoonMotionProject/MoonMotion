@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +36,6 @@ public class Treader : HandLocomotionControlled
 	// variables for: treading //
 	[Header("Stuck Failsafe")]
 	[Tooltip("the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed")]
-	[ReorderableList]
 	public Dependency[] dependenciesStuckFailsafe;		// setting: the exceptional dependencies by which to be allowed to tread even if the locomotion dependencies are not met, as an ensurance of getting out of stuck situations when the treading locomotion is the only one that would be helpful to escape that is allowed
 	private Rigidbody playerRigidbody;		// connection - auto: the player rigidbody (to tread)
 	[Header("Treading Speed Gauges")]

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 
 // Air Rushing Audio
 // • adjusts the attached air rushing audio via extension of Locomotion Movement Audio Single
@@ -20,7 +19,7 @@ public class AirRushingAudio : LocomotionMovementAudioSingle
 
 	// settings for: air nonrushing distance //
 
-	[BoxGroup("Air Rushing")]
+	/*[BoxGroup("Air Rushing")]*/
 	[Header("Nonrushing Distance")]
 	[Tooltip("the distance above terrain the player must be more than in order for the Air Rushing Audio to play, by default; this determines the respective Dependency, which is how Air Rushing Audio can check that")]
 	public float airNonrushingDistance = 1f;

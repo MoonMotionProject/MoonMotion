@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#else
-using NaughtyAttributes;
 #endif
 
 // Sweeping:
@@ -18,8 +16,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
-	#else
-	[BoxGroup("Control")]
 	#endif
 	[Tooltip("whether sweeping can be canceled via the operation")]
 	public bool isCancelable = true;
@@ -29,9 +25,6 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 	#if UNITY_EDITOR
     [ListItemSelector("operations_SetSelected")]
 	#endif
-	#else
-	[BoxGroup("Control")]
-	[ReorderableList]
 	#endif
 	[Tooltip("the controller operations by which to sweep")]
 	public ControllerOperation[] operations;
@@ -80,81 +73,61 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("the distance away from the player's body to sweep to")]
 	public float sweepDistance = 3.6f;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("whether to limit the duration of each sweep")]
 	public bool limitSweepDuration = true;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
+	[ShowIf("limitSweepDuration")]
 	#endif
 	[Tooltip("the maximum duration for a sweep")]
-	[ShowIf("limitSweepDuration")]
 	public float sweepDurationLimit = 1f;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("the threshold distance for the player's body to be within the target position to end the sweep")]
 	public float endingThresholdDistance = Default.thresholdDistance;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("whether to end the sweep if farther from the sweep starting position than the target position is (in the same direction)")]
 	public bool endIfOverswept = true;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("a layer mask by which to end sweeps before they reach their target position")]
 	public LayerMask sweepEndingLayerMask = Default.layerMask;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("the magnitude of the sweeping force")]
 	public float forceMagnitude = 28f;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("whether to enable skiing upon starting a sweep and to disable skiing upon ending a sweep")]
 	public bool togglesSkiing = true;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("whether to zero the player's velocities before each sweep")]
 	public bool zeroVelocitiesBefore = true;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Sweeping")]
-	#else
-	[BoxGroup("Sweeping")]
 	#endif
 	[Tooltip("whether to zero the player's velocities after each sweep")]
 	public bool zeroVelocitiesAfter = true;

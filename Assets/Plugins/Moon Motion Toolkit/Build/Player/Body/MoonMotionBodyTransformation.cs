@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -16,17 +15,15 @@ public class MoonMotionBodyTransformation : AutoBehaviour<MoonMotionBodyTransfor
 	
 	
 	// connections - manual: headset, floor //
-
-    [BoxGroup("Transform Connections")]
+	
     public Transform headsetTransform;
-
-	[BoxGroup("Transform Connections")]
+	
 	public Transform floorTransform;
 	
 
 	// settings //
 
-    [BoxGroup("Height of Head Above Eyes")]
+    /*BoxGroup("Height of Head Above Eyes")]*/
 	[Tooltip("adds additional height to this body collider to avoid the player colliding with ceilings and the like directly at their eye level")]
 	public float headAboveEyesHeight = .06f;
 	

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
-using NaughtyAttributes;
 using static Controller.Input;
 using Input = Controller.Input;
 
@@ -61,11 +60,9 @@ public class HandModelsCycler : MonoBehaviour
 	// variables for: input //
 	private Controller controller;		// connection - auto: this cycler's hand's controller
 	[Header("Input")]
-	[ReorderableList]
 	public Input[] inputs = New.arrayOf(noInput);		// setting: array of controller inputs to use for controlling this cycler
 	public bool inputEnabled = true;		// setting: whether this cycler's input is currently enabled
 	[Tooltip("the dependencies by which to restrict whether input is allowed")]
-	[ReorderableList]
 	public Dependency[] inputDependencies;		// setting: the dependencies by which to restrict whether input is allowed
 	[Tooltip("whether or not input should cycle globally (for both hands at once)")]
 	public bool globallyCycle = true;		// setting: whether or not input should cycle globally (for both hands at once)

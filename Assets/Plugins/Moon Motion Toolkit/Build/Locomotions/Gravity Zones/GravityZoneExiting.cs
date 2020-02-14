@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,24 +14,22 @@ using UnityEngine;
 public class GravityZoneExiting : SingletonBehaviour<GravityZoneExiting>
 {
 	// variables //
-
+	
 	
 	// variables for: player zonage tracking and toggling //
-
+	
 	[Tooltip("the toggling by which to toggle player zonage")]
 	private static Toggling zonageToggling = Toggling.toggleOff;
-
+	
 	[Tooltip("the last time that the player was within nonzeroly affecting gravity zonage – initialized to negative infinity as a flag that the player has never been within affecting gravity zonage")]
 	public static float lastTimeWithinNonzerolyAffectingGravityZonage = -Mathf.Infinity;
-
-
+	
+	
 	// variables for: playing audio for exiting the all of the Gravity Zones //
-
-	[BoxGroup("Audio")]
+	
 	[Tooltip("whether to have Terrain Response play its liftoff audio as Gravity Zone exiting audio upon exiting the all of the Gravity Zones")]
 	public bool playLiftoffAudioUponAllExit = true; 
-
-	[BoxGroup("Audio")]
+	
 	[Tooltip("whether the audio for exiting the all of the Gravity Zones should only play if the player was nonzeroly (by at least some gravitizing force) affected right before exiting the all of the Gravity Zones")]
 	public bool audioRequiresAffectation = true;
 

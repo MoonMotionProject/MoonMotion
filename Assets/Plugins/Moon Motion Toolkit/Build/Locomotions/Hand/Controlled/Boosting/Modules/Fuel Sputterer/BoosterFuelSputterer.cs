@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,13 +22,9 @@ public class BoosterFuelSputterer : BoosterModule
 	private AudioClip audioClip;        // connection - auto: the fuel sputtering audio on this booster's audio source
 
 	// variables for: dependencies //
-	[BoxGroup("Dependencies")]
 	[Tooltip("the dependencies by which to condition whether the fuel sputtering particles play")]
-	[ReorderableList]
 	public Dependency[] particlesDependencies;
-	[BoxGroup("Dependencies")]
 	[Tooltip("the dependencies by which to condition whether the fuel sputtering audio plays")]
-	[ReorderableList]
 	public Dependency[] audioDependencies;
 	
 	

@@ -6,8 +6,6 @@ using Input = Controller.Input;
 using Inputtedness = Controller.Inputtedness;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#else
-using NaughtyAttributes;
 #endif
 
 // Controller Operation:
@@ -34,15 +32,13 @@ public class ControllerOperation : ResetFixedScriptableObject
 	[EnumToggleButtons]
 	[HideLabel]
 	#else
-	[BoxGroup("Handedness")]
+	[Header("Handedness")]
 	#endif
 	public Handedness handedness = Default.controllerHandedness;
 	
 	[Tooltip("whether to return the left versus the right controller as the first relevant controller when:\n· operating without any controllers operating (when handedness is infinite)\n· none of the operations being evaluated are currently operated")]
 	#if ODIN_INSPECTOR
 	[TabGroup("Handedness")]
-	#else
-	[BoxGroup("Handedness")]
 	#endif
 	public bool fallbackToLeftVersusRight = Default.leftnessVersusRightness;
 
@@ -50,26 +46,19 @@ public class ControllerOperation : ResetFixedScriptableObject
 	#if ODIN_INSPECTOR
 	[TabGroup("Input")]
 	#else
-	[BoxGroup("Input")]
-	[ReorderableList]
+	[Header("Input")]
 	#endif
 	public Input[] inputs;
 
 	[Tooltip("the controller inputtednesses (to check operation by)")]
 	#if ODIN_INSPECTOR
 	[TabGroup("Input")]
-	#else
-	[BoxGroup("Input")]
-	[ReorderableList]
 	#endif
 	public Inputtedness[] inputtednesses;
 
 	[Tooltip("the states of being (to check operation at)")]
 	#if ODIN_INSPECTOR
 	[TabGroup("Input")]
-	#else
-	[BoxGroup("Input")]
-	[ReorderableList]
 	#endif
 	public Beingness[] beingnesses;
 
@@ -77,17 +66,13 @@ public class ControllerOperation : ResetFixedScriptableObject
 	#if ODIN_INSPECTOR
 	[TabGroup("Dependencies")]
 	#else
-	[BoxGroup("Dependencies")]
-	[ReorderableList]
+	[Header("Dependencies")]
 	#endif
 	public Dependency[] dependenciesThorough;
 
 	[Tooltip("the dependencies to check partially (by which to condition this operation where any of the dependencies is necessary)")]
 	#if ODIN_INSPECTOR
 	[TabGroup("Dependencies")]
-	#else
-	[BoxGroup("Dependencies")]
-	[ReorderableList]
 	#endif
 	public Dependency[] dependenciesPartial;
 	#endregion variables

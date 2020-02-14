@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,19 +10,16 @@ public class SmoothMonitorCameraOverride : SingletonBehaviour<SmoothMonitorCamer
 
 	
 	// manual connections //
-
-	[BoxGroup("Head Connection")]
+	
 	[Tooltip("the head transform of the player for this smooth monitor camera override to follow")]
 	public Transform headTransform;
 
 
 	// settings for: smoothing //
-
-	[BoxGroup("Smoothing")]
+	
 	[Tooltip("the duration by which to finish smoothing position after movement of the head transform has stopped")]
     public float positionSmoothingDuration = .3f;
-
-	[BoxGroup("Smoothing")]
+	
 	[Tooltip("the speed by which to smooth rotation")]
 	public float rotationSmoothingSpeed = 5f;
 

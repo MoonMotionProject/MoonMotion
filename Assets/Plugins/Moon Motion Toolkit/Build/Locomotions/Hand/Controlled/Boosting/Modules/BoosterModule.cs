@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +20,7 @@ public abstract class BoosterModule : MonoBehaviour
 	protected bool leftInstance;		// tracking: the booster's handedness
 
 	// variables for: dependencies //
-	[BoxGroup("Dependencies")]
 	[Tooltip("the dependencies by which to determine whether this booster module may be enabled")]
-	[ReorderableList]
 	public Dependency[] dependencies;
 
 

@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -23,7 +22,6 @@ public abstract class HandLocomotion : MonoBehaviour, ILocomotion
 	// variables for: dependencies //
 	[Header("Dependencies")]
 	[Tooltip("the dependencies by which to condition whether this hand locomotion is allowed (perhaps just whether its input is allowed, or for more than that – such is up to the discretion of the particular hand locomotion)")]
-	[ReorderableList]
 	public Dependency[] locomotionDependencies;		// setting: the dependencies by which to condition whether this hand locomotion is allowed (perhaps just whether its input is allowed, or for more than that – such is up to the discretion of the particular hand locomotion)
 
 

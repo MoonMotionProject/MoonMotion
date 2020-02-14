@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 
 // Boosting Drifting Tracker
 // • tracks boosting drifting – whether the player's current speed is currently a result, at least in part, of boosting
@@ -20,7 +19,6 @@ public class BoostingDriftingTracker : PlayerDependencyTracker<BoostingDriftingT
 	
 	// trackings //
 	[Tooltip("the time the player was last boosting drifting – initialized to negative infinity as a flag that the player has never been boosting drifting")]
-	[ShowNonSerializedField]
 	public static float timePlayerWasLastBoostingDrifting = -Mathf.Infinity;
 
 

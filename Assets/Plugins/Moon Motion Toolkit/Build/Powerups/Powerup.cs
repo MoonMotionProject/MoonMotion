@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
 // Powerup
 // • defines this object as a powerup
@@ -24,21 +26,23 @@ using NaughtyAttributes;
 public class Powerup : AutoBehaviour<Powerup>
 {
 	// variables //
-
 	
-	// variables for: pickuping and respawning //
-	[BoxGroup("Audio")]
-	[ReadOnly]
-	public PowerupBumpAudio bumpAudio;		// connection - auto: the child Powerup Bump Audio
+	
+	// variables for: audio //
+	#if ODIN_INSPECTOR
+	[ShowInInspector]
+	#endif
+	private PowerupBumpAudio bumpAudio;		// connection - auto: the child Powerup Bump Audio
 	protected string originalBumpAudioName;     // tracking: the original name of the Powerup Bump Audio's object
-	[BoxGroup("Audio")]
-	[ReadOnly]
-	public PowerupPickupAudio pickupAudio;		// connection - auto: the child Powerup Pickup Audio
+	#if ODIN_INSPECTOR
+	[ShowInInspector]
+	#endif
+	private PowerupPickupAudio pickupAudio;		// connection - auto: the child Powerup Pickup Audio
 	protected string originalPickupAudioName;		// tracking: the original name of the Powerup Pickup Audio's object
-	[BoxGroup("Respawning")]
+	
+	// variables for: respawning //
 	[Tooltip("the number of times to respawn this powerup, where any negative value is treated as infinity")]
 	public int respawnsCount = -1;      // setting: the number of times to respawn this powerup, where any negative value is treated as infinity
-	[BoxGroup("Respawning")]
 	[Tooltip("the delay duration to wait before respawning this powerup after its destruction (if any respawns remain)")]
 	public float respawningDelay = 2f;		// setting: the delay duration to wait before respawning this powerup after its destruction (if any respawns remain)
 	

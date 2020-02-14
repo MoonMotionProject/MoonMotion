@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,32 +19,27 @@ public class SkiingSettings : SingletonBehaviour<SkiingSettings>
 
 	
 	// settings for: enabling skiing at the start //
-
-	[BoxGroup("Enabling Skiing at the Start")]
+	
 	[Tooltip("whether to enable skiing at the start")]
 	public bool enableSkiingAtStart = false;
 
 
 	// variables for: skiing friction //
-
+	
 	public static PhysicMaterial frictionNonskiing;
-
-	[BoxGroup("Skiing Friction")]
+	
 	[Tooltip("the (main, not alternate) friction for the player's body collider to use when skiing")]
 	public PhysicMaterial frictionSkiing;
-
-	[BoxGroup("Skiing Friction")]
+	
 	[Tooltip("whether to use the alternate skiing friction instead of the main one")]
 	public bool skiingFrictionAlternated = false;
-
-	[BoxGroup("Skiing Friction")]
+	
 	[Tooltip("the alternate (not main) friction for the player's body collider to use when skiing (while the friction to use when skiing is alternated according to the toggle setting)")]
 	public PhysicMaterial frictionSkiingAlternate;
 
 
 	// settings for: locomotion input //
-
-	[BoxGroup("Locomotion Input")]
+	
 	[Tooltip("whether skiing input must be held versus having skiing be toggled upon input")]
 	public bool heldVersusToggled = true;
 

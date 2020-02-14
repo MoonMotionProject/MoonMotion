@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 
 // Launching Drifting Tracker
 // • tracks launching drifting – whether the player's current speed is currently a result, at least in part, of launching
@@ -21,7 +20,6 @@ public class LaunchingDriftingTracker : PlayerDependencyTracker<LaunchingDriftin
 	// trackings //
 
 	[Tooltip("the time the player was last launching drifting – initialized to negative infinity as a flag that the player has never been launching drifting")]
-	[ShowNonSerializedField]
 	public static float timePlayerWasLastLaunchingDrifting = -Mathf.Infinity;
 
 

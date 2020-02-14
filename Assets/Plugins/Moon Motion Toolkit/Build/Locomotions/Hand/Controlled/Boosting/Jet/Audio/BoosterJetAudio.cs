@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +26,6 @@ public class BoosterJetAudio : MonoBehaviour
 	public float volumeIncrement = 0.03f;		// setting: the increment for volume
 	[Header("Dependencies")]
 	[Tooltip("the dependencies by which to condition whether this booster jet audio plays")]
-	[ReorderableList]
 	public Dependency[] audioDependencies;
 
 

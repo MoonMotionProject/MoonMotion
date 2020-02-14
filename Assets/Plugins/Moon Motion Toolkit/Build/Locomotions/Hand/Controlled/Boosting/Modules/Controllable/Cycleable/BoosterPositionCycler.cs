@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,7 +29,6 @@ public class BoosterPositionCycler : BoosterModuleControllableCycleable
 	// variables for: position changing //
 	[Header("Positions Set")]
 	[Tooltip("at the start, the whole set of positions to cycle through is determined by appending this set of additional positions to the booster's starting position")]
-	[ReorderableList]
 	public Vector3[] additionalPositions = New.arrayOf<Vector3>();		// setting: the set of additional positions
 	private List<Vector3> positionsSet = New.listOf<Vector3>();		// tracking: the whole set of positions
 	

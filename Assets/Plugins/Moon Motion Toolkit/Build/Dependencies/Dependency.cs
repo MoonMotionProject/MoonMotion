@@ -1,9 +1,7 @@
-﻿#if ODIN_INSPECTOR
+﻿using UnityEngine;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#else
-using NaughtyAttributes;
 #endif
-using UnityEngine;
 
 // Dependency
 // • a Dependency is a pair of both a Dependency Requisite and a Dependency Requisition

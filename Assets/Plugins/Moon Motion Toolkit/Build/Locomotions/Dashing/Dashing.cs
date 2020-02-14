@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#else
-using NaughtyAttributes;
 #endif
 using Valve.VR.InteractionSystem;
 
@@ -19,24 +17,18 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
-	#else
-	[BoxGroup("Control")]
 	#endif
 	[Tooltip("whether dashing can be canceled via the operation when no target is outlined")]
 	public bool isCancelable = true;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Control")]
-	#else
-	[BoxGroup("Control")]
 	#endif
 	[Tooltip("the controller operations by which to dash")]
 	#if ODIN_INSPECTOR
 	#if UNITY_EDITOR
     [ListItemSelector("operations_SetSelected")]
 	#endif
-	#else
-	[ReorderableList]
 	#endif
 	public ControllerOperation[] operations;
 	#region selected operation
@@ -76,72 +68,54 @@ public class Dashing : SingletonBehaviour<Dashing>, ILocomotion
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("end dashes upon the player colliding with the target collider")]
 	public bool endUponTargetCollision = true;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("a layer mask by which to end dashes before they reach their target")]
 	public LayerMask dashEndingLayerMask = Default.layerMask;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to end the dash if farther from the dash starting position than the target position is (in the same direction)")]
 	public bool endIfOverdashed = true;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("the threshold distance for the player's body to be within the target position to end the dash")]
 	public float endingThresholdDistance = Default.thresholdDistance;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("the magnitude of the dashing force")]
 	public float forceMagnitude = 50f;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to enable skiing upon starting a dash and to disable skiing upon ending a dash")]
 	public bool togglesSkiing = true;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to zero the player's velocities before each dash")]
 	public bool zeroVelocitiesBefore = true;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to zero the player's velocities after each dash")]
 	public bool zeroVelocitiesAfter = true;
 	
 	#if ODIN_INSPECTOR
 	[TabGroup("Dashing")]
-	#else
-	[BoxGroup("Dashing")]
 	#endif
 	[Tooltip("whether to temporarily lock the player's y position (after dashing, returning the lockedness to what it was before)")]
 	public bool temporarilyLockYPosition = true;

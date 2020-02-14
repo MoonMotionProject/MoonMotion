@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,8 +23,7 @@ public class JumpingSettings : SingletonBehaviour<JumpingSettings>
 
 
 	// trackings for: jumping //
-
-	[ShowNonSerializedField]
+	
 	[Tooltip("the time of the last jump")]
 	private static float timeOfLastJump = -666666f;
 
@@ -37,7 +35,6 @@ public class JumpingSettings : SingletonBehaviour<JumpingSettings>
 	public bool midairJumpingAllowed = false;
 
 	[Tooltip("the dependencies by which to condition whether the player can midair jump")]
-	[ReorderableList]
 	public Dependency[] midairJumpingDependencies;
 
 	[Tooltip("the number of midair jumps the player is raised (but not lowered) to whenever they are terrained")]

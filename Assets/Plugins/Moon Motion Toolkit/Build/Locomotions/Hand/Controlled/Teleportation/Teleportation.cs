@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,12 +13,11 @@ public class Teleportation : SingletonBehaviour<Teleportation>
 
 	
 	// variables for: locomotion cycling //
-	[BoxGroup("Locomotion Cycling (tracked instead of actually enabled\\disabled)")]
+	/*[BoxGroup("Locomotion Cycling (tracked instead of actually enabled\\disabled)")]*/
 	public bool locomotionEnabled = true;       // tracking: whether this teleportation locomotion is enabled currently
 
 	// setting: the dependencies by which to condition whether teleportation is allowed //
-	[BoxGroup("Allowance")]
-	[ReorderableList]
+	/*[BoxGroup("Allowance")]*/
 	public Dependency[] dependencies;
 	
 	

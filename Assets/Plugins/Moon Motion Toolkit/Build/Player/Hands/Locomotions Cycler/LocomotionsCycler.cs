@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using System.Linq;
-using NaughtyAttributes;
 using static Controller.Input;
 using Input = Controller.Input;
 
@@ -50,12 +49,10 @@ public class LocomotionsCycler : MonoBehaviour
 	// variables for: input //
 	private Controller controller;		// connection - auto: the hand's controller
 	[Header("Input")]
-	[ReorderableList]
 	[Tooltip("the array of controller inputs to use")]
 	public Input[] inputs = New.arrayOf(noInput);
 	public bool inputEnabled = true;		// setting: whether this Locomotions Cycler's input is currently enabled
 	[Tooltip("the dependencies by which to restrict whether input is allowed")]
-	[ReorderableList]
 	public Dependency[] inputDependencies;		// setting: the dependencies by which to restrict whether input is allowed
 	public bool globallyCycle = true;		// setting: whether, when registering input, to cycle through the locomotion combinations for both Locomotions Cyclers or just this one
 	public bool inputPlaysAudio = true;		// setting: whether to play the cycling audio upon input

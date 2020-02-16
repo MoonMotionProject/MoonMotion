@@ -11,7 +11,7 @@ public static class DoingVariousThingsWhileHeadsetIsWorn
 {
 	static DoingVariousThingsWhileHeadsetIsWorn()
 	{
-		Execute.atNextCheckAndEveryCheckAfter_IfInEditor(doVariousThingsForHeadsetBeingWorn);
+		Execute.atNextEditorCheckAndEveryCheckAfter(doVariousThingsForHeadsetBeingWorn);
 	}
 	
 	private static void doVariousThingsForHeadsetBeingWorn()

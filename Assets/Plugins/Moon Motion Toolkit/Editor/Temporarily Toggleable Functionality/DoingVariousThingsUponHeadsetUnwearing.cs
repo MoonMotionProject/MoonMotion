@@ -11,7 +11,7 @@ public static class DoingVariousThingsUponHeadsetUnwearing
 {
 	static DoingVariousThingsUponHeadsetUnwearing()
 	{
-		Execute.atNextCheckAndEveryCheckAfter_IfInEditor(doVariousThingsForHeadsetUnwearing);
+		Execute.atNextEditorCheckAndEveryCheckAfter(doVariousThingsForHeadsetUnwearing);
 	}
 	
 	private static bool headsetApparentlyBeingWornPreviously = false;

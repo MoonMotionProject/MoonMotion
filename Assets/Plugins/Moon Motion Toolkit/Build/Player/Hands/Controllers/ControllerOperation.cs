@@ -17,11 +17,9 @@ using Sirenix.OdinInspector;
 //   · arrays of dependencies
 // • represents a Controller Operation as a scriptable object, with the aforementioned settings
 // • provides methods for determining information about how controller operations are currently operated
+// #circumstance
 [CreateAssetMenu(fileName = "New Controller Operation", menuName = "Moon Motion/Controller Operation")]
-public class ControllerOperation : ResetFixedScriptableObject
-#if ODIN_INSPECTOR
-, ICircumstance
-#endif
+public class ControllerOperation : Circumstance
 {
 	#region variables
 
@@ -88,9 +86,7 @@ public class ControllerOperation : ResetFixedScriptableObject
 	// · when the relevant controller for some operations is requested but none of those operations are currently operated
 	public Controller fallbackController => fallbackToLeftVersusRight ? Controller.left : Controller.right;
 	
-	#if ODIN_INSPECTOR
-	public bool isCurrent => isOperated();
-	#endif
+	public override bool isCurrent => isOperated();
 	#endregion properties
 
 

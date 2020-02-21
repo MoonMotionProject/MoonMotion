@@ -25,7 +25,7 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	[TabGroup("Visualization")]
 	#endif
 	[Tooltip("whether to visualize the line of the raycast")]
-	public bool visualizeLine = Default.choiceToVisualizeInEditor;
+	public bool visualizeLine = Default.choiceToEditorVisualize;
 
 	#if ODIN_INSPECTOR
 	[TabGroup("Visualization")]

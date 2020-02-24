@@ -86,6 +86,7 @@ public class ControllerOperation : Circumstance
 	// · when the relevant controller for some operations is requested but none of those operations are currently operated
 	public Controller fallbackController => fallbackToLeftVersusRight ? Controller.left : Controller.right;
 	
+	public override bool GUIColor_colorizeForMetnessInEditMode => false;
 	public override bool isCurrent => isOperated();
 	#endregion properties
 

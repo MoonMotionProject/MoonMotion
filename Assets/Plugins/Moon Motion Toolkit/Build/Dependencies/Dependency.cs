@@ -14,7 +14,7 @@ public class Dependency
 	
 	#if ODIN_INSPECTOR
 	private Color GUIColor
-		=> Colors.colorForCurrentnessFor(isMet());
+		=> Colors.colorForAccuracyFor(isMet());
 	#endif
 	
 	#if ODIN_INSPECTOR

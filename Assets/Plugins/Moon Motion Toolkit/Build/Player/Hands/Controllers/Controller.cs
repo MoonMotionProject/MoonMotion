@@ -15,7 +15,6 @@ using Valve.VR.InteractionSystem;
 // • input detection is only accurate while playing (since controller input isn't processed in editor edit mode)
 // • provides methods for vibrating this controller
 // • provides methods for determining whether given operations are currently operated and those controllers operated
-// ∗: example usage of touchpad travelling input to flip pages of a book
 [RequireComponent(typeof(Hand))]
 public class Controller : EnabledsBehaviour<Controller>
 {
@@ -1562,27 +1561,3 @@ public class Controller : EnabledsBehaviour<Controller>
 	}
 	#endregion updating
 }
-
-#region ∗: example usage of touchpad travelling input to flip pages of a book
-/*
-private void Update()
-{
-	// interaction: page flipping //
-	float touchpadXTravelDistance = controller.touchpadXTravelDirectional();
-	if (Mathf.Abs(touchpadXTravelDistance) > pageFlippingTravelDistanceThreshold)
-	{
-		controller.resetTouchpadTouchdown();
-		if ((touchpadXTravelDistance > 0f))
-		{
-			controller.vibrate(1000);
-			PageFlipper.flipToNextPage();
-		}
-		else if ((touchpadXTravelDistance < 0f))
-		{
-			controller.vibrate(1000);
-			PageFlipper.flipToPreviousPage();
-		}
-	}
-}
-*/
-#endregion ∗: example usage of touchpad travelling input to flip pages of a book

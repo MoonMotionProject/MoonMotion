@@ -185,7 +185,7 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 	[InlineButton("defaultVibrationIntensity", "Default")]
 	#endif
 	[Tooltip("the intensity at which to vibrate the raycasting controller when highlighting and unoutlining an object")]
-	public ushort vibrationIntensity = Default.targetingVibrationIntensity;
+	public ushort vibrationIntensity = Default.controllerTargetingVibrationIntensity;
 	#endregion feedback
 	#endregion variables
 

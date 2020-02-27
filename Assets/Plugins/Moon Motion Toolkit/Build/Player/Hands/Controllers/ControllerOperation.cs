@@ -32,7 +32,7 @@ public class ControllerOperation : Circumstance
 	#else
 	[Header("Handedness")]
 	#endif
-	public Handedness handedness = Default.controllerHandedness;
+	public Handedness handedness = Handedness.infinite;
 	
 	[Tooltip("whether to return the left versus the right controller as the first relevant controller when:\n· operating without any controllers operating (when handedness is infinite)\n· none of the operations being evaluated are currently operated")]
 	#if ODIN_INSPECTOR

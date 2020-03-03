@@ -180,7 +180,7 @@ public abstract class	ControllerRaycastingTargeting<ControllerRaycastingTargetin
 
 	#if ODIN_INSPECTOR
 	private void defaultVibrationIntensity()
-		=> vibrationIntensity = Default.targetingVibrationIntensity;
+		=> vibrationIntensity = Default.controllerTargetingVibrationIntensity;
 	[TabGroup("Feedback")]
 	[InlineButton("defaultVibrationIntensity", "Default")]
 	#endif

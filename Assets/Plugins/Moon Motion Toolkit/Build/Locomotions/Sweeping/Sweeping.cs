@@ -171,7 +171,7 @@ public class Sweeping : SingletonBehaviour<Sweeping>, ILocomotion
 		potentialCurrentTargetPosition = sweepingController.position.positionAlong
 		(
 			(
-				operations.firstOperatedOperation().inputs.contains(Controller.Input.touchpad) ?
+				operations.firstOperatedOperation().inputs.has(Controller.Input.touchpad) ?
 					sweepingController.relativeTouchpadDirectionWhereZeroesIsForward :
 					sweepingController.forward()
 			).withVectralYZeroed(),

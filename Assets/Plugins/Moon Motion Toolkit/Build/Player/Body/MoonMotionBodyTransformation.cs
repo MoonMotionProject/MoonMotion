@@ -46,7 +46,7 @@ public class MoonMotionBodyTransformation : AutoBehaviour<MoonMotionBodyTransfor
 		{
 			capsuleCollider.height = Mathf.Max(distanceFromFloor, (capsuleCollider.radius * 2));
 		}
-        transform.position = headsetTransform.position.withY(floorTransform.position.y + capsuleCollidersAwake[0].halfheight());		// the x and z position follow the headset; the y position is set to be half of the first (although all are likely the same height – by default, there is just one solid one followed by one trigger one of the same height) capsule collider's height up from the floor position
+        transform.position = headsetTransform.position.withY(floorTransform.position.y + capsuleCollidersAwake.first().halfheight());		// the x and z position follow the headset; the y position is set to be half of the first (although all are likely the same height – by default, there is just one solid one followed by one trigger one of the same height) capsule collider's height up from the floor position
 
 		// if this body's y position should be inverted currently since the flipping locomotion has the player flipped via 180° rotation around the z axis: //
 		if (Flipper.flipped)

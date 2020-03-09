@@ -253,7 +253,7 @@ public class LocomotionsCycler : MonoBehaviour
 		// track the locomotions that are descendants of the hand as being managed by both Locomotions Cyclers //
 		foreach (GameObject handDescendantLocomotion in gameObject.lodalObjectsWithI<ILocomotion>())
 		{
-			if (managedLocomotions.doesNotContain(handDescendantLocomotion))
+			if (managedLocomotions.doesNotHave(handDescendantLocomotion))
 			{
 				managedLocomotions.include(handDescendantLocomotion);
 			}
@@ -261,7 +261,7 @@ public class LocomotionsCycler : MonoBehaviour
 		// track the locomotions that are descendants of the player as being managed by both Locomotions Cyclers //
 		foreach (GameObject playerDescendantLocomotion in MoonMotionPlayer.lodalObjectsWithI<ILocomotion>())
 		{
-			if (managedLocomotions.doesNotContain(playerDescendantLocomotion))
+			if (managedLocomotions.doesNotHave(playerDescendantLocomotion))
 			{
 				managedLocomotions.include(playerDescendantLocomotion);
 			}

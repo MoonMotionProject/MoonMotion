@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 /Assets/AssetStoreTools*
 *.pidb.meta
 sysinfo.txt
+/[Ll]ogs/
 
 # Visual Studio
 /.vs/
